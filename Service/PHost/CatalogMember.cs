@@ -1,4 +1,5 @@
-﻿//  Copyright © 2021 by Threshold Secrets Llc.
+﻿#region // Copyright - MIT License
+//  © 2021 by Phill Hallam-Baker
 //  
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -17,18 +18,19 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+#endregion
 
-
-using System.Reflection.Emit;
 
 namespace Goedel.Palimpsest;
 
-
-public class CatalogProject : Catalog<CatalogedProject> {
+/// <summary>
+/// Catalog of members, forum wide.
+/// </summary>
+public class CatalogMember : Catalog<CatalogedMember> {
 
     ///<summary>The canonical label for the catalog</summary>
 
-    public const string Label = MeshConstants.StoreTypeDocumentTag;
+    public const string Label = PalimpsestConstants.StoreTypeMembersTag;
 
     /// <summary>
     /// Constructor for a catalog named <paramref name="storeName"/> in directory
@@ -43,7 +45,7 @@ public class CatalogProject : Catalog<CatalogedProject> {
     /// <param name="policy">The cryptographic policy to be applied to the container.</param>
     /// <param name="keyCollection">The key collection to be used to resolve keys when reading entries.</param>
     /// <param name="bitmask">The bitmask to identify the store for filtering purposes.</param>
-    public CatalogProject(
+    public CatalogMember(
                 string directory,
                 string? storeName = null,
                 DarePolicy? policy = null,
@@ -51,7 +53,7 @@ public class CatalogProject : Catalog<CatalogedProject> {
                 IKeyCollection? keyCollection = null,
                 bool decrypt = true,
                 bool create = true,
-                byte[] bitmask = null) :
+                byte[]? bitmask = null) :
         base(directory, storeName ?? Label,
                     policy, cryptoParameters, keyCollection,
                     decrypt: decrypt, create: create, bitmask: bitmask) {

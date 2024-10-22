@@ -55,9 +55,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Protocol", "..\mmm\L
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14EE114C-5413-4611-B4E5-9B408A392A6F}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		Settings\CommonSettingsExecutable.xml = Settings\CommonSettingsExecutable.xml
 		Settings\CommonSettingsLinemode.xml = Settings\CommonSettingsLinemode.xml
 		Settings\CommonSettingsWindows.xml = Settings\CommonSettingsWindows.xml
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Identifiers", "..\mmm\Libraries\Goedel.Cryptography.Identifiers\Goedel.Cryptography.Identifiers.csproj", "{31AB7198-BE2E-4460-84B8-9EAAE6117BE5}"

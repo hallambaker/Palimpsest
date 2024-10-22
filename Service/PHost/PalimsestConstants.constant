@@ -7,31 +7,25 @@
 File CatalogLabels
 	Enum StoreType "Store labels"
 
-		Code Project "Projects catalog"
+		Code Projects "Projects catalog"
 			Description
 				|One catalog per forum, index for everything
 			Description
 				|Filename: Project.dcat
 
-		Code Member "Members catalog"
+		Code Members "Members catalog"
 			Description
 				|One catalog per forum, maps external users to a forum identifier
 			Description
 				|Filename: Member.dcat
 
-		Code Project "Project catalog"
-			Description
-				|One catalog per forum, index for everything
-			Description
-				|Filename: [ProjectId]/Project.dcat
-
-		Code Resource "Resource catalog"
+		Code Resources "Resources catalog"
 			Description
 				|One catalog per project, lists the resources connected to the project
 			Description
 				|Filename: [ProjectId]/Resources.dcat
 
-		Code Annotation "Annotation catalog"
+		Code Reaction "Reaction catalog"
 			Description
 				|One catalog per resource, created when the resource is first annotated.
 				|Annotations of annotations are stored in the same catalog as direct annotations.

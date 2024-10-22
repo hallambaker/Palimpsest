@@ -107,7 +107,7 @@
 			Description
 				|The members organizing the event
 
-	Structure CatalogedResponse
+	Structure CatalogedReaction
 		Inherits CatalogedForumEntry
 		Description
 			|User response to a Forum Entry, minimally consisting of a 
@@ -122,8 +122,8 @@
 			Description
 				|The response semantic.
 
-	Structure CatalogedResponseSummary
-		Inherits CatalogedResponse
+	Structure CatalogedReactionSummary
+		Inherits CatalogedReaction
 		Description
 			|A collection of responses compiled into a summary for fast indexing.
 		Binary Filter
@@ -147,7 +147,7 @@
 				|The members who made this response
 
 	Structure CatalogedAnnotation
-		Inherits CatalogedResponse
+		Inherits CatalogedReaction
 		Description
 			|Extended response to a Forum Entry with text and optional anchor
 			|and references.
@@ -167,7 +167,7 @@
 		Struct CatalogedResource Resource
 			Description
 				|
-		Struct CatalogedResponse Responses
+		Struct CatalogedReaction Responses
 			Multiple
 			Description
 				|

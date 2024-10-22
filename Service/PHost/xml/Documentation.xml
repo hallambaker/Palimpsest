@@ -4,6 +4,11 @@
         <name>Annotate</name>
     </assembly>
     <members>
+        <member name="T:Annotate.Annotation">
+            <summary>
+            Annotations class.
+            </summary>
+        </member>
         <member name="M:Annotate.Annotations.StartPage">
             <summary>	
              StartPage
@@ -62,19 +67,111 @@
         <member name="P:Annotate.AnnotationService.ResourceMap">
             <inheritdoc/>
         </member>
-        <member name="T:Goedel.Repository.Internal">
+        <member name="T:Goedel.Palimpsest.CatalogAnnotation">
+            <summary>
+            Catalog of annotations, specific to a resource.
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogAnnotation.Label">
+            <summary>The canonical label for the catalog</summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogAnnotation.#ctor(System.String,System.String,Goedel.Cryptography.Dare.DarePolicy,Goedel.Cryptography.Dare.CryptoParameters,Goedel.Cryptography.Dare.IKeyCollection,System.Boolean,System.Boolean,System.Byte[])">
+            <summary>
+            Constructor for a catalog named <paramref name="storeName"/> in directory
+            <paramref name="directory"/> using the cryptographic parameters <paramref name="cryptoParameters"/>
+            and key collection <paramref name="keyCollection"/>.
+            </summary>
+            <param name="create">Create a new persistence store on disk if it does not already exist.</param>
+            <param name="decrypt">Attempt to decrypt the contents of the catalog if encrypted.</param>
+            <param name="directory">The directory in which the catalog persistence container is stored.</param>
+            <param name="storeName">The catalog persistence container file name.</param>
+            <param name="cryptoParameters">The default cryptographic enhancements to be applied to container entries.</param>
+            <param name="policy">The cryptographic policy to be applied to the container.</param>
+            <param name="keyCollection">The key collection to be used to resolve keys when reading entries.</param>
+            <param name="bitmask">The bitmask to identify the store for filtering purposes.</param>
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogMember">
+            <summary>
+            Catalog of members, forum wide.
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogMember.Label">
+            <summary>The canonical label for the catalog</summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogMember.#ctor(System.String,System.String,Goedel.Cryptography.Dare.DarePolicy,Goedel.Cryptography.Dare.CryptoParameters,Goedel.Cryptography.Dare.IKeyCollection,System.Boolean,System.Boolean,System.Byte[])">
+            <summary>
+            Constructor for a catalog named <paramref name="storeName"/> in directory
+            <paramref name="directory"/> using the cryptographic parameters <paramref name="cryptoParameters"/>
+            and key collection <paramref name="keyCollection"/>.
+            </summary>
+            <param name="create">Create a new persistence store on disk if it does not already exist.</param>
+            <param name="decrypt">Attempt to decrypt the contents of the catalog if encrypted.</param>
+            <param name="directory">The directory in which the catalog persistence container is stored.</param>
+            <param name="storeName">The catalog persistence container file name.</param>
+            <param name="cryptoParameters">The default cryptographic enhancements to be applied to container entries.</param>
+            <param name="policy">The cryptographic policy to be applied to the container.</param>
+            <param name="keyCollection">The key collection to be used to resolve keys when reading entries.</param>
+            <param name="bitmask">The bitmask to identify the store for filtering purposes.</param>
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogProject">
+            <summary>
+            Catalog of projects, forum wide.
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogProject.Label">
+            <summary>The canonical label for the catalog</summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogProject.#ctor(System.String,System.String,Goedel.Cryptography.Dare.DarePolicy,Goedel.Cryptography.Dare.CryptoParameters,Goedel.Cryptography.Dare.IKeyCollection,System.Boolean,System.Boolean,System.Byte[])">
+            <summary>
+            Constructor for a catalog named <paramref name="storeName"/> in directory
+            <paramref name="directory"/> using the cryptographic parameters <paramref name="cryptoParameters"/>
+            and key collection <paramref name="keyCollection"/>.
+            </summary>
+            <param name="create">Create a new persistence store on disk if it does not already exist.</param>
+            <param name="decrypt">Attempt to decrypt the contents of the catalog if encrypted.</param>
+            <param name="directory">The directory in which the catalog persistence container is stored.</param>
+            <param name="storeName">The catalog persistence container file name.</param>
+            <param name="cryptoParameters">The default cryptographic enhancements to be applied to container entries.</param>
+            <param name="policy">The cryptographic policy to be applied to the container.</param>
+            <param name="keyCollection">The key collection to be used to resolve keys when reading entries.</param>
+            <param name="bitmask">The bitmask to identify the store for filtering purposes.</param>
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogResource">
+            <summary>
+            Catalog of resources, specific to a project
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogResource.Label">
+            <summary>The canonical label for the catalog</summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogResource.#ctor(System.String,System.String,Goedel.Cryptography.Dare.DarePolicy,Goedel.Cryptography.Dare.CryptoParameters,Goedel.Cryptography.Dare.IKeyCollection,System.Boolean,System.Boolean,System.Byte[])">
+            <summary>
+            Constructor for a catalog named <paramref name="storeName"/> in directory
+            <paramref name="directory"/> using the cryptographic parameters <paramref name="cryptoParameters"/>
+            and key collection <paramref name="keyCollection"/>.
+            </summary>
+            <param name="create">Create a new persistence store on disk if it does not already exist.</param>
+            <param name="decrypt">Attempt to decrypt the contents of the catalog if encrypted.</param>
+            <param name="directory">The directory in which the catalog persistence container is stored.</param>
+            <param name="storeName">The catalog persistence container file name.</param>
+            <param name="cryptoParameters">The default cryptographic enhancements to be applied to container entries.</param>
+            <param name="policy">The cryptographic policy to be applied to the container.</param>
+            <param name="keyCollection">The key collection to be used to resolve keys when reading entries.</param>
+            <param name="bitmask">The bitmask to identify the store for filtering purposes.</param>
+        </member>
+        <member name="T:Goedel.Palimpsest.Internal">
             <summary>
             An internal assertion check failed.
             </summary>
         </member>
-        <member name="P:Goedel.Repository.Internal.ExceptionFormatDelegate">
+        <member name="P:Goedel.Palimpsest.Internal.ExceptionFormatDelegate">
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="P:Goedel.Repository.Internal.Templates">
+        <member name="P:Goedel.Palimpsest.Internal.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
-        <member name="M:Goedel.Repository.Internal.#ctor(System.String,System.Exception,System.Object[])">
+        <member name="M:Goedel.Palimpsest.Internal.#ctor(System.String,System.Exception,System.Object[])">
             <summary>
             Construct instance for exception
             </summary>		
@@ -83,36 +180,1118 @@
             <param name="inner">Inner Exception</param>	
             <param name="args">Optional list of parameterized arguments.</param>
         </member>
-        <member name="M:Goedel.Repository.Internal._Throw(System.Object)">
+        <member name="M:Goedel.Palimpsest.Internal._Throw(System.Object)">
             <summary>
             The public fatory delegate
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="P:Goedel.Repository.Internal.Throw">
+        <member name="P:Goedel.Palimpsest.Internal.Throw">
             <summary>
             The public fatory delegate
             </summary>
         </member>
-        <member name="T:Goedel.Repository.EventExtensions">
+        <member name="T:Goedel.Palimpsest.ItemAlreadyExists">
+            <summary>
+            The item already exists
+            </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ItemAlreadyExists.ExceptionFormatDelegate">
+            <summary>The exception formatting delegate. May be overriden 
+            locally or globally to implement different exception formatting.</summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ItemAlreadyExists.Templates">
+            <summary>Templates for formatting response messages.</summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.ItemAlreadyExists.#ctor(System.String,System.Exception,System.Object[])">
+            <summary>
+            Construct instance for exception
+            </summary>		
+            <param name="description">Description of the error, may be used to override the 
+            generated message.</param>	
+            <param name="inner">Inner Exception</param>	
+            <param name="args">Optional list of parameterized arguments.</param>
+        </member>
+        <member name="M:Goedel.Palimpsest.ItemAlreadyExists._Throw(System.Object)">
+            <summary>
+            The public fatory delegate
+            </summary>
+            public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
+        </member>
+        <member name="P:Goedel.Palimpsest.ItemAlreadyExists.Throw">
+            <summary>
+            The public fatory delegate
+            </summary>
+        </member>
+        <member name="T:Goedel.Palimpsest.ItemDoesNotExist">
+            <summary>
+            The item does not exist
+            </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ItemDoesNotExist.ExceptionFormatDelegate">
+            <summary>The exception formatting delegate. May be overriden 
+            locally or globally to implement different exception formatting.</summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ItemDoesNotExist.Templates">
+            <summary>Templates for formatting response messages.</summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.ItemDoesNotExist.#ctor(System.String,System.Exception,System.Object[])">
+            <summary>
+            Construct instance for exception
+            </summary>		
+            <param name="description">Description of the error, may be used to override the 
+            generated message.</param>	
+            <param name="inner">Inner Exception</param>	
+            <param name="args">Optional list of parameterized arguments.</param>
+        </member>
+        <member name="M:Goedel.Palimpsest.ItemDoesNotExist._Throw(System.Object)">
+            <summary>
+            The public fatory delegate
+            </summary>
+            public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
+        </member>
+        <member name="P:Goedel.Palimpsest.ItemDoesNotExist.Throw">
+            <summary>
+            The public fatory delegate
+            </summary>
+        </member>
+        <member name="T:Goedel.Palimpsest.EventExtensions">
             <summary>
             Extensions class defining logging events and convenience methods.
             </summary>
         </member>
-        <member name="M:Goedel.Repository.EventExtensions.#cctor">
+        <member name="M:Goedel.Palimpsest.EventExtensions.#cctor">
             <summary>
             Static initializer, is called once when the module loads.
             </summary>
         </member>
-        <member name="T:Goedel.Repository.Extensions">
+        <member name="T:Goedel.Palimpsest.Extensions">
             <summary>
             Extensions class. Provides static convenience extensions.
             </summary>
         </member>
-        <member name="T:Goedel.Repository.NamespaceDoc">
+        <member name="T:Goedel.Palimpsest.Forum">
+            <summary>
+            The class tracking the status of a forum, all interactions with the forum 
+            take place through this lens
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.#ctor(System.String)">
+            <summary>
+            Hidden private constructor.
+            </summary>
+            <param name="directory"></param>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.Create(System.String)">
+            <summary>
+            Factory method returning a newly created forum instance
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.Load(System.String)">
+            <summary>
+            Factory method returning a forum instance for the specified directory.
+            </summary>
+            <returns></returns>
+            <exception cref="T:Goedel.Utilities.NYI"></exception>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.CreateProject(Goedel.Palimpsest.ProjectHandle)">
+            <summary>
+            Create a project within the forum
+            </summary>
+            <param name="project">The project to be created.</param>
+            <exception cref="T:Goedel.Palimpsest.ItemAlreadyExists">The project could not be created 
+            because it already exists</exception>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.TryGetProject(System.String,Goedel.Palimpsest.ProjectHandle@)">
+            <summary>
+            Gets the project associated with the specified key.
+            </summary>
+            <param name="id">The key of the value to get.</param>
+            <param name="project">When this method returns, contains the project identified by
+            the specified key, if the key is found; otherwise, null. 
+            This parameter is passed uninitialized.</param>
+            <returns>true if there is a project identified by
+            specified key; otherwise, false.</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.CreateMember(Goedel.Palimpsest.MemberHandle)">
+            <summary>
+            Create a member with authorizations related to the forum
+            </summary>
+            <param name="member">The member to be created.</param>
+            <exception cref="T:Goedel.Palimpsest.ItemAlreadyExists">The member could not be created 
+            because it already exists</exception>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.TryGetMember(System.String,Goedel.Palimpsest.MemberHandle@)">
+            <summary>
+            Gets the member associated with the specified key.
+            </summary>
+            <param name="id">The key of the value to get.</param>
+            <param name="project">When this method returns, contains the member identified by
+            the specified key, if the key is found; otherwise, null. 
+            This parameter is passed uninitialized.</param>
+            <returns>true if there is a member identified by
+            specified key; otherwise, false.</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.TryGetReource(System.String,Goedel.Palimpsest.ResourceHandle@)">
+            <summary>
+            Gets the resource associated with the specified key.
+            </summary>
+            <param name="id">The key of the value to get.</param>
+            <param name="project">When this method returns, contains the resource identified by
+            the specified key, if the key is found; otherwise, null. 
+            This parameter is passed uninitialized.</param>
+            <returns>true if there is a resource identified by
+            specified key; otherwise, false.</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.Forum.TryGetReaction(System.String,Goedel.Palimpsest.ReactionHandle@)">
+            <summary>
+            Gets the reaction associated with the specified key.
+            </summary>
+            <param name="id">The key of the value to get.</param>
+            <param name="project">When this method returns, contains the reaction identified by
+            the specified key, if the key is found; otherwise, null. 
+            This parameter is passed uninitialized.</param>
+            <returns>true if there is a reaction identified by
+            specified key; otherwise, false.</returns>
+        </member>
+        <member name="T:Goedel.Palimpsest.Cache`1">
+            <summary>
+            Cache containing CachedHandle of type <typeparamref name="T"/>.
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.Cache`1.Add(`0)">
+            <summary>
+            Add the item <paramref name="value"/> to the cache.
+            </summary>
+            <param name="value">The value to add.</param>
+        </member>
+        <member name="M:Goedel.Palimpsest.Cache`1.Remove(`0)">
+            <summary>
+            Mark the item <paramref name="value"/> for removal from the 
+            cache. Note that this is only advisory, the cache may keep
+            the item in memory until it determines memory usage needs to be reduced.
+            </summary>
+            <param name="value">The value to mark for removal.</param>
+            <exception cref="T:Goedel.Palimpsest.ItemDoesNotExist">The item does not exist in the cache</exception>
+        </member>
+        <member name="T:Goedel.Palimpsest.CachedHandle">
+            <summary>
+            Root class for all cachable forum items.
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CachedHandle.CompareTo(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Goedel.Palimpsest.CachedHandle.Release">
+            <summary>
+            Release resources associated with the resource allowing them to
+            be reused.
+            </summary>
+        </member>
+        <member name="T:Goedel.Palimpsest.NamespaceDoc">
             <summary>
             Desctiption of the 
             </summary>
+        </member>
+        <member name="T:Goedel.Palimpsest.ForumItem">
+             <summary>
+            
+             A Palimpsest forum
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ForumItem._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.ForumItem.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ForumItem._TagDictionary">
+            <summary>
+            Dictionary mapping tags to factory methods
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.ForumItem.Deserialize(Goedel.Protocol.JsonReader,Goedel.Protocol.JsonObject@)">
+            <summary>
+            Construct an instance from the specified tagged JsonReader stream.
+            </summary>
+            <param name="jsonReader">Input stream</param>
+            <param name="result">The created object</param>
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedForumEntry">
+             <summary>
+            
+             
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedForumEntry.Added">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedForumEntry.Entries">
+             <summary>
+            Tag value attributes allowing entry description to be extended.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedForumEntry._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedForumEntry._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedForumEntry._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedForumEntry._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedForumEntry._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedForumEntry._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedForumEntry._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedForumEntry._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedForumEntry.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedForumEntry._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedForumEntry.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.EntryAttibutes">
+             <summary>
+            
+             Tag value attributes allowing entry description to be extended.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.EntryAttibutes.Tag">
+             <summary>
+            The attribute type
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.EntryAttibutes.Value">
+             <summary>
+            The attribute value
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.EntryAttibutes._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.EntryAttibutes._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.EntryAttibutes._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.EntryAttibutes._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.EntryAttibutes._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.EntryAttibutes._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.EntryAttibutes._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.EntryAttibutes._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.EntryAttibutes.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.EntryAttibutes._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.EntryAttibutes.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedProject">
+             <summary>
+            
+             A cataloged project.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedProject.Owners">
+             <summary>
+            The members owwning the peoject
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedProject._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedProject._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedProject._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedProject._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedProject._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedProject._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedProject._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedProject._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedProject.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedProject._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedProject.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedMember">
+             <summary>
+            
+             
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember.ProfileUdf">
+             <summary>
+            The user's fingerprint profile (if known).
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember.Contact">
+             <summary>
+            The user's Mesh contact (if provided). 
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember.Status">
+             <summary>
+            The member's status: Active / Inactive / Blocked
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember.Privileges">
+             <summary>
+            Assigned privileges (Admin / Moderator)
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedMember._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedMember._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedMember._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedMember._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedMember.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedMember._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedMember.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedResource">
+             <summary>
+            
+             A cataloged resource.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource.SeriesId">
+             <summary>
+            The series identifier, if this item is a part of a versioned series.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource.Version">
+             <summary>
+            The version indicator. This SHOULD be unique among resources with the
+            same series identifier.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource.Annotatable">
+             <summary>
+            If not false, the resource may be annotated.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedResource._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedResource._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedResource._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedResource._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedResource.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedResource._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedResource.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedFile">
+             <summary>
+            
+             A cataloged resource represented by a file with associated data.
+             This may be a document, an image, etc.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedFile._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedFile._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedFile._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedFile._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedFile._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedFile._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedFile._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedFile._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedFile.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedFile._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedFile.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedSeries">
+             <summary>
+            
+             Collects a group of related resources together into a series.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedSeries._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedSeries._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedSeries._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedSeries._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedSeries._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedSeries._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedSeries._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedSeries._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedSeries.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedSeries._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedSeries.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedEvent">
+             <summary>
+            
+             A cataloged event. This may be an online event, an inperson
+             meetup or both.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent.Venue">
+             <summary>
+            Event venue: Online/Meetup/Hybrid
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent.Start">
+             <summary>
+            Start date for the event
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent.Finish">
+             <summary>
+            End date for the event
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent.PhysicalLocation">
+             <summary>
+            Physical location for the event
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent.Online">
+             <summary>
+            Online resource for the event
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent.Organizers">
+             <summary>
+            The members organizing the event
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedEvent._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedEvent._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedEvent._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedEvent._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedEvent.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedEvent._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedEvent.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedReaction">
+             <summary>
+            
+             User response to a Forum Entry, minimally consisting of a 
+             User identifier and a semantic.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction.ForumEntryId">
+             <summary>
+            The forum entry being responded to.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction.MemberId">
+             <summary>
+            The identifier of the member responding.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction.Semantic">
+             <summary>
+            The response semantic.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReaction._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReaction._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReaction._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReaction._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReaction.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedReaction._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedReaction.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedReactionSummary">
+             <summary>
+            
+             A collection of responses compiled into a summary for fast indexing.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReactionSummary.Filter">
+             <summary>
+            A Bloom filter which MAY be used to quickly determine that a member
+            has NOT made a response.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReactionSummary.Summaries">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReactionSummary._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReactionSummary._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReactionSummary._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReactionSummary._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReactionSummary._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReactionSummary._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReactionSummary._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedReactionSummary._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedReactionSummary.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedReactionSummary._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedReactionSummary.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.ResponseSummary">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary.Semantic">
+             <summary>
+            The response semantic.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary.Count">
+             <summary>
+            The count of the response summary
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary.MemberIds">
+             <summary>
+            The members who made this response
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.ResponseSummary._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.ResponseSummary._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.ResponseSummary._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.ResponseSummary._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.ResponseSummary.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.ResponseSummary._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.ResponseSummary.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.CatalogedAnnotation">
+             <summary>
+            
+             Extended response to a Forum Entry with text and optional anchor
+             and references.
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation.Anchor">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation.Text">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation.References">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedAnnotation._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedAnnotation._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedAnnotation._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.CatalogedAnnotation._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.CatalogedAnnotation.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedAnnotation._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.CatalogedAnnotation.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.AnnotatedResource">
+             <summary>
+            
+             An anotated resource 
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.AnnotatedResource.Resource">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.AnnotatedResource.Responses">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="P:Goedel.Palimpsest.AnnotatedResource._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.AnnotatedResource._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.AnnotatedResource._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:Goedel.Palimpsest.AnnotatedResource._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:Goedel.Palimpsest.AnnotatedResource._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.AnnotatedResource._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.AnnotatedResource._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Palimpsest.AnnotatedResource._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.AnnotatedResource.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.AnnotatedResource._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.AnnotatedResource.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:Goedel.Palimpsest.StoreType">
+            <summary>Store labels</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.StoreType.Unknown">
+            <summary>Undefined type</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.StoreType.Projects">
+            <summary>Projects catalog</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.StoreType.Members">
+            <summary>Members catalog</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.StoreType.Resources">
+            <summary>Resources catalog</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.StoreType.Reaction">
+            <summary>Reaction catalog</summary>
+        </member>
+        <member name="T:Goedel.Palimpsest.PalimpsestConstants">
+            <summary>
+            Constants specified in hallambaker-mesh-schema
+            </summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.PalimpsestConstants.StoreTypeProjectsTag">
+            <summary>Jose enumeration tag for StoreType.Projects</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.PalimpsestConstants.StoreTypeMembersTag">
+            <summary>Jose enumeration tag for StoreType.Members</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.PalimpsestConstants.StoreTypeResourcesTag">
+            <summary>Jose enumeration tag for StoreType.Resources</summary>
+        </member>
+        <member name="F:Goedel.Palimpsest.PalimpsestConstants.StoreTypeReactionTag">
+            <summary>Jose enumeration tag for StoreType.Reaction</summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.PalimpsestConstants.ToStoreType(System.String)">
+            <summary>
+            Convert the string <paramref name="text"/> to the corresponding enumeration
+            value.
+            </summary>
+            <param name="text">The string to convert.</param>
+            <returns>The enumeration value.</returns>
+        </member>
+        <member name="M:Goedel.Palimpsest.PalimpsestConstants.ToLabel(Goedel.Palimpsest.StoreType)">
+            <summary>
+            Convert the enumerated value <paramref name="data"/> to the corresponding string
+            value.
+            </summary>
+            <param name="data">The enumerated value.</param>
+            <returns>The text value.</returns>
         </member>
     </members>
 </doc>

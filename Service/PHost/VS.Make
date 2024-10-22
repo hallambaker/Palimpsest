@@ -18,18 +18,27 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
+    Goedel.Cryptography.Dare.dll\
+    Goedel.Cryptography.Identifiers.dll\
+    Goedel.Cryptography.Jose.dll\
+    Goedel.Cryptography.dll\
     Goedel.FSR.dll\
     Goedel.Protocol.Web.dll\
     Goedel.Registry.dll\
     Goedel.Utilities.dll\
-    Goedel.Protocol.dll
+    Goedel.Protocol.dll\
+    Goedel.Mesh.dll
 
 ToolTargets = \
 	Exceptions.cs\
+	PalimsestConstants.cs\
 	PalimpsestSchema.cs\
 	ServerPages.cs
 Exceptions.cs : Exceptions.exceptional 
 	exceptional Exceptions.exceptional  /cs  Exceptions.cs
+
+PalimsestConstants.cs : PalimsestConstants.constant 
+	constant PalimsestConstants.constant  /cs  PalimsestConstants.cs
 
 PalimpsestSchema.cs : PalimpsestSchema.protocol 
 	protogen PalimpsestSchema.protocol  /cs  PalimpsestSchema.cs
