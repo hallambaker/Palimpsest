@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
+  <PropertyGroup>
+    <RootNamespace>Goedel.Document.RFCSVG</RootNamespace>
+    <Title>RFC SVG management library</Title>
+    <Product>RFC SVG management library</Product>
+    <Description>Converts SVG to IETF stupid format.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Goedel.Tool.Core\Goedel.Tool.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ReadStyle.cs">
+      <DependentUpon>ReadStyle.fsr</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ReadStyle.fsr">
+      <LastGenOutput>ReadStyle.cs</LastGenOutput>
+      <Generator>fsrcs</Generator>
+    </None>
+  </ItemGroup>
+
+</Project>

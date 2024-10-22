@@ -1,0 +1,39 @@
+﻿Namespace Goedel.Palimpsest PalimpsestConstants
+	|Constants specified in hallambaker-mesh-schema
+
+
+
+
+File CatalogLabels
+	Enum StoreType "Store labels"
+
+		Code Project "Projects catalog"
+			Description
+				|One catalog per forum, index for everything
+			Description
+				|Filename: Project.dcat
+
+		Code Member "Members catalog"
+			Description
+				|One catalog per forum, maps external users to a forum identifier
+			Description
+				|Filename: Member.dcat
+
+		Code Project "Project catalog"
+			Description
+				|One catalog per forum, index for everything
+			Description
+				|Filename: [ProjectId]/Project.dcat
+
+		Code Resource "Resource catalog"
+			Description
+				|One catalog per project, lists the resources connected to the project
+			Description
+				|Filename: [ProjectId]/Resources.dcat
+
+		Code Annotation "Annotation catalog"
+			Description
+				|One catalog per resource, created when the resource is first annotated.
+				|Annotations of annotations are stored in the same catalog as direct annotations.
+			Description
+				|Filename: [ProjectId]/[ResourceId].dcat

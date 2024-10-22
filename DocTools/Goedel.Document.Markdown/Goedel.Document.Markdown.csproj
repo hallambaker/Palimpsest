@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
+  <PropertyGroup>
+    <RootNamespace>Goedel.Document.Markdown</RootNamespace>
+    <Title>Goedel.Document.Markdown</Title>
+    <Product>Goedel.Document.Markdown</Product>
+    <Description>Markdown document parsing.</Description>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Command\Goedel.Command.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Discovery\Goedel.Discovery.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.FSR\Goedel.FSR.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.IO\Goedel.IO.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <Compile Update="MarkDown.cs">
+      <DependentUpon>MarkDown.fsr</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="MarkParagraph.cs">
+      <DependentUpon>MarkParagraph.fsr</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="MarkWordParagraph.cs">
+      <DependentUpon>MarkWordParagraph.fsr</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Schema.cs">
+      <DependentUpon>Schema.gdl</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MarkDown.fsr">
+      <LastGenOutput>MarkDown.cs</LastGenOutput>
+      <Generator>FSRCS</Generator>
+    </None>
+    <None Update="MarkParagraph.fsr">
+      <LastGenOutput>MarkParagraph.cs</LastGenOutput>
+      <Generator>FSRCS</Generator>
+    </None>
+    <None Update="MarkWordParagraph.fsr">
+      <LastGenOutput>MarkWordParagraph.cs</LastGenOutput>
+      <Generator>FSRCS</Generator>
+    </None>
+    <None Update="Schema.gdl">
+      <LastGenOutput>Schema.cs</LastGenOutput>
+      <Generator>Goedel3</Generator>
+    </None>
+  </ItemGroup>
+
+
+
+</Project>

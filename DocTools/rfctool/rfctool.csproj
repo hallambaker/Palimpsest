@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)Settings/CommonSettingsApplication.xml" />
+  <PropertyGroup>
+	  <AssemblyName>rfctool</AssemblyName>
+	  <Product>RFCTool</Product>
+	  <Description>Generates RFC format documentation from OOXML or Markdown source.</Description>
+	  <Copyright>© 2015-2024</Copyright>
+	  <Title>RFCTool</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Test\xml2rfc.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Bib.xml" />
+    <Content Include="Test\xml2rfc.css" />
+    <Content Include="xml2rfc.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Goedel.Document.Markdown\Goedel.Document.Markdown.csproj" />
+    <ProjectReference Include="..\Goedel.Document.OpenXML\Goedel.Document.OpenXML.csproj" />
+    <ProjectReference Include="..\Goedel.Document.RFCConvert\Goedel.Document.RFCConvert.csproj" />
+    <ProjectReference Include="..\Goedel.Document.RFC\Goedel.Document.RFC.csproj" />
+    <ProjectReference Include="..\..\Libraries\Goedel.Tool.Core\Goedel.Tool.Core.csproj" />
+    <ProjectReference Include="..\Goedel.Document.RFCSVG\Goedel.Document.RFCSVG.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="main.cs">
+      <DependentUpon>main.command</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="main.command">
+      <LastGenOutput>main.cs</LastGenOutput>
+      <Generator>CommandCS</Generator>
+    </None>
+    <None Update="readme.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+
+</Project>

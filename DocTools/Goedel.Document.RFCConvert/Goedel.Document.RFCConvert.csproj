@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
+  <PropertyGroup>
+    <RootNamespace>Goedel.Document.RFCConvert</RootNamespace>
+    <Title>Goedel.Document.RFCConvert</Title>
+    <Product>Goedel.Document.RFCConvert</Product>
+    <Description>RFC format conversion library.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Goedel.Document.RFC\Goedel.Document.RFC.csproj" />
+    <ProjectReference Include="..\..\Libraries\Goedel.Tool.Core\Goedel.Tool.Core.csproj" />
+  </ItemGroup>
+
+
+  
+</Project>
