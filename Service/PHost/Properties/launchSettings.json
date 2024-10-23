@@ -1,0 +1,10 @@
+{
+  "profiles": {
+
+    "GenericHost": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\hallam\\Test\\Palimpsest C:\\Users\\hallam\\source\\repos\\Palimpsest\\Resources",
+      "workingDirectory": "C:\\Users\\hallam\\Test\\Palimpsest"
+    }
+  }
+}

@@ -21,6 +21,8 @@
 #endregion
 
 
+using Goedel.IO;
+using Goedel.Palimpsest;
 using Goedel.Protocol;
 
 using System;
@@ -41,7 +43,12 @@ internal sealed class Program {
 
     // We can decorate this with stuff later.
     static void Main(string[] args) {
-        var AnnotationService = new AnnotationService();
+        var directory = args[0];
+        var resources = args[1];
+
+        var forum = Forum.Create(directory, resources, "The Draft");
+
+        var AnnotationService = new AnnotationService(forum);
         AnnotationService.Start();
         }
 
@@ -53,27 +60,35 @@ internal sealed class Program {
 
 
 public class AnnotationService: IWebService {
-
+    public Forum Forum { get; }
     private HttpListener HttpListener { get; set; }
 
     ///<inheritdoc/>
     public Dictionary<string, WebResource> ResourceMap => resourceMap;
     
     static Dictionary<string, WebResource> resourceMap = new() {
-        { "/", new (GetHome) },
-        { "/Upload", new (GetSelectUpload) },
-        { "/Append", new (PostUploadDocument) },
-        { "/Documents", new (GetListDocuments) },
-        { "/Actions", new (GetListActions) },
-        { "/Document", new (GetShowDocument) },
-        { "/Comment", new (GetComment) },
-        { "/CommentForm", new (MakeComment) },
+        { "", new (GetHome) },
+        { "resources", new (GetResources) },
+        { "favicon.ico", new (GetResources) },
+        { "SignIn", new (GetSignIn) },
+        { "SignOut", new (GetSignOut) },
+        { "CreateAccount", new (GetCreateAccount) },
+        { "CreateProject", new (GetCreateProject) },
+
+        { "Upload", new (GetSelectUpload) },
+        { "Append", new (PostUploadDocument) },
+        { "Documents", new (GetListDocuments) },
+        { "Actions", new (GetListActions) },
+        { "Document", new (GetShowDocument) },
+        { "Comment", new (GetComment) },
+        { "CommentForm", new (MakeComment) },
         { "*", new (Error) }
 
         };
 
 
-    public AnnotationService () {
+    public AnnotationService (Forum forum) {
+        Forum = forum;
         HttpListener = new();
         HttpListener.Prefixes.Add("http://+:15099/");
         }
@@ -101,14 +116,25 @@ public class AnnotationService: IWebService {
             return; 
             }
 
+
+        Console.WriteLine($"Request {request.Url.LocalPath}");
+
+
+        var parsed = new ParsedPath(request.Url.LocalPath);
+
+
+        Console.WriteLine($"Start {parsed.Command}");
+
         // Look for a dispatch method and use it if found.
-        if (ResourceMap.TryGetValue(request.Url.LocalPath, out var callback)) {
+        if (ResourceMap.TryGetValue(parsed.Command, out var callback)) {
             await callback.Method(this, context);
             }
         else {
             await Error(this, context);
             }
         }
+
+
 
     public static async Task GetHome(
                 IWebService service,
@@ -119,9 +145,78 @@ public class AnnotationService: IWebService {
         annotations.End();
         }
 
-    public static async Task GetSelectUpload(
+
+    public static async Task GetResources(
+        IWebService service,
+        HttpListenerContext context) {
+        using var response = context.Response;
+        var annotation = service as AnnotationService;
+
+        Console.WriteLine("Helllooooo..");
+
+        string path;
+        var stroke = context.Request.Url.LocalPath.IndexOf('/', 1);
+        if (stroke < 0) {
+            path = annotation.Forum.Resources + context.Request.Url.LocalPath;
+            }
+        else {
+            path = annotation.Forum.Resources + context.Request.Url.LocalPath[stroke..];
+            }
+
+
+        response.StatusCode = (int)HttpStatusCode.OK;
+        response.StatusDescription = "Status OK";
+        response.ContentType = path.GetFileType();
+
+        using var file = path.OpenFileReadShared();
+
+        file.CopyTo(response.OutputStream);
+
+        response.OutputStream.Close();
+        Console.WriteLine("Doneeeee..");
+        }
+
+    public static async Task GetSignIn(
                 IWebService service,
                 HttpListenerContext context) {
+        var annotation = service as AnnotationService;
+        var annotations = Annotations.Get(annotation, context);
+        annotations.PageHome();
+        annotations.End();
+        }
+
+    public static async Task GetSignOut(
+            IWebService service,
+            HttpListenerContext context) {
+        var annotation = service as AnnotationService;
+        var annotations = Annotations.Get(annotation, context);
+        annotations.PageHome();
+        annotations.End();
+        }
+
+
+
+    public static async Task GetCreateAccount(
+            IWebService service,
+            HttpListenerContext context) {
+        var annotation = service as AnnotationService;
+        var annotations = Annotations.Get(annotation, context);
+        annotations.PageHome();
+        annotations.End();
+        }
+
+    public static async Task GetCreateProject(
+                IWebService service,
+                HttpListenerContext context) {
+        var annotation = service as AnnotationService;
+        var annotations = Annotations.Get(annotation, context);
+        annotations.PageSelect();
+        annotations.End();
+        }
+
+    public static async Task GetSelectUpload(
+        IWebService service,
+        HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
         annotations.PageSelect();
@@ -203,6 +298,30 @@ public class AnnotationService: IWebService {
 
     }
 
+
+
+public record ParsedPath {
+
+    public string Command { get; }
+    public string? Document { get; } = null;
+
+    public ParsedPath(string url) {
+        if (url == null) {
+            Command = null;
+            return;
+            }
+        var split = url.Split('/');
+        if (split.Length < 2) { // must have at least initial /
+            Command = null;
+            return;
+            }
+
+        Command = split[1];
+
+
+        }
+
+    }
 
 
 

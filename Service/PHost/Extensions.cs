@@ -29,5 +29,21 @@ namespace Goedel.Palimpsest;
 public static class Extensions {
 
 
+    public static string GetFileType(this string file) {
+        var extension = Path.GetExtension(file).ToLower();
 
+        return extension switch {
+            ".htm" or "html" => "text/html",
+            ".txt" => "text/plain",
+            ".css" => "text/css",
+            ".script" => "text/javascript",
+            ".jpg" or "jpeg" => "image/jpeg",
+            ".gif" => "image/gif",
+            ".png" => "image/png",
+            ".svg" => "image/svg+xml",
+            _ => "text/plain"
+            };
+
+
+        }
     }

@@ -33,6 +33,9 @@ namespace Goedel.Palimpsest;
 public class Forum {
     #region // Properties
 
+    public string Name { get; set; } 
+    public string Directory { get; }
+    public string Resources { get; } 
 
     #endregion
     #region // Constructors and factory methods.
@@ -42,7 +45,12 @@ public class Forum {
     /// </summary>
     /// <param name="directory"></param>
     Forum(
-                string directory) {
+                string directory, 
+                string resources,
+                string name) {
+        Directory = directory;
+        Resources = resources;
+        Name = name;
         }
 
     /// <summary>
@@ -51,9 +59,11 @@ public class Forum {
     /// <returns></returns>
 
     public static Forum Create(
-                    string directory) {
-        var result =  new Forum(directory);
-        throw new NYI();
+                string directory,
+                string resources,
+                string name) {
+        var result =  new Forum(directory, resources, name);
+        return result;
         }
 
     /// <summary>
@@ -62,9 +72,11 @@ public class Forum {
     /// <returns></returns>
     /// <exception cref="NYI"></exception>
     public static Forum Load(
-                    string directory) {
-        var result = new Forum(directory);
-        throw new NYI();
+                string directory,
+                string resources,
+                string name) {
+        var result = new Forum(directory, resources, name);
+        return result;
         }
 
 

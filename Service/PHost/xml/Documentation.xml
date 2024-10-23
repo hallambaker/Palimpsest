@@ -9,10 +9,11 @@
             Annotations class.
             </summary>
         </member>
-        <member name="M:Annotate.Annotations.StartPage">
+        <member name="M:Annotate.Annotations.StartPage(System.String)">
             <summary>	
-             StartPage
+            StartPage
             </summary>
+            <param name="options"></param>
         </member>
         <member name="M:Annotate.Annotations.EndPage">
             <summary>	
@@ -22,6 +23,32 @@
         <member name="M:Annotate.Annotations.PageHome">
             <summary>	
              PageHome
+            </summary>
+        </member>
+        <member name="M:Annotate.Annotations.CreateProject">
+            <summary>	
+             CreateProject
+            </summary>
+        </member>
+        <member name="M:Annotate.Annotations.SignIn">
+            <summary>	
+             SignIn 
+            </summary>
+        </member>
+        <member name="M:Annotate.Annotations.CreateAccount">
+            <summary>	
+             CreateAccount 
+            </summary>
+        </member>
+        <member name="M:Annotate.Annotations.SignInForm(System.Boolean)">
+            <summary>	
+            SignInForm
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:Annotate.Annotations.NoteWell">
+            <summary>	
+             NoteWell 
             </summary>
         </member>
         <member name="M:Annotate.Annotations.PageEnterComment">
@@ -276,19 +303,19 @@
             take place through this lens
             </summary>
         </member>
-        <member name="M:Goedel.Palimpsest.Forum.#ctor(System.String)">
+        <member name="M:Goedel.Palimpsest.Forum.#ctor(System.String,System.String,System.String)">
             <summary>
             Hidden private constructor.
             </summary>
             <param name="directory"></param>
         </member>
-        <member name="M:Goedel.Palimpsest.Forum.Create(System.String)">
+        <member name="M:Goedel.Palimpsest.Forum.Create(System.String,System.String,System.String)">
             <summary>
             Factory method returning a newly created forum instance
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Goedel.Palimpsest.Forum.Load(System.String)">
+        <member name="M:Goedel.Palimpsest.Forum.Load(System.String,System.String,System.String)">
             <summary>
             Factory method returning a forum instance for the specified directory.
             </summary>

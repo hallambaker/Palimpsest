@@ -13,15 +13,21 @@ public partial class Annotations : global::Goedel.Registry.Script {
 
 	
 	/// <summary>	
-	///  StartPage
+	/// StartPage
 	/// </summary>
-	public void  StartPage () {
+	/// <param name="options"></param>
+	public void StartPage (string? script=null) {
 		_Output.Write ("<!DOCTYPE html>\n{0}", _Indent);
 		_Output.Write ("<html lang=\"en\">\n{0}", _Indent);
 		_Output.Write ("  <head>\n{0}", _Indent);
 		_Output.Write ("    <meta charset=\"utf-8\">\n{0}", _Indent);
 		_Output.Write ("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n{0}", _Indent);
+		_Output.Write ("    <link rel=\"icon\" type=\"image/x-icon\" href=\"/resources/favicon.ico\">\n{0}", _Indent);
 		_Output.Write ("    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n{0}", _Indent);
+		_Output.Write ("    <link rel=\"stylesheet\" type=\"text/css\" href=\"/resources/stylesheet.css\">\n{0}", _Indent);
+		if (  script != null ) {
+			_Output.Write ("    <script src=\"/resources/{1}\"></script>\n{0}", _Indent, script);
+			}
 		_Output.Write ("    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>\n{0}", _Indent);
 		_Output.Write ("    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>\n{0}", _Indent);
 		_Output.Write ("  </head>\n{0}", _Indent);
@@ -41,12 +47,106 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// </summary>
 	public void  PageHome () {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Home</h1>\n{0}", _Indent);
-		_Output.Write ("  <p><a href=\"Upload\">Add Document</a></p>\n{0}", _Indent);
-		_Output.Write ("  <p><a href=\"Documents\">List Documents</a></p>\n{0}", _Indent);
-		_Output.Write ("  <p><a href=\"Actions\">List Actions</a></p>\n{0}", _Indent);
+		_Output.Write ("<img class=\"header__logo\" src=\"/resources/ietf.svg\" alt=\"IETF logo\"/>\n{0}", _Indent);
+		_Output.Write ("  <h1>Home {1}</h1>\n{0}", _Indent, Forum.Name);
+		if (  !SignedIn ) {
+			_Output.Write ("    <p><a href=\"SignIn\">Sign In</a></p>\n{0}", _Indent);
+			_Output.Write ("    <p><a href=\"CreateAccount\">Create Account</a></p>\n{0}", _Indent);
+			_Output.Write ("    <p class=\"disabled\">Create Project</p>\n{0}", _Indent);
+			} else {
+			_Output.Write ("    <p><a href=\"SignOut\">Sign Out</a></p>\n{0}", _Indent);
+			if (  PermissionCreateProject ) {
+				_Output.Write ("    <p><a href=\"CreateProject\">Create Project</a></p>\n{0}", _Indent);
+				}
+			_Output.Write ("    <P>List of active projects here</p>\n{0}", _Indent);
+			}
+		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	///  CreateProject
+	/// </summary>
+	public void  CreateProject () {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Create Project</h1>\n{0}", _Indent);
+		_Output.Write ("  <form>\n{0}", _Indent);
+		_Output.Write ("  <table>\n{0}", _Indent);
+		_Output.Write ("    <tr><td>\n{0}", _Indent);
+		_Output.Write ("    <label for=\"Project Name\">Username:</label>\n{0}", _Indent);
+		_Output.Write ("    </td><td>\n{0}", _Indent);
+		_Output.Write ("    <input type=\"text\", id=\"name\", name=\"name\">\n{0}", _Indent);
+		_Output.Write ("    <tr><td>\n{0}", _Indent);
+		_Output.Write ("    <label for=\"Project Name\">Description:</label>\n{0}", _Indent);
+		_Output.Write ("    </td><td>\n{0}", _Indent);
+		_Output.Write ("    <textarea type=\"text\", id=\"description\", name=\"description\">\n{0}", _Indent);
+		_Output.Write ("    <tr><td>\n{0}", _Indent);
+		_Output.Write ("  </table>\n{0}", _Indent);
+		_Output.Write ("  </form>\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	///  SignIn 
+	/// </summary>
+	public void  SignIn  () {
+		 NoteWell();
+		 SignInForm(false);
+		}
+	
+	/// <summary>	
+	///  CreateAccount 
+	/// </summary>
+	public void  CreateAccount  () {
+		 NoteWell();
+		 SignInForm(true);
+		}
+	
+	/// <summary>	
+	/// SignInForm
+	/// </summary>
+	/// <param name="options"></param>
+	public void SignInForm (bool terms) {
+		_Output.Write ("<form>\n{0}", _Indent);
+		_Output.Write ("<table>\n{0}", _Indent);
+		_Output.Write ("<tr><td>\n{0}", _Indent);
+		_Output.Write ("<label for=\"username\">Username:</label>\n{0}", _Indent);
+		_Output.Write ("</td><td>\n{0}", _Indent);
+		_Output.Write ("<input type=\"text\", id=\"username\", name=\"username\">\n{0}", _Indent);
+		_Output.Write ("<tr><td>\n{0}", _Indent);
+		_Output.Write ("<label for=\"password\">Password:</label>\n{0}", _Indent);
+		_Output.Write ("</td><td>\n{0}", _Indent);
+		_Output.Write ("<input type=\"password\", id=\"password\", name=\"password\">\n{0}", _Indent);
+		_Output.Write ("<tr><td colspan=\"2\">\n{0}", _Indent);
+		_Output.Write ("<input type=\"checkbox\" id=\"terms\" name=\"password\" >\n{0}", _Indent);
+		_Output.Write ("<label for=\"terms\">I agree to  follow IETF processes and policies</label>\n{0}", _Indent);
+		_Output.Write ("</td></tr>\n{0}", _Indent);
+		_Output.Write ("<table>\n{0}", _Indent);
+		_Output.Write ("</form>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	///  NoteWell 
+	/// </summary>
+	public void  NoteWell  () {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Note Well</h1>\n{0}", _Indent);
+		_Output.Write ("  <p>\n{0}", _Indent);
+		_Output.Write ("  This is a reminder of IETF policies in effect on various topics such as patents or code of conduct. It is only meant to point you in the right direction. Exceptions may apply. The IETF's patent policy and the definition of an IETF \"contribution\" and \"participation\" are set forth in BCP 79; please read it carefully.\n{0}", _Indent);
+		_Output.Write ("  <p>\n{0}", _Indent);
+		_Output.Write ("  <p>\n{0}", _Indent);
+		_Output.Write ("As a reminder:\n{0}", _Indent);
+		_Output.Write ("<p>\n{0}", _Indent);
+		_Output.Write ("<ul>\n{0}", _Indent);
+		_Output.Write ("<li>\n{0}", _Indent);
+		_Output.Write ("By participating in the IETF, you agree to follow IETF processes and policies.</li>\n{0}", _Indent);
+		_Output.Write ("<li>If you are aware that any IETF contribution is covered by patents or patent applications that are owned or controlled by you or your sponsor, you must disclose that fact, or not participate in the discussion.</li>\n{0}", _Indent);
+		_Output.Write ("<li>As a participant in or attendee to any IETF activity you acknowledge that written, audio, video, and photographic records of meetings may be made public.</li>\n{0}", _Indent);
+		_Output.Write ("<li>Personal information that you provide to IETF will be handled in accordance with the IETF Privacy Statement.</li>\n{0}", _Indent);
+		_Output.Write ("<li>As a participant or attendee, you agree to work respectfully with other participants; please contact the ombudsteam \n{0}", _Indent);
+		_Output.Write ("(<a href=\"https://www.ietf.org/contact/ombudsteam\">https://www.ietf.org/contact/ombudsteam</a>) if you have questions or concerns about this.</i>\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
 		}
 	
 	/// <summary>	

@@ -6,18 +6,23 @@
 #% #pragma warning disable IDE1006
 #xclass Annotate Annotations
 
-#method0 StartPage
+#method StartPage string? script=null
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/resources/favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/stylesheet.css">
+#if script != null
+    <script src="/resources/#{script}"></script>
+#end if
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-#end method0
+#end method
 
 
 #method0 EndPage 
@@ -27,15 +32,104 @@
 
 
 
+
+
 #method0 PageHome
 <div class="container">
-  <h1>Home</h1>
-  <p><a href="Upload">Add Document</a></p>
-  <p><a href="Documents">List Documents</a></p>
-  <p><a href="Actions">List Actions</a></p>
+<img class="header__logo" src="/resources/ietf.svg" alt="IETF logo"/>
+  <h1>Home #{Forum.Name}</h1>
+#if !SignedIn
+    <p><a href="SignIn">Sign In</a></p>
+    <p><a href="CreateAccount">Create Account</a></p>
+    <p class="disabled">Create Project</p>
+#else 
+    <p><a href="SignOut">Sign Out</a></p>
+#if PermissionCreateProject
+    <p><a href="CreateProject">Create Project</a></p>
+#end if
+    <P>List of active projects here</p>
+#end if
+
 </div>
 
 #end method0
+
+
+#method0 CreateProject
+<div class="container">
+  <h1>Create Project</h1>
+  <form>
+  <table>
+    <tr><td>
+    <label for="Project Name">Username:</label>
+    </td><td>
+    <input type="text", id="name", name="name">
+    <tr><td>
+    <label for="Project Name">Description:</label>
+    </td><td>
+    <textarea type="text", id="description", name="description">
+    <tr><td>
+  </table>
+  </form>
+</div>
+#end method0
+
+
+#method0 SignIn 
+#% NoteWell();
+#% SignInForm(false);
+#end method0
+
+#method0 CreateAccount 
+#% NoteWell();
+#% SignInForm(true);
+#end method0
+
+
+#method SignInForm bool terms
+<form>
+<table>
+<tr><td>
+<label for="username">Username:</label>
+</td><td>
+<input type="text", id="username", name="username">
+<tr><td>
+<label for="password">Password:</label>
+</td><td>
+<input type="password", id="password", name="password">
+<tr><td colspan="2">
+<input type="checkbox" id="terms" name="password" >
+<label for="terms">I agree to  follow IETF processes and policies</label>
+</td></tr>
+<table>
+</form>
+#end method
+
+
+#method0 NoteWell 
+<div class="container">
+  <h1>Note Well</h1>
+  <p>
+  This is a reminder of IETF policies in effect on various topics such as patents or code of conduct. It is only meant to point you in the right direction. Exceptions may apply. The IETF's patent policy and the definition of an IETF "contribution" and "participation" are set forth in BCP 79; please read it carefully.
+  <p>
+  <p>
+As a reminder:
+<p>
+<ul>
+<li>
+By participating in the IETF, you agree to follow IETF processes and policies.</li>
+<li>If you are aware that any IETF contribution is covered by patents or patent applications that are owned or controlled by you or your sponsor, you must disclose that fact, or not participate in the discussion.</li>
+<li>As a participant in or attendee to any IETF activity you acknowledge that written, audio, video, and photographic records of meetings may be made public.</li>
+<li>Personal information that you provide to IETF will be handled in accordance with the IETF Privacy Statement.</li>
+<li>As a participant or attendee, you agree to work respectfully with other participants; please contact the ombudsteam 
+(<a href="https://www.ietf.org/contact/ombudsteam">https://www.ietf.org/contact/ombudsteam</a>) if you have questions or concerns about this.</i>
+</div>
+#end method0
+
+
+
+
+
 
 #method0 PageEnterComment
 <div class="whatever">

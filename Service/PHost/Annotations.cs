@@ -21,6 +21,8 @@
 #endregion
 
 
+using Goedel.Palimpsest;
+
 namespace Annotate;
 
 
@@ -62,6 +64,18 @@ public class Annotation  {
 
 public partial class Annotations {
 
+    public Forum Forum => Annotation.Forum;
+
+
+    public bool SignedIn => VerifiedAccount != null;
+
+    public bool PermissionCreateProject => SignedIn;
+
+    public bool PermissionUploadDocument => SignedIn;
+
+    public string? VerifiedAccount { get; set; } = null;
+
+
     public AnnotationService Annotation { get; init; }
     public HttpListenerContext Context { get; init; }
 
@@ -85,7 +99,7 @@ public partial class Annotations {
 
 
     public static Annotations Get(
-                AnnotationService annotation,
+                AnnotationService? annotation,
                 HttpListenerContext context) {
         var writer = new StreamWriter(context.Response.OutputStream);
         var result = new Annotations() {
@@ -100,7 +114,7 @@ public partial class Annotations {
 
 
     public static Annotations PostForm(
-            AnnotationService annotation,
+            AnnotationService? annotation,
             HttpListenerContext context,
             FormData formData
             ) {
