@@ -59,14 +59,14 @@ internal sealed class Program {
     }
 
 
-public class AnnotationService: IWebService {
+public class AnnotationService: IWebService<AnnotationService> {
     public Forum Forum { get; }
     private HttpListener HttpListener { get; set; }
 
     ///<inheritdoc/>
-    public Dictionary<string, WebResource> ResourceMap => resourceMap;
+    public Dictionary<string, WebResource<AnnotationService>> ResourceMap => resourceMap;
     
-    static Dictionary<string, WebResource> resourceMap = new() {
+    static Dictionary<string, WebResource<AnnotationService>> resourceMap = new() {
         { "", new (GetHome) },
         { "resources", new (GetResources) },
         { "favicon.ico", new (GetResources) },
@@ -137,7 +137,7 @@ public class AnnotationService: IWebService {
 
 
     public static async Task GetHome(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
@@ -147,7 +147,7 @@ public class AnnotationService: IWebService {
 
 
     public static async Task GetResources(
-        IWebService service,
+        AnnotationService service,
         HttpListenerContext context) {
         using var response = context.Response;
         var annotation = service as AnnotationService;
@@ -177,19 +177,21 @@ public class AnnotationService: IWebService {
         }
 
     public static async Task GetSignIn(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
-        annotations.PageHome();
+        annotations.SignIn();
         annotations.End();
         }
 
     public static async Task GetSignOut(
-            IWebService service,
+            AnnotationService service,
             HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
+
+        // here we clear the current account handle.
         annotations.PageHome();
         annotations.End();
         }
@@ -197,25 +199,25 @@ public class AnnotationService: IWebService {
 
 
     public static async Task GetCreateAccount(
-            IWebService service,
+            AnnotationService service,
             HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
-        annotations.PageHome();
+        annotations.CreateAccount();
         annotations.End();
         }
 
     public static async Task GetCreateProject(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
-        annotations.PageSelect();
+        annotations.CreateProject();
         annotations.End();
         }
 
     public static async Task GetSelectUpload(
-        IWebService service,
+        AnnotationService service,
         HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
@@ -225,7 +227,7 @@ public class AnnotationService: IWebService {
 
 
     public static async Task MakeComment(
-            IWebService service,
+            AnnotationService service,
             HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
@@ -235,7 +237,7 @@ public class AnnotationService: IWebService {
 
 
     public static async Task GetComment(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         Annotations.PostComment(annotation, context);
@@ -245,7 +247,7 @@ public class AnnotationService: IWebService {
 
 
     public static async Task PostUploadDocument (
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var fields = new FormDataUpload();
@@ -260,7 +262,7 @@ public class AnnotationService: IWebService {
         }
 
     public static async Task GetListDocuments(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
@@ -269,7 +271,7 @@ public class AnnotationService: IWebService {
         }
 
     public static async Task GetListActions(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
@@ -278,7 +280,7 @@ public class AnnotationService: IWebService {
         }
 
     public static async Task GetShowDocument(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
@@ -287,7 +289,7 @@ public class AnnotationService: IWebService {
         }
 
     public static async Task Error(
-                IWebService service,
+                AnnotationService service,
                 HttpListenerContext context) {
         var annotation = service as AnnotationService;
         var annotations = Annotations.Get(annotation, context);
