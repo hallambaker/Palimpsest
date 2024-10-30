@@ -25,14 +25,22 @@ namespace Goedel.Palimpsest;
 
 public record ParsedPath {
 
+
+
     public string Command { get; }
 
-    public string? Resource { get; } = null;
+
 
     public MemberHandle? Member { get; }
 
+    ///<summary>Holds the project ID or the static resource name</summary> 
     public string FirstId { get; }
-    public string SecondId { get; }
+
+    ///<summary>Holds the document ID.</summary> 
+    public string ResourceId { get; }
+
+    ///<summary>Holds the fragment ID.</summary> 
+    public string FragmentId { get; } 
 
     public ParsedPath(HttpListenerRequest request, Forum forum) {
 
@@ -66,9 +74,11 @@ public record ParsedPath {
             FirstId = split[2];
             }
         if (split.Length > 3) {
-            SecondId = split[3];
+            ResourceId = split[3];
             }
-
+        if (split.Length > 4) {
+            FragmentId = split[3];
+            }
         }
 
     }

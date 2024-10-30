@@ -8,12 +8,13 @@
 
 #! ///// Common fragments
 
-#method StartPage string? script=null
+#method2 StartPage string title string? script=null
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>#{title}</title>
     <link rel="icon" type="image/x-icon" href="/resources/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/resources/stylesheet.css">
 #if script != null
@@ -23,7 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </head>
   <body>
-#end method
+#end method2
 
 #method0 Header
 <nav class="navbar bg-body-tertiary">
@@ -35,7 +36,7 @@
 
 
 #method0 FooterComment
-     <footer class="blockquote-footer">Someone 
+     <footer class="annotation-footer">Someone 
      famous in <cite title="Source Title">Source Title</cite></footer>
 #end method0
 
@@ -266,24 +267,37 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 
 
-#method0 PageEnterComment
+#method PageEnterComment ParsedPath path
 <div class="whatever">
   <h1>Enter a comment</h1>
   
-  <form id="myForm">
+<form  action="/CommentPost/#{path.FirstId}/#{path.ResourceId}" method="post" enctype="multipart/form-data">
+#!    <input type="hidden" id="user" name="User" value="#{path.Member?.LocalName}">
+#!    <input type="hidden" id="project" name="User" value="#{path.FirstId}">
+#!    <input type="hidden" id="document" name="User" value="#{path.ResourceId}">
+#!    <input type="hidden" id="fragment" name="User" value="#{path.FragmentId}">
     <table>
-  
-    <tr><td><label for="user">User</label></td><td><input type="text" id="user" name="User" /></td></tr>
-    <tr><td><label for="anchor">Anchor</label></td><td><input type="text" id="anchor" name="Anchor" /></td></tr>
-    <tr><td><label for="semantic">Semantic</label></td><td><select name="Semantic" id="semantic">
-  <option value="discuss">Discuss</option>
-  <option value="suggest">Suggest</option>
-  <option value="query">Query</option>
-  <option value="issue">Issue</option>
-  <option value="info">Information</option>
-</select></td></tr>
-    <tr><td><label for="text">Text</label></td><td><textarea type="text" id="text" name="Text" ></textarea></td></tr>
-    <tr><td><button onclick="showAlert()" type="button">Click Me!!</button></td></tr>
+
+    <tr><td><label for="semantic">Semantic</label></td><td><select name="semantic" id="semantic">
+        <option value="agree">Agree</option>
+        <option value="disagree">Disagree</option>
+        <option value="question">Question</option>
+        <option value="answer">Answer</option>
+        <option value="example">Example</option>
+        <option value="qualify">Qualify</option>
+        <option value="info">Information</option>
+        <option value="action">Action</option>
+        </select>
+    </td></tr>
+
+    <tr><td><label for="text">Text</label></td><td><textarea type="text" id="comment" name="comment" ></textarea>
+    </td></tr>
+
+#!    <tr><td><button onclick="showAlert()" type="button">Click Me!!</button></td></tr>
+
+    <tr><td colspan="2">
+      <input type="submit" value="Submit" />
+    </td></tr>
 
     </table>
  </form>
@@ -316,7 +330,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
             }
     </script>
 </div>
-#end method0
+#end method
 
 
 #method0 PageComment

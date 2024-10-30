@@ -17,14 +17,15 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// StartPage
 	/// </summary>
 	/// <param name="options"></param>
-	public void StartPage (string? script=null) {
+	/// <param name="options"></param>
+	public void StartPage (string title, string? script=null) {
 		_Output.Write ("<!DOCTYPE html>\n{0}", _Indent);
 		_Output.Write ("<html lang=\"en\">\n{0}", _Indent);
 		_Output.Write ("  <head>\n{0}", _Indent);
 		_Output.Write ("    <meta charset=\"utf-8\">\n{0}", _Indent);
 		_Output.Write ("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n{0}", _Indent);
+		_Output.Write ("    <title>{1}</title>\n{0}", _Indent, title);
 		_Output.Write ("    <link rel=\"icon\" type=\"image/x-icon\" href=\"/resources/favicon.ico\">\n{0}", _Indent);
-		_Output.Write ("    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n{0}", _Indent);
 		_Output.Write ("    <link rel=\"stylesheet\" type=\"text/css\" href=\"/resources/stylesheet.css\">\n{0}", _Indent);
 		if (  script != null ) {
 			_Output.Write ("    <script src=\"/resources/{1}\"></script>\n{0}", _Indent, script);
@@ -50,7 +51,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	///  FooterComment
 	/// </summary>
 	public void  FooterComment () {
-		_Output.Write ("     <footer class=\"blockquote-footer\">Someone \n{0}", _Indent);
+		_Output.Write ("     <footer class=\"annotation-footer\">Someone \n{0}", _Indent);
 		_Output.Write ("     famous in <cite title=\"Source Title\">Source Title</cite></footer>\n{0}", _Indent);
 		}
 	
@@ -305,26 +306,40 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		}
 	
 	/// <summary>	
-	///  PageEnterComment
+	/// PageEnterComment
 	/// </summary>
-	public void  PageEnterComment () {
+	/// <param name="options"></param>
+	public void PageEnterComment (ParsedPath path) {
 		_Output.Write ("<div class=\"whatever\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Enter a comment</h1>\n{0}", _Indent);
 		_Output.Write ("  \n{0}", _Indent);
-		_Output.Write ("  <form id=\"myForm\">\n{0}", _Indent);
+		_Output.Write ("<form  action=\"/CommentPost/{1}/{2}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, path.FirstId, path.ResourceId);
+		//    <input type="hidden" id="user" name="User" value="#{path.Member?.LocalName}">
+		//    <input type="hidden" id="project" name="User" value="#{path.FirstId}">
+		//    <input type="hidden" id="document" name="User" value="#{path.ResourceId}">
+		//    <input type="hidden" id="fragment" name="User" value="#{path.FragmentId}">
 		_Output.Write ("    <table>\n{0}", _Indent);
-		_Output.Write ("  \n{0}", _Indent);
-		_Output.Write ("    <tr><td><label for=\"user\">User</label></td><td><input type=\"text\" id=\"user\" name=\"User\" /></td></tr>\n{0}", _Indent);
-		_Output.Write ("    <tr><td><label for=\"anchor\">Anchor</label></td><td><input type=\"text\" id=\"anchor\" name=\"Anchor\" /></td></tr>\n{0}", _Indent);
-		_Output.Write ("    <tr><td><label for=\"semantic\">Semantic</label></td><td><select name=\"Semantic\" id=\"semantic\">\n{0}", _Indent);
-		_Output.Write ("  <option value=\"discuss\">Discuss</option>\n{0}", _Indent);
-		_Output.Write ("  <option value=\"suggest\">Suggest</option>\n{0}", _Indent);
-		_Output.Write ("  <option value=\"query\">Query</option>\n{0}", _Indent);
-		_Output.Write ("  <option value=\"issue\">Issue</option>\n{0}", _Indent);
-		_Output.Write ("  <option value=\"info\">Information</option>\n{0}", _Indent);
-		_Output.Write ("</select></td></tr>\n{0}", _Indent);
-		_Output.Write ("    <tr><td><label for=\"text\">Text</label></td><td><textarea type=\"text\" id=\"text\" name=\"Text\" ></textarea></td></tr>\n{0}", _Indent);
-		_Output.Write ("    <tr><td><button onclick=\"showAlert()\" type=\"button\">Click Me!!</button></td></tr>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <tr><td><label for=\"semantic\">Semantic</label></td><td><select name=\"semantic\" id=\"semantic\">\n{0}", _Indent);
+		_Output.Write ("        <option value=\"agree\">Agree</option>\n{0}", _Indent);
+		_Output.Write ("        <option value=\"disagree\">Disagree</option>\n{0}", _Indent);
+		_Output.Write ("        <option value=\"question\">Question</option>\n{0}", _Indent);
+		_Output.Write ("        <option value=\"answer\">Answer</option>\n{0}", _Indent);
+		_Output.Write ("        <option value=\"example\">Example</option>\n{0}", _Indent);
+		_Output.Write ("        <option value=\"qualify\">Qualify</option>\n{0}", _Indent);
+		_Output.Write ("        <option value=\"info\">Information</option>\n{0}", _Indent);
+		_Output.Write ("        <option value=\"action\">Action</option>\n{0}", _Indent);
+		_Output.Write ("        </select>\n{0}", _Indent);
+		_Output.Write ("    </td></tr>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <tr><td><label for=\"text\">Text</label></td><td><textarea type=\"text\" id=\"comment\" name=\"comment\" ></textarea>\n{0}", _Indent);
+		_Output.Write ("    </td></tr>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		//    <tr><td><button onclick="showAlert()" type="button">Click Me!!</button></td></tr>
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <tr><td colspan=\"2\">\n{0}", _Indent);
+		_Output.Write ("      <input type=\"submit\" value=\"Submit\" />\n{0}", _Indent);
+		_Output.Write ("    </td></tr>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("    </table>\n{0}", _Indent);
 		_Output.Write (" </form>\n{0}", _Indent);

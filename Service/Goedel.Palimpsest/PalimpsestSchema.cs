@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 10/30/2024 12:59:38 AM
+//  This file was automatically generated at 10/30/2024 6:25:06 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -876,12 +876,6 @@ public partial class CatalogedEvent : CatalogedResource {
 	/// </summary>
 public partial class CatalogedReaction : CatalogedForumEntry {
         /// <summary>
-        ///The forum entry being responded to.
-        /// </summary>
-
-	public virtual string?						ForumEntryId  {get; set;}
-
-        /// <summary>
         ///The identifier of the member responding.
         /// </summary>
 
@@ -905,8 +899,6 @@ public partial class CatalogedReaction : CatalogedForumEntry {
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = new() {
 
-			{ "ForumEntryId", new PropertyString ("ForumEntryId", 
-					(IBinding data, string? value) => {(data as CatalogedReaction).ForumEntryId = value;}, (IBinding data) => (data as CatalogedReaction).ForumEntryId )},
 			{ "MemberId", new PropertyString ("MemberId", 
 					(IBinding data, string? value) => {(data as CatalogedReaction).MemberId = value;}, (IBinding data) => (data as CatalogedReaction).MemberId )},
 			{ "Semantic", new PropertyString ("Semantic", 

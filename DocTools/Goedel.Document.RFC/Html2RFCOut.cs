@@ -40,6 +40,9 @@ public partial class Html2RFCOut : XMLTextWriter {
     public virtual string Mainscript { get; init; } = "xml2rfc.js";
 
 
+    public bool IncludeHeader { get; init; } = true;
+
+
     public virtual bool Annotate => false;
 
     bool Divisions => true;
@@ -75,16 +78,21 @@ public partial class Html2RFCOut : XMLTextWriter {
         this.Document = document;
         ListLevel = new ListLevel() { OpenListItem = OpenListItem, CloseListItem = CloseListItem };
 
-        Start("html");
-        Start("head");
-        WriteHead(document);
-        End();
-        Start("body");
+        if (IncludeHeader) {
+            Start("html");
+            Start("head");
+            WriteHead(document);
+            End();
 
+        Start("body");
+            }
         WriteBody(document);
 
         End();
-        End();
+
+        if (IncludeHeader) {
+            End();
+            }
         }
 
     public virtual void WriteBody(BlockDocument document) {

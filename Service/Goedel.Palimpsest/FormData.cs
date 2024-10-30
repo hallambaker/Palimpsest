@@ -133,7 +133,7 @@ public class FormDataComment : FormData {
     ///<inheritdoc/>
     protected override FormItem[] Items => items;
     static readonly FormItem[] items = [
-        new ("user", FormEntryType.String, (form, s) => ((FormDataComment)form).User = s as string),
+        //new ("user", FormEntryType.String, (form, s) => ((FormDataComment)form).User = s as string),
         new ("semantic", FormEntryType.String, (form, s) => ((FormDataComment)form).Semantic = s as string),
         new ("comment", FormEntryType.String, (form, s) => ((FormDataComment)form).Comment = s as string)
         ];

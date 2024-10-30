@@ -111,6 +111,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Palimpsest", "Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Registry", "..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj", "{74466D30-0264-4EC3-9120-D1A5926C539D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{9B3543F1-F525-44F6-BA85-B7BEB78E9B00}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\annotate.js = Resources\annotate.js
+		Resources\favicon.png = Resources\favicon.png
+		Resources\ietf.svg = Resources\ietf.svg
+		Resources\stylesheet.css = Resources\stylesheet.css
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -543,6 +551,7 @@ Global
 		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7} = {E5FFD011-58C2-4346-9CCE-60C43398231D}
 		{329917E2-E47C-4E15-8169-3040852F1167} = {F19A3147-E61E-4BAC-AC0D-50A873F80D3B}
 		{74466D30-0264-4EC3-9120-D1A5926C539D} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
+		{9B3543F1-F525-44F6-BA85-B7BEB78E9B00} = {14EE114C-5413-4611-B4E5-9B408A392A6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58A69F60-0C27-4168-B66B-C2B910D8A295}

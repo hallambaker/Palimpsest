@@ -118,9 +118,6 @@
 		Description
 			|User response to a Forum Entry, minimally consisting of a 
 			|User identifier and a semantic.
-		String ForumEntryId
-			Description
-				|The forum entry being responded to.
 		String MemberId
 			Description
 				|The identifier of the member responding.

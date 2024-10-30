@@ -21,6 +21,8 @@
 #endregion
 
 
+using DocumentFormat.OpenXml.InkML;
+
 namespace Goedel.Palimpsest;
 
 
@@ -106,8 +108,7 @@ public partial class Annotations {
     public static Annotations Get(
                 AnnotationService annotation,
                 HttpListenerContext context,
-                MemberHandle? member,
-                bool start=true) {
+                MemberHandle? member) {
 
         var writer = new StreamWriter(context.Response.OutputStream);
         var result = new Annotations() {
@@ -118,19 +119,7 @@ public partial class Annotations {
         result.VerifiedAccount = member;
 
 
-        // This is now done at the dispatch side...
-        //if (annotation.Forum.ServerCookieManager.TryGetCookie(
-        //            context.Request, PalimpsestConstants.CookieTypeSessionTag, out var userID)) {
 
-        //    // bind user handle here.
-        //    result.VerifiedAccount = annotation.Forum.GetMemberHandle(userID);
-
-
-        //    }
-
-        if (start) {
-            result.Start();
-            }
         return result;
         }
 
@@ -141,19 +130,22 @@ public partial class Annotations {
             MemberHandle? member,
             FormData formData
             ) {
-        var result = Get(annotation, context, member, false);
+        var result = Get(annotation, context, member);
         ParsedMultipart.Parse(context.Request.InputStream, formData);
         return result;
         }
 
+    public Task Redirect(
+                HttpListenerContext context,
+                string uri) {
 
+        context.Response.Redirect(uri);
+        StartPage(Forum.Name);
+        End();
 
-
-
-
-     void Start () {
-        StartPage();
+        return Task.CompletedTask;
         }
+
 
     public void End() {
         EndPage();
@@ -162,22 +154,23 @@ public partial class Annotations {
         }
 
 
-    public Task WriteDocument  (
 
-                ResourceHandle resourceHandle) {
-        PageDocument(resourceHandle);
 
-        try {
-            resourceHandle.ParsedContent.ToHTML(_Output);
-            }
-        catch {
-            }
 
-        finally {
-            End();
-            }
-        return Task.CompletedTask;
-        }
+    //public Task WriteDocument  (
+
+    //            ResourceHandle resourceHandle) {
+    //    PageDocument(resourceHandle);
+
+    //    try {
+    //        resourceHandle.ParsedContent.ToHTML(_Output, TODO);
+    //        }
+    //    catch {
+    //        }
+
+
+        //return Task.CompletedTask;
+        //}
 
 
     }

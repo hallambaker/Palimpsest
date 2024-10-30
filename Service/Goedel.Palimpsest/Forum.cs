@@ -38,6 +38,10 @@ public class Forum :Disposable {
     #region // Properties
 
     public string Name { get; set; } 
+
+
+
+
     public string DirectoryPath { get; }
     public string Resources { get; }
 

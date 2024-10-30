@@ -35,6 +35,10 @@ public class Annotation : IAnnotation {
 
 public class Html2AnnotateOut : Html2RFCOut {
 
+    public string AnchorUri { get; init; }
+
+
+
     public List<IAnnotation> Annotations {
         get => annotations;
         init {
@@ -138,7 +142,11 @@ public class Html2AnnotateOut : Html2RFCOut {
         End();
         Start("div", "class", "column2");
 
-        WriteElement("p", $"{(IsSection ? Sect : Pilcrow)}{currentAnchor}");
+        Start("p");
+        WriteElement("a", $"{(IsSection ? Sect : Pilcrow)}{currentAnchor}",
+            $"href", $"{AnchorUri}/{currentAnchor}");
+        End();
+
 
         if (currentAnnotations != null) {
             foreach (var annotation in currentAnnotations) {

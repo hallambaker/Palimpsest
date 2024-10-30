@@ -21,6 +21,8 @@
 #endregion
 
 
+using Goedel.Cryptography.Nist;
+
 namespace Goedel.Palimpsest;
 
 /// <summary>
@@ -49,8 +51,7 @@ public class ResourceHandle : CachedHandle<CatalogedResource> {
 
         public CatalogReaction(
             string directory,
-            string label,
-            bool create = false) : base(directory, label, create: create) {
+            string label) : base(directory, label, create: true) {
             }
         }
     #endregion
@@ -66,7 +67,7 @@ public class ResourceHandle : CachedHandle<CatalogedResource> {
             ProjectHandle project) : base(resource) {
 
         ProjectHandle = project;
-
+        //Reactions = new CatalogReaction(ProjectHandle.ProjectDirectory, CatalogedResource.Uid, true;
         }
 
     public void WriteContent(FileField data) {
@@ -102,7 +103,8 @@ public class ResourceHandle : CachedHandle<CatalogedResource> {
     #region // Methods
     public void AddReaction(
             CatalogedReaction reaction) {
-        Reactions.New(reaction);    
+        Reactions.New(reaction);
+        ParsedContent?.Add(reaction);
         }
 
 
@@ -132,11 +134,17 @@ public abstract class ParsedContent {
 
 
 
-    public abstract void ToHTML(TextWriter output);
+    public abstract void ToHTML(TextWriter output, string AnchorUri);
+
+    public abstract void Add(
+            CatalogedReaction reaction);
 
     }
 
 public class ParsedContentDocument : ParsedContent {
+
+
+    public List<IAnnotation> Annotations = [];
     public BlockDocument Document { get; } = new() {
         EmbedStylesheet = false
         };
@@ -145,15 +153,37 @@ public class ParsedContentDocument : ParsedContent {
     public override void LoadContent(Stream stream) {
         using TextReader reader = new StreamReader(stream);
         Rfc7991Parse.Parse(reader, Document);
+
+        Document.MakeAutomatics();
+
+
+        Console.WriteLine("Document parsed");
         }
 
-    public override void ToHTML(TextWriter output) {
-        Html2RFCOut Html2RFCOut = new(output) {
+    public override void ToHTML(TextWriter output, string AnchorUri) {
+        Html2AnnotateOut Html2RFCOut = new(output) {
+            AnchorUri = AnchorUri,
+            Annotations = Annotations,
             Mainscript = null,
             MainStylesheet = null,
-            Stylesheets = []
+            Stylesheets = [],
+            IncludeHeader = false
             };
         Html2RFCOut.Write(Document);
 
         }
+    public override void Add(
+                    CatalogedReaction reaction) {
+        if (reaction is CatalogedAnnotation annotation) {
+            Annotations.Add(annotation);
+            }
+
+        }
+
+    }
+
+public partial class CatalogedAnnotation : IAnnotation {
+    public string User { get; set; } = "Fred";
+
+    public bool Written { get; set; }
     }
