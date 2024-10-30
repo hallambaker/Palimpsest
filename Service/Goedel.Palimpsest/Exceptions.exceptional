@@ -1,0 +1,68 @@
+﻿
+Namespace Goedel.Palimpsest
+
+
+
+	Exception Internal
+        Console "An internal error occurred"
+		Description
+			|An internal assertion check failed.
+
+	Exception ItemAlreadyExists
+        Console "The item {0} already exists"
+		Description
+			|The item already exists
+
+	Exception ItemDoesNotExist
+        Console "The item {0} does not exist"
+		Description
+			|The item does not exist
+
+	Exception InvalidPassword
+        Console "The password was invalid"
+		Description
+			|The password was invalid
+
+	Exception Validation 
+
+		Exception CredentialExpired
+			Console "The user credential has expired"
+			Description
+				|The user credential has expired
+
+		Exception PasswordsDoNotMatch
+			Console "The passwords do not match"
+			Description
+				|The passwords do not match
+
+		Exception PasswordsDoNotMatch
+			Console "The password is not long enough"
+			Description
+				|The passwords is not long enough
+
+		Exception NameAlreadyTaken
+			Console "The name {0} is already taken"
+			Description
+				|The name is already taken
+
+		Exception QuotaExceeded
+			Console "The requested operation would exceed the user's quota"
+			Description
+				|The requested operation would exceed the user's quota
+
+	Exception LimitExceeded
+		Console "The request exceeds a site limit"
+		Description
+			|The request exceeds a site limit
+	
+	Exception LimitExceededFile
+			Console "The request exceeds the file size limit"
+			Description
+				|The request exceeds the file size limit
+
+	Exception Service 
+		Exception InsufficientStorage
+			Console "There is insufficient storage"
+			Description
+				|The passwords do not match
+

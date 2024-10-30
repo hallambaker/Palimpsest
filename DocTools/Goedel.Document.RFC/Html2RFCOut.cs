@@ -29,12 +29,16 @@ public partial class Html2RFCOut : XMLTextWriter {
             "href", "https://trustee.ietf.org/trust-legal-provisions.html", "rel", "license" ];
 
     ///<summary>The style sheets</summary> 
-    readonly string[] stylesheets = [
+    public string[] Stylesheets { get; init;}  =[
             "rfc-local.css"
             ];
 
     ///<summary>The principal stylesheet.</summary> 
-    public virtual string MainStylesheet => "xml2rfc.css";
+    public virtual string MainStylesheet { get; init;  } =  "xml2rfc.css";
+
+    ///<summary>The principal stylesheet.</summary> 
+    public virtual string Mainscript { get; init; } = "xml2rfc.js";
+
 
     public virtual bool Annotate => false;
 
@@ -49,6 +53,7 @@ public partial class Html2RFCOut : XMLTextWriter {
 
 
     protected ListLevel ListLevel { get; set; }
+
 
     #endregion
     #region // Constructors
@@ -179,7 +184,7 @@ public partial class Html2RFCOut : XMLTextWriter {
             WriteStyle(MainStylesheet);
             }
 
-        foreach (var Stylesheet in stylesheets) {
+        foreach (var Stylesheet in Stylesheets) {
             WriteElementEmpty("link", "href", Stylesheet, "rel", "stylesheet", "type", "text/css");
             }
 
@@ -984,10 +989,10 @@ public partial class Html2RFCOut : XMLTextWriter {
         End();
         Write();
 
-        // Link to the script
-        WriteElement("script", "", "src", "xml2rfc.js", "type", "text/javascript");
-
-        End();
+        if (Mainscript is not null) {
+            // Link to the script
+            WriteElement("script", "", "src", Mainscript, "type", "text/javascript");
+            }
 
         }
 

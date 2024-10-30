@@ -20,26 +20,12 @@
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
     <ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
+    <ProjectReference Include="..\Goedel.Palimpsest\Goedel.Palimpsest.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Exceptions.cs">
       <DependentUpon>Exceptions.exceptional</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="PalimsestConstants.cs">
-      <DependentUpon>PalimsestConstants.constant</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="PalimpsestSchema.cs">
-      <DependentUpon>PalimpsestSchema.protocol</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="ServerPages.cs">
-      <DependentUpon>ServerPages.script</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -49,18 +35,6 @@
     <None Update="Exceptions.exceptional">
       <LastGenOutput>Exceptions.cs</LastGenOutput>
       <Generator>exceptional</Generator>
-    </None>
-    <None Update="PalimsestConstants.constant">
-      <LastGenOutput>PalimsestConstants.cs</LastGenOutput>
-      <Generator>Constant</Generator>
-    </None>
-    <None Update="PalimpsestSchema.protocol">
-      <LastGenOutput>PalimpsestSchema.cs</LastGenOutput>
-      <Generator>Protogen</Generator>
-    </None>
-    <None Update="ServerPages.script">
-      <LastGenOutput>ServerPages.cs</LastGenOutput>
-      <Generator>gscript</Generator>
     </None>
   </ItemGroup>
 

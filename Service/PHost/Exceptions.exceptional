@@ -1,17 +1,3 @@
 ﻿
 Namespace Goedel.Palimpsest
 
-	Exception Internal
-        Console "An internal error occurred"
-		Description
-			|An internal assertion check failed.
-
-	Exception ItemAlreadyExists
-        Console "The item {0} already exists"
-		Description
-			|The item already exists
-
-	Exception ItemDoesNotExist
-        Console "The item {0} does not exist"
-		Description
-			|The item does not exist

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{F19A3147-E61E-4BAC-AC0D-50A873F80D3B}"
+	ProjectSection(SolutionItems) = preProject
+		Service\PHost\ParsedPath.cs = Service\PHost\ParsedPath.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}"
 EndProject
@@ -56,11 +59,20 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14EE114C-5413-4611-B4E5-9B408A392A6F}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Settings\BaseSettings.xml = Settings\BaseSettings.xml
+		Settings\CommonSettings.xml = Settings\CommonSettings.xml
+		Settings\CommonSettingsApplication.xml = Settings\CommonSettingsApplication.xml
 		Settings\CommonSettingsExecutable.xml = Settings\CommonSettingsExecutable.xml
+		Settings\CommonSettingsFrameworks.xml = Settings\CommonSettingsFrameworks.xml
 		Settings\CommonSettingsLinemode.xml = Settings\CommonSettingsLinemode.xml
+		Settings\CommonSettingsNoDocs.xml = Settings\CommonSettingsNoDocs.xml
+		Settings\CommonSettingsPlatform.xml = Settings\CommonSettingsPlatform.xml
+		Settings\CommonSettingsTest.xml = Settings\CommonSettingsTest.xml
 		Settings\CommonSettingsWindows.xml = Settings\CommonSettingsWindows.xml
 		LICENSE = LICENSE
+		Settings\Nuget.xml = Settings\Nuget.xml
 		README.md = README.md
+		Settings\Version.xml = Settings\Version.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Identifiers", "..\mmm\Libraries\Goedel.Cryptography.Identifiers\Goedel.Cryptography.Identifiers.csproj", "{31AB7198-BE2E-4460-84B8-9EAAE6117BE5}"
@@ -88,6 +100,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Windows", "..\mmm\Libraries\Platforms\Goedel.Cryptography.Windows\Goedel.Cryptography.Windows.csproj", "{B1476072-EF87-41A9-8F0D-FA0757A36DAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mesh", "Mesh", "{D5F855FD-4AAB-404D-ACBF-F178F0CECE6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{E5FFD011-58C2-4346-9CCE-60C43398231D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scratchpad", "Testing\Scratchpad\Scratchpad.csproj", "{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCookies", "Testing\TestCookies\TestCookies.csproj", "{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Palimpsest", "Service\Goedel.Palimpsest\Goedel.Palimpsest.csproj", "{329917E2-E47C-4E15-8169-3040852F1167}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Registry", "..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj", "{74466D30-0264-4EC3-9120-D1A5926C539D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -438,6 +460,46 @@ Global
 		{B1476072-EF87-41A9-8F0D-FA0757A36DAC}.Sandcastle|Any CPU.Build.0 = Sandcastle|Any CPU
 		{B1476072-EF87-41A9-8F0D-FA0757A36DAC}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1476072-EF87-41A9-8F0D-FA0757A36DAC}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Github|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Github|Any CPU.Build.0 = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Sandcastle|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Sandcastle|Any CPU.Build.0 = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Github|Any CPU.ActiveCfg = Github|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Github|Any CPU.Build.0 = Github|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Sandcastle|Any CPU.ActiveCfg = Sandcastle|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Sandcastle|Any CPU.Build.0 = Sandcastle|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Github|Any CPU.ActiveCfg = Github|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Github|Any CPU.Build.0 = Github|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Sandcastle|Any CPU.ActiveCfg = Sandcastle|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Sandcastle|Any CPU.Build.0 = Sandcastle|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{329917E2-E47C-4E15-8169-3040852F1167}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Github|Any CPU.ActiveCfg = Github|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Github|Any CPU.Build.0 = Github|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Sandcastle|Any CPU.ActiveCfg = Sandcastle|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Sandcastle|Any CPU.Build.0 = Sandcastle|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{74466D30-0264-4EC3-9120-D1A5926C539D}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -477,6 +539,10 @@ Global
 		{2DC8BE29-5503-4063-BE0D-F65A79D86C58} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
 		{DC698627-5D79-4227-B2E3-D4BFE63230EC} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
 		{B1476072-EF87-41A9-8F0D-FA0757A36DAC} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
+		{F0868ECB-4A0B-46CB-8F55-99E4EE69657D} = {E5FFD011-58C2-4346-9CCE-60C43398231D}
+		{A231D7DA-DB9A-4840-9DF1-1C3426605DB7} = {E5FFD011-58C2-4346-9CCE-60C43398231D}
+		{329917E2-E47C-4E15-8169-3040852F1167} = {F19A3147-E61E-4BAC-AC0D-50A873F80D3B}
+		{74466D30-0264-4EC3-9120-D1A5926C539D} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58A69F60-0C27-4168-B66B-C2B910D8A295}
