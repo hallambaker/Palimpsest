@@ -51,8 +51,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	///  FooterComment
 	/// </summary>
 	public void  FooterComment () {
-		_Output.Write ("     <footer class=\"annotation-footer\">Someone \n{0}", _Indent);
-		_Output.Write ("     famous in <cite title=\"Source Title\">Source Title</cite></footer>\n{0}", _Indent);
+		//     <footer class="annotation-footer">Someone 
+		//     famous in <cite title="Source Title">Source Title</cite></footer>
 		}
 	
 	/// <summary>	
@@ -343,10 +343,6 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("    </table>\n{0}", _Indent);
 		_Output.Write (" </form>\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("  <p>Here will be an form</p>\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("      <script>\n{0}", _Indent);
 		_Output.Write ("        function showAlert() {{\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);

@@ -36,8 +36,8 @@
 
 
 #method0 FooterComment
-     <footer class="annotation-footer">Someone 
-     famous in <cite title="Source Title">Source Title</cite></footer>
+#!     <footer class="annotation-footer">Someone 
+#!     famous in <cite title="Source Title">Source Title</cite></footer>
 #end method0
 
 
@@ -301,10 +301,6 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
     </table>
  </form>
-
-  <p>Here will be an form</p>
-
-
       <script>
         function showAlert() {
 
