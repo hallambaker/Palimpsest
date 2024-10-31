@@ -21,7 +21,10 @@
 #endregion
 
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
 using System.IO;
+using System.Reflection.Metadata;
 
 namespace Goedel.Palimpsest;
 
@@ -122,6 +125,15 @@ public class Forum :Disposable {
     #region // Methods
     #region // Utility Methods
 
+    public string? MemberIdToName(string userId) {
+
+        if (CatalogMembers.TryGetByUid(userId, out var handle)) {
+            return handle.LocalName;
+            }
+        return "";
+
+
+        }
 
     public bool TryGetVerifiedMemberHandle(
                     HttpListenerRequest listenerRequest,

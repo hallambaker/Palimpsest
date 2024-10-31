@@ -45,6 +45,9 @@ public partial class Html2RFCOut : XMLTextWriter {
 
     public virtual bool Annotate => false;
 
+
+
+
     bool Divisions => true;
 
     string SpanMarker => Divisions ? "div" : "span";

@@ -32,6 +32,9 @@ namespace Goedel.Palimpsest;
 public class ResourceHandle : CachedHandle<CatalogedResource> {
 
     #region // Properties
+
+
+
     public List<IAnnotation> Annotations = [];
 
     public ParsedContent ParsedContent => parsedContent ?? ReadContent().
@@ -138,7 +141,7 @@ public abstract class ParsedContent {
 
 
 
-    public abstract void ToHTML(TextWriter output, string AnchorUri, List<IAnnotation> annotations);
+    public abstract void ToHTML(TextWriter output, string AnchorUri, List<IAnnotation> annotations, Forum forum);
 
     //public abstract void Add(
     //        CatalogedReaction reaction);
@@ -164,14 +167,18 @@ public class ParsedContentDocument : ParsedContent {
         Console.WriteLine("Document parsed");
         }
 
-    public override void ToHTML(TextWriter output, string AnchorUri, List<IAnnotation> annotations) {
+    public override void ToHTML(
+                    TextWriter output,
+                    string AnchorUri,
+                    List<IAnnotation> annotations, Forum forum) {
         Html2AnnotateOut Html2RFCOut = new(output) {
             AnchorUri = AnchorUri,
             Annotations = annotations,
             Mainscript = null,
             MainStylesheet = null,
             Stylesheets = [],
-            IncludeHeader = false
+            IncludeHeader = false,
+            MemberIdToName = forum.MemberIdToName
             };
         Html2RFCOut.Write(Document);
 
@@ -187,7 +194,7 @@ public class ParsedContentDocument : ParsedContent {
     }
 
 public partial class CatalogedAnnotation : IAnnotation {
-    public string User { get; set; } = "Fred";
+    public string User => null;
 
     public bool Written { get; set; }
     }

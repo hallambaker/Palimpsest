@@ -37,9 +37,6 @@ public class ProjectHandle: CachedHandle<CatalogedProject> {
     CachedProjects CachedProjects { get; }
 
 
-    public string Uid => CatalogedProject.Uid;
-
-
     public CatalogedProject CatalogedProject => CatalogedEntry;
 
     public CachedDocuments CatalogDocuments {
@@ -51,9 +48,7 @@ public class ProjectHandle: CachedHandle<CatalogedProject> {
     public string ProjectDirectory => Path.Combine(
                 CachedProjects.Forum.DirectoryPath, Uid);
 
-
     public IEnumerable<CatalogedResource> Resources =>  CatalogDocuments?.GetResourceEnumerator();
-
 
     public ProjectHandle(
             CachedProjects cachedProjects,
@@ -62,7 +57,6 @@ public class ProjectHandle: CachedHandle<CatalogedProject> {
 
         Console.WriteLine($"Create Project handle");
         }
-
 
 
     public bool TryGetResource(string id,

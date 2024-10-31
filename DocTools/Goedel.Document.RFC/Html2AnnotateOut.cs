@@ -7,6 +7,7 @@ namespace Goedel.Document.RFC;
 
 public class Annotation : IAnnotation {
     public string User { get; set; }
+    public string MemberId { get; set; }
     public string Anchor { get; set; }
 
     public string Semantic { get; set; }
@@ -37,7 +38,7 @@ public class Html2AnnotateOut : Html2RFCOut {
 
     public string AnchorUri { get; init; }
 
-
+    public Func<string, string?> MemberIdToName { get; init; }
 
     public List<IAnnotation> Annotations {
         get => annotations;
@@ -150,7 +151,9 @@ public class Html2AnnotateOut : Html2RFCOut {
 
         if (currentAnnotations != null) {
             foreach (var annotation in currentAnnotations) {
-                WriteElement("p", $"<span class=\"palimpsestUser\">[{annotation.User}]</span> " +
+                var user = annotation.User ?? MemberIdToName(annotation.MemberId);
+
+                WriteElement("p", $"<span class=\"palimpsestUser\">[{user}]</span> " +
                     $"<span class=\"palimpsestSemantic\">{annotation.Semantic}</span>: " +
                     $"{annotation.Text}");
 

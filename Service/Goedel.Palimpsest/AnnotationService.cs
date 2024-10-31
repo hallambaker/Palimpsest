@@ -195,8 +195,8 @@ public class AnnotationService : IWebService<ParsedPath> {
         var anchor = $"/Comment/{resourceHandle.ProjectHandle.Uid}/{resourceHandle.Uid}";
 
         try {
-            resourceHandle.ParsedContent.ToHTML(annotations._Output, 
-                anchor, resourceHandle.Annotations);
+            resourceHandle.ParsedContent.ToHTML(annotations._Output,
+                anchor, resourceHandle.Annotations, Forum);
             }
         catch {
             }
