@@ -275,7 +275,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #!    <input type="hidden" id="user" name="User" value="#{path.Member?.LocalName}">
 #!    <input type="hidden" id="project" name="User" value="#{path.FirstId}">
 #!    <input type="hidden" id="document" name="User" value="#{path.ResourceId}">
-#!    <input type="hidden" id="fragment" name="User" value="#{path.FragmentId}">
+    <input type="hidden" id="fragment" name="fragment" value="#{path.FragmentId}">
     <table>
 
     <tr><td><label for="semantic">Semantic</label></td><td><select name="semantic" id="semantic">

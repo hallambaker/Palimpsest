@@ -135,17 +135,20 @@ public class FormDataComment : FormData {
     static readonly FormItem[] items = [
         //new ("user", FormEntryType.String, (form, s) => ((FormDataComment)form).User = s as string),
         new ("semantic", FormEntryType.String, (form, s) => ((FormDataComment)form).Semantic = s as string),
-        new ("comment", FormEntryType.String, (form, s) => ((FormDataComment)form).Comment = s as string)
+        new ("comment", FormEntryType.String, (form, s) => ((FormDataComment)form).Comment = s as string),
+        new ("fragment", FormEntryType.String, (form, s) => ((FormDataComment)form).FragmentId = s as string)
         ];
 
 
 
     ///<summary></summary> 
-    public string? User { get; private set; }
+    public string? FragmentId { get; private set; }
     ///<summary></summary> 
     public string? Semantic { get; private set; }
     ///<summary></summary> 
     public string? Comment { get; private set; }
+
+
 
     }
 

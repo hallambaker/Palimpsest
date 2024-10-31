@@ -31,8 +31,8 @@ namespace Goedel.Palimpsest;
 /// <param name="resource">The resource catalog entry</param>
 public class ResourceHandle : CachedHandle<CatalogedResource> {
 
-
     #region // Properties
+    public List<IAnnotation> Annotations = [];
 
     public ParsedContent ParsedContent => parsedContent ?? ReadContent().
         CacheValue(out parsedContent);
@@ -67,6 +67,13 @@ public class ResourceHandle : CachedHandle<CatalogedResource> {
             ProjectHandle project) : base(resource) {
 
         ProjectHandle = project;
+        foreach (var reaction in Reactions) {
+            if (reaction is CatalogedAnnotation annotation) {
+                Annotations.Add(annotation);
+                }
+            }
+
+
         //Reactions = new CatalogReaction(ProjectHandle.ProjectDirectory, CatalogedResource.Uid, true;
         }
 
@@ -97,18 +104,15 @@ public class ResourceHandle : CachedHandle<CatalogedResource> {
         return parsedContent;
         }
 
-
     #endregion
-
     #region // Methods
     public void AddReaction(
             CatalogedReaction reaction) {
         Reactions.New(reaction);
-        ParsedContent?.Add(reaction);
+        if (reaction is CatalogedAnnotation annotation) {
+            Annotations.Add(annotation);
+            }
         }
-
-
-
 
     #endregion
     }
@@ -134,17 +138,17 @@ public abstract class ParsedContent {
 
 
 
-    public abstract void ToHTML(TextWriter output, string AnchorUri);
+    public abstract void ToHTML(TextWriter output, string AnchorUri, List<IAnnotation> annotations);
 
-    public abstract void Add(
-            CatalogedReaction reaction);
+    //public abstract void Add(
+    //        CatalogedReaction reaction);
 
     }
 
 public class ParsedContentDocument : ParsedContent {
 
 
-    public List<IAnnotation> Annotations = [];
+
     public BlockDocument Document { get; } = new() {
         EmbedStylesheet = false
         };
@@ -160,10 +164,10 @@ public class ParsedContentDocument : ParsedContent {
         Console.WriteLine("Document parsed");
         }
 
-    public override void ToHTML(TextWriter output, string AnchorUri) {
+    public override void ToHTML(TextWriter output, string AnchorUri, List<IAnnotation> annotations) {
         Html2AnnotateOut Html2RFCOut = new(output) {
             AnchorUri = AnchorUri,
-            Annotations = Annotations,
+            Annotations = annotations,
             Mainscript = null,
             MainStylesheet = null,
             Stylesheets = [],
@@ -172,13 +176,13 @@ public class ParsedContentDocument : ParsedContent {
         Html2RFCOut.Write(Document);
 
         }
-    public override void Add(
-                    CatalogedReaction reaction) {
-        if (reaction is CatalogedAnnotation annotation) {
-            Annotations.Add(annotation);
-            }
+    //public override void Add(
+    //                CatalogedReaction reaction) {
+    //    if (reaction is CatalogedAnnotation annotation) {
+    //        Annotations.Add(annotation);
+    //        }
 
-        }
+    //    }
 
     }
 

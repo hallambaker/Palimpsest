@@ -77,7 +77,7 @@ public record ParsedPath {
             ResourceId = split[3];
             }
         if (split.Length > 4) {
-            FragmentId = split[3];
+            FragmentId = split[4];
             }
         }
 

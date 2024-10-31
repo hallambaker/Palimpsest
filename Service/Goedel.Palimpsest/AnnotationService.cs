@@ -195,7 +195,8 @@ public class AnnotationService : IWebService<ParsedPath> {
         var anchor = $"/Comment/{resourceHandle.ProjectHandle.Uid}/{resourceHandle.Uid}";
 
         try {
-            resourceHandle.ParsedContent.ToHTML(annotations._Output, anchor);
+            resourceHandle.ParsedContent.ToHTML(annotations._Output, 
+                anchor, resourceHandle.Annotations);
             }
         catch {
             }
@@ -474,7 +475,7 @@ public class AnnotationService : IWebService<ParsedPath> {
             Uid = Udf.Nonce(),
             MemberId = member.Uid,
             Text = fields.Comment,
-            Anchor = path.FragmentId,
+            Anchor = fields.FragmentId,
             Semantic = fields.Semantic
             };
         resourceHandle.AddReaction(response);

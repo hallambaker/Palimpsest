@@ -317,7 +317,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		//    <input type="hidden" id="user" name="User" value="#{path.Member?.LocalName}">
 		//    <input type="hidden" id="project" name="User" value="#{path.FirstId}">
 		//    <input type="hidden" id="document" name="User" value="#{path.ResourceId}">
-		//    <input type="hidden" id="fragment" name="User" value="#{path.FragmentId}">
+		_Output.Write ("    <input type=\"hidden\" id=\"fragment\" name=\"fragment\" value=\"{1}\">\n{0}", _Indent, path.FragmentId);
 		_Output.Write ("    <table>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("    <tr><td><label for=\"semantic\">Semantic</label></td><td><select name=\"semantic\" id=\"semantic\">\n{0}", _Indent);
