@@ -246,6 +246,31 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
+
+#method PageTopic TopicHandle topic
+<div class="container">
+  <h1>Topic: #{topic.LocalName}</h1>
+
+
+#foreach (var post in topic.GetPosts())
+Post!
+#end foreach
+
+</div>
+#end method
+
+#method PagePost PostHandle post
+<div class="container">
+  <h1>Post: #{post.LocalName}</h1>
+
+#foreach (var comment in post.GetComments())
+Comment!
+#end foreach
+
+
+</div>
+#end method
+
 #! ///////////////////////////
 
 

@@ -284,6 +284,38 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("  <h1>Member: {1}</h1>\n{0}", _Indent, member.LocalName);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}
+	
+	/// <summary>	
+	/// PageTopic
+	/// </summary>
+	/// <param name="options"></param>
+	public void PageTopic (TopicHandle topic) {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Topic: {1}</h1>\n{0}", _Indent, topic.LocalName);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		foreach  (var post in topic.GetPosts()) {
+			_Output.Write ("Post!\n{0}", _Indent);
+			}
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// PagePost
+	/// </summary>
+	/// <param name="options"></param>
+	public void PagePost (PostHandle post) {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Post: {1}</h1>\n{0}", _Indent, post.LocalName);
+		_Output.Write ("\n{0}", _Indent);
+		foreach  (var comment in post.GetComments()) {
+			_Output.Write ("Comment!\n{0}", _Indent);
+			}
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
 	// ///////////////////////////
 	
 	/// <summary>	

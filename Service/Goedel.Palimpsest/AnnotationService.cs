@@ -71,8 +71,9 @@ public class AnnotationService : IWebService<ParsedPath> {
 
             { "Document", new (GetDocument) },
             { "Topic", new (GetTopic) },
+            { "Post", new (GetPost) },
             { "User", new (GetUser) },
-
+                
             { "CreateProject", new (GetCreateProject) },
             { "CreateProjectPost", new (PostCreateProject) },
             { "DocumentUpload", new (PostUploadDocument) },
@@ -81,7 +82,14 @@ public class AnnotationService : IWebService<ParsedPath> {
             { "Actions", new (GetListActions) },
             { "Comment", new (GetCommentForm) },
             { "CommentPost", new (PostComment) },
-            { "*", new (Error) }
+
+            { "CreatePost", new (GetCommentForm) },
+            { "PostPost", new (PostComment) },
+
+            { "CreatePostComment", new (GetCommentForm) },
+            { "PostCommentPost", new (PostComment) },
+
+             { "*", new (Error) }
 
             };
         }
@@ -117,7 +125,7 @@ public class AnnotationService : IWebService<ParsedPath> {
         Console.WriteLine($"Request {request.Url.LocalPath}");
         var parsed = new ParsedPath(request, Forum);
 
-        Console.WriteLine($"Start {parsed.Command} Project {parsed.FirstId} Document {parsed.ResourceId}");
+        Console.WriteLine($"Start {parsed.Command} Project {parsed.FirstId} Document {parsed.SecondId}");
 
         // Look for a dispatch method and use it if found.
         if (ResourceMap.TryGetValue(parsed.Command, out var callback)) {
@@ -135,9 +143,13 @@ public class AnnotationService : IWebService<ParsedPath> {
 
     #endregion
 
+
+    public Task CompletedTask => Task.CompletedTask;
+
+
     #region // Server Get Pages - primary
 
-    public Task GetHome(
+    public async Task GetHome(
                 HttpListenerContext context,
                 ParsedPath path) {
         var member = path.Member;
@@ -148,10 +160,10 @@ public class AnnotationService : IWebService<ParsedPath> {
         annotations.PageHome();
         annotations.End();
 
-        return Task.CompletedTask;
+        await Task.CompletedTask;
         }
 
-    public Task GetProjectPage(
+    public async Task GetProjectPage(
             HttpListenerContext context,
                 ParsedPath path,
                 Annotations annotations,
@@ -161,31 +173,31 @@ public class AnnotationService : IWebService<ParsedPath> {
         page(projectHandle);
         annotations.End();
 
-        return Task.CompletedTask;
+        await Task.CompletedTask;
         }
 
 
-    public Task GetProject(
+    public async Task GetProject(
             HttpListenerContext context,
                 ParsedPath path) {
         var member = path.Member;
         var annotations = Annotations.Get(this, context, member);
-        return GetProjectPage(context, path, annotations, annotations.PageProject);
+        await GetProjectPage(context, path, annotations, annotations.PageProject);
         }
 
-    public Task GetAddDocument(
+    public async Task GetAddDocument(
         HttpListenerContext context,
             ParsedPath path) {
         var member = path.Member;
         var annotations = Annotations.Get(this, context, member);
-        return GetProjectPage(context, path, annotations, annotations.PageAddDocument);
+        await GetProjectPage(context, path, annotations, annotations.PageAddDocument);
         }
-    public Task GetAddTopic(
+    public async Task GetAddTopic(
         HttpListenerContext context,
             ParsedPath path) {
         var member = path.Member;
         var annotations = Annotations.Get(this, context, member);
-        return GetProjectPage(context, path, annotations, annotations.PageAddTopic);
+        await GetProjectPage(context, path, annotations, annotations.PageAddTopic);
         }
 
 
@@ -199,7 +211,7 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         // need to modify this to get the project and account ids
         Forum.TryGetProject(path.FirstId, out var projectHandle);
-        projectHandle.TryGetResource(path.ResourceId, out var resourceHandle);
+        projectHandle.TryGetResource(path.SecondId, out var resourceHandle);
 
         await WritePage(annotations, resourceHandle);
 
@@ -214,15 +226,39 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         // need to modify this to get the project and account ids
         Forum.TryGetProject(path.FirstId, out var projectHandle);
-        projectHandle.TryGetTopic(path.ResourceId, out var resourceHandle);
+        projectHandle.TryGetTopic(path.TopicId, out var topicHandle);
 
-        await WriteTopic(annotations, resourceHandle);
+        annotations.StartPage($"{projectHandle.LocalName}: Topic {topicHandle.LocalName}");
+        annotations.PageTopic(topicHandle);
+        annotations.End();
+
+        await Task.CompletedTask;
+
+        }
+
+    public async Task GetPost(
+            HttpListenerContext context,
+            ParsedPath path) {
+        var member = path.Member;
+        var annotations = Annotations.Get(this, context, member);
+
+        // need to modify this to get the project and account ids
+        Forum.TryGetProject(path.ProjectId, out var projectHandle);
+        projectHandle.TryGetTopic(path.TopicId, out var topicHandle);
+        topicHandle.TryGetPost(path.TopicId, out var postHandle);
+
+
+        annotations.StartPage($"{projectHandle.LocalName}: Topic {topicHandle.LocalName}");
+        annotations.PagePost(postHandle);
+        annotations.End();
+
+        await Task.CompletedTask;
 
         }
 
 
 
-    public Task GetUser(
+    public async Task GetUser(
             HttpListenerContext context,
                 ParsedPath path) {
         var member = path.Member;
@@ -233,7 +269,7 @@ public class AnnotationService : IWebService<ParsedPath> {
         annotations.PageHome();
         annotations.End();
 
-        return Task.CompletedTask;
+        await Task.CompletedTask;
         }
 
 
@@ -564,7 +600,7 @@ public class AnnotationService : IWebService<ParsedPath> {
         //Annotations.PostComment(this, context);
 
         Forum.TryGetProject(path.FirstId, out var projectHandle);
-        projectHandle.TryGetResource(path.ResourceId, out var resourceHandle);
+        projectHandle.TryGetResource(path.SecondId, out var resourceHandle);
 
 
         var response = new CatalogedAnnotation() {
@@ -576,7 +612,7 @@ public class AnnotationService : IWebService<ParsedPath> {
             };
         resourceHandle.AddReaction(response);
 
-        await annotations.Redirect(context, $"/Document/{path.FirstId}/{path.ResourceId}/Redirect"); 
+        await annotations.Redirect(context, $"/Document/{path.FirstId}/{path.SecondId}/Redirect"); 
         }
 
 

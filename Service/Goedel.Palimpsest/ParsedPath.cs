@@ -36,11 +36,28 @@ public record ParsedPath {
     ///<summary>Holds the project ID or the static resource name</summary> 
     public string FirstId { get; }
 
+    ///<summary>The project Id is always the first in the path</summary> 
+    public string ProjectId => FirstId;
+
+
     ///<summary>Holds the document ID.</summary> 
-    public string ResourceId { get; }
+    public string SecondId { get; }
+
+    ///<summary>The topic Id is always the second in the path</summary> 
+    public string TopicId => SecondId;
+
+    ///<summary>The resource Id is always the second in the path</summary> 
+    public string ResourceId => SecondId;
+
 
     ///<summary>Holds the fragment ID.</summary> 
-    public string FragmentId { get; } 
+    public string ThirdId { get; } 
+
+    ///<summary>The post Id is always the third in the path</summary> 
+    public string PostId => ThirdId;
+
+    ///<summary>The fragment Id is always the third in the path</summary> 
+    public string FragmentId => ThirdId;
 
     public ParsedPath(HttpListenerRequest request, Forum forum) {
 
@@ -74,10 +91,10 @@ public record ParsedPath {
             FirstId = split[2];
             }
         if (split.Length > 3) {
-            ResourceId = split[3];
+            SecondId = split[3];
             }
         if (split.Length > 4) {
-            FragmentId = split[4];
+            ThirdId = split[4];
             }
         }
 
