@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 10/31/2024 3:13:07 PM
+//  This file was automatically generated at 11/29/2024 7:16:29 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -78,6 +78,8 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	    {"EntryAttibutes", EntryAttibutes._Factory},
 	    {"CatalogedProject", CatalogedProject._Factory},
 	    {"CatalogedForumMember", CatalogedForumMember._Factory},
+	    {"CatalogedForum", CatalogedForum._Factory},
+	    {"CatalogedTopic", CatalogedTopic._Factory},
 	    {"CatalogedResource", CatalogedResource._Factory},
 	    {"CatalogedFile", CatalogedFile._Factory},
 	    {"CatalogedSeries", CatalogedSeries._Factory},
@@ -85,6 +87,7 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	    {"CatalogedReaction", CatalogedReaction._Factory},
 	    {"CatalogedReactionSummary", CatalogedReactionSummary._Factory},
 	    {"ResponseSummary", ResponseSummary._Factory},
+	    {"CatalogedPost", CatalogedPost._Factory},
 	    {"CatalogedAnnotation", CatalogedAnnotation._Factory},
 	    {"AnnotatedResource", AnnotatedResource._Factory}
 		};
@@ -488,10 +491,158 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 	}
 
 	/// <summary>
+	/// </summary>
+public partial class CatalogedForum : CatalogedForumEntry {
+
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static protected new Binding _binding = new (
+			_StaticProperties, __Tag,() => new CatalogedForum(), CatalogedForumEntry._binding);
+
+    ///<summary>Dictionary describing the serializable properties.</summary> 
+    public readonly static new Dictionary<string, Property> _StaticProperties = new() {
+
+        };
+
+	///<summary>Dictionary describing the serializable properties.</summary> 
+	public readonly static new Dictionary<string, Property> _StaticAllProperties =
+			Combine(_StaticProperties, CatalogedForumEntry._StaticAllProperties);
+
+
+    ///<inheritdoc/>
+	public override Dictionary<string, Property> _AllProperties => _StaticAllProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _Properties => _StaticProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _ParentProperties => base._Properties;
+
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedForum";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedForum();
+
+
+    /// <summary>
+    /// Deserialize a tagged stream
+    /// </summary>
+    /// <param name="jsonReader">The input stream</param>
+	/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+    /// <returns>The created object.</returns>		
+    public static new CatalogedForum FromJson (JsonReader jsonReader, bool tagged=true) {
+		if (jsonReader == null) {
+			return null;
+			}
+		if (tagged) {
+			var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+			return Out as CatalogedForum;
+			}
+		var Result = new CatalogedForum ();
+		Result.Deserialize (jsonReader);
+		Result.PostDecode();
+		return Result;
+		}
+
+
+	}
+
+	/// <summary>
+	///
+	/// A cataloged topic.
+	/// </summary>
+public partial class CatalogedTopic : CatalogedForum {
+
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static protected new Binding _binding = new (
+			_StaticProperties, __Tag,() => new CatalogedTopic(), CatalogedForum._binding);
+
+    ///<summary>Dictionary describing the serializable properties.</summary> 
+    public readonly static new Dictionary<string, Property> _StaticProperties = new() {
+
+        };
+
+	///<summary>Dictionary describing the serializable properties.</summary> 
+	public readonly static new Dictionary<string, Property> _StaticAllProperties =
+			Combine(_StaticProperties, CatalogedForum._StaticAllProperties);
+
+
+    ///<inheritdoc/>
+	public override Dictionary<string, Property> _AllProperties => _StaticAllProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _Properties => _StaticProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _ParentProperties => base._Properties;
+
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedTopic";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedTopic();
+
+
+    /// <summary>
+    /// Deserialize a tagged stream
+    /// </summary>
+    /// <param name="jsonReader">The input stream</param>
+	/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+    /// <returns>The created object.</returns>		
+    public static new CatalogedTopic FromJson (JsonReader jsonReader, bool tagged=true) {
+		if (jsonReader == null) {
+			return null;
+			}
+		if (tagged) {
+			var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+			return Out as CatalogedTopic;
+			}
+		var Result = new CatalogedTopic ();
+		Result.Deserialize (jsonReader);
+		Result.PostDecode();
+		return Result;
+		}
+
+
+	}
+
+	/// <summary>
 	///
 	/// A cataloged resource.
 	/// </summary>
-public partial class CatalogedResource : CatalogedForumEntry {
+public partial class CatalogedResource : CatalogedForum {
         /// <summary>
         ///The IANA content type
         /// </summary>
@@ -524,7 +675,7 @@ public partial class CatalogedResource : CatalogedForumEntry {
 
 	///<summary>Binding</summary> 
 	static protected new Binding _binding = new (
-			_StaticProperties, __Tag,() => new CatalogedResource(), CatalogedForumEntry._binding);
+			_StaticProperties, __Tag,() => new CatalogedResource(), CatalogedForum._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = new() {
@@ -541,7 +692,7 @@ public partial class CatalogedResource : CatalogedForumEntry {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedForumEntry._StaticAllProperties);
+			Combine(_StaticProperties, CatalogedForum._StaticAllProperties);
 
 
     ///<inheritdoc/>
@@ -1141,6 +1292,89 @@ public partial class ResponseSummary : ForumItem {
 			return Out as ResponseSummary;
 			}
 		var Result = new ResponseSummary ();
+		Result.Deserialize (jsonReader);
+		Result.PostDecode();
+		return Result;
+		}
+
+
+	}
+
+	/// <summary>
+	///
+	/// Post on a topic
+	/// </summary>
+public partial class CatalogedPost : CatalogedReaction {
+        /// <summary>
+        ///
+        /// </summary>
+
+	public virtual string?						Text  {get; set;}
+
+
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static protected new Binding _binding = new (
+			_StaticProperties, __Tag,() => new CatalogedPost(), CatalogedReaction._binding);
+
+    ///<summary>Dictionary describing the serializable properties.</summary> 
+    public readonly static new Dictionary<string, Property> _StaticProperties = new() {
+
+			{ "Text", new PropertyString ("Text", 
+					(IBinding data, string? value) => {(data as CatalogedPost).Text = value;}, (IBinding data) => (data as CatalogedPost).Text )}
+        };
+
+	///<summary>Dictionary describing the serializable properties.</summary> 
+	public readonly static new Dictionary<string, Property> _StaticAllProperties =
+			Combine(_StaticProperties, CatalogedReaction._StaticAllProperties);
+
+
+    ///<inheritdoc/>
+	public override Dictionary<string, Property> _AllProperties => _StaticAllProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _Properties => _StaticProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _ParentProperties => base._Properties;
+
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedPost";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedPost();
+
+
+    /// <summary>
+    /// Deserialize a tagged stream
+    /// </summary>
+    /// <param name="jsonReader">The input stream</param>
+	/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+    /// <returns>The created object.</returns>		
+    public static new CatalogedPost FromJson (JsonReader jsonReader, bool tagged=true) {
+		if (jsonReader == null) {
+			return null;
+			}
+		if (tagged) {
+			var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+			return Out as CatalogedPost;
+			}
+		var Result = new CatalogedPost ();
 		Result.Deserialize (jsonReader);
 		Result.PostDecode();
 		return Result;

@@ -114,6 +114,49 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
   <h1>Project: #{project.LocalName}</h1>
 
   <p>#{project.Description}</p>
+  <p><a href="/AddDocument/#{handle.Uid}">Add Document</a>
+    <a href="/AddTopic/#{handle.Uid}">Add Topic</a>
+
+    <h2>Documents</h2>
+    <table class="documentsList">
+#if (handle.Resources is not null)
+#foreach (var forum in handle.Resources) 
+#if (forum is CatalogedResource resource)
+    <tr><td>
+    <a href="/Document/#{handle.Uid}/#{resource.Uid}">#{resource.LocalName}</a>
+    </td><td>
+    #{resource.Description}
+    </td></tr>
+#end if
+#end foreach
+#end if
+    </table>
+
+    <h2>Topics</h2>
+    <table class="documentsList">
+#if (handle.Resources is not null)
+#foreach (var forum in handle.Resources) 
+#if (forum is CatalogedTopic topic)
+    <tr><td>
+    <a href="/Document/#{handle.Uid}/#{topic.Uid}">#{topic.LocalName}</a>
+    </td><td>
+    #{topic.Description}
+    </td></tr>
+#end if
+#end foreach
+#end if
+    </table>
+
+</div>
+#end method
+
+
+#method PageAddDocument ProjectHandle handle
+#% var project = handle.CatalogedProject;
+<div class="container">
+  <h1>Add Document: #{project.LocalName}</h1>
+
+  <p>#{project.Description}</p>
 
   <form action="/DocumentUpload/#{handle.Uid}" method="post" enctype="multipart/form-data">
     <p>
@@ -154,21 +197,42 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
     </p>
     </form>
 
-    <h2>Documents</h2>
-    <table class="documentsList">
-#if (handle.Resources is not null)
-#foreach (var resource in handle.Resources) 
-    <tr><td>
-    <a href="/Document/#{handle.Uid}/#{resource.Uid}">#{resource.LocalName}</a>
-    </td><td>
-    #{resource.Description}
-    </td></tr>
-#end foreach
-#end if
-    </table>
+</div>
+#end method
+
+#method PageAddTopic ProjectHandle handle
+#% var project = handle.CatalogedProject;
+<div class="container">
+  <h1>Add Topic: #{project.LocalName}</h1>
+
+  <p>#{project.Description}</p>
+
+  <form action="/TopicCreate/#{handle.Uid}" method="post" enctype="multipart/form-data">
+    <p>
+      <table>
+
+        <tr><td>
+          <label for="name">Topic Name:</label>
+        </td><td>
+          <input type="text", id="name", name="name">
+        </td></tr>
+
+        <tr><td>
+          <label for="description">Description:</label>
+        </td><td>
+          <textarea type="text", id="description", name="description"></textarea>
+        </td></tr>
+
+        <tr><td colspan="2">
+          <input type="submit" value="Upload" />
+        </td></tr>
+    </p>
+    </form>
 
 </div>
 #end method
+
+
 
 #method PageDocument ResourceHandle document
 <div class="container">

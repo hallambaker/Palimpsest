@@ -59,8 +59,19 @@
 			Description
 				|Assigned privileges (Admin / Moderator)
 
-	Structure CatalogedResource
+
+	Structure CatalogedForum
 		Inherits CatalogedForumEntry
+
+	Structure CatalogedTopic
+		Inherits CatalogedForum
+		Description
+			|A cataloged topic.
+
+
+
+	Structure CatalogedResource
+		Inherits CatalogedForum
 		Description
 			|A cataloged resource.
 		String ContentType
@@ -113,6 +124,9 @@
 			Description
 				|The members organizing the event
 
+
+
+
 	Structure CatalogedReaction
 		Inherits CatalogedForumEntry
 		Description
@@ -148,6 +162,15 @@
 			Multiple
 			Description
 				|The members who made this response
+
+	Structure CatalogedPost
+		Inherits CatalogedReaction
+		Description
+			|Post on a topic
+		String Text
+			Description
+				|
+
 
 	Structure CatalogedAnnotation
 		Inherits CatalogedReaction

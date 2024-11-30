@@ -1,8 +1,13 @@
 {
   "profiles": {
-    "rfctool": {
+    "palimpcest": {
       "commandName": "Project",
       "commandLineArgs": "..\\Word\\hallambaker-palimpsest.docx   /cache=bib.xml  /auto",
+      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\mmm\\Outputs\\Documents\\Publish"
+    },
+    "rfctool": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\Word\\hallambaker-mesh-10-gateway.docx   /cache=bib.xml  /auto",
       "workingDirectory": "C:\\Users\\hallam\\source\\repos\\mmm\\Outputs\\Documents\\Publish"
     },
     "test2": {

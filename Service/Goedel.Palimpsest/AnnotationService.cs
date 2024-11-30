@@ -24,6 +24,8 @@
 using Goedel.IO;
 using Goedel.Palimpsest;
 
+using System.Net.Mime;
+
 namespace Goedel.Palimpsest;
 public class AnnotationService : IWebService<ParsedPath> {
 
@@ -33,6 +35,9 @@ public class AnnotationService : IWebService<ParsedPath> {
 
     ///<summary>The HTTP listener</summary> 
     private HttpListener HttpListener { get; set; }
+
+
+    private string HttpEndpoint => "http://+:15099/";
 
     ///<inheritdoc/>
     public Dictionary<string, WebResource<ParsedPath>> ResourceMap { get; }
@@ -46,7 +51,7 @@ public class AnnotationService : IWebService<ParsedPath> {
     public AnnotationService(Forum forum) {
         Forum = forum;
         HttpListener = new();
-        HttpListener.Prefixes.Add("http://+:15099/");
+        HttpListener.Prefixes.Add(HttpEndpoint);
 
         ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
             { "", new (GetHome, false) },
@@ -60,13 +65,18 @@ public class AnnotationService : IWebService<ParsedPath> {
 
             // private pages, requires log in
             { "SignOut", new (GetSignOut) },
-            { "Document", new (GetDocument) },
             { "Project", new (GetProject) },
+            { "AddDocument", new (GetAddDocument) },
+            { "AddTopic", new (GetAddTopic) },
+
+            { "Document", new (GetDocument) },
+            { "Topic", new (GetTopic) },
             { "User", new (GetUser) },
 
             { "CreateProject", new (GetCreateProject) },
             { "CreateProjectPost", new (PostCreateProject) },
             { "DocumentUpload", new (PostUploadDocument) },
+            { "TopicCreate", new (PostCreateTopic) },
 
             { "Actions", new (GetListActions) },
             { "Comment", new (GetCommentForm) },
@@ -85,7 +95,7 @@ public class AnnotationService : IWebService<ParsedPath> {
     /// </summary>
     public void Start() {
         HttpListener.Start();
-        Console.WriteLine("Listening...");
+        Console.WriteLine($"Listening {HttpEndpoint}");
         while (true) {
             HttpListenerContext context = HttpListener.GetContext();
             var task = HandleRequest(context);
@@ -141,19 +151,45 @@ public class AnnotationService : IWebService<ParsedPath> {
         return Task.CompletedTask;
         }
 
+    public Task GetProjectPage(
+            HttpListenerContext context,
+                ParsedPath path,
+                Annotations annotations,
+                Action<ProjectHandle> page) {
+        Forum.TryGetProject(path.FirstId, out var projectHandle);
+        annotations.StartPage($"{Forum.Name}: Project {projectHandle.LocalName}");
+        page(projectHandle);
+        annotations.End();
+
+        return Task.CompletedTask;
+        }
+
+
     public Task GetProject(
             HttpListenerContext context,
                 ParsedPath path) {
         var member = path.Member;
         var annotations = Annotations.Get(this, context, member);
-        Forum.TryGetProject(path.FirstId, out var projectHandle);
-
-        annotations.StartPage($"{Forum.Name}: Project {projectHandle.LocalName}");
-        annotations.PageProject(projectHandle);
-        annotations.End();
-
-        return Task.CompletedTask;
+        return GetProjectPage(context, path, annotations, annotations.PageProject);
         }
+
+    public Task GetAddDocument(
+        HttpListenerContext context,
+            ParsedPath path) {
+        var member = path.Member;
+        var annotations = Annotations.Get(this, context, member);
+        return GetProjectPage(context, path, annotations, annotations.PageAddDocument);
+        }
+    public Task GetAddTopic(
+        HttpListenerContext context,
+            ParsedPath path) {
+        var member = path.Member;
+        var annotations = Annotations.Get(this, context, member);
+        return GetProjectPage(context, path, annotations, annotations.PageAddTopic);
+        }
+
+
+
 
     public async Task GetDocument(
             HttpListenerContext context,
@@ -168,6 +204,22 @@ public class AnnotationService : IWebService<ParsedPath> {
         await WritePage(annotations, resourceHandle);
 
         }
+
+
+    public async Task GetTopic(
+        HttpListenerContext context,
+            ParsedPath path) {
+        var member = path.Member;
+        var annotations = Annotations.Get(this, context, member);
+
+        // need to modify this to get the project and account ids
+        Forum.TryGetProject(path.FirstId, out var projectHandle);
+        projectHandle.TryGetTopic(path.ResourceId, out var resourceHandle);
+
+        await WriteTopic(annotations, resourceHandle);
+
+        }
+
 
 
     public Task GetUser(
@@ -187,9 +239,9 @@ public class AnnotationService : IWebService<ParsedPath> {
 
 
     public async Task WritePage(
-                Annotations annotations, 
-                ResourceHandle resourceHandle,
-                bool commentForm = true) {
+            Annotations annotations,
+            ResourceHandle resourceHandle,
+            bool commentForm = true) {
 
         annotations.StartPage($"{Forum.Name}: Document {resourceHandle.LocalName}", "annotate.js");
         var anchor = $"/Comment/{resourceHandle.ProjectHandle.Uid}/{resourceHandle.Uid}";
@@ -200,6 +252,29 @@ public class AnnotationService : IWebService<ParsedPath> {
             }
         catch {
             }
+
+        //await annotations.WriteDocument(resourceHandle);
+        annotations.FooterComment();
+        annotations.End();
+
+        return;
+        }
+
+
+    public async Task WriteTopic(
+                Annotations annotations, 
+                TopicHandle resourceHandle,
+                bool commentForm = true) {
+
+        annotations.StartPage($"{Forum.Name}: Document {resourceHandle.LocalName}");
+        var anchor = $"/Comment/{resourceHandle.ProjectHandle.Uid}/{resourceHandle.Uid}";
+
+        //try {
+        //    resourceHandle.ParsedContent.ToHTML(annotations._Output,
+        //        anchor, resourceHandle.Annotations, Forum);
+        //    }
+        //catch {
+        //    }
 
         //await annotations.WriteDocument(resourceHandle);
         annotations.FooterComment();
@@ -452,10 +527,31 @@ public class AnnotationService : IWebService<ParsedPath> {
             };
         var resourceHandle = project.AddResource(resourceRecord, fields.Data);
 
-        await annotations.Redirect(context, $"/Document/{path.FirstId}/{path.ResourceId}/Redirect");
+        await annotations.Redirect(context, $"/Document/{path.FirstId}/{resourceRecord.Uid}/Redirect");
 
         }
 
+    public async Task PostCreateTopic(
+                HttpListenerContext context,
+                ParsedPath path) {
+        var member = path.Member;
+        Forum.TryGetProject(path.FirstId, out var project).AssertTrue(NYI.Throw);
+
+
+        var fields = new FormDataDocument();
+
+        var annotations = Annotations.PostForm(this, context, member, fields);
+
+        var resourceRecord = new CatalogedTopic() {
+            Uid = Udf.Nonce(),
+            LocalName = fields.Name,
+            Description = fields.Description,
+            };
+        var resourceHandle = project.AddTopic(resourceRecord);
+
+        await annotations.Redirect(context, $"/Topic/{path.FirstId}/{resourceRecord.Uid}/Redirect");
+
+        }
 
     public async Task PostComment(
                 HttpListenerContext context,
@@ -480,8 +576,7 @@ public class AnnotationService : IWebService<ParsedPath> {
             };
         resourceHandle.AddReaction(response);
 
-
-        await annotations.Redirect(context, $"/Document/{path.FirstId}/{path.ResourceId}/Redirect");
+        await annotations.Redirect(context, $"/Document/{path.FirstId}/{path.ResourceId}/Redirect"); 
         }
 
 

@@ -25,11 +25,17 @@ using Goedel.Cryptography.Nist;
 
 namespace Goedel.Palimpsest;
 
+public abstract class ForumHandle : CachedHandle<CatalogedForum> {
+    public ForumHandle(CatalogedForum catalogedEntry) : base(catalogedEntry) {
+        }
+    }
+
+
 /// <summary>
 /// Cached handle for a forum resource
 /// </summary>
 /// <param name="resource">The resource catalog entry</param>
-public class ResourceHandle : CachedHandle<CatalogedResource> {
+public class ResourceHandle : ForumHandle {
 
     #region // Properties
 
@@ -60,7 +66,7 @@ public class ResourceHandle : CachedHandle<CatalogedResource> {
     #endregion
 
 
-    public CatalogedResource CatalogedResource => CatalogedEntry;
+    public CatalogedForum CatalogedResource => CatalogedEntry;
     public ProjectHandle ProjectHandle { get; }
 
     #endregion
@@ -119,6 +125,85 @@ public class ResourceHandle : CachedHandle<CatalogedResource> {
 
     #endregion
     }
+
+
+/// <summary>
+/// Cached handle for a forum resource
+/// </summary>
+/// <param name="resource">The resource catalog entry</param>
+public class TopicHandle : ForumHandle {
+
+    #region // Properties
+
+
+
+    public List<IAnnotation> Annotations = [];
+
+
+
+
+
+    CatalogReaction Posts => posts ?? new CatalogReaction(
+        ProjectHandle.ProjectDirectory, CatalogedResource.Uid).CacheValue(out posts);
+
+    #region // CatalogReaction Reactions
+    CatalogReaction posts;
+
+    private class CatalogReaction : Catalog<CatalogedReaction> {
+
+        public CatalogReaction(
+            string directory,
+            string label) : base(directory, label, create: true) {
+            }
+        }
+    #endregion
+
+
+    public CatalogedForum CatalogedResource => CatalogedEntry;
+    public ProjectHandle ProjectHandle { get; }
+
+    #endregion
+    #region // Constructor
+    public TopicHandle(
+            CatalogedTopic resource,
+            ProjectHandle project) : base(resource) {
+
+        ProjectHandle = project;
+        foreach (var reaction in Reactions) {
+            if (reaction is CatalogedAnnotation annotation) {
+                Annotations.Add(annotation);
+                }
+            }
+
+
+        //Reactions = new CatalogReaction(ProjectHandle.ProjectDirectory, CatalogedResource.Uid, true;
+        }
+
+
+    #endregion
+    #region // Methods
+
+    public void AddReaction(
+                     CatalogedPost reaction) {
+        //Reactions.New(reaction);
+        //if (reaction is CatalogedPost annotation) {
+        //    Annotations.Add(annotation);
+        //    }
+        }
+
+
+    public void AddReaction(
+                    string postId,
+                    CatalogedReaction reaction) {
+        //Reactions.New(reaction);
+        //if (reaction is CatalogedAnnotation annotation) {
+        //    Annotations.Add(annotation);
+        //    }
+        }
+
+    #endregion
+    }
+
 
 
 public abstract class ParsedContent {

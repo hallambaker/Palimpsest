@@ -337,12 +337,7 @@ namespace Goedel.Document.RFC {
             }
 
 
-        P MakePBlock (Element Element) {
-            P P = new(Element.Value, Element.Id);
 
-
-            return P;
-            }
 
         void MakeHTMLFront (List<XML> Contents, int Start, int End) {
 

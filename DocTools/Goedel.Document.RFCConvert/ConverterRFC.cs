@@ -321,14 +321,14 @@ namespace MakeRFC {
                                     }
                                 break;
                                 }
-                            //case "iref": {
+                            case "iref": {
 
-                            //    break;
-                            //    }
-                            //case "xref": {
+                                break;
+                                }
+                            case "xref": {
 
-                            //    break;
-                            //    }
+                                break;
+                                }
                             case "a":
                             case "eref": {
 

@@ -27,7 +27,7 @@ namespace Goedel.Palimpsest;
 /// <summary>
 /// Cached catalog of projects.
 /// </summary>
-public class CachedDocuments : Cache<ResourceHandle, CatalogedResource> {
+public class CachedDocuments : Cache<ForumHandle, CatalogedForum> {
 
     ProjectHandle Project;
 
@@ -45,11 +45,13 @@ public class CachedDocuments : Cache<ResourceHandle, CatalogedResource> {
         Project = project;
         }
 
-    private ResourceHandle Factory(CatalogedResource catalogedEntry)
-            => new(catalogedEntry, Project);
+    private ForumHandle Factory(CatalogedForum catalogedForum) 
+            => catalogedForum switch {
+                CatalogedResource catalogedEntry => new ResourceHandle(catalogedEntry, Project),
+                _ => throw new NYI()};
 
-    public IEnumerable<CatalogedResource> GetResourceEnumerator() {
-        var projects = new List<CatalogedResource>();
+    public IEnumerable<CatalogedForum> GetResourceEnumerator() {
+        var projects = new List<CatalogedForum>();
         if (Catalog is null) {
             return projects;
             }

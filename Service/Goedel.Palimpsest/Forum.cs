@@ -234,7 +234,7 @@ public class Forum :Disposable {
 
         var handle = CatalogProjects.Create(project);
         Directory.CreateDirectory(handle.ProjectDirectory);
-        handle.CatalogDocuments = new CachedDocuments(handle, create:true);
+        handle.CatalogForums = new CachedDocuments(handle, create:true);
 
         return handle;
         }

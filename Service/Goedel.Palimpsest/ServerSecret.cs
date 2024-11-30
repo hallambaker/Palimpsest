@@ -169,15 +169,19 @@ public record ServerCookieManager {
                     HttpListenerRequest request, 
                     string tag,
                     out string id) {
+        id = null;
         try {
             var cookie = request.Cookies[tag];
+            if (cookie is null) {
+                return false;
+                }
             var cookieData = cookie.Value.FromBase64();
             id = ParseCookie(cookieData);
             return id != null;
             }
 
         catch { 
-            id = null;
+            
             return false;
             }
 

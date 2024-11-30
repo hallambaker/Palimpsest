@@ -140,6 +140,52 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("  <h1>Project: {1}</h1>\n{0}", _Indent, project.LocalName);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
+		_Output.Write ("  <p><a href=\"/AddDocument/{1}\">Add Document</a>\n{0}", _Indent, handle.Uid);
+		_Output.Write ("    <a href=\"/AddTopic/{1}\">Add Topic</a>\n{0}", _Indent, handle.Uid);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <h2>Documents</h2>\n{0}", _Indent);
+		_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
+		if (  (handle.Resources is not null) ) {
+			foreach  (var forum in handle.Resources)  {
+				if (  (forum is CatalogedResource resource) ) {
+					_Output.Write ("    <tr><td>\n{0}", _Indent);
+					_Output.Write ("    <a href=\"/Document/{1}/{2}\">{3}</a>\n{0}", _Indent, handle.Uid, resource.Uid, resource.LocalName);
+					_Output.Write ("    </td><td>\n{0}", _Indent);
+					_Output.Write ("    {1}\n{0}", _Indent, resource.Description);
+					_Output.Write ("    </td></tr>\n{0}", _Indent);
+					}
+				}
+			}
+		_Output.Write ("    </table>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <h2>Topics</h2>\n{0}", _Indent);
+		_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
+		if (  (handle.Resources is not null) ) {
+			foreach  (var forum in handle.Resources)  {
+				if (  (forum is CatalogedTopic topic) ) {
+					_Output.Write ("    <tr><td>\n{0}", _Indent);
+					_Output.Write ("    <a href=\"/Document/{1}/{2}\">{3}</a>\n{0}", _Indent, handle.Uid, topic.Uid, topic.LocalName);
+					_Output.Write ("    </td><td>\n{0}", _Indent);
+					_Output.Write ("    {1}\n{0}", _Indent, topic.Description);
+					_Output.Write ("    </td></tr>\n{0}", _Indent);
+					}
+				}
+			}
+		_Output.Write ("    </table>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// PageAddDocument
+	/// </summary>
+	/// <param name="options"></param>
+	public void PageAddDocument (ProjectHandle handle) {
+		 var project = handle.CatalogedProject;
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Add Document: {1}</h1>\n{0}", _Indent, project.LocalName);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <form action=\"/DocumentUpload/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, handle.Uid);
 		_Output.Write ("    <p>\n{0}", _Indent);
@@ -180,18 +226,41 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("    </p>\n{0}", _Indent);
 		_Output.Write ("    </form>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("    <h2>Documents</h2>\n{0}", _Indent);
-		_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
-		if (  (handle.Resources is not null) ) {
-			foreach  (var resource in handle.Resources)  {
-				_Output.Write ("    <tr><td>\n{0}", _Indent);
-				_Output.Write ("    <a href=\"/Document/{1}/{2}\">{3}</a>\n{0}", _Indent, handle.Uid, resource.Uid, resource.LocalName);
-				_Output.Write ("    </td><td>\n{0}", _Indent);
-				_Output.Write ("    {1}\n{0}", _Indent, resource.Description);
-				_Output.Write ("    </td></tr>\n{0}", _Indent);
-				}
-			}
-		_Output.Write ("    </table>\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// PageAddTopic
+	/// </summary>
+	/// <param name="options"></param>
+	public void PageAddTopic (ProjectHandle handle) {
+		 var project = handle.CatalogedProject;
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Add Topic: {1}</h1>\n{0}", _Indent, project.LocalName);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("  <form action=\"/TopicCreate/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, handle.Uid);
+		_Output.Write ("    <p>\n{0}", _Indent);
+		_Output.Write ("      <table>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("        <tr><td>\n{0}", _Indent);
+		_Output.Write ("          <label for=\"name\">Topic Name:</label>\n{0}", _Indent);
+		_Output.Write ("        </td><td>\n{0}", _Indent);
+		_Output.Write ("          <input type=\"text\", id=\"name\", name=\"name\">\n{0}", _Indent);
+		_Output.Write ("        </td></tr>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("        <tr><td>\n{0}", _Indent);
+		_Output.Write ("          <label for=\"description\">Description:</label>\n{0}", _Indent);
+		_Output.Write ("        </td><td>\n{0}", _Indent);
+		_Output.Write ("          <textarea type=\"text\", id=\"description\", name=\"description\"></textarea>\n{0}", _Indent);
+		_Output.Write ("        </td></tr>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("        <tr><td colspan=\"2\">\n{0}", _Indent);
+		_Output.Write ("          <input type=\"submit\" value=\"Upload\" />\n{0}", _Indent);
+		_Output.Write ("        </td></tr>\n{0}", _Indent);
+		_Output.Write ("    </p>\n{0}", _Indent);
+		_Output.Write ("    </form>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}

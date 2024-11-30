@@ -39,7 +39,7 @@ public class ProjectHandle: CachedHandle<CatalogedProject> {
 
     public CatalogedProject CatalogedProject => CatalogedEntry;
 
-    public CachedDocuments CatalogDocuments {
+    public CachedDocuments CatalogForums {
         get => catalogDocuments ?? 
             new CachedDocuments(this).CacheValue(out catalogDocuments);
         set => catalogDocuments = value; }
@@ -48,7 +48,7 @@ public class ProjectHandle: CachedHandle<CatalogedProject> {
     public string ProjectDirectory => Path.Combine(
                 CachedProjects.Forum.DirectoryPath, Uid);
 
-    public IEnumerable<CatalogedResource> Resources =>  CatalogDocuments?.GetResourceEnumerator();
+    public IEnumerable<CatalogedForum> Resources =>  CatalogForums?.GetResourceEnumerator();
 
     public ProjectHandle(
             CachedProjects cachedProjects,
@@ -59,19 +59,41 @@ public class ProjectHandle: CachedHandle<CatalogedProject> {
         }
 
 
+    public bool TryGetForum<T>(string id,
+          out T resource) where T : ForumHandle{
+        if (CatalogForums.TryGetByUid(id, out var forum)) {
+            resource = forum as T;
+            return true;
+            }
+        else {
+            resource = null;
+            return false;
+            }
+        }
+
     public bool TryGetResource(string id,
-              out ResourceHandle project) => CatalogDocuments.TryGetByUid(id, out project);
+              out ResourceHandle resource) => TryGetForum(id, out resource);
+
+    public bool TryGetTopic(string id,
+          out TopicHandle resource) => TryGetForum(id, out resource);
+
+
 
     public ResourceHandle AddResource(
                 CatalogedResource resource,
                 FileField data
                 ) {
-        var handle = CatalogDocuments.Create(resource);
+        var handle = CatalogForums.Create(resource) as ResourceHandle;
 
         handle.WriteContent(data);
         return handle;
         }
-        
 
+    public TopicHandle AddTopic(
+            CatalogedTopic resource
+            ) {
+        var handle = CatalogForums.Create(resource) as TopicHandle;
+        return handle;
+        }
     }
 

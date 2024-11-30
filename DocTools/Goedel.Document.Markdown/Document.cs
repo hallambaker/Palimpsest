@@ -206,6 +206,8 @@ namespace Goedel.Document.Markdown {
     public class TextSegmentOpen : TextSegment {
         public TextSegment Close = null;
         public string Text;
+        public string Trailer = null;
+
         public bool IsEmpty = false;
         public bool IsInvisible = false;
         public TextSegmentOpen () {
