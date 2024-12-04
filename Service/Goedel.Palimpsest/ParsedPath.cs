@@ -29,6 +29,7 @@ public record ParsedPath {
 
     public string Command { get; }
 
+    public string Url { get; }
 
 
     public MemberHandle? Member { get; }
@@ -66,12 +67,12 @@ public record ParsedPath {
         Member = member;
 
         // parse the command path
-        var url = request.Url.LocalPath;
-        if (url == null) {
+        Url = request.Url.LocalPath;
+        if (Url == null) {
             Command = null;
             return;
             }
-        var split = url.Split('/');
+        var split = Url.Split('/');
         if (split.Length < 2) { // must have at least initial /
             Command = null;
             return;
@@ -97,5 +98,11 @@ public record ParsedPath {
             ThirdId = split[4];
             }
         }
+
+
+    public string GetPostTarget() =>
+        $"/{Command}Submit/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
+        //ThirdId is null ? $"" :
+
 
     }

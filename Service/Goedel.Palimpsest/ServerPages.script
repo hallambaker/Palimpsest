@@ -138,7 +138,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #foreach (var forum in handle.Resources) 
 #if (forum is CatalogedTopic topic)
     <tr><td>
-    <a href="/Document/#{handle.Uid}/#{topic.Uid}">#{topic.LocalName}</a>
+    <a href="/Topic/#{handle.Uid}/#{topic.Uid}">#{topic.LocalName}</a>
     </td><td>
     #{topic.Description}
     </td></tr>
@@ -150,6 +150,69 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
+#method PageDocument ResourceHandle document
+<div class="container">
+  <h1>Document: #{document.LocalName}</h1>
+</div>
+#end method
+
+#method PageMember CatalogedForumEntry member
+<div class="container">
+  <h1>Member: #{member.LocalName}</h1>
+</div>
+#end method
+
+
+#method PageTopic TopicHandle topic
+<div class="container">
+  <h1>Topic: #{topic.LocalName}</h1>
+
+<p><a href=#{topic.NewPost}>New Post</a>
+</p>
+
+    <table class="documentsList">
+
+#foreach (var reaction in topic.Posts)
+#if (reaction is CatalogedPost post)
+    <tr><td>
+    <a href=#{GetMemberAnchor(post.MemberId)}>#{GetMemberLabel(post.MemberId)}</a>
+    </td><td>
+        <a href=#{topic. GetPostAnchor(post)}>#{post.Subject}</a>
+
+    </td></tr>
+#end if
+#end foreach
+    </table>
+
+</div>
+#end method
+
+#method PagePost PostHandle post
+<div class="container">
+  <p>#{GetDateAdded(post.CatalogedEntry)} / #{GetMemberAnchor(post.CatalogedEntry)}</p>
+  <h1>#{post.CatalogedEntry.Subject}</h1>
+    <p>#{post.CatalogedEntry.Text}</p>
+
+  <p><a href=#{post.NewComment}>New Comment</a>
+</p>
+
+#if post.Comments is not null
+<table>
+#foreach (var entry in post.Comments)
+#% var comment = entry.Value;
+<tr>
+<td>#{GetDateAdded(comment)}</td>
+<td>#{GetMemberAnchor(comment)}</td>
+<td>#{comment.Text}</td>
+</tr>
+#end foreach
+</table>
+#end if
+
+</div>
+#end method
+
+#!!!!!!!!!!!!!!!!!!!!!!  
 
 #method PageAddDocument ProjectHandle handle
 #% var project = handle.CatalogedProject;
@@ -234,43 +297,6 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 
 
-#method PageDocument ResourceHandle document
-<div class="container">
-  <h1>Document: #{document.LocalName}</h1>
-</div>
-#end method
-
-#method PageMember MemberHandle member
-<div class="container">
-  <h1>Member: #{member.LocalName}</h1>
-</div>
-#end method
-
-
-#method PageTopic TopicHandle topic
-<div class="container">
-  <h1>Topic: #{topic.LocalName}</h1>
-
-
-#foreach (var post in topic.GetPosts())
-Post!
-#end foreach
-
-</div>
-#end method
-
-#method PagePost PostHandle post
-<div class="container">
-  <h1>Post: #{post.LocalName}</h1>
-
-#foreach (var comment in post.GetComments())
-Comment!
-#end foreach
-
-
-</div>
-#end method
-
 #! ///////////////////////////
 
 
@@ -301,14 +327,15 @@ Comment!
 #end method0
 
 
-#method0 SignIn 
+#method SignIn ParsedPath path
 #% NoteWell();
 <form action="/SignInPost" method="post" enctype="multipart/form-data">
+<input type="hidden" value="#{path.Url}" id="from" name="from"/>
 <table >
 #% SignInForm(false);
 <table>
 </form>
-#end method0
+#end method
 
 #method0 CreateAccount 
 #% NoteWell();
@@ -356,66 +383,43 @@ Comment!
 
 
 
-#method PageEnterComment ParsedPath path
+#method2 PageEnterComment ParsedPath path CommentMode mode
 <div class="whatever">
-  <h1>Enter a comment</h1>
-  
-<form  action="/CommentPost/#{path.FirstId}/#{path.ResourceId}" method="post" enctype="multipart/form-data">
-#!    <input type="hidden" id="user" name="User" value="#{path.Member?.LocalName}">
-#!    <input type="hidden" id="project" name="User" value="#{path.FirstId}">
-#!    <input type="hidden" id="document" name="User" value="#{path.ResourceId}">
+<h1>Enter a comment</h1>
+#% var target = path.GetPostTarget();
+<form  action="#{target}" method="post" enctype="multipart/form-data">
     <input type="hidden" id="fragment" name="fragment" value="#{path.FragmentId}">
     <table>
 
-    <tr><td><label for="semantic">Semantic</label></td><td><select name="semantic" id="semantic">
-        <option value="agree">Agree</option>
-        <option value="disagree">Disagree</option>
-        <option value="question">Question</option>
-        <option value="answer">Answer</option>
-        <option value="example">Example</option>
-        <option value="qualify">Qualify</option>
-        <option value="info">Information</option>
-        <option value="action">Action</option>
-        </select>
-    </td></tr>
-
-    <tr><td><label for="text">Text</label></td><td><textarea type="text" id="comment" name="comment" ></textarea>
-    </td></tr>
-
-#!    <tr><td><button onclick="showAlert()" type="button">Click Me!!</button></td></tr>
-
-    <tr><td colspan="2">
-      <input type="submit" value="Submit" />
-    </td></tr>
+#if mode.HasFlag(CommentMode.Semantic)
+        <tr><td><label for="semantic">Semantic</label></td><td><select name="semantic" id="semantic">
+            <option value="agree">Agree</option>
+            <option value="disagree">Disagree</option>
+            <option value="question">Question</option>
+            <option value="answer">Answer</option>
+            <option value="example">Example</option>
+            <option value="qualify">Qualify</option>
+            <option value="info">Information</option>
+            <option value="action">Action</option>
+            </select>
+        </td></tr>
+#end if
+#if mode.HasFlag(CommentMode.Subject)
+        <tr><td><label for="subject">Subject</label></td><td><input type="text" id="subject" name="subject" ></input>
+        </td></tr>
+#end if
+#if mode.HasFlag(CommentMode.Text)
+        <tr><td><label for="comment">Text</label></td><td><textarea type="text" id="comment" name="comment" ></textarea>
+        </td></tr>
+#end if
+        <tr><td colspan="2">
+            <input type="submit" value="Submit" />
+        </td></tr>
 
     </table>
- </form>
-      <script>
-        function showAlert() {
-
-            const url = 'Comment'
-            const comment = {
-                id: 1017,
-                }
-            comment.User = document.getElementById('user').value;
-            comment.Anchor = document.getElementById('anchor').value;
-            comment.Semantic = document.getElementById('semantic').value;
-            comment.Text = document.getElementById('text').value;
-
-            // a POST request
-            const response =  fetch('Comment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                    },
-                body: JSON.stringify(comment)
-                })
-
-
-            }
-    </script>
+</form>
 </div>
-#end method
+#end method2
 
 
 #method0 PageComment

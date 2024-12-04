@@ -33,6 +33,9 @@ public abstract class CachedHandle<T> : IComparable where T : CatalogedEntry{
     public string Uid => CatalogedEntry.Uid;
     public string LocalName => CatalogedEntry.LocalName;
 
+
+
+
     public CachedHandle(T catalogedEntry) {
         CatalogedEntry = catalogedEntry;
         }

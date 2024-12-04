@@ -36,3 +36,37 @@ File CatalogLabels
 				|Annotations of annotations are stored in the same catalog as direct annotations.
 			Description
 				|Filename: [ProjectId]/[ResourceId].dcat
+
+
+File PagePrefixes
+	String resources "resources"
+	String SignIn "SignIn"
+	String SignInPost "SignInPost"
+
+	String CreateAccount "CreateAccount"
+	String CreateAccountPost "CreateAccountPost"
+	String SignOut "SignOut"
+
+	String Project "Project"
+	String AddDocument "AddDocument"
+	String AddTopic "AddTopic"
+
+	String Document "Document"
+	String Topic "Topic"
+	String Post "Post"
+	String User "User"
+
+	String CreateProject "CreateProject"
+	String CreateProjectPost "CreateProjectPost"
+	String DocumentUpload "DocumentUpload"
+
+	String TopicCreate "TopicCreate"
+	String Actions "Actions"
+	String Comment "Comment"
+	String CommentPost "CommentSubmit"
+
+	String CreatePost "NewPost"
+	String PostPost "NewPostSubmit"
+
+	String CreatePostComment "PostComment"
+	String PostCommentPost "PostCommentSubmit"

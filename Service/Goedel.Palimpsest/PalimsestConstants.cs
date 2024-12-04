@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 11/30/2024 6:50:38 PM
+//  This file was automatically generated at 12/3/2024 6:39:30 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -117,6 +117,104 @@ public static partial class PalimpsestConstants {
             StoreType.Reaction => StoreTypeReactionTag,
             _ => null
             };
+
+    // File: PagePrefixes
+
+    ///<summary>
+    ///</summary>
+    public const string resources = "resources";
+
+    ///<summary>
+    ///</summary>
+    public const string SignIn = "SignIn";
+
+    ///<summary>
+    ///</summary>
+    public const string SignInPost = "SignInPost";
+
+    ///<summary>
+    ///</summary>
+    public const string CreateAccount = "CreateAccount";
+
+    ///<summary>
+    ///</summary>
+    public const string CreateAccountPost = "CreateAccountPost";
+
+    ///<summary>
+    ///</summary>
+    public const string SignOut = "SignOut";
+
+    ///<summary>
+    ///</summary>
+    public const string Project = "Project";
+
+    ///<summary>
+    ///</summary>
+    public const string AddDocument = "AddDocument";
+
+    ///<summary>
+    ///</summary>
+    public const string AddTopic = "AddTopic";
+
+    ///<summary>
+    ///</summary>
+    public const string Document = "Document";
+
+    ///<summary>
+    ///</summary>
+    public const string Topic = "Topic";
+
+    ///<summary>
+    ///</summary>
+    public const string Post = "Post";
+
+    ///<summary>
+    ///</summary>
+    public const string User = "User";
+
+    ///<summary>
+    ///</summary>
+    public const string CreateProject = "CreateProject";
+
+    ///<summary>
+    ///</summary>
+    public const string CreateProjectPost = "CreateProjectPost";
+
+    ///<summary>
+    ///</summary>
+    public const string DocumentUpload = "DocumentUpload";
+
+    ///<summary>
+    ///</summary>
+    public const string TopicCreate = "TopicCreate";
+
+    ///<summary>
+    ///</summary>
+    public const string Actions = "Actions";
+
+    ///<summary>
+    ///</summary>
+    public const string Comment = "Comment";
+
+    ///<summary>
+    ///</summary>
+    public const string CommentPost = "CommentSubmit";
+
+    ///<summary>
+    ///</summary>
+    public const string CreatePost = "NewPost";
+
+    ///<summary>
+    ///</summary>
+    public const string PostPost = "NewPostSubmit";
+
+    ///<summary>
+    ///</summary>
+    public const string CreatePostComment = "PostComment";
+
+    ///<summary>
+    ///</summary>
+    public const string PostCommentPost = "PostCommentSubmit";
 
     }
 

@@ -26,6 +26,9 @@ using Goedel.Cryptography.Nist;
 namespace Goedel.Palimpsest;
 
 public abstract class ForumHandle : CachedHandle<CatalogedForum> {
+
+    public abstract string Anchor { get; }
+
     public ForumHandle(CatalogedForum catalogedEntry) : base(catalogedEntry) {
         }
     }
@@ -39,7 +42,8 @@ public class ResourceHandle : ForumHandle {
 
     #region // Properties
 
-
+    public override string Anchor => $"/{PalimpsestConstants.Document}/{ProjectHandle.Uid}/{CatalogedResource.Uid}";
+   
 
     public List<IAnnotation> Annotations = [];
 

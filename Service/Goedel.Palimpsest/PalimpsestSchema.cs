@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 11/30/2024 6:50:38 PM
+//  This file was automatically generated at 12/3/2024 6:39:30 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -88,6 +88,7 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	    {"CatalogedReactionSummary", CatalogedReactionSummary._Factory},
 	    {"ResponseSummary", ResponseSummary._Factory},
 	    {"CatalogedPost", CatalogedPost._Factory},
+	    {"CatalogedComment", CatalogedComment._Factory},
 	    {"CatalogedAnnotation", CatalogedAnnotation._Factory},
 	    {"AnnotatedResource", AnnotatedResource._Factory}
 		};
@@ -1306,7 +1307,13 @@ public partial class ResponseSummary : ForumItem {
 	/// </summary>
 public partial class CatalogedPost : CatalogedReaction {
         /// <summary>
-        ///
+        ///One line subject decribing the topic
+        /// </summary>
+
+	public virtual string?						Subject  {get; set;}
+
+        /// <summary>
+        ///The topic introduction. May span multiple lines
         /// </summary>
 
 	public virtual string?						Text  {get; set;}
@@ -1323,6 +1330,8 @@ public partial class CatalogedPost : CatalogedReaction {
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = new() {
 
+			{ "Subject", new PropertyString ("Subject", 
+					(IBinding data, string? value) => {(data as CatalogedPost).Subject = value;}, (IBinding data) => (data as CatalogedPost).Subject )},
 			{ "Text", new PropertyString ("Text", 
 					(IBinding data, string? value) => {(data as CatalogedPost).Text = value;}, (IBinding data) => (data as CatalogedPost).Text )}
         };
@@ -1375,6 +1384,89 @@ public partial class CatalogedPost : CatalogedReaction {
 			return Out as CatalogedPost;
 			}
 		var Result = new CatalogedPost ();
+		Result.Deserialize (jsonReader);
+		Result.PostDecode();
+		return Result;
+		}
+
+
+	}
+
+	/// <summary>
+	///
+	/// Post on a topic
+	/// </summary>
+public partial class CatalogedComment : CatalogedReaction {
+        /// <summary>
+        ///The topic introduction. May span multiple lines
+        /// </summary>
+
+	public virtual string?						Text  {get; set;}
+
+
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static protected new Binding _binding = new (
+			_StaticProperties, __Tag,() => new CatalogedComment(), CatalogedReaction._binding);
+
+    ///<summary>Dictionary describing the serializable properties.</summary> 
+    public readonly static new Dictionary<string, Property> _StaticProperties = new() {
+
+			{ "Text", new PropertyString ("Text", 
+					(IBinding data, string? value) => {(data as CatalogedComment).Text = value;}, (IBinding data) => (data as CatalogedComment).Text )}
+        };
+
+	///<summary>Dictionary describing the serializable properties.</summary> 
+	public readonly static new Dictionary<string, Property> _StaticAllProperties =
+			Combine(_StaticProperties, CatalogedReaction._StaticAllProperties);
+
+
+    ///<inheritdoc/>
+	public override Dictionary<string, Property> _AllProperties => _StaticAllProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _Properties => _StaticProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _ParentProperties => base._Properties;
+
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedComment";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedComment();
+
+
+    /// <summary>
+    /// Deserialize a tagged stream
+    /// </summary>
+    /// <param name="jsonReader">The input stream</param>
+	/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+    /// <returns>The created object.</returns>		
+    public static new CatalogedComment FromJson (JsonReader jsonReader, bool tagged=true) {
+		if (jsonReader == null) {
+			return null;
+			}
+		if (tagged) {
+			var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+			return Out as CatalogedComment;
+			}
+		var Result = new CatalogedComment ();
 		Result.Deserialize (jsonReader);
 		Result.PostDecode();
 		return Result;

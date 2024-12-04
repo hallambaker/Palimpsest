@@ -164,7 +164,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			foreach  (var forum in handle.Resources)  {
 				if (  (forum is CatalogedTopic topic) ) {
 					_Output.Write ("    <tr><td>\n{0}", _Indent);
-					_Output.Write ("    <a href=\"/Document/{1}/{2}\">{3}</a>\n{0}", _Indent, handle.Uid, topic.Uid, topic.LocalName);
+					_Output.Write ("    <a href=\"/Topic/{1}/{2}\">{3}</a>\n{0}", _Indent, handle.Uid, topic.Uid, topic.LocalName);
 					_Output.Write ("    </td><td>\n{0}", _Indent);
 					_Output.Write ("    {1}\n{0}", _Indent, topic.Description);
 					_Output.Write ("    </td></tr>\n{0}", _Indent);
@@ -172,6 +172,83 @@ public partial class Annotations : global::Goedel.Registry.Script {
 				}
 			}
 		_Output.Write ("    </table>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// PageDocument
+	/// </summary>
+	/// <param name="options"></param>
+	public void PageDocument (ResourceHandle document) {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Document: {1}</h1>\n{0}", _Indent, document.LocalName);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// PageMember
+	/// </summary>
+	/// <param name="options"></param>
+	public void PageMember (CatalogedForumEntry member) {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Member: {1}</h1>\n{0}", _Indent, member.LocalName);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// PageTopic
+	/// </summary>
+	/// <param name="options"></param>
+	public void PageTopic (TopicHandle topic) {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Topic: {1}</h1>\n{0}", _Indent, topic.LocalName);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("<p><a href={1}>New Post</a>\n{0}", _Indent, topic.NewPost);
+		_Output.Write ("</p>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		foreach  (var reaction in topic.Posts) {
+			if (  (reaction is CatalogedPost post) ) {
+				_Output.Write ("    <tr><td>\n{0}", _Indent);
+				_Output.Write ("    <a href={1}>{2}</a>\n{0}", _Indent, GetMemberAnchor(post.MemberId), GetMemberLabel(post.MemberId));
+				_Output.Write ("    </td><td>\n{0}", _Indent);
+				_Output.Write ("        <a href={1}>{2}</a>\n{0}", _Indent, topic. GetPostAnchor(post), post.Subject);
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("    </td></tr>\n{0}", _Indent);
+				}
+			}
+		_Output.Write ("    </table>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// PagePost
+	/// </summary>
+	/// <param name="options"></param>
+	public void PagePost (PostHandle post) {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <p>{1} / {2}</p>\n{0}", _Indent, GetDateAdded(post.CatalogedEntry), GetMemberAnchor(post.CatalogedEntry));
+		_Output.Write ("  <h1>{1}</h1>\n{0}", _Indent, post.CatalogedEntry.Subject);
+		_Output.Write ("    <p>{1}</p>\n{0}", _Indent, post.CatalogedEntry.Text);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("  <p><a href={1}>New Comment</a>\n{0}", _Indent, post.NewComment);
+		_Output.Write ("</p>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		if (  post.Comments is not null ) {
+			_Output.Write ("<table>\n{0}", _Indent);
+			foreach  (var entry in post.Comments) {
+				 var comment = entry.Value;
+				_Output.Write ("<tr>\n{0}", _Indent);
+				_Output.Write ("<td>{1}</td>\n{0}", _Indent, GetDateAdded(comment));
+				_Output.Write ("<td>{1}</td>\n{0}", _Indent, GetMemberAnchor(comment));
+				_Output.Write ("<td>{1}</td>\n{0}", _Indent, comment.Text);
+				_Output.Write ("</tr>\n{0}", _Indent);
+				}
+			_Output.Write ("</table>\n{0}", _Indent);
+			}
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}
@@ -264,58 +341,6 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}
-	
-	/// <summary>	
-	/// PageDocument
-	/// </summary>
-	/// <param name="options"></param>
-	public void PageDocument (ResourceHandle document) {
-		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Document: {1}</h1>\n{0}", _Indent, document.LocalName);
-		_Output.Write ("</div>\n{0}", _Indent);
-		}
-	
-	/// <summary>	
-	/// PageMember
-	/// </summary>
-	/// <param name="options"></param>
-	public void PageMember (MemberHandle member) {
-		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Member: {1}</h1>\n{0}", _Indent, member.LocalName);
-		_Output.Write ("</div>\n{0}", _Indent);
-		}
-	
-	/// <summary>	
-	/// PageTopic
-	/// </summary>
-	/// <param name="options"></param>
-	public void PageTopic (TopicHandle topic) {
-		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Topic: {1}</h1>\n{0}", _Indent, topic.LocalName);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		foreach  (var post in topic.GetPosts()) {
-			_Output.Write ("Post!\n{0}", _Indent);
-			}
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("</div>\n{0}", _Indent);
-		}
-	
-	/// <summary>	
-	/// PagePost
-	/// </summary>
-	/// <param name="options"></param>
-	public void PagePost (PostHandle post) {
-		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Post: {1}</h1>\n{0}", _Indent, post.LocalName);
-		_Output.Write ("\n{0}", _Indent);
-		foreach  (var comment in post.GetComments()) {
-			_Output.Write ("Comment!\n{0}", _Indent);
-			}
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("</div>\n{0}", _Indent);
-		}
 	// ///////////////////////////
 	
 	/// <summary>	
@@ -347,11 +372,13 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		}
 	
 	/// <summary>	
-	///  SignIn 
+	/// SignIn
 	/// </summary>
-	public void  SignIn  () {
+	/// <param name="options"></param>
+	public void SignIn (ParsedPath path) {
 		 NoteWell();
 		_Output.Write ("<form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+		_Output.Write ("<input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\"/>\n{0}", _Indent, path.Url);
 		_Output.Write ("<table >\n{0}", _Indent);
 		 SignInForm(false);
 		_Output.Write ("<table>\n{0}", _Indent);
@@ -410,64 +437,42 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// PageEnterComment
 	/// </summary>
 	/// <param name="options"></param>
-	public void PageEnterComment (ParsedPath path) {
+	/// <param name="options"></param>
+	public void PageEnterComment (ParsedPath path, CommentMode mode) {
 		_Output.Write ("<div class=\"whatever\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Enter a comment</h1>\n{0}", _Indent);
-		_Output.Write ("  \n{0}", _Indent);
-		_Output.Write ("<form  action=\"/CommentPost/{1}/{2}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, path.FirstId, path.ResourceId);
-		//    <input type="hidden" id="user" name="User" value="#{path.Member?.LocalName}">
-		//    <input type="hidden" id="project" name="User" value="#{path.FirstId}">
-		//    <input type="hidden" id="document" name="User" value="#{path.ResourceId}">
+		_Output.Write ("<h1>Enter a comment</h1>\n{0}", _Indent);
+		 var target = path.GetPostTarget();
+		_Output.Write ("<form  action=\"{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, target);
 		_Output.Write ("    <input type=\"hidden\" id=\"fragment\" name=\"fragment\" value=\"{1}\">\n{0}", _Indent, path.FragmentId);
 		_Output.Write ("    <table>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("    <tr><td><label for=\"semantic\">Semantic</label></td><td><select name=\"semantic\" id=\"semantic\">\n{0}", _Indent);
-		_Output.Write ("        <option value=\"agree\">Agree</option>\n{0}", _Indent);
-		_Output.Write ("        <option value=\"disagree\">Disagree</option>\n{0}", _Indent);
-		_Output.Write ("        <option value=\"question\">Question</option>\n{0}", _Indent);
-		_Output.Write ("        <option value=\"answer\">Answer</option>\n{0}", _Indent);
-		_Output.Write ("        <option value=\"example\">Example</option>\n{0}", _Indent);
-		_Output.Write ("        <option value=\"qualify\">Qualify</option>\n{0}", _Indent);
-		_Output.Write ("        <option value=\"info\">Information</option>\n{0}", _Indent);
-		_Output.Write ("        <option value=\"action\">Action</option>\n{0}", _Indent);
-		_Output.Write ("        </select>\n{0}", _Indent);
-		_Output.Write ("    </td></tr>\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("    <tr><td><label for=\"text\">Text</label></td><td><textarea type=\"text\" id=\"comment\" name=\"comment\" ></textarea>\n{0}", _Indent);
-		_Output.Write ("    </td></tr>\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		//    <tr><td><button onclick="showAlert()" type="button">Click Me!!</button></td></tr>
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("    <tr><td colspan=\"2\">\n{0}", _Indent);
-		_Output.Write ("      <input type=\"submit\" value=\"Submit\" />\n{0}", _Indent);
-		_Output.Write ("    </td></tr>\n{0}", _Indent);
+		if (  mode.HasFlag(CommentMode.Semantic) ) {
+			_Output.Write ("        <tr><td><label for=\"semantic\">Semantic</label></td><td><select name=\"semantic\" id=\"semantic\">\n{0}", _Indent);
+			_Output.Write ("            <option value=\"agree\">Agree</option>\n{0}", _Indent);
+			_Output.Write ("            <option value=\"disagree\">Disagree</option>\n{0}", _Indent);
+			_Output.Write ("            <option value=\"question\">Question</option>\n{0}", _Indent);
+			_Output.Write ("            <option value=\"answer\">Answer</option>\n{0}", _Indent);
+			_Output.Write ("            <option value=\"example\">Example</option>\n{0}", _Indent);
+			_Output.Write ("            <option value=\"qualify\">Qualify</option>\n{0}", _Indent);
+			_Output.Write ("            <option value=\"info\">Information</option>\n{0}", _Indent);
+			_Output.Write ("            <option value=\"action\">Action</option>\n{0}", _Indent);
+			_Output.Write ("            </select>\n{0}", _Indent);
+			_Output.Write ("        </td></tr>\n{0}", _Indent);
+			}
+		if (  mode.HasFlag(CommentMode.Subject) ) {
+			_Output.Write ("        <tr><td><label for=\"subject\">Subject</label></td><td><input type=\"text\" id=\"subject\" name=\"subject\" ></input>\n{0}", _Indent);
+			_Output.Write ("        </td></tr>\n{0}", _Indent);
+			}
+		if (  mode.HasFlag(CommentMode.Text) ) {
+			_Output.Write ("        <tr><td><label for=\"comment\">Text</label></td><td><textarea type=\"text\" id=\"comment\" name=\"comment\" ></textarea>\n{0}", _Indent);
+			_Output.Write ("        </td></tr>\n{0}", _Indent);
+			}
+		_Output.Write ("        <tr><td colspan=\"2\">\n{0}", _Indent);
+		_Output.Write ("            <input type=\"submit\" value=\"Submit\" />\n{0}", _Indent);
+		_Output.Write ("        </td></tr>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("    </table>\n{0}", _Indent);
-		_Output.Write (" </form>\n{0}", _Indent);
-		_Output.Write ("      <script>\n{0}", _Indent);
-		_Output.Write ("        function showAlert() {{\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("            const url = 'Comment'\n{0}", _Indent);
-		_Output.Write ("            const comment = {{\n{0}", _Indent);
-		_Output.Write ("                id: 1017,\n{0}", _Indent);
-		_Output.Write ("                }}\n{0}", _Indent);
-		_Output.Write ("            comment.User = document.getElementById('user').value;\n{0}", _Indent);
-		_Output.Write ("            comment.Anchor = document.getElementById('anchor').value;\n{0}", _Indent);
-		_Output.Write ("            comment.Semantic = document.getElementById('semantic').value;\n{0}", _Indent);
-		_Output.Write ("            comment.Text = document.getElementById('text').value;\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("            // a POST request\n{0}", _Indent);
-		_Output.Write ("            const response =  fetch('Comment', {{\n{0}", _Indent);
-		_Output.Write ("                method: 'POST',\n{0}", _Indent);
-		_Output.Write ("                headers: {{\n{0}", _Indent);
-		_Output.Write ("                    'Content-Type': 'application/json; charset=utf-8'\n{0}", _Indent);
-		_Output.Write ("                    }},\n{0}", _Indent);
-		_Output.Write ("                body: JSON.stringify(comment)\n{0}", _Indent);
-		_Output.Write ("                }})\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("            }}\n{0}", _Indent);
-		_Output.Write ("    </script>\n{0}", _Indent);
+		_Output.Write ("</form>\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}
 	

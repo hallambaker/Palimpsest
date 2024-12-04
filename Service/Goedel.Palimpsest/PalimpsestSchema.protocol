@@ -132,6 +132,7 @@
 		Description
 			|User response to a Forum Entry, minimally consisting of a 
 			|User identifier and a semantic.
+
 		String MemberId
 			Description
 				|The identifier of the member responding.
@@ -167,10 +168,20 @@
 		Inherits CatalogedReaction
 		Description
 			|Post on a topic
+		String Subject
+			Description
+				|One line subject decribing the topic
 		String Text
 			Description
-				|
+				|The topic introduction. May span multiple lines
 
+	Structure CatalogedComment
+		Inherits CatalogedReaction
+		Description
+			|Post on a topic
+		String Text
+			Description
+				|The topic introduction. May span multiple lines
 
 	Structure CatalogedAnnotation
 		Inherits CatalogedReaction

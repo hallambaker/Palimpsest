@@ -33,16 +33,19 @@ public class TopicHandle : ForumHandle {
 
     #region // Properties
 
+    public override string Anchor => $"/{PalimpsestConstants.Topic}/{ProjectHandle.Uid}/{CatalogedResource.Uid}";
 
+    public string NewPost => "/" + PalimpsestConstants.CreatePost + "/" + ProjectHandle.Uid +
+        "/" + CatalogedEntry.Uid;
     public string TopicDirectory { get; }
 
     #region // CatalogReaction Reactions
-    CatalogPosts Posts => posts ?? new CatalogPosts(
+    public CatalogPosts Posts => posts ?? new CatalogPosts(
             ProjectHandle.ProjectDirectory, CatalogedEntry.Uid).CacheValue(out posts);
 
     CatalogPosts posts;
 
-    private class CatalogPosts : Catalog<CatalogedReaction> {
+    public class CatalogPosts : Catalog<CatalogedPost> {
 
         public CatalogPosts(
             string directory,
@@ -65,28 +68,40 @@ public class TopicHandle : ForumHandle {
 
         ProjectHandle = project;
         TopicDirectory = Path.Combine (project.ProjectDirectory, resource.Uid);
+        Directory.CreateDirectory (TopicDirectory);
         }
 
 
     #endregion
     #region // Methods
 
+    public string GetPostAnchor(CatalogedPost post) =>
+        $"/{PalimpsestConstants.Post}/{ProjectHandle.Uid}/{CatalogedResource.Uid}/{post.Uid}";
+
     public void AddReaction(
                      CatalogedPost reaction) {
-        //Reactions.New(reaction);
-        //if (reaction is CatalogedPost annotation) {
-        //    Annotations.Add(annotation);
-        //    }
+        Posts.New(reaction);
         }
 
 
-    public bool TryGetPost(string PostId, out PostHandle posthandle) {
+    public bool TryGetPost(string postId, out PostHandle posthandle) {
         posthandle = null;
+        if (Posts.TryLocate(postId, out var post)) {
+
+            posthandle = new PostHandle(this,post);
+
+            return true;
+            }
+
+
         return false;
         }
 
-    public IEnumerable<PostHandle> GetPosts(int max = 20, int last = -1)=>
-            new Enumerator(Posts, max, last);
+ 
+
+
+    //public IEnumerable<PostHandle> GetPosts(int max = 20, int last = -1)=>
+    //        new Enumerator(Posts, max, last);
 
     private class Enumerator : IEnumerator<PostHandle>, IEnumerable<PostHandle> {
 
@@ -119,32 +134,41 @@ public class TopicHandle : ForumHandle {
     #endregion
     }
 
+
 public class PostHandle : CachedHandle<CatalogedPost> {
 
     TopicHandle TopicHandle { get; }
+    ProjectHandle ProjectHandle=> TopicHandle.ProjectHandle;
+
+
+    public  string Anchor => $"/{PalimpsestConstants.Post}/{ProjectHandle.Uid}/{TopicHandle.Uid}/{CatalogedEntry.Uid}";
+
+    public string NewComment => "/" + PalimpsestConstants.CreatePostComment + "/" + ProjectHandle.Uid +
+        "/" + TopicHandle.Uid + "/" + CatalogedEntry.Uid;
+
 
     CatalogReactions Reactions => reactions ?? new CatalogReactions(
         TopicHandle.TopicDirectory, CatalogedEntry.Uid).CacheValue(out reactions);
 
     CatalogReactions reactions;
 
-    private class CatalogReactions : Catalog<CatalogedReaction> {
-
-        public CatalogReactions(
-            string directory,
-            string label) : base(directory, label, create: true) {
-            }
-        }
 
 
 
-    public PostHandle(CatalogedPost catalogedEntry) : base(catalogedEntry) {
+    public SortedDictionary<string, CatalogedComment> Comments => Reactions?.Comments;
+
+
+
+
+    public PostHandle(
+                TopicHandle topicHandle,
+                CatalogedPost catalogedEntry) : base(catalogedEntry) {
+        TopicHandle = topicHandle;
         }
 
     public void AddReaction(
-                string postId,
-                CatalogedReaction reaction) {
-        //Reactions.New(reaction);
+                CatalogedComment reaction) {
+        Reactions.New(reaction);
         //if (reaction is CatalogedAnnotation annotation) {
         //    Annotations.Add(annotation);
         //    }

@@ -51,12 +51,16 @@ public class FormDataAccount : FormData {
     ///<inheritdoc/>
     protected override FormItem[] Items => items;
     static readonly FormItem[] items = [
+        new ("from", FormEntryType.String, (form, s) => ((FormDataAccount)form).From = s as string),
         new ("username", FormEntryType.String, (form, s) => ((FormDataAccount)form).Username = s as string),
         new ("password", FormEntryType.String, (form, s) => ((FormDataAccount)form).Password = s as string),
         new ("password2", FormEntryType.String, (form, s) => ((FormDataAccount)form).Password2 = s as string),
         new ("terms", FormEntryType.String, (form, s) => ((FormDataAccount)form).Terms = s as string)
         ];
 
+
+    ///<summary>The URL to return to.</summary> 
+    public string? From { get; private set; }
 
     ///<summary>The username.</summary> 
     public string? Username { get; private set; }
@@ -133,14 +137,15 @@ public class FormDataComment : FormData {
     ///<inheritdoc/>
     protected override FormItem[] Items => items;
     static readonly FormItem[] items = [
-        //new ("user", FormEntryType.String, (form, s) => ((FormDataComment)form).User = s as string),
+        new ("subject", FormEntryType.String, (form, s) => ((FormDataComment)form).Subject = s as string),
         new ("semantic", FormEntryType.String, (form, s) => ((FormDataComment)form).Semantic = s as string),
         new ("comment", FormEntryType.String, (form, s) => ((FormDataComment)form).Comment = s as string),
         new ("fragment", FormEntryType.String, (form, s) => ((FormDataComment)form).FragmentId = s as string)
         ];
 
 
-
+    ///<summary></summary> 
+    public string? Subject { get; private set; }
     ///<summary></summary> 
     public string? FragmentId { get; private set; }
     ///<summary></summary> 

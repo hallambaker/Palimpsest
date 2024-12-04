@@ -104,6 +104,11 @@ public partial class Annotations {
 
         }
 
+    public static Annotations Get(
+            AnnotationService annotation,
+            HttpListenerContext context,
+            ParsedPath path) => Get (annotation, context, path?.Member);
+
 
     public static Annotations Get(
                 AnnotationService annotation,
@@ -154,23 +159,30 @@ public partial class Annotations {
         }
 
 
+    public string GetMemberAnchor(string memberId) => $"/{PalimpsestConstants.User}/{memberId}";
+
+    public string GetMemberLabel(string memberId) => Forum.TryGetMemberLocal(memberId, out var label)? label: "Deleted";
+
+
+    public string GetDateAdded(CatalogedForumEntry? entry) => GetPresentation(entry.Added);
+    public string GetMemberAnchor(CatalogedReaction? entry) {
+        if (Forum.TryGetMember(entry?.MemberId, out var member)) {
+            return "Deleted";
+            }
+        return $"""<span  class="memberAnchor"><a href={member.Anchor}>{member.LocalName}</a></span>""";
 
 
 
-    //public Task WriteDocument  (
-
-    //            ResourceHandle resourceHandle) {
-    //    PageDocument(resourceHandle);
-
-    //    try {
-    //        resourceHandle.ParsedContent.ToHTML(_Output, TODO);
-    //        }
-    //    catch {
-    //        }
+        }
 
 
-        //return Task.CompletedTask;
-        //}
+    public string GetPresentation (DateTime? date) {
+        if (date == null) {
+            return "";
+            }
+        return date.ToRFC3339() ;
+        
+        }
 
 
     }

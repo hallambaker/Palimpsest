@@ -209,16 +209,24 @@ public class Forum :Disposable {
     /// Gets the member associated with the specified key.
     /// </summary>
     /// <param name="id">The key of the value to get.</param>
-    /// <param name="project">When this method returns, contains the member identified by
+    /// <param name="member">When this method returns, contains the member identified by
     /// the specified key, if the key is found; otherwise, null. 
     /// This parameter is passed uninitialized.</param>
     /// <returns>true if there is a member identified by
     /// specified key; otherwise, false.</returns>
     public bool TryGetMember(
                     string id,
-                    out MemberHandle project) {
-        throw new NYI();
+                    out CatalogedForumMember member) => CatalogMembers.TryGetByUidUncached(id, out member);
+
+    public bool TryGetMemberLocal(
+                            string id,
+                    out string localname) {
+        var result = CatalogMembers.TryGetByUid(id, out var member);
+        localname = member?.LocalName;
+        return result;
         }
+
+
     #endregion
 
     #region // Project Methods
@@ -244,6 +252,7 @@ public class Forum :Disposable {
 
 
 
+
     /// <summary>
     /// Gets the project associated with the specified key.
     /// </summary>
@@ -256,6 +265,44 @@ public class Forum :Disposable {
     public bool TryGetProject(
                     string id,
                     out ProjectHandle project) => CatalogProjects.TryGetByUid(id, out project);
+    public bool TryGetMemberRecord(
+            ParsedPath path,
+              out CatalogedForumMember member) => TryGetMember(path.FirstId, out member);
+
+    public bool TryGetTopic(
+                ParsedPath path,
+                out ProjectHandle project,
+                out TopicHandle topic) {
+        project = null;
+        topic = null;
+        if (!TryGetProject(path.ProjectId, out project)) {
+            return false;
+            }
+        if (!project.TryGetTopic(path.TopicId, out topic)) {
+            return false;
+            }
+        return true;
+        }
+
+    public bool TryGetPost(
+            ParsedPath path,
+            out ProjectHandle project,
+            out TopicHandle topic,
+            out PostHandle post) {
+        project = null;
+        topic = null;
+        post = null;
+        if (!TryGetTopic(path, out project, out topic)) {
+            return false;
+            }
+        if (!topic.TryGetPost(path.PostId, out post)) {
+            return false;
+            }
+        return true;
+        }
+
+
+
     #endregion
 
     #region // Resource Methods

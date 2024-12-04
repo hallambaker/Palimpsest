@@ -46,6 +46,15 @@ public class CachedMembers : Cache<MemberHandle, CatalogedForumMember> {
                 => new(catalogedEntry);
 
 
+
+    public bool TryGetByUidUncached(string id, out CatalogedForumMember catalogedForumMember) {
+        if (!Catalog.PersistenceStore.ObjectIndex.TryGetValue(id, out var indexEntry)) {
+            catalogedForumMember = null;
+            return false;
+            }
+        catalogedForumMember = indexEntry.JsonObject as CatalogedForumMember;
+        return true;
+        }
     }
 
 

@@ -22,55 +22,55 @@
 
 
 namespace Goedel.Palimpsest;
-public partial class CatalogedForumMember {
-    public string Anchor => $"/{PalimpsestConstants.User}/{Uid}";
 
 
+public partial class CatalogedComment : IComparable {
+    public int CompareTo(object? obj) {
+        var compare = obj as CatalogedComment;
 
-    ///<inheritdoc/>
-    public override string _PrimaryKey => Uid!;
-    public void SetPasswordDigest(
-                string password,
-                string username,
-                string realm) {
-
-        PasswordDigest = GetPasswordDigest(password, username, realm);
-
-
-        }
-
-
-    public bool VerifyPassword(
-                string password,
-                string username,
-                string realm) {
-
-        var digest = GetPasswordDigest(password, username, realm);
-
-        return digest.IsEqualTo(PasswordDigest);
-        }
-
-    public static byte[] GetPasswordDigest(
-            string password,
-            string username,
-            string realm) {
-
-        var writer = new MemoryStream();
-        Write(password);
-        Write(username);
-        Write(realm);
-        var buffer = writer.GetBuffer();
-
-        return SHA256.HashData(buffer);
-
-        // write a chunk of data to the stream
-        void Write (string text) {
-            var bytes = text.ToBytes();
-            writer.WriteByte ((byte)bytes.Length);
-            writer.Write(bytes);
+        if (compare is null) {
+            return -1;
             }
+        if (Added == compare.Added) {
+            return 0;
+            }
+        return Added > compare.Added ? -1 : 1;
+
+        }
+    }
+
+
+public class CatalogReactions : Catalog<CatalogedReaction> {
+
+    public SortedDictionary<string,CatalogedComment> Comments { get; } = [];
+
+
+
+
+    public CatalogReactions(
+        string directory,
+        string label) : base(directory, label, create: true) {
+
+
+
+
         }
 
 
+    //public override void Intern(
+    //        SequenceIndexEntry indexEntry) {
+    //    base.Intern(indexEntry);
+    //    if (indexEntry.JsonObject is CatalogedComment comment) {
+    //        Comments.Add(comment.Uid, comment);
+    //        }
+    //    }
 
+    protected override void UpdateEntry(CatalogedReaction catalogedEntry) {
+        //base.UpdateEntry(catalogedEntry);
+
+        if (catalogedEntry is CatalogedComment comment) {
+            Comments.Add(comment.Uid, comment);
+            }
+
+        }
     }

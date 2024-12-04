@@ -48,6 +48,7 @@ public class CachedDocuments : Cache<ForumHandle, CatalogedForum> {
     private ForumHandle Factory(CatalogedForum catalogedForum) 
             => catalogedForum switch {
                 CatalogedResource catalogedEntry => new ResourceHandle(catalogedEntry, Project),
+                CatalogedTopic catalogedTopic => new TopicHandle(catalogedTopic, Project),
                 _ => throw new NYI()};
 
     public IEnumerable<CatalogedForum> GetResourceEnumerator() {
