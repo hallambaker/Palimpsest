@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Oauth\Goedel.Cryptography.Oauth.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Testing\Test.Cryptography.Oauth\Test.Cryptography.Oauth.csproj" />
     <ProjectReference Include="..\..\Service\Goedel.Palimpsest\Goedel.Palimpsest.csproj" />
     <ProjectReference Include="..\TestCookies\TestCookies.csproj" />
   </ItemGroup>

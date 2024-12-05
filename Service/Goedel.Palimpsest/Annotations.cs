@@ -166,7 +166,7 @@ public partial class Annotations {
 
     public string GetDateAdded(CatalogedForumEntry? entry) => GetPresentation(entry.Added);
     public string GetMemberAnchor(CatalogedReaction? entry) {
-        if (Forum.TryGetMember(entry?.MemberId, out var member)) {
+        if (!Forum.TryGetMember(entry?.MemberId, out var member)) {
             return "Deleted";
             }
         return $"""<span  class="memberAnchor"><a href={member.Anchor}>{member.LocalName}</a></span>""";
