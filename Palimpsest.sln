@@ -119,6 +119,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Oauth",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Cryptography.Oauth", "..\mmm\Testing\Test.Cryptography.Oauth\Test.Cryptography.Oauth.csproj", "{F7AB41CE-BAA3-4115-8F6B-5C67A55F5F6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goedel.Serialization", "..\mmm\Libraries\Goedel.Serialization\Goedel.Serialization.csproj", "{D35695B3-5BC7-4A80-83F4-912D132575D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -508,6 +510,16 @@ Global
 		{F7AB41CE-BAA3-4115-8F6B-5C67A55F5F6B}.Sandcastle|Any CPU.Build.0 = Sandcastle|Any CPU
 		{F7AB41CE-BAA3-4115-8F6B-5C67A55F5F6B}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7AB41CE-BAA3-4115-8F6B-5C67A55F5F6B}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Github|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Github|Any CPU.Build.0 = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Sandcastle|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Sandcastle|Any CPU.Build.0 = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35695B3-5BC7-4A80-83F4-912D132575D9}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -552,6 +564,7 @@ Global
 		{9B3543F1-F525-44F6-BA85-B7BEB78E9B00} = {14EE114C-5413-4611-B4E5-9B408A392A6F}
 		{28E25F95-F503-4FEF-8738-C37BA2E1BE31} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
 		{F7AB41CE-BAA3-4115-8F6B-5C67A55F5F6B} = {E5FFD011-58C2-4346-9CCE-60C43398231D}
+		{D35695B3-5BC7-4A80-83F4-912D132575D9} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58A69F60-0C27-4168-B66B-C2B910D8A295}
