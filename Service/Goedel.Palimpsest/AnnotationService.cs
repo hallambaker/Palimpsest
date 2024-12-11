@@ -63,7 +63,7 @@ public class AnnotationService : IWebService<ParsedPath> {
 
 
     private string HttpEndpoint => "http://+:15099/";
-
+    private string HttpsEndpoint => "https://+:15098/";
 
     public string HomeUrl => "/";
 
@@ -75,11 +75,18 @@ public class AnnotationService : IWebService<ParsedPath> {
     ///<summary>
     ///Return an instance serving pages from <paramref name="forum"/>
     ///</summary> 
+    ///<remarks>
+    ///"Use the HttpCfg.exe tool to add SSL certificate"
+    ///no, netsh!
+    ///
+    /// https://www.misterpki.com/netsh-http-add-sslcert/
+    /// </remarks>
     ///<param name="forum">The persistence store.</param>
     public AnnotationService(Forum forum) {
         Forum = forum;
         HttpListener = new();
         HttpListener.Prefixes.Add(HttpEndpoint);
+        HttpListener.Prefixes.Add(HttpsEndpoint);
 
         ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
             { "", new (GetHome, false) },
@@ -96,6 +103,9 @@ public class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.Project, new (GetProject) },
             { PalimpsestConstants.AddDocument, new (GetAddDocument) },
             { PalimpsestConstants.AddTopic, new (GetAddTopic) },
+
+
+            { PalimpsestConstants.WellKnown, new (GetWellKnown) },
 
             { PalimpsestConstants.Document, new (GetDocument) },
             { PalimpsestConstants.Topic, new (GetTopic) },
@@ -711,5 +721,20 @@ public class AnnotationService : IWebService<ParsedPath> {
         }
 
     #endregion
+
+    public async Task GetWellKnown(
+            HttpListenerContext context,
+            ParsedPath path) {
+        var member = path.Member;
+
+        var annotations = Annotations.Get(this, context, member);
+
+        annotations.StartPage(Forum.Name);
+        annotations.PageHome();
+        annotations.End();
+
+        await Task.CompletedTask;
+        }
+
 
     }

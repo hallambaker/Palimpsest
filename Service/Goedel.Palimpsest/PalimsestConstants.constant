@@ -70,3 +70,5 @@ File PagePrefixes
 
 	String CreatePostComment "PostComment"
 	String PostCommentPost "PostCommentSubmit"
+
+	String WellKnown ".well-known"

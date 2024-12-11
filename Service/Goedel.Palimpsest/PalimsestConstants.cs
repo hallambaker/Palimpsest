@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 12/6/2024 2:30:50 AM
+//  This file was automatically generated at 12/11/2024 1:30:34 AM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -215,6 +215,10 @@ public static partial class PalimpsestConstants {
     ///<summary>
     ///</summary>
     public const string PostCommentPost = "PostCommentSubmit";
+
+    ///<summary>
+    ///</summary>
+    public const string WellKnown = ".well-known";
 
     }
 
