@@ -69,10 +69,10 @@ public class AnnotationService : IWebService<ParsedPath> {
 
     public string Domain => "mplace2.app";
     public string ClientEndpoint => $"https://{Domain}/";
-    public string ClientMetadata => ClientEndpoint + PalimpsestConstants.ClientMetadata;
+    public string ClientMetadataLocation => ClientEndpoint + PalimpsestConstants.ClientMetadata;
 
 
-    public string Redirect => ClientEndpoint + PalimpsestConstants.Redirect;
+    public string RedirectLocation => ClientEndpoint + PalimpsestConstants.Redirect;
     ///<inheritdoc/>
     public Dictionary<string, WebResource<ParsedPath>> ResourceMap { get; }
     #endregion
@@ -189,6 +189,14 @@ public class AnnotationService : IWebService<ParsedPath> {
 
 
     public Task CompletedTask => Task.CompletedTask;
+
+    public static ClientMetadata FactoryAtproto(
+        string domain,
+        ScopeTypes scope = ScopeTypes.Atproto,
+        bool confidential = false,
+        JWKS keys = null) => ClientMetadata.FactoryAtproto(
+            $"https://{domain}/{PalimpsestConstants.ClientMetadata}",
+            [$"https://{domain}/{PalimpsestConstants.Redirect}"], scope, confidential, keys);
 
 
     #region // Server Get Pages - primary
@@ -742,36 +750,36 @@ public class AnnotationService : IWebService<ParsedPath> {
         await Task.CompletedTask;
         }
 
-    public ClientMetadata GetClientMetadataAtproto(
-                        string uri,
-                        ScopeTypes scope = ScopeTypes.Atproto,
-                        bool confidential=false) => new ClientMetadata() {
-                            ClientId = ClientMetadata,
-                            ApplicationType = ApplicationType.Web,
-                            GrantTypes = [
-                                OauthConstants.GrantTypesAuthorizationCodeTag,
-                                OauthConstants.GrantTypesRefreshTokenTag],
-                            Scope = GetScope(scope),
-                            ResponseTypes = [OauthConstants.ResponseTypeCodeTag],
-                            RedirectUris = [Redirect],
-                            TokenEndpointAuthMethod = confidential ? OauthConstants.AuthenticationMethodJWTTag : null,
-                            TokenEndpointAuthSigningAlg = OauthConstants.EndpointSignatureES256Tag,
-                            DpopBoundAccessTokens = true,
-                            JWKS = null
-                            };
+    //public ClientMetadata GetClientMetadataAtproto(
+    //                    string uri,
+    //                    ScopeTypes scope = ScopeTypes.Atproto,
+    //                    bool confidential=false) => new ClientMetadata() {
+    //                        ClientId = ClientMetadata,
+    //                        ApplicationType = ApplicationType.Web,
+    //                        GrantTypes = [
+    //                            OauthConstants.GrantTypesAuthorizationCodeTag,
+    //                            OauthConstants.GrantTypesRefreshTokenTag],
+    //                        Scope = GetScope(scope),
+    //                        ResponseTypes = [OauthConstants.ResponseTypeCodeTag],
+    //                        RedirectUris = [Redirect],
+    //                        TokenEndpointAuthMethod = confidential ? OauthConstants.AuthenticationMethodJWTTag : null,
+    //                        TokenEndpointAuthSigningAlg = OauthConstants.EndpointSignatureES256Tag,
+    //                        DpopBoundAccessTokens = true,
+    //                        Jwks = null
+    //                        };
 
 
-    public static string GetScope(ScopeTypes scopes) =>
-        scopes switch {
-            ScopeTypes.Atproto => OauthConstants.ScopeTypesAtprotoTag,
-            ScopeTypes.Generic => OauthConstants.ScopeTypesAtprotoTag + " " +
-                OauthConstants.ScopeTypesGenericTag,
-            ScopeTypes.Chat => OauthConstants.ScopeTypesAtprotoTag + " " +
-                OauthConstants.ScopeTypesGenericTag + " " +
-                OauthConstants.ScopeTypesChatTag,
-            _ => OauthConstants.ScopeTypesAtprotoTag
+    //public static string GetScope(ScopeTypes scopes) =>
+    //    scopes switch {
+    //        ScopeTypes.Atproto => OauthConstants.ScopeTypesAtprotoTitle,
+    //        ScopeTypes.Generic => OauthConstants.ScopeTypesAtprotoTitle + " " +
+    //            OauthConstants.ScopeTypesGenericTitle,
+    //        ScopeTypes.Chat => OauthConstants.ScopeTypesAtprotoTitle + " " +
+    //            OauthConstants.ScopeTypesGenericTitle + " " +
+    //            OauthConstants.ScopeTypesChatTitle,
+    //        _ => OauthConstants.ScopeTypesAtprotoTitle
 
 
-            };
+    //        };
     }
     
