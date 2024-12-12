@@ -25,6 +25,10 @@ internal class Program {
 
 
         //var udpClient = 
+        //OauthClient.GenKey();
+        //var key = KeyPair.Factory(CryptoAlgorithmId.P256, KeySecurity.Ephemeral);
+
+
         TestOauth.Test().TestDidResolve();
         }
 

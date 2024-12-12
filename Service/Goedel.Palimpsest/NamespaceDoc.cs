@@ -29,6 +29,7 @@ global using Goedel.Document.OpenXML;
 
 global using Goedel.Cryptography.Dare;
 global using Goedel.Cryptography.Jose;
+global using Goedel.Cryptography.Oauth;
 global using Goedel.Cryptography;
 global using Goedel.Cryptography.Algorithms;
 global using Goedel.Protocol;

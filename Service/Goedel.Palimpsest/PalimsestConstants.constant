@@ -72,3 +72,7 @@ File PagePrefixes
 	String PostCommentPost "PostCommentSubmit"
 
 	String WellKnown ".well-known"
+	String ClientMetadata "client-metadata.json"
+	String Redirect "Redirect"
+
+

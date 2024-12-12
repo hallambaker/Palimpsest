@@ -67,6 +67,12 @@ public class AnnotationService : IWebService<ParsedPath> {
 
     public string HomeUrl => "/";
 
+    public string Domain => "mplace2.app";
+    public string ClientEndpoint => $"https://{Domain}/";
+    public string ClientMetadata => ClientEndpoint + PalimpsestConstants.ClientMetadata;
+
+
+    public string Redirect => ClientEndpoint + PalimpsestConstants.Redirect;
     ///<inheritdoc/>
     public Dictionary<string, WebResource<ParsedPath>> ResourceMap { get; }
     #endregion
@@ -105,13 +111,13 @@ public class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.AddTopic, new (GetAddTopic) },
 
 
-            { PalimpsestConstants.WellKnown, new (GetWellKnown) },
+            { PalimpsestConstants.ClientMetadata, new (GetWellKnown) },
 
             { PalimpsestConstants.Document, new (GetDocument) },
             { PalimpsestConstants.Topic, new (GetTopic) },
             { PalimpsestConstants.Post, new (GetPost) },
             { PalimpsestConstants.User, new (GetUser) },
-                
+
             { PalimpsestConstants.CreateProject, new (GetCreateProject) },
             { PalimpsestConstants.CreateProjectPost, new (PostCreateProject) },
             { PalimpsestConstants.DocumentUpload, new (PostUploadDocument) },
@@ -279,7 +285,7 @@ public class AnnotationService : IWebService<ParsedPath> {
         response.OutputStream.Close();
 
         return Task.CompletedTask;
-        } 
+        }
     #endregion
     #region // Item pages
 
@@ -425,7 +431,7 @@ public class AnnotationService : IWebService<ParsedPath> {
 
 
 
-    public  Task GetCreateAccount(
+    public Task GetCreateAccount(
                 HttpListenerContext context,
                 ParsedPath path) {
         var member = path.Member;
@@ -440,7 +446,7 @@ public class AnnotationService : IWebService<ParsedPath> {
         return Task.CompletedTask;
         }
 
-    public  Task GetCreateProject(
+    public Task GetCreateProject(
                 HttpListenerContext context,
                 ParsedPath path) {
         var member = path.Member;
@@ -491,7 +497,7 @@ public class AnnotationService : IWebService<ParsedPath> {
 
 
 
-    public   Task GetListActions(
+    public Task GetListActions(
                 HttpListenerContext context,
                 ParsedPath path) {
         var member = path.Member;
@@ -505,14 +511,14 @@ public class AnnotationService : IWebService<ParsedPath> {
         }
 
 
-    public  async Task Error(
+    public async Task Error(
                 HttpListenerContext context,
                 ParsedPath path) {
         var annotations = Annotations.Get(this, context, path);
         await ErrorPage(annotations);
         }
 
-    public   Task ErrorPage(
+    public Task ErrorPage(
             Annotations annotations) {
 
         annotations.StartPage($"{Forum.Name}: Error");
@@ -601,7 +607,7 @@ public class AnnotationService : IWebService<ParsedPath> {
         var url = fields.From ?? HomeUrl;
 
         await annotations.Redirect(context, url);
-        }   
+        }
 
     public async Task PostUploadDocument(
                 HttpListenerContext context,
@@ -670,7 +676,7 @@ public class AnnotationService : IWebService<ParsedPath> {
             };
         resourceHandle.AddReaction(response);
 
-        await annotations.Redirect(context, $"/Document/{path.FirstId}/{path.SecondId}/Redirect"); 
+        await annotations.Redirect(context, $"/Document/{path.FirstId}/{path.SecondId}/Redirect");
         }
 
 
@@ -736,5 +742,36 @@ public class AnnotationService : IWebService<ParsedPath> {
         await Task.CompletedTask;
         }
 
+    public ClientMetadata GetClientMetadataAtproto(
+                        string uri,
+                        ScopeTypes scope = ScopeTypes.Atproto,
+                        bool confidential=false) => new ClientMetadata() {
+                            ClientId = ClientMetadata,
+                            ApplicationType = ApplicationType.Web,
+                            GrantTypes = [
+                                OauthConstants.GrantTypesAuthorizationCodeTag,
+                                OauthConstants.GrantTypesRefreshTokenTag],
+                            Scope = GetScope(scope),
+                            ResponseTypes = [OauthConstants.ResponseTypeCodeTag],
+                            RedirectUris = [Redirect],
+                            TokenEndpointAuthMethod = confidential ? OauthConstants.AuthenticationMethodJWTTag : null,
+                            TokenEndpointAuthSigningAlg = OauthConstants.EndpointSignatureES256Tag,
+                            DpopBoundAccessTokens = true,
+                            JWKS = null
+                            };
 
+
+    public static string GetScope(ScopeTypes scopes) =>
+        scopes switch {
+            ScopeTypes.Atproto => OauthConstants.ScopeTypesAtprotoTag,
+            ScopeTypes.Generic => OauthConstants.ScopeTypesAtprotoTag + " " +
+                OauthConstants.ScopeTypesGenericTag,
+            ScopeTypes.Chat => OauthConstants.ScopeTypesAtprotoTag + " " +
+                OauthConstants.ScopeTypesGenericTag + " " +
+                OauthConstants.ScopeTypesChatTag,
+            _ => OauthConstants.ScopeTypesAtprotoTag
+
+
+            };
     }
+    

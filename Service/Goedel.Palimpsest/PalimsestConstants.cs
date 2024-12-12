@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 12/11/2024 1:30:34 AM
+//  This file was automatically generated at 12/12/2024 5:53:21 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -219,6 +219,14 @@ public static partial class PalimpsestConstants {
     ///<summary>
     ///</summary>
     public const string WellKnown = ".well-known";
+
+    ///<summary>
+    ///</summary>
+    public const string ClientMetadata = "client-metadata.json";
+
+    ///<summary>
+    ///</summary>
+    public const string Redirect = "Redirect";
 
     }
 
