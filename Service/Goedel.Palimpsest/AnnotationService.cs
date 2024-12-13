@@ -23,6 +23,7 @@
 
 using DocumentFormat.OpenXml.Spreadsheet;
 
+using Goedel.Cryptography.Oauth;
 using Goedel.IO;
 using Goedel.Palimpsest;
 
@@ -72,8 +73,16 @@ public class AnnotationService : IWebService<ParsedPath> {
     public string ClientMetadataLocation => ClientEndpoint + PalimpsestConstants.ClientMetadata;
 
 
+    public KeyPair OauthClientSignature { get; set; }
+    public KeyPair OauthClientEncryption { get; set; }
+
+    public JWKS JWKS { get; set; }
+
+
+
     public string RedirectLocation => ClientEndpoint + PalimpsestConstants.Redirect;
     ///<inheritdoc/>
+    public Dictionary<string, WebResource<ParsedPath>> BuiltInMap { get; }
     public Dictionary<string, WebResource<ParsedPath>> ResourceMap { get; }
     #endregion
     #region // Constructor
@@ -94,6 +103,19 @@ public class AnnotationService : IWebService<ParsedPath> {
         HttpListener.Prefixes.Add(HttpEndpoint);
         HttpListener.Prefixes.Add(HttpsEndpoint);
 
+
+        OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
+        OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
+
+        JWKS =  new JWKS {
+            Keys = [JWK.Factory(OauthClientSignature), JWK.Factory(OauthClientEncryption)]
+            };
+
+
+        BuiltInMap = new Dictionary<string, WebResource<ParsedPath>> {
+            { PalimpsestConstants.ClientMetadata, new (GetClientMetaData) },
+            };
+
         ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
             { "", new (GetHome, false) },
 
@@ -111,7 +133,9 @@ public class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.AddTopic, new (GetAddTopic) },
 
 
-            { PalimpsestConstants.ClientMetadata, new (GetWellKnown) },
+
+            { PalimpsestConstants.Redirect, new (GetRedirect) },
+
 
             { PalimpsestConstants.Document, new (GetDocument) },
             { PalimpsestConstants.Topic, new (GetTopic) },
@@ -269,8 +293,16 @@ public class AnnotationService : IWebService<ParsedPath> {
     #endregion
     #region // Resources
     public Task GetResources(
-    HttpListenerContext context,
-    ParsedPath path) {
+            HttpListenerContext context,
+            ParsedPath path) {
+
+        if (BuiltInMap.TryGetValue(path.FirstId, out var resource)) {
+            return resource.Method(context, path);
+            }
+
+
+
+
         var member = path.Member;
         using var response = context.Response;
 
@@ -596,6 +628,13 @@ public class AnnotationService : IWebService<ParsedPath> {
         var fields = new FormDataAccount();
 
         var annotations = Annotations.PostForm(this, context, member, fields);
+        if (fields?.Username[0] == '@') {
+            await OAuthSignIn (context, path, fields?.Username);
+            return;
+            }
+
+
+
         if (!fields.ValidateSignIn()) {
             await ErrorPage(annotations);
             return;
@@ -616,6 +655,10 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         await annotations.Redirect(context, url);
         }
+
+
+
+
 
     public async Task PostUploadDocument(
                 HttpListenerContext context,
@@ -736,50 +779,58 @@ public class AnnotationService : IWebService<ParsedPath> {
 
     #endregion
 
-    public async Task GetWellKnown(
+    public async Task GetClientMetaData(
             HttpListenerContext context,
             ParsedPath path) {
-        var member = path.Member;
+        var clientMetadata = FactoryAtproto(Domain, keys: JWKS);
+        var responseBytes = clientMetadata.ToString().ToUTF8();
 
-        var annotations = Annotations.Get(this, context, member);
+        var response = context.Response;
 
-        annotations.StartPage(Forum.Name);
-        annotations.PageHome();
-        annotations.End();
 
-        await Task.CompletedTask;
+        response.StatusCode = (int)HttpStatusCode.OK;
+        response.StatusDescription = "OK";
+        response.ContentType = PalimpsestConstants.ClientMetadataType;
+        response.ContentLength64 = responseBytes.Length;
+        response.KeepAlive = false;
+
+        var stream = response.OutputStream;
+        stream.Write(responseBytes, 0, responseBytes.Length);
+        stream.Close();
         }
 
-    //public ClientMetadata GetClientMetadataAtproto(
-    //                    string uri,
-    //                    ScopeTypes scope = ScopeTypes.Atproto,
-    //                    bool confidential=false) => new ClientMetadata() {
-    //                        ClientId = ClientMetadata,
-    //                        ApplicationType = ApplicationType.Web,
-    //                        GrantTypes = [
-    //                            OauthConstants.GrantTypesAuthorizationCodeTag,
-    //                            OauthConstants.GrantTypesRefreshTokenTag],
-    //                        Scope = GetScope(scope),
-    //                        ResponseTypes = [OauthConstants.ResponseTypeCodeTag],
-    //                        RedirectUris = [Redirect],
-    //                        TokenEndpointAuthMethod = confidential ? OauthConstants.AuthenticationMethodJWTTag : null,
-    //                        TokenEndpointAuthSigningAlg = OauthConstants.EndpointSignatureES256Tag,
-    //                        DpopBoundAccessTokens = true,
-    //                        Jwks = null
-    //                        };
 
 
-    //public static string GetScope(ScopeTypes scopes) =>
-    //    scopes switch {
-    //        ScopeTypes.Atproto => OauthConstants.ScopeTypesAtprotoTitle,
-    //        ScopeTypes.Generic => OauthConstants.ScopeTypesAtprotoTitle + " " +
-    //            OauthConstants.ScopeTypesGenericTitle,
-    //        ScopeTypes.Chat => OauthConstants.ScopeTypesAtprotoTitle + " " +
-    //            OauthConstants.ScopeTypesGenericTitle + " " +
-    //            OauthConstants.ScopeTypesChatTitle,
-    //        _ => OauthConstants.ScopeTypesAtprotoTitle
+    public async Task OAuthSignIn(
+                HttpListenerContext context,
+                ParsedPath path,
+                string userHandle) {
+
+        // Perform OAUTH Push
 
 
-    //        };
+        // If succsess Send redirect response
+
+        // report error
+
+        }
+
+
+    public async Task GetRedirect(
+    HttpListenerContext context,
+    ParsedPath path) {
+
+        // Parse redirect data
+
+
+        // If success redirect to preserve state
+
+
+        // report error
+
+
+        }
+
+
     }
-    
+

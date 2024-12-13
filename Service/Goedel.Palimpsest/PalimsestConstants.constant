@@ -75,4 +75,5 @@ File PagePrefixes
 	String ClientMetadata "client-metadata.json"
 	String Redirect "Redirect"
 
-
+File ContentTypes
+	String ClientMetadataType "application/json"
