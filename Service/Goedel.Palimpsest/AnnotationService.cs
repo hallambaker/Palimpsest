@@ -803,13 +803,13 @@ public class AnnotationService : IWebService<ParsedPath> {
                 string userHandle) {
 
         // Perform OAUTH Push
-        var redirect = await OauthClient.BeginOAuthContext(userHandle, path.Url);
+        var redirect = await OauthClient.PreRequest(userHandle, path.Url);
 
-        if (redirect is OauthContextFail fail) {
+        if (redirect is OauthClientResultFail fail) {
             // throw error here
             throw new NYI();
             }
-        var success = redirect as OauthContextSuccess;
+        var success = redirect as OauthClientResultPreRequest;
         await annotations.Redirect(context, success.RedirectUri);
 
         }
@@ -823,13 +823,13 @@ public class AnnotationService : IWebService<ParsedPath> {
         var result = OauthClient.ParseResponse(path.Url);
 
         // If success redirect to preserve state
-        if (result is OauthContextFail fail) {
+        if (result is OauthClientResultFail fail) {
             // throw error here
             throw new NYI();
             }
 
         // report error
-        var success = result as OauthAuthSuccess;
+        var success = result as OauthClientResultAuthRequest;
 
 
         // here have to look up the handle in the accounts and create a new one if needed.
