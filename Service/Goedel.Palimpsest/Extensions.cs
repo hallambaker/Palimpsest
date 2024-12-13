@@ -46,4 +46,20 @@ public static class Extensions {
 
 
         }
+
+
+    public static void Respond(
+                this HttpListenerContext context,
+                byte[] data,
+                string contentype,
+                bool keepAlive = false) {
+        var response = context.Response;
+        response.StatusCode = (int)HttpStatusCode.OK;
+        response.StatusDescription = "OK";
+        response.ContentType = contentype;
+        response.ContentLength64 = data.Length;
+        response.KeepAlive = keepAlive;
+        response.OutputStream.Write(data, 0, data.Length);
+        response.OutputStream.Close();
+        }
     }

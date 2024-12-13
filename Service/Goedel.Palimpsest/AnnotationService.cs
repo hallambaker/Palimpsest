@@ -72,6 +72,7 @@ public class AnnotationService : IWebService<ParsedPath> {
     public string ClientEndpoint => $"https://{Domain}/";
     public string ClientMetadataLocation => ClientEndpoint + PalimpsestConstants.ClientMetadata;
 
+    OauthClient OauthClient { get; }
 
     public KeyPair OauthClientSignature { get; set; }
     public KeyPair OauthClientEncryption { get; set; }
@@ -103,13 +104,21 @@ public class AnnotationService : IWebService<ParsedPath> {
         HttpListener.Prefixes.Add(HttpEndpoint);
         HttpListener.Prefixes.Add(HttpsEndpoint);
 
+        // Bind the OAUTH client here
 
+        // These should all belong to Oauth client
         OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
         OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
 
         JWKS =  new JWKS {
             Keys = [JWK.Factory(OauthClientSignature), JWK.Factory(OauthClientEncryption)]
             };
+
+        OauthClient = new OauthClient(
+                    ClientMetadataLocation,
+                    RedirectLocation,
+                    JWKS
+                    );
 
 
         BuiltInMap = new Dictionary<string, WebResource<ParsedPath>> {
@@ -629,7 +638,7 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         var annotations = Annotations.PostForm(this, context, member, fields);
         if (fields?.Username[0] == '@') {
-            await OAuthSignIn (context, path, fields?.Username);
+            await OAuthSignIn (annotations, context, path, fields?.Username);
             return;
             }
 
@@ -782,53 +791,51 @@ public class AnnotationService : IWebService<ParsedPath> {
     public async Task GetClientMetaData(
             HttpListenerContext context,
             ParsedPath path) {
-        var clientMetadata = FactoryAtproto(Domain, keys: JWKS);
-        var responseBytes = clientMetadata.ToString().ToUTF8();
-
-        var response = context.Response;
-
-
-        response.StatusCode = (int)HttpStatusCode.OK;
-        response.StatusDescription = "OK";
-        response.ContentType = PalimpsestConstants.ClientMetadataType;
-        response.ContentLength64 = responseBytes.Length;
-        response.KeepAlive = false;
-
-        var stream = response.OutputStream;
-        stream.Write(responseBytes, 0, responseBytes.Length);
-        stream.Close();
+        context.Respond(OauthClient.ClientMetadataBytes, PalimpsestConstants.ClientMetadataType);
         }
 
 
 
     public async Task OAuthSignIn(
+                Annotations annotations,
                 HttpListenerContext context,
                 ParsedPath path,
                 string userHandle) {
 
         // Perform OAUTH Push
+        var redirect = await OauthClient.BeginOAuthContext(userHandle, path.Url);
 
-
-        // If succsess Send redirect response
-
-        // report error
+        if (redirect is OauthContextFail fail) {
+            // throw error here
+            throw new NYI();
+            }
+        var success = redirect as OauthContextSuccess;
+        await annotations.Redirect(context, success.RedirectUri);
 
         }
 
 
     public async Task GetRedirect(
-    HttpListenerContext context,
-    ParsedPath path) {
+            HttpListenerContext context,
+            ParsedPath path) {
 
         // Parse redirect data
-
+        var result = OauthClient.ParseResponse(path.Url);
 
         // If success redirect to preserve state
-
+        if (result is OauthContextFail fail) {
+            // throw error here
+            throw new NYI();
+            }
 
         // report error
+        var success = result as OauthAuthSuccess;
 
 
+        // here have to look up the handle in the accounts and create a new one if needed.
+
+        var annotations = Annotations.Get(this, context, path);
+        await annotations.Redirect(context, success.ContextUri);
         }
 
 
