@@ -29,7 +29,10 @@ internal class Program {
         //var key = KeyPair.Factory(CryptoAlgorithmId.P256, KeySecurity.Ephemeral);
 
 
-        TestOauth.Test().TestDidResolve();
+        //TestOauth.Test().TestDidResolve();
+
+
+        TestOauth.Test().TestPAR();
         }
 
 
