@@ -65,7 +65,7 @@
 				<DefineConstants>$(DefineConstants);USE_PLATFORM_LINUX</DefineConstants>
 			</PropertyGroup>
 			<ItemGroup>
-				<ProjectReference Include="..\..\..\..\mmm\Libraries\Platforms\Goedel.Cryptography.Linux\Goedel.Cryptography.Linux.csproj" />
+
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

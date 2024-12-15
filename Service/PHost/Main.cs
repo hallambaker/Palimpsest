@@ -33,7 +33,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Windows.ApplicationModel.DataTransfer;
+//using Windows.ApplicationModel.DataTransfer;
 
 using static System.Net.Mime.MediaTypeNames;
 
@@ -68,5 +68,5 @@ internal sealed class Program {
 
 
 
-public class PageOptions {
-    }
+//public class PageOptions {
+//    }
