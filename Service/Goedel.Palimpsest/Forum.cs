@@ -200,8 +200,9 @@ public class Forum :Disposable {
                 CatalogedForumMember template,
                 string? password
                 ) {
-        template.SetPasswordDigest(password, template.LocalName, Name);
-
+        if (password is not null) {
+            template.SetPasswordDigest(password, template.LocalName, Name);
+            }
         return CreateMember(template);
 
         }

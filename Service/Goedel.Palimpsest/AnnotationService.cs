@@ -840,6 +840,7 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         // here have to look up the handle in the accounts and create a new one if needed.
 
+        context.Response.Cookies.Add(cookie);
         var annotations = Annotations.Get(this, context, path);
         await annotations.Redirect(context, success.RedirectUri);
         }
