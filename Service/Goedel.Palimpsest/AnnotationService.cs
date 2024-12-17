@@ -111,7 +111,9 @@ public class AnnotationService : IWebService<ParsedPath> {
         OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
 
         JWKS =  new JWKS {
-            Keys = [JWK.Factory(OauthClientSignature), JWK.Factory(OauthClientEncryption)]
+            Keys = [JWK.Factory(OauthClientSignature)
+                , JWK.Factory(OauthClientEncryption)
+                ]
             };
 
         OauthClient = new OauthClient(
@@ -220,16 +222,6 @@ public class AnnotationService : IWebService<ParsedPath> {
 
     #endregion
 
-
-    public Task CompletedTask => Task.CompletedTask;
-
-    public static ClientMetadata FactoryAtproto(
-        string domain,
-        ScopeTypes scope = ScopeTypes.Atproto,
-        bool confidential = false,
-        JWKS keys = null) => ClientMetadata.FactoryAtproto(
-            $"https://{domain}/{PalimpsestConstants.ClientMetadata}",
-            [$"https://{domain}/{PalimpsestConstants.Redirect}"], scope, confidential, keys);
 
 
     #region // Server Get Pages - primary

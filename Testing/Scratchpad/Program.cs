@@ -30,9 +30,12 @@ internal class Program {
 
 
         //TestOauth.Test().TestDidResolve();
-
+        TestOauth.Test().TestEncDed();
 
         TestOauth.Test().TestPAR();
+
+
+
         }
 
 

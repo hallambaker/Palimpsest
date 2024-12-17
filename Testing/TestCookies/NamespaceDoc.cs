@@ -25,6 +25,7 @@ global using Goedel.Palimpsest;
 global using Goedel.Utilities;
 global using Goedel.XUnit;
 global using Xunit;
+global using Goedel.Protocol.Web;
 
 #if !(_Github_)
 [assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]

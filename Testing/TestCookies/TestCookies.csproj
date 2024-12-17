@@ -2,8 +2,15 @@
   <Import Project="$(SolutionDir)Settings/CommonSettingsTest.xml" />
   <ItemGroup>
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography\Goedel.Cryptography.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Debug\Goedel.Debug.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Service\Goedel.Protocol.Service.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Web\Goedel.Protocol.Web.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Test.Core\Goedel.Test.Core.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Test\Goedel.Test.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh.Client\Goedel.Mesh.Client.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh.Core\Goedel.Mesh.Core.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh.Server\Goedel.Mesh.Server.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Testing\Test.Cryptography.Oauth\Test.Cryptography.Oauth.csproj" />
     <ProjectReference Include="..\..\Libraries\Goedel.Tool.Core\Goedel.Tool.Core.csproj" />
     <ProjectReference Include="..\..\Service\Goedel.Palimpsest\Goedel.Palimpsest.csproj" />
   </ItemGroup>
