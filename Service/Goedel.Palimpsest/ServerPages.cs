@@ -375,10 +375,10 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// SignIn
 	/// </summary>
 	/// <param name="options"></param>
-	public void SignIn (ParsedPath path) {
+	public void SignIn (string from) {
 		 NoteWell();
 		_Output.Write ("<form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
-		_Output.Write ("<input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\"/>\n{0}", _Indent, path.Url);
+		_Output.Write ("<input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\"/>\n{0}", _Indent, from);
 		_Output.Write ("<table >\n{0}", _Indent);
 		 SignInForm(false);
 		_Output.Write ("<table>\n{0}", _Indent);

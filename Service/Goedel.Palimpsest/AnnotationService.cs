@@ -137,6 +137,9 @@ public class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
             { PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
 
+            { PalimpsestConstants.Redirect, new (GetRedirect, false) },
+
+
             // private pages, requires log in
             { PalimpsestConstants.SignOut, new (GetSignOut) },
             { PalimpsestConstants.Project, new (GetProject) },
@@ -145,7 +148,6 @@ public class AnnotationService : IWebService<ParsedPath> {
 
 
 
-            { PalimpsestConstants.Redirect, new (GetRedirect) },
 
 
             { PalimpsestConstants.Document, new (GetDocument) },
@@ -262,8 +264,10 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         var annotations = Annotations.Get(this, context, member);
 
+        var from = path.Command == PalimpsestConstants.SignIn ? "/" : path.LocalPath;
+
         annotations.StartPage($"{Forum.Name}: Sign In");
-        annotations.SignIn(path);
+        annotations.SignIn(from);
         annotations.End();
 
         return Task.CompletedTask;
@@ -302,18 +306,16 @@ public class AnnotationService : IWebService<ParsedPath> {
             }
 
 
-
-
         var member = path.Member;
         using var response = context.Response;
 
         string filePath;
-        var stroke = context.Request.Url.LocalPath.IndexOf('/', 1);
+        var stroke = path.LocalPath.IndexOf('/', 1);
         if (stroke < 0) {
             filePath = Forum.Resources + path.FirstId;
             }
         else {
-            filePath = Forum.Resources + context.Request.Url.LocalPath[stroke..];
+            filePath = Forum.Resources + path.LocalPath[stroke..];
             }
 
         response.StatusCode = (int)HttpStatusCode.OK;
@@ -630,7 +632,9 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         var annotations = Annotations.PostForm(this, context, member, fields);
         if (fields?.Username[0] == '@') {
-            await OAuthSignIn (annotations, context, path, fields?.Username);
+
+            //var returnUri = fields.From == PalimpsestConstants.SignIn ? "/" : fields.From;
+            await OAuthSignIn (annotations, context, fields.From, fields?.Username);
             return;
             }
 
@@ -791,17 +795,22 @@ public class AnnotationService : IWebService<ParsedPath> {
     public async Task OAuthSignIn(
                 Annotations annotations,
                 HttpListenerContext context,
-                ParsedPath path,
+                string returnUri,
                 string userHandle) {
 
         // Perform OAUTH Push
-        var redirect = await OauthClient.PreRequest(userHandle, path.Url);
+        var redirect = await OauthClient.PreRequest(userHandle, returnUri);
 
         if (redirect is OauthClientResultFail fail) {
             // throw error here
             throw new NYI();
             }
         var success = redirect as OauthClientResultPreRequest;
+
+
+        // have authenticated against a DID and a handle. We are going to keep both.
+
+
         await annotations.Redirect(context, success.RedirectUri);
 
         }
@@ -811,8 +820,15 @@ public class AnnotationService : IWebService<ParsedPath> {
             HttpListenerContext context,
             ParsedPath path) {
 
+        // https://mplace2.app/Redirect?
+        // iss=https%3A%2F%2Fbsky.social
+        // &state=7w2O5X7OmCP0NacKHLrTChYRjmn83kPimRV3_3YBbmz15C2NrlktZMY
+        // KoC7lwo4qiQIzsNZBqwDdNZpKiUPO2RmdPNyhl60_Ds0nKn0Wj5x_755xhXRAS5HzQet2tZQselU8O82GXYYpFcfmt_
+        // kFrS1iEwg
+        // &code=cod-ed46b08e1b9de414d6421fe0e6f5201e6550112cdf7166d669fc94600b25b705
+
         // Parse redirect data
-        var result = OauthClient.ParseResponse(path.Url);
+        var result = OauthClient.ParseResponse(path.Uri);
 
         // If success redirect to preserve state
         if (result is OauthClientResultFail fail) {
@@ -827,7 +843,7 @@ public class AnnotationService : IWebService<ParsedPath> {
         // here have to look up the handle in the accounts and create a new one if needed.
 
         var annotations = Annotations.Get(this, context, path);
-        await annotations.Redirect(context, success.ContextUri);
+        await annotations.Redirect(context, success.RedirectUri);
         }
 
 

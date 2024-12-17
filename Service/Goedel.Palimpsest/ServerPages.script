@@ -327,10 +327,10 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #end method0
 
 
-#method SignIn ParsedPath path
+#method SignIn string from
 #% NoteWell();
 <form action="/SignInPost" method="post" enctype="multipart/form-data">
-<input type="hidden" value="#{path.Url}" id="from" name="from"/>
+<input type="hidden" value="#{from}" id="from" name="from"/>
 <table >
 #% SignInForm(false);
 <table>

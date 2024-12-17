@@ -29,8 +29,8 @@ public record ParsedPath {
 
     public string Command { get; }
 
-    public string Url { get; }
-
+    public Uri Uri { get; }
+    public string LocalPath => Uri?.LocalPath;
 
     public MemberHandle? Member { get; }
 
@@ -60,19 +60,21 @@ public record ParsedPath {
     ///<summary>The fragment Id is always the third in the path</summary> 
     public string FragmentId => ThirdId;
 
+
+
+
     public ParsedPath(HttpListenerRequest request, Forum forum) {
 
         // If signed in, set the member handle
         forum.TryGetVerifiedMemberHandle(request, out var member);
         Member = member;
 
-        // parse the command path
-        Url = request.Url.LocalPath;
-        if (Url == null) {
+        Uri = request.Url;
+        if (LocalPath == null) {
             Command = null;
             return;
             }
-        var split = Url.Split('/');
+        var split = LocalPath.Split('/');
         if (split.Length < 2) { // must have at least initial /
             Command = null;
             return;
