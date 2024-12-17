@@ -178,6 +178,24 @@ public class Forum :Disposable {
     #endregion
     #region // Member Methods
 
+
+    public MemberHandle GetOrCreateMember(
+                    string handle,
+                    string did,
+                    string? profileUdf=null) {
+        if (CatalogMembers.TryGetByLocalName(handle, out var memberHandle)) {
+            return memberHandle;
+            }
+        var cataloged = new CatalogedForumMember() {
+            LocalName = handle,
+            Did = did,
+            ProfileUdf = profileUdf
+            };
+        return AddMember (cataloged, null);
+        }
+                
+
+
     public MemberHandle AddMember(
                 CatalogedForumMember template,
                 string? password

@@ -632,12 +632,10 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         var annotations = Annotations.PostForm(this, context, member, fields);
         if (fields?.Username[0] == '@') {
-
             //var returnUri = fields.From == PalimpsestConstants.SignIn ? "/" : fields.From;
             await OAuthSignIn (annotations, context, fields.From, fields?.Username);
             return;
             }
-
 
 
         if (!fields.ValidateSignIn()) {
@@ -807,10 +805,6 @@ public class AnnotationService : IWebService<ParsedPath> {
             }
         var success = redirect as OauthClientResultPreRequest;
 
-
-        // have authenticated against a DID and a handle. We are going to keep both.
-
-
         await annotations.Redirect(context, success.RedirectUri);
 
         }
@@ -839,6 +833,10 @@ public class AnnotationService : IWebService<ParsedPath> {
         // report error
         var success = result as OauthClientResultAuthRequest;
 
+        var member = Forum.GetOrCreateMember(success.Handle, success.DID);
+        // have authenticated against a DID and a handle. We are going to keep both.
+        var cookie = Forum.ServerCookieManager.GetCookie(
+            PalimpsestConstants.CookieTypeSessionTag, member.PrimaryKey);
 
         // here have to look up the handle in the accounts and create a new one if needed.
 

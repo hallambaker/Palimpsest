@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 12/17/2024 2:09:39 PM
+//  This file was automatically generated at 12/17/2024 4:14:37 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -383,6 +383,12 @@ public partial class CatalogedProject : CatalogedForumEntry {
 	/// </summary>
 public partial class CatalogedForumMember : CatalogedForumEntry {
         /// <summary>
+        ///The user's Did (if used).
+        /// </summary>
+
+	public virtual string?						Did  {get; set;}
+
+        /// <summary>
         ///The user's fingerprint profile (if known).
         /// </summary>
 
@@ -423,6 +429,8 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = new() {
 
+			{ "Did", new PropertyString ("Did", 
+					(IBinding data, string? value) => {(data as CatalogedForumMember).Did = value;}, (IBinding data) => (data as CatalogedForumMember).Did )},
 			{ "ProfileUdf", new PropertyString ("ProfileUdf", 
 					(IBinding data, string? value) => {(data as CatalogedForumMember).ProfileUdf = value;}, (IBinding data) => (data as CatalogedForumMember).ProfileUdf )},
 			{ "PasswordDigest", new PropertyBinary ("PasswordDigest", 

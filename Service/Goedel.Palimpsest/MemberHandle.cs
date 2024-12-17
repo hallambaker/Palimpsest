@@ -29,6 +29,8 @@ namespace Goedel.Palimpsest;
 /// <param name="member">The member catalog entry</param>
 public class MemberHandle : CachedHandle<CatalogedForumMember> {
 
+    public string PrimaryKey => CatalogedMember._PrimaryKey;
+
     public byte[] AccessCookie { get; set; }
 
     public CatalogedForumMember CatalogedMember => CatalogedEntry;

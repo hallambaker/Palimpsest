@@ -42,6 +42,9 @@
 		Inherits CatalogedForumEntry
 		Description
 			|
+		String Did
+			Description
+				|The user's Did (if used).
 		String ProfileUdf
 			Description
 				|The user's fingerprint profile (if known).
