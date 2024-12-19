@@ -30,7 +30,7 @@ internal class Program {
 
 
         //TestOauth.Test().TestDidResolve();
-        TestOauth.Test().TestEncDed();
+        //TestOauth.Test().TestEncDed();
 
         TestOauth.Test().TestPAR();
 
@@ -46,17 +46,7 @@ internal class Program {
 
             var result = await context.GetResponseRawAsync();
             Console.WriteLine("Ping!");
-
-
-
-
             }
-
-
-
-
         }
-
-
 
     }
