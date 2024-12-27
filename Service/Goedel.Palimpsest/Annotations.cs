@@ -26,6 +26,7 @@ using DocumentFormat.OpenXml.InkML;
 namespace Goedel.Palimpsest;
 
 
+
 /// <summary>
 /// Annotations class.
 /// </summary>

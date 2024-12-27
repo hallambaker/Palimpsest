@@ -18,20 +18,19 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
-    Goedel.Cryptography.dll\
-    Goedel.Debug.dll\
-    Goedel.Protocol.Service.dll\
-    Goedel.Protocol.Web.dll\
-    Goedel.Test.Core.dll\
-    Goedel.Test.dll\
-    Goedel.Mesh.Client.dll\
-    Goedel.Mesh.Core.dll\
-    Goedel.Mesh.Server.dll\
-    Test.Cryptography.Oauth.dll\
-    Goedel.Tool.Core.dll\
-    Goedel.Palimpsest.dll
+    Goedel.Command.Json.dll\
+    Goedel.Command.dll\
+    Goedel.Registry.dll
 
-ToolTargets = 
+ToolTargets = \
+	main.cs\
+	Results.cs
+main.cs : main.command 
+	commandparse main.command  /cs  main.cs
+
+Results.cs : Results.protogen 
+	protogen Results.protogen  /cs  Results.cs
+
 
 
 prebuildRecurse : 
@@ -47,5 +46,5 @@ postbuild : postbuildRecurse
 
 
 postbuildwindows : 
-	powershell publishtarget TestCookies.dll
+	powershell publishtarget PHostadmin.dll
 

@@ -18,6 +18,14 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
+    Goedel.Cryptography.Oauth.dll\
+    Goedel.Debug.dll\
+    Goedel.Protocol.Service.dll\
+    Goedel.Protocol.Web.dll\
+    Goedel.Mesh.Client.dll\
+    Goedel.Mesh.Core.dll\
+    Goedel.Mesh.Server.dll\
+    Test.Cryptography.Oauth.dll\
     Goedel.Palimpsest.dll\
     TestCookies.dll
 

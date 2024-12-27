@@ -50,5 +50,5 @@ postbuild : postbuildRecurse
 
 
 postbuildwindows : 
-	powershell publishtarget Annotate.dll
+	powershell publishtarget PHost.dll
 

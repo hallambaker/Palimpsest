@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PHostadmin</name>
+    </assembly>
+    <members>
+        <member name="T:phostadmin.Shell">
+            <summary>
+            The command shell.
+            </summary>
+        </member>
+        <member name="M:phostadmin.Shell.Dispatch(System.String[],System.IO.TextWriter)">
+            <summary>
+            Dispatch command line instruction with arguments <paramref name="args"/> and
+            error output <paramref name="console"/>.
+            </summary>
+            <param name="args">The command line arguments.</param>
+            <param name="console">Error output stream.</param>
+        </member>
+        <member name="M:phostadmin.Shell._PreProcess(Goedel.Command.Dispatch)">
+            <inheritdoc/>
+        </member>
+        <member name="M:phostadmin.Shell._PostProcess(Goedel.Command.Json.ShellResult)">
+            <summary>
+            Perform post processing of the result of the shell operation.
+            </summary>
+            <param name="shellResult">The result returned by the operation.</param>
+        </member>
+        <member name="M:phostadmin.Shell.About(phostadmin.About)">
+            <summary>
+            Dispatch method
+            </summary>
+            <param name="options">The command line options.</param>
+            <returns>Mesh result instance</returns>
+        </member>
+        <member name="M:phostadmin.Shell.Create(phostadmin.Create)">
+            <inheritdoc/>
+        </member>
+        <member name="M:phostadmin.Shell.DNS(phostadmin.DNS)">
+            <inheritdoc/>
+        </member>
+        <member name="M:phostadmin.Shell.Netsh(phostadmin.Netsh)">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.CommandLineInterpreter.Entries">
+            <summary>The command entries</summary>
+        </member>
+        <member name="P:phostadmin.CommandLineInterpreter.DefaultCommand">
+            <summary>The default command.</summary>
+        </member>
+        <member name="P:phostadmin.CommandLineInterpreter.Description">
+            <summary>Description of the comman</summary>
+        </member>
+        <member name="M:phostadmin.CommandLineInterpreter.Help(Goedel.Command.DispatchShell,System.String[],System.Int32)">
+            <summary>
+            Default help dispatch
+            </summary>
+            <param name="Dispatch">The command description.</param>
+            <param name="args">The set of arguments.</param>
+            <param name="index">The first unparsed argument.</param>
+        </member>
+        <member name="P:phostadmin._About.Verbose">
+            <summary>Field accessor for option [verbose]</summary>
+        </member>
+        <member name="P:phostadmin._About.Report">
+            <summary>Field accessor for option [report]</summary>
+        </member>
+        <member name="P:phostadmin._About.Json">
+            <summary>Field accessor for option [json]</summary>
+        </member>
+        <member name="P:phostadmin._About.Where">
+            <summary>Field accessor for option [where]</summary>
+        </member>
+        <member name="P:phostadmin._Create.Verbose">
+            <summary>Field accessor for option [verbose]</summary>
+        </member>
+        <member name="P:phostadmin._Create.Report">
+            <summary>Field accessor for option [report]</summary>
+        </member>
+        <member name="P:phostadmin._Create.Json">
+            <summary>Field accessor for option [json]</summary>
+        </member>
+        <member name="P:phostadmin._Create.ServiceDns">
+            <summary>Field accessor for parameter []</summary>
+        </member>
+        <member name="P:phostadmin._Create.HostConfig">
+            <summary>Field accessor for option [hostconfig]</summary>
+        </member>
+        <member name="P:phostadmin._Create.HostIp">
+            <summary>Field accessor for option [ip]</summary>
+        </member>
+        <member name="P:phostadmin._Create.HostDns">
+            <summary>Field accessor for option [host]</summary>
+        </member>
+        <member name="P:phostadmin._Create.Admin">
+            <summary>Field accessor for option [admin]</summary>
+        </member>
+        <member name="P:phostadmin._Create.MultiConfig">
+            <summary>Field accessor for option [config]</summary>
+        </member>
+        <member name="P:phostadmin._Create.Account">
+            <summary>Field accessor for option [account]</summary>
+        </member>
+        <member name="P:phostadmin._DNS.Verbose">
+            <summary>Field accessor for option [verbose]</summary>
+        </member>
+        <member name="P:phostadmin._DNS.Report">
+            <summary>Field accessor for option [report]</summary>
+        </member>
+        <member name="P:phostadmin._DNS.Json">
+            <summary>Field accessor for option [json]</summary>
+        </member>
+        <member name="P:phostadmin._DNS.DnsConfig">
+            <summary>Field accessor for parameter []</summary>
+        </member>
+        <member name="P:phostadmin._DNS.HostConfig">
+            <summary>Field accessor for parameter []</summary>
+        </member>
+        <member name="P:phostadmin._DNS.MultiConfig">
+            <summary>Field accessor for option [config]</summary>
+        </member>
+        <member name="P:phostadmin._Netsh.Verbose">
+            <summary>Field accessor for option [verbose]</summary>
+        </member>
+        <member name="P:phostadmin._Netsh.Report">
+            <summary>Field accessor for option [report]</summary>
+        </member>
+        <member name="P:phostadmin._Netsh.Json">
+            <summary>Field accessor for option [json]</summary>
+        </member>
+        <member name="P:phostadmin._Netsh.DnsConfig">
+            <summary>Field accessor for parameter []</summary>
+        </member>
+        <member name="P:phostadmin._Netsh.HostConfig">
+            <summary>Field accessor for parameter []</summary>
+        </member>
+        <member name="P:phostadmin._Netsh.MultiConfig">
+            <summary>Field accessor for option [config]</summary>
+        </member>
+        <member name="T:phostadmin.Program">
+            <summary>Main calling program.</summary> 
+        </member>
+        <member name="T:phostadmin.AdminShellResult">
+             <summary>
+            
+             Classes to be used to test serialization an deserialization.
+             </summary>
+        </member>
+        <member name="P:phostadmin.AdminShellResult._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:phostadmin.AdminShellResult.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="P:phostadmin.AdminShellResult._TagDictionary">
+            <summary>
+            Dictionary mapping tags to factory methods
+            </summary>
+        </member>
+        <member name="M:phostadmin.AdminShellResult.Deserialize(Goedel.Protocol.JsonReader,Goedel.Protocol.JsonObject@)">
+            <summary>
+            Construct an instance from the specified tagged JsonReader stream.
+            </summary>
+            <param name="jsonReader">Input stream</param>
+            <param name="result">The created object</param>
+        </member>
+        <member name="T:phostadmin.Result">
+             <summary>
+            
+             Placeholder class to allow insertion of application specific properties.
+             </summary>
+        </member>
+        <member name="P:phostadmin.Result._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:phostadmin.Result._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:phostadmin.Result._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:phostadmin.Result._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:phostadmin.Result._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.Result._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.Result._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.Result._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:phostadmin.Result.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:phostadmin.Result._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:phostadmin.Result.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="T:phostadmin.ResultServiceConfiguration">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultServiceConfiguration._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:phostadmin.ResultServiceConfiguration._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:phostadmin.ResultServiceConfiguration._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:phostadmin.ResultServiceConfiguration._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:phostadmin.ResultServiceConfiguration._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.ResultServiceConfiguration._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.ResultServiceConfiguration._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.ResultServiceConfiguration._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:phostadmin.ResultServiceConfiguration.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:phostadmin.ResultServiceConfiguration._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:phostadmin.ResultServiceConfiguration.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="P:phostadmin.ResultServiceConfiguration.Configuration">
+            <summary>The service/host configuration.</summary> 
+        </member>
+        <member name="M:phostadmin.ResultServiceConfiguration.ToBuilder(System.Text.StringBuilder,Goedel.Command.Verbosity)">
+            <inheritdoc/>
+        </member>
+        <member name="T:phostadmin.ResultAbout">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.DirectoryKeys">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.DirectoryMesh">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.AssemblyTitle">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.AssemblyDescription">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.AssemblyCopyright">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.AssemblyCompany">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.AssemblyVersion">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout.Build">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:phostadmin.ResultAbout._Binding">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:phostadmin.ResultAbout._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="F:phostadmin.ResultAbout._StaticProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="F:phostadmin.ResultAbout._StaticAllProperties">
+            <summary>Dictionary describing the serializable properties.</summary> 
+        </member>
+        <member name="P:phostadmin.ResultAbout._AllProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.ResultAbout._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.ResultAbout._ParentProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:phostadmin.ResultAbout._Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="F:phostadmin.ResultAbout.__Tag">
+            <summary>
+            Tag identifying this class
+            </summary>
+        </member>
+        <member name="M:phostadmin.ResultAbout._Factory">
+            <summary>
+            Factory method
+            </summary>
+            <returns>Object of this type</returns>
+        </member>
+        <member name="M:phostadmin.ResultAbout.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
+            <summary>
+            Deserialize a tagged stream
+            </summary>
+            <param name="jsonReader">The input stream</param>
+            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+            <returns>The created object.</returns>		
+        </member>
+        <member name="M:phostadmin.ResultAbout.ToBuilder(System.Text.StringBuilder,Goedel.Command.Verbosity)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Goedel.Mesh.ServiceAdmin.NamespaceDoc">
+            <summary>
+            Service administration over multiple hosts.
+            </summary>
+        </member>
+    </members>
+</doc>

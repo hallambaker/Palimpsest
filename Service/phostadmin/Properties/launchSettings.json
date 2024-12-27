@@ -1,0 +1,15 @@
+{
+  "profiles": {
+
+    "About": {
+      "commandName": "Project",
+      "commandLineArgs": "about",
+      "workingDirectory": "C:\\Users\\hallam\\Test\\Palimpsest"
+    },
+    "Create": {
+      "commandName": "Project",
+      "commandLineArgs": "create mplace2.app /admin=phill.hallambaker.com ",
+      "workingDirectory": "C:\\Users\\hallam\\Test\\Palimpsest"
+    }
+  }
+}

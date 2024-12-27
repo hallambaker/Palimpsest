@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="$(SolutionDir)Settings/CommonSettingsLinemode.xml" />
+	<PropertyGroup>
+		<AssemblyName>PHostadmin</AssemblyName>
+		<Product>PHost administrator</Product>
+		<Description>Palimpsest host daemon administration tool</Description>
+		<Copyright>© 2024</Copyright>
+		<TargetFrameworks>net9.0</TargetFrameworks>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Command.Json\Goedel.Command.Json.csproj" />
+	  <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Command\Goedel.Command.csproj" />
+	  <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Service\Goedel.Protocol.Service.csproj" />
+	  <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Compile Update="main.cs">
+	    <DependentUpon>main.command</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Results.cs">
+	    <DependentUpon>Results.protogen</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="main.command">
+	    <LastGenOutput>main.cs</LastGenOutput>
+	    <Generator>CommandCS</Generator>
+	  </None>
+	  <None Update="Results.protogen">
+	    <LastGenOutput>Results.cs</LastGenOutput>
+	    <Generator>ProtoGen</Generator>
+	  </None>
+	</ItemGroup>
+
+</Project>

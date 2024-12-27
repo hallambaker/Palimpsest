@@ -26,7 +26,7 @@ namespace Goedel.Palimpsest;
 /// <summary>
 /// Extensions class. Provides static convenience extensions.
 /// </summary>
-public static class Extensions {
+public static partial class Extensions {
 
 
     public static string GetFileType(this string file) {

@@ -1,5 +1,11 @@
 ﻿# To Do List
 
+
+## OAUTH
+
+* Complete PKCE verification
+* Document @nything
+
 ## Clean up for demo
 
 * Logo

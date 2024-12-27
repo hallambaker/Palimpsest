@@ -22,36 +22,26 @@
 
 
 
-global using Goedel.Document.RFC;
-global using Goedel.Document.Markdown;
-global using Goedel.Document.OpenXML;
-global using Goedel.Protocol.Service;
-global using Goedel.Protocol.GenericHost;
 
-global using Goedel.Cryptography.Dare;
-global using Goedel.Cryptography.Jose;
-global using Goedel.Cryptography.Oauth;
-global using Goedel.Cryptography;
-global using Goedel.Cryptography.Algorithms;
-global using Goedel.Protocol;
-global using Goedel.Mesh;
-global using Goedel.Utilities;
-//global using Goedel.Mesh;
-//global using Goedel.Mesh.Client;
-global using Goedel.Protocol.Web;
-global using System.Security.Cryptography;
-global using System.Collections.Generic;
-global using System.Net;
-global using System.Text.Json;
-global using System.IO;
-global using Goedel.IO;
-[assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]
+#if NET6_0_WINDOWS_OR_GREATER
+using Goedel.Cryptography.Windows;
+#elif NET6_0_MACOS_OR_GREATER
+using Goedel.Cryptography.Core;
+#else
+#endif
 
-namespace Goedel.Palimpsest;
-/// <summary>
-/// Desctiption of the 
-/// </summary>
+namespace phostadmin;
 
-[System.Runtime.CompilerServices.CompilerGenerated]
-class NamespaceDoc {
+///<summary>Main calling program.</summary> 
+public class Program {
+#if USE_PLATFORM_WINDOWS
+    static Program() => Goedel.Cryptography.Windows.Initialization.Initialized.AssertTrue(
+        Goedel.Mesh.Internal.Throw);
+#elif USE_PLATFORM_LINUX
+#endif
+    static void Main(string[] args) {
+        Shell shell = new();
+
+        shell.Dispatch(args, Console.Out);
+        }
     }

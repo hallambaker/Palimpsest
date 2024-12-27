@@ -21,13 +21,20 @@ LinkFiles = \
     Goedel.Cryptography.Dare.dll\
     Goedel.Cryptography.Identifiers.dll\
     Goedel.Cryptography.Jose.dll\
+    Goedel.Cryptography.Oauth.dll\
     Goedel.Cryptography.dll\
     Goedel.FSR.dll\
+    Goedel.Protocol.GenericHost.dll\
+    Goedel.Protocol.Service.dll\
     Goedel.Protocol.Web.dll\
     Goedel.Registry.dll\
+    Goedel.Serialization.dll\
     Goedel.Utilities.dll\
     Goedel.Protocol.dll\
-    Goedel.Mesh.dll
+    Goedel.Mesh.dll\
+    Goedel.Document.Markdown.dll\
+    Goedel.Document.OpenXML.dll\
+    Goedel.Document.RFC.dll
 
 ToolTargets = \
 	Exceptions.cs\

@@ -16,8 +16,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// StartPage
 	/// </summary>
-	/// <param name="options"></param>
-	/// <param name="options"></param>
+	/// <param name="title"></param>
+	/// <param name="script=null"></param>
 	public void StartPage (string title, string? script=null) {
 		_Output.Write ("<!DOCTYPE html>\n{0}", _Indent);
 		_Output.Write ("<html lang=\"en\">\n{0}", _Indent);
@@ -133,7 +133,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PageProject
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="handle"></param>
 	public void PageProject (ProjectHandle handle) {
 		 var project = handle.CatalogedProject;
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
@@ -179,7 +179,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PageDocument
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="document"></param>
 	public void PageDocument (ResourceHandle document) {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Document: {1}</h1>\n{0}", _Indent, document.LocalName);
@@ -189,7 +189,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PageMember
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="member"></param>
 	public void PageMember (CatalogedForumEntry member) {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Member: {1}</h1>\n{0}", _Indent, member.LocalName);
@@ -199,7 +199,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PageTopic
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="topic"></param>
 	public void PageTopic (TopicHandle topic) {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Topic: {1}</h1>\n{0}", _Indent, topic.LocalName);
@@ -227,7 +227,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PagePost
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="post"></param>
 	public void PagePost (PostHandle post) {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <p>{1} / {2}</p>\n{0}", _Indent, GetDateAdded(post.CatalogedEntry), GetMemberAnchor(post.CatalogedEntry));
@@ -256,7 +256,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PageAddDocument
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="handle"></param>
 	public void PageAddDocument (ProjectHandle handle) {
 		 var project = handle.CatalogedProject;
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
@@ -309,7 +309,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PageAddTopic
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="handle"></param>
 	public void PageAddTopic (ProjectHandle handle) {
 		 var project = handle.CatalogedProject;
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
@@ -374,7 +374,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// SignIn
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="from"></param>
 	public void SignIn (string from) {
 		 NoteWell();
 		_Output.Write ("<form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
@@ -400,7 +400,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// SignInForm
 	/// </summary>
-	/// <param name="options"></param>
+	/// <param name="create"></param>
 	public void SignInForm (bool create) {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<tr><td>\n{0}", _Indent);
@@ -436,8 +436,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <summary>	
 	/// PageEnterComment
 	/// </summary>
-	/// <param name="options"></param>
-	/// <param name="options"></param>
+	/// <param name="path"></param>
+	/// <param name="mode"></param>
 	public void PageEnterComment (ParsedPath path, CommentMode mode) {
 		_Output.Write ("<div class=\"whatever\">\n{0}", _Indent);
 		_Output.Write ("<h1>Enter a comment</h1>\n{0}", _Indent);

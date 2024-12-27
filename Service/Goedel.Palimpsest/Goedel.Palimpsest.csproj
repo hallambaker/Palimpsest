@@ -14,6 +14,8 @@
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Oauth\Goedel.Cryptography.Oauth.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography\Goedel.Cryptography.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.FSR\Goedel.FSR.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.GenericHost\Goedel.Protocol.GenericHost.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Service\Goedel.Protocol.Service.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Web\Goedel.Protocol.Web.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Serialization\Goedel.Serialization.csproj" />
