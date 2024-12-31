@@ -21,7 +21,11 @@
 #endregion
 
 global using Goedel.IO;
+global using Goedel.Mesh;
+global using Goedel.Mesh.Client;
+global using Goedel.Mesh.Core;
 global using Goedel.Protocol;
+global using Goedel.Palimpsest;
 global using Goedel.Command;
 global using Goedel.Command.Json;
 global using Goedel.Utilities;

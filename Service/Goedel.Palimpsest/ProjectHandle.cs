@@ -27,11 +27,12 @@ using System.Reflection.Metadata;
 
 namespace Goedel.Palimpsest;
 
+
 /// <summary>
 /// Cached handle for a project
 /// </summary>
 /// <param name="project">The project catalog entry</param>
-public class ProjectHandle: CachedHandle<CatalogedProject> {
+public class ProjectHandle: CachedHandle<CatalogedProject>, IPage{
 
 
     CachedProjects CachedProjects { get; }

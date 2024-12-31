@@ -46,8 +46,17 @@ public class CachedMembers : Cache<MemberHandle, CatalogedForumMember> {
                 => new(catalogedEntry);
 
 
+    //public bool TryGetByHandleUncached(string handle, out MemberHandle? catalogedForumMember) {
+    //    if (TryGetByLocalName(handle, out var item)) {
+    //        catalogedForumMember = item.CatalogedMember;
+    //        return true;
+    //        }
+    //    catalogedForumMember = null;
+    //    return false;
+    //    }
 
-    public bool TryGetByUidUncached(string id, out CatalogedForumMember catalogedForumMember) {
+
+    public bool TryGetByUidUncached(string id, out CatalogedForumMember? catalogedForumMember) {
         if (!Catalog.PersistenceStore.ObjectIndex.TryGetValue(id, out var indexEntry)) {
             catalogedForumMember = null;
             return false;

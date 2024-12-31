@@ -40,7 +40,9 @@ public class Program {
 #elif USE_PLATFORM_LINUX
 #endif
     static void Main(string[] args) {
-        Shell shell = new();
+        Shell shell = new() {
+            MeshMachine = new MeshMachineCore()
+            };
 
         shell.Dispatch(args, Console.Out);
         }

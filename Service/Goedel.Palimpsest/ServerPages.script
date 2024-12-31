@@ -26,6 +26,26 @@
   <body>
 #end method2
 
+#method2 HeaderSignedOut Navigation navigation int index
+<header>
+<div class="col-md-3 text-end">
+
+<ul class="nav nav-pills">
+#for (var i =0; i< navigation.Items.Length; i++)
+#% var item = navigation.Items[i];
+        <li class="nav-item"><a href="/#{item.Uri}" #!
+#if i == index
+class="nav-link active" aria-current="page"#!
+#else
+class="nav-link"#!
+#end if
+>#{item.Label}</a></li>
+#end for
+</ul>
+</div>
+</header>
+#end method2
+
 #method0 Header
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
@@ -33,6 +53,11 @@
   </div>
 </nav>
 #end method0
+
+#method0 Trailer
+<footer class="annotation-footer"><a href="/Terms">Terms and Conditions</a></footer>
+#end method0
+
 
 
 #method0 FooterComment
@@ -73,18 +98,29 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #end method0
 
 
+
 #! ///// Result pages - Home / Project / User / Document
 
 
 
+
 #method0 PageHome
-<div class="container">
-<img class="header__logo" src="/resources/ietf.svg" alt="IETF logo"/>
-  <h1>Home #{Forum.Name}</h1>
+
+<main>
 #if !SignedIn
-    <p><a href="SignIn">Sign In</a></p>
-    <p><a href="CreateAccount">Create Account</a></p>
-    <p class="disabled">Create Project</p>
+#% HeaderSignedOut(Annotation.NavigationHome, 0);
+#end if
+
+<div class="container">
+<img src="/resources/splashscreen.png" alt="Splashscreen" class="img-fluid"/>
+#if !SignedIn
+    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:
+    </p>
+    <form action="/SignInPost" method="post" enctype="multipart/form-data">
+    <p class="login-big">@<input class="login-box" type="text" id="username", name="username"/>
+    <input type="submit" value="Sign In" />
+    </p>
+    </form>
 #else 
     <p><a href="SignOut">Sign Out</a></p>
 #if PermissionCreateProject
@@ -93,6 +129,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
     <h2>Projects</h2>
     <table class="documentsList">
+#% // ToDo: The list of projects should become 'featured projects'
 #foreach  (var project in Projects) 
     <tr><td>
     <a href="/Project/#{project.Uid}">#{project.LocalName}</a>
@@ -106,7 +143,40 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 </div>
 
+</main>
+#% Trailer();
 #end method0
+
+#method2 PageBoilerplate BoilerplateHtml boilerplate FormDataAcceptTerms? prefill=null
+#% if (boilerplate.HTML is null) {
+#%  Forum.FetchBoilerplate(boilerplate);
+#%  }
+#% HeaderSignedOut (Annotation.NavigationHome, boilerplate.Index);
+
+<div class="container">
+#{boilerplate.HTML}
+#if prefill is not null
+#if prefill.Insist
+    <p class="form-error">You MUST accept the terms to continue.</p>
+#end if
+    <form action="/AcceptTerms" method="post" enctype="multipart/form-data">
+#if prefill.From is not null
+        <input type="hidden" id="from" name="from" value="#{prefill.From}" />    
+#end if
+#if prefill.Username is not null
+        <input type="hidden" id="username" name="username" value="#{prefill.Username}" />  
+#end if      
+        <input type="checkbox", id="agree", name="agree", value="true">  <label for="fname">I agree to these terms and conditions.</label>
+        <input type="submit" value="I Accept" />
+        <input type="submit" value="Cancel" formaction="/"/>
+    </form>
+#end if
+</div>
+
+#% Trailer();
+#end method2
+
+
 
 #method PageProject ProjectHandle handle
 #% var project = handle.CatalogedProject;

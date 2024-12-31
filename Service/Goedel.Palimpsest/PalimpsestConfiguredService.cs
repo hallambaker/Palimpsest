@@ -21,6 +21,8 @@
 #endregion
 
 
+using Goedel.Mesh.Client;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -30,14 +32,20 @@ namespace Goedel.Palimpsest;
 /// <summary>
 /// Service configuration
 /// </summary>
-public class Configuration : Disposable, IServiceConfiguration {
+public class PalimpsestConfiguration : Disposable, IServiceConfiguration {
     ///<summary>Maps configuration entry to configuration.</summary> 
     public Dictionary<string, object> Dictionary { get; } = new();
 
     ///<summary>The host configuration.</summary> 
     public GenericHostConfiguration GenericHost { get; set; }
 
-
+    /// <summary>
+    /// Add a configuration entry to the configuration.
+    /// </summary>
+    /// <param name="entry">The entry.</param>
+    /// 
+    public void Add(IConfigurationEntry entry) {
+        }
     }
 
 /// <summary>
@@ -45,6 +53,8 @@ public class Configuration : Disposable, IServiceConfiguration {
 /// </summary>
 public class PalimpsestConfiguredService : Disposable, IConfguredService {
 
+    ///<summary>Name for the default hosts and Services configuration file.</summary> 
+    public const string DefaultConfiguration = "PalimsestService";
 
     ///<summary>The service configuration.</summary> 
     public PalimpsestServiceConfiguration MeshHostConfiguration { get; }
@@ -84,6 +94,9 @@ public class PalimpsestConfiguredService : Disposable, IConfguredService {
                 IOptionsMonitor<PalimpsestServiceConfiguration> meshHostConfiguration,
                 IOptionsMonitor<GenericHostConfiguration> genericHostConfiguration
                 ) {
+
+
+
         //Console.WriteLine($"Start mesh");
 
         //MeshMachine = meshMachine;
@@ -117,6 +130,37 @@ public class PalimpsestConfiguredService : Disposable, IConfguredService {
         // running is the administrator list
 
         }
+
+    //static string GetFilePath(
+    //    IMeshMachineClient meshMachine,
+    //    string fileSpec,
+    //    string type) {
+    //    var defaulted = fileSpec.ApplyExtensionDefault(ConfigurationFileExtension);
+
+    //    if (Path.IsPathRooted(fileSpec) | Path.HasExtension(fileSpec)) {
+    //        return defaulted;
+    //        }
+    //    return Path.Combine(meshMachine.DirectoryMesh, type, defaulted);
+
+
+    //    }
+
+    ///// <summary>
+    ///// Return the file path for the service description <paramref name="fileSpec"/>.
+    ///// <para>If <paramref name="fileSpec"/> contains no file path specifier, it is
+    ///// interpreted as a named service description to be stored in the location 
+    ///// specified by <paramref name="meshMachine"/>. Otherwise, the specified file
+    ///// path is used.
+    ///// </para>
+    ///// </summary>
+    ///// <param name="meshMachine">The Mesh machine specification (used to determine
+    ///// the location of system configuration files).</param>
+    ///// <param name="fileSpec">The service description specifier.</param>
+    ///// <returns>The file path.</returns>
+    //public static string GetService(
+    //    IMeshMachineClient meshMachine, string fileSpec = null) => GetFilePath(
+    //        meshMachine, fileSpec ?? DefaultConfiguration, "Service");
+
 
 
     }

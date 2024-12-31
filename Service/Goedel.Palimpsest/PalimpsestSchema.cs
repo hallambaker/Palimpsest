@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 12/27/2024 4:53:11 PM
+//  This file was automatically generated at 12/31/2024 5:24:35 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -90,7 +90,8 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	    {"CatalogedPost", CatalogedPost._Factory},
 	    {"CatalogedComment", CatalogedComment._Factory},
 	    {"CatalogedAnnotation", CatalogedAnnotation._Factory},
-	    {"AnnotatedResource", AnnotatedResource._Factory}
+	    {"AnnotatedResource", AnnotatedResource._Factory},
+	    {"Terms", Terms._Factory}
 		};
 
     [ModuleInitializer]
@@ -1664,6 +1665,78 @@ public partial class AnnotatedResource : ForumItem {
 			return Out as AnnotatedResource;
 			}
 		var Result = new AnnotatedResource ();
+		Result.Deserialize (jsonReader);
+		Result.PostDecode();
+		return Result;
+		}
+
+
+	}
+
+	/// <summary>
+	/// </summary>
+public partial class Terms : ForumItem {
+
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static protected new Binding _binding = new (
+			new() {
+
+        }, __Tag,() => new Terms(), null);
+
+    ///<summary>Dictionary describing the serializable properties.</summary> 
+    public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
+
+	///<summary>Dictionary describing the serializable properties.</summary> 
+	public readonly static new Dictionary<string, Property> _StaticAllProperties = _StaticProperties;
+
+
+    ///<inheritdoc/>
+	public override Dictionary<string, Property> _AllProperties => _StaticAllProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _Properties => _StaticProperties;
+
+    ///<inheritdoc/>
+    public override Dictionary<string, Property> _ParentProperties => base._Properties;
+
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "Terms";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new Terms();
+
+
+    /// <summary>
+    /// Deserialize a tagged stream
+    /// </summary>
+    /// <param name="jsonReader">The input stream</param>
+	/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+    /// <returns>The created object.</returns>		
+    public static new Terms FromJson (JsonReader jsonReader, bool tagged=true) {
+		if (jsonReader == null) {
+			return null;
+			}
+		if (tagged) {
+			var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+			return Out as Terms;
+			}
+		var Result = new Terms ();
 		Result.Deserialize (jsonReader);
 		Result.PostDecode();
 		return Result;

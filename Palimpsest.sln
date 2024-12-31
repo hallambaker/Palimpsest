@@ -109,6 +109,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 		Resources\annotate.js = Resources\annotate.js
 		Resources\favicon.png = Resources\favicon.png
 		Resources\ietf.svg = Resources\ietf.svg
+		Rules.md = Rules.md
 		Resources\stylesheet.css = Resources\stylesheet.css
 	EndProjectSection
 EndProject
@@ -135,6 +136,46 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goedel.Command.Json", "..\mmm\Libraries\Goedel.Command.Json\Goedel.Command.Json.csproj", "{04EA824A-3A7F-4426-B96E-74BBFF4E47CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goedel.Mesh.Shell.ServiceAdmin", "..\mmm\Mesh\Goedel.Mesh.Shell.ServiceAdmin\Goedel.Mesh.Shell.ServiceAdmin.csproj", "{E85F3625-76AA-43F3-B8D1-15819390F6DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "en", "en", "{6F603862-E7E4-4013-81C1-5587B0405341}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\en\about.md = Resources\en\about.md
+		Resources\en\faq.md = Resources\en\faq.md
+		Resources\en\technology.md = Resources\en\technology.md
+		Resources\en\terms.md = Resources\en\terms.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fr", "fr", "{60BEF442-0A29-495D-83CC-FCE010484A85}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\fr\about.md = Resources\fr\about.md
+		Resources\fr\faq.md = Resources\fr\faq.md
+		Resources\fr\technology.md = Resources\fr\technology.md
+		Resources\fr\terms.md = Resources\fr\terms.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "es", "es", "{D8319CE7-9FA3-41D3-BAAB-1D359502887C}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\es\about.md = Resources\es\about.md
+		Resources\es\faq.md = Resources\es\faq.md
+		Resources\es\technology.md = Resources\es\technology.md
+		Resources\es\terms.md = Resources\es\terms.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ar", "ar", "{4F70ACD2-5EDE-494D-B3FF-2CF1A091F84F}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\ar\about.md = Resources\ar\about.md
+		Resources\ar\faq.md = Resources\ar\faq.md
+		Resources\ar\technology.md = Resources\ar\technology.md
+		Resources\ar\terms.md = Resources\ar\terms.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "zh", "zh", "{BE61CF20-9D28-4F39-B0EB-43AFB685AF97}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\zh\about.md = Resources\zh\about.md
+		Resources\zh\faq.md = Resources\zh\faq.md
+		Resources\zh\technology.md = Resources\zh\technology.md
+		Resources\zh\terms.md = Resources\zh\terms.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -679,6 +720,11 @@ Global
 		{CF87DE50-E21B-42D6-914D-49E46A86F71C} = {F19A3147-E61E-4BAC-AC0D-50A873F80D3B}
 		{04EA824A-3A7F-4426-B96E-74BBFF4E47CA} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
 		{E85F3625-76AA-43F3-B8D1-15819390F6DF} = {D5F855FD-4AAB-404D-ACBF-F178F0CECE6A}
+		{6F603862-E7E4-4013-81C1-5587B0405341} = {9B3543F1-F525-44F6-BA85-B7BEB78E9B00}
+		{60BEF442-0A29-495D-83CC-FCE010484A85} = {9B3543F1-F525-44F6-BA85-B7BEB78E9B00}
+		{D8319CE7-9FA3-41D3-BAAB-1D359502887C} = {9B3543F1-F525-44F6-BA85-B7BEB78E9B00}
+		{4F70ACD2-5EDE-494D-B3FF-2CF1A091F84F} = {9B3543F1-F525-44F6-BA85-B7BEB78E9B00}
+		{BE61CF20-9D28-4F39-B0EB-43AFB685AF97} = {9B3543F1-F525-44F6-BA85-B7BEB78E9B00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58A69F60-0C27-4168-B66B-C2B910D8A295}

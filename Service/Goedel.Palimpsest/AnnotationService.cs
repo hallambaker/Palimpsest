@@ -20,15 +20,6 @@
 //  THE SOFTWARE.
 #endregion
 
-
-using DocumentFormat.OpenXml.Spreadsheet;
-
-using Goedel.Cryptography.Oauth;
-using Goedel.IO;
-using Goedel.Palimpsest;
-
-using System.Net.Mime;
-
 namespace Goedel.Palimpsest;
 
 [Flags]
@@ -53,7 +44,7 @@ public enum CommentMode {
 
     }
 
-public class AnnotationService : IWebService<ParsedPath> {
+public partial class AnnotationService : IWebService<ParsedPath> {
 
     #region // Properties
     ///<summary>The persistent data store</summary> 
@@ -80,10 +71,37 @@ public class AnnotationService : IWebService<ParsedPath> {
     public JWKS JWKS { get; set; }
 
 
+    public NavigationItem[] ForumNavigation = [
+            new ("Home", ""),
+            new ("Technology", "Technology", "technology.md"),
+            new ("FAQ", "FAQ", "faq.md"),
+            new ("About", "About", "about.md")
+        ];
+
+    public NavigationItem[] ForumAdditional = [
+        new ("Terms", "Terms", "terms.md"),
+        ];
+
+    public BoilerplateHtml? TermsAndConditions {
+        get {
+            if (Boilerplate.TryGetValue("Terms", out var result)) {
+                return result as BoilerplateHtml;
+                }
+            return null;
+
+            
+            }
+
+        }
+    public Navigation NavigationHome => new(ForumNavigation);
 
     public string RedirectLocation => ClientEndpoint + PalimpsestConstants.Redirect;
+
+    public Dictionary<string, Boilerplate> Boilerplate { get; }
+
+
     ///<inheritdoc/>
-    public Dictionary<string, WebResource<ParsedPath>> BuiltInMap { get; }
+    //public Dictionary<string, WebResource<ParsedPath>> BuiltInMap { get; }
     public Dictionary<string, WebResource<ParsedPath>> ResourceMap { get; }
     #endregion
     #region // Constructor
@@ -123,9 +141,17 @@ public class AnnotationService : IWebService<ParsedPath> {
                     );
 
 
-        BuiltInMap = new Dictionary<string, WebResource<ParsedPath>> {
-            { PalimpsestConstants.ClientMetadata, new (GetClientMetaData) },
+        var clientBoilerplate = new BoilerplateVerbatim() {
+            Bytes = OauthClient.ClientMetadataBytes,
+            ContentType = PalimpsestConstants.ClientMetadataType
             };
+        
+        Boilerplate = new Dictionary<string, Boilerplate>() {
+                        { PalimpsestConstants.ClientMetadata, clientBoilerplate },
+            };
+
+        AddBoilerplate(ForumNavigation, true);
+        AddBoilerplate(ForumAdditional);
 
         ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
             { "", new (GetHome, false) },
@@ -134,8 +160,11 @@ public class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.resources, new (GetResources,false) },
             { PalimpsestConstants.SignIn, new (GetSignIn, false) },
             { PalimpsestConstants.SignInPost, new (PostSignIn, false) },
-            { PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
-            { PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
+            { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
+            //{ PalimpsestConstants.Terms, new (GetTerms, false) },
+
+            //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
+            //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
 
             { PalimpsestConstants.Redirect, new (GetRedirect, false) },
 
@@ -175,6 +204,22 @@ public class AnnotationService : IWebService<ParsedPath> {
             };
         }
 
+    void AddBoilerplate(NavigationItem[] items, bool indexed = false) {
+        for (var i = 0; i < items.Length; i++) {
+            var item = items[i];
+            if (item.Filename is not null) {
+                var boilerplate = new BoilerplateHtml() {
+                    Filename = item.Filename
+                    };
+                if (indexed) {
+                    boilerplate.Index = i;
+                    }
+                Boilerplate.Add(item.Uri, boilerplate);
+                }
+            }
+        }
+
+
 
     #endregion
     #region // The HTTP service and dispatch
@@ -204,18 +249,24 @@ public class AnnotationService : IWebService<ParsedPath> {
             }
 
         Console.WriteLine($"Request {request.Url.LocalPath}");
-        var parsed = new ParsedPath(request, Forum);
+        var path = new ParsedPath(request, Forum);
 
-        Console.WriteLine($"Start {parsed.Command} Project {parsed.FirstId} Document {parsed.SecondId}");
+        Console.WriteLine($"Start {path.Command} Project {path.FirstId} Document {path.SecondId}");
+
+        // Check for the boilerplate pages first
+        if (Boilerplate.TryGetValue(path.Command, out var resource)) {
+            await SendBoilerplate(context, path, resource);
+            return;
+            }
 
         // Look for a dispatch method and use it if found.
-        if (ResourceMap.TryGetValue(parsed.Command, out var callback)) {
-            if ((parsed.Member is null) & callback.SignedIn) {
-                await GetSignIn(context, parsed);
+        if (ResourceMap.TryGetValue(path.Command, out var callback)) {
+            if ((path.Member is null) & callback.SignedIn) {
+                await GetSignIn(context, path);
                 return;
                 }
 
-            await callback.Method(context, parsed);
+            await callback.Method(context, path);
             }
         else {
             await Error(context, null);
@@ -256,53 +307,53 @@ public class AnnotationService : IWebService<ParsedPath> {
         }
 
 
-    #region // Sign in/out
-    public Task GetSignIn(
-            HttpListenerContext context,
-            ParsedPath path) {
-        var member = path.Member;
 
-        var annotations = Annotations.Get(this, context, member);
 
-        var from = path.Command == PalimpsestConstants.SignIn ? "/" : path.LocalPath;
 
-        annotations.StartPage($"{Forum.Name}: Sign In");
-        annotations.SignIn(from);
-        annotations.End();
-
-        return Task.CompletedTask;
-        }
-
-    public Task GetSignOut(
-                HttpListenerContext context,
-                ParsedPath path) {
-        var member = path.Member;
-
-        var annotations = Annotations.Get(this, context, member);
-
-        // clear the HTTP cookie
-        var cookie = ServerCookieManager.ClearCookie(
-        PalimpsestConstants.CookieTypeSessionTag);
-        context.Response.Cookies.Add(cookie);
-
-        // clear the verified account handle
-        annotations.VerifiedAccount = null;
-
-        // roll the page including the header
-        annotations.StartPage(Forum.Name);
-        annotations.PageHome();
-        annotations.End();
-
-        return Task.CompletedTask;
-        }
-    #endregion
     #region // Resources
-    public Task GetResources(
+
+    public async Task SendBoilerplate (
+            HttpListenerContext context,
+            ParsedPath path,
+            Boilerplate boilerplate) {
+
+        switch (boilerplate) {
+            case BoilerplateVerbatim verbatim: {
+                context.Respond(verbatim.Bytes, verbatim.ContentType);
+                return;
+                }
+            case BoilerplateHtml html: {
+                var annotations = Annotations.Get(this, context, path.Member);
+
+                //if (html.HTML is null) {
+                //    Forum.FetchBoilerplate(html);
+                //    }
+
+                annotations.StartPage(Forum.Name);
+                annotations.PageBoilerplate(html);
+                annotations.End();
+                await Task.CompletedTask;
+
+                return;
+                }
+            }
+
+
+
+        throw new NYI();
+        }
+
+
+
+
+
+    public async Task GetResources(
             HttpListenerContext context,
             ParsedPath path) {
 
-        if (BuiltInMap.TryGetValue(path.FirstId, out var resource)) {
-            return resource.Method(context, path);
+        if (Boilerplate.TryGetValue(path.FirstId, out var resource)) {
+            await SendBoilerplate(context, path, resource);
+            return;
             }
 
 
@@ -327,7 +378,7 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         response.OutputStream.Close();
 
-        return Task.CompletedTask;
+        return;
         }
     #endregion
     #region // Item pages
@@ -474,20 +525,20 @@ public class AnnotationService : IWebService<ParsedPath> {
 
 
 
-    public Task GetCreateAccount(
-                HttpListenerContext context,
-                ParsedPath path) {
-        var member = path.Member;
+    //public Task GetCreateAccount(
+    //            HttpListenerContext context,
+    //            ParsedPath path) {
+    //    var member = path.Member;
 
 
-        var annotations = Annotations.Get(this, context, member);
+    //    var annotations = Annotations.Get(this, context, member);
 
-        annotations.StartPage($"{Forum.Name}: Create Account");
-        annotations.CreateAccount();
-        annotations.End();
+    //    annotations.StartPage($"{Forum.Name}: Create Account");
+    //    annotations.CreateAccount();
+    //    annotations.End();
 
-        return Task.CompletedTask;
-        }
+    //    return Task.CompletedTask;
+    //    }
 
     public Task GetCreateProject(
                 HttpListenerContext context,
@@ -573,34 +624,34 @@ public class AnnotationService : IWebService<ParsedPath> {
     #endregion
     #region // Server Post Pages
 
-    public async Task PostCreateAccount(
-                HttpListenerContext context,
-                ParsedPath path) {
-        var member = path.Member;
+    //public async Task PostCreateAccount(
+    //            HttpListenerContext context,
+    //            ParsedPath path) {
+    //    var member = path.Member;
 
-        var fields = new FormDataAccount();
+    //    var fields = new FormDataAccount();
 
-        var annotations = Annotations.PostForm(this, context, member, fields);
-        if (!fields.ValidateCreate()) {
-            await ErrorPage(annotations);
-            return;
-            }
+    //    var annotations = Annotations.PostForm(this, context, member, fields);
+    //    if (!fields.ValidateCreate()) {
+    //        await ErrorPage(annotations);
+    //        return;
+    //        }
 
-        // here we need to create a cataloged account entry
-        var memberRecord = new CatalogedForumMember() {
-            LocalName = fields.Username
-            };
+    //    // here we need to create a cataloged account entry
+    //    var memberRecord = new CatalogedForumMember() {
+    //        LocalName = fields.Username
+    //        };
 
-        member = Forum.AddMember(memberRecord, fields.Password);
-        annotations.VerifiedAccount = member;
+    //    member = Forum.AddMember(memberRecord, fields.Password);
+    //    annotations.VerifiedAccount = member;
 
-        var cookie = Forum.ServerCookieManager.GetCookie(
-                    PalimpsestConstants.CookieTypeSessionTag, memberRecord._PrimaryKey);
-        context.Response.Cookies.Add(cookie);
+    //    var cookie = Forum.ServerCookieManager.GetCookie(
+    //                PalimpsestConstants.CookieTypeSessionTag, memberRecord._PrimaryKey);
+    //    context.Response.Cookies.Add(cookie);
 
 
-        await annotations.Redirect(context, HomeUrl);
-        }
+    //    await annotations.Redirect(context, HomeUrl);
+    //    }
 
     public async Task PostCreateProject(
                 HttpListenerContext context,
@@ -621,46 +672,6 @@ public class AnnotationService : IWebService<ParsedPath> {
 
         await annotations.Redirect(context, $"/Project/{project.Uid}");
         }
-
-    public async Task PostSignIn(
-                HttpListenerContext context,
-                ParsedPath path) {
-        var member = path.Member;
-
-
-        var fields = new FormDataAccount();
-
-        var annotations = Annotations.PostForm(this, context, member, fields);
-        if (fields?.Username[0] == '@') {
-            //var returnUri = fields.From == PalimpsestConstants.SignIn ? "/" : fields.From;
-            await OAuthSignIn (annotations, context, fields.From, fields?.Username);
-            return;
-            }
-
-
-        if (!fields.ValidateSignIn()) {
-            await ErrorPage(annotations);
-            return;
-            }
-
-        if (Forum.TryGetVerifiedMemberHandle(
-                fields.Username, fields.Password, out var handle)) {
-
-            annotations.VerifiedAccount = handle;
-
-            var cookie = Forum.ServerCookieManager.GetCookie(
-            PalimpsestConstants.CookieTypeSessionTag, handle.CatalogedMember._PrimaryKey);
-
-            context.Response.Cookies.Add(cookie);
-            }
-
-        var url = fields.From ?? HomeUrl;
-
-        await annotations.Redirect(context, url);
-        }
-
-
-
 
 
     public async Task PostUploadDocument(
@@ -782,69 +793,11 @@ public class AnnotationService : IWebService<ParsedPath> {
 
     #endregion
 
-    public async Task GetClientMetaData(
-            HttpListenerContext context,
-            ParsedPath path) {
-        context.Respond(OauthClient.ClientMetadataBytes, PalimpsestConstants.ClientMetadataType);
-        }
 
 
-
-    public async Task OAuthSignIn(
-                Annotations annotations,
-                HttpListenerContext context,
-                string returnUri,
-                string userHandle) {
-
-        // Perform OAUTH Push
-        var redirect = await OauthClient.PreRequest(userHandle, returnUri);
-
-        if (redirect is OauthClientResultFail fail) {
-            // throw error here
-            throw new NYI();
-            }
-        var success = redirect as OauthClientResultPreRequest;
-
-        await annotations.Redirect(context, success.RedirectUri);
-
-        }
-
-
-    public async Task GetRedirect(
-            HttpListenerContext context,
-            ParsedPath path) {
-
-        // https://mplace2.app/Redirect?
-        // iss=https%3A%2F%2Fbsky.social
-        // &state=7w2O5X7OmCP0NacKHLrTChYRjmn83kPimRV3_3YBbmz15C2NrlktZMY
-        // KoC7lwo4qiQIzsNZBqwDdNZpKiUPO2RmdPNyhl60_Ds0nKn0Wj5x_755xhXRAS5HzQet2tZQselU8O82GXYYpFcfmt_
-        // kFrS1iEwg
-        // &code=cod-ed46b08e1b9de414d6421fe0e6f5201e6550112cdf7166d669fc94600b25b705
-
-        // Parse redirect data
-        var result = OauthClient.ParseResponse(path.Uri);
-
-        // If success redirect to preserve state
-        if (result is OauthClientResultFail fail) {
-            // throw error here
-            throw new NYI();
-            }
-
-        // report error
-        var success = result as OauthClientResultAuthRequest;
-
-        var member = Forum.GetOrCreateMember(success.Handle, success.DID);
-        // have authenticated against a DID and a handle. We are going to keep both.
-        var cookie = Forum.ServerCookieManager.GetCookie(
-            PalimpsestConstants.CookieTypeSessionTag, member.PrimaryKey);
-
-        // here have to look up the handle in the accounts and create a new one if needed.
-
-        context.Response.Cookies.Add(cookie);
-        var annotations = Annotations.Get(this, context, path);
-        await annotations.Redirect(context, success.RedirectUri);
-        }
 
 
     }
+
+
 

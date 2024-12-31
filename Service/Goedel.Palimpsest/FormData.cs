@@ -21,6 +21,40 @@
 #endregion
 namespace Goedel.Palimpsest;
 
+
+
+
+
+/// <summary>
+/// Backing class for the project entry form.
+/// </summary>
+public class FormDataAcceptTerms : FormData {
+
+
+    ///<inheritdoc/>
+    protected override FormItem[] Items => items;
+    static readonly FormItem[] items = [
+        new ("from", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).From = s as string),
+        new ("username", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).Username = s as string),
+        new ("agree", FormEntryType.Boolean, (form, s) => ((FormDataAcceptTerms)form).Agree = s as string)
+        ];
+
+
+    public bool Insist { get; set; } = false;
+
+    ///<summary>The URL to return to.</summary> 
+    public string? From { get;  set; }
+
+    ///<summary>The username.</summary> 
+    public string? Username { get;  set; }
+    ///<summary>User description.</summary> 
+    public string? Agree { get; private set; }
+
+
+    }
+
+
+
 /// <summary>
 /// Backing class for the project entry form.
 /// </summary>

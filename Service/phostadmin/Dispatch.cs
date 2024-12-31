@@ -121,8 +121,8 @@ public partial class Shell : _Shell {
 
         return new ResultAbout() {
             Success = true,
-            //DirectoryKeys = MeshMachine.DirectoryKeys,
-            //DirectoryMesh = MeshMachine.DirectoryMesh,
+            DirectoryKeys = MeshMachine?.DirectoryKeys,
+            DirectoryMesh = MeshMachine?.DirectoryMesh,
             AssemblyTitle = Script.AssemblyTitle,
             AssemblyDescription = Script.AssemblyDescription,
             AssemblyCopyright = Script.AssemblyCopyright,
@@ -132,42 +132,31 @@ public partial class Shell : _Shell {
             };
         }
 
-
-    //string GetMultiConfig(_File file) =>
-    //    PublicMeshService.GetService(MeshMachine, file.Value);
-
-
-    //string GetFile(NewFile file) => MeshMachine.GetFilePath(file.Elements);
-
-    /////<summary>The Mesh Machine (Must support client catalog)</summary> 
-    //public IMeshMachineClient MeshMachine { get; init; }
+    ///<summary>The Mesh Machine (Must support client catalog)</summary> 
+    public IMeshMachineClient? MeshMachine { get; init; }
 
 
+    string? GetMultiConfig(_File file) =>
+        MeshMachine?.GetService(PalimpsestConfiguredService.DefaultConfiguration, file.Value);
 
 
 
     ///<inheritdoc/>
     public override ShellResult Create(Create Options) {
-        //var multiConfig = GetMultiConfig(Options.MultiConfig);
+        var multiConfig = GetMultiConfig(Options.MultiConfig);
+        multiConfig.AssertNotNull(NYI.Throw);
+
         var serviceDns = Options.ServiceDns.Value ?? Dns.GetHostName();
         var hostIp = Options.HostIp.Value ?? "127.0.0.1:15099";
         var hostDns = Options.HostDns.Value ?? serviceDns;
         var admin = Options.Admin.Value;
         var runAs = Options.Account.Value;
 
-        //var resolver = Options.Resolver.Value;
-        //var registry = Options.Registry.Value;
-        //var carnet = Options.Carnet.Value;
-        //var persist = Options.Persist.Value;
-        //var presence = Options.Presence.Value;
+        var configuration = new PalimpsestConfiguration();
+        if (MeshMachine is not null) {
+            //configuration.CreateConfig(MeshMachine, serviceDns, hostIp, hostDns, runAs);
+            }
 
-        //var configuration = MeshMachine.CreatePublicMeshService(
-        //        multiConfig, serviceDns, hostIp, hostDns, admin, runAs, resolver, registry);
-
-        //var configuration = new Configuration();
-
-        //var configuration = MeshMachine.CreateConfig(
-        //        serviceDns, hostIp, hostDns, runAs);
         //Console.WriteLine($" Description is {configuration.GenericHost.Description}");
         //if (true) {
         //    configuration.Add(
@@ -215,16 +204,15 @@ public partial class Shell : _Shell {
         //MeshMachine.BuildConfiguration(configuration, admin);
         //Console.WriteLine($" DeviceUdf is {configuration.GenericHost.DeviceUdf}");
 
-        //multiConfig.MakePath();
-        //configuration.ToFile(multiConfig);
+        multiConfig.MakePath();
+        (configuration as IServiceConfiguration).ToFile(multiConfig);
 
         //// here populate a status response from configuration
 
-        //return new ResultServiceConfiguration() {
-        //    Configuration = configuration
-        //    };
+        return new ResultServiceConfiguration() {
+            Configuration = configuration
+            };
 
-        throw new NYI();
 
         }
 

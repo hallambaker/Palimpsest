@@ -23,12 +23,12 @@
 
 namespace Goedel.Palimpsest;
 public partial class CatalogedForumMember {
-    public string Anchor => $"/{PalimpsestConstants.User}/{Uid}";
+    public string Anchor => $"/{PalimpsestConstants.User}/{LocalName}";
 
 
 
     ///<inheritdoc/>
-    public override string _PrimaryKey => Uid!;
+    public override string _PrimaryKey => Did;
     public void SetPasswordDigest(
                 string password,
                 string username,

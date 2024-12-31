@@ -28,6 +28,24 @@ namespace Goedel.Palimpsest;
 
 public class PalimpsestServiceConfiguration : ServiceConfiguration {
 
+    ///<summary>The site name, e.g. MPlace2.</summary> 
+    public string? ForumName { get; set; }
+
+    ///<summary>The content directory</summary> 
+    public string? Content { get; set; }
+
+    ///<summary>The resources directory</summary> 
+    public string? Resources { get; set; }
+
+    ///<summary>The disk block size (used to calculate quota use)</summary> 
+    public int? BlockSize { get; set; }
+
+    ///<summary>The default quota</summary> 
+    public int? DefaultQuota { get; set; }
+
+
+
+
     ///<summary>The configuration entry.</summary> 
     public static readonly ConfigurationEntry ConfigurationEntry =
         new("Palimpsest", typeof(PalimpsestServiceConfiguration),

@@ -73,7 +73,7 @@ public abstract class Cache<H, T> : Disposable
     /// Add the item <paramref name="value"/> to the cache.
     /// </summary>
     /// <param name="value">The value to add.</param>
-    public void Add(H value) {
+    public virtual void Add(H value) {
         Index.Add(value.CatalogedEntry.Uid, value);
         }
 
@@ -84,7 +84,7 @@ public abstract class Cache<H, T> : Disposable
     /// </summary>
     /// <param name="value">The value to mark for removal.</param>
     /// <exception cref="ItemDoesNotExist">The item does not exist in the cache</exception>
-    public void Remove(H value) {
+    public virtual void Remove(H value) {
 
         Index.ContainsKey(value.Key).AssertTrue(ItemDoesNotExist.Throw, value.Key);
 
@@ -164,10 +164,6 @@ public abstract class Cache<H, T> : Disposable
     /// <returns>True if an entry with the specified  <see cref="CatalogedEntry.LocalName"/> 
     /// is found in the catalog, otherwise false.</returns>
     public virtual bool TryGetByLocalName(string localName, out H? handle) {
-
-
-
-
         if (!Catalog.DictionaryByLocalName.TryGetValue(localName, out var entry)) {
             handle = null;
             return false;

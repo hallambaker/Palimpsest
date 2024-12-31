@@ -37,6 +37,31 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		}
 	
 	/// <summary>	
+	/// HeaderSignedOut
+	/// </summary>
+	/// <param name="navigation"></param>
+	/// <param name="index"></param>
+	public void HeaderSignedOut (Navigation navigation, int index) {
+		_Output.Write ("<header>\n{0}", _Indent);
+		_Output.Write ("<div class=\"col-md-3 text-end\">\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("<ul class=\"nav nav-pills\">\n{0}", _Indent);
+		for  (var i =0; i< navigation.Items.Length; i++) {
+			 var item = navigation.Items[i];
+			_Output.Write ("        <li class=\"nav-item\"><a href=\"/{1}\" ", _Indent, item.Uri);
+			if (  i == index ) {
+				_Output.Write ("class=\"nav-link active\" aria-current=\"page\"", _Indent);
+				} else {
+				_Output.Write ("class=\"nav-link\"", _Indent);
+				}
+			_Output.Write (">{1}</a></li>\n{0}", _Indent, item.Label);
+			}
+		_Output.Write ("</ul>\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		_Output.Write ("</header>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
 	///  Header
 	/// </summary>
 	public void  Header () {
@@ -45,6 +70,13 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("    <a class=\"navbar-brand\" href=\"\">Navbar</a>\n{0}", _Indent);
 		_Output.Write ("  </div>\n{0}", _Indent);
 		_Output.Write ("</nav>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	///  Trailer
+	/// </summary>
+	public void  Trailer () {
+		_Output.Write ("<footer class=\"annotation-footer\"><a href=\"/Terms\">Terms and Conditions</a></footer>\n{0}", _Indent);
 		}
 	
 	/// <summary>	
@@ -100,13 +132,22 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	///  PageHome
 	/// </summary>
 	public void  PageHome () {
-		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("<img class=\"header__logo\" src=\"/resources/ietf.svg\" alt=\"IETF logo\"/>\n{0}", _Indent);
-		_Output.Write ("  <h1>Home {1}</h1>\n{0}", _Indent, Forum.Name);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("<main>\n{0}", _Indent);
 		if (  !SignedIn ) {
-			_Output.Write ("    <p><a href=\"SignIn\">Sign In</a></p>\n{0}", _Indent);
-			_Output.Write ("    <p><a href=\"CreateAccount\">Create Account</a></p>\n{0}", _Indent);
-			_Output.Write ("    <p class=\"disabled\">Create Project</p>\n{0}", _Indent);
+			 HeaderSignedOut(Annotation.NavigationHome, 0);
+			}
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("<img src=\"/resources/splashscreen.png\" alt=\"Splashscreen\" class=\"img-fluid\"/>\n{0}", _Indent);
+		if (  !SignedIn ) {
+			_Output.Write ("    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:\n{0}", _Indent);
+			_Output.Write ("    </p>\n{0}", _Indent);
+			_Output.Write ("    <form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+			_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"username\", name=\"username\"/>\n{0}", _Indent);
+			_Output.Write ("    <input type=\"submit\" value=\"Sign In\" />\n{0}", _Indent);
+			_Output.Write ("    </p>\n{0}", _Indent);
+			_Output.Write ("    </form>\n{0}", _Indent);
 			} else {
 			_Output.Write ("    <p><a href=\"SignOut\">Sign Out</a></p>\n{0}", _Indent);
 			if (  PermissionCreateProject ) {
@@ -115,6 +156,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("    <h2>Projects</h2>\n{0}", _Indent);
 			_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
+			 // ToDo: The list of projects should become 'featured projects'
 			foreach   (var project in Projects)  {
 				_Output.Write ("    <tr><td>\n{0}", _Indent);
 				_Output.Write ("    <a href=\"/Project/{1}\">{2}</a>\n{0}", _Indent, project.Uid, project.LocalName);
@@ -128,6 +170,42 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("</main>\n{0}", _Indent);
+		 Trailer();
+		}
+	
+	/// <summary>	
+	/// PageBoilerplate
+	/// </summary>
+	/// <param name="boilerplate"></param>
+	/// <param name="prefill=null"></param>
+	public void PageBoilerplate (BoilerplateHtml boilerplate, FormDataAcceptTerms? prefill=null) {
+		 if (boilerplate.HTML is null) {
+		  Forum.FetchBoilerplate(boilerplate);
+		  }
+		 HeaderSignedOut (Annotation.NavigationHome, boilerplate.Index);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("{1}\n{0}", _Indent, boilerplate.HTML);
+		if (  prefill is not null ) {
+			if (  prefill.Insist ) {
+				_Output.Write ("    <p class=\"form-error\">You MUST accept the terms to continue.</p>\n{0}", _Indent);
+				}
+			_Output.Write ("    <form action=\"/AcceptTerms\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+			if (  prefill.From is not null ) {
+				_Output.Write ("        <input type=\"hidden\" id=\"from\" name=\"from\" value=\"{1}\" />    \n{0}", _Indent, prefill.From);
+				}
+			if (  prefill.Username is not null ) {
+				_Output.Write ("        <input type=\"hidden\" id=\"username\" name=\"username\" value=\"{1}\" />  \n{0}", _Indent, prefill.Username);
+				}
+			_Output.Write ("        <input type=\"checkbox\", id=\"agree\", name=\"agree\", value=\"true\">  <label for=\"fname\">I agree to these terms and conditions.</label>\n{0}", _Indent);
+			_Output.Write ("        <input type=\"submit\" value=\"I Accept\" />\n{0}", _Indent);
+			_Output.Write ("        <input type=\"submit\" value=\"Cancel\" formaction=\"/\"/>\n{0}", _Indent);
+			_Output.Write ("    </form>\n{0}", _Indent);
+			}
+		_Output.Write ("</div>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		 Trailer();
 		}
 	
 	/// <summary>	

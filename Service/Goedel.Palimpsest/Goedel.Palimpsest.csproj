@@ -21,6 +21,7 @@
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Serialization\Goedel.Serialization.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh.Core\Goedel.Mesh.Core.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
 		<ProjectReference Include="..\..\DocTools\Goedel.Document.Markdown\Goedel.Document.Markdown.csproj" />
 		<ProjectReference Include="..\..\DocTools\Goedel.Document.OpenXML\Goedel.Document.OpenXML.csproj" />

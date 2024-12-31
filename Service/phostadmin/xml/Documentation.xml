@@ -33,6 +33,9 @@
             <param name="options">The command line options.</param>
             <returns>Mesh result instance</returns>
         </member>
+        <member name="P:phostadmin.Shell.MeshMachine">
+            <summary>The Mesh Machine (Must support client catalog)</summary> 
+        </member>
         <member name="M:phostadmin.Shell.Create(phostadmin.Create)">
             <inheritdoc/>
         </member>

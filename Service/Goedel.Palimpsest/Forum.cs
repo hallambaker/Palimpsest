@@ -23,8 +23,12 @@
 
 using DocumentFormat.OpenXml.Spreadsheet;
 
+using Goedel.Mesh;
+
 using System.IO;
+using System.Net.Http.Headers;
 using System.Reflection.Metadata;
+using System.Text;
 
 namespace Goedel.Palimpsest;
 
@@ -53,6 +57,29 @@ public class Forum :Disposable {
 
     CachedProjects CatalogProjects { get; }
     CachedMembers CatalogMembers { get; }
+
+
+    //public NavigationItem[] ForumNavigation = [
+    //    new ("Home", ""),
+    //    new ("Technology", "Technology", "technology.md"),
+    //    new ("FAQ", "FAQ", "faq.md"),
+    //    new ("About", "About", "about.md")
+    //    ];
+
+    //public NavigationItem[] ForumAdditional = [
+    //    new ("Terms", "Terms", "terms.md"),
+    //    ];
+
+
+
+
+    ////public Navigation NavigationMisc => new(ForumNavigation, -1);
+
+    //public BoilerplateHtml TermsAndConditions { get; set; }
+    //        = new BoilerplateHtml() {
+                
+    //            };
+
     #endregion
     #region // Disposal
 
@@ -125,6 +152,25 @@ public class Forum :Disposable {
     #region // Methods
     #region // Utility Methods
 
+
+
+
+    /// <summary>
+    /// Attempt to resolve user by their handle, this is recorded as the localname 
+    /// of the member.
+    /// </summary>
+    /// <param name="handle">The member handle, e.g. alice.example.com</param>
+    /// <param name="member">The member handle.</param>
+    /// <returns></returns>
+    public bool TryGetByHandle(string handle, out MemberHandle? member) =>
+            CatalogMembers.TryGetByLocalName(handle, out member);
+
+
+
+    public bool TryGetByDid(string did, out MemberHandle? handle) =>
+                    CatalogMembers.TryGetByUid(did, out handle);
+
+
     public string? MemberIdToName(string userId) {
 
         if (CatalogMembers.TryGetByUid(userId, out var handle)) {
@@ -134,6 +180,11 @@ public class Forum :Disposable {
 
 
         }
+
+
+
+
+
 
     public bool TryGetVerifiedMemberHandle(
                     HttpListenerRequest listenerRequest,
@@ -223,6 +274,9 @@ public class Forum :Disposable {
         //memberHandle.AccessCookie = MakeAccessCookie(member);
         return memberHandle;
         }
+
+
+
 
     /// <summary>
     /// Gets the member associated with the specified key.
@@ -326,7 +380,94 @@ public class Forum :Disposable {
 
     #region // Resource Methods
 
+    public bool FetchBoilerplate(BoilerplateHtml boilerplate, string language="en") {
 
+        try {
+            var path = Path.Combine(Resources, language, boilerplate.Filename);
+
+            var document = new MarkdownDocument(path);
+            boilerplate.HTML = GetHTML(document);
+
+            return true;
+            }
+
+        catch {
+            boilerplate.HTML = "Document not found";
+            return false;
+            }
+        }
+
+
+
+    public string GetHTML(MarkdownDocument document) {
+        var builder = new StringBuilder();
+
+        var block = Document.Markdown.BlockType.Paragraph;
+        foreach (var paragraph in document.Paragraphs) {
+            OpenCloseList (builder, block, paragraph.BlockType);
+            block = paragraph.BlockType;
+            switch (paragraph.BlockType) {
+
+                case Document.Markdown.BlockType.Heading: {
+                    builder.AppendLine($"<h{paragraph.Level}>{paragraph.Text}</h{paragraph.Level}>");
+                    break;
+                    }
+                case Document.Markdown.BlockType.Paragraph: {
+                    builder.AppendLine($"<p>{paragraph.Text}</p>");
+                    break;
+                    }
+                case Document.Markdown.BlockType.DefinedTerm: {
+
+                    builder.AppendLine($"<dt>{paragraph.Text}</dt>");
+                    break;
+                    }
+                case Document.Markdown.BlockType.DefinedData: {
+                    builder.AppendLine($"<dd>{paragraph.Text}</dd>");
+
+                    break;
+                    }
+                }
+
+            }
+        OpenCloseList(builder, block, Document.Markdown.BlockType.Paragraph);
+        return builder.ToString();
+        }
+
+
+    void OpenCloseList(StringBuilder builder, 
+                    Document.Markdown.BlockType last,
+                     Document.Markdown.BlockType next) {
+        switch (last) {
+            case Document.Markdown.BlockType.DefinedTerm:
+            case Document.Markdown.BlockType.DefinedData: {
+                switch (next) {
+                    case Document.Markdown.BlockType.DefinedTerm:
+                    case Document.Markdown.BlockType.DefinedData: {
+                        break;
+                        }
+                    default : {
+                        builder.AppendLine("</dl>");
+                        break; 
+                        }
+                    }
+                break;
+                }
+            default : {
+                switch (next) {
+                    case Document.Markdown.BlockType.DefinedTerm:
+                    case Document.Markdown.BlockType.DefinedData: {
+                        builder.AppendLine("<dl>");
+                        break;
+                        }
+                    default: {
+                        break;
+                        }
+                    }
+                break;
+                }
+            }
+
+        }
 
     #endregion
     #region // Response Methods

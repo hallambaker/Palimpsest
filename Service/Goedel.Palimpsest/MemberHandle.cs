@@ -23,6 +23,7 @@
 
 namespace Goedel.Palimpsest;
 
+
 /// <summary>
 /// Cached handle for a forum member
 /// </summary>
@@ -31,12 +32,23 @@ public class MemberHandle : CachedHandle<CatalogedForumMember> {
 
     public string PrimaryKey => CatalogedMember._PrimaryKey;
 
-    public byte[] AccessCookie { get; set; }
-
     public CatalogedForumMember CatalogedMember => CatalogedEntry;
+
+
+    public ForumPermissions Permissions { get; set; }
+
 
     public MemberHandle(
             CatalogedForumMember member) : base(member) {
+
+        if (member.LocalName == "phill.hallambaker.com") {
+            Permissions = ForumPermissions.System;
+            }
+        else {
+            Permissions = ForumPermissions.User;
+            }
+
+
         }
 
     //protected override MemberHandle Factory(CatalogedForumMember catalogedEntry)

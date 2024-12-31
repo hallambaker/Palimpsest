@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 12/27/2024 4:53:12 PM
+//  This file was automatically generated at 12/31/2024 5:24:35 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -227,6 +227,14 @@ public static partial class PalimpsestConstants {
     ///<summary>
     ///</summary>
     public const string Redirect = "Redirect";
+
+    ///<summary>
+    ///</summary>
+    public const string AcceptTerms = "AcceptTerms";
+
+    ///<summary>
+    ///</summary>
+    public const string Terms = "Terms";
 
     // File: ContentTypes
 

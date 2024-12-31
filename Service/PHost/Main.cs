@@ -46,7 +46,7 @@ internal sealed class Program {
         var directory = args[0];
         var resources = args[1];
 
-        var forum = Forum.Create(directory, resources, "The Draft");
+        var forum = Forum.Create(directory, resources, "MPlace2");
 
         var AnnotationService = new AnnotationService(forum);
         AnnotationService.Start();

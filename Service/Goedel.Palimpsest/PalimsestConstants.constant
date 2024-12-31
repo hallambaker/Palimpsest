@@ -74,6 +74,8 @@ File PagePrefixes
 	String WellKnown ".well-known"
 	String ClientMetadata "client-metadata.json"
 	String Redirect "Redirect"
+	String AcceptTerms "AcceptTerms"
+	String Terms "Terms"
 
 File ContentTypes
 	String ClientMetadataType "application/json"
