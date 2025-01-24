@@ -394,6 +394,8 @@ public class Source {
             Document.Catalog.ForceReferenceID = Citation.Label;
 
             string Result = UriClient.DownloadString(Uri);
+            Result.AssertNotNull(NYI.Throw);
+
             Citation.Result = StripDeclaration(Result);
             Citation.Resolved = Result != null;
             Citation.Uri = Uri;

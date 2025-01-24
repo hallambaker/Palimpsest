@@ -160,6 +160,9 @@ public partial class AnnotationService {
         // report error
         var success = result as OauthClientResultAuthRequest;
 
+
+
+
         var member = Forum.GetOrCreateMember(success.Handle, success.DID);
         // have authenticated against a DID and a handle. We are going to keep both.
         var cookie = Forum.ServerCookieManager.GetCookie(

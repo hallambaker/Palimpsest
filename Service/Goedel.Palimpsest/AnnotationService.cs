@@ -248,10 +248,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             return;
             }
 
-        Console.WriteLine($"Request {request.Url.LocalPath}");
         var path = new ParsedPath(request, Forum);
 
-        Console.WriteLine($"Start {path.Command} Project {path.FirstId} Document {path.SecondId}");
+        Console.WriteLine($"Request {request.UserHostName} {request.Url.LocalPath}");
+        Console.WriteLine($"   Start {path.Command} Project {path.FirstId} Document {path.SecondId}");
 
         // Check for the boilerplate pages first
         if (Boilerplate.TryGetValue(path.Command, out var resource)) {

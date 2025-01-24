@@ -48,25 +48,14 @@ internal sealed class Program {
 
         var forum = Forum.Create(directory, resources, "MPlace2");
 
+        Screen.ToFile("servicelog.md");
+        Screen.WriteLine("# MPlace2 log");
+        Screen.Flush();
+
         var AnnotationService = new AnnotationService(forum);
         AnnotationService.Start();
         }
 
-
-
-
-
     }
 
 
-
-
-
-
-
-
-
-
-
-//public class PageOptions {
-//    }
