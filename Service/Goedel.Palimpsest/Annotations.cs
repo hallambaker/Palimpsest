@@ -71,18 +71,18 @@ public partial class Annotations {
 
     public bool SignedIn => VerifiedAccount != null;
 
-    public bool PermissionCreateProject => SignedIn;
+    public bool PermissionCreatePlace => SignedIn;
 
     public bool PermissionUploadDocument => SignedIn;
 
-    public string ProjectId { get; set; }
+    public string PlaceId { get; set; }
     public string UserId { get; set; }
 
 
     public MemberHandle? VerifiedAccount { get; set; } = null;
 
 
-    public IEnumerable<CatalogedProject> Projects => Forum.GetProjectEnumerator();
+    public IEnumerable<CatalogedPlace> Places => Forum.GetProjectEnumerator();
 
 
     public AnnotationService Annotation { get; init; }

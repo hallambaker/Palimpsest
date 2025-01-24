@@ -126,7 +126,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("  <h1>An error occurred</h1>\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}
-	// ///// Result pages - Home / Project / User / Document
+	// ///// Result pages - Home / Place / User / Document
 	
 	/// <summary>	
 	///  PageHome
@@ -144,28 +144,29 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			_Output.Write ("    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:\n{0}", _Indent);
 			_Output.Write ("    </p>\n{0}", _Indent);
 			_Output.Write ("    <form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
-			_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"username\", name=\"username\"/>\n{0}", _Indent);
+			_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"username\", name=\"username\" rel=\"dns-handle\"/>\n{0}", _Indent);
 			_Output.Write ("    <input type=\"submit\" value=\"Sign In\" />\n{0}", _Indent);
 			_Output.Write ("    </p>\n{0}", _Indent);
 			_Output.Write ("    </form>\n{0}", _Indent);
 			} else {
 			_Output.Write ("    <p><a href=\"SignOut\">Sign Out</a></p>\n{0}", _Indent);
-			if (  PermissionCreateProject ) {
-				_Output.Write ("    <p><a href=\"CreateProject\">Create Project</a></p>\n{0}", _Indent);
+			if (  PermissionCreatePlace ) {
+				_Output.Write ("    <p><a href=\"CreatePlace\">Create Place</a></p>\n{0}", _Indent);
 				}
 			_Output.Write ("\n{0}", _Indent);
-			_Output.Write ("    <h2>Projects</h2>\n{0}", _Indent);
+			_Output.Write ("    <h2>Places</h2>\n{0}", _Indent);
+			_Output.Write ("    <div class=\"h-feed\">\n{0}", _Indent);
 			_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
 			 // ToDo: The list of projects should become 'featured projects'
-			foreach   (var project in Projects)  {
-				_Output.Write ("    <tr><td>\n{0}", _Indent);
-				_Output.Write ("    <a href=\"/Project/{1}\">{2}</a>\n{0}", _Indent, project.Uid, project.LocalName);
-				_Output.Write ("    </td><td>\n{0}", _Indent);
-				_Output.Write ("    {1}\n{0}", _Indent, project.Description);
+			foreach   (var place in Places)  {
+				_Output.Write ("    <tr class=\"h-entry\"><td class=\"u-url\">\n{0}", _Indent);
+				_Output.Write ("    <a href=\"{1}\">@{2}</a>\n{0}", _Indent, place.HomeUri, place.LocalName);
+				_Output.Write ("    </td><td class=\"p-name\">\n{0}", _Indent);
+				_Output.Write ("    {1}\n{0}", _Indent, place.Description);
 				_Output.Write ("    </td></tr>\n{0}", _Indent);
 				}
 			_Output.Write ("    </table>\n{0}", _Indent);
-			_Output.Write ("\n{0}", _Indent);
+			_Output.Write ("    </div>\n{0}", _Indent);
 			}
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
@@ -209,13 +210,13 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		}
 	
 	/// <summary>	
-	/// PageProject
+	/// PagePlace
 	/// </summary>
 	/// <param name="handle"></param>
-	public void PageProject (ProjectHandle handle) {
-		 var project = handle.CatalogedProject;
+	public void PagePlace (PlaceHandle handle) {
+		 var project = handle.CatalogedPlace;
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Project: {1}</h1>\n{0}", _Indent, project.LocalName);
+		_Output.Write ("  <h1>Place: {1}</h1>\n{0}", _Indent, project.LocalName);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
 		_Output.Write ("  <p><a href=\"/AddDocument/{1}\">Add Document</a>\n{0}", _Indent, handle.Uid);
@@ -335,8 +336,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// PageAddDocument
 	/// </summary>
 	/// <param name="handle"></param>
-	public void PageAddDocument (ProjectHandle handle) {
-		 var project = handle.CatalogedProject;
+	public void PageAddDocument (PlaceHandle handle) {
+		 var project = handle.CatalogedPlace;
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Add Document: {1}</h1>\n{0}", _Indent, project.LocalName);
 		_Output.Write ("\n{0}", _Indent);
@@ -388,8 +389,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// PageAddTopic
 	/// </summary>
 	/// <param name="handle"></param>
-	public void PageAddTopic (ProjectHandle handle) {
-		 var project = handle.CatalogedProject;
+	public void PageAddTopic (PlaceHandle handle) {
+		 var project = handle.CatalogedPlace;
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Add Topic: {1}</h1>\n{0}", _Indent, project.LocalName);
 		_Output.Write ("\n{0}", _Indent);
@@ -422,15 +423,15 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	// ///////////////////////////
 	
 	/// <summary>	
-	///  CreateProject
+	///  CreatePlace
 	/// </summary>
-	public void  CreateProject () {
+	public void  CreatePlace () {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Create Project</h1>\n{0}", _Indent);
-		_Output.Write ("<form action=\"/CreateProjectPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+		_Output.Write ("  <h1>Create Place</h1>\n{0}", _Indent);
+		_Output.Write ("<form action=\"/CreatePlacePost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
 		_Output.Write ("  <table>\n{0}", _Indent);
 		_Output.Write ("    <tr><td>\n{0}", _Indent);
-		_Output.Write ("    <label for=\"name\">Project Name:</label>\n{0}", _Indent);
+		_Output.Write ("    <label for=\"name\">Place Name:</label>\n{0}", _Indent);
 		_Output.Write ("    </td><td>\n{0}", _Indent);
 		_Output.Write ("    <input type=\"text\", id=\"name\", name=\"name\">\n{0}", _Indent);
 		_Output.Write ("    </td></tr>\n{0}", _Indent);

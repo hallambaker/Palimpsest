@@ -29,7 +29,7 @@ namespace Goedel.Palimpsest;
 /// <summary>
 /// Catalog of annotations, specific to a resource.
 /// </summary>
-public class CatalogAnnotation : Catalog<CatalogedProject> {
+public class CatalogAnnotation : Catalog<CatalogedPlace> {
 
     ///<summary>The canonical label for the catalog</summary>
 

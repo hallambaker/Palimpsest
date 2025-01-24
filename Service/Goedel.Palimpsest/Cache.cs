@@ -34,6 +34,16 @@ public partial class CatalogedForumEntry {
     }
 
 
+
+public partial class CatalogedPlace {
+
+    ///<inheritdoc/>
+    public override string _PrimaryKey => LocalName;
+
+    public string HomeUri => $"https://{LocalName}/";
+
+    }
+
 /// <summary>
 /// Cache containing CachedHandle of type <typeparamref name="H"/> with
 /// underlying catalog entry <typeparamref name="T"/>.

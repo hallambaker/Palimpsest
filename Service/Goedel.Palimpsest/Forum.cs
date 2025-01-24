@@ -55,7 +55,7 @@ public class Forum :Disposable {
 
     public ServerCookieManager ServerCookieManager { get; } = new();
 
-    CachedProjects CatalogProjects { get; }
+    CachedPlaces CatalogProjects { get; }
     CachedMembers CatalogMembers { get; }
 
 
@@ -125,7 +125,7 @@ public class Forum :Disposable {
         Directory.CreateDirectory(directory);
 
         // initialize the project and members catalogs
-        var catalogProjects = new CachedProjects(null, directory, create: true);
+        var catalogProjects = new CachedPlaces(null, directory, create: true);
         var catalogMembers = new CachedMembers(null, directory, create: true);
         catalogProjects.Dispose();
         catalogMembers.Dispose();
@@ -218,7 +218,7 @@ public class Forum :Disposable {
         return true;
         }
 
-    public IEnumerable<CatalogedProject> GetProjectEnumerator() => CatalogProjects.GetProjectEnumerator();
+    public IEnumerable<CatalogedPlace> GetProjectEnumerator() => CatalogProjects.GetProjectEnumerator();
 
 
     public IEnumerable<CatalogedForumMember> GetMemberEnumerator() {
@@ -310,8 +310,8 @@ public class Forum :Disposable {
     /// <param name="project">The project to be created.</param>
     /// <exception cref="ItemAlreadyExists">The project could not be created 
     /// because it already exists</exception>
-    public ProjectHandle CreateProject(
-                    CatalogedProject project) {
+    public PlaceHandle CreatePlace(
+                    CatalogedPlace project) {
 
         var handle = CatalogProjects.Create(project);
         Directory.CreateDirectory(handle.ProjectDirectory);
@@ -335,20 +335,20 @@ public class Forum :Disposable {
     /// This parameter is passed uninitialized.</param>
     /// <returns>true if there is a project identified by
     /// specified key; otherwise, false.</returns>
-    public bool TryGetProject(
+    public bool TryGetPlace(
                     string id,
-                    out ProjectHandle project) => CatalogProjects.TryGetByUid(id, out project);
+                    out PlaceHandle project) => CatalogProjects.TryGetByLocalName(id, out project);
     public bool TryGetMemberRecord(
             ParsedPath path,
               out CatalogedForumMember member) => TryGetMember(path.FirstId, out member);
 
     public bool TryGetTopic(
                 ParsedPath path,
-                out ProjectHandle project,
+                out PlaceHandle project,
                 out TopicHandle topic) {
         project = null;
         topic = null;
-        if (!TryGetProject(path.ProjectId, out project)) {
+        if (!TryGetPlace(path.ProjectId, out project)) {
             return false;
             }
         if (!project.TryGetTopic(path.TopicId, out topic)) {
@@ -359,7 +359,7 @@ public class Forum :Disposable {
 
     public bool TryGetPost(
             ParsedPath path,
-            out ProjectHandle project,
+            out PlaceHandle project,
             out TopicHandle topic,
             out PostHandle post) {
         project = null;

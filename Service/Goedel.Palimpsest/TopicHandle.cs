@@ -58,13 +58,13 @@ public class TopicHandle : ForumHandle {
 
 
     public CatalogedTopic CatalogedResource => CatalogedEntry as CatalogedTopic;
-    public ProjectHandle ProjectHandle { get; }
+    public PlaceHandle ProjectHandle { get; }
 
     #endregion
     #region // Constructor
     public TopicHandle(
             CatalogedTopic resource,
-            ProjectHandle project) : base(resource) {
+            PlaceHandle project) : base(resource) {
 
         ProjectHandle = project;
         TopicDirectory = Path.Combine (project.ProjectDirectory, resource.Uid);
@@ -138,7 +138,7 @@ public class TopicHandle : ForumHandle {
 public class PostHandle : CachedHandle<CatalogedPost> {
 
     TopicHandle TopicHandle { get; }
-    ProjectHandle ProjectHandle=> TopicHandle.ProjectHandle;
+    PlaceHandle ProjectHandle=> TopicHandle.ProjectHandle;
 
 
     public  string Anchor => $"/{PalimpsestConstants.Post}/{ProjectHandle.Uid}/{TopicHandle.Uid}/{CatalogedEntry.Uid}";

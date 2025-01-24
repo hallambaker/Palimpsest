@@ -37,6 +37,16 @@ public class MemberHandle : CachedHandle<CatalogedForumMember> {
 
     public ForumPermissions Permissions { get; set; }
 
+    public string PermissionLabel =>
+        Permissions switch {
+            ForumPermissions.User => "User",
+            ForumPermissions.Moderator => "Moderator",
+            ForumPermissions.Administrator => "Administrator",
+            ForumPermissions.System => "System",
+            ForumPermissions.Blocked => "Blocked",
+            _ => Permissions.ToString()
+            };
+
 
     public MemberHandle(
             CatalogedForumMember member) : base(member) {
@@ -47,11 +57,8 @@ public class MemberHandle : CachedHandle<CatalogedForumMember> {
         else {
             Permissions = ForumPermissions.User;
             }
-
-
         }
 
-    //protected override MemberHandle Factory(CatalogedForumMember catalogedEntry)
-    //        => new(catalogedEntry);
+
     }
 

@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 1/24/2025 12:26:35 PM
+//  This file was automatically generated at 1/24/2025 6:24:32 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -33,8 +33,8 @@ public enum CookieType {
 public enum StoreType {
     ///<summary>Undefined type</summary>
     Unknown = -1,
-    ///<summary>Projects catalog</summary>
-    Projects,
+    ///<summary>Places catalog</summary>
+    Places,
     ///<summary>Members catalog</summary>
     Members,
     ///<summary>Resources catalog</summary>
@@ -79,8 +79,8 @@ public static partial class PalimpsestConstants {
             };
 
 
-    ///<summary>Jose enumeration tag for StoreType.Projects</summary>
-    public const string  StoreTypeProjectsTag = "Projects";
+    ///<summary>Jose enumeration tag for StoreType.Places</summary>
+    public const string  StoreTypePlacesTag = "Places";
     ///<summary>Jose enumeration tag for StoreType.Members</summary>
     public const string  StoreTypeMembersTag = "Members";
     ///<summary>Jose enumeration tag for StoreType.Resources</summary>
@@ -96,7 +96,7 @@ public static partial class PalimpsestConstants {
     /// <returns>The enumeration value.</returns>
     public static StoreType ToStoreType (this string text) =>
         text switch {
-            StoreTypeProjectsTag => StoreType.Projects,
+            StoreTypePlacesTag => StoreType.Places,
             StoreTypeMembersTag => StoreType.Members,
             StoreTypeResourcesTag => StoreType.Resources,
             StoreTypeReactionTag => StoreType.Reaction,
@@ -111,7 +111,7 @@ public static partial class PalimpsestConstants {
     /// <returns>The text value.</returns>
     public static string ToLabel (this StoreType data) =>
         data switch {
-            StoreType.Projects => StoreTypeProjectsTag,
+            StoreType.Places => StoreTypePlacesTag,
             StoreType.Members => StoreTypeMembersTag,
             StoreType.Resources => StoreTypeResourcesTag,
             StoreType.Reaction => StoreTypeReactionTag,
@@ -146,7 +146,7 @@ public static partial class PalimpsestConstants {
 
     ///<summary>
     ///</summary>
-    public const string Project = "Project";
+    public const string Place = "Place";
 
     ///<summary>
     ///</summary>
@@ -174,11 +174,11 @@ public static partial class PalimpsestConstants {
 
     ///<summary>
     ///</summary>
-    public const string CreateProject = "CreateProject";
+    public const string CreatePlace = "CreatePlace";
 
     ///<summary>
     ///</summary>
-    public const string CreateProjectPost = "CreateProjectPost";
+    public const string CreatePlacePost = "CreatePlacePost";
 
     ///<summary>
     ///</summary>

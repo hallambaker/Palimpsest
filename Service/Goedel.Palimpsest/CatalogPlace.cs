@@ -28,7 +28,7 @@ namespace Goedel.Palimpsest;
 /// <summary>
 /// Cached catalog of projects.
 /// </summary>
-public class CachedProjects : Cache<ProjectHandle, CatalogedProject> {
+public class CachedPlaces : Cache<PlaceHandle, CatalogedPlace> {
 
     public Forum Forum { get; }
 
@@ -37,11 +37,11 @@ public class CachedProjects : Cache<ProjectHandle, CatalogedProject> {
     /// data to <paramref name="directory"/>.
     /// </summary>
     /// <param name="directory">The directory of the peristence store.</param>
-    public CachedProjects(
+    public CachedPlaces(
                 Forum forum,
                 string directory,
                 bool create=false) : base(
-                    directory, PalimpsestConstants.StoreTypeProjectsTag, create) {
+                    directory, PalimpsestConstants.StoreTypePlacesTag, create) {
         Forum = forum;
         CreateHandle = Factory;
 
@@ -49,13 +49,13 @@ public class CachedProjects : Cache<ProjectHandle, CatalogedProject> {
 
         }
 
-    private ProjectHandle Factory(CatalogedProject catalogedEntry)
+    private PlaceHandle Factory(CatalogedPlace catalogedEntry)
             => new(this, catalogedEntry);
 
 
 
-    public IEnumerable<CatalogedProject> GetProjectEnumerator() {
-        var projects = new List<CatalogedProject>();
+    public IEnumerable<CatalogedPlace> GetProjectEnumerator() {
+        var projects = new List<CatalogedPlace>();
 
         foreach (var project in Catalog) {
             projects.Add(project);

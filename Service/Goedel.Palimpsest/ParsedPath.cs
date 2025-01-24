@@ -60,10 +60,19 @@ public record ParsedPath {
     ///<summary>The fragment Id is always the third in the path</summary> 
     public string FragmentId => ThirdId;
 
+    ///<summary>The original IP address of the request (filled by reverse proxy)</summary> 
+    public string RealIp { get; }
 
-
+    public PlaceHandle PlaceHandle { get; }
 
     public ParsedPath(HttpListenerRequest request, Forum forum) {
+
+
+        RealIp = request.Headers["X-Real-IP"];
+
+
+        forum.TryGetPlace(request.UserHostName, out var place);
+        PlaceHandle = place;
 
         // If signed in, set the member handle
         forum.TryGetVerifiedMemberHandle(request, out var member);

@@ -32,13 +32,13 @@ namespace Goedel.Palimpsest;
 /// Cached handle for a project
 /// </summary>
 /// <param name="project">The project catalog entry</param>
-public class ProjectHandle: CachedHandle<CatalogedProject>, IPage{
+public class PlaceHandle: CachedHandle<CatalogedPlace>, IPage{
 
 
-    CachedProjects CachedProjects { get; }
+    CachedPlaces CachedProjects { get; }
 
 
-    public CatalogedProject CatalogedProject => CatalogedEntry;
+    public CatalogedPlace CatalogedPlace => CatalogedEntry;
 
     public CachedDocuments CatalogForums {
         get => catalogDocuments ?? 
@@ -47,13 +47,13 @@ public class ProjectHandle: CachedHandle<CatalogedProject>, IPage{
     CachedDocuments catalogDocuments;
 
     public string ProjectDirectory => Path.Combine(
-                CachedProjects.Forum.DirectoryPath, Uid);
+                CachedProjects.Forum.DirectoryPath, LocalName);
 
     public IEnumerable<CatalogedForum> Resources =>  CatalogForums?.GetResourceEnumerator();
 
-    public ProjectHandle(
-            CachedProjects cachedProjects,
-            CatalogedProject project) : base(project) {
+    public PlaceHandle(
+            CachedPlaces cachedProjects,
+            CatalogedPlace project) : base(project) {
         CachedProjects = cachedProjects;
 
         Console.WriteLine($"Create Project handle");

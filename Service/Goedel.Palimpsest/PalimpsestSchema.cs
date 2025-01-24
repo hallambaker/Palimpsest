@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 1/24/2025 12:26:35 PM
+//  This file was automatically generated at 1/24/2025 6:24:32 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -76,7 +76,7 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 
 	    {"CatalogedForumEntry", CatalogedForumEntry._Factory},
 	    {"EntryAttibutes", EntryAttibutes._Factory},
-	    {"CatalogedProject", CatalogedProject._Factory},
+	    {"CatalogedPlace", CatalogedPlace._Factory},
 	    {"CatalogedForumMember", CatalogedForumMember._Factory},
 	    {"CatalogedForum", CatalogedForum._Factory},
 	    {"CatalogedTopic", CatalogedTopic._Factory},
@@ -300,7 +300,11 @@ public partial class EntryAttibutes : ForumItem {
 	///
 	/// A cataloged project.
 	/// </summary>
-public partial class CatalogedProject : CatalogedForumEntry {
+public partial class CatalogedPlace : CatalogedForumEntry {
+        /// <summary>
+        /// </summary>
+
+	public virtual List<string>?					Aliases  {get; set;}
         /// <summary>
         ///The members owwning the peoject
         /// </summary>
@@ -315,9 +319,11 @@ public partial class CatalogedProject : CatalogedForumEntry {
 	static protected new Binding _binding = new (
 			new() {
 
+			{ "Aliases", new PropertyListString ("Aliases", 
+					(IBinding data, List<string>? value) => {(data as CatalogedPlace).Aliases = value;}, (IBinding data) => (data as CatalogedPlace).Aliases )},
 			{ "Owners", new PropertyListString ("Owners", 
-					(IBinding data, List<string>? value) => {(data as CatalogedProject).Owners = value;}, (IBinding data) => (data as CatalogedProject).Owners )}
-        }, __Tag,() => new CatalogedProject(), CatalogedForumEntry._binding);
+					(IBinding data, List<string>? value) => {(data as CatalogedPlace).Owners = value;}, (IBinding data) => (data as CatalogedPlace).Owners )}
+        }, __Tag,() => new CatalogedPlace(), CatalogedForumEntry._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -346,13 +352,13 @@ public partial class CatalogedProject : CatalogedForumEntry {
 	/// <summary>
     /// Tag identifying this class
     /// </summary>
-	public new const string __Tag = "CatalogedProject";
+	public new const string __Tag = "CatalogedPlace";
 
 	/// <summary>
     /// Factory method
     /// </summary>
     /// <returns>Object of this type</returns>
-	public static new JsonObject _Factory () => new CatalogedProject();
+	public static new JsonObject _Factory () => new CatalogedPlace();
 
 
     /// <summary>
@@ -361,15 +367,15 @@ public partial class CatalogedProject : CatalogedForumEntry {
     /// <param name="jsonReader">The input stream</param>
 	/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
     /// <returns>The created object.</returns>		
-    public static new CatalogedProject FromJson (JsonReader jsonReader, bool tagged=true) {
+    public static new CatalogedPlace FromJson (JsonReader jsonReader, bool tagged=true) {
 		if (jsonReader == null) {
 			return null;
 			}
 		if (tagged) {
 			var Out = jsonReader.ReadTaggedObject (_TagDictionary);
-			return Out as CatalogedProject;
+			return Out as CatalogedPlace;
 			}
-		var Result = new CatalogedProject ();
+		var Result = new CatalogedPlace ();
 		Result.Deserialize (jsonReader);
 		Result.PostDecode();
 		return Result;

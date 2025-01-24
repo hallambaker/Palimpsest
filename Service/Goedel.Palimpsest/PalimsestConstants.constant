@@ -12,11 +12,11 @@ File CatalogLabels
 
 	Enum StoreType "Store labels"
 
-		Code Projects "Projects catalog"
+		Code Places "Places catalog"
 			Description
 				|One catalog per forum, index for everything
 			Description
-				|Filename: Project.dcat
+				|Filename: Place.dcat
 
 		Code Members "Members catalog"
 			Description
@@ -28,14 +28,14 @@ File CatalogLabels
 			Description
 				|One catalog per project, lists the resources connected to the project
 			Description
-				|Filename: [ProjectId]/Resources.dcat
+				|Filename: [PlaceId]/Resources.dcat
 
 		Code Reaction "Reaction catalog"
 			Description
 				|One catalog per resource, created when the resource is first annotated.
 				|Annotations of annotations are stored in the same catalog as direct annotations.
 			Description
-				|Filename: [ProjectId]/[ResourceId].dcat
+				|Filename: [PlaceId]/[ResourceId].dcat
 
 
 File PagePrefixes
@@ -47,7 +47,7 @@ File PagePrefixes
 	String CreateAccountPost "CreateAccountPost"
 	String SignOut "SignOut"
 
-	String Project "Project"
+	String Place "Place"
 	String AddDocument "AddDocument"
 	String AddTopic "AddTopic"
 
@@ -56,8 +56,8 @@ File PagePrefixes
 	String Post "Post"
 	String User "User"
 
-	String CreateProject "CreateProject"
-	String CreateProjectPost "CreateProjectPost"
+	String CreatePlace "CreatePlace"
+	String CreatePlacePost "CreatePlacePost"
 	String DocumentUpload "DocumentUpload"
 
 	String TopicCreate "TopicCreate"

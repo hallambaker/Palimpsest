@@ -58,13 +58,13 @@ public class FormDataAcceptTerms : FormData {
 /// <summary>
 /// Backing class for the project entry form.
 /// </summary>
-public class FormDataProject : FormData {
+public class FormDataPlace : FormData {
 
     ///<inheritdoc/>
     protected override FormItem[] Items => items;
     static readonly FormItem[] items = [
-        new ("name", FormEntryType.String, (form, s) => ((FormDataProject)form).Name = s as string),
-        new ("description", FormEntryType.String, (form, s) => ((FormDataProject)form).Description = s as string)
+        new ("name", FormEntryType.String, (form, s) => ((FormDataPlace)form).Name = s as string),
+        new ("description", FormEntryType.String, (form, s) => ((FormDataPlace)form).Description = s as string)
         ];
 
     ///<summary>The username.</summary> 

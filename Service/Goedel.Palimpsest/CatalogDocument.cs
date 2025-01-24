@@ -29,7 +29,7 @@ namespace Goedel.Palimpsest;
 /// </summary>
 public class CachedDocuments : Cache<ForumHandle, CatalogedForum> {
 
-    ProjectHandle Project;
+    PlaceHandle Project;
 
 
     /// <summary>
@@ -38,7 +38,7 @@ public class CachedDocuments : Cache<ForumHandle, CatalogedForum> {
     /// </summary>
     /// <param name="directory">The directory of the peristence store.</param>
     public CachedDocuments(
-            ProjectHandle project,
+            PlaceHandle project,
                 bool create=false) : base(
                     project.ProjectDirectory, PalimpsestConstants.StoreTypeResourcesTag, create) {
         CreateHandle = Factory;

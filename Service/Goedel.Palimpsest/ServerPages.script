@@ -99,7 +99,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 
 
-#! ///// Result pages - Home / Project / User / Document
+#! ///// Result pages - Home / Place / User / Document
 
 
 
@@ -117,28 +117,29 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
     <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:
     </p>
     <form action="/SignInPost" method="post" enctype="multipart/form-data">
-    <p class="login-big">@<input class="login-box" type="text" id="username", name="username"/>
+    <p class="login-big">@<input class="login-box" type="text" id="username", name="username" rel="dns-handle"/>
     <input type="submit" value="Sign In" />
     </p>
     </form>
 #else 
     <p><a href="SignOut">Sign Out</a></p>
-#if PermissionCreateProject
-    <p><a href="CreateProject">Create Project</a></p>
+#if PermissionCreatePlace
+    <p><a href="CreatePlace">Create Place</a></p>
 #end if
 
-    <h2>Projects</h2>
+    <h2>Places</h2>
+    <div class="h-feed">
     <table class="documentsList">
 #% // ToDo: The list of projects should become 'featured projects'
-#foreach  (var project in Projects) 
-    <tr><td>
-    <a href="/Project/#{project.Uid}">#{project.LocalName}</a>
-    </td><td>
-    #{project.Description}
+#foreach  (var place in Places) 
+    <tr class="h-entry"><td class="u-url">
+    <a href="#{place.HomeUri}">@#{place.LocalName}</a>
+    </td><td class="p-name">
+    #{place.Description}
     </td></tr>
 #end foreach
     </table>
-
+    </div>
 #end if
 
 </div>
@@ -178,10 +179,10 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 
 
-#method PageProject ProjectHandle handle
-#% var project = handle.CatalogedProject;
+#method PagePlace PlaceHandle handle
+#% var project = handle.CatalogedPlace;
 <div class="container">
-  <h1>Project: #{project.LocalName}</h1>
+  <h1>Place: #{project.LocalName}</h1>
 
   <p>#{project.Description}</p>
   <p><a href="/AddDocument/#{handle.Uid}">Add Document</a>
@@ -284,8 +285,8 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 #!!!!!!!!!!!!!!!!!!!!!!  
 
-#method PageAddDocument ProjectHandle handle
-#% var project = handle.CatalogedProject;
+#method PageAddDocument PlaceHandle handle
+#% var project = handle.CatalogedPlace;
 <div class="container">
   <h1>Add Document: #{project.LocalName}</h1>
 
@@ -333,8 +334,8 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
-#method PageAddTopic ProjectHandle handle
-#% var project = handle.CatalogedProject;
+#method PageAddTopic PlaceHandle handle
+#% var project = handle.CatalogedPlace;
 <div class="container">
   <h1>Add Topic: #{project.LocalName}</h1>
 
@@ -371,13 +372,13 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 
 
-#method0 CreateProject
+#method0 CreatePlace
 <div class="container">
-  <h1>Create Project</h1>
-<form action="/CreateProjectPost" method="post" enctype="multipart/form-data">
+  <h1>Create Place</h1>
+<form action="/CreatePlacePost" method="post" enctype="multipart/form-data">
   <table>
     <tr><td>
-    <label for="name">Project Name:</label>
+    <label for="name">Place Name:</label>
     </td><td>
     <input type="text", id="name", name="name">
     </td></tr>

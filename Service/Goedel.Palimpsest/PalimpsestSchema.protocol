@@ -29,10 +29,12 @@
 				|The attribute value
 
 
-	Structure CatalogedProject
+	Structure CatalogedPlace
 		Inherits CatalogedForumEntry
 		Description
 			|A cataloged project.
+		String Aliases
+			Multiple
 		String Owners
 			Multiple
 			Description

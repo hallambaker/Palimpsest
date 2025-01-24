@@ -42,7 +42,7 @@ public class ResourceHandle : ForumHandle {
 
     #region // Properties
 
-    public override string Anchor => $"/{PalimpsestConstants.Document}/{ProjectHandle.Uid}/{CatalogedResource.Uid}";
+    public override string Anchor => $"/{PalimpsestConstants.Document}/{PlaceHandle.Uid}/{CatalogedResource.Uid}";
    
 
     public List<IAnnotation> Annotations = [];
@@ -51,11 +51,11 @@ public class ResourceHandle : ForumHandle {
         CacheValue(out parsedContent);
     ParsedContent parsedContent;
 
-    public string FilePath => Path.Combine(ProjectHandle.ProjectDirectory,
+    public string FilePath => Path.Combine(PlaceHandle.ProjectDirectory,
                 CatalogedResource.Uid + ".xml");
 
     CatalogReaction Reactions => reactions ?? new CatalogReaction(
-        ProjectHandle.ProjectDirectory, CatalogedResource.Uid).CacheValue(out reactions);
+        PlaceHandle.ProjectDirectory, CatalogedResource.Uid).CacheValue(out reactions);
 
     #region // CatalogReaction Reactions
     CatalogReaction reactions;
@@ -71,15 +71,15 @@ public class ResourceHandle : ForumHandle {
 
 
     public CatalogedForum CatalogedResource => CatalogedEntry;
-    public ProjectHandle ProjectHandle { get; }
+    public PlaceHandle PlaceHandle { get; }
 
     #endregion
     #region // Constructor
     public ResourceHandle(
             CatalogedResource resource,
-            ProjectHandle project) : base(resource) {
+            PlaceHandle project) : base(resource) {
 
-        ProjectHandle = project;
+        PlaceHandle = project;
         foreach (var reaction in Reactions) {
             if (reaction is CatalogedAnnotation annotation) {
                 Annotations.Add(annotation);
