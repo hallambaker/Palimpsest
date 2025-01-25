@@ -9,6 +9,10 @@ File CatalogLabels
 		Code Session "Authentication session cookie"
 			Description
 				|Authentication session cookie
+		Code Temporary "Temporary authentication session cookie"
+			Description
+				|Temporary authentication session cookie
+
 
 	Enum StoreType "Store labels"
 
@@ -42,6 +46,8 @@ File PagePrefixes
 	String resources "resources"
 	String SignIn "SignIn"
 	String SignInPost "SignInPost"
+	String SignInComplete "Complete"
+
 
 	String CreateAccount "CreateAccount"
 	String CreateAccountPost "CreateAccountPost"

@@ -20,17 +20,77 @@
 //  THE SOFTWARE.
 #endregion
 
+using Goedel.Mesh;
+
+using System.Web;
+
 namespace Goedel.Palimpsest;
 
 
+public record TempBinding(
+            DateTime issued,
+            string redirectUri) {
+    }
+
 public partial class AnnotationService {
     #region // Sign in/out
+
+
+    public Dictionary<string, TempBinding> TempBindings { get; } = new();
+
+    public Task RedirectSignIn(
+                HttpListenerContext context,
+                ParsedPath path) {
+        
+        // create a temporary cookie to be used to validate the 
+        var binding = new TempBinding(DateTime.Now, path.ExternalUri);
+        var nonce = Udf.Nonce();
+        TempBindings.Add(nonce, binding);
+        var cookie = new Cookie(PalimpsestConstants.CookieTypeTemporaryTag, nonce);
+        context.Response.SetCookie(cookie);
+
+        context.Response.Redirect(SignInEndpoint + "?nonce=" + nonce + "&host=" + path.Uri.Host);
+        context.Response.OutputStream.Close();
+
+
+        return Task.CompletedTask;
+        }
+
+    public async Task CompleteSignIn(
+            HttpListenerContext context,
+            ParsedPath path) {
+
+        var parsedUrl = path.Uri.Query;
+        var paramsCollection = HttpUtility.ParseQueryString(parsedUrl);
+        var nonce = paramsCollection["nonce"];
+        var handle = paramsCollection["handle"];
+
+        var member = Forum.GetMember(handle);
+        var cookie = Forum.ServerCookieManager.GetCookie(
+            PalimpsestConstants.CookieTypeSessionTag, member.PrimaryKey);
+        context.Response.Cookies.Add(cookie);
+
+        if (!TempBindings.TryGetValue(nonce, out var binding)) {
+            throw new NYI();
+            }
+
+        var annotations = Annotations.Get(this, context, path);
+        await annotations.Redirect(context, binding.redirectUri);
+        }
+
     public Task GetSignIn(
         HttpListenerContext context,
         ParsedPath path) {
-        var annotations = Annotations.Get(this, context, path);
 
-        var from = path.Command == PalimpsestConstants.SignIn ? "/" : path.LocalPath;
+        // This needs to be a redirect to a Sign in page on the common login.
+
+        // check to see if we already have the access cookie
+        // if we do, we just give a redirect.
+
+
+        var annotations = Annotations.Get(this, context, path);
+        var from = path.ExternalUriQuery;
+
 
         annotations.StartPage($"{Forum.Name}: Sign In");
         annotations.SignIn(from);
@@ -157,7 +217,7 @@ public partial class AnnotationService {
         var success = result as OauthClientResultAuthRequest;
 
 
-
+        Console.WriteLine($"Stuff cookies into {context.Request.UserHostName}");
 
         var member = Forum.GetOrCreateMember(success.Handle, success.DID);
         // have authenticated against a DID and a handle. We are going to keep both.
@@ -167,7 +227,19 @@ public partial class AnnotationService {
 
         // Send the redirect
         var annotations = Annotations.Get(this, context, path);
-        await annotations.Redirect(context, success.RedirectUri);
+
+        //extract the nonce from success.RedirectUri
+        var parsedUrl = success.RedirectUri.Split('?')[1];
+        var paramsCollection = HttpUtility.ParseQueryString(parsedUrl);
+        var nonce = paramsCollection["nonce"];
+        var host = paramsCollection["host"];
+
+
+
+        var redirect = $"https://{host}/{PalimpsestConstants.SignInComplete}?nonce={nonce}&handle={success.Handle}";
+
+        // redirect back to the host partition so we can cookie stuff
+        await annotations.Redirect(context, redirect);
         }
     #endregion
 

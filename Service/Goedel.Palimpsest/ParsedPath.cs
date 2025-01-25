@@ -30,6 +30,9 @@ public record ParsedPath {
     public string Command { get; }
 
     public Uri Uri { get; }
+
+    public string ExternalUri => "https://" + Uri.Host  + Uri.LocalPath;
+    public string ExternalUriQuery => "https://" + Uri.Host + Uri.PathAndQuery;
     public string LocalPath => Uri?.LocalPath;
 
     public MemberHandle? Member { get; }
@@ -64,12 +67,14 @@ public record ParsedPath {
     public string RealIp { get; }
 
     public PlaceHandle PlaceHandle { get; }
+    
+
 
     public ParsedPath(HttpListenerRequest request, Forum forum) {
 
 
         RealIp = request.Headers["X-Real-IP"];
-
+        //ReturnAddress = request.UserHostName + "/" + 
 
         forum.TryGetPlace(request.UserHostName, out var place);
         PlaceHandle = place;

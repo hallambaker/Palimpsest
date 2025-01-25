@@ -456,7 +456,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <param name="from"></param>
 	public void SignIn (string from) {
 		// NoteWell();
-		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:\n{0}", _Indent);
+		_Output.Write ("    </p>\n{0}", _Indent);
 		_Output.Write ("<form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
 		_Output.Write ("<input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\"/>\n{0}", _Indent, from);
 		_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"username\", name=\"username\" rel=\"dns-handle\"/>\n{0}", _Indent);

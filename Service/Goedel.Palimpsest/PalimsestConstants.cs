@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 1/24/2025 10:08:50 PM
+//  This file was automatically generated at 1/25/2025 3:54:50 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -27,7 +27,9 @@ public enum CookieType {
     ///<summary>Undefined type</summary>
     Unknown = -1,
     ///<summary>Authentication session cookie</summary>
-    Session    }
+    Session,
+    ///<summary>Temporary authentication session cookie</summary>
+    Temporary    }
 
 ///<summary>Store labels</summary>
 public enum StoreType {
@@ -53,6 +55,8 @@ public static partial class PalimpsestConstants {
 
     ///<summary>Jose enumeration tag for CookieType.Session</summary>
     public const string  CookieTypeSessionTag = "Session";
+    ///<summary>Jose enumeration tag for CookieType.Temporary</summary>
+    public const string  CookieTypeTemporaryTag = "Temporary";
 
     /// <summary>
     /// Convert the string <paramref name="text"/> to the corresponding enumeration
@@ -63,6 +67,7 @@ public static partial class PalimpsestConstants {
     public static CookieType ToCookieType (this string text) =>
         text switch {
             CookieTypeSessionTag => CookieType.Session,
+            CookieTypeTemporaryTag => CookieType.Temporary,
             _ => CookieType.Unknown
             };
 
@@ -75,6 +80,7 @@ public static partial class PalimpsestConstants {
     public static string ToLabel (this CookieType data) =>
         data switch {
             CookieType.Session => CookieTypeSessionTag,
+            CookieType.Temporary => CookieTypeTemporaryTag,
             _ => null
             };
 
@@ -131,6 +137,10 @@ public static partial class PalimpsestConstants {
     ///<summary>
     ///</summary>
     public const string SignInPost = "SignInPost";
+
+    ///<summary>
+    ///</summary>
+    public const string SignInComplete = "Complete";
 
     ///<summary>
     ///</summary>

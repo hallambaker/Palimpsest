@@ -229,6 +229,12 @@ public class Forum :Disposable {
     #endregion
     #region // Member Methods
 
+    public MemberHandle? GetMember(
+                string handle) {
+        CatalogMembers.TryGetByLocalName(handle, out var memberHandle);
+        return memberHandle;
+        }
+
 
     public MemberHandle GetOrCreateMember(
                     string handle,

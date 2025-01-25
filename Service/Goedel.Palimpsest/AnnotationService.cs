@@ -63,6 +63,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     public string Domain => "mplace2.app";
     public string ClientEndpoint => $"https://{Domain}/";
+
+    public string SignInEndpoint => ClientEndpoint + PalimpsestConstants.SignIn;
+
     public string ClientMetadataLocation => ClientEndpoint + PalimpsestConstants.ClientMetadata;
 
     OauthClient OauthClient { get; }
@@ -162,6 +165,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.resources, new (GetResources,false) },
             { PalimpsestConstants.SignIn, new (GetSignIn, false) },
             { PalimpsestConstants.SignInPost, new (PostSignIn, false) },
+            { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
             { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
             //{ PalimpsestConstants.Terms, new (GetTerms, false) },
 
@@ -268,7 +272,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         // Look for a dispatch method and use it if found.
         if (ResourceMap.TryGetValue(path.Command, out var callback)) {
             if ((path.Member is null) & callback.SignedIn) {
-                await GetSignIn(context, path);
+
+                // need to change this to a POST redirect with the return path 
+
+                await RedirectSignIn(context, path);
                 return;
                 }
 
