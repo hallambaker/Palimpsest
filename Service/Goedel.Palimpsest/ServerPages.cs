@@ -219,8 +219,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("  <h1>Place: {1}</h1>\n{0}", _Indent, project.LocalName);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
-		_Output.Write ("  <p><a href=\"/AddDocument/{1}\">Add Document</a>\n{0}", _Indent, handle.Uid);
-		_Output.Write ("    <a href=\"/AddTopic/{1}\">Add Topic</a>\n{0}", _Indent, handle.Uid);
+		_Output.Write ("  <p><a href=\"/{1}\">Add Document</a>\n{0}", _Indent, PalimpsestConstants.AddDocument);
+		_Output.Write ("    <a href=\"/{1}\">Add Topic</a>\n{0}", _Indent, PalimpsestConstants.AddTopic);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("    <h2>Documents</h2>\n{0}", _Indent);
 		_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
@@ -343,7 +343,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("  <form action=\"/DocumentUpload/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, handle.Uid);
+		_Output.Write ("  <form action=\"/{{PalimpsestConstants.DocumentUpload}}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
 		_Output.Write ("    <p>\n{0}", _Indent);
 		_Output.Write ("      <table>\n{0}", _Indent);
 		_Output.Write ("        <tr><td>\n{0}", _Indent);
@@ -396,7 +396,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("  <form action=\"/TopicCreate/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, handle.Uid);
+		_Output.Write ("  <form action=\"/{{PalimpsestConstants.TopicCreate}}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
 		_Output.Write ("    <p>\n{0}", _Indent);
 		_Output.Write ("      <table>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
@@ -455,12 +455,13 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// </summary>
 	/// <param name="from"></param>
 	public void SignIn (string from) {
-		 NoteWell();
+		// NoteWell();
+		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
 		_Output.Write ("<input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\"/>\n{0}", _Indent, from);
-		_Output.Write ("<table >\n{0}", _Indent);
-		 SignInForm(false);
-		_Output.Write ("<table>\n{0}", _Indent);
+		_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"username\", name=\"username\" rel=\"dns-handle\"/>\n{0}", _Indent);
+		_Output.Write ("    <input type=\"submit\" value=\"Sign In\" />\n{0}", _Indent);
+		_Output.Write ("    </p>\n{0}", _Indent);
 		_Output.Write ("</form>\n{0}", _Indent);
 		}
 	

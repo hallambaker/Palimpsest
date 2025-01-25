@@ -22,6 +22,7 @@
 
 
 using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Goedel.Palimpsest;
 
@@ -68,6 +69,7 @@ public partial class Annotations {
 
     public Forum Forum => Annotation.Forum;
 
+    public ParsedPath ParsedPath { get; init; }
 
     public bool SignedIn => VerifiedAccount != null;
 
@@ -109,10 +111,25 @@ public partial class Annotations {
 
         }
 
+
+
     public static Annotations Get(
             AnnotationService annotation,
             HttpListenerContext context,
-            ParsedPath path) => Get (annotation, context, path?.Member);
+            ParsedPath path) {
+        var writer = new StreamWriter(context.Response.OutputStream);
+        var result = new Annotations() {
+            Annotation = annotation,
+            Context = context,
+            _Output = writer,
+            VerifiedAccount = path.Member,
+            ParsedPath = path
+            };
+
+        return result;
+        }
+
+
 
 
     public static Annotations Get(
@@ -137,10 +154,9 @@ public partial class Annotations {
     public static Annotations PostForm(
             AnnotationService? annotation,
             HttpListenerContext context,
-            MemberHandle? member,
-            FormData formData
-            ) {
-        var result = Get(annotation, context, member);
+            FormData formData,
+            ParsedPath path) {
+        var result = Get(annotation, context, path);
         ParsedMultipart.Parse(context.Request.InputStream, formData);
         return result;
         }

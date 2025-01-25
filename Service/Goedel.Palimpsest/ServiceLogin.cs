@@ -28,9 +28,7 @@ public partial class AnnotationService {
     public Task GetSignIn(
         HttpListenerContext context,
         ParsedPath path) {
-        var member = path.Member;
-
-        var annotations = Annotations.Get(this, context, member);
+        var annotations = Annotations.Get(this, context, path);
 
         var from = path.Command == PalimpsestConstants.SignIn ? "/" : path.LocalPath;
 
@@ -44,9 +42,7 @@ public partial class AnnotationService {
     public Task GetSignOut(
                 HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
-
-        var annotations = Annotations.Get(this, context, member);
+        var annotations = Annotations.Get(this, context, path);
 
         // clear the HTTP cookie
         var cookie = ServerCookieManager.ClearCookie(PalimpsestConstants.CookieTypeSessionTag);
@@ -71,7 +67,7 @@ public partial class AnnotationService {
 
         var fields = new FormDataAccount();
 
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
         var redirect = fields.From ?? "/";
 
         // Do we already have a local account for this handle?
@@ -97,7 +93,7 @@ public partial class AnnotationService {
         var member = path.Member;
 
         var fields = new FormDataAcceptTerms();
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
 
         if (fields.Agree == "true") {
             await OAuthSignIn(annotations, context, fields.Username, fields.From);

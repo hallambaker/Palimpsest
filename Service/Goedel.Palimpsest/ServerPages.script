@@ -185,8 +185,8 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
   <h1>Place: #{project.LocalName}</h1>
 
   <p>#{project.Description}</p>
-  <p><a href="/AddDocument/#{handle.Uid}">Add Document</a>
-    <a href="/AddTopic/#{handle.Uid}">Add Topic</a>
+  <p><a href="/#{PalimpsestConstants.AddDocument}">Add Document</a>
+    <a href="/#{PalimpsestConstants.AddTopic}">Add Topic</a>
 
     <h2>Documents</h2>
     <table class="documentsList">
@@ -292,7 +292,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
   <p>#{project.Description}</p>
 
-  <form action="/DocumentUpload/#{handle.Uid}" method="post" enctype="multipart/form-data">
+  <form action="/{PalimpsestConstants.DocumentUpload}" method="post" enctype="multipart/form-data">
     <p>
       <table>
         <tr><td>
@@ -341,7 +341,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
   <p>#{project.Description}</p>
 
-  <form action="/TopicCreate/#{handle.Uid}" method="post" enctype="multipart/form-data">
+  <form action="/{PalimpsestConstants.TopicCreate}" method="post" enctype="multipart/form-data">
     <p>
       <table>
 
@@ -399,12 +399,14 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 
 #method SignIn string from
-#% NoteWell();
+#! NoteWell();
+    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:
+    </p>
 <form action="/SignInPost" method="post" enctype="multipart/form-data">
 <input type="hidden" value="#{from}" id="from" name="from"/>
-<table >
-#% SignInForm(false);
-<table>
+    <p class="login-big">@<input class="login-box" type="text" id="username", name="username" rel="dns-handle"/>
+    <input type="submit" value="Sign In" />
+    </p>
 </form>
 #end method
 

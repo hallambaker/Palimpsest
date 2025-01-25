@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 #endregion
 
+using System.Runtime.Serialization.DataContracts;
+
 namespace Goedel.Palimpsest;
 
 [Flags]
@@ -287,8 +289,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
                 HttpListenerContext context,
                 ParsedPath path) {
 
-        var member = path.Member;
-        var annotations = Annotations.Get(this, context, member);
+        var annotations = Annotations.Get(this, context, path);
 
         if (path.PlaceHandle is null) {
 
@@ -340,7 +341,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
                 return;
                 }
             case BoilerplateHtml html: {
-                var annotations = Annotations.Get(this, context, path.Member);
+
+                var annotations = Annotations.Get(this, context, path);
 
                 //if (html.HTML is null) {
                 //    Forum.FetchBoilerplate(html);
@@ -403,8 +405,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task GetPlace(
             HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
-        var annotations = Annotations.Get(this, context, member);
+
+        var annotations = Annotations.Get(this, context, path);
         await GetPlacePage(context, path, annotations, annotations.PagePlace);
         }
 
@@ -413,8 +415,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task GetDocument(
             HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
-        var annotations = Annotations.Get(this, context, member);
+
+        var annotations = Annotations.Get(this, context, path);
 
         // need to modify this to get the project and account ids
         Forum.TryGetPlace(path.FirstId, out var projectHandle);
@@ -446,8 +448,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task GetPost(
             HttpListenerContext context,
             ParsedPath path) {
-        var member = path.Member;
-        var annotations = Annotations.Get(this, context, member);
+
+        var annotations = Annotations.Get(this, context, path);
 
         if (!Forum.TryGetPost(path, out var projectHandle, out var topicHandle, out var postHandle)) {
             await Error(context, null);
@@ -467,9 +469,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task GetUser(
             HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
 
-        var annotations = Annotations.Get(this, context, member);
+        var annotations = Annotations.Get(this, context, path);
 
         if (!Forum.TryGetMemberRecord(path, out var memberHandle)) {
             await Error(context, null);
@@ -477,7 +478,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             }
 
 
-        annotations.StartPage($"{Forum.Name}: Member {member.LocalName}");
+        annotations.StartPage($"{Forum.Name}: Member {path.Member.LocalName}");
         annotations.PageMember(memberHandle);
         annotations.End();
 
@@ -490,15 +491,15 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task GetAddDocument(
     HttpListenerContext context,
         ParsedPath path) {
-        var member = path.Member;
-        var annotations = Annotations.Get(this, context, member);
+
+        var annotations = Annotations.Get(this, context, path);
         await GetPlacePage(context, path, annotations, annotations.PageAddDocument);
         }
     public async Task GetAddTopic(
         HttpListenerContext context,
             ParsedPath path) {
-        var member = path.Member;
-        var annotations = Annotations.Get(this, context, member);
+
+        var annotations = Annotations.Get(this, context, path);
         await GetPlacePage(context, path, annotations, annotations.PageAddTopic);
         }
 
@@ -562,7 +563,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
                 ParsedPath path) {
         var member = path.Member;
 
-        var annotations = Annotations.Get(this, context, member);
+        var annotations = Annotations.Get(this, context, path);
 
 
         annotations.StartPage($"{Forum.Name}: Create Place");
@@ -575,9 +576,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public Task GetCommentForm(
                 HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
+    
 
-        var annotations = Annotations.Get(this, context, member);
+        var annotations = Annotations.Get(this, context, path);
         annotations.PageEnterComment(path, CommentMode.Annotation);
         annotations.End();
         return Task.CompletedTask;
@@ -586,9 +587,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public Task GetPostForm(
             HttpListenerContext context,
             ParsedPath path) {
-        var member = path.Member;
-
-        var annotations = Annotations.Get(this, context, member);
+     
+        var annotations = Annotations.Get(this, context, path);
         annotations.PageEnterComment(path, CommentMode.Post);
         annotations.End();
         return Task.CompletedTask;
@@ -597,9 +597,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public Task GetPostCommentForm(
             HttpListenerContext context,
             ParsedPath path) {
-        var member = path.Member;
 
-        var annotations = Annotations.Get(this, context, member);
+        var annotations = Annotations.Get(this, context, path);
         annotations.PageEnterComment(path, CommentMode.Comment);
         annotations.End();
         return Task.CompletedTask;
@@ -611,8 +610,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public Task GetListActions(
                 HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
-        var annotations = Annotations.Get(this, context, member);
+
+        var annotations = Annotations.Get(this, context, path);
 
         annotations.StartPage($"{Forum.Name}: User {"TBS"}");
         annotations.PageActions();
@@ -673,10 +672,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostCreatePlace(
                 HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
         var fields = new FormDataPlace();
-
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
 
 
         var place = new CatalogedPlace {
@@ -694,13 +691,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostUploadDocument(
                 HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
         Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
 
 
         var fields = new FormDataDocument();
 
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
 
         var contentType = "text/xml";
         var resourceRecord = new CatalogedResource() {
@@ -716,13 +712,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostCreateTopic(
                 HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
         Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
 
 
         var fields = new FormDataDocument();
 
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
 
         var resourceRecord = new CatalogedTopic() {
             Uid = Udf.Nonce(),
@@ -738,10 +733,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostComment(
                 HttpListenerContext context,
                 ParsedPath path) {
-        var member = path.Member;
-
         var fields = new FormDataComment();
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
 
         //Annotations.PostComment(this, context);
 
@@ -751,7 +744,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         var response = new CatalogedAnnotation() {
             Uid = Udf.Nonce(),
-            MemberId = member.Uid,
+            MemberId = path.Member.Uid,
             Text = fields.Comment,
             Anchor = fields.FragmentId,
             Semantic = fields.Semantic
@@ -765,16 +758,14 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostPost(
             HttpListenerContext context,
             ParsedPath path) {
-        var member = path.Member;
-
         var fields = new FormDataComment();
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
 
         Forum.TryGetTopic(path, out var project, out var topic).AssertTrue(NYI.Throw);
         var response = new CatalogedPost() {
             Uid = Udf.Nonce(),
             Added = DateTime.UtcNow,
-            MemberId = member.Uid,
+            MemberId = path.Member.Uid,
             Text = fields.Comment,
             Subject = fields.Subject,
             Semantic = fields.Semantic
@@ -787,10 +778,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostPostComment(
             HttpListenerContext context,
             ParsedPath path) {
-        var member = path.Member;
-
         var fields = new FormDataComment();
-        var annotations = Annotations.PostForm(this, context, member, fields);
+        var annotations = Annotations.PostForm(this, context, fields, path);
 
         if (!Forum.TryGetPost(path, out var placeHandle, out var topicHandle, out var postHandle)) {
             await Error(context, null);
@@ -799,7 +788,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         var response = new CatalogedComment() {
             Uid = Udf.Nonce(),
-            MemberId = member.Uid,
+            MemberId = path.Member.Uid,
             Text = fields.Comment,
             Added = DateTime.UtcNow
             };
