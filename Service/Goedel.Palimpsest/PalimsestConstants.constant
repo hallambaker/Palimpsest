@@ -44,6 +44,12 @@ File CatalogLabels
 
 File PagePrefixes
 	String resources "resources"
+	String ForumTermsConditions "ForumTermsConditions"
+	String ForumPlaceSignIn "ForumPlaceSignIn"
+
+
+
+
 	String SignIn "SignIn"
 	String SignInPost "SignInPost"
 	String SignInComplete "Complete"

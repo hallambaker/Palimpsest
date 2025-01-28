@@ -24,6 +24,8 @@
 using DocumentFormat.OpenXml.InkML;
 using DocumentFormat.OpenXml.Spreadsheet;
 
+using System.IO.Pipes;
+
 namespace Goedel.Palimpsest;
 
 
@@ -84,6 +86,13 @@ public partial class Annotations {
     public MemberHandle? VerifiedAccount { get; set; } = null;
 
 
+    public string AccountHandle => 
+        (VerifiedAccount == null) ? "anonymous" :
+            (VerifiedAccount.LocalName == ParsedPath.Placename) ?
+            "owner" : "@" + VerifiedAccount.LocalName;
+        
+
+
     public IEnumerable<CatalogedPlace> Places => Forum.GetProjectEnumerator();
 
 
@@ -111,7 +120,9 @@ public partial class Annotations {
 
         }
 
-
+    public static Annotations Get(
+         AnnotationService annotation,
+         ParsedPath path)=>Get(annotation, path.Context, path);
 
     public static Annotations Get(
             AnnotationService annotation,
@@ -122,7 +133,7 @@ public partial class Annotations {
             Annotation = annotation,
             Context = context,
             _Output = writer,
-            VerifiedAccount = path.Member,
+            VerifiedAccount = path?.Member,
             ParsedPath = path
             };
 
@@ -153,11 +164,10 @@ public partial class Annotations {
 
     public static Annotations PostForm(
             AnnotationService? annotation,
-            HttpListenerContext context,
             FormData formData,
             ParsedPath path) {
-        var result = Get(annotation, context, path);
-        ParsedMultipart.Parse(context.Request.InputStream, formData);
+        var result = Get(annotation, path);
+        ParsedMultipart.Parse(path.Request.InputStream, formData);
         return result;
         }
 

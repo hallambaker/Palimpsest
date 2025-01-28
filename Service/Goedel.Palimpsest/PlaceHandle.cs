@@ -37,6 +37,8 @@ public class PlaceHandle: CachedHandle<CatalogedPlace>, IPage{
 
     CachedPlaces CachedProjects { get; }
 
+    ///<summary>If true, this is a forum through which other places are created. Harcoded for now.</summary> 
+    public bool IsForum => CatalogedPlace.LocalName == "mplace2.social";
 
     public CatalogedPlace CatalogedPlace => CatalogedEntry;
 

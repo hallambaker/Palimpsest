@@ -35,7 +35,7 @@ public class FormDataAcceptTerms : FormData {
     protected override FormItem[] Items => items;
     static readonly FormItem[] items = [
         new ("from", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).From = s as string),
-        new ("username", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).Username = s as string),
+        new ("handle", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).Handle = s as string),
         new ("agree", FormEntryType.Boolean, (form, s) => ((FormDataAcceptTerms)form).Agree = s as string)
         ];
 
@@ -46,7 +46,7 @@ public class FormDataAcceptTerms : FormData {
     public string? From { get;  set; }
 
     ///<summary>The username.</summary> 
-    public string? Username { get;  set; }
+    public string? Handle { get;  set; }
     ///<summary>User description.</summary> 
     public string? Agree { get; private set; }
 
@@ -86,9 +86,7 @@ public class FormDataAccount : FormData {
     protected override FormItem[] Items => items;
     static readonly FormItem[] items = [
         new ("from", FormEntryType.String, (form, s) => ((FormDataAccount)form).From = s as string),
-        new ("username", FormEntryType.String, (form, s) => ((FormDataAccount)form).Username = s as string),
-        new ("password", FormEntryType.String, (form, s) => ((FormDataAccount)form).Password = s as string),
-        new ("password2", FormEntryType.String, (form, s) => ((FormDataAccount)form).Password2 = s as string),
+        new ("handle", FormEntryType.String, (form, s) => ((FormDataAccount)form).Handle = s as string),
         new ("terms", FormEntryType.String, (form, s) => ((FormDataAccount)form).Terms = s as string)
         ];
 
@@ -97,43 +95,10 @@ public class FormDataAccount : FormData {
     public string? From { get; private set; }
 
     ///<summary>The username.</summary> 
-    public string? Username { get; private set; }
-
-    ///<summary>User description.</summary> 
-    public string? Password { get; private set; }
-
-    ///<summary>User description.</summary> 
-    public string? Password2 { get; private set; }
+    public string? Handle { get; private set; }
 
     ///<summary>User description.</summary> 
     public string? Terms { get; private set; }
-
-
-
-    public bool ValidateCreate() {
-        if (Password != Password2) {
-            return false;
-            }
-        if (Terms != "on") {
-            return false;
-            }
-        if (Username is null || Username.Length < 5) {
-            return false;
-            }
-
-        return true;
-        }
-
-    public bool ValidateSignIn() {
-        if (Username is null ) {
-            return false;
-            }
-        if (Password is null) {
-            return false;
-            }
-
-        return true;
-        }
 
 
     }

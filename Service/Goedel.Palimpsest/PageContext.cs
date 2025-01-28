@@ -28,7 +28,7 @@ namespace Goedel.Palimpsest;
 public record Navigation (
             NavigationItem[] Items,
             int Active=0) {
-
+    public bool Login { get; init; } = true;
 
     }
 public record NavigationItem (
@@ -58,6 +58,8 @@ public record BoilerplateVerbatim : Boilerplate {
     }
 
 public record BoilerplateHtml : Boilerplate {
+
+
 
     public string HTML { get; set; }
 

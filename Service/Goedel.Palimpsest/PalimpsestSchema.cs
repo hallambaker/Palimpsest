@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 1/25/2025 3:54:50 PM
+//  This file was automatically generated at 1/28/2025 12:40:59 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -302,6 +302,12 @@ public partial class EntryAttibutes : ForumItem {
 	/// </summary>
 public partial class CatalogedPlace : CatalogedForumEntry {
         /// <summary>
+        ///The forum to which the place belongs.
+        /// </summary>
+
+	public virtual string?						ParentForum  {get; set;}
+
+        /// <summary>
         /// </summary>
 
 	public virtual List<string>?					Aliases  {get; set;}
@@ -319,6 +325,8 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 	static protected new Binding _binding = new (
 			new() {
 
+			{ "ParentForum", new PropertyString ("ParentForum", 
+					(IBinding data, string? value) => {(data as CatalogedPlace).ParentForum = value;}, (IBinding data) => (data as CatalogedPlace).ParentForum )},
 			{ "Aliases", new PropertyListString ("Aliases", 
 					(IBinding data, List<string>? value) => {(data as CatalogedPlace).Aliases = value;}, (IBinding data) => (data as CatalogedPlace).Aliases )},
 			{ "Owners", new PropertyListString ("Owners", 

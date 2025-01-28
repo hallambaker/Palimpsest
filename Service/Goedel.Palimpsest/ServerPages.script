@@ -8,6 +8,10 @@
 
 #! ///// Common fragments
 
+
+
+
+
 #method2 StartPage string title string? script=null
 <!DOCTYPE html>
 <html lang="en">
@@ -26,9 +30,9 @@
   <body>
 #end method2
 
-#method2 HeaderSignedOut Navigation navigation int index
+#method2 HeaderNavigation Navigation navigation int index
 <header>
-<div class="col-md-3 text-end">
+<div class="text-end">
 
 <ul class="nav nav-pills">
 #for (var i =0; i< navigation.Items.Length; i++)
@@ -41,6 +45,16 @@ class="nav-link"#!
 #end if
 >#{item.Label}</a></li>
 #end for
+#if navigation.Login
+#if SignedIn
+    <li>#{VerifiedAccount.LocalName} Sign Out</li>
+#else
+    <form action="/SignIn" method="post" enctype="multipart/form-data">
+    <li class="login-big">Sign In @<input class="login-box" type="text" id="handle", name="handle" rel="dns-handle"/>
+    <input type="submit" value="Sign In" />
+    </li>
+#end if
+#end if
 </ul>
 </div>
 </header>
@@ -104,20 +118,18 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 
 
-#method0 PageHome
+#method PageHomeForum string empty=null
 
 <main>
-#if !SignedIn
-#% HeaderSignedOut(Annotation.NavigationHome, 0);
-#end if
+#% HeaderNavigation(Annotation.NavigationSplashpage, 0);
 
 <div class="container">
 <img src="/resources/splashscreen.png" alt="Splashscreen" class="img-fluid"/>
 #if !SignedIn
-    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:
+    <p>No need to create an account! Sign in using your @nything handle, the same handle you use to visit Bluesky social:
     </p>
-    <form action="/SignInPost" method="post" enctype="multipart/form-data">
-    <p class="login-big">@<input class="login-box" type="text" id="username", name="username" rel="dns-handle"/>
+    <form action="#{Annotation.ForumTermsAndConditions}" method="post" enctype="multipart/form-data">
+    <p class="login-big">@<input class="login-box" type="text" id="handle", name="handle" rel="dns-handle"/>
     <input type="submit" value="Sign In" />
     </p>
     </form>
@@ -126,8 +138,47 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #if PermissionCreatePlace
     <p><a href="CreatePlace">Create Place</a></p>
 #end if
+#end if
+#if empty is not null
+    <h2>Place #{empty} not found!</h2>
+    <p>Here are some places you can visit instead:</p>
+#% ListPlaces();
+#end if
+</div>
+</main>
+#% Trailer();
+#end method
 
-    <h2>Places</h2>
+#method2 PageBoilerplate BoilerplateHtml boilerplate FormDataAcceptTerms? prefill=null
+#% if (boilerplate.HTML is null) {
+#%  Forum.FetchBoilerplate(boilerplate);
+#%  }
+#% HeaderNavigation (Annotation.NavigationSplashpage, boilerplate.Index);
+
+<div class="container">
+#{boilerplate.HTML}
+#if prefill is not null
+#if prefill.Insist
+    <p class="form-error">You MUST accept the terms to continue.</p>
+#end if
+    <form action="/AcceptTerms" method="post" enctype="multipart/form-data">
+#if prefill.From is not null
+        <input type="hidden" id="from" name="from" value="#{prefill.From}" />    
+#end if
+#if prefill.Handle is not null
+        <input type="hidden" id="handle" name="handle" value="#{prefill.Handle}" />  
+#end if      
+        <input type="checkbox", id="agree", name="agree", value="true">  <label for="fname">I agree to these terms and conditions.</label>
+        <input type="submit" value="I Accept" />
+        <input type="submit" value="Cancel" formaction="/"/>
+    </form>
+#end if
+</div>
+
+#% Trailer();
+#end method2
+
+#method0 ListPlaces
     <div class="h-feed">
     <table class="documentsList">
 #% // ToDo: The list of projects should become 'featured projects'
@@ -140,44 +191,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #end foreach
     </table>
     </div>
-#end if
-
-</div>
-
-</main>
-#% Trailer();
 #end method0
-
-#method2 PageBoilerplate BoilerplateHtml boilerplate FormDataAcceptTerms? prefill=null
-#% if (boilerplate.HTML is null) {
-#%  Forum.FetchBoilerplate(boilerplate);
-#%  }
-#% HeaderSignedOut (Annotation.NavigationHome, boilerplate.Index);
-
-<div class="container">
-#{boilerplate.HTML}
-#if prefill is not null
-#if prefill.Insist
-    <p class="form-error">You MUST accept the terms to continue.</p>
-#end if
-    <form action="/AcceptTerms" method="post" enctype="multipart/form-data">
-#if prefill.From is not null
-        <input type="hidden" id="from" name="from" value="#{prefill.From}" />    
-#end if
-#if prefill.Username is not null
-        <input type="hidden" id="username" name="username" value="#{prefill.Username}" />  
-#end if      
-        <input type="checkbox", id="agree", name="agree", value="true">  <label for="fname">I agree to these terms and conditions.</label>
-        <input type="submit" value="I Accept" />
-        <input type="submit" value="Cancel" formaction="/"/>
-    </form>
-#end if
-</div>
-
-#% Trailer();
-#end method2
-
-
 
 #method PagePlace PlaceHandle handle
 #% var project = handle.CatalogedPlace;
@@ -187,6 +201,16 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
   <p>#{project.Description}</p>
   <p><a href="/#{PalimpsestConstants.AddDocument}">Add Document</a>
     <a href="/#{PalimpsestConstants.AddTopic}">Add Topic</a>
+
+#if handle.IsForum
+    <a href="CreatePlace">Create Place</p>
+#end if
+    </p>
+
+#if handle.IsForum
+    <h2>Places</h2>
+#% ListPlaces();
+#end if
 
     <h2>Documents</h2>
     <table class="documentsList">
@@ -292,7 +316,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
   <p>#{project.Description}</p>
 
-  <form action="/{PalimpsestConstants.DocumentUpload}" method="post" enctype="multipart/form-data">
+  <form action="/#{PalimpsestConstants.DocumentUpload}" method="post" enctype="multipart/form-data">
     <p>
       <table>
         <tr><td>
@@ -341,7 +365,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
   <p>#{project.Description}</p>
 
-  <form action="/{PalimpsestConstants.TopicCreate}" method="post" enctype="multipart/form-data">
+  <form action="/#{PalimpsestConstants.TopicCreate}" method="post" enctype="multipart/form-data">
     <p>
       <table>
 
@@ -375,7 +399,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #method0 CreatePlace
 <div class="container">
   <h1>Create Place</h1>
-<form action="/CreatePlacePost" method="post" enctype="multipart/form-data">
+<form action="/#{PalimpsestConstants.CreatePlacePost}" method="post" enctype="multipart/form-data">
   <table>
     <tr><td>
     <label for="name">Place Name:</label>
@@ -398,61 +422,22 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #end method0
 
 
-#method SignIn string from
+#method2 SignIn string from string username
 #! NoteWell();
     <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:
     </p>
-<form action="/SignInPost" method="post" enctype="multipart/form-data">
-<input type="hidden" value="#{from}" id="from" name="from"/>
-    <p class="login-big">@<input class="login-box" type="text" id="username", name="username" rel="dns-handle"/>
+<form action="/#{PalimpsestConstants.SignInPost}" method="post" enctype="multipart/form-data">
+    <input type="hidden" value="#{from}" id="from" name="from", value="#{username??""}"/>
+    <p class="login-big">@<input class="login-box" type="text" id="handle", name="handle" rel="dns-handle"/>
     <input type="submit" value="Sign In" />
+
+    <td colspan="2">
+        <input type="checkbox" id="terms" name="terms" >
+<label for="fname">I agree to these terms and conditions.</label>
+        </td>
     </p>
 </form>
-#end method
-
-#method0 CreateAccount 
-#% NoteWell();
-<form  action="/CreateAccountPost" method="post" enctype="multipart/form-data">
-<table>
-#% SignInForm(true);
-<table>
-</form>
-#end method0
-
-
-#method SignInForm bool create
-
-<tr><td>
-<label for="username">Username:</label>
-</td><td>
-<input type="text", id="username", name="username">
-</td></tr>
-
-<tr><td>
-<label for="password">Password:</label>
-</td><td>
-<input type="password", id="password", name="password">
-</td></tr>
-
-#if create
-<tr><td>
-<label for="password2">Confirm Password:</label>
-</td><td>
-<input type="password", id="password2", name="password2">
-</td></tr>
-
-<tr><td colspan="2">
-<input type="checkbox" id="terms" name="terms" >
-<label for="terms">I agree to  follow IETF processes and policies</label>
-</td></tr>
-
-#end if
-<tr><td colspan="2">
-<input type="submit" value="Submit" />
-</td></tr>
-#end method
-
-
+#end method2
 
 
 
@@ -517,6 +502,10 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #end method0
 
 
-
+#method0 PageVisitors
+<div class="container">
+  <h1>List of visitors</h1>
+</div>
+#end method0
 
 #end xclass

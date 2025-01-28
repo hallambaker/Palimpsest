@@ -42,6 +42,7 @@ global using Goedel.Protocol.Web;
 global using System.Security.Cryptography;
 global using System.Collections.Generic;
 global using System.Net;
+global using System.Web;
 global using System.Text.Json;
 global using System.IO;
 global using Goedel.IO;

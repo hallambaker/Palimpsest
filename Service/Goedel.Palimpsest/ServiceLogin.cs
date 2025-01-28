@@ -20,9 +20,11 @@
 //  THE SOFTWARE.
 #endregion
 
+using DocumentFormat.OpenXml.InkML;
+
 using Goedel.Mesh;
 
-using System.Web;
+using System.Reflection.Metadata;
 
 namespace Goedel.Palimpsest;
 
@@ -32,24 +34,129 @@ public record TempBinding(
             string redirectUri) {
     }
 
-public partial class AnnotationService {
-    #region // Sign in/out
 
+
+public partial class AnnotationService {
+
+
+
+    public async Task ForumTermsConditions(
+                    ParsedPath path) {
+
+        var fields = new FormDataAccount();
+        var annotations = Annotations.PostForm(this, fields, path);
+
+        var nonceDns = new NonceDns("FORUM", Handle: fields.Handle);
+
+        var prefill = new FormDataAcceptTerms() {
+            From = nonceDns.State(),
+            Handle = fields.Handle,
+            };
+
+        annotations.StartPage(Forum.Name);
+        annotations.PageBoilerplate(TermsAndConditions, prefill);
+        annotations.End();
+        }
+
+    public async Task PlaceTermsConditions(
+                ParsedPath path) {
+
+        var nonceDns = NonceDns.Parse(path.Uri.Query);
+        var annotations = Annotations.Get(this, path);
+
+        var prefill = new FormDataAcceptTerms() {
+            From = nonceDns.State(),
+            Handle = nonceDns.Handle,
+            };
+
+        annotations.StartPage(Forum.Name);
+        annotations.PageBoilerplate(TermsAndConditions, prefill);
+        annotations.End();
+        }
+
+
+
+    /// <summary>
+    /// The explicit sign in page. This can be called on the Place or at the Forum
+    /// <para>
+    /// When called at a Place that is not the Forum login, a redirect is made to the Forum.
+    /// </para>
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public async Task GetSignIn(
+                ParsedPath path) {
+
+        if (!path.PlaceHandle?.IsForum == true) {
+            await RedirectSignIn(path);
+            return;
+            }
+        await ForumTermsConditions(path);
+        return;
+        }
+
+    /// <summary>
+    /// The page on the forum to which a visitor is redirected by RedirectSignIn.
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public async Task ForumPlaceSignIn(
+                ParsedPath path) {
+        
+        if (path.Member is null) {
+            // User has not logged in to the forum so present the T&C
+            await PlaceTermsConditions(path);
+            return;
+            }
+
+        // we are logged in so
+        var nonceDns = NonceDns.Parse(path.Uri.Query);
+        //var redirect = nonceDns.UriHandle(success.Handle, PalimpsestConstants.SignInComplete);
+
+        // Are we logged into the requested account
+        if (path.Member.LocalName != nonceDns.Handle) {
+            // no - present T&C
+            await PlaceTermsConditions(path);
+            return;
+            }
+
+        var redirect = nonceDns.Uri(nonceDns.Place, PalimpsestConstants.SignInComplete);
+
+        // We are logged in here under the account, bounce back to the place.
+        var annotations = Annotations.Get(this, path);
+        await annotations.Redirect(path.Context, redirect);
+        }
+
+    #region // Sign in/out
 
     public Dictionary<string, TempBinding> TempBindings { get; } = new();
 
+
+
+    #region // Domain is PLACE
     public Task RedirectSignIn(
-                HttpListenerContext context,
                 ParsedPath path) {
-        
+        // Parse the form data to get the Username
+        var fields = new FormDataAccount();
+        var annotations = Annotations.PostForm(this, fields, path);
+
+        var local = fields.From ?? "";
+        var bindingReturn = $"https://{path.Uri.Host}/{local}";
+
         // create a temporary cookie to be used to validate the 
-        var binding = new TempBinding(DateTime.Now, path.ExternalUri);
+        var binding = new TempBinding(DateTime.Now, bindingReturn);
         var nonce = Udf.Nonce();
+        var nonceDns = new NonceDns(nonce, path.Uri.Host, fields.Handle);
+
+        var context = path.Context;
+
         TempBindings.Add(nonce, binding);
         var cookie = new Cookie(PalimpsestConstants.CookieTypeTemporaryTag, nonce);
         context.Response.SetCookie(cookie);
 
-        context.Response.Redirect(SignInEndpoint + "?nonce=" + nonce + "&host=" + path.Uri.Host);
+        var redirect = nonceDns.Uri(Domain, PalimpsestConstants.ForumPlaceSignIn);
+        context.Response.Redirect(redirect);
         context.Response.OutputStream.Close();
 
 
@@ -57,87 +164,67 @@ public partial class AnnotationService {
         }
 
     public async Task CompleteSignIn(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
 
-        var parsedUrl = path.Uri.Query;
-        var paramsCollection = HttpUtility.ParseQueryString(parsedUrl);
-        var nonce = paramsCollection["nonce"];
-        var handle = paramsCollection["handle"];
+        var nonceDns = NonceDns.Parse(path.Uri.Query);
 
-        var member = Forum.GetMember(handle);
+        //var parsedUrl = path.Uri.Query;
+        //var paramsCollection = HttpUtility.ParseQueryString(parsedUrl);
+        //var nonce = paramsCollection["nonce"];
+        //var handle = paramsCollection["handle"];
+
+        if (!TempBindings.TryGetValue(nonceDns.Nonce, out var binding)) {
+            throw new NYI();
+            }
+
+
+
+        var member = Forum.GetMember(nonceDns.Handle);
         var cookie = Forum.ServerCookieManager.GetCookie(
             PalimpsestConstants.CookieTypeSessionTag, member.PrimaryKey);
         context.Response.Cookies.Add(cookie);
 
-        if (!TempBindings.TryGetValue(nonce, out var binding)) {
-            throw new NYI();
-            }
+
 
         var annotations = Annotations.Get(this, context, path);
         await annotations.Redirect(context, binding.redirectUri);
-        }
-
-    public Task GetSignIn(
-        HttpListenerContext context,
-        ParsedPath path) {
-
-        // This needs to be a redirect to a Sign in page on the common login.
-
-        // check to see if we already have the access cookie
-        // if we do, we just give a redirect.
+        } 
+    #endregion
 
 
-        var annotations = Annotations.Get(this, context, path);
-        var from = path.ExternalUriQuery;
 
-
-        annotations.StartPage($"{Forum.Name}: Sign In");
-        annotations.SignIn(from);
-        annotations.End();
-
-        return Task.CompletedTask;
-        }
-
-    public Task GetSignOut(
-                HttpListenerContext context,
+    public async Task GetSignOut(
                 ParsedPath path) {
+        var context = path.Context;
         var annotations = Annotations.Get(this, context, path);
 
         // clear the HTTP cookie
         var cookie = ServerCookieManager.ClearCookie(PalimpsestConstants.CookieTypeSessionTag);
         context.Response.Cookies.Add(cookie);
+        path.Member = null;
 
-        // clear the verified account handle
-        annotations.VerifiedAccount = null;
-
-        // roll the page including the header
-        annotations.StartPage(Forum.Name);
-        annotations.PageHome();
-        annotations.End();
-
-        return Task.CompletedTask;
+        await GetHome(path);
         }
     #endregion
     #region // Handle forms
     public async Task PostSignIn(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
         var member = path.Member;
 
         var fields = new FormDataAccount();
-
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
         var redirect = fields.From ?? "/";
 
         // Do we already have a local account for this handle?
-        if (Forum.TryGetByHandle(fields.Username, out var handle)) {
-            await OAuthSignIn(annotations, context, fields.Username, redirect, handle);
+        if (Forum.TryGetByHandle(fields.Handle, out var handle)) {
+            await OAuthSignIn(annotations, context, fields.Handle, redirect, handle);
             }
 
         var prefill = new FormDataAcceptTerms() {
             From = redirect,
-            Username = fields.Username,
+            Handle = fields.Handle,
             };
 
         annotations.StartPage(Forum.Name);
@@ -148,15 +235,15 @@ public partial class AnnotationService {
         }
 
     public async Task PostAcceptTerms(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
         var member = path.Member;
 
         var fields = new FormDataAcceptTerms();
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
 
         if (fields.Agree == "true") {
-            await OAuthSignIn(annotations, context, fields.Username, fields.From);
+            await OAuthSignIn(annotations, context, fields.Handle, fields.From);
             return;
             // redirect to the oauth thingie here
             //await OAuthSignIn(annotations, context, fields.From, fields.Username);
@@ -194,15 +281,8 @@ public partial class AnnotationService {
         }
 
     public async Task GetRedirect(
-        HttpListenerContext context,
-        ParsedPath path) {
-
-        // https://mplace2.app/Redirect?
-        // iss=https%3A%2F%2Fbsky.social
-        // &state=7w2O5X7OmCP0NacKHLrTChYRjmn83kPimRV3_3YBbmz15C2NrlktZMY
-        // KoC7lwo4qiQIzsNZBqwDdNZpKiUPO2RmdPNyhl60_Ds0nKn0Wj5x_755xhXRAS5HzQet2tZQselU8O82GXYYpFcfmt_
-        // kFrS1iEwg
-        // &code=cod-ed46b08e1b9de414d6421fe0e6f5201e6550112cdf7166d669fc94600b25b705
+                ParsedPath path) {
+        var context = path.Context;
 
         // Parse redirect data
         var result = OauthClient.ParseResponse(path.Uri);
@@ -215,7 +295,11 @@ public partial class AnnotationService {
 
         // report error
         var success = result as OauthClientResultAuthRequest;
-
+        var nonceDns = NonceDns.Parse(success.RedirectUri);
+        if (success.Handle != nonceDns.Handle) {
+            // throw error here, user authenticated but TO THE WRONG HANDLE!
+            throw new NYI();
+            }
 
         Console.WriteLine($"Stuff cookies into {context.Request.UserHostName}");
 
@@ -226,21 +310,21 @@ public partial class AnnotationService {
         context.Response.Cookies.Add(cookie);
 
         // Send the redirect
-        var annotations = Annotations.Get(this, context, path);
+        var annotations = Annotations.Get(this, path);
 
         //extract the nonce from success.RedirectUri
-        var parsedUrl = success.RedirectUri.Split('?')[1];
-        var paramsCollection = HttpUtility.ParseQueryString(parsedUrl);
-        var nonce = paramsCollection["nonce"];
-        var host = paramsCollection["host"];
+        if (nonceDns.Nonce == "FORUM") {
+            await annotations.Redirect(context, "/");
+            return;
+            }
 
-
-
-        var redirect = $"https://{host}/{PalimpsestConstants.SignInComplete}?nonce={nonce}&handle={success.Handle}";
-
-        // redirect back to the host partition so we can cookie stuff
+        // We are logged in here under the account, bounce back to the place.
+        var redirect = nonceDns.Uri(nonceDns.Place, PalimpsestConstants.SignInComplete);
         await annotations.Redirect(context, redirect);
         }
     #endregion
+
+
+
 
     }

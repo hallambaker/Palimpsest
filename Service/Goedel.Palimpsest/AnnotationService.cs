@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 #endregion
 
+using DocumentFormat.OpenXml.Drawing.Diagrams;
+
 using System.Runtime.Serialization.DataContracts;
 
 namespace Goedel.Palimpsest;
@@ -61,12 +63,16 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     public string HomeUrl => "/";
 
-    public string Domain => "mplace2.app";
+    public string Domain => "mplace2.social";
     public string ClientEndpoint => $"https://{Domain}/";
 
     public string SignInEndpoint => ClientEndpoint + PalimpsestConstants.SignIn;
 
     public string ClientMetadataLocation => ClientEndpoint + PalimpsestConstants.ClientMetadata;
+
+
+
+    public string ForumTermsAndConditions => $"https://{Domain}/{PalimpsestConstants.ForumTermsConditions}";
 
     OauthClient OauthClient { get; }
 
@@ -94,11 +100,14 @@ public partial class AnnotationService : IWebService<ParsedPath> {
                 }
             return null;
 
-            
+
             }
 
         }
-    public Navigation NavigationHome => new(ForumNavigation);
+    public Navigation NavigationMain => new(ForumNavigation);
+    public Navigation NavigationSplashpage => new(ForumNavigation) { 
+                Login = false
+                };
 
     public string RedirectLocation => ClientEndpoint + PalimpsestConstants.Redirect;
 
@@ -133,7 +142,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
         OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
 
-        JWKS =  new JWKS {
+        JWKS = new JWKS {
             Keys = [JWK.Factory(OauthClientSignature)
                 , JWK.Factory(OauthClientEncryption)
                 ]
@@ -150,7 +159,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             Bytes = OauthClient.ClientMetadataBytes,
             ContentType = PalimpsestConstants.ClientMetadataType
             };
-        
+
         Boilerplate = new Dictionary<string, Boilerplate>() {
                         { PalimpsestConstants.ClientMetadata, clientBoilerplate },
             };
@@ -159,10 +168,15 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         AddBoilerplate(ForumAdditional);
 
         ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
-            { "", new (GetHome, false) },
-
             // public pages, visible to all users but with possibly reduced functionality
+            { "", new (GetHome, false) }, // Home page
+
             { PalimpsestConstants.resources, new (GetResources,false) },
+            { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
+            { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
+
+            /// Wet edge here, pages above have been fixed
+
             { PalimpsestConstants.SignIn, new (GetSignIn, false) },
             { PalimpsestConstants.SignInPost, new (PostSignIn, false) },
             { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
@@ -180,10 +194,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.Place, new (GetPlace) },
             { PalimpsestConstants.AddDocument, new (GetAddDocument) },
             { PalimpsestConstants.AddTopic, new (GetAddTopic) },
-
-
-
-
 
             { PalimpsestConstants.Document, new (GetDocument) },
             { PalimpsestConstants.Topic, new (GetTopic) },
@@ -254,7 +264,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             return;
             }
 
-        var path = new ParsedPath(request, Forum);
+        var path = new ParsedPath(context, Forum);
 
         Console.WriteLine($"Request {request.UserHostName} {request.Url.LocalPath} from  {path.RealIp}");
         Console.WriteLine($"   Start {path.Command} Place {path.FirstId} Document {path.SecondId}");
@@ -275,11 +285,11 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
                 // need to change this to a POST redirect with the return path 
 
-                await RedirectSignIn(context, path);
+                await RedirectSignIn(path);
                 return;
                 }
 
-            await callback.Method(context, path);
+            await callback.Method(path);
             }
         else {
             await Error(context, null);
@@ -287,47 +297,60 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     #endregion
+    #region // Header and footer
 
+    public async Task PageHeader(Annotations annotations) {
+        var title = $"@{annotations.ParsedPath.Placename} as {annotations.AccountHandle}";
 
+        annotations.StartPage(title);
+        annotations.HeaderNavigation(NavigationMain, -1);
+        await Task.CompletedTask;
+        }
 
+    public async Task PageFooter(Annotations annotations) {
+        annotations.Trailer();
+        annotations.End();
+
+        await Task.CompletedTask;
+        }
+
+    #endregion
     #region // Server Get Pages - primary
 
     public async Task GetHome(
-                HttpListenerContext context,
                 ParsedPath path) {
-
-        var annotations = Annotations.Get(this, context, path);
-
-        if (path.PlaceHandle is null) {
+        var context = path.Context;
 
 
+        if (path.Placename is null) {
+            await HomePageForumEmpty(path);
+            }
+        else if (path.PlaceHandle.IsForum) {
 
-            annotations.StartPage(Forum.Name);
-            annotations.PageHome();
-            annotations.End();
-
-            await Task.CompletedTask;
-            return;
+            if (path.SignedIn) {
+                await HomePageForumSignedIn(path);
+                }
+            else {
+                await HomePageForumSignedOut(path);
+                }
+            }
+        else {
+            await HomePagePlace(path);
             }
 
 
-        await GetPlacePage(context, path, annotations, annotations.PagePlace);
 
 
         }
 
     public async Task GetPlacePage(
-            HttpListenerContext context,
                 ParsedPath path,
                 Annotations annotations,
                 Action<PlaceHandle> page) {
-        //Forum.TryGetPlace(path.FirstId, out var projectHandle);
 
-        var projectHandle = path.PlaceHandle;
-        annotations.StartPage($"{Forum.Name}: Place {projectHandle.LocalName}");
-        page(projectHandle);
-        annotations.End();
-
+        await PageHeader(annotations);
+        page(path.PlaceHandle);
+        await PageFooter(annotations);
         await Task.CompletedTask;
         }
 
@@ -336,6 +359,15 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     #region // Resources
+
+
+    public async Task GetPlace(
+            ParsedPath path) {
+        var annotations = Annotations.Get(this, path);
+        await GetPlacePage(path, annotations, annotations.PagePlace);
+        }
+
+
 
     public async Task SendBoilerplate (
             HttpListenerContext context,
@@ -374,8 +406,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     public async Task GetResources(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
 
         if (Boilerplate.TryGetValue(path.FirstId, out var resource)) {
             await SendBoilerplate(context, path, resource);
@@ -409,19 +441,13 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #endregion
     #region // Item pages
 
-    public async Task GetPlace(
-            HttpListenerContext context,
-                ParsedPath path) {
 
-        var annotations = Annotations.Get(this, context, path);
-        await GetPlacePage(context, path, annotations, annotations.PagePlace);
-        }
 
 
 
     public async Task GetDocument(
-            HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
 
@@ -435,8 +461,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     public async Task GetTopic(
-        HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
         var annotations = Annotations.Get(this, context, path);
 
         if (!Forum.TryGetTopic(path, out var projectHandle, out var topicHandle)) {
@@ -453,8 +479,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public async Task GetPost(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
 
@@ -474,8 +500,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     public async Task GetUser(
-            HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
 
@@ -496,18 +522,18 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #endregion
 
     public async Task GetAddDocument(
-    HttpListenerContext context,
-        ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
-        await GetPlacePage(context, path, annotations, annotations.PageAddDocument);
+        await GetPlacePage(path, annotations, annotations.PageAddDocument);
         }
     public async Task GetAddTopic(
-        HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
-        await GetPlacePage(context, path, annotations, annotations.PageAddTopic);
+        await GetPlacePage(path, annotations, annotations.PageAddTopic);
         }
 
 
@@ -546,28 +572,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #region // Dialog pages - Create Account / Place / Document / Reaction
 
 
-
-
-
-
-    //public Task GetCreateAccount(
-    //            HttpListenerContext context,
-    //            ParsedPath path) {
-    //    var member = path.Member;
-
-
-    //    var annotations = Annotations.Get(this, context, member);
-
-    //    annotations.StartPage($"{Forum.Name}: Create Account");
-    //    annotations.CreateAccount();
-    //    annotations.End();
-
-    //    return Task.CompletedTask;
-    //    }
-
     public Task GetCreatePlace(
-                HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
         var member = path.Member;
 
         var annotations = Annotations.Get(this, context, path);
@@ -581,9 +588,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public Task GetCommentForm(
-                HttpListenerContext context,
                 ParsedPath path) {
-    
+        var context = path.Context;
+
 
         var annotations = Annotations.Get(this, context, path);
         annotations.PageEnterComment(path, CommentMode.Annotation);
@@ -592,9 +599,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public Task GetPostForm(
-            HttpListenerContext context,
-            ParsedPath path) {
-     
+                ParsedPath path) {
+        var context = path.Context;
+
         var annotations = Annotations.Get(this, context, path);
         annotations.PageEnterComment(path, CommentMode.Post);
         annotations.End();
@@ -602,8 +609,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public Task GetPostCommentForm(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
         annotations.PageEnterComment(path, CommentMode.Comment);
@@ -612,11 +619,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
 
-
-
     public Task GetListActions(
-                HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
 
@@ -627,10 +632,18 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         return Task.CompletedTask;
         }
 
+    public async Task Error(
+            HttpListenerContext context,
+            ParsedPath path) {
+        var annotations = Annotations.Get(this, context, path);
+        await ErrorPage(annotations);
+        }
+
+
 
     public async Task Error(
-                HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
         var annotations = Annotations.Get(this, context, path);
         await ErrorPage(annotations);
         }
@@ -647,40 +660,11 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #endregion
     #region // Server Post Pages
 
-    //public async Task PostCreateAccount(
-    //            HttpListenerContext context,
-    //            ParsedPath path) {
-    //    var member = path.Member;
-
-    //    var fields = new FormDataAccount();
-
-    //    var annotations = Annotations.PostForm(this, context, member, fields);
-    //    if (!fields.ValidateCreate()) {
-    //        await ErrorPage(annotations);
-    //        return;
-    //        }
-
-    //    // here we need to create a cataloged account entry
-    //    var memberRecord = new CatalogedForumMember() {
-    //        LocalName = fields.Username
-    //        };
-
-    //    member = Forum.AddMember(memberRecord, fields.Password);
-    //    annotations.VerifiedAccount = member;
-
-    //    var cookie = Forum.ServerCookieManager.GetCookie(
-    //                PalimpsestConstants.CookieTypeSessionTag, memberRecord._PrimaryKey);
-    //    context.Response.Cookies.Add(cookie);
-
-
-    //    await annotations.Redirect(context, HomeUrl);
-    //    }
-
     public async Task PostCreatePlace(
-                HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
         var fields = new FormDataPlace();
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
 
 
         var place = new CatalogedPlace {
@@ -696,14 +680,14 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     public async Task PostUploadDocument(
-                HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
         Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
 
 
         var fields = new FormDataDocument();
 
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
 
         var contentType = "text/xml";
         var resourceRecord = new CatalogedResource() {
@@ -717,14 +701,14 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public async Task PostCreateTopic(
-                HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
         Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
 
 
         var fields = new FormDataDocument();
 
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
 
         var resourceRecord = new CatalogedTopic() {
             Uid = Udf.Nonce(),
@@ -738,10 +722,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public async Task PostComment(
-                HttpListenerContext context,
                 ParsedPath path) {
+        var context = path.Context;
         var fields = new FormDataComment();
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
 
         //Annotations.PostComment(this, context);
 
@@ -763,10 +747,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     public async Task PostPost(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
         var fields = new FormDataComment();
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
 
         Forum.TryGetTopic(path, out var project, out var topic).AssertTrue(NYI.Throw);
         var response = new CatalogedPost() {
@@ -783,10 +767,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public async Task PostPostComment(
-            HttpListenerContext context,
-            ParsedPath path) {
+                ParsedPath path) {
+        var context = path.Context;
         var fields = new FormDataComment();
-        var annotations = Annotations.PostForm(this, context, fields, path);
+        var annotations = Annotations.PostForm(this, fields, path);
 
         if (!Forum.TryGetPost(path, out var placeHandle, out var topicHandle, out var postHandle)) {
             await Error(context, null);

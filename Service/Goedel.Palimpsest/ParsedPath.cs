@@ -21,11 +21,25 @@
 #endregion
 
 
+using DocumentFormat.OpenXml.InkML;
+
 namespace Goedel.Palimpsest;
 
 public record ParsedPath {
 
+    public HttpListenerContext Context { get; }
 
+    public HttpListenerRequest Request => Context.Request;
+
+
+    public PlaceHandle PlaceHandle { get; }
+
+    public string Placename => PlaceHandle?.LocalName;
+
+
+    public MemberHandle? Member { get; set; }
+
+    public bool SignedIn => Member!= null;
 
     public string Command { get; }
 
@@ -35,7 +49,7 @@ public record ParsedPath {
     public string ExternalUriQuery => "https://" + Uri.Host + Uri.PathAndQuery;
     public string LocalPath => Uri?.LocalPath;
 
-    public MemberHandle? Member { get; }
+
 
     ///<summary>Holds the project ID or the static resource name</summary> 
     public string FirstId { get; }
@@ -66,24 +80,22 @@ public record ParsedPath {
     ///<summary>The original IP address of the request (filled by reverse proxy)</summary> 
     public string RealIp { get; }
 
-    public PlaceHandle PlaceHandle { get; }
-    
 
 
-    public ParsedPath(HttpListenerRequest request, Forum forum) {
+    public ParsedPath(HttpListenerContext context, Forum forum) {
+        Context = context;
 
-
-        RealIp = request.Headers["X-Real-IP"];
+        RealIp = Request.Headers["X-Real-IP"];
         //ReturnAddress = request.UserHostName + "/" + 
 
-        forum.TryGetPlace(request.UserHostName, out var place);
+        forum.TryGetPlace(Request.UserHostName, out var place);
         PlaceHandle = place;
 
         // If signed in, set the member handle
-        forum.TryGetVerifiedMemberHandle(request, out var member);
+        forum.TryGetVerifiedMemberHandle(Request, out var member);
         Member = member;
 
-        Uri = request.Url;
+        Uri = Request.Url;
         if (LocalPath == null) {
             Command = null;
             return;

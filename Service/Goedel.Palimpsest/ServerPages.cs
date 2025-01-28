@@ -37,13 +37,13 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		}
 	
 	/// <summary>	
-	/// HeaderSignedOut
+	/// HeaderNavigation
 	/// </summary>
 	/// <param name="navigation"></param>
 	/// <param name="index"></param>
-	public void HeaderSignedOut (Navigation navigation, int index) {
+	public void HeaderNavigation (Navigation navigation, int index) {
 		_Output.Write ("<header>\n{0}", _Indent);
-		_Output.Write ("<div class=\"col-md-3 text-end\">\n{0}", _Indent);
+		_Output.Write ("<div class=\"text-end\">\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<ul class=\"nav nav-pills\">\n{0}", _Indent);
 		for  (var i =0; i< navigation.Items.Length; i++) {
@@ -55,6 +55,16 @@ public partial class Annotations : global::Goedel.Registry.Script {
 				_Output.Write ("class=\"nav-link\"", _Indent);
 				}
 			_Output.Write (">{1}</a></li>\n{0}", _Indent, item.Label);
+			}
+		if (  navigation.Login ) {
+			if (  SignedIn ) {
+				_Output.Write ("    <li>{1} Sign Out</li>\n{0}", _Indent, VerifiedAccount.LocalName);
+				} else {
+				_Output.Write ("    <form action=\"/SignIn\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+				_Output.Write ("    <li class=\"login-big\">Sign In @<input class=\"login-box\" type=\"text\" id=\"handle\", name=\"handle\" rel=\"dns-handle\"/>\n{0}", _Indent);
+				_Output.Write ("    <input type=\"submit\" value=\"Sign In\" />\n{0}", _Indent);
+				_Output.Write ("    </li>\n{0}", _Indent);
+				}
 			}
 		_Output.Write ("</ul>\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
@@ -129,22 +139,21 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	// ///// Result pages - Home / Place / User / Document
 	
 	/// <summary>	
-	///  PageHome
+	/// PageHomeForum
 	/// </summary>
-	public void  PageHome () {
+	/// <param name="empty=null"></param>
+	public void PageHomeForum (string empty=null) {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<main>\n{0}", _Indent);
-		if (  !SignedIn ) {
-			 HeaderSignedOut(Annotation.NavigationHome, 0);
-			}
+		 HeaderNavigation(Annotation.NavigationSplashpage, 0);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("<img src=\"/resources/splashscreen.png\" alt=\"Splashscreen\" class=\"img-fluid\"/>\n{0}", _Indent);
 		if (  !SignedIn ) {
-			_Output.Write ("    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:\n{0}", _Indent);
+			_Output.Write ("    <p>No need to create an account! Sign in using your @nything handle, the same handle you use to visit Bluesky social:\n{0}", _Indent);
 			_Output.Write ("    </p>\n{0}", _Indent);
-			_Output.Write ("    <form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
-			_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"username\", name=\"username\" rel=\"dns-handle\"/>\n{0}", _Indent);
+			_Output.Write ("    <form action=\"{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, Annotation.ForumTermsAndConditions);
+			_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"handle\", name=\"handle\" rel=\"dns-handle\"/>\n{0}", _Indent);
 			_Output.Write ("    <input type=\"submit\" value=\"Sign In\" />\n{0}", _Indent);
 			_Output.Write ("    </p>\n{0}", _Indent);
 			_Output.Write ("    </form>\n{0}", _Indent);
@@ -153,24 +162,13 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			if (  PermissionCreatePlace ) {
 				_Output.Write ("    <p><a href=\"CreatePlace\">Create Place</a></p>\n{0}", _Indent);
 				}
-			_Output.Write ("\n{0}", _Indent);
-			_Output.Write ("    <h2>Places</h2>\n{0}", _Indent);
-			_Output.Write ("    <div class=\"h-feed\">\n{0}", _Indent);
-			_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
-			 // ToDo: The list of projects should become 'featured projects'
-			foreach   (var place in Places)  {
-				_Output.Write ("    <tr class=\"h-entry\"><td class=\"u-url\">\n{0}", _Indent);
-				_Output.Write ("    <a href=\"{1}\">@{2}</a>\n{0}", _Indent, place.HomeUri, place.LocalName);
-				_Output.Write ("    </td><td class=\"p-name\">\n{0}", _Indent);
-				_Output.Write ("    {1}\n{0}", _Indent, place.Description);
-				_Output.Write ("    </td></tr>\n{0}", _Indent);
-				}
-			_Output.Write ("    </table>\n{0}", _Indent);
-			_Output.Write ("    </div>\n{0}", _Indent);
 			}
-		_Output.Write ("\n{0}", _Indent);
+		if (  empty is not null ) {
+			_Output.Write ("    <h2>Place {1} not found!</h2>\n{0}", _Indent, empty);
+			_Output.Write ("    <p>Here are some places you can visit instead:</p>\n{0}", _Indent);
+			 ListPlaces();
+			}
 		_Output.Write ("</div>\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</main>\n{0}", _Indent);
 		 Trailer();
 		}
@@ -184,7 +182,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		 if (boilerplate.HTML is null) {
 		  Forum.FetchBoilerplate(boilerplate);
 		  }
-		 HeaderSignedOut (Annotation.NavigationHome, boilerplate.Index);
+		 HeaderNavigation (Annotation.NavigationSplashpage, boilerplate.Index);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("{1}\n{0}", _Indent, boilerplate.HTML);
@@ -196,8 +194,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			if (  prefill.From is not null ) {
 				_Output.Write ("        <input type=\"hidden\" id=\"from\" name=\"from\" value=\"{1}\" />    \n{0}", _Indent, prefill.From);
 				}
-			if (  prefill.Username is not null ) {
-				_Output.Write ("        <input type=\"hidden\" id=\"username\" name=\"username\" value=\"{1}\" />  \n{0}", _Indent, prefill.Username);
+			if (  prefill.Handle is not null ) {
+				_Output.Write ("        <input type=\"hidden\" id=\"handle\" name=\"handle\" value=\"{1}\" />  \n{0}", _Indent, prefill.Handle);
 				}
 			_Output.Write ("        <input type=\"checkbox\", id=\"agree\", name=\"agree\", value=\"true\">  <label for=\"fname\">I agree to these terms and conditions.</label>\n{0}", _Indent);
 			_Output.Write ("        <input type=\"submit\" value=\"I Accept\" />\n{0}", _Indent);
@@ -207,6 +205,24 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("</div>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		 Trailer();
+		}
+	
+	/// <summary>	
+	///  ListPlaces
+	/// </summary>
+	public void  ListPlaces () {
+		_Output.Write ("    <div class=\"h-feed\">\n{0}", _Indent);
+		_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
+		 // ToDo: The list of projects should become 'featured projects'
+		foreach   (var place in Places)  {
+			_Output.Write ("    <tr class=\"h-entry\"><td class=\"u-url\">\n{0}", _Indent);
+			_Output.Write ("    <a href=\"{1}\">@{2}</a>\n{0}", _Indent, place.HomeUri, place.LocalName);
+			_Output.Write ("    </td><td class=\"p-name\">\n{0}", _Indent);
+			_Output.Write ("    {1}\n{0}", _Indent, place.Description);
+			_Output.Write ("    </td></tr>\n{0}", _Indent);
+			}
+		_Output.Write ("    </table>\n{0}", _Indent);
+		_Output.Write ("    </div>\n{0}", _Indent);
 		}
 	
 	/// <summary>	
@@ -221,6 +237,16 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
 		_Output.Write ("  <p><a href=\"/{1}\">Add Document</a>\n{0}", _Indent, PalimpsestConstants.AddDocument);
 		_Output.Write ("    <a href=\"/{1}\">Add Topic</a>\n{0}", _Indent, PalimpsestConstants.AddTopic);
+		_Output.Write ("\n{0}", _Indent);
+		if (  handle.IsForum ) {
+			_Output.Write ("    <a href=\"CreatePlace\">Create Place</p>\n{0}", _Indent);
+			}
+		_Output.Write ("    </p>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		if (  handle.IsForum ) {
+			_Output.Write ("    <h2>Places</h2>\n{0}", _Indent);
+			 ListPlaces();
+			}
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("    <h2>Documents</h2>\n{0}", _Indent);
 		_Output.Write ("    <table class=\"documentsList\">\n{0}", _Indent);
@@ -343,7 +369,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("  <form action=\"/{{PalimpsestConstants.DocumentUpload}}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+		_Output.Write ("  <form action=\"/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, PalimpsestConstants.DocumentUpload);
 		_Output.Write ("    <p>\n{0}", _Indent);
 		_Output.Write ("      <table>\n{0}", _Indent);
 		_Output.Write ("        <tr><td>\n{0}", _Indent);
@@ -396,7 +422,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("  <p>{1}</p>\n{0}", _Indent, project.Description);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("  <form action=\"/{{PalimpsestConstants.TopicCreate}}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+		_Output.Write ("  <form action=\"/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, PalimpsestConstants.TopicCreate);
 		_Output.Write ("    <p>\n{0}", _Indent);
 		_Output.Write ("      <table>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
@@ -428,7 +454,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	public void  CreatePlace () {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Create Place</h1>\n{0}", _Indent);
-		_Output.Write ("<form action=\"/CreatePlacePost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+		_Output.Write ("<form action=\"/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, PalimpsestConstants.CreatePlacePost);
 		_Output.Write ("  <table>\n{0}", _Indent);
 		_Output.Write ("    <tr><td>\n{0}", _Indent);
 		_Output.Write ("    <label for=\"name\">Place Name:</label>\n{0}", _Indent);
@@ -454,64 +480,22 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// SignIn
 	/// </summary>
 	/// <param name="from"></param>
-	public void SignIn (string from) {
+	/// <param name="username"></param>
+	public void SignIn (string from, string username) {
 		// NoteWell();
 		_Output.Write ("    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:\n{0}", _Indent);
 		_Output.Write ("    </p>\n{0}", _Indent);
-		_Output.Write ("<form action=\"/SignInPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
-		_Output.Write ("<input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\"/>\n{0}", _Indent, from);
-		_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"username\", name=\"username\" rel=\"dns-handle\"/>\n{0}", _Indent);
+		_Output.Write ("<form action=\"/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, PalimpsestConstants.SignInPost);
+		_Output.Write ("    <input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\", value=\"{2}\"/>\n{0}", _Indent, from, username??"");
+		_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"handle\", name=\"handle\" rel=\"dns-handle\"/>\n{0}", _Indent);
 		_Output.Write ("    <input type=\"submit\" value=\"Sign In\" />\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <td colspan=\"2\">\n{0}", _Indent);
+		_Output.Write ("        <input type=\"checkbox\" id=\"terms\" name=\"terms\" >\n{0}", _Indent);
+		_Output.Write ("<label for=\"fname\">I agree to these terms and conditions.</label>\n{0}", _Indent);
+		_Output.Write ("        </td>\n{0}", _Indent);
 		_Output.Write ("    </p>\n{0}", _Indent);
 		_Output.Write ("</form>\n{0}", _Indent);
-		}
-	
-	/// <summary>	
-	///  CreateAccount 
-	/// </summary>
-	public void  CreateAccount  () {
-		 NoteWell();
-		_Output.Write ("<form  action=\"/CreateAccountPost\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
-		_Output.Write ("<table>\n{0}", _Indent);
-		 SignInForm(true);
-		_Output.Write ("<table>\n{0}", _Indent);
-		_Output.Write ("</form>\n{0}", _Indent);
-		}
-	
-	/// <summary>	
-	/// SignInForm
-	/// </summary>
-	/// <param name="create"></param>
-	public void SignInForm (bool create) {
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("<tr><td>\n{0}", _Indent);
-		_Output.Write ("<label for=\"username\">Username:</label>\n{0}", _Indent);
-		_Output.Write ("</td><td>\n{0}", _Indent);
-		_Output.Write ("<input type=\"text\", id=\"username\", name=\"username\">\n{0}", _Indent);
-		_Output.Write ("</td></tr>\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("<tr><td>\n{0}", _Indent);
-		_Output.Write ("<label for=\"password\">Password:</label>\n{0}", _Indent);
-		_Output.Write ("</td><td>\n{0}", _Indent);
-		_Output.Write ("<input type=\"password\", id=\"password\", name=\"password\">\n{0}", _Indent);
-		_Output.Write ("</td></tr>\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		if (  create ) {
-			_Output.Write ("<tr><td>\n{0}", _Indent);
-			_Output.Write ("<label for=\"password2\">Confirm Password:</label>\n{0}", _Indent);
-			_Output.Write ("</td><td>\n{0}", _Indent);
-			_Output.Write ("<input type=\"password\", id=\"password2\", name=\"password2\">\n{0}", _Indent);
-			_Output.Write ("</td></tr>\n{0}", _Indent);
-			_Output.Write ("\n{0}", _Indent);
-			_Output.Write ("<tr><td colspan=\"2\">\n{0}", _Indent);
-			_Output.Write ("<input type=\"checkbox\" id=\"terms\" name=\"terms\" >\n{0}", _Indent);
-			_Output.Write ("<label for=\"terms\">I agree to  follow IETF processes and policies</label>\n{0}", _Indent);
-			_Output.Write ("</td></tr>\n{0}", _Indent);
-			_Output.Write ("\n{0}", _Indent);
-			}
-		_Output.Write ("<tr><td colspan=\"2\">\n{0}", _Indent);
-		_Output.Write ("<input type=\"submit\" value=\"Submit\" />\n{0}", _Indent);
-		_Output.Write ("</td></tr>\n{0}", _Indent);
 		}
 	
 	/// <summary>	
@@ -582,6 +566,15 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	public void  PageActions  () {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>List of outstanding actions</h1>\n{0}", _Indent);
+		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	///  PageVisitors
+	/// </summary>
+	public void  PageVisitors () {
+		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
+		_Output.Write ("  <h1>List of visitors</h1>\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}
 	}

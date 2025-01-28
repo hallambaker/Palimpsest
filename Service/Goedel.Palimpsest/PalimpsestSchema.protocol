@@ -33,6 +33,9 @@
 		Inherits CatalogedForumEntry
 		Description
 			|A cataloged project.
+		String ParentForum
+			Description
+				|The forum to which the place belongs.
 		String Aliases
 			Multiple
 		String Owners
