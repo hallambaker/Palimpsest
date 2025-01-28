@@ -27,7 +27,8 @@ namespace Goedel.Palimpsest;
 public record NonceDns(
             string Nonce,
             string? Place=null,
-            string? Handle=null) {
+            string? Handle=null
+                ) {
 
     public string Uri(string host, string local) {
         var builder = new StringBuilder();
@@ -57,6 +58,7 @@ public record NonceDns(
             builder.Append("&handle=");
             builder.Append(HttpUtility.UrlEncode(Handle));
             }
+
         }
 
 

@@ -58,7 +58,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			}
 		if (  navigation.Login ) {
 			if (  SignedIn ) {
-				_Output.Write ("    <li>{1} Sign Out</li>\n{0}", _Indent, VerifiedAccount.LocalName);
+				_Output.Write ("    <li>{1} <a href=\"{2}\">Sign Out</a></li>\n{0}", _Indent, VerifiedAccount.LocalName,  PalimpsestConstants.SignOut);
 				} else {
 				_Output.Write ("    <form action=\"/SignIn\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
 				_Output.Write ("    <li class=\"login-big\">Sign In @<input class=\"login-box\" type=\"text\" id=\"handle\", name=\"handle\" rel=\"dns-handle\"/>\n{0}", _Indent);
@@ -187,16 +187,20 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("{1}\n{0}", _Indent, boilerplate.HTML);
 		if (  prefill is not null ) {
+			_Output.Write ("    <form action=\"/AcceptTerms\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+			if (  prefill.Handle is not null ) {
+				_Output.Write ("        <input type=\"hidden\" id=\"handle\" name=\"handle\" value=\"{1}\" />  \n{0}", _Indent, prefill.Handle);
+				} else {
+				_Output.Write ("        <p>@<input type=\"text\" id=\"handle\" name=\"handle\" \" />  </p>\n{0}", _Indent);
+				}
 			if (  prefill.Insist ) {
 				_Output.Write ("    <p class=\"form-error\">You MUST accept the terms to continue.</p>\n{0}", _Indent);
 				}
-			_Output.Write ("    <form action=\"/AcceptTerms\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent);
+			_Output.Write ("\n{0}", _Indent);
 			if (  prefill.From is not null ) {
 				_Output.Write ("        <input type=\"hidden\" id=\"from\" name=\"from\" value=\"{1}\" />    \n{0}", _Indent, prefill.From);
 				}
-			if (  prefill.Handle is not null ) {
-				_Output.Write ("        <input type=\"hidden\" id=\"handle\" name=\"handle\" value=\"{1}\" />  \n{0}", _Indent, prefill.Handle);
-				}
+			_Output.Write ("    \n{0}", _Indent);
 			_Output.Write ("        <input type=\"checkbox\", id=\"agree\", name=\"agree\", value=\"true\">  <label for=\"fname\">I agree to these terms and conditions.</label>\n{0}", _Indent);
 			_Output.Write ("        <input type=\"submit\" value=\"I Accept\" />\n{0}", _Indent);
 			_Output.Write ("        <input type=\"submit\" value=\"Cancel\" formaction=\"/\"/>\n{0}", _Indent);
@@ -474,28 +478,6 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("  </table>\n{0}", _Indent);
 		_Output.Write ("  </form>\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
-		}
-	
-	/// <summary>	
-	/// SignIn
-	/// </summary>
-	/// <param name="from"></param>
-	/// <param name="username"></param>
-	public void SignIn (string from, string username) {
-		// NoteWell();
-		_Output.Write ("    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:\n{0}", _Indent);
-		_Output.Write ("    </p>\n{0}", _Indent);
-		_Output.Write ("<form action=\"/{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, PalimpsestConstants.SignInPost);
-		_Output.Write ("    <input type=\"hidden\" value=\"{1}\" id=\"from\" name=\"from\", value=\"{2}\"/>\n{0}", _Indent, from, username??"");
-		_Output.Write ("    <p class=\"login-big\">@<input class=\"login-box\" type=\"text\" id=\"handle\", name=\"handle\" rel=\"dns-handle\"/>\n{0}", _Indent);
-		_Output.Write ("    <input type=\"submit\" value=\"Sign In\" />\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("    <td colspan=\"2\">\n{0}", _Indent);
-		_Output.Write ("        <input type=\"checkbox\" id=\"terms\" name=\"terms\" >\n{0}", _Indent);
-		_Output.Write ("<label for=\"fname\">I agree to these terms and conditions.</label>\n{0}", _Indent);
-		_Output.Write ("        </td>\n{0}", _Indent);
-		_Output.Write ("    </p>\n{0}", _Indent);
-		_Output.Write ("</form>\n{0}", _Indent);
 		}
 	
 	/// <summary>	

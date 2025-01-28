@@ -47,7 +47,7 @@ class="nav-link"#!
 #end for
 #if navigation.Login
 #if SignedIn
-    <li>#{VerifiedAccount.LocalName} Sign Out</li>
+    <li>#{VerifiedAccount.LocalName} <a href="#{ PalimpsestConstants.SignOut}">Sign Out</a></li>
 #else
     <form action="/SignIn" method="post" enctype="multipart/form-data">
     <li class="login-big">Sign In @<input class="login-box" type="text" id="handle", name="handle" rel="dns-handle"/>
@@ -158,16 +158,20 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 <div class="container">
 #{boilerplate.HTML}
 #if prefill is not null
+    <form action="/AcceptTerms" method="post" enctype="multipart/form-data">
+#if prefill.Handle is not null
+        <input type="hidden" id="handle" name="handle" value="#{prefill.Handle}" />  
+#else
+        <p>@<input type="text" id="handle" name="handle" " />  </p>
+#end if  
 #if prefill.Insist
     <p class="form-error">You MUST accept the terms to continue.</p>
 #end if
-    <form action="/AcceptTerms" method="post" enctype="multipart/form-data">
+
 #if prefill.From is not null
         <input type="hidden" id="from" name="from" value="#{prefill.From}" />    
 #end if
-#if prefill.Handle is not null
-        <input type="hidden" id="handle" name="handle" value="#{prefill.Handle}" />  
-#end if      
+    
         <input type="checkbox", id="agree", name="agree", value="true">  <label for="fname">I agree to these terms and conditions.</label>
         <input type="submit" value="I Accept" />
         <input type="submit" value="Cancel" formaction="/"/>
@@ -420,24 +424,6 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
   </form>
 </div>
 #end method0
-
-
-#method2 SignIn string from string username
-#! NoteWell();
-    <p>No need to create an account! Sign in using your @nything handle, the same username you use for Bluesky social:
-    </p>
-<form action="/#{PalimpsestConstants.SignInPost}" method="post" enctype="multipart/form-data">
-    <input type="hidden" value="#{from}" id="from" name="from", value="#{username??""}"/>
-    <p class="login-big">@<input class="login-box" type="text" id="handle", name="handle" rel="dns-handle"/>
-    <input type="submit" value="Sign In" />
-
-    <td colspan="2">
-        <input type="checkbox" id="terms" name="terms" >
-<label for="fname">I agree to these terms and conditions.</label>
-        </td>
-    </p>
-</form>
-#end method2
 
 
 

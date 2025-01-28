@@ -51,31 +51,38 @@ public record ParsedPath {
 
 
 
+
+
+
+
+
     ///<summary>Holds the project ID or the static resource name</summary> 
     public string FirstId { get; }
 
-    ///<summary>The project Id is always the first in the path</summary> 
-    public string ProjectId => FirstId;
+    /////<summary>The project Id is always the first in the path</summary> 
+    //public string ProjectId => FirstId;
 
 
     ///<summary>Holds the document ID.</summary> 
     public string SecondId { get; }
 
-    ///<summary>The topic Id is always the second in the path</summary> 
-    public string TopicId => SecondId;
 
-    ///<summary>The resource Id is always the second in the path</summary> 
-    public string ResourceId => SecondId;
+    ///<summary>The topic Id is always the first in the path</summary> 
+    public string TopicId => FirstId;
+
+
+    ///<summary>The resource Id is always the first in the path</summary> 
+    public string ResourceId => FirstId;
 
 
     ///<summary>Holds the fragment ID.</summary> 
     public string ThirdId { get; } 
 
-    ///<summary>The post Id is always the third in the path</summary> 
-    public string PostId => ThirdId;
+    ///<summary>The post Id is always the second in the path</summary> 
+    public string PostId => SecondId;
 
-    ///<summary>The fragment Id is always the third in the path</summary> 
-    public string FragmentId => ThirdId;
+    ///<summary>The fragment Id is always the second in the path</summary> 
+    public string FragmentId => SecondId;
 
     ///<summary>The original IP address of the request (filled by reverse proxy)</summary> 
     public string RealIp { get; }

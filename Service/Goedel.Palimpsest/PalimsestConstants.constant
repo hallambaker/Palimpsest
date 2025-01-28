@@ -46,12 +46,12 @@ File PagePrefixes
 	String resources "resources"
 	String ForumTermsConditions "ForumTermsConditions"
 	String ForumPlaceSignIn "ForumPlaceSignIn"
-
+	String AcceptTerms "AcceptTerms"
 
 
 
 	String SignIn "SignIn"
-	String SignInPost "SignInPost"
+	//String SignInPost "SignInPost"
 	String SignInComplete "Complete"
 
 
@@ -86,7 +86,7 @@ File PagePrefixes
 	String WellKnown ".well-known"
 	String ClientMetadata "client-metadata.json"
 	String Redirect "Redirect"
-	String AcceptTerms "AcceptTerms"
+
 	String Terms "Terms"
 
 File ContentTypes

@@ -352,15 +352,17 @@ public class Forum :Disposable {
                 ParsedPath path,
                 out PlaceHandle project,
                 out TopicHandle topic) {
-        project = null;
-        topic = null;
-        if (!TryGetPlace(path.ProjectId, out project)) {
-            return false;
-            }
-        if (!project.TryGetTopic(path.TopicId, out topic)) {
-            return false;
-            }
-        return true;
+
+        throw new NYI();
+        //project = null;
+        //topic = null;
+        //if (!TryGetPlace(path.ProjectId, out project)) {
+        //    return false;
+        //    }
+        //if (!project.TryGetTopic(path.TopicId, out topic)) {
+        //    return false;
+        //    }
+        //return true;
         }
 
     public bool TryGetPost(

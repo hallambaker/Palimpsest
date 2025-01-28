@@ -170,23 +170,25 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
             // public pages, visible to all users but with possibly reduced functionality
             { "", new (GetHome, false) }, // Home page
-
             { PalimpsestConstants.resources, new (GetResources,false) },
-            { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
-            { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
-
-            /// Wet edge here, pages above have been fixed
 
             { PalimpsestConstants.SignIn, new (GetSignIn, false) },
-            { PalimpsestConstants.SignInPost, new (PostSignIn, false) },
+            { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
+            { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
             { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
+            { PalimpsestConstants.Redirect, new (GetRedirect, false) },
+            /// Wet edge here, pages above have been fixed
+
+
+            //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
+
             { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
             //{ PalimpsestConstants.Terms, new (GetTerms, false) },
 
             //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
             //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
 
-            { PalimpsestConstants.Redirect, new (GetRedirect, false) },
+
 
 
             // private pages, requires log in
@@ -282,10 +284,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         // Look for a dispatch method and use it if found.
         if (ResourceMap.TryGetValue(path.Command, out var callback)) {
             if ((path.Member is null) & callback.SignedIn) {
-
-                // need to change this to a POST redirect with the return path 
-
-                await RedirectSignIn(path);
+                if (path.PlaceHandle?.IsForum == true) {
+                    await ForumTermsConditions(path, path.Uri.PathAndQuery);
+                    }
+                else {
+                    await RedirectSignIn(path, path.Uri.PathAndQuery);
+                    }
                 return;
                 }
 
@@ -465,14 +469,25 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var context = path.Context;
         var annotations = Annotations.Get(this, context, path);
 
-        if (!Forum.TryGetTopic(path, out var projectHandle, out var topicHandle)) {
+        // Place is specified in path.PlaceHandle
+        if (!path.PlaceHandle.TryGetTopic (path.TopicId, out var topicHandle)) {
             await Error(context, null);
             return;
             }
 
-        annotations.StartPage($"{projectHandle.LocalName}: Topic {topicHandle.LocalName}");
+
+        // Get the topic handle from Place
+
+
+
+        //if (!Forum.TryGetTopic(path, out var projectHandle, out var topicHandle)) {
+        //    await Error(context, null);
+        //    return;
+        //    }
+
+        await PageHeader(annotations);
         annotations.PageTopic(topicHandle);
-        annotations.End();
+        await PageFooter(annotations);
 
         await Task.CompletedTask;
 
@@ -703,9 +718,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostCreateTopic(
                 ParsedPath path) {
         var context = path.Context;
-        Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
 
+        //Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
 
+        var place = path.PlaceHandle;
         var fields = new FormDataDocument();
 
         var annotations = Annotations.PostForm(this, fields, path);
@@ -717,7 +733,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             };
         var resourceHandle = place.AddTopic(resourceRecord);
 
-        await annotations.Redirect(context, $"/Topic/{path.FirstId}/{resourceRecord.Uid}/Redirect");
+        await annotations.Redirect(context, $"/Topic/{resourceRecord.Uid}");
 
         }
 

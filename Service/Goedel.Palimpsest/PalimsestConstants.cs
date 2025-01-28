@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 1/28/2025 12:40:59 PM
+//  This file was automatically generated at 1/28/2025 3:57:33 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -140,11 +140,11 @@ public static partial class PalimpsestConstants {
 
     ///<summary>
     ///</summary>
-    public const string SignIn = "SignIn";
+    public const string AcceptTerms = "AcceptTerms";
 
     ///<summary>
     ///</summary>
-    public const string SignInPost = "SignInPost";
+    public const string SignIn = "SignIn";
 
     ///<summary>
     ///</summary>
@@ -245,10 +245,6 @@ public static partial class PalimpsestConstants {
     ///<summary>
     ///</summary>
     public const string Redirect = "Redirect";
-
-    ///<summary>
-    ///</summary>
-    public const string AcceptTerms = "AcceptTerms";
 
     ///<summary>
     ///</summary>

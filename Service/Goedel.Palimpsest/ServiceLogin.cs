@@ -33,48 +33,39 @@ public record TempBinding(
             DateTime issued,
             string redirectUri) {
     }
+public record TempBindingRedirect {
+    public Dictionary<string, TempBinding> TempBindings { get; } = [];
+
+    public string Create(
+                string redirectUri) {
+        var nonce = Udf.Nonce();
+        var binding = new TempBinding(DateTime.Now, redirectUri);
+
+        TempBindings.Add(nonce, binding);
+
+        return nonce;
+        }
+
+    public bool TryGetBinding(string nonce, out string? redirectUri) {
+        if (TempBindings.TryGetValue(nonce, out var binding)) {
+            redirectUri = binding.redirectUri;
+            return true;
+            }
+        redirectUri = null;
+        return false;
+        }
+
+
+    }
+
+
 
 
 
 public partial class AnnotationService {
 
-
-
-    public async Task ForumTermsConditions(
-                    ParsedPath path) {
-
-        var fields = new FormDataAccount();
-        var annotations = Annotations.PostForm(this, fields, path);
-
-        var nonceDns = new NonceDns("FORUM", Handle: fields.Handle);
-
-        var prefill = new FormDataAcceptTerms() {
-            From = nonceDns.State(),
-            Handle = fields.Handle,
-            };
-
-        annotations.StartPage(Forum.Name);
-        annotations.PageBoilerplate(TermsAndConditions, prefill);
-        annotations.End();
-        }
-
-    public async Task PlaceTermsConditions(
-                ParsedPath path) {
-
-        var nonceDns = NonceDns.Parse(path.Uri.Query);
-        var annotations = Annotations.Get(this, path);
-
-        var prefill = new FormDataAcceptTerms() {
-            From = nonceDns.State(),
-            Handle = nonceDns.Handle,
-            };
-
-        annotations.StartPage(Forum.Name);
-        annotations.PageBoilerplate(TermsAndConditions, prefill);
-        annotations.End();
-        }
-
-
+    TempBindingRedirect TempBindings = new();
+    const string PlaceIsForum = "_FORUM";
 
     /// <summary>
     /// The explicit sign in page. This can be called on the Place or at the Forum
@@ -82,9 +73,8 @@ public partial class AnnotationService {
     /// When called at a Place that is not the Forum login, a redirect is made to the Forum.
     /// </para>
     /// </summary>
-    /// <param name="context"></param>
-    /// <param name="path"></param>
-    /// <returns></returns>
+    /// <param name="path">Parsed context.</param>
+    /// <returns>Task</returns>
     public async Task GetSignIn(
                 ParsedPath path) {
 
@@ -96,6 +86,52 @@ public partial class AnnotationService {
         return;
         }
 
+
+    public Task ForumTermsConditions(
+                ParsedPath path) => ForumTermsConditions(path, null);
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path">Parsed context.</param>
+    /// <returns>Task</returns>
+    public Task ForumTermsConditions(
+                    ParsedPath path,
+                    string returnUri) {
+        string? handle = null;
+        Annotations annotations;
+
+        if (returnUri == null) {
+            var fields = new FormDataAccount();
+            annotations = Annotations.PostForm(this, fields, path);
+            handle = fields.Handle;
+            returnUri = "/";
+            }
+        else {
+            annotations = Annotations.Get(this, path);
+            }
+        var nonce = TempBindings.Create(returnUri);
+
+
+        var nonceDns = new NonceDns(nonce, Place: PlaceIsForum, Handle: handle);
+
+        var prefill = new FormDataAcceptTerms() {
+            From = nonceDns.State(),
+            Handle = handle,
+            };
+
+        annotations.StartPage(Forum.Name);
+        annotations.PageBoilerplate(TermsAndConditions, prefill);
+        annotations.End();
+
+        return Task.CompletedTask;
+        }
+
+
+
+
+
     /// <summary>
     /// The page on the forum to which a visitor is redirected by RedirectSignIn.
     /// </summary>
@@ -103,7 +139,7 @@ public partial class AnnotationService {
     /// <returns></returns>
     public async Task ForumPlaceSignIn(
                 ParsedPath path) {
-        
+
         if (path.Member is null) {
             // User has not logged in to the forum so present the T&C
             await PlaceTermsConditions(path);
@@ -128,30 +164,55 @@ public partial class AnnotationService {
         await annotations.Redirect(path.Context, redirect);
         }
 
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path">Parsed context.</param>
+    /// <returns>Task</returns>
+    public  Task PlaceTermsConditions(
+                ParsedPath path) {
+
+        var nonceDns = NonceDns.Parse(path.Uri.Query);
+        var annotations = Annotations.Get(this, path);
+
+        var prefill = new FormDataAcceptTerms() {
+            From = nonceDns.State(),
+            Handle = nonceDns.Handle,
+            };
+
+        annotations.StartPage(Forum.Name);
+        annotations.PageBoilerplate(TermsAndConditions, prefill);
+        annotations.End();
+
+        return Task.CompletedTask;
+        }
+
+
     #region // Sign in/out
 
-    public Dictionary<string, TempBinding> TempBindings { get; } = new();
+
 
 
 
     #region // Domain is PLACE
     public Task RedirectSignIn(
-                ParsedPath path) {
+                ParsedPath path, string localPath=null) {
         // Parse the form data to get the Username
         var fields = new FormDataAccount();
         var annotations = Annotations.PostForm(this, fields, path);
 
-        var local = fields.From ?? "";
+        var local = localPath ?? "";
         var bindingReturn = $"https://{path.Uri.Host}/{local}";
 
-        // create a temporary cookie to be used to validate the 
-        var binding = new TempBinding(DateTime.Now, bindingReturn);
-        var nonce = Udf.Nonce();
+        var nonce = TempBindings.Create(bindingReturn);
+
         var nonceDns = new NonceDns(nonce, path.Uri.Host, fields.Handle);
 
         var context = path.Context;
 
-        TempBindings.Add(nonce, binding);
+
         var cookie = new Cookie(PalimpsestConstants.CookieTypeTemporaryTag, nonce);
         context.Response.SetCookie(cookie);
 
@@ -169,26 +230,17 @@ public partial class AnnotationService {
 
         var nonceDns = NonceDns.Parse(path.Uri.Query);
 
-        //var parsedUrl = path.Uri.Query;
-        //var paramsCollection = HttpUtility.ParseQueryString(parsedUrl);
-        //var nonce = paramsCollection["nonce"];
-        //var handle = paramsCollection["handle"];
-
-        if (!TempBindings.TryGetValue(nonceDns.Nonce, out var binding)) {
+        if (!TempBindings.TryGetBinding(nonceDns.Nonce, out var binding)) {
             throw new NYI();
             }
-
-
 
         var member = Forum.GetMember(nonceDns.Handle);
         var cookie = Forum.ServerCookieManager.GetCookie(
             PalimpsestConstants.CookieTypeSessionTag, member.PrimaryKey);
         context.Response.Cookies.Add(cookie);
 
-
-
         var annotations = Annotations.Get(this, context, path);
-        await annotations.Redirect(context, binding.redirectUri);
+        await annotations.Redirect(context, binding);
         } 
     #endregion
 
@@ -208,31 +260,7 @@ public partial class AnnotationService {
         }
     #endregion
     #region // Handle forms
-    public async Task PostSignIn(
-                ParsedPath path) {
-        var context = path.Context;
-        var member = path.Member;
 
-        var fields = new FormDataAccount();
-        var annotations = Annotations.PostForm(this, fields, path);
-        var redirect = fields.From ?? "/";
-
-        // Do we already have a local account for this handle?
-        if (Forum.TryGetByHandle(fields.Handle, out var handle)) {
-            await OAuthSignIn(annotations, context, fields.Handle, redirect, handle);
-            }
-
-        var prefill = new FormDataAcceptTerms() {
-            From = redirect,
-            Handle = fields.Handle,
-            };
-
-        annotations.StartPage(Forum.Name);
-        annotations.PageBoilerplate(TermsAndConditions, prefill);
-        annotations.End();
-
-        return;
-        }
 
     public async Task PostAcceptTerms(
                 ParsedPath path) {
@@ -313,8 +341,10 @@ public partial class AnnotationService {
         var annotations = Annotations.Get(this, path);
 
         //extract the nonce from success.RedirectUri
-        if (nonceDns.Nonce == "FORUM") {
-            await annotations.Redirect(context, "/");
+        if (nonceDns.Place == PlaceIsForum) {
+            TempBindings.TryGetBinding(nonceDns.Nonce, out var redirectUri);
+
+            await annotations.Redirect(context, redirectUri);
             return;
             }
 
