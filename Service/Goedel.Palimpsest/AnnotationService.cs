@@ -502,9 +502,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             return;
             }
 
-        annotations.StartPage($": Topic {topicHandle.LocalName}");
+        await PageHeader(annotations);
         annotations.PagePost(postHandle);
-        annotations.End();
+        await PageFooter(annotations);
 
         await Task.CompletedTask;
 
@@ -524,9 +524,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             }
 
 
-        annotations.StartPage($"{Forum.Name}: Member {path.Member.LocalName}");
+        await PageHeader(annotations);
         annotations.PageMember(memberHandle);
-        annotations.End();
+        await PageFooter(annotations);
 
         await Task.CompletedTask;
         }
@@ -571,8 +571,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             }
 
         //await annotations.WriteDocument(resourceHandle);
-        annotations.FooterComment();
-        annotations.End();
+        await PageFooter(annotations);
 
         await Task.CompletedTask;
         }
@@ -585,7 +584,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #region // Dialog pages - Create Account / Place / Document / Reaction
 
 
-    public Task GetCreatePlace(
+    public async Task GetCreatePlace(
                 ParsedPath path) {
         var context = path.Context;
         var member = path.Member;
@@ -593,61 +592,59 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var annotations = Annotations.Get(this, context, path);
 
 
-        annotations.StartPage($"{Forum.Name}: Create Place");
+        await PageHeader(annotations);
         annotations.CreatePlace();
-        annotations.End();
-
-        return Task.CompletedTask;
+        await PageFooter(annotations);
         }
 
-    public Task GetCommentForm(
+    public async Task GetCommentForm(
                 ParsedPath path) {
         var context = path.Context;
 
 
+
         var annotations = Annotations.Get(this, context, path);
+        await PageHeader(annotations);
         annotations.PageEnterComment(path, CommentMode.Annotation);
-        annotations.End();
-        return Task.CompletedTask;
+        await PageFooter(annotations);
         }
 
-    public Task GetPostForm(
+    public async Task GetPostForm(
                 ParsedPath path) {
         var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
+        await PageHeader(annotations);
         annotations.PageEnterComment(path, CommentMode.Post);
-        annotations.End();
-        return Task.CompletedTask;
+        await PageFooter(annotations);
         }
 
-    public Task GetPostCommentForm(
+    public async Task GetPostCommentForm(
                 ParsedPath path) {
         var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
+        await PageHeader(annotations);
         annotations.PageEnterComment(path, CommentMode.Comment);
-        annotations.End();
-        return Task.CompletedTask;
+        await PageFooter(annotations);
         }
 
 
-    public Task GetListActions(
+    public async Task GetListActions(
                 ParsedPath path) {
         var context = path.Context;
 
         var annotations = Annotations.Get(this, context, path);
 
-        annotations.StartPage($"{Forum.Name}: User {"TBS"}");
+        await PageHeader(annotations);
         annotations.PageActions();
-        annotations.End();
-
-        return Task.CompletedTask;
+        await PageFooter(annotations);
         }
 
     public async Task Error(
             HttpListenerContext context,
             ParsedPath path) {
+
         var annotations = Annotations.Get(this, context, path);
         await ErrorPage(annotations);
         }
@@ -661,14 +658,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         await ErrorPage(annotations);
         }
 
-    public Task ErrorPage(
+    public async Task ErrorPage(
             Annotations annotations) {
 
-        annotations.StartPage($"{Forum.Name}: Error");
+        await PageHeader(annotations);
         annotations.PageError();
-        annotations.End();
-
-        return Task.CompletedTask;
+        await PageFooter(annotations);
         }
     #endregion
     #region // Server Post Pages
