@@ -33,10 +33,9 @@ public class TopicHandle : ForumHandle {
 
     #region // Properties
 
-    public override string Anchor => $"/{PalimpsestConstants.Topic}/{ProjectHandle.Uid}/{CatalogedResource.Uid}";
+    public override string Anchor => CatalogedTopic.LocalPath;
 
-    public string NewPost => "/" + PalimpsestConstants.CreatePost + "/" + ProjectHandle.Uid +
-        "/" + CatalogedEntry.Uid;
+    public string NewPost => "/" + PalimpsestConstants.CreatePost + "/" + CatalogedEntry.Uid;
     public string TopicDirectory { get; }
 
     #region // CatalogReaction Reactions
@@ -57,7 +56,7 @@ public class TopicHandle : ForumHandle {
 
 
 
-    public CatalogedTopic CatalogedResource => CatalogedEntry as CatalogedTopic;
+    public CatalogedTopic CatalogedTopic => CatalogedEntry as CatalogedTopic;
     public PlaceHandle ProjectHandle { get; }
 
     #endregion
@@ -76,7 +75,7 @@ public class TopicHandle : ForumHandle {
     #region // Methods
 
     public string GetPostAnchor(CatalogedPost post) =>
-        $"/{PalimpsestConstants.Post}/{ProjectHandle.Uid}/{CatalogedResource.Uid}/{post.Uid}";
+        $"/{PalimpsestConstants.Post}/{CatalogedTopic.Uid}/{post.Uid}";
 
     public void AddReaction(
                      CatalogedPost reaction) {

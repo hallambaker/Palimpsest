@@ -80,7 +80,18 @@ public class PlaceHandle: CachedHandle<CatalogedPlace>, IPage{
     public bool TryGetTopic(string id,
           out TopicHandle resource) => TryGetForum(id, out resource);
 
+    public bool TryGetPost(
+                ParsedPath path,
+                out TopicHandle topicHandle, 
+                out PostHandle postHandle) {
+        if (!TryGetTopic(path.TopicId, out topicHandle)) {
+            postHandle = null;
+            return false;
+            }
+        return topicHandle.TryGetPost (path.SecondId, out postHandle);
 
+        }
+    //=> TryGetForum(id, out resource);
 
     public ResourceHandle AddResource(
                 CatalogedResource resource,

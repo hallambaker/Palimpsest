@@ -177,22 +177,18 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
             { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
             { PalimpsestConstants.Redirect, new (GetRedirect, false) },
+            { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
+            { PalimpsestConstants.SignOut, new (GetSignOut) },
+
             /// Wet edge here, pages above have been fixed
 
 
-            //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
-
-            { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
             //{ PalimpsestConstants.Terms, new (GetTerms, false) },
-
             //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
             //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
-
-
-
-
+            //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
             // private pages, requires log in
-            { PalimpsestConstants.SignOut, new (GetSignOut) },
+
             { PalimpsestConstants.Place, new (GetPlace) },
             { PalimpsestConstants.AddDocument, new (GetAddDocument) },
             { PalimpsestConstants.AddTopic, new (GetAddTopic) },
@@ -456,8 +452,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var annotations = Annotations.Get(this, context, path);
 
         // need to modify this to get the project and account ids
-        Forum.TryGetPlace(path.FirstId, out var projectHandle);
-        projectHandle.TryGetResource(path.SecondId, out var resourceHandle);
+        if (!path.PlaceHandle.TryGetResource(path.ResourceId, out var resourceHandle)) {
+            await Error(context, null);
+            return;
+            }
 
         await WritePage(annotations, resourceHandle);
 
@@ -499,12 +497,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         var annotations = Annotations.Get(this, context, path);
 
-        if (!Forum.TryGetPost(path, out var projectHandle, out var topicHandle, out var postHandle)) {
+        if (!path.TryGetPost(out var topicHandle, out var postHandle)) {
             await Error(context, null);
             return;
             }
 
-        annotations.StartPage($"{projectHandle.LocalName}: Topic {topicHandle.LocalName}");
+        annotations.StartPage($": Topic {topicHandle.LocalName}");
         annotations.PagePost(postHandle);
         annotations.End();
 
@@ -697,7 +695,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostUploadDocument(
                 ParsedPath path) {
         var context = path.Context;
-        Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
+        var place = path.PlaceHandle;
 
 
         var fields = new FormDataDocument();
@@ -718,8 +716,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task PostCreateTopic(
                 ParsedPath path) {
         var context = path.Context;
-
-        //Forum.TryGetPlace(path.FirstId, out var place).AssertTrue(NYI.Throw);
 
         var place = path.PlaceHandle;
         var fields = new FormDataDocument();
@@ -743,10 +739,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var fields = new FormDataComment();
         var annotations = Annotations.PostForm(this, fields, path);
 
-        //Annotations.PostComment(this, context);
 
-        Forum.TryGetPlace(path.FirstId, out var projectHandle);
-        projectHandle.TryGetResource(path.SecondId, out var resourceHandle);
+        path.TryGetResource(out var resourceHandle);
 
 
         var response = new CatalogedAnnotation() {
@@ -768,7 +762,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var fields = new FormDataComment();
         var annotations = Annotations.PostForm(this, fields, path);
 
-        Forum.TryGetTopic(path, out var project, out var topic).AssertTrue(NYI.Throw);
+        path.TryGetTopic(out var topic).AssertTrue(NYI.Throw);
+
+
         var response = new CatalogedPost() {
             Uid = Udf.Nonce(),
             Added = DateTime.UtcNow,
@@ -788,7 +784,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var fields = new FormDataComment();
         var annotations = Annotations.PostForm(this, fields, path);
 
-        if (!Forum.TryGetPost(path, out var placeHandle, out var topicHandle, out var postHandle)) {
+        if (!path.TryGetPost(out var topicHandle, out var postHandle)) {
             await Error(context, null);
             return;
             }

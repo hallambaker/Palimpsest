@@ -77,7 +77,6 @@
 			|A cataloged topic.
 
 
-
 	Structure CatalogedResource
 		Inherits CatalogedForum
 		Description

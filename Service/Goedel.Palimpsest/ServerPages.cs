@@ -243,7 +243,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("    <a href=\"/{1}\">Add Topic</a>\n{0}", _Indent, PalimpsestConstants.AddTopic);
 		_Output.Write ("\n{0}", _Indent);
 		if (  handle.IsForum ) {
-			_Output.Write ("    <a href=\"CreatePlace\">Create Place</p>\n{0}", _Indent);
+			_Output.Write ("    <a href=\"CreatePlace\">Create Place</a>\n{0}", _Indent);
 			}
 		_Output.Write ("    </p>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
@@ -258,7 +258,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			foreach  (var forum in handle.Resources)  {
 				if (  (forum is CatalogedResource resource) ) {
 					_Output.Write ("    <tr><td>\n{0}", _Indent);
-					_Output.Write ("    <a href=\"/Document/{1}/{2}\">{3}</a>\n{0}", _Indent, handle.Uid, resource.Uid, resource.LocalName);
+					_Output.Write ("    <a href=\"{1}\">{2}</a>\n{0}", _Indent, resource.LocalPath, resource.LocalName);
 					_Output.Write ("    </td><td>\n{0}", _Indent);
 					_Output.Write ("    {1}\n{0}", _Indent, resource.Description);
 					_Output.Write ("    </td></tr>\n{0}", _Indent);
@@ -273,7 +273,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			foreach  (var forum in handle.Resources)  {
 				if (  (forum is CatalogedTopic topic) ) {
 					_Output.Write ("    <tr><td>\n{0}", _Indent);
-					_Output.Write ("    <a href=\"/Topic/{1}/{2}\">{3}</a>\n{0}", _Indent, handle.Uid, topic.Uid, topic.LocalName);
+					_Output.Write ("    <a href=\"{1}\">{2}</a>\n{0}", _Indent, topic.LocalPath, topic.LocalName);
 					_Output.Write ("    </td><td>\n{0}", _Indent);
 					_Output.Write ("    {1}\n{0}", _Indent, topic.Description);
 					_Output.Write ("    </td></tr>\n{0}", _Indent);
@@ -323,7 +323,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 				_Output.Write ("    <tr><td>\n{0}", _Indent);
 				_Output.Write ("    <a href={1}>{2}</a>\n{0}", _Indent, GetMemberAnchor(post.MemberId), GetMemberLabel(post.MemberId));
 				_Output.Write ("    </td><td>\n{0}", _Indent);
-				_Output.Write ("        <a href={1}>{2}</a>\n{0}", _Indent, topic. GetPostAnchor(post), post.Subject);
+				_Output.Write ("        <a href={1}>{2}</a>\n{0}", _Indent, topic.GetPostAnchor(post), post.Subject);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("    </td></tr>\n{0}", _Indent);
 				}
@@ -487,8 +487,15 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// <param name="mode"></param>
 	public void PageEnterComment (ParsedPath path, CommentMode mode) {
 		_Output.Write ("<div class=\"whatever\">\n{0}", _Indent);
-		_Output.Write ("<h1>Enter a comment</h1>\n{0}", _Indent);
-		 var target = path.GetPostTarget();
+		 string target;
+		if (  mode==CommentMode.Post ) {
+			  target = path.GetPostTarget();
+			_Output.Write ("<h1>Make a post</h1>\n{0}", _Indent);
+			} else {
+			  target = path.GetCommentTarget();
+			_Output.Write ("<h1>Enter a comment</h1>\n{0}", _Indent);
+			}
+		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<form  action=\"{1}\" method=\"post\" enctype=\"multipart/form-data\">\n{0}", _Indent, target);
 		_Output.Write ("    <input type=\"hidden\" id=\"fragment\" name=\"fragment\" value=\"{1}\">\n{0}", _Indent, path.FragmentId);
 		_Output.Write ("    <table>\n{0}", _Indent);

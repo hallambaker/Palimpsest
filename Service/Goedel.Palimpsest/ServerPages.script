@@ -207,7 +207,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
     <a href="/#{PalimpsestConstants.AddTopic}">Add Topic</a>
 
 #if handle.IsForum
-    <a href="CreatePlace">Create Place</p>
+    <a href="CreatePlace">Create Place</a>
 #end if
     </p>
 
@@ -222,7 +222,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #foreach (var forum in handle.Resources) 
 #if (forum is CatalogedResource resource)
     <tr><td>
-    <a href="/Document/#{handle.Uid}/#{resource.Uid}">#{resource.LocalName}</a>
+    <a href="#{resource.LocalPath}">#{resource.LocalName}</a>
     </td><td>
     #{resource.Description}
     </td></tr>
@@ -237,7 +237,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #foreach (var forum in handle.Resources) 
 #if (forum is CatalogedTopic topic)
     <tr><td>
-    <a href="/Topic/#{handle.Uid}/#{topic.Uid}">#{topic.LocalName}</a>
+    <a href="#{topic.LocalPath}">#{topic.LocalName}</a>
     </td><td>
     #{topic.Description}
     </td></tr>
@@ -276,7 +276,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
     <tr><td>
     <a href=#{GetMemberAnchor(post.MemberId)}>#{GetMemberLabel(post.MemberId)}</a>
     </td><td>
-        <a href=#{topic. GetPostAnchor(post)}>#{post.Subject}</a>
+        <a href=#{topic.GetPostAnchor(post)}>#{post.Subject}</a>
 
     </td></tr>
 #end if
@@ -429,8 +429,15 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 #method2 PageEnterComment ParsedPath path CommentMode mode
 <div class="whatever">
+#% string target;
+#if mode==CommentMode.Post
+#%  target = path.GetPostTarget();
+<h1>Make a post</h1>
+#else
+#%  target = path.GetCommentTarget();
 <h1>Enter a comment</h1>
-#% var target = path.GetPostTarget();
+#end if
+
 <form  action="#{target}" method="post" enctype="multipart/form-data">
     <input type="hidden" id="fragment" name="fragment" value="#{path.FragmentId}">
     <table>

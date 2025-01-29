@@ -134,10 +134,30 @@ public record ParsedPath {
             }
         }
 
-
     public string GetPostTarget() =>
-        $"/{Command}Submit/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
-        //ThirdId is null ? $"" :
+    $"/{PalimpsestConstants.PostPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
 
+
+
+    public string GetCommentTarget() =>
+        $"/{PalimpsestConstants.PostCommentPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
+
+
+    public bool TryGetResource(
+          out ResourceHandle resource) => PlaceHandle.TryGetForum(ResourceId, out resource);
+
+    public bool TryGetTopic(
+          out TopicHandle resource) => PlaceHandle.TryGetForum(TopicId, out resource);
+
+    public bool TryGetPost(
+            out TopicHandle topicHandle,
+            out PostHandle postHandle) {
+        if (!TryGetTopic(out topicHandle)) {
+            postHandle = null;
+            return false;
+            }
+        return topicHandle.TryGetPost(SecondId, out postHandle);
+
+        }
 
     }

@@ -42,7 +42,7 @@ public class ResourceHandle : ForumHandle {
 
     #region // Properties
 
-    public override string Anchor => $"/{PalimpsestConstants.Document}/{PlaceHandle.Uid}/{CatalogedResource.Uid}";
+    public override string Anchor => CatalogedResource.LocalPath;
    
 
     public List<IAnnotation> Annotations = [];
@@ -70,7 +70,7 @@ public class ResourceHandle : ForumHandle {
     #endregion
 
 
-    public CatalogedForum CatalogedResource => CatalogedEntry;
+    public CatalogedResource CatalogedResource => CatalogedEntry as CatalogedResource;
     public PlaceHandle PlaceHandle { get; }
 
     #endregion
