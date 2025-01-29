@@ -34,7 +34,7 @@ public class FormDataAcceptTerms : FormData {
     ///<inheritdoc/>
     protected override FormItem[] Items => items;
     static readonly FormItem[] items = [
-        new ("from", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).From = s as string),
+        new ("nonce", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).Nonce = s as string),
         new ("handle", FormEntryType.String, (form, s) => ((FormDataAcceptTerms)form).Handle = s as string),
         new ("agree", FormEntryType.Boolean, (form, s) => ((FormDataAcceptTerms)form).Agree = s as string)
         ];
@@ -43,7 +43,7 @@ public class FormDataAcceptTerms : FormData {
     public bool Insist { get; set; } = false;
 
     ///<summary>The URL to return to.</summary> 
-    public string? From { get;  set; }
+    public string? Nonce { get;  set; }
 
     ///<summary>The username.</summary> 
     public string? Handle { get;  set; }

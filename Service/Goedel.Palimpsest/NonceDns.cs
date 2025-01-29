@@ -64,11 +64,11 @@ public record NonceDns(
 
     //=> $"https://{host}/{local}?nonce={Nonce}&dns={Place}";
     //public string UriHandle(string handle, string local) => $"https://{Dns}/{local}?nonce={Nonce}&dns={handle}";
-    public static NonceDns Parse(string query) {
+    public static NonceDns Parse(string query, string handle=null) {
         var paramsCollection = HttpUtility.ParseQueryString(query);
         var nonce = paramsCollection["nonce"];
         var host = paramsCollection["place"];
-        var handle = paramsCollection["handle"];
+        handle ??= paramsCollection["handle"];
 
         return new NonceDns(nonce, host, handle);
         }

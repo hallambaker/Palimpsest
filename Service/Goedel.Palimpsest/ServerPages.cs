@@ -197,8 +197,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 				_Output.Write ("    <p class=\"form-error\">You MUST accept the terms to continue.</p>\n{0}", _Indent);
 				}
 			_Output.Write ("\n{0}", _Indent);
-			if (  prefill.From is not null ) {
-				_Output.Write ("        <input type=\"hidden\" id=\"from\" name=\"from\" value=\"{1}\" />    \n{0}", _Indent, prefill.From);
+			if (  prefill.Nonce is not null ) {
+				_Output.Write ("        <input type=\"hidden\" id=\"nonce\" name=\"nonce\" value=\"{1}\" />    \n{0}", _Indent, prefill.Nonce);
 				}
 			_Output.Write ("    \n{0}", _Indent);
 			_Output.Write ("        <input type=\"checkbox\", id=\"agree\", name=\"agree\", value=\"true\">  <label for=\"fname\">I agree to these terms and conditions.</label>\n{0}", _Indent);
@@ -299,9 +299,15 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// PageMember
 	/// </summary>
 	/// <param name="member"></param>
-	public void PageMember (CatalogedForumEntry member) {
+	public void PageMember (CatalogedForumMember member) {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Member: {1}</h1>\n{0}", _Indent, member.LocalName);
+		_Output.Write ("\n{0}", _Indent);
+		if (  member.MeshAddress is not null ) {
+			_Output.Write ("<p>{1}</p>\n{0}", _Indent, member.MeshAnchor);
+			}
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
 		}
 	
@@ -320,8 +326,7 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		foreach  (var reaction in topic.Posts) {
 			if (  (reaction is CatalogedPost post) ) {
-				_Output.Write ("    <tr><td>\n{0}", _Indent);
-				_Output.Write ("    <a href={1}>{2}</a>\n{0}", _Indent, GetMemberAnchor(post.MemberId), GetMemberLabel(post.MemberId));
+				_Output.Write ("    <tr><td>{1}\n{0}", _Indent, Forum.GetMemberAnchor(post.MemberId));
 				_Output.Write ("    </td><td>\n{0}", _Indent);
 				_Output.Write ("        <a href={1}>{2}</a>\n{0}", _Indent, topic.GetPostAnchor(post), post.Subject);
 				_Output.Write ("\n{0}", _Indent);

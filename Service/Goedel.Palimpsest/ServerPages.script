@@ -168,8 +168,8 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
     <p class="form-error">You MUST accept the terms to continue.</p>
 #end if
 
-#if prefill.From is not null
-        <input type="hidden" id="from" name="from" value="#{prefill.From}" />    
+#if prefill.Nonce is not null
+        <input type="hidden" id="nonce" name="nonce" value="#{prefill.Nonce}" />    
 #end if
     
         <input type="checkbox", id="agree", name="agree", value="true">  <label for="fname">I agree to these terms and conditions.</label>
@@ -255,9 +255,15 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
-#method PageMember CatalogedForumEntry member
+#method PageMember CatalogedForumMember member
 <div class="container">
   <h1>Member: #{member.LocalName}</h1>
+
+#if member.MeshAddress is not null
+<p>#{member.MeshAnchor}</p>
+#end if
+
+
 </div>
 #end method
 
@@ -273,8 +279,7 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 
 #foreach (var reaction in topic.Posts)
 #if (reaction is CatalogedPost post)
-    <tr><td>
-    <a href=#{GetMemberAnchor(post.MemberId)}>#{GetMemberLabel(post.MemberId)}</a>
+    <tr><td>#{Forum.GetMemberAnchor(post.MemberId)}
     </td><td>
         <a href=#{topic.GetPostAnchor(post)}>#{post.Subject}</a>
 

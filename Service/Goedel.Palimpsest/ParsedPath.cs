@@ -39,6 +39,9 @@ public record ParsedPath {
 
     public MemberHandle? Member { get; set; }
 
+    public string MemberId => Member.CatalogedMember._PrimaryKey;
+
+
     public bool SignedIn => Member!= null;
 
     public string Command { get; }

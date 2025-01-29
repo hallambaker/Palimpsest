@@ -37,14 +37,14 @@ namespace Goedel.Palimpsest;
 /// The class tracking the status of a forum, all interactions with the forum 
 /// take place through this lens
 /// </summary>
-public class Forum :Disposable {
+public class Forum : Disposable {
 
     // crib https://infisical.com/blog/guide-to-implementing-oauth2
 
 
     #region // Properties
 
-    public string Name { get; set; } 
+    public string Name { get; set; }
 
 
 
@@ -77,7 +77,7 @@ public class Forum :Disposable {
 
     //public BoilerplateHtml TermsAndConditions { get; set; }
     //        = new BoilerplateHtml() {
-                
+
     //            };
 
     #endregion
@@ -100,15 +100,15 @@ public class Forum :Disposable {
     /// </summary>
     /// <param name="directory"></param>
     Forum(
-                string directory, 
+                string directory,
                 string resources,
                 string name) {
         DirectoryPath = directory;
         Resources = resources;
         Name = name;
 
-        CatalogProjects = new (this, directory);
-        CatalogMembers= new (this, directory);
+        CatalogProjects = new(this, directory);
+        CatalogMembers = new(this, directory);
 
         }
 
@@ -130,7 +130,7 @@ public class Forum :Disposable {
         catalogProjects.Dispose();
         catalogMembers.Dispose();
 
-        var result =  new Forum(directory, resources, name);
+        var result = new Forum(directory, resources, name);
         return result;
         }
 
@@ -239,7 +239,7 @@ public class Forum :Disposable {
     public MemberHandle GetOrCreateMember(
                     string handle,
                     string did,
-                    string? profileUdf=null) {
+                    string? profileUdf = null) {
         if (CatalogMembers.TryGetByLocalName(handle, out var memberHandle)) {
             return memberHandle;
             }
@@ -248,9 +248,9 @@ public class Forum :Disposable {
             Did = did,
             ProfileUdf = profileUdf
             };
-        return AddMember (cataloged, null);
+        return AddMember(cataloged, null);
         }
-                
+
 
 
     public MemberHandle AddMember(
@@ -279,6 +279,20 @@ public class Forum :Disposable {
         var memberHandle = new MemberHandle(member);
         //memberHandle.AccessCookie = MakeAccessCookie(member);
         return memberHandle;
+        }
+
+
+
+
+    public string GetMemberAnchor(
+                string memberId) {
+        if (!CatalogMembers.TryGetByUid(memberId, out var member)) {
+            return "Deleted";
+            }
+        return $"<a href=\"/{PalimpsestConstants.User}/{member.LocalName}\">{member.LocalName}</a>";
+
+
+        //< a href =#{GetMemberAnchor(post.MemberId)}>#{GetMemberLabel(post.MemberId)}</a>
         }
 
 
@@ -321,7 +335,7 @@ public class Forum :Disposable {
 
         var handle = CatalogProjects.Create(project);
         Directory.CreateDirectory(handle.ProjectDirectory);
-        handle.CatalogForums = new CachedDocuments(handle, create:true);
+        handle.CatalogForums = new CachedDocuments(handle, create: true);
 
         return handle;
         }
@@ -346,7 +360,14 @@ public class Forum :Disposable {
                     out PlaceHandle project) => CatalogProjects.TryGetByLocalName(id, out project);
     public bool TryGetMemberRecord(
             ParsedPath path,
-              out CatalogedForumMember member) => TryGetMember(path.FirstId, out member);
+              out CatalogedForumMember member) {
+        if (CatalogMembers.TryGetByLocalName(path.FirstId, out var handle)) {
+            member = handle.CatalogedMember;
+            return true;
+            }
+        member = null;
+        return false;
+        }
 
     public bool TryGetTopic(
                 ParsedPath path,

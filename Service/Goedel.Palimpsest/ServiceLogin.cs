@@ -117,7 +117,7 @@ public partial class AnnotationService {
         var nonceDns = new NonceDns(nonce, Place: PlaceIsForum, Handle: handle);
 
         var prefill = new FormDataAcceptTerms() {
-            From = nonceDns.State(),
+            Nonce = nonceDns.State(),
             Handle = handle,
             };
 
@@ -178,7 +178,7 @@ public partial class AnnotationService {
         var annotations = Annotations.Get(this, path);
 
         var prefill = new FormDataAcceptTerms() {
-            From = nonceDns.State(),
+            Nonce = nonceDns.State(),
             Handle = nonceDns.Handle,
             };
 
@@ -270,8 +270,11 @@ public partial class AnnotationService {
         var fields = new FormDataAcceptTerms();
         var annotations = Annotations.PostForm(this, fields, path);
 
+        var nonceDns = NonceDns.Parse(fields.Nonce, fields.Handle);
+
+
         if (fields.Agree == "true") {
-            await OAuthSignIn(annotations, context, fields.Handle, fields.From);
+            await OAuthSignIn(annotations, context, fields.Handle, nonceDns.State());
             return;
             // redirect to the oauth thingie here
             //await OAuthSignIn(annotations, context, fields.From, fields.Username);

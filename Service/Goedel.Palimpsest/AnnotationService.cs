@@ -196,7 +196,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.Document, new (GetDocument) },
             { PalimpsestConstants.Topic, new (GetTopic) },
             { PalimpsestConstants.Post, new (GetPost) },
-            { PalimpsestConstants.User, new (GetUser) },
+            { PalimpsestConstants.User, new (GetUser, false) },
 
             { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
             { PalimpsestConstants.CreatePlacePost, new (PostCreatePlace) },
@@ -300,7 +300,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #region // Header and footer
 
     public async Task PageHeader(Annotations annotations) {
-        var title = $"@{annotations.ParsedPath.Placename} as {annotations.AccountHandle}";
+        var title = $"@{annotations.ParsedPath?.Placename} as {annotations.AccountHandle}";
 
         annotations.StartPage(title);
         annotations.HeaderNavigation(NavigationMain, -1);
@@ -514,12 +514,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     public async Task GetUser(
                 ParsedPath path) {
-        var context = path.Context;
 
-        var annotations = Annotations.Get(this, context, path);
+
+        var annotations = Annotations.Get(this, path);
 
         if (!Forum.TryGetMemberRecord(path, out var memberHandle)) {
-            await Error(context, null);
+            await Error(path.Context, null);
             return;
             }
 
@@ -740,7 +740,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         var response = new CatalogedAnnotation() {
             Uid = Udf.Nonce(),
-            MemberId = path.Member.Uid,
+            MemberId = path.MemberId,
             Text = fields.Comment,
             Anchor = fields.FragmentId,
             Semantic = fields.Semantic
@@ -763,7 +763,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var response = new CatalogedPost() {
             Uid = Udf.Nonce(),
             Added = DateTime.UtcNow,
-            MemberId = path.Member.Uid,
+            MemberId = path.MemberId,
             Text = fields.Comment,
             Subject = fields.Subject,
             Semantic = fields.Semantic
@@ -786,7 +786,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         var response = new CatalogedComment() {
             Uid = Udf.Nonce(),
-            MemberId = path.Member.Uid,
+            MemberId = path.MemberId,
             Text = fields.Comment,
             Added = DateTime.UtcNow
             };

@@ -27,6 +27,14 @@ public partial class CatalogedForumMember {
 
 
 
+    public string MeshAddress => LocalName switch
+        {
+            "phill.hallambaker.com" => "mesh:MAYF-D7LJ-5IMP-EUCG-HSGH-7LSR-AAPZ@example.com",
+            _ => null};
+
+    public string MeshAnchor => MeshAddress == null ? "" :
+        $"<a href=\"{MeshAddress}\">{MeshAddress}</a>";
+
     ///<inheritdoc/>
     public override string _PrimaryKey => Did;
     public void SetPasswordDigest(

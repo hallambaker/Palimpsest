@@ -37,6 +37,9 @@ public class MemberHandle : CachedHandle<CatalogedForumMember> {
 
     public ForumPermissions Permissions { get; set; }
 
+
+
+
     public string PermissionLabel =>
         Permissions switch {
             ForumPermissions.User => "User",
@@ -58,6 +61,9 @@ public class MemberHandle : CachedHandle<CatalogedForumMember> {
             Permissions = ForumPermissions.User;
             }
         }
+
+
+
 
 
     }
