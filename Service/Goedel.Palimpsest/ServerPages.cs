@@ -296,15 +296,17 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		}
 	
 	/// <summary>	
-	/// PageMember
+	/// PageVisitor
 	/// </summary>
-	/// <param name="member"></param>
-	public void PageMember (CatalogedForumMember member) {
+	/// <param name="visitor"></param>
+	public void PageVisitor (CatalogedForumMember visitor) {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Member: {1}</h1>\n{0}", _Indent, member.LocalName);
+		_Output.Write ("  <h1>Visitor: {1}</h1>\n{0}", _Indent, visitor.LocalName);
 		_Output.Write ("\n{0}", _Indent);
-		if (  member.MeshAddress is not null ) {
-			_Output.Write ("<p>{1}</p>\n{0}", _Indent, member.MeshAnchor);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("  <p><a href=\"https://bsky.app/profile/{1}\">Blue Sky profile</a></p>\n{0}", _Indent, visitor.LocalName);
+		if (  visitor.MeshAddress is not null ) {
+			_Output.Write ("<p>{1}</p>\n{0}", _Indent, visitor.MeshAnchor);
 			}
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
@@ -496,6 +498,8 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		if (  mode==CommentMode.Post ) {
 			  target = path.GetPostTarget();
 			_Output.Write ("<h1>Make a post</h1>\n{0}", _Indent);
+			} else if (  mode==CommentMode.Annotation) {
+			  target = path.GetMainCommentTarget();
 			} else {
 			  target = path.GetCommentTarget();
 			_Output.Write ("<h1>Enter a comment</h1>\n{0}", _Indent);

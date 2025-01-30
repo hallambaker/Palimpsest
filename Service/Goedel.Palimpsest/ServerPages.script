@@ -255,12 +255,14 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
-#method PageMember CatalogedForumMember member
+#method PageVisitor CatalogedForumMember visitor
 <div class="container">
-  <h1>Member: #{member.LocalName}</h1>
+  <h1>Visitor: #{visitor.LocalName}</h1>
 
-#if member.MeshAddress is not null
-<p>#{member.MeshAnchor}</p>
+
+  <p><a href="https://bsky.app/profile/#{visitor.LocalName}">Blue Sky profile</a></p>
+#if visitor.MeshAddress is not null
+<p>#{visitor.MeshAnchor}</p>
 #end if
 
 
@@ -438,6 +440,8 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #if mode==CommentMode.Post
 #%  target = path.GetPostTarget();
 <h1>Make a post</h1>
+#elseif mode==CommentMode.Annotation
+#%  target = path.GetMainCommentTarget();
 #else
 #%  target = path.GetCommentTarget();
 <h1>Enter a comment</h1>

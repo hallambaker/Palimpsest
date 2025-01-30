@@ -140,9 +140,9 @@ public class PostHandle : CachedHandle<CatalogedPost> {
     PlaceHandle ProjectHandle=> TopicHandle.ProjectHandle;
 
 
-    public  string Anchor => $"/{PalimpsestConstants.Post}/{ProjectHandle.Uid}/{TopicHandle.Uid}/{CatalogedEntry.Uid}";
+    public  string Anchor => $"/{PalimpsestConstants.Post}/{TopicHandle.Uid}/{CatalogedEntry.Uid}";
 
-    public string NewComment => "/" + PalimpsestConstants.CreatePostComment + "/" + ProjectHandle.Uid +
+    public string NewComment => "/" + PalimpsestConstants.CreatePostComment + 
         "/" + TopicHandle.Uid + "/" + CatalogedEntry.Uid;
 
 

@@ -196,7 +196,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             { PalimpsestConstants.Document, new (GetDocument) },
             { PalimpsestConstants.Topic, new (GetTopic) },
             { PalimpsestConstants.Post, new (GetPost) },
-            { PalimpsestConstants.User, new (GetUser, false) },
+            { PalimpsestConstants.User, new (GetVisitor, false) },
 
             { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
             { PalimpsestConstants.CreatePlacePost, new (PostCreatePlace) },
@@ -512,7 +512,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
 
-    public async Task GetUser(
+    public async Task GetVisitor(
                 ParsedPath path) {
 
 
@@ -525,7 +525,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
         await PageHeader(annotations);
-        annotations.PageMember(memberHandle);
+        annotations.PageVisitor(memberHandle);
         await PageFooter(annotations);
 
         await Task.CompletedTask;
@@ -561,7 +561,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             bool commentForm = true) {
 
         annotations.StartPage($"{Forum.Name}: Document {resourceHandle.LocalName}", "annotate.js");
-        var anchor = $"/Comment/{resourceHandle.PlaceHandle.Uid}/{resourceHandle.Uid}";
+        var anchor = $"/Comment/{resourceHandle.Uid}";
 
         try {
             resourceHandle.ParsedContent.ToHTML(annotations._Output,

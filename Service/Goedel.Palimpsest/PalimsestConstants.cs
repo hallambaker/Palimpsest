@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 1/29/2025 6:33:02 PM
+//  This file was automatically generated at 1/30/2025 4:08:01 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -188,7 +188,7 @@ public static partial class PalimpsestConstants {
 
     ///<summary>
     ///</summary>
-    public const string User = "User";
+    public const string User = "Visitor";
 
     ///<summary>
     ///</summary>

@@ -140,7 +140,8 @@ public record ParsedPath {
     public string GetPostTarget() =>
     $"/{PalimpsestConstants.PostPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
 
-
+    public string GetMainCommentTarget() =>
+    $"/{PalimpsestConstants.CommentPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
 
     public string GetCommentTarget() =>
         $"/{PalimpsestConstants.PostCommentPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
