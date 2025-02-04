@@ -37,7 +37,9 @@ global using System.Net;
 global using System.Text.Json;
 global using System.IO;
 
+#if !(_Github_)
 [assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]
+#endif
 
 namespace Goedel.Palimpsest;
 /// <summary>
