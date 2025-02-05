@@ -299,14 +299,31 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// PageVisitor
 	/// </summary>
 	/// <param name="visitor"></param>
-	public void PageVisitor (CatalogedForumMember visitor) {
+	/// <param name="services"></param>
+	public void PageVisitor (CatalogedForumMember visitor, DnsHandleServices services) {
+		 var handle = services.Handle;
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Visitor: {1}</h1>\n{0}", _Indent, visitor.LocalName);
+		_Output.Write ("  <h1>Visitor: {1}</h1>\n{0}", _Indent, handle);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <table>\n{0}", _Indent);
+		if (  (services.Http is not null) ) {
+			 var place = "https://" + handle +"/";
+			_Output.Write ("        <tr><td>Personal Place</td><td><a href=\"place\">{1}</a></td></tr>\n{0}", _Indent, place);
+			}
+		if (  (services.Atprotocol is not null)  ) {
+			_Output.Write ("        <tr><td>ATmosphere</td><td><a href=\"https://bsky.app/profile/{1}\">On Blue Sky</a></td></tr>\n{0}", _Indent, handle);
+			}
+		if (  (services.Oauth is not null)          ) {
+			_Output.Write ("        <tr><td>@nywhere login</td><td>{1}</td></tr>\n{0}", _Indent, services.Oauth.Did ?? "Invalid");
+			}
+		if (  (services.Mesh is not null)  ) {
+			_Output.Write ("        <tr><td>Mesh Direct Service Address</td><td>{1}</td></tr>\n{0}", _Indent, services.Mesh.Dsa);
+			}
+		_Output.Write ("    </table>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("  <p><a href=\"https://bsky.app/profile/{1}\">Blue Sky profile</a></p>\n{0}", _Indent, visitor.LocalName);
-		if (  visitor.MeshAddress is not null ) {
-			_Output.Write ("<p>{1}</p>\n{0}", _Indent, visitor.MeshAnchor);
+		if (  visitor is not null ) {
+			_Output.Write ("<p>Has visited.</p>\n{0}", _Indent);
 			}
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);

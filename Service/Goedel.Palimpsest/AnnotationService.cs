@@ -22,6 +22,8 @@
 
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 
+using Goedel.Discovery;
+
 using System.Runtime.Serialization.DataContracts;
 
 namespace Goedel.Palimpsest;
@@ -117,6 +119,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     ///<inheritdoc/>
     //public Dictionary<string, WebResource<ParsedPath>> BuiltInMap { get; }
     public Dictionary<string, WebResource<ParsedPath>> ResourceMap { get; }
+
+
+    public TextWriter LogFile { get; set; }
     #endregion
     #region // Constructor
 
@@ -189,13 +194,13 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
             // private pages, requires log in
 
-            { PalimpsestConstants.Place, new (GetPlace) },
+            { PalimpsestConstants.Place, new (GetPlace,false) },
             { PalimpsestConstants.AddDocument, new (GetAddDocument) },
             { PalimpsestConstants.AddTopic, new (GetAddTopic) },
 
-            { PalimpsestConstants.Document, new (GetDocument) },
-            { PalimpsestConstants.Topic, new (GetTopic) },
-            { PalimpsestConstants.Post, new (GetPost) },
+            { PalimpsestConstants.Document, new (GetDocument,false) },
+            { PalimpsestConstants.Topic, new (GetTopic,false) },
+            { PalimpsestConstants.Post, new (GetPost,false) },
             { PalimpsestConstants.User, new (GetVisitor, false) },
 
             { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
@@ -244,11 +249,21 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public void Start() {
         HttpListener.Start();
         Console.WriteLine($"Listening {HttpEndpoint}");
+
+        var now = DateTime.UtcNow.ToFileSpec();
+        var logfile = $"Log{now}.log";
+
+        var logStream = logfile.OpenFileAppendShare();
+        LogFile = new StreamWriter(logStream);
+
+
         while (true) {
             HttpListenerContext context = HttpListener.GetContext();
             var task = HandleRequest(context);
             }
         }
+
+    private int transactionCount = 0;
 
     ///<summary>Handle request asynchronously.</summary> 
     private async Task HandleRequest(HttpListenerContext context) {
@@ -263,6 +278,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             }
 
         var path = new ParsedPath(context, Forum);
+
+        var transactionId = Interlocked.Increment(ref transactionCount);
+        var start = DateTime.UtcNow;
+        var logEntry = $"{transactionId} {start.ToRFC3339()} {path.RealIp} {path.ExternalUri}";
+        LogFile.WriteLine(logEntry);
+        LogFile.Flush();
 
         Console.WriteLine($"Request {request.UserHostName} {request.Url.LocalPath} from  {path.RealIp}");
         Console.WriteLine($"   Start {path.Command} Place {path.FirstId} Document {path.SecondId}");
@@ -517,15 +538,17 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
         var annotations = Annotations.Get(this, path);
+        var domain = path.VisitorId;
 
-        if (!Forum.TryGetMemberRecord(path, out var memberHandle)) {
-            await Error(path.Context, null);
-            return;
-            }
+        var visited = Forum.TryGetMemberRecord(path, out var memberHandle);
+
+        var services = await ParsedHandle.GetServices(domain);
+
+
 
 
         await PageHeader(annotations);
-        annotations.PageVisitor(memberHandle);
+        annotations.PageVisitor(memberHandle, services);
         await PageFooter(annotations);
 
         await Task.CompletedTask;

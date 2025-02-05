@@ -255,19 +255,35 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
-#method PageVisitor CatalogedForumMember visitor
+#method2 PageVisitor CatalogedForumMember visitor DnsHandleServices services
+#% var handle = services.Handle;
 <div class="container">
-  <h1>Visitor: #{visitor.LocalName}</h1>
+  <h1>Visitor: #{handle}</h1>
+
+    <table>
+#if (services.Http is not null)
+#% var place = "https://" + handle +"/";
+        <tr><td>Personal Place</td><td><a href=#"place">#{place}</a></td></tr>
+#end if
+#if (services.Atprotocol is not null) 
+        <tr><td>ATmosphere</td><td><a href="https://bsky.app/profile/#{handle}">On Blue Sky</a></td></tr>
+#end if
+#if (services.Oauth is not null)         
+        <tr><td>@nywhere login</td><td>#{services.Oauth.Did ?? "Invalid"}</td></tr>
+#end if
+#if (services.Mesh is not null) 
+        <tr><td>Mesh Direct Service Address</td><td>#{services.Mesh.Dsa}</td></tr>
+#end if
+    </table>
 
 
-  <p><a href="https://bsky.app/profile/#{visitor.LocalName}">Blue Sky profile</a></p>
-#if visitor.MeshAddress is not null
-<p>#{visitor.MeshAnchor}</p>
+#if visitor is not null
+<p>Has visited.</p>
 #end if
 
 
 </div>
-#end method
+#end method2
 
 
 #method PageTopic TopicHandle topic

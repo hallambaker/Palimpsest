@@ -62,6 +62,9 @@ public record ParsedPath {
     ///<summary>Holds the project ID or the static resource name</summary> 
     public string FirstId { get; }
 
+
+    public string VisitorId => FirstId;
+
     /////<summary>The project Id is always the first in the path</summary> 
     //public string ProjectId => FirstId;
 
