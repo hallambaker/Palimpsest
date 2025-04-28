@@ -299,6 +299,9 @@ public partial class AnnotationService {
         // Return uri defaults to the home page.
         returnUri ??= "/";
 
+
+
+
         // Perform OAUTH Push
         var redirect = await OauthClient.PreRequest(userHandle, returnUri);
 

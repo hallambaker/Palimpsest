@@ -112,6 +112,26 @@ public partial class Annotations {
                     string path) {
         }
 
+    public static string GetLabel(OnlineService service) {
+
+        if (service.Label is not null && service.Label.Length > 0) {
+            return service.Label;
+            }
+
+        return service.Service.ToLower() switch {
+
+            "smime" => "S/Mime Sign",
+            "smime_encrypt" => "S/Mime Encrypt",
+            "openpgp" => "OpenPGP Sign",
+            "openpgp_sub" => "OpenPGP Encrypt",
+            _ => service.Service
+            };
+
+
+        }
+
+
+
     public static void PostComment(
                 AnnotationService annotation,
                 HttpListenerContext context) {

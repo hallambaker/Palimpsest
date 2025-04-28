@@ -119,6 +119,24 @@ public record ParsedPath {
             return;
             }
 
+        if (split[1] == ".well-known") {
+            Command = ".well-known";
+            if (split.Length < 3) {
+                SecondId = null;
+                return;
+                }
+            SecondId = split[2];
+
+            if (split.Length < 4) {
+                SecondId = null;
+                return;
+                }
+            SecondId = split[3];
+            return;
+            }
+
+
+
         var extension = Path.GetExtension(split[1]);
         if (extension.Length > 0) {
             Command = "resources";

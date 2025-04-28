@@ -34,6 +34,7 @@ global using Goedel.Cryptography.Oauth;
 global using Goedel.Cryptography;
 global using Goedel.Cryptography.Algorithms;
 global using Goedel.Protocol;
+global using Goedel.Contacts;
 global using Goedel.Discovery;
 global using Goedel.Mesh;
 global using Goedel.Utilities;

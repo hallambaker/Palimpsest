@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 2/2/2025 3:06:38 PM
+//  This file was automatically generated at 3/9/2025 5:29:24 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -79,7 +79,12 @@ public abstract partial class AdminShellResult : global::Goedel.Protocol.JsonObj
 	    {"ResultAbout", ResultAbout._Factory}
 		};
 
-    [ModuleInitializer]
+	///<summary>Variable used to force static initialization</summary> 
+	public static bool _Initialized => true;
+
+	static AdminShellResult() {
+		_Initialize();
+		}
 
     internal static void _Initialize() => AddDictionary(ref _tagDictionary);
 
@@ -101,6 +106,7 @@ public abstract partial class AdminShellResult : global::Goedel.Protocol.JsonObj
 
 
 	// Transaction Classes
+
 	/// <summary>
 	///
 	/// Placeholder class to allow insertion of application specific properties.
@@ -122,7 +128,7 @@ public partial class Result : ShellResult {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, ShellResult._StaticAllProperties);
+			Combine(ShellResult._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -176,6 +182,7 @@ public partial class Result : ShellResult {
 
 	}
 
+
 	/// <summary>
 	/// </summary>
 public partial class ResultServiceConfiguration : Result {
@@ -195,7 +202,7 @@ public partial class ResultServiceConfiguration : Result {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, Result._StaticAllProperties);
+			Combine(Result._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -249,48 +256,49 @@ public partial class ResultServiceConfiguration : Result {
 
 	}
 
+
 	/// <summary>
 	/// </summary>
 public partial class ResultAbout : Result {
         /// <summary>
         /// </summary>
 
-	public virtual string?						DirectoryKeys  {get; set;}
+	public virtual string?					DirectoryKeys  {get; set;}
 
         /// <summary>
         /// </summary>
 
-	public virtual string?						DirectoryMesh  {get; set;}
+	public virtual string?					DirectoryMesh  {get; set;}
 
         /// <summary>
         /// </summary>
 
-	public virtual string?						AssemblyTitle  {get; set;}
+	public virtual string?					AssemblyTitle  {get; set;}
 
         /// <summary>
         /// </summary>
 
-	public virtual string?						AssemblyDescription  {get; set;}
+	public virtual string?					AssemblyDescription  {get; set;}
 
         /// <summary>
         /// </summary>
 
-	public virtual string?						AssemblyCopyright  {get; set;}
+	public virtual string?					AssemblyCopyright  {get; set;}
 
         /// <summary>
         /// </summary>
 
-	public virtual string?						AssemblyCompany  {get; set;}
+	public virtual string?					AssemblyCompany  {get; set;}
 
         /// <summary>
         /// </summary>
 
-	public virtual string?						AssemblyVersion  {get; set;}
+	public virtual string?					AssemblyVersion  {get; set;}
 
         /// <summary>
         /// </summary>
 
-	public virtual string?						Build  {get; set;}
+	public virtual string?					Build  {get; set;}
 
 
 
@@ -324,7 +332,7 @@ public partial class ResultAbout : Result {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, Result._StaticAllProperties);
+			Combine(Result._binding, _binding);
 
 
     ///<inheritdoc/>

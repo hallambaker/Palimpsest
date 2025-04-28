@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)Settings/CommonSettingsTest.xml" />
+	<PropertyGroup>
+		<DefineConstants>_Github_</DefineConstants>
+	</PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography\Goedel.Cryptography.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Debug\Goedel.Debug.csproj" />

@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 2/7/2025 1:05:14 PM
+//  This file was automatically generated at 4/28/2025 5:41:27 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -94,7 +94,12 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	    {"Terms", Terms._Factory}
 		};
 
-    [ModuleInitializer]
+	///<summary>Variable used to force static initialization</summary> 
+	public static bool _Initialized => true;
+
+	static ForumItem() {
+		_Initialize();
+		}
 
     internal static void _Initialize() => AddDictionary(ref _tagDictionary);
 
@@ -116,6 +121,7 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 
 
 	// Transaction Classes
+
 	/// <summary>
 	///
 	/// 
@@ -124,7 +130,7 @@ public partial class CatalogedForumEntry : CatalogedEntry {
         /// <summary>
         /// </summary>
 
-	public virtual DateTime?						Added  {get; set;}
+	public virtual DateTime?					Added  {get; set;}
 
         /// <summary>
         ///Tag value attributes allowing entry description to be extended.
@@ -144,7 +150,7 @@ public partial class CatalogedForumEntry : CatalogedEntry {
 					(IBinding data, DateTime? value) => {(data as CatalogedForumEntry).Added = value;}, (IBinding data) => (data as CatalogedForumEntry).Added )},
 			{ "Entries", new PropertyListStruct ("Entries", 
 					(IBinding data, object? value) => {(data as CatalogedForumEntry).Entries = value as List<EntryAttibutes>;}, (IBinding data) => (data as CatalogedForumEntry).Entries,
-					false, ()=>new  List<EntryAttibutes>(), ()=>new EntryAttibutes())} 
+					false, ()=>new  List<EntryAttibutes>(), ()=>new EntryAttibutes())}
         }, __Tag,() => new CatalogedForumEntry(), CatalogedEntry._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
@@ -152,7 +158,7 @@ public partial class CatalogedForumEntry : CatalogedEntry {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedEntry._StaticAllProperties);
+			Combine(CatalogedEntry._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -206,6 +212,7 @@ public partial class CatalogedForumEntry : CatalogedEntry {
 
 	}
 
+
 	/// <summary>
 	///
 	/// Tag value attributes allowing entry description to be extended.
@@ -215,13 +222,13 @@ public partial class EntryAttibutes : ForumItem {
         ///The attribute type
         /// </summary>
 
-	public virtual string?						Tag  {get; set;}
+	public virtual string?					Tag  {get; set;}
 
         /// <summary>
         ///The attribute value
         /// </summary>
 
-	public virtual string?						Value  {get; set;}
+	public virtual string?					Value  {get; set;}
 
 
 
@@ -296,6 +303,7 @@ public partial class EntryAttibutes : ForumItem {
 
 	}
 
+
 	/// <summary>
 	///
 	/// A cataloged project.
@@ -305,7 +313,7 @@ public partial class CatalogedPlace : CatalogedForumEntry {
         ///The forum to which the place belongs.
         /// </summary>
 
-	public virtual string?						ParentForum  {get; set;}
+	public virtual string?					ParentForum  {get; set;}
 
         /// <summary>
         /// </summary>
@@ -338,7 +346,7 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedForumEntry._StaticAllProperties);
+			Combine(CatalogedForumEntry._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -392,6 +400,7 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 
 	}
 
+
 	/// <summary>
 	///
 	/// 
@@ -401,31 +410,31 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
         ///The user's Did (if used).
         /// </summary>
 
-	public virtual string?						Did  {get; set;}
+	public virtual string?					Did  {get; set;}
 
         /// <summary>
         ///The user's fingerprint profile (if known).
         /// </summary>
 
-	public virtual string?						ProfileUdf  {get; set;}
+	public virtual string?					ProfileUdf  {get; set;}
 
         /// <summary>
         ///The digest of the user's password
         /// </summary>
 
-	public virtual byte[]?						PasswordDigest  {get; set;}
+	public virtual byte[]?					PasswordDigest  {get; set;}
 
         /// <summary>
         ///The user's Mesh contact (if provided). 
         /// </summary>
 
-	public virtual byte[]?						Contact  {get; set;}
+	public virtual byte[]?					Contact  {get; set;}
 
         /// <summary>
         ///The member's status: Active / Inactive / Blocked
         /// </summary>
 
-	public virtual string?						Status  {get; set;}
+	public virtual string?					Status  {get; set;}
 
         /// <summary>
         ///Assigned privileges (Admin / Moderator)
@@ -460,7 +469,7 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedForumEntry._StaticAllProperties);
+			Combine(CatalogedForumEntry._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -514,6 +523,7 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 
 	}
 
+
 	/// <summary>
 	/// </summary>
 public partial class CatalogedForum : CatalogedForumEntry {
@@ -533,7 +543,7 @@ public partial class CatalogedForum : CatalogedForumEntry {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedForumEntry._StaticAllProperties);
+			Combine(CatalogedForumEntry._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -587,6 +597,7 @@ public partial class CatalogedForum : CatalogedForumEntry {
 
 	}
 
+
 	/// <summary>
 	///
 	/// A cataloged topic.
@@ -608,7 +619,7 @@ public partial class CatalogedTopic : CatalogedForum {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedForum._StaticAllProperties);
+			Combine(CatalogedForum._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -662,6 +673,7 @@ public partial class CatalogedTopic : CatalogedForum {
 
 	}
 
+
 	/// <summary>
 	///
 	/// A cataloged resource.
@@ -671,26 +683,26 @@ public partial class CatalogedResource : CatalogedForum {
         ///The IANA content type
         /// </summary>
 
-	public virtual string?						ContentType  {get; set;}
+	public virtual string?					ContentType  {get; set;}
 
         /// <summary>
         ///The series identifier, if this item is a part of a versioned series.
         /// </summary>
 
-	public virtual string?						SeriesId  {get; set;}
+	public virtual string?					SeriesId  {get; set;}
 
         /// <summary>
         ///The version indicator. This SHOULD be unique among resources with the
         ///same series identifier.
         /// </summary>
 
-	public virtual string?						Version  {get; set;}
+	public virtual string?					Version  {get; set;}
 
         /// <summary>
         ///If not false, the resource may be annotated.
         /// </summary>
 
-	public virtual bool?						Annotatable  {get; set;}
+	public virtual bool?					Annotatable  {get; set;}
 
 
 
@@ -716,7 +728,7 @@ public partial class CatalogedResource : CatalogedForum {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedForum._StaticAllProperties);
+			Combine(CatalogedForum._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -770,6 +782,7 @@ public partial class CatalogedResource : CatalogedForum {
 
 	}
 
+
 	/// <summary>
 	///
 	/// A cataloged resource represented by a file with associated data.
@@ -792,7 +805,7 @@ public partial class CatalogedFile : CatalogedResource {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedResource._StaticAllProperties);
+			Combine(CatalogedResource._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -846,6 +859,7 @@ public partial class CatalogedFile : CatalogedResource {
 
 	}
 
+
 	/// <summary>
 	///
 	/// Collects a group of related resources together into a series.
@@ -867,7 +881,7 @@ public partial class CatalogedSeries : CatalogedResource {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedResource._StaticAllProperties);
+			Combine(CatalogedResource._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -921,6 +935,7 @@ public partial class CatalogedSeries : CatalogedResource {
 
 	}
 
+
 	/// <summary>
 	///
 	/// A cataloged event. This may be an online event, an inperson
@@ -931,31 +946,31 @@ public partial class CatalogedEvent : CatalogedResource {
         ///Event venue: Online/Meetup/Hybrid
         /// </summary>
 
-	public virtual string?						Venue  {get; set;}
+	public virtual string?					Venue  {get; set;}
 
         /// <summary>
         ///Start date for the event
         /// </summary>
 
-	public virtual DateTime?						Start  {get; set;}
+	public virtual DateTime?					Start  {get; set;}
 
         /// <summary>
         ///End date for the event
         /// </summary>
 
-	public virtual DateTime?						Finish  {get; set;}
+	public virtual DateTime?					Finish  {get; set;}
 
         /// <summary>
         ///Physical location for the event
         /// </summary>
 
-	public virtual string?						PhysicalLocation  {get; set;}
+	public virtual string?					PhysicalLocation  {get; set;}
 
         /// <summary>
         ///Online resource for the event
         /// </summary>
 
-	public virtual string?						Online  {get; set;}
+	public virtual string?					Online  {get; set;}
 
         /// <summary>
         ///The members organizing the event
@@ -990,7 +1005,7 @@ public partial class CatalogedEvent : CatalogedResource {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedResource._StaticAllProperties);
+			Combine(CatalogedResource._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -1044,6 +1059,7 @@ public partial class CatalogedEvent : CatalogedResource {
 
 	}
 
+
 	/// <summary>
 	///
 	/// User response to a Forum Entry, minimally consisting of a 
@@ -1054,13 +1070,13 @@ public partial class CatalogedReaction : CatalogedForumEntry {
         ///The identifier of the member responding.
         /// </summary>
 
-	public virtual string?						MemberId  {get; set;}
+	public virtual string?					MemberId  {get; set;}
 
         /// <summary>
         ///The response semantic.
         /// </summary>
 
-	public virtual string?						Semantic  {get; set;}
+	public virtual string?					Semantic  {get; set;}
 
 
 
@@ -1082,7 +1098,7 @@ public partial class CatalogedReaction : CatalogedForumEntry {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedForumEntry._StaticAllProperties);
+			Combine(CatalogedForumEntry._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -1136,6 +1152,7 @@ public partial class CatalogedReaction : CatalogedForumEntry {
 
 	}
 
+
 	/// <summary>
 	///
 	/// A collection of responses compiled into a summary for fast indexing.
@@ -1146,13 +1163,13 @@ public partial class CatalogedReactionSummary : CatalogedReaction {
         ///has NOT made a response.
         /// </summary>
 
-	public virtual byte[]?						Filter  {get; set;}
+	public virtual byte[]?					Filter  {get; set;}
 
         /// <summary>
         ///
         /// </summary>
 
-	public virtual ResponseSummary?						Summaries  {get; set;}
+	public virtual ResponseSummary?					Summaries  {get; set;}
 
 
 
@@ -1167,7 +1184,7 @@ public partial class CatalogedReactionSummary : CatalogedReaction {
 					(IBinding data, byte[]? value) => {(data as CatalogedReactionSummary).Filter = value;}, (IBinding data) => (data as CatalogedReactionSummary).Filter )},
 			{ "Summaries", new PropertyStruct ("Summaries", 
 					(IBinding data, object? value) => {(data as CatalogedReactionSummary).Summaries = value as ResponseSummary;}, (IBinding data) => (data as CatalogedReactionSummary).Summaries,
-					false, ()=>new  ResponseSummary(), ()=>new ResponseSummary())} 
+					false, ()=>new  ResponseSummary(), ()=>new ResponseSummary())}
         }, __Tag,() => new CatalogedReactionSummary(), CatalogedReaction._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
@@ -1175,7 +1192,7 @@ public partial class CatalogedReactionSummary : CatalogedReaction {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedReaction._StaticAllProperties);
+			Combine(CatalogedReaction._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -1229,6 +1246,7 @@ public partial class CatalogedReactionSummary : CatalogedReaction {
 
 	}
 
+
 	/// <summary>
 	/// </summary>
 public partial class ResponseSummary : ForumItem {
@@ -1236,13 +1254,13 @@ public partial class ResponseSummary : ForumItem {
         ///The response semantic.
         /// </summary>
 
-	public virtual string?						Semantic  {get; set;}
+	public virtual string?					Semantic  {get; set;}
 
         /// <summary>
         ///The count of the response summary
         /// </summary>
 
-	public virtual int?						Count  {get; set;}
+	public virtual int?					Count  {get; set;}
 
         /// <summary>
         ///The members who made this response
@@ -1324,6 +1342,7 @@ public partial class ResponseSummary : ForumItem {
 
 	}
 
+
 	/// <summary>
 	///
 	/// Post on a topic
@@ -1333,13 +1352,13 @@ public partial class CatalogedPost : CatalogedReaction {
         ///One line subject decribing the topic
         /// </summary>
 
-	public virtual string?						Subject  {get; set;}
+	public virtual string?					Subject  {get; set;}
 
         /// <summary>
         ///The topic introduction. May span multiple lines
         /// </summary>
 
-	public virtual string?						Text  {get; set;}
+	public virtual string?					Text  {get; set;}
 
 
 
@@ -1361,7 +1380,7 @@ public partial class CatalogedPost : CatalogedReaction {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedReaction._StaticAllProperties);
+			Combine(CatalogedReaction._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -1415,6 +1434,7 @@ public partial class CatalogedPost : CatalogedReaction {
 
 	}
 
+
 	/// <summary>
 	///
 	/// Post on a topic
@@ -1424,7 +1444,7 @@ public partial class CatalogedComment : CatalogedReaction {
         ///The topic introduction. May span multiple lines
         /// </summary>
 
-	public virtual string?						Text  {get; set;}
+	public virtual string?					Text  {get; set;}
 
 
 
@@ -1444,7 +1464,7 @@ public partial class CatalogedComment : CatalogedReaction {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedReaction._StaticAllProperties);
+			Combine(CatalogedReaction._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -1498,6 +1518,7 @@ public partial class CatalogedComment : CatalogedReaction {
 
 	}
 
+
 	/// <summary>
 	///
 	/// Extended response to a Forum Entry with text and optional anchor
@@ -1508,13 +1529,13 @@ public partial class CatalogedAnnotation : CatalogedReaction {
         ///
         /// </summary>
 
-	public virtual string?						Anchor  {get; set;}
+	public virtual string?					Anchor  {get; set;}
 
         /// <summary>
         ///
         /// </summary>
 
-	public virtual string?						Text  {get; set;}
+	public virtual string?					Text  {get; set;}
 
         /// <summary>
         /// </summary>
@@ -1542,7 +1563,7 @@ public partial class CatalogedAnnotation : CatalogedReaction {
 
 	///<summary>Dictionary describing the serializable properties.</summary> 
 	public readonly static new Dictionary<string, Property> _StaticAllProperties =
-			Combine(_StaticProperties, CatalogedReaction._StaticAllProperties);
+			Combine(CatalogedReaction._binding, _binding);
 
 
     ///<inheritdoc/>
@@ -1596,6 +1617,7 @@ public partial class CatalogedAnnotation : CatalogedReaction {
 
 	}
 
+
 	/// <summary>
 	///
 	/// An anotated resource 
@@ -1605,7 +1627,7 @@ public partial class AnnotatedResource : ForumItem {
         ///
         /// </summary>
 
-	public virtual CatalogedResource?						Resource  {get; set;}
+	public virtual CatalogedResource?					Resource  {get; set;}
 
         /// <summary>
         ///
@@ -1623,10 +1645,10 @@ public partial class AnnotatedResource : ForumItem {
 
 			{ "Resource", new PropertyStruct ("Resource", 
 					(IBinding data, object? value) => {(data as AnnotatedResource).Resource = value as CatalogedResource;}, (IBinding data) => (data as AnnotatedResource).Resource,
-					false, ()=>new  CatalogedResource(), ()=>new CatalogedResource())} ,
+					false, ()=>new  CatalogedResource(), ()=>new CatalogedResource())},
 			{ "Responses", new PropertyListStruct ("Responses", 
 					(IBinding data, object? value) => {(data as AnnotatedResource).Responses = value as List<CatalogedReaction>;}, (IBinding data) => (data as AnnotatedResource).Responses,
-					false, ()=>new  List<CatalogedReaction>(), ()=>new CatalogedReaction())} 
+					false, ()=>new  List<CatalogedReaction>(), ()=>new CatalogedReaction())}
         }, __Tag,() => new AnnotatedResource(), null);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
@@ -1686,6 +1708,7 @@ public partial class AnnotatedResource : ForumItem {
 
 
 	}
+
 
 	/// <summary>
 	/// </summary>

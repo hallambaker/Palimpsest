@@ -255,36 +255,93 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
-#method2 PageVisitor CatalogedForumMember visitor DnsHandleServices services
-#% var handle = services.Handle;
+#method2 PageVisitor string visitor JsContact contact
+
 <div class="container">
-  <h1>Visitor: #{handle}</h1>
+  <h1>Visitor: #{visitor}</h1>
 
+#if contact is not null
     <table>
-#if (services.Http is not null)
-#% var place = "https://" + handle +"/";
-        <tr><td>Personal Place</td><td><a href=#"place">#{place}</a></td></tr>
-#end if
-#if (services.Atprotocol is not null) 
-        <tr><td>ATmosphere</td><td><a href="https://bsky.app/profile/#{handle}">On Blue Sky</a></td></tr>
-#end if
-#if (services.Oauth is not null)         
-        <tr><td>@nywhere login</td><td>#{services.Oauth.Did ?? "Invalid"}</td></tr>
-#end if
-#if (services.Mesh is not null) 
-        <tr><td>Mesh Direct Service Address</td><td>#{services.Mesh.Dsa}</td></tr>
-#end if
+#% var analysis  = contact.Analysis;
+#foreach (var item in analysis.Emails)
+        <tr>
+        <td>Email:</td>
+        <td>#{item.User}</td>
+        <td>#{item.Label}</td>
+        </tr>
+#call SumarizeChildren item.Analysis
+#end foreach
+#foreach (var item in analysis.Webs)
+        <tr>
+        <td>Web:</td>
+        <td><a href="#{item.Uri}">#{item.Uri}</a></td>
+        <td>#{item.Label}</td>
+        </tr>
+#end foreach
+#foreach (var item in analysis.Mesh)
+        <tr>
+        <td>Mesh:</td>
+        <td>#{item.User}</td>
+        <td>#{item.Label}</td>
+        </tr>
+        <tr>
+        <td></td>
+        <td colspan="2">#{item.Key}</td>
+        </tr>
+#end foreach
+#foreach (var item in analysis.Ssh)
+        <tr>
+        <td>Ssh:</td>
+        <td><a href="">Download</a></td>
+        <td>#{item.Label}</td>
+        </tr>
+#end foreach
+#foreach (var item in analysis.Credentials)
+        <tr>
+        <td>Code:</td>
+        <td>#{item.Key}</td>
+        <td>#{item.Label}</td>
+        </tr>
+#end foreach
+#foreach (var item in analysis.Other)
+        <tr>
+        <td>#{item.Service}</td>
+        <td>#{item.Uri}</td>
+        <td>#{item.Label}</td>
+        </tr>
+#end foreach
+#foreach (var item in analysis.Groups)
+        <tr>
+        <td>Group:</td>
+        <td colspan="2">#{item.Label}</td>
+        </tr>
+#call SumarizeChildren item.Analysis
+#end foreach
     </table>
-
-
-#if visitor is not null
-<p>Has visited.</p>
 #end if
+
+#!#if visitor is not null
+#!p>Has visited.</p>
+#!#end if
 
 
 </div>
 #end method2
 
+
+#method SumarizeChildren AnalysizedContact analysis
+#if analysis.Children.Count == 0
+#% return;
+#end if
+        <tr>
+        <td></td>
+        <td colspan="2">
+#foreach (var child in analysis.Children)
+[#{GetLabel(child)}]
+#end foreach      
+        </td>
+        </tr>
+#end method
 
 #method PageTopic TopicHandle topic
 <div class="container">

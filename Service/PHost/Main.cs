@@ -43,6 +43,9 @@ internal sealed class Program {
 
     // We can decorate this with stuff later.
     static void Main(string[] args) {
+
+        Goedel.Palimpsest.Initialization.Initialized.AssertTrue(NYI.Throw);
+
         var directory = args[0];
         var resources = args[1];
 

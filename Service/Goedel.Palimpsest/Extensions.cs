@@ -41,6 +41,7 @@ public static partial class Extensions {
             ".gif" => "image/gif",
             ".png" => "image/png",
             ".svg" => "image/svg+xml",
+            ".jscontact" => "application/jscontact",
             _ => "text/plain"
             };
 

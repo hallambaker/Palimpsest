@@ -22,7 +22,9 @@
 
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 
+using Goedel.Contacts;
 using Goedel.Discovery;
+using Goedel.Mesh;
 
 using System.Runtime.Serialization.DataContracts;
 
@@ -176,6 +178,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             // public pages, visible to all users but with possibly reduced functionality
             { "", new (GetHome, false) }, // Home page
             { PalimpsestConstants.resources, new (GetResources,false) },
+            { PalimpsestConstants.WellKnown, new (GetWellKnown,false) },
 
             { PalimpsestConstants.SignIn, new (GetSignIn, false) },
             { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
@@ -249,6 +252,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public void Start() {
         HttpListener.Start();
         Console.WriteLine($"Listening {HttpEndpoint}");
+        DateTime? freed;
 
         var now = DateTime.UtcNow.ToFileSpec();
         var logfile = $"Log{now}.log";
@@ -423,7 +427,43 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
 
+    public async Task GetWellKnown(
+            ParsedPath path) {
+        var context = path.Context;
 
+
+        //if (Boilerplate.TryGetValue(path.FirstId, out var resource)) {
+        //    await SendBoilerplate(context, path, resource);
+        //    return;
+        //    }
+
+
+        //var member = path.Member;
+
+
+        //string filePath;
+        //var stroke = path.LocalPath.IndexOf('/', 1);
+        //if (stroke < 0) {
+        //    filePath = Forum.Resources + path.FirstId;
+        //    }
+        //else {
+        //    filePath = Forum.Resources + path.LocalPath[stroke..];
+        //    }
+
+        var filePath = Forum.Resources + path.LocalPath;
+
+        using var response = context.Response;
+        response.StatusCode = (int)HttpStatusCode.OK;
+        response.StatusDescription = "Status OK";
+        response.ContentType = filePath.GetFileType();
+
+        using var file = filePath.OpenFileReadShared();
+        file.CopyTo(response.OutputStream);
+
+        response.OutputStream.Close();
+
+        return;
+        }
 
 
     public async Task GetResources(
@@ -540,15 +580,20 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var annotations = Annotations.Get(this, path);
         var domain = path.VisitorId;
 
-        var visited = Forum.TryGetMemberRecord(path, out var memberHandle);
-
-        var services = await ParsedHandle.GetServices(domain);
-
-
-
-
+        var data  = await ParsedHandle.ResolveContact(domain);
+        
         await PageHeader(annotations);
-        annotations.PageVisitor(memberHandle, services);
+        if (data == null) {
+            annotations.PageVisitor(domain, null);
+            }
+        else {
+            var reader = new JsonReader(data);
+            var contact = JsContact.FromJson(reader, false);
+            contact.Analyze();
+
+            //var visited = Forum.TryGetMemberRecord(path, out var memberHandle);
+            annotations.PageVisitor(domain, contact);
+            }
         await PageFooter(annotations);
 
         await Task.CompletedTask;

@@ -7,6 +7,7 @@
 		<Description>Palimpsest host daemon</Description>
 		<Copyright>© 2024</Copyright>
 		<TargetFrameworks>net9.0</TargetFrameworks>
+		<DefineConstants>_Github_</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

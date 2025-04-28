@@ -22,7 +22,6 @@
 
 global using Goedel.Cryptography;
 global using Goedel.Cryptography.Oauth;
-global using Test.Cryptography.Oauth;
 global using Goedel.Palimpsest;
 global using Goedel.Utilities;
 global using Goedel.XUnit;
