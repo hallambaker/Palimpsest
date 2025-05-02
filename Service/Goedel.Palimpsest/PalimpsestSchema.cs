@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 4/29/2025 11:54:54 AM
+//  This file was automatically generated at 5/2/2025 1:00:18 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -39,6 +39,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Goedel.Protocol;
 using Goedel.Utilities;
 
@@ -94,6 +96,36 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	    {"Terms", Terms._Factory}
 		};
 
+
+	/// <summary>
+    /// Dictionary mapping types to bindings
+    /// </summary>
+	public static Dictionary<System.Type, Binding> _BindingDictionary=> _bindingDictionary;
+	static Dictionary<System.Type, Binding> _bindingDictionary = 
+			new () {
+
+	    {typeof(CatalogedForumEntry), CatalogedForumEntry._binding},
+	    {typeof(EntryAttibutes), EntryAttibutes._binding},
+	    {typeof(CatalogedPlace), CatalogedPlace._binding},
+	    {typeof(CatalogedForumMember), CatalogedForumMember._binding},
+	    {typeof(CatalogedForum), CatalogedForum._binding},
+	    {typeof(CatalogedTopic), CatalogedTopic._binding},
+	    {typeof(CatalogedResource), CatalogedResource._binding},
+	    {typeof(CatalogedFile), CatalogedFile._binding},
+	    {typeof(CatalogedSeries), CatalogedSeries._binding},
+	    {typeof(CatalogedEvent), CatalogedEvent._binding},
+	    {typeof(CatalogedReaction), CatalogedReaction._binding},
+	    {typeof(CatalogedReactionSummary), CatalogedReactionSummary._binding},
+	    {typeof(ResponseSummary), ResponseSummary._binding},
+	    {typeof(CatalogedPost), CatalogedPost._binding},
+	    {typeof(CatalogedComment), CatalogedComment._binding},
+	    {typeof(CatalogedAnnotation), CatalogedAnnotation._binding},
+	    {typeof(AnnotatedResource), AnnotatedResource._binding},
+	    {typeof(Terms), Terms._binding}
+		};
+
+
+
 	///<summary>Variable used to force static initialization</summary> 
 	public static bool _Initialized => true;
 
@@ -101,7 +133,10 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 		_Initialize();
 		}
 
-    internal static void _Initialize() => AddDictionary(ref _tagDictionary);
+    internal static void _Initialize() {
+		AddDictionary(ref _tagDictionary);
+		AddDictionary(ref _bindingDictionary);
+		}
 
 
 	/// <summary>
@@ -130,12 +165,14 @@ public partial class CatalogedForumEntry : CatalogedEntry {
         /// <summary>
         /// </summary>
 
+	[JsonPropertyName("Added")]
 	public virtual DateTime?					Added  {get; set;}
 
         /// <summary>
         ///Tag value attributes allowing entry description to be extended.
         /// </summary>
 
+	[JsonPropertyName("Entries")]
 	public virtual List<EntryAttibutes>?					Entries  {get; set;}
 
 
@@ -143,15 +180,15 @@ public partial class CatalogedForumEntry : CatalogedEntry {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedForumEntry> _binding = new (
 			new() {
 
 			{ "Added", new PropertyDateTime ("Added", 
 					(IBinding data, DateTime? value) => {(data as CatalogedForumEntry).Added = value;}, (IBinding data) => (data as CatalogedForumEntry).Added )},
-			{ "Entries", new PropertyListStruct ("Entries", 
+			{ "Entries", new PropertyListStruct ("Entries", typeof (EntryAttibutes),
 					(IBinding data, object? value) => {(data as CatalogedForumEntry).Entries = value as List<EntryAttibutes>;}, (IBinding data) => (data as CatalogedForumEntry).Entries,
 					false, ()=>new  List<EntryAttibutes>(), ()=>new EntryAttibutes())}
-        }, __Tag,() => new CatalogedForumEntry(), CatalogedEntry._binding);
+        }, __Tag,() => new CatalogedForumEntry(), () => new List<CatalogedForumEntry>(), () => new Dictionary<string,CatalogedForumEntry>(),CatalogedEntry._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -222,12 +259,14 @@ public partial class EntryAttibutes : ForumItem {
         ///The attribute type
         /// </summary>
 
+	[JsonPropertyName("Tag")]
 	public virtual string?					Tag  {get; set;}
 
         /// <summary>
         ///The attribute value
         /// </summary>
 
+	[JsonPropertyName("Value")]
 	public virtual string?					Value  {get; set;}
 
 
@@ -236,14 +275,14 @@ public partial class EntryAttibutes : ForumItem {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<EntryAttibutes> _binding = new (
 			new() {
 
 			{ "Tag", new PropertyString ("Tag", 
 					(IBinding data, string? value) => {(data as EntryAttibutes).Tag = value;}, (IBinding data) => (data as EntryAttibutes).Tag )},
 			{ "Value", new PropertyString ("Value", 
 					(IBinding data, string? value) => {(data as EntryAttibutes).Value = value;}, (IBinding data) => (data as EntryAttibutes).Value )}
-        }, __Tag,() => new EntryAttibutes(), null);
+        }, __Tag,() => new EntryAttibutes(), () => new List<EntryAttibutes>(), () => new Dictionary<string,EntryAttibutes>(),null);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -313,16 +352,19 @@ public partial class CatalogedPlace : CatalogedForumEntry {
         ///The forum to which the place belongs.
         /// </summary>
 
+	[JsonPropertyName("ParentForum")]
 	public virtual string?					ParentForum  {get; set;}
 
         /// <summary>
         /// </summary>
 
+	[JsonPropertyName("Aliases")]
 	public virtual List<string>?					Aliases  {get; set;}
         /// <summary>
         ///The members owwning the peoject
         /// </summary>
 
+	[JsonPropertyName("Owners")]
 	public virtual List<string>?					Owners  {get; set;}
 
 
@@ -330,7 +372,7 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedPlace> _binding = new (
 			new() {
 
 			{ "ParentForum", new PropertyString ("ParentForum", 
@@ -339,7 +381,7 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 					(IBinding data, List<string>? value) => {(data as CatalogedPlace).Aliases = value;}, (IBinding data) => (data as CatalogedPlace).Aliases )},
 			{ "Owners", new PropertyListString ("Owners", 
 					(IBinding data, List<string>? value) => {(data as CatalogedPlace).Owners = value;}, (IBinding data) => (data as CatalogedPlace).Owners )}
-        }, __Tag,() => new CatalogedPlace(), CatalogedForumEntry._binding);
+        }, __Tag,() => new CatalogedPlace(), () => new List<CatalogedPlace>(), () => new Dictionary<string,CatalogedPlace>(),CatalogedForumEntry._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -410,36 +452,42 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
         ///The user's Did (if used).
         /// </summary>
 
+	[JsonPropertyName("Did")]
 	public virtual string?					Did  {get; set;}
 
         /// <summary>
         ///The user's fingerprint profile (if known).
         /// </summary>
 
+	[JsonPropertyName("ProfileUdf")]
 	public virtual string?					ProfileUdf  {get; set;}
 
         /// <summary>
         ///The digest of the user's password
         /// </summary>
 
+	[JsonPropertyName("PasswordDigest")]
 	public virtual byte[]?					PasswordDigest  {get; set;}
 
         /// <summary>
         ///The user's Mesh contact (if provided). 
         /// </summary>
 
+	[JsonPropertyName("Contact")]
 	public virtual byte[]?					Contact  {get; set;}
 
         /// <summary>
         ///The member's status: Active / Inactive / Blocked
         /// </summary>
 
+	[JsonPropertyName("Status")]
 	public virtual string?					Status  {get; set;}
 
         /// <summary>
         ///Assigned privileges (Admin / Moderator)
         /// </summary>
 
+	[JsonPropertyName("Privileges")]
 	public virtual List<string>?					Privileges  {get; set;}
 
 
@@ -447,7 +495,7 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedForumMember> _binding = new (
 			new() {
 
 			{ "Did", new PropertyString ("Did", 
@@ -462,7 +510,7 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 					(IBinding data, string? value) => {(data as CatalogedForumMember).Status = value;}, (IBinding data) => (data as CatalogedForumMember).Status )},
 			{ "Privileges", new PropertyListString ("Privileges", 
 					(IBinding data, List<string>? value) => {(data as CatalogedForumMember).Privileges = value;}, (IBinding data) => (data as CatalogedForumMember).Privileges )}
-        }, __Tag,() => new CatalogedForumMember(), CatalogedForumEntry._binding);
+        }, __Tag,() => new CatalogedForumMember(), () => new List<CatalogedForumMember>(), () => new Dictionary<string,CatalogedForumMember>(),CatalogedForumEntry._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -533,10 +581,10 @@ public partial class CatalogedForum : CatalogedForumEntry {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedForum> _binding = new (
 			new() {
 
-        }, __Tag,() => new CatalogedForum(), CatalogedForumEntry._binding);
+        }, __Tag,() => new CatalogedForum(), () => new List<CatalogedForum>(), () => new Dictionary<string,CatalogedForum>(),CatalogedForumEntry._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -609,10 +657,10 @@ public partial class CatalogedTopic : CatalogedForum {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedTopic> _binding = new (
 			new() {
 
-        }, __Tag,() => new CatalogedTopic(), CatalogedForum._binding);
+        }, __Tag,() => new CatalogedTopic(), () => new List<CatalogedTopic>(), () => new Dictionary<string,CatalogedTopic>(),CatalogedForum._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -683,12 +731,14 @@ public partial class CatalogedResource : CatalogedForum {
         ///The IANA content type
         /// </summary>
 
+	[JsonPropertyName("ContentType")]
 	public virtual string?					ContentType  {get; set;}
 
         /// <summary>
         ///The series identifier, if this item is a part of a versioned series.
         /// </summary>
 
+	[JsonPropertyName("SeriesId")]
 	public virtual string?					SeriesId  {get; set;}
 
         /// <summary>
@@ -696,12 +746,14 @@ public partial class CatalogedResource : CatalogedForum {
         ///same series identifier.
         /// </summary>
 
+	[JsonPropertyName("Version")]
 	public virtual string?					Version  {get; set;}
 
         /// <summary>
         ///If not false, the resource may be annotated.
         /// </summary>
 
+	[JsonPropertyName("Annotatable")]
 	public virtual bool?					Annotatable  {get; set;}
 
 
@@ -710,7 +762,7 @@ public partial class CatalogedResource : CatalogedForum {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedResource> _binding = new (
 			new() {
 
 			{ "ContentType", new PropertyString ("ContentType", 
@@ -721,7 +773,7 @@ public partial class CatalogedResource : CatalogedForum {
 					(IBinding data, string? value) => {(data as CatalogedResource).Version = value;}, (IBinding data) => (data as CatalogedResource).Version )},
 			{ "Annotatable", new PropertyBoolean ("Annotatable", 
 					(IBinding data, bool? value) => {(data as CatalogedResource).Annotatable = value;}, (IBinding data) => (data as CatalogedResource).Annotatable )}
-        }, __Tag,() => new CatalogedResource(), CatalogedForum._binding);
+        }, __Tag,() => new CatalogedResource(), () => new List<CatalogedResource>(), () => new Dictionary<string,CatalogedResource>(),CatalogedForum._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -795,10 +847,10 @@ public partial class CatalogedFile : CatalogedResource {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedFile> _binding = new (
 			new() {
 
-        }, __Tag,() => new CatalogedFile(), CatalogedResource._binding);
+        }, __Tag,() => new CatalogedFile(), () => new List<CatalogedFile>(), () => new Dictionary<string,CatalogedFile>(),CatalogedResource._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -871,10 +923,10 @@ public partial class CatalogedSeries : CatalogedResource {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedSeries> _binding = new (
 			new() {
 
-        }, __Tag,() => new CatalogedSeries(), CatalogedResource._binding);
+        }, __Tag,() => new CatalogedSeries(), () => new List<CatalogedSeries>(), () => new Dictionary<string,CatalogedSeries>(),CatalogedResource._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -946,36 +998,42 @@ public partial class CatalogedEvent : CatalogedResource {
         ///Event venue: Online/Meetup/Hybrid
         /// </summary>
 
+	[JsonPropertyName("Venue")]
 	public virtual string?					Venue  {get; set;}
 
         /// <summary>
         ///Start date for the event
         /// </summary>
 
+	[JsonPropertyName("Start")]
 	public virtual DateTime?					Start  {get; set;}
 
         /// <summary>
         ///End date for the event
         /// </summary>
 
+	[JsonPropertyName("Finish")]
 	public virtual DateTime?					Finish  {get; set;}
 
         /// <summary>
         ///Physical location for the event
         /// </summary>
 
+	[JsonPropertyName("PhysicalLocation")]
 	public virtual string?					PhysicalLocation  {get; set;}
 
         /// <summary>
         ///Online resource for the event
         /// </summary>
 
+	[JsonPropertyName("Online")]
 	public virtual string?					Online  {get; set;}
 
         /// <summary>
         ///The members organizing the event
         /// </summary>
 
+	[JsonPropertyName("Organizers")]
 	public virtual List<string>?					Organizers  {get; set;}
 
 
@@ -983,7 +1041,7 @@ public partial class CatalogedEvent : CatalogedResource {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedEvent> _binding = new (
 			new() {
 
 			{ "Venue", new PropertyString ("Venue", 
@@ -998,7 +1056,7 @@ public partial class CatalogedEvent : CatalogedResource {
 					(IBinding data, string? value) => {(data as CatalogedEvent).Online = value;}, (IBinding data) => (data as CatalogedEvent).Online )},
 			{ "Organizers", new PropertyListString ("Organizers", 
 					(IBinding data, List<string>? value) => {(data as CatalogedEvent).Organizers = value;}, (IBinding data) => (data as CatalogedEvent).Organizers )}
-        }, __Tag,() => new CatalogedEvent(), CatalogedResource._binding);
+        }, __Tag,() => new CatalogedEvent(), () => new List<CatalogedEvent>(), () => new Dictionary<string,CatalogedEvent>(),CatalogedResource._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1070,12 +1128,14 @@ public partial class CatalogedReaction : CatalogedForumEntry {
         ///The identifier of the member responding.
         /// </summary>
 
+	[JsonPropertyName("MemberId")]
 	public virtual string?					MemberId  {get; set;}
 
         /// <summary>
         ///The response semantic.
         /// </summary>
 
+	[JsonPropertyName("Semantic")]
 	public virtual string?					Semantic  {get; set;}
 
 
@@ -1084,14 +1144,14 @@ public partial class CatalogedReaction : CatalogedForumEntry {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedReaction> _binding = new (
 			new() {
 
 			{ "MemberId", new PropertyString ("MemberId", 
 					(IBinding data, string? value) => {(data as CatalogedReaction).MemberId = value;}, (IBinding data) => (data as CatalogedReaction).MemberId )},
 			{ "Semantic", new PropertyString ("Semantic", 
 					(IBinding data, string? value) => {(data as CatalogedReaction).Semantic = value;}, (IBinding data) => (data as CatalogedReaction).Semantic )}
-        }, __Tag,() => new CatalogedReaction(), CatalogedForumEntry._binding);
+        }, __Tag,() => new CatalogedReaction(), () => new List<CatalogedReaction>(), () => new Dictionary<string,CatalogedReaction>(),CatalogedForumEntry._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1163,12 +1223,14 @@ public partial class CatalogedReactionSummary : CatalogedReaction {
         ///has NOT made a response.
         /// </summary>
 
+	[JsonPropertyName("Filter")]
 	public virtual byte[]?					Filter  {get; set;}
 
         /// <summary>
         ///
         /// </summary>
 
+	[JsonPropertyName("Summaries")]
 	public virtual ResponseSummary?					Summaries  {get; set;}
 
 
@@ -1177,15 +1239,15 @@ public partial class CatalogedReactionSummary : CatalogedReaction {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedReactionSummary> _binding = new (
 			new() {
 
 			{ "Filter", new PropertyBinary ("Filter", 
 					(IBinding data, byte[]? value) => {(data as CatalogedReactionSummary).Filter = value;}, (IBinding data) => (data as CatalogedReactionSummary).Filter )},
-			{ "Summaries", new PropertyStruct ("Summaries", 
+			{ "Summaries", new PropertyStruct ("Summaries", typeof (ResponseSummary),
 					(IBinding data, object? value) => {(data as CatalogedReactionSummary).Summaries = value as ResponseSummary;}, (IBinding data) => (data as CatalogedReactionSummary).Summaries,
 					false, ()=>new  ResponseSummary(), ()=>new ResponseSummary())}
-        }, __Tag,() => new CatalogedReactionSummary(), CatalogedReaction._binding);
+        }, __Tag,() => new CatalogedReactionSummary(), () => new List<CatalogedReactionSummary>(), () => new Dictionary<string,CatalogedReactionSummary>(),CatalogedReaction._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1254,18 +1316,21 @@ public partial class ResponseSummary : ForumItem {
         ///The response semantic.
         /// </summary>
 
+	[JsonPropertyName("Semantic")]
 	public virtual string?					Semantic  {get; set;}
 
         /// <summary>
         ///The count of the response summary
         /// </summary>
 
+	[JsonPropertyName("Count")]
 	public virtual int?					Count  {get; set;}
 
         /// <summary>
         ///The members who made this response
         /// </summary>
 
+	[JsonPropertyName("MemberIds")]
 	public virtual List<string>?					MemberIds  {get; set;}
 
 
@@ -1273,7 +1338,7 @@ public partial class ResponseSummary : ForumItem {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<ResponseSummary> _binding = new (
 			new() {
 
 			{ "Semantic", new PropertyString ("Semantic", 
@@ -1282,7 +1347,7 @@ public partial class ResponseSummary : ForumItem {
 					(IBinding data, int? value) => {(data as ResponseSummary).Count = value;}, (IBinding data) => (data as ResponseSummary).Count )},
 			{ "MemberIds", new PropertyListString ("MemberIds", 
 					(IBinding data, List<string>? value) => {(data as ResponseSummary).MemberIds = value;}, (IBinding data) => (data as ResponseSummary).MemberIds )}
-        }, __Tag,() => new ResponseSummary(), null);
+        }, __Tag,() => new ResponseSummary(), () => new List<ResponseSummary>(), () => new Dictionary<string,ResponseSummary>(),null);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1352,12 +1417,14 @@ public partial class CatalogedPost : CatalogedReaction {
         ///One line subject decribing the topic
         /// </summary>
 
+	[JsonPropertyName("Subject")]
 	public virtual string?					Subject  {get; set;}
 
         /// <summary>
         ///The topic introduction. May span multiple lines
         /// </summary>
 
+	[JsonPropertyName("Text")]
 	public virtual string?					Text  {get; set;}
 
 
@@ -1366,14 +1433,14 @@ public partial class CatalogedPost : CatalogedReaction {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedPost> _binding = new (
 			new() {
 
 			{ "Subject", new PropertyString ("Subject", 
 					(IBinding data, string? value) => {(data as CatalogedPost).Subject = value;}, (IBinding data) => (data as CatalogedPost).Subject )},
 			{ "Text", new PropertyString ("Text", 
 					(IBinding data, string? value) => {(data as CatalogedPost).Text = value;}, (IBinding data) => (data as CatalogedPost).Text )}
-        }, __Tag,() => new CatalogedPost(), CatalogedReaction._binding);
+        }, __Tag,() => new CatalogedPost(), () => new List<CatalogedPost>(), () => new Dictionary<string,CatalogedPost>(),CatalogedReaction._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1444,6 +1511,7 @@ public partial class CatalogedComment : CatalogedReaction {
         ///The topic introduction. May span multiple lines
         /// </summary>
 
+	[JsonPropertyName("Text")]
 	public virtual string?					Text  {get; set;}
 
 
@@ -1452,12 +1520,12 @@ public partial class CatalogedComment : CatalogedReaction {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedComment> _binding = new (
 			new() {
 
 			{ "Text", new PropertyString ("Text", 
 					(IBinding data, string? value) => {(data as CatalogedComment).Text = value;}, (IBinding data) => (data as CatalogedComment).Text )}
-        }, __Tag,() => new CatalogedComment(), CatalogedReaction._binding);
+        }, __Tag,() => new CatalogedComment(), () => new List<CatalogedComment>(), () => new Dictionary<string,CatalogedComment>(),CatalogedReaction._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1529,17 +1597,20 @@ public partial class CatalogedAnnotation : CatalogedReaction {
         ///
         /// </summary>
 
+	[JsonPropertyName("Anchor")]
 	public virtual string?					Anchor  {get; set;}
 
         /// <summary>
         ///
         /// </summary>
 
+	[JsonPropertyName("Text")]
 	public virtual string?					Text  {get; set;}
 
         /// <summary>
         /// </summary>
 
+	[JsonPropertyName("References")]
 	public virtual List<string>?					References  {get; set;}
 
 
@@ -1547,7 +1618,7 @@ public partial class CatalogedAnnotation : CatalogedReaction {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<CatalogedAnnotation> _binding = new (
 			new() {
 
 			{ "Anchor", new PropertyString ("Anchor", 
@@ -1556,7 +1627,7 @@ public partial class CatalogedAnnotation : CatalogedReaction {
 					(IBinding data, string? value) => {(data as CatalogedAnnotation).Text = value;}, (IBinding data) => (data as CatalogedAnnotation).Text )},
 			{ "References", new PropertyListString ("References", 
 					(IBinding data, List<string>? value) => {(data as CatalogedAnnotation).References = value;}, (IBinding data) => (data as CatalogedAnnotation).References )}
-        }, __Tag,() => new CatalogedAnnotation(), CatalogedReaction._binding);
+        }, __Tag,() => new CatalogedAnnotation(), () => new List<CatalogedAnnotation>(), () => new Dictionary<string,CatalogedAnnotation>(),CatalogedReaction._binding);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1627,12 +1698,14 @@ public partial class AnnotatedResource : ForumItem {
         ///
         /// </summary>
 
+	[JsonPropertyName("Resource")]
 	public virtual CatalogedResource?					Resource  {get; set;}
 
         /// <summary>
         ///
         /// </summary>
 
+	[JsonPropertyName("Responses")]
 	public virtual List<CatalogedReaction>?					Responses  {get; set;}
 
 
@@ -1640,16 +1713,16 @@ public partial class AnnotatedResource : ForumItem {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<AnnotatedResource> _binding = new (
 			new() {
 
-			{ "Resource", new PropertyStruct ("Resource", 
+			{ "Resource", new PropertyStruct ("Resource", typeof (CatalogedResource),
 					(IBinding data, object? value) => {(data as AnnotatedResource).Resource = value as CatalogedResource;}, (IBinding data) => (data as AnnotatedResource).Resource,
 					false, ()=>new  CatalogedResource(), ()=>new CatalogedResource())},
-			{ "Responses", new PropertyListStruct ("Responses", 
+			{ "Responses", new PropertyListStruct ("Responses", typeof (CatalogedReaction),
 					(IBinding data, object? value) => {(data as AnnotatedResource).Responses = value as List<CatalogedReaction>;}, (IBinding data) => (data as AnnotatedResource).Responses,
 					false, ()=>new  List<CatalogedReaction>(), ()=>new CatalogedReaction())}
-        }, __Tag,() => new AnnotatedResource(), null);
+        }, __Tag,() => new AnnotatedResource(), () => new List<AnnotatedResource>(), () => new Dictionary<string,AnnotatedResource>(),null);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
@@ -1719,10 +1792,10 @@ public partial class Terms : ForumItem {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static protected new Binding _binding = new (
+	public static readonly new Binding<Terms> _binding = new (
 			new() {
 
-        }, __Tag,() => new Terms(), null);
+        }, __Tag,() => new Terms(), () => new List<Terms>(), () => new Dictionary<string,Terms>(),null);
 
     ///<summary>Dictionary describing the serializable properties.</summary> 
     public readonly static new Dictionary<string, Property> _StaticProperties = _binding.Properties;
