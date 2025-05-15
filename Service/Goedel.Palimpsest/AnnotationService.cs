@@ -127,6 +127,13 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #endregion
     #region // Constructor
 
+
+    static AnnotationService() {
+        JmapBaseSchema._Initialized.AssertTrue(NYI.Throw);
+        Goedel.Contacts.Contacts._Initialized.AssertTrue(NYI.Throw);
+        }
+
+
     ///<summary>
     ///Return an instance serving pages from <paramref name="forum"/>
     ///</summary> 
@@ -587,11 +594,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             annotations.PageVisitor(domain, null);
             }
         else {
-            var reader = new JsonReader(data);
-            var contact = JsContact.FromJson(reader, false);
+            var contact = JsonObject.Parse<JsContact>(data);
             contact.Analyze();
 
-            //var visited = Forum.TryGetMemberRecord(path, out var memberHandle);
             annotations.PageVisitor(domain, contact);
             }
         await PageFooter(annotations);

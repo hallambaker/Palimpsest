@@ -305,9 +305,9 @@ public partial class Annotations : global::Goedel.Registry.Script {
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
 		_Output.Write ("  <h1>Visitor: {1}</h1>\n{0}", _Indent, visitor);
 		_Output.Write ("\n{0}", _Indent);
-		if (  contact is not null ) {
+		 var analysis  = contact?.Analysis;
+		if (  analysis is not null ) {
 			_Output.Write ("    <table>\n{0}", _Indent);
-			 var analysis  = contact.Analysis;
 			foreach  (var item in analysis.Emails) {
 				_Output.Write ("        <tr>\n{0}", _Indent);
 				_Output.Write ("        <td>Email:</td>\n{0}", _Indent);

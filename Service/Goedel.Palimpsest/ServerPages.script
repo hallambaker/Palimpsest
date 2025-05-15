@@ -260,9 +260,9 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 <div class="container">
   <h1>Visitor: #{visitor}</h1>
 
-#if contact is not null
+#% var analysis  = contact?.Analysis;
+#if analysis is not null
     <table>
-#% var analysis  = contact.Analysis;
 #foreach (var item in analysis.Emails)
         <tr>
         <td>Email:</td>
