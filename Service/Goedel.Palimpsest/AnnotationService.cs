@@ -594,7 +594,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             annotations.PageVisitor(domain, null);
             }
         else {
-            var contact = JsonObject.Parse<JsContact>(data);
+            var contact = JsonObject.StreamParse<JsContact>(data);
             contact.Analyze();
 
             annotations.PageVisitor(domain, contact);
