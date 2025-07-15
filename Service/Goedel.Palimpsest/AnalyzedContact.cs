@@ -20,6 +20,10 @@
 //  THE SOFTWARE.
 #endregion
 
+using DocumentFormat.OpenXml.InkML;
+
+using System.Text;
+
 namespace Goedel.Palimpsest;
 
 public record AnalyzedContact {
@@ -63,6 +67,45 @@ public record AnalyzedContact {
             Services.Add(service);
             }
         }
+
+    public string? GetPronouns() {
+        foreach (var pronoun in JsContact.SpeakToAs?.Pronouns.IfEnumerable()) {
+            return pronoun.Value.Values;
+            }
+        return null;
+        }
+
+
+    public string? GetExpandedName() {
+        if (JsContact.Name?.Components.IsEmpty() != false) {
+            return null;
+            }
+        var builder = new StringBuilder();
+
+        var start = true;
+        foreach (var component in JsContact.Name?.Components) {
+            if (!start) {
+                builder.Append(' ');
+                }
+            else {
+                start = false;
+                }
+            builder.Append(component.Value);
+            }
+        return builder.ToString();
+
+        }
+
+    public string? GetMedia(string kind="photo") {
+        foreach (var media in JsContact.Media.IfEnumerable()) {
+            if (media.Value.Kind == kind) {
+                return media.Value.Uri;
+                }
+            }
+
+        return null;
+        }
+
 
     }
 

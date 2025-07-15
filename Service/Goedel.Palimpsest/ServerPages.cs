@@ -310,8 +310,28 @@ public partial class Annotations : global::Goedel.Registry.Script {
 			}
 		_Output.Write ("</h1>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
+		 var expanded = contact.GetExpandedName();
+		if (  (expanded is not null) ) {
+			_Output.Write ("{1}\n{0}", _Indent, expanded);
+			}
+		 var pronouns = contact.GetPronouns();
+		if (  (expanded is not null) ) {
+			_Output.Write ("({1})\n{0}", _Indent, pronouns);
+			}
+		_Output.Write ("\n{0}", _Indent);
 		if (  (contact.ContactDownload is not null) ) {
 			_Output.Write ("<a href=\"{1}\">Download</a>\n{0}", _Indent, contact.ContactDownload);
+			}
+		_Output.Write ("\n{0}", _Indent);
+		if (  (contact.JsContact.Updates.IsEmpty()==false) ) {
+			_Output.Write ("Updates\n{0}", _Indent);
+			}
+		_Output.Write ("\n{0}", _Indent);
+		 var photo = contact.GetMedia();
+		if (  (photo is not null) ) {
+			_Output.Write ("<p>\n{0}", _Indent);
+			_Output.Write ("<img src=\"{1}\"/>\n{0}", _Indent, photo);
+			_Output.Write ("</p>\n{0}", _Indent);
 			}
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("    <table>\n{0}", _Indent);

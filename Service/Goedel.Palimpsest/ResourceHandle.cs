@@ -175,7 +175,7 @@ public class ParsedContentDocument : ParsedContent {
         Document.MakeAutomatics();
 
 
-        Console.WriteLine("Document parsed");
+        //Console.WriteLine("Document parsed");
         }
 
     public override void ToHTML(

@@ -265,8 +265,28 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 #end if
 </h1>
 
+#% var expanded = contact.GetExpandedName();
+#if (expanded is not null)
+#{expanded}
+#end if
+#% var pronouns = contact.GetPronouns();
+#if (expanded is not null)
+(#{pronouns})
+#end if
+
 #if (contact.ContactDownload is not null)
 <a href="#{contact.ContactDownload}">Download</a>
+#end if
+
+#if (contact.JsContact.Updates.IsEmpty()==false)
+Updates
+#end if
+
+#% var photo = contact.GetMedia();
+#if (photo is not null)
+<p>
+<img src="#{photo}"/>
+</p>
 #end if
 
     <table>
