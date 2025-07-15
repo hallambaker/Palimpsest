@@ -255,79 +255,55 @@ By participating in the IETF, you agree to follow IETF processes and policies.</
 </div>
 #end method
 
-#method2 PageVisitor string visitor JsContact contact
+#method2 PageVisitor string visitor AnalyzedContact contact
 
 <div class="container">
-  <h1>Visitor: #{visitor}</h1>
 
-#% var analysis  = contact?.Analysis;
-#if analysis is not null
-    <table>
-#foreach (var item in analysis.Emails)
-        <tr>
-        <td>Email:</td>
-        <td>#{item.User}</td>
-        <td>#{item.Label}</td>
-        </tr>
-#call SumarizeChildren item.Analysis
-#end foreach
-#foreach (var item in analysis.Webs)
-        <tr>
-        <td>Web:</td>
-        <td><a href="#{item.Uri}">#{item.Uri}</a></td>
-        <td>#{item.Label}</td>
-        </tr>
-#end foreach
-#foreach (var item in analysis.Mesh)
-        <tr>
-        <td>Mesh:</td>
-        <td>#{item.User}</td>
-        <td>#{item.Label}</td>
-        </tr>
-        <tr>
-        <td></td>
-        <td colspan="2">#{item.Key}</td>
-        </tr>
-#end foreach
-#foreach (var item in analysis.Ssh)
-        <tr>
-        <td>Ssh:</td>
-        <td><a href="">Download</a></td>
-        <td>#{item.Label}</td>
-        </tr>
-#end foreach
-#foreach (var item in analysis.Credentials)
-        <tr>
-        <td>Code:</td>
-        <td>#{item.Key}</td>
-        <td>#{item.Label}</td>
-        </tr>
-#end foreach
-#foreach (var item in analysis.Other)
-        <tr>
-        <td>#{item.Service}</td>
-        <td>#{item.Uri}</td>
-        <td>#{item.Label}</td>
-        </tr>
-#end foreach
-#foreach (var item in analysis.Groups)
-        <tr>
-        <td>Group:</td>
-        <td colspan="2">#{item.Label}</td>
-        </tr>
-#call SumarizeChildren item.Analysis
-#end foreach
-    </table>
+  <h1>Visitor: #{visitor}#!
+#if (contact?.FullName != null) 
+ [#{contact.FullName}]#!
+#end if
+</h1>
+
+#if (contact.ContactDownload is not null)
+<a href="#{contact.ContactDownload}">Download</a>
 #end if
 
-#!#if visitor is not null
-#!p>Has visited.</p>
-#!#end if
-
+    <table>
+#foreach (var service in contact.Services)
+#foreach (var entry in service.Entries)  
+#% switch (entry) {
+#%   case AnalyzedEntryMail analyzedMail : { Sumarize(analyzedMail); break;}
+#%   case AnalyzedEntryService analyzedService : { Sumarize(analyzedService); break;}
+#%    }
+#end foreach
+#end foreach
+    </table>
 
 </div>
 #end method2
 
+
+#method Sumarize AnalyzedEntryMail entry
+#% var email = entry.EmailAddress;
+<tr><td>Mail</td><td>#{email.Address}</td><td>
+#if (entry.DownloadOpenPgp is not null)
+[OpenPGP] #!
+#end if
+#if  (entry.DownloadSmime is not null)
+[S/MIME] #!
+#end if
+</td></tr>
+#end method
+
+#method Sumarize AnalyzedEntryService entry
+#% var service = entry.OnlineService;
+#if (entry.Uri is null) 
+<tr><td>#{service.Service}</td><td>#{entry.Title}</td></tr>
+#else
+<tr><td>#{service.Service}</td><td><a href="#{entry.Uri}">#{entry.Title}</a></td></tr>
+#end if
+#end method
 
 #method SumarizeChildren AnalysizedContact analysis
 #if analysis.Children.Count == 0

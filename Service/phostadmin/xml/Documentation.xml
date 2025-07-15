@@ -159,20 +159,13 @@
             Tag identifying this class
             </summary>
         </member>
-        <member name="P:phostadmin.AdminShellResult._TagDictionary">
+        <member name="P:phostadmin.AdminShellResult._BindingDictionary">
             <summary>
-            Dictionary mapping tags to factory methods
+            Dictionary mapping types to bindings
             </summary>
         </member>
         <member name="P:phostadmin.AdminShellResult._Initialized">
             <summary>Variable used to force static initialization</summary> 
-        </member>
-        <member name="M:phostadmin.AdminShellResult.Deserialize(Goedel.Protocol.JsonReader,Goedel.Protocol.JsonObject@)">
-            <summary>
-            Construct an instance from the specified tagged JsonReader stream.
-            </summary>
-            <param name="jsonReader">Input stream</param>
-            <param name="result">The created object</param>
         </member>
         <member name="T:phostadmin.Result">
              <summary>
@@ -180,26 +173,17 @@
              Placeholder class to allow insertion of application specific properties.
              </summary>
         </member>
+        <member name="P:phostadmin.Result._Properties">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:phostadmin.Result._properties">
+            <summary>Binding</summary> 
+        </member>
         <member name="P:phostadmin.Result._Binding">
             <summary>Implement IBinding</summary> 
         </member>
         <member name="F:phostadmin.Result._binding">
             <summary>Binding</summary> 
-        </member>
-        <member name="F:phostadmin.Result._StaticProperties">
-            <summary>Dictionary describing the serializable properties.</summary> 
-        </member>
-        <member name="F:phostadmin.Result._StaticAllProperties">
-            <summary>Dictionary describing the serializable properties.</summary> 
-        </member>
-        <member name="P:phostadmin.Result._AllProperties">
-            <inheritdoc/>
-        </member>
-        <member name="P:phostadmin.Result._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="P:phostadmin.Result._ParentProperties">
-            <inheritdoc/>
         </member>
         <member name="P:phostadmin.Result._Tag">
             <summary>
@@ -217,38 +201,21 @@
             </summary>
             <returns>Object of this type</returns>
         </member>
-        <member name="M:phostadmin.Result.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
-            <summary>
-            Deserialize a tagged stream
-            </summary>
-            <param name="jsonReader">The input stream</param>
-            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
-            <returns>The created object.</returns>		
-        </member>
         <member name="T:phostadmin.ResultServiceConfiguration">
             <summary>
             </summary>
+        </member>
+        <member name="P:phostadmin.ResultServiceConfiguration._Properties">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:phostadmin.ResultServiceConfiguration._properties">
+            <summary>Binding</summary> 
         </member>
         <member name="P:phostadmin.ResultServiceConfiguration._Binding">
             <summary>Implement IBinding</summary> 
         </member>
         <member name="F:phostadmin.ResultServiceConfiguration._binding">
             <summary>Binding</summary> 
-        </member>
-        <member name="F:phostadmin.ResultServiceConfiguration._StaticProperties">
-            <summary>Dictionary describing the serializable properties.</summary> 
-        </member>
-        <member name="F:phostadmin.ResultServiceConfiguration._StaticAllProperties">
-            <summary>Dictionary describing the serializable properties.</summary> 
-        </member>
-        <member name="P:phostadmin.ResultServiceConfiguration._AllProperties">
-            <inheritdoc/>
-        </member>
-        <member name="P:phostadmin.ResultServiceConfiguration._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="P:phostadmin.ResultServiceConfiguration._ParentProperties">
-            <inheritdoc/>
         </member>
         <member name="P:phostadmin.ResultServiceConfiguration._Tag">
             <summary>
@@ -265,14 +232,6 @@
             Factory method
             </summary>
             <returns>Object of this type</returns>
-        </member>
-        <member name="M:phostadmin.ResultServiceConfiguration.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
-            <summary>
-            Deserialize a tagged stream
-            </summary>
-            <param name="jsonReader">The input stream</param>
-            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
-            <returns>The created object.</returns>		
         </member>
         <member name="P:phostadmin.ResultServiceConfiguration.Configuration">
             <summary>The service/host configuration.</summary> 
@@ -316,26 +275,17 @@
             <summary>
             </summary>
         </member>
+        <member name="P:phostadmin.ResultAbout._Properties">
+            <summary>Implement IBinding</summary> 
+        </member>
+        <member name="F:phostadmin.ResultAbout._properties">
+            <summary>Binding</summary> 
+        </member>
         <member name="P:phostadmin.ResultAbout._Binding">
             <summary>Implement IBinding</summary> 
         </member>
         <member name="F:phostadmin.ResultAbout._binding">
             <summary>Binding</summary> 
-        </member>
-        <member name="F:phostadmin.ResultAbout._StaticProperties">
-            <summary>Dictionary describing the serializable properties.</summary> 
-        </member>
-        <member name="F:phostadmin.ResultAbout._StaticAllProperties">
-            <summary>Dictionary describing the serializable properties.</summary> 
-        </member>
-        <member name="P:phostadmin.ResultAbout._AllProperties">
-            <inheritdoc/>
-        </member>
-        <member name="P:phostadmin.ResultAbout._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="P:phostadmin.ResultAbout._ParentProperties">
-            <inheritdoc/>
         </member>
         <member name="P:phostadmin.ResultAbout._Tag">
             <summary>
@@ -352,14 +302,6 @@
             Factory method
             </summary>
             <returns>Object of this type</returns>
-        </member>
-        <member name="M:phostadmin.ResultAbout.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
-            <summary>
-            Deserialize a tagged stream
-            </summary>
-            <param name="jsonReader">The input stream</param>
-            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
-            <returns>The created object.</returns>		
         </member>
         <member name="M:phostadmin.ResultAbout.ToBuilder(System.Text.StringBuilder,Goedel.Command.Verbosity)">
             <inheritdoc/>

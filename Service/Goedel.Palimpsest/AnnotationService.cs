@@ -30,6 +30,9 @@ using System.Runtime.Serialization.DataContracts;
 
 namespace Goedel.Palimpsest;
 
+
+
+
 [Flags]
 public enum CommentMode {
 
@@ -57,6 +60,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #region // Properties
     ///<summary>The persistent data store</summary> 
     public Forum Forum { get; }
+
+
+
 
     ///<summary>The HTTP listener</summary> 
     private HttpListener HttpListener { get; set; }
@@ -587,18 +593,24 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var annotations = Annotations.Get(this, path);
         var domain = path.VisitorId;
 
-        var data  = await ParsedHandle.ResolveContact(domain);
-        
-        await PageHeader(annotations);
-        if (data == null) {
-            annotations.PageVisitor(domain, null);
-            }
-        else {
-            var contact = JsonObject.StreamParse<JsContact>(data);
-            contact.Analyze();
+        var contact = await Forum.EarlClient.ResolveContactHandle(domain);
 
-            annotations.PageVisitor(domain, contact);
-            }
+        var analyzed = new AnalyzedContact(contact);
+
+        annotations.PageVisitor(domain, analyzed);
+
+        //var data  = await ParsedHandle.ResolveContact(domain);
+        
+        //await PageHeader(annotations);
+        //if (data == null) {
+        //    annotations.PageVisitor(domain, null);
+        //    }
+        //else {
+        //    var contact = JsonObject.StreamParse<JsContact>(data);
+        //    contact.Analyze();
+
+
+        //    }
         await PageFooter(annotations);
 
         await Task.CompletedTask;

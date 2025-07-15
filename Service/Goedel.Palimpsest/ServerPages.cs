@@ -300,74 +300,61 @@ public partial class Annotations : global::Goedel.Registry.Script {
 	/// </summary>
 	/// <param name="visitor"></param>
 	/// <param name="contact"></param>
-	public void PageVisitor (string visitor, JsContact contact) {
+	public void PageVisitor (string visitor, AnalyzedContact contact) {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("<div class=\"container\">\n{0}", _Indent);
-		_Output.Write ("  <h1>Visitor: {1}</h1>\n{0}", _Indent, visitor);
 		_Output.Write ("\n{0}", _Indent);
-		 var analysis  = contact?.Analysis;
-		if (  analysis is not null ) {
-			_Output.Write ("    <table>\n{0}", _Indent);
-			foreach  (var item in analysis.Emails) {
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td>Email:</td>\n{0}", _Indent);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.User);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Label);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				SumarizeChildren (item.Analysis);
-				}
-			foreach  (var item in analysis.Webs) {
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td>Web:</td>\n{0}", _Indent);
-				_Output.Write ("        <td><a href=\"{1}\">{2}</a></td>\n{0}", _Indent, item.Uri, item.Uri);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Label);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				}
-			foreach  (var item in analysis.Mesh) {
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td>Mesh:</td>\n{0}", _Indent);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.User);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Label);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td></td>\n{0}", _Indent);
-				_Output.Write ("        <td colspan=\"2\">{1}</td>\n{0}", _Indent, item.Key);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				}
-			foreach  (var item in analysis.Ssh) {
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td>Ssh:</td>\n{0}", _Indent);
-				_Output.Write ("        <td><a href=\"\">Download</a></td>\n{0}", _Indent);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Label);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				}
-			foreach  (var item in analysis.Credentials) {
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td>Code:</td>\n{0}", _Indent);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Key);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Label);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				}
-			foreach  (var item in analysis.Other) {
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Service);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Uri);
-				_Output.Write ("        <td>{1}</td>\n{0}", _Indent, item.Label);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				}
-			foreach  (var item in analysis.Groups) {
-				_Output.Write ("        <tr>\n{0}", _Indent);
-				_Output.Write ("        <td>Group:</td>\n{0}", _Indent);
-				_Output.Write ("        <td colspan=\"2\">{1}</td>\n{0}", _Indent, item.Label);
-				_Output.Write ("        </tr>\n{0}", _Indent);
-				SumarizeChildren (item.Analysis);
-				}
-			_Output.Write ("    </table>\n{0}", _Indent);
+		_Output.Write ("  <h1>Visitor: {1}", _Indent, visitor);
+		if (  (contact?.FullName != null)  ) {
+			_Output.Write (" [{1}]", _Indent, contact.FullName);
+			}
+		_Output.Write ("</h1>\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		if (  (contact.ContactDownload is not null) ) {
+			_Output.Write ("<a href=\"{1}\">Download</a>\n{0}", _Indent, contact.ContactDownload);
 			}
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("    <table>\n{0}", _Indent);
+		foreach  (var service in contact.Services) {
+			foreach  (var entry in service.Entries)   {
+				 switch (entry) {
+				   case AnalyzedEntryMail analyzedMail : { Sumarize(analyzedMail); break;}
+				   case AnalyzedEntryService analyzedService : { Sumarize(analyzedService); break;}
+				    }
+				}
+			}
+		_Output.Write ("    </table>\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("</div>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// Sumarize
+	/// </summary>
+	/// <param name="entry"></param>
+	public void Sumarize (AnalyzedEntryMail entry) {
+		 var email = entry.EmailAddress;
+		_Output.Write ("<tr><td>Mail</td><td>{1}</td><td>\n{0}", _Indent, email.Address);
+		if (  (entry.DownloadOpenPgp is not null) ) {
+			_Output.Write ("[OpenPGP] ", _Indent);
+			}
+		if (   (entry.DownloadSmime is not null) ) {
+			_Output.Write ("[S/MIME] ", _Indent);
+			}
+		_Output.Write ("</td></tr>\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// Sumarize
+	/// </summary>
+	/// <param name="entry"></param>
+	public void Sumarize (AnalyzedEntryService entry) {
+		 var service = entry.OnlineService;
+		if (  (entry.Uri is null)  ) {
+			_Output.Write ("<tr><td>{1}</td><td>{2}</td></tr>\n{0}", _Indent, service.Service, entry.Title);
+			} else {
+			_Output.Write ("<tr><td>{1}</td><td><a href=\"{2}\">{3}</a></td></tr>\n{0}", _Indent, service.Service, entry.Uri, entry.Title);
+			}
 		}
 	
 	/// <summary>	

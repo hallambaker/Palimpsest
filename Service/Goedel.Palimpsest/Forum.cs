@@ -44,6 +44,10 @@ public class Forum : Disposable {
 
     #region // Properties
 
+    public DnsClient DnsClient { get; } 
+
+    public EarlClient EarlClient { get; } 
+
     public string Name { get; set; }
 
 
@@ -110,6 +114,8 @@ public class Forum : Disposable {
         CatalogProjects = new(this, directory);
         CatalogMembers = new(this, directory);
 
+        DnsClient = new DnsClientUDP();
+        EarlClient = new EarlClientHttp(DnsClient);
         }
 
     /// <summary>
