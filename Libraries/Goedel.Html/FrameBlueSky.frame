@@ -1,0 +1,174 @@
+﻿
+Namespace Frame
+    HomePage Page "Home"
+        Navigation Is MainNav
+        Items List Post
+        Settings Button SettingsPage "Settings"
+        Filter Is HomeFilter
+
+    NotificationsPage Page "Notifications"
+        Navigation Is MainNav
+        x Return HomePage
+        Items List Item    
+
+    ChatsPage Page "Chat"
+        Navigation Is MainNav
+        x Return HomePage
+        Items List Chat  
+
+    ChatingPage Page "Chatting"
+        Navigation Is MainNav
+        x Return HomePage
+        With Is User
+        Items List ChatText 
+
+    FeedsPage Page "Feeds"
+        Navigation Is MainNav
+        x Return HomePage
+
+    ProfilePage Page "Profile"
+        Navigation Is MainNav
+        x Return HomePage
+        Items List Post
+
+    MainNav Menu
+        Profiles Is ProfileSelect
+        Home Button HomePage "Home"
+        Notifications Button NotificationsPage "Notifications"
+            Count Integer
+        Chats Button ChatsPage "Chats" 
+        Feeds Button FeedsPage "Feeds"
+        Profile Button ProfilePage "Profile"
+        Settings Button SettingsPage "Settings"
+        NewPost Button NewPostPage "New Post"
+            x Emphasis
+       
+    HomeFilter Menu
+        All Button FilterAll "All"
+        Mentions Button FilterMentions "Mentions"
+
+    PostMenu Menu
+        Comment Button CommentAction "Home"
+            Count Integer
+        Repost SubMenu "Repost"
+            Repost Button RepostAction "Home"
+            QuotePost Button QuotePostAction "Home"
+        Like Button LikeAction "Like"
+            Liked Boolean
+        More Button MoreAction "More"
+            RequestMore Boolean
+        Less Button LessAction "Less"
+            RequestLess Boolean
+        Share SubMenu "Share"
+            CopyLink Button HomePage "Copy link to post"
+            ShareDM Button HomePage "Send via direct message"
+            Embed Button HomePage "Embed post"
+        Ellipsis SubMenu "More"
+            Translate Button TranslateAction "Translate"
+            CopyPostText Button CopyPostAction "Copy post text"
+            x Separator 
+            MuteThread Button MuteThreadAction "Translate"
+            MuteWords Button MuteWordsAction "Translate"
+            x Separator
+            HidePost Button HidePostAction "Translate"
+            x Separator
+            MuteAccount Button MuteAccountAction "Translate"
+            BlockAccount Button BlockAccountAction "Translate"
+            ReportPost Button ReportPostAction "Translate"
+
+    ProfileSelect Selector
+        Avatar Image
+        DisplayName String
+        DiaplayHandle String
+        //Accounts Selector "Switch Account"
+        AddAccount Button AddAccountAction "Add another account"
+        SignOut Button SignOutAction "Sign out"
+
+
+    ProfileFilter Menu
+        Posts Button FilterPosts "All"
+        Replies Button FilterReplies "Mentions"
+        Media Button FilterMedia "Mentions"
+        Videos Button FilterVideos "Mentions"
+        Likes Button FilterLikes "Mentions"
+        Feeds Button FilterFeeds "Mentions"
+
+
+    SettingsPage Page "Settings"
+        SwitchAccount Button ProfileSelect "Switch account"
+        Appearance Button AppearancePage "Appearance"
+        x Separator
+        SignOut Button SignOutAction "Sign out" 
+
+    AppearancePage Page "Appearance"
+        ColorMode Chooser
+            System "System"
+            Light "Light"
+            Dark "Dark"
+        ColorTheme Chooser
+            Dim "Dim"
+            Dark "Dark"
+        Font Chooser
+            System "System"
+            Theme "Theme"
+        FontSize Chooser
+            Small "Small"
+            Default "Theme"
+            Large "Large"
+
+    NewPostPage Page "New Post"
+        Cancel Button Cancel "Cancel"
+        Post Button Post "Post"
+        Avatar Image
+        Text Text
+        Image Button Image "Image"
+        Video Button Video "Video"
+        Language String
+        Characters Count
+
+
+    User Class
+        DID String
+        Avatar Image
+        DisplayName String
+        DiaplayHandle String
+
+    Item Class
+        Id String
+        Created DateTime
+
+    Chat SubClass Item
+        User Is User
+        Messages List ChatText
+
+    ChatText Class
+        Created DateTime
+        Self Boolean
+        Text Text
+
+    Reaction SubClass Item
+        Type String
+        Users List User
+
+    Post SubClass Item
+        User Is User
+
+    NewPost SubClass Post
+        Text Text
+
+    QuotePost SubClass NewPost
+        Base Is Post
+
+    RePost SubClass Post
+        Base Is Post
+
+    ProfileData Class
+        User Is User
+        Avatar Image
+        Banner Image
+        Description Text
+        Followers Integer
+        Following Integer
+        Posts Integer
+
+

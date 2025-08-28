@@ -1,0 +1,208 @@
+﻿#script 1.0
+#license MITLicense
+#pclass Goedel.Html GenerateBacking
+#% string structure = "class";
+
+
+#method CreateFrame FrameSet frameset
+#% var className = "MyClass";
+#% var comma = new Registry.Separator (",");
+
+/* 
+namespace #{frameset.Namespace};
+
+public class #{className} : FrameSet{
+
+#foreach (var backer in frameset.Pages) 
+	///<summary>#{backer.Id}</summary>
+	public #{backer.Id} #{backer.Id} {get;} = new();
+#end foreach
+
+#foreach (var backer in frameset.Menus) 
+	///<summary>#{backer.Id}</summary>
+	public #{backer.Id} #{backer.Id} {get;} = new();
+#end foreach
+
+#foreach (var backer in frameset.Selectors) 
+	 ///<summary>#{backer.Id}</summary>
+	 public #{backer.Id} #{backer.Id} {get;} = new();
+#end foreach
+
+#foreach (var backer in frameset.Classes) 
+	 ///<summary>#{backer.Id}</summary>
+	 public #{backer.Id} #{backer.Id} {get;} = new();
+#end foreach
+
+	/// <summary>
+	/// Constructor, return a new instance.
+	/// </summary>
+	public #{className} () {
+
+#% comma.Reset();
+		Pages = [ #!
+#foreach (var backer in frameset.Pages) 
+#{comma}
+			#{backer.Id}#!
+#end foreach
+
+			];
+
+#% comma.Reset();
+		Menus = [ #!
+#foreach (var backer in frameset.Menus) 
+#{comma}
+			#{backer.Id}#!
+#end foreach
+
+			];
+
+#% comma.Reset();
+		Selectors = [ #!
+#foreach (var backer in frameset.Selectors) 
+#{comma}
+			#{backer.Id}#!
+#end foreach
+
+			];
+
+#% comma.Reset();
+		Classes = [ #!
+#foreach (var backer in frameset.Classes) 
+#{comma}
+			#{backer.Id}#!
+#end foreach
+
+			];
+
+			
+		foreach (var backed in Pages) {
+			ResolveReferences (backed); 
+			}
+		foreach (var backed in Menus) {
+			ResolveReferences (backed); 
+			}
+		foreach (var backed in Classes) {
+			ResolveReferences (backed); 
+			}
+		}
+
+
+	}
+
+
+
+// Pages
+#foreach (var backer in frameset.Pages) 
+/// <summary>
+/// Backing class for #{backer.Id}
+/// </summary>
+public #{structure} #{backer.Id} : #{backer.Type} {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public #{backer.Id} () : base ("#{backer.Id}", "#{backer.Title}", _Fields) {
+		}
+#% MakeBacking (backer);
+	}
+#end foreach
+
+// Menus 
+#foreach (var backer in frameset.Menus) 
+/// <summary>
+/// Backing class for #{backer.Id}
+/// </summary>
+public #{structure} #{backer.Id} : #{backer.Type} {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public #{backer.Id} () : base ("#{backer.Id}", _Fields) {
+		}
+#% MakeBacking (backer);
+	}
+#end foreach
+
+// Classes 
+#foreach (var backer in frameset.Selectors) 
+/// <summary>
+/// Backing class for #{backer.Id}
+/// </summary>
+public #{structure} #{backer.Id} : #{backer.Type} {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public #{backer.Id} () : base ("#{backer.Id}") {
+		}
+
+	}
+#end foreach
+
+
+
+// Classes 
+#foreach (var backer in frameset.Classes) 
+/// <summary>
+/// Backing class for #{backer.Id}
+/// </summary>
+public #{structure} #{backer.Id} : #{backer.Type} {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public #{backer.Id} () : base ("#{backer.Id}", _Fields) {
+		}
+#% MakeBacking (backer);
+	}
+#end foreach
+
+#foreach (var fclass in frameset.Classes) 
+#!% MakeBacking (fclass);
+#end foreach
+
+/* */
+#end method 
+
+#method MakeBacking IBacked backed
+#foreach (var entry in backed.Fields) 
+#if (entry.Backing != null) 
+
+    /// <summary>Field #{entry.Id}</summary>
+	public #{entry.Backing}? #{entry.Id} {get; set;}
+#end if
+#end foreach
+
+	static List<FrameField> _Fields = [
+#foreach (var entry in backed.Fields) 
+#% switch (entry) {
+#% case FrameButton button: {
+		new FrameButton ("#{entry.Id}", "#{button.Label}", "#{button.Action}"),
+#% break; }
+#% case FrameRefMenu reference: {
+		new FrameRefMenu ("#{entry.Id}","#{reference.Reference}"),
+#% break; }
+#% case FrameRefClass reference: {
+		new FrameRefClass ("#{entry.Id}","#{reference.Reference}"),
+#% break; }
+#% case FrameRef : {
+		new FrameRef ("#{entry.Id}"),
+#% break; }
+#% case FrameSeparator : {
+		new FrameSeparator ("#{entry.Id}"),
+#% break; }
+#% default: {
+#if entry.Backing != null
+		new #{entry.Type} ("#{entry.Id}") {
+			Get = (FrameBacker data) => (data as #{backed.Id})?.#{entry.Id} ,
+			Set = (FrameBacker data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{entry.Id} = value; }},
+#end if
+#% break; }
+#% }
+#end foreach
+		];
+
+#end method 
+
+
+#end pclass

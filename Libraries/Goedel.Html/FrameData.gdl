@@ -1,0 +1,108 @@
+﻿Copyright "2025" "Threshold Secrets LLC." MITLicense
+
+Class Goedel.Html FrameStruct
+    TopType Namespace
+        Id ID NamespaceT
+        Entries List Entry
+
+    Type Entry
+        Id ID EntryT
+        Type Choice
+            Page
+            Menu
+            Selector
+            Class
+            SubClass
+
+    Type Page
+        Title String
+        Entries List Field
+
+    Type Menu
+        Entries List Field
+
+    Type SubMenu
+        Title String
+        Entries List Field
+
+    Type Selector
+        Entries List Field
+
+    Type Class
+        Entries List Property
+
+    Type SubClass
+        Parent REF EntryT
+        Entries List Property
+
+    Type Field
+        Id Token EntryT
+        Type Choice
+            Button
+            Chooser
+            Separator
+            SubMenu
+            Return
+            Is
+            Boolean
+            Integer
+            DateTime
+            String
+            Text
+            Image
+            List
+            Selector
+            Count
+
+    Type Property
+        Id Token EntryT
+        Type Choice
+            Is
+            Boolean
+            Integer
+            DateTime
+            String
+            Text
+            Image
+            List
+            Emphasis
+            Separator
+            SubMenu
+
+    Type Is
+        Parent REF EntryT
+
+    Type List
+        Of REF EntryT
+
+
+    // intrinsic types
+    Type Boolean
+    Type Integer
+    Type DateTime
+    Type String
+    Type Text
+    Type Image
+    Type Count
+
+    // Display fields
+    Type Separator
+        
+
+    Type Return
+        To REF EntryT
+
+    Type Emphasis
+
+
+    Type Button
+        Action REF EntryT
+        Title String
+        Entries List Property
+
+    Type Chooser
+        Entries List ChooserOption
+
+    Type ChooserOption
+        Action Token EntryT
+        Title String

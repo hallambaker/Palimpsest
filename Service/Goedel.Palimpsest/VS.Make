@@ -18,6 +18,7 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
+    Goedel.Contacts.dll\
     Goedel.Cryptography.Dare.dll\
     Goedel.Cryptography.Identifiers.dll\
     Goedel.Cryptography.Jose.dll\
@@ -31,6 +32,7 @@ LinkFiles = \
     Goedel.Serialization.dll\
     Goedel.Utilities.dll\
     Goedel.Protocol.dll\
+    Goedel.Mesh.Core.dll\
     Goedel.Mesh.dll\
     Goedel.Document.Markdown.dll\
     Goedel.Document.OpenXML.dll\

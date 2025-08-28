@@ -3,3 +3,104 @@ annotation-footer {
     bottom: 0;
     width: 100%;
 }
+
+
+.postList {
+    font-size: 15px;
+    letter-spacing: 0px;
+    font-family: InterVariable, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 15px;
+    
+}
+
+table, th, td {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    border-collapse: collapse;
+}
+
+
+.reposted {
+}
+
+.iconentry {
+    width: 32px;
+    height: 32px;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
+.iconcol {
+    width: 128px;
+}
+
+.userAvatar {
+    width: 64px;
+    height: 64px;
+}
+.userName {
+    color: rgb(11, 15, 20);
+}
+.postInfo {
+    color: rgb(66, 87, 108);
+}
+.postComment {
+    color: rgb(11, 15, 20);
+}
+.postImage {
+    border-radius: 25px;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    border-color: rgb(197, 207, 217);
+    inset: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.postControls {
+}
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 0px;
+}
+
+/* Stuff from W3 Schools */
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width:600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width:600px) {
+    .column {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width:800px) {
+    .column {
+        width: 33%;
+    }
+}
+
+@media screen and (min-width:1000px) {
+    .column {
+        width: 25%;
+    }
+}
+
+/* Clear floats after the columns */
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}

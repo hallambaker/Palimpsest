@@ -20,7 +20,12 @@ MSBuildThisFileDirectory =
 LinkFiles = \
     Goedel.Command.Json.dll\
     Goedel.Command.dll\
-    Goedel.Registry.dll
+    Goedel.Protocol.Service.dll\
+    Goedel.Registry.dll\
+    Goedel.Mesh.Client.dll\
+    Goedel.Mesh.Core.dll\
+    Goedel.Mesh.dll\
+    Goedel.Palimpsest.dll
 
 ToolTargets = \
 	main.cs\
