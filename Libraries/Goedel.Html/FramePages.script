@@ -12,23 +12,26 @@
 namespace #{frameset.Namespace};
 
 public class #{className} : FrameSet{
-
 #foreach (var backer in frameset.Pages) 
+
 	///<summary>#{backer.Id}</summary>
 	public #{backer.Id} #{backer.Id} {get;} = new();
 #end foreach
 
 #foreach (var backer in frameset.Menus) 
+
 	///<summary>#{backer.Id}</summary>
 	public #{backer.Id} #{backer.Id} {get;} = new();
 #end foreach
 
 #foreach (var backer in frameset.Selectors) 
+
 	 ///<summary>#{backer.Id}</summary>
 	 public #{backer.Id} #{backer.Id} {get;} = new();
 #end foreach
 
 #foreach (var backer in frameset.Classes) 
+
 	 ///<summary>#{backer.Id}</summary>
 	 public #{backer.Id} #{backer.Id} {get;} = new();
 #end foreach
@@ -79,6 +82,9 @@ public class #{className} : FrameSet{
 			ResolveReferences (backed); 
 			}
 		foreach (var backed in Menus) {
+			ResolveReferences (backed); 
+			}
+		foreach (var backed in Selectors) {
 			ResolveReferences (backed); 
 			}
 		foreach (var backed in Classes) {
@@ -133,9 +139,9 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public #{backer.Id} () : base ("#{backer.Id}") {
+	public #{backer.Id} () : base ("#{backer.Id}", _Fields) {
 		}
-
+#% MakeBacking (backer);
 	}
 #end foreach
 
@@ -146,13 +152,20 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 /// <summary>
 /// Backing class for #{backer.Id}
 /// </summary>
-public #{structure} #{backer.Id} : #{backer.Type} {
+public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
 	public #{backer.Id} () : base ("#{backer.Id}", _Fields) {
 		}
+
+    protected  #{backer.Id} (string id, List<FrameField> fields) : this() {
+		foreach (var field in fields) {
+			Fields.Add (field);
+			}
+		}
+
 #% MakeBacking (backer);
 	}
 #end foreach
@@ -170,6 +183,10 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 
     /// <summary>Field #{entry.Id}</summary>
 	public #{entry.Backing}? #{entry.Id} {get; set;}
+#elseif (entry is FrameRefClass refClass) 
+
+	// ref class #{refClass.Backing}, #{refClass.Id}
+	public #{refClass.Backing} #{refClass.Id} {get; set;}
 #end if
 #end foreach
 
@@ -183,7 +200,9 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 		new FrameRefMenu ("#{entry.Id}","#{reference.Reference}"),
 #% break; }
 #% case FrameRefClass reference: {
-		new FrameRefClass ("#{entry.Id}","#{reference.Reference}"),
+		new FrameRefClass ("#{entry.Id}","#{reference.Reference}"){
+			Get = (FrameBacker data) => (data as #{backed.Id})?.#{entry.Id} ,
+			Set = (FrameBacker data, Object? value) => {(data as #{backed.Id})!.#{entry.Id} = value as  #{reference.Backing}; }},
 #% break; }
 #% case FrameRef : {
 		new FrameRef ("#{entry.Id}"),

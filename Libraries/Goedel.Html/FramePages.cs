@@ -42,23 +42,26 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("namespace {1};\n{0}", _Indent, frameset.Namespace);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("public class {1} : FrameSet{{\n{0}", _Indent, className);
-		_Output.Write ("\n{0}", _Indent);
 		foreach  (var backer in frameset.Pages)  {
+			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("	///<summary>{1}</summary>\n{0}", _Indent, backer.Id);
 			_Output.Write ("	public {1} {2} {{get;}} = new();\n{0}", _Indent, backer.Id, backer.Id);
 			}
 		_Output.Write ("\n{0}", _Indent);
 		foreach  (var backer in frameset.Menus)  {
+			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("	///<summary>{1}</summary>\n{0}", _Indent, backer.Id);
 			_Output.Write ("	public {1} {2} {{get;}} = new();\n{0}", _Indent, backer.Id, backer.Id);
 			}
 		_Output.Write ("\n{0}", _Indent);
 		foreach  (var backer in frameset.Selectors)  {
+			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("	 ///<summary>{1}</summary>\n{0}", _Indent, backer.Id);
 			_Output.Write ("	 public {1} {2} {{get;}} = new();\n{0}", _Indent, backer.Id, backer.Id);
 			}
 		_Output.Write ("\n{0}", _Indent);
 		foreach  (var backer in frameset.Classes)  {
+			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("	 ///<summary>{1}</summary>\n{0}", _Indent, backer.Id);
 			_Output.Write ("	 public {1} {2} {{get;}} = new();\n{0}", _Indent, backer.Id, backer.Id);
 			}
@@ -109,6 +112,9 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("			ResolveReferences (backed); \n{0}", _Indent);
 		_Output.Write ("			}}\n{0}", _Indent);
 		_Output.Write ("		foreach (var backed in Menus) {{\n{0}", _Indent);
+		_Output.Write ("			ResolveReferences (backed); \n{0}", _Indent);
+		_Output.Write ("			}}\n{0}", _Indent);
+		_Output.Write ("		foreach (var backed in Selectors) {{\n{0}", _Indent);
 		_Output.Write ("			ResolveReferences (backed); \n{0}", _Indent);
 		_Output.Write ("			}}\n{0}", _Indent);
 		_Output.Write ("		foreach (var backed in Classes) {{\n{0}", _Indent);
@@ -163,9 +169,9 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("	/// <summary>\n{0}", _Indent);
 			_Output.Write ("	/// Constructor, returns a new instance\n{0}", _Indent);
 			_Output.Write ("	/// </summary>\n{0}", _Indent);
-			_Output.Write ("	public {1} () : base (\"{2}\") {{\n{0}", _Indent, backer.Id, backer.Id);
+			_Output.Write ("	public {1} () : base (\"{2}\", _Fields) {{\n{0}", _Indent, backer.Id, backer.Id);
 			_Output.Write ("		}}\n{0}", _Indent);
-			_Output.Write ("\n{0}", _Indent);
+			 MakeBacking (backer);
 			_Output.Write ("	}}\n{0}", _Indent);
 			}
 		_Output.Write ("\n{0}", _Indent);
@@ -176,13 +182,20 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("/// <summary>\n{0}", _Indent);
 			_Output.Write ("/// Backing class for {1}\n{0}", _Indent, backer.Id);
 			_Output.Write ("/// </summary>\n{0}", _Indent);
-			_Output.Write ("public {1} {2} : {3} {{\n{0}", _Indent, structure, backer.Id, backer.Type);
+			_Output.Write ("public {1} {2} : {3} {{\n{0}", _Indent, structure, backer.Id, backer.ParentId ?? backer.Type);
 			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("	/// <summary>\n{0}", _Indent);
 			_Output.Write ("	/// Constructor, returns a new instance\n{0}", _Indent);
 			_Output.Write ("	/// </summary>\n{0}", _Indent);
 			_Output.Write ("	public {1} () : base (\"{2}\", _Fields) {{\n{0}", _Indent, backer.Id, backer.Id);
 			_Output.Write ("		}}\n{0}", _Indent);
+			_Output.Write ("\n{0}", _Indent);
+			_Output.Write ("    protected  {1} (string id, List<FrameField> fields) : this() {{\n{0}", _Indent, backer.Id);
+			_Output.Write ("		foreach (var field in fields) {{\n{0}", _Indent);
+			_Output.Write ("			Fields.Add (field);\n{0}", _Indent);
+			_Output.Write ("			}}\n{0}", _Indent);
+			_Output.Write ("		}}\n{0}", _Indent);
+			_Output.Write ("\n{0}", _Indent);
 			 MakeBacking (backer);
 			_Output.Write ("	}}\n{0}", _Indent);
 			}
@@ -203,6 +216,10 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("    /// <summary>Field {1}</summary>\n{0}", _Indent, entry.Id);
 				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, entry.Backing, entry.Id);
+				} else if (  (entry is FrameRefClass refClass) ) {
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("	// ref class {1}, {2}\n{0}", _Indent, refClass.Backing, refClass.Id);
+				_Output.Write ("	public {1} {2} {{get; set;}}\n{0}", _Indent, refClass.Backing, refClass.Id);
 				}
 			}
 		_Output.Write ("\n{0}", _Indent);
@@ -216,7 +233,9 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("		new FrameRefMenu (\"{1}\",\"{2}\"),\n{0}", _Indent, entry.Id, reference.Reference);
 			 break; }
 			 case FrameRefClass reference: {
-			_Output.Write ("		new FrameRefClass (\"{1}\",\"{2}\"),\n{0}", _Indent, entry.Id, reference.Reference);
+			_Output.Write ("		new FrameRefClass (\"{1}\",\"{2}\"){{\n{0}", _Indent, entry.Id, reference.Reference);
+			_Output.Write ("			Get = (FrameBacker data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
+			_Output.Write ("			Set = (FrameBacker data, Object? value) => {{(data as {1})!.{2} = value as  {3}; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Backing);
 			 break; }
 			 case FrameRef : {
 			_Output.Write ("		new FrameRef (\"{1}\"),\n{0}", _Indent, entry.Id);

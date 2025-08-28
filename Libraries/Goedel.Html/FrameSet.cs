@@ -45,8 +45,11 @@ public class FrameSet {
 
 
 public interface IBacked {
-    //public string Backing { get; }
+
+    ///<summary>The identifier</summary>
     string Id { get; }
+
+    ///<summary>The fields</summary>
     List<FrameField> Fields { get; }
 
     string Type { get; }
@@ -54,6 +57,8 @@ public interface IBacked {
 
 
 public class FrameBacker {
+
+
     public string Id { get; init; }
     public FrameBacker(string id) {
         Id = id;
@@ -88,8 +93,15 @@ public class FrameMenu : FrameBacker, IBacked {
         }
     }
 
-public class FrameSelector(string Id) : FrameBacker(Id) {
+public class FrameSelector : FrameBacker, IBacked {
+
+    /// <inheritdoc/>
+    public virtual List<FrameField> Fields { get; init; }
     public string Type => "FrameSelector";
+
+    public FrameSelector(string id, List<FrameField> fields) : base(id) {
+        Fields = fields;
+        }
     }
 
 
@@ -98,6 +110,8 @@ public class FrameClass : FrameBacker, IBacked {
     public string Type => "FrameClass";
     public virtual List<FrameField> Fields { get; init; }
     public FrameClass? Parent { get; init; } = null;
+
+    public string? ParentId { get; init; } = null;
 
     public FrameClass(string id, List<FrameField> fields) : base(id) {
         Fields = fields;
@@ -141,12 +155,22 @@ public record FrameRefMenu(
     public FrameMenu Menu { get; set; }
     }
 
+
 public record FrameRefClass(
                     string Id,
                     string Reference) : FrameRef(Id) {
+    public string Backing => IsList ? $"List<{Reference}>" : Reference;
+
+    public string Base { get; set; }
+
+    public bool IsList { get; set; }
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
+
+    public Action<FrameBacker, Object?> Set { get; init; }
+    public Func<FrameBacker, Object?> Get { get; init; }
+
     }
 
 

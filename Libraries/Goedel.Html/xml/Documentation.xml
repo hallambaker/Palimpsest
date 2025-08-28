@@ -233,6 +233,15 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Goedel.Html.ProfileSelect.Avatar">
+            <summary>Field Avatar</summary>
+        </member>
+        <member name="P:Goedel.Html.ProfileSelect.DisplayName">
+            <summary>Field DisplayName</summary>
+        </member>
+        <member name="P:Goedel.Html.ProfileSelect.DiaplayHandle">
+            <summary>Field DiaplayHandle</summary>
+        </member>
         <member name="T:Goedel.Html.User">
             <summary>
             Backing class for User
@@ -437,6 +446,15 @@
             MakeBacking
             </summary>
             <param name="backed"></param>
+        </member>
+        <member name="P:Goedel.Html.IBacked.Id">
+            <summary>The identifier</summary>
+        </member>
+        <member name="P:Goedel.Html.IBacked.Fields">
+            <summary>The fields</summary>
+        </member>
+        <member name="P:Goedel.Html.FrameSelector.Fields">
+            <inheritdoc/>
         </member>
         <member name="T:Goedel.Html.NamespaceDoc">
             <summary>

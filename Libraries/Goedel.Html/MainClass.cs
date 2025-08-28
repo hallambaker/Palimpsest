@@ -23,15 +23,12 @@ class MainClass {
             nameSpace?.Collect(frameSet);
             }
 
-        /*
         using (var outfile = "NewBacking.cs".OpenTextWriterNew()) {
             var backing = new GenerateBacking() {
                 _Output = outfile
                 };
             backing.CreateFrame(frameSet);
-            } */
-
-
+            }
 
         var frameset = new MyClass();
         }

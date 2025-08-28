@@ -54,7 +54,8 @@ public partial class Namespace {
         }
 
     public FrameSelector Collect(FrameSet frameSet, ID<_Choice> id, Selector page) {
-        return new FrameSelector(id.Label);
+        var fields = CollectFields(frameSet, page.Entries);
+        return new FrameSelector(id.Label, fields);
         }
 
     public FrameClass Collect(FrameSet frameSet, ID<_Choice> id, Class baseclass) {
@@ -66,7 +67,9 @@ public partial class Namespace {
     public FrameClass Collect(FrameSet frameSet, ID<_Choice> id, SubClass subclass) {
         var properties = CollectProperties(frameSet, subclass.Entries);
 
-        return new FrameClass(id.Label, properties);
+        return new FrameClass(id.Label, properties) {
+            ParentId = subclass.Parent.Label
+            };
         }
 
     public List<FrameField> CollectFields(FrameSet frameset, List<Field> entries) {
@@ -137,9 +140,10 @@ public partial class Namespace {
             case Menu menu: {
                 return new FrameRefMenu(id, entry.Id.Label);
                 }
-            case Class: 
+            case Class:
             case SubClass : {
-                return new FrameRefClass(id, entry.Id.Label);
+                return new FrameRefClass(id, entry.Id.Label) {
+                    IsList = reference is List};
                 }
             }
         return new FrameRef(id);
@@ -164,17 +168,6 @@ public partial class Namespace {
             string id,
             IIntrinsic field) => GetBackingFrame (id, field);
 
-    //public string GetBackingType(IIntrinsic field) => field switch {
-    //    Boolean => "bool",
-    //    Integer => "int",
-    //    DateTime => "DateTime",
-    //    String => "string",
-    //    Text => "string",
-    //    Image => "string",
-    //    Count => "int",
-    //    _ => throw new Internal()
-    //    };
-
     public FrameField GetBackingFrame(string id, IIntrinsic field) => field switch {
         Boolean => new FrameBoolean(id),
         Integer => new FrameInteger(id),
@@ -185,8 +178,6 @@ public partial class Namespace {
         Count => new FrameCount(id),
         _ => throw new Internal()
         };
-
-
 
     }
 
