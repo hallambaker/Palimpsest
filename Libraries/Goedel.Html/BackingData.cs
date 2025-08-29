@@ -160,7 +160,7 @@ public class HomePage : FramePage {
         new FrameRefClass ("Items","Post"){
             Get = (FrameBacker data) => (data as HomePage)?.Items ,
             Set = (FrameBacker data, Object? value) => {(data as HomePage)!.Items = value as  List<Post>; }},
-        new FrameButton ("Settings", "Settings", "SettingsPage"),
+        new FieldButton ("Settings", "Settings", "SettingsPage"),
         new FrameRefMenu ("Filter","HomeFilter"),
         ];
 
@@ -292,10 +292,10 @@ public class SettingsPage : FramePage {
         }
 
     static List<FrameField> _Fields = [
-        new FrameButton ("SwitchAccount", "Switch account", "ProfileSelect"),
-        new FrameButton ("Appearance", "Appearance", "AppearancePage"),
+        new FieldButton ("SwitchAccount", "Switch account", "ProfileSelect"),
+        new FieldButton ("Appearance", "Appearance", "AppearancePage"),
         new FrameSeparator ("x"),
-        new FrameButton ("SignOut", "Sign out", "SignOutAction"),
+        new FieldButton ("SignOut", "Sign out", "SignOutAction"),
         ];
 
     }
@@ -338,16 +338,16 @@ public class NewPostPage : FramePage {
 	public int? Characters { get; set; }
 
     static List<FrameField> _Fields = [
-        new FrameButton ("Cancel", "Cancel", "Cancel"),
-        new FrameButton ("Post", "Post", "Post"),
+        new FieldButton ("Cancel", "Cancel", "Cancel"),
+        new FieldButton ("Post", "Post", "Post"),
         new FrameImage ("Avatar") {
             Get = (FrameBacker data) => (data as NewPostPage)?.Avatar ,
             Set = (FrameBacker data, string? value) => {(data as NewPostPage)!.Avatar = value; }},
         new FrameText ("Text") {
             Get = (FrameBacker data) => (data as NewPostPage)?.Text ,
             Set = (FrameBacker data, string? value) => {(data as NewPostPage)!.Text = value; }},
-        new FrameButton ("Image", "Image", "Image"),
-        new FrameButton ("Video", "Video", "Video"),
+        new FieldButton ("Image", "Image", "Image"),
+        new FieldButton ("Video", "Video", "Video"),
         new FrameString ("Language") {
             Get = (FrameBacker data) => (data as NewPostPage)?.Language ,
             Set = (FrameBacker data, string? value) => {(data as NewPostPage)!.Language = value; }},
@@ -372,13 +372,13 @@ public class MainNav : FrameMenu {
 
     static List<FrameField> _Fields = [
         new FrameRef ("Profiles"),
-        new FrameButton ("Home", "Home", "HomePage"),
-        new FrameButton ("Notifications", "Notifications", "NotificationsPage"),
-        new FrameButton ("Chats", "Chats", "ChatsPage"),
-        new FrameButton ("Feeds", "Feeds", "FeedsPage"),
-        new FrameButton ("Profile", "Profile", "ProfilePage"),
-        new FrameButton ("Settings", "Settings", "SettingsPage"),
-        new FrameButton ("NewPost", "New Post", "NewPostPage"),
+        new FieldButton ("Home", "Home", "HomePage"),
+        new FieldButton ("Notifications", "Notifications", "NotificationsPage"),
+        new FieldButton ("Chats", "Chats", "ChatsPage"),
+        new FieldButton ("Feeds", "Feeds", "FeedsPage"),
+        new FieldButton ("Profile", "Profile", "ProfilePage"),
+        new FieldButton ("Settings", "Settings", "SettingsPage"),
+        new FieldButton ("NewPost", "New Post", "NewPostPage"),
         ];
 
     }
@@ -394,8 +394,8 @@ public class HomeFilter : FrameMenu {
         }
 
     static List<FrameField> _Fields = [
-        new FrameButton ("All", "All", "FilterAll"),
-        new FrameButton ("Mentions", "Mentions", "FilterMentions"),
+        new FieldButton ("All", "All", "FilterAll"),
+        new FieldButton ("Mentions", "Mentions", "FilterMentions"),
         ];
 
     }
@@ -411,10 +411,10 @@ public class PostMenu : FrameMenu {
         }
 
     static List<FrameField> _Fields = [
-        new FrameButton ("Comment", "Home", "CommentAction"),
-        new FrameButton ("Like", "Like", "LikeAction"),
-        new FrameButton ("More", "More", "MoreAction"),
-        new FrameButton ("Less", "Less", "LessAction"),
+        new FieldButton ("Comment", "Home", "CommentAction"),
+        new FieldButton ("Like", "Like", "LikeAction"),
+        new FieldButton ("More", "More", "MoreAction"),
+        new FieldButton ("Less", "Less", "LessAction"),
         ];
 
     }
@@ -430,12 +430,12 @@ public class ProfileFilter : FrameMenu {
         }
 
     static List<FrameField> _Fields = [
-        new FrameButton ("Posts", "All", "FilterPosts"),
-        new FrameButton ("Replies", "Mentions", "FilterReplies"),
-        new FrameButton ("Media", "Mentions", "FilterMedia"),
-        new FrameButton ("Videos", "Mentions", "FilterVideos"),
-        new FrameButton ("Likes", "Mentions", "FilterLikes"),
-        new FrameButton ("Feeds", "Mentions", "FilterFeeds"),
+        new FieldButton ("Posts", "All", "FilterPosts"),
+        new FieldButton ("Replies", "Mentions", "FilterReplies"),
+        new FieldButton ("Media", "Mentions", "FilterMedia"),
+        new FieldButton ("Videos", "Mentions", "FilterVideos"),
+        new FieldButton ("Likes", "Mentions", "FilterLikes"),
+        new FieldButton ("Feeds", "Mentions", "FilterFeeds"),
         ];
 
     }
@@ -471,8 +471,8 @@ public class ProfileSelect : FrameSelector {
         new FrameString ("DiaplayHandle") {
             Get = (FrameBacker data) => (data as ProfileSelect)?.DiaplayHandle ,
             Set = (FrameBacker data, string? value) => {(data as ProfileSelect)!.DiaplayHandle = value; }},
-        new FrameButton ("AddAccount", "Add another account", "AddAccountAction"),
-        new FrameButton ("SignOut", "Sign out", "SignOutAction"),
+        new FieldButton ("AddAccount", "Add another account", "AddAccountAction"),
+        new FieldButton ("SignOut", "Sign out", "SignOutAction"),
         ];
 
     }

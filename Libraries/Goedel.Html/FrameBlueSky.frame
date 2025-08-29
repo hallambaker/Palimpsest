@@ -159,6 +159,7 @@ Namespace Frame
     QuotePost SubClass NewPost
         Base Is Post
 
+
     RePost SubClass Post
         Base Is Post
 

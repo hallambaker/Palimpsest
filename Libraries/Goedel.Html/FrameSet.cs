@@ -2,7 +2,12 @@
 
 namespace Goedel.Html;
 
+
+
 public class FrameSet {
+
+    public List<Resource> Resources { get; set; } = null;
+
 
     public virtual string Namespace { get; set; }
     public virtual List<FramePage> Pages { get; init; } = [];
@@ -13,7 +18,7 @@ public class FrameSet {
     //public Dictionary<string, FrameField> Dictionary { get; } = [];
 
     public void ResolveReferences(IBacked entry) {
-
+        entry.FrameSet = this;
         foreach (var field in entry.Fields) {
             switch (field) {
                 case FrameRefMenu item: {
@@ -41,11 +46,14 @@ public class FrameSet {
         }
 
 
+
+    public virtual string IconPath(string id) => $"Resources/Icons/{id}";
+
     }
 
 
 public interface IBacked {
-
+    FrameSet FrameSet { get; set; }
     ///<summary>The identifier</summary>
     string Id { get; }
 
@@ -58,7 +66,6 @@ public interface IBacked {
 
 public class FrameBacker {
 
-
     public string Id { get; init; }
     public FrameBacker(string id) {
         Id = id;
@@ -70,6 +77,12 @@ public class FrameBacker {
 
 public class FramePage: FrameBacker, IBacked {
 
+    public List<Resource> Resources { get; set; } = null;
+
+    public Resource FaviCon { get; set; } = null;
+    public string PageTitle { get; set; } = null;
+
+    public FrameSet FrameSet { get; set; }
     public string Title { get; init; }
 
     public virtual List<FrameField> Fields {get; init;}
@@ -83,7 +96,7 @@ public class FramePage: FrameBacker, IBacked {
     }
 
 public class FrameMenu : FrameBacker, IBacked {
-
+    public FrameSet FrameSet { get; set; }
     public virtual List<FrameField> Fields { get; init; }
 
     public string Type => "FrameMenu";
@@ -94,7 +107,7 @@ public class FrameMenu : FrameBacker, IBacked {
     }
 
 public class FrameSelector : FrameBacker, IBacked {
-
+    public FrameSet FrameSet { get; set; }
     /// <inheritdoc/>
     public virtual List<FrameField> Fields { get; init; }
     public string Type => "FrameSelector";
@@ -106,7 +119,7 @@ public class FrameSelector : FrameBacker, IBacked {
 
 
 public class FrameClass : FrameBacker, IBacked {
-
+    public FrameSet FrameSet { get; set; }
     public string Type => "FrameClass";
     public virtual List<FrameField> Fields { get; init; }
     public FrameClass? Parent { get; init; } = null;
@@ -133,7 +146,7 @@ public abstract record FrameField {
 
 
 
-public record FrameButton(
+public record FieldButton(
                 string Id,
                 string Label,
                 string Action) : FrameField (Id) {

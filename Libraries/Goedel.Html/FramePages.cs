@@ -226,7 +226,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("	static List<FrameField> _Fields = [\n{0}", _Indent);
 		foreach  (var entry in backed.Fields)  {
 			 switch (entry) {
-			 case FrameButton button: {
+			 case FieldButton button: {
 			_Output.Write ("		new FrameButton (\"{1}\", \"{2}\", \"{3}\"),\n{0}", _Indent, entry.Id, button.Label, button.Action);
 			 break; }
 			 case FrameRefMenu reference: {

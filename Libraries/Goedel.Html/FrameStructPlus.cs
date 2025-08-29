@@ -95,7 +95,7 @@ public partial class Namespace {
 
         switch (entry.TypeH) {
             case Button button: {
-                result.Add(new FrameButton(label, button.Title,
+                result.Add(new FieldButton(label, button.Title,
                     button.Action.Label));
                 break;
                 }
