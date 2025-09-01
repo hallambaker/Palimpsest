@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MakeGui</name>
+    </assembly>
+    <members>
+        <member name="T:Frame.NamespaceDoc">
+            <summary>
+            Desctiption of the 
+            </summary>
+        </member>
+        <member name="P:Frame.MyClass.HomePage">
+            <summary>HomePage</summary>
+        </member>
+        <member name="P:Frame.MyClass.NotificationsPage">
+            <summary>NotificationsPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.ChatsPage">
+            <summary>ChatsPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.ChatingPage">
+            <summary>ChatingPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.FeedsPage">
+            <summary>FeedsPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.ProfilePage">
+            <summary>ProfilePage</summary>
+        </member>
+        <member name="P:Frame.MyClass.SettingsPage">
+            <summary>SettingsPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.AppearancePage">
+            <summary>AppearancePage</summary>
+        </member>
+        <member name="P:Frame.MyClass.NewPostPage">
+            <summary>NewPostPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.MainNav">
+            <summary>MainNav</summary>
+        </member>
+        <member name="P:Frame.MyClass.HomeFilter">
+            <summary>HomeFilter</summary>
+        </member>
+        <member name="P:Frame.MyClass.PostMenu">
+            <summary>PostMenu</summary>
+        </member>
+        <member name="P:Frame.MyClass.ProfileFilter">
+            <summary>ProfileFilter</summary>
+        </member>
+        <member name="P:Frame.MyClass.ProfileSelect">
+            <summary>ProfileSelect</summary>
+        </member>
+        <member name="P:Frame.MyClass.User">
+            <summary>User</summary>
+        </member>
+        <member name="P:Frame.MyClass.Item">
+            <summary>Item</summary>
+        </member>
+        <member name="P:Frame.MyClass.Chat">
+            <summary>Chat</summary>
+        </member>
+        <member name="P:Frame.MyClass.ChatText">
+            <summary>ChatText</summary>
+        </member>
+        <member name="P:Frame.MyClass.Reaction">
+            <summary>Reaction</summary>
+        </member>
+        <member name="P:Frame.MyClass.Post">
+            <summary>Post</summary>
+        </member>
+        <member name="P:Frame.MyClass.NewPost">
+            <summary>NewPost</summary>
+        </member>
+        <member name="P:Frame.MyClass.QuotePost">
+            <summary>QuotePost</summary>
+        </member>
+        <member name="P:Frame.MyClass.RePost">
+            <summary>RePost</summary>
+        </member>
+        <member name="P:Frame.MyClass.ProfileData">
+            <summary>ProfileData</summary>
+        </member>
+        <member name="M:Frame.MyClass.#ctor">
+            <summary>
+            Constructor, return a new instance.
+            </summary>
+        </member>
+        <member name="T:Frame.HomePage">
+            <summary>
+            Backing class for HomePage
+            </summary>
+        </member>
+        <member name="M:Frame.HomePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.NotificationsPage">
+            <summary>
+            Backing class for NotificationsPage
+            </summary>
+        </member>
+        <member name="M:Frame.NotificationsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.ChatsPage">
+            <summary>
+            Backing class for ChatsPage
+            </summary>
+        </member>
+        <member name="M:Frame.ChatsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.ChatingPage">
+            <summary>
+            Backing class for ChatingPage
+            </summary>
+        </member>
+        <member name="M:Frame.ChatingPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.FeedsPage">
+            <summary>
+            Backing class for FeedsPage
+            </summary>
+        </member>
+        <member name="M:Frame.FeedsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.ProfilePage">
+            <summary>
+            Backing class for ProfilePage
+            </summary>
+        </member>
+        <member name="M:Frame.ProfilePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.SettingsPage">
+            <summary>
+            Backing class for SettingsPage
+            </summary>
+        </member>
+        <member name="M:Frame.SettingsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.AppearancePage">
+            <summary>
+            Backing class for AppearancePage
+            </summary>
+        </member>
+        <member name="M:Frame.AppearancePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.NewPostPage">
+            <summary>
+            Backing class for NewPostPage
+            </summary>
+        </member>
+        <member name="M:Frame.NewPostPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.NewPostPage.Avatar">
+            <summary>Field Avatar</summary>
+        </member>
+        <member name="P:Frame.NewPostPage.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.NewPostPage.Language">
+            <summary>Field Language</summary>
+        </member>
+        <member name="P:Frame.NewPostPage.Characters">
+            <summary>Field Characters</summary>
+        </member>
+        <member name="T:Frame.MainNav">
+            <summary>
+            Backing class for MainNav
+            </summary>
+        </member>
+        <member name="M:Frame.MainNav.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.HomeFilter">
+            <summary>
+            Backing class for HomeFilter
+            </summary>
+        </member>
+        <member name="M:Frame.HomeFilter.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.PostMenu">
+            <summary>
+            Backing class for PostMenu
+            </summary>
+        </member>
+        <member name="M:Frame.PostMenu.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.ProfileFilter">
+            <summary>
+            Backing class for ProfileFilter
+            </summary>
+        </member>
+        <member name="M:Frame.ProfileFilter.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.ProfileSelect">
+            <summary>
+            Backing class for ProfileSelect
+            </summary>
+        </member>
+        <member name="M:Frame.ProfileSelect.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.ProfileSelect.Avatar">
+            <summary>Field Avatar</summary>
+        </member>
+        <member name="P:Frame.ProfileSelect.DisplayName">
+            <summary>Field DisplayName</summary>
+        </member>
+        <member name="P:Frame.ProfileSelect.DiaplayHandle">
+            <summary>Field DiaplayHandle</summary>
+        </member>
+        <member name="T:Frame.User">
+            <summary>
+            Backing class for User
+            </summary>
+        </member>
+        <member name="M:Frame.User.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.User.DID">
+            <summary>Field DID</summary>
+        </member>
+        <member name="P:Frame.User.Avatar">
+            <summary>Field Avatar</summary>
+        </member>
+        <member name="P:Frame.User.DisplayName">
+            <summary>Field DisplayName</summary>
+        </member>
+        <member name="P:Frame.User.DiaplayHandle">
+            <summary>Field DiaplayHandle</summary>
+        </member>
+        <member name="T:Frame.Item">
+            <summary>
+            Backing class for Item
+            </summary>
+        </member>
+        <member name="M:Frame.Item.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.Item.Id">
+            <summary>Field Id</summary>
+        </member>
+        <member name="P:Frame.Item.Created">
+            <summary>Field Created</summary>
+        </member>
+        <member name="T:Frame.Chat">
+            <summary>
+            Backing class for Chat
+            </summary>
+        </member>
+        <member name="M:Frame.Chat.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.ChatText">
+            <summary>
+            Backing class for ChatText
+            </summary>
+        </member>
+        <member name="M:Frame.ChatText.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.ChatText.Created">
+            <summary>Field Created</summary>
+        </member>
+        <member name="P:Frame.ChatText.Self">
+            <summary>Field Self</summary>
+        </member>
+        <member name="P:Frame.ChatText.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="T:Frame.Reaction">
+            <summary>
+            Backing class for Reaction
+            </summary>
+        </member>
+        <member name="M:Frame.Reaction.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.Reaction.Type">
+            <summary>Field Type</summary>
+        </member>
+        <member name="T:Frame.Post">
+            <summary>
+            Backing class for Post
+            </summary>
+        </member>
+        <member name="M:Frame.Post.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.NewPost">
+            <summary>
+            Backing class for NewPost
+            </summary>
+        </member>
+        <member name="M:Frame.NewPost.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.NewPost.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="T:Frame.QuotePost">
+            <summary>
+            Backing class for QuotePost
+            </summary>
+        </member>
+        <member name="M:Frame.QuotePost.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.RePost">
+            <summary>
+            Backing class for RePost
+            </summary>
+        </member>
+        <member name="M:Frame.RePost.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="T:Frame.ProfileData">
+            <summary>
+            Backing class for ProfileData
+            </summary>
+        </member>
+        <member name="M:Frame.ProfileData.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.ProfileData.Avatar">
+            <summary>Field Avatar</summary>
+        </member>
+        <member name="P:Frame.ProfileData.Banner">
+            <summary>Field Banner</summary>
+        </member>
+        <member name="P:Frame.ProfileData.Description">
+            <summary>Field Description</summary>
+        </member>
+        <member name="P:Frame.ProfileData.Followers">
+            <summary>Field Followers</summary>
+        </member>
+        <member name="P:Frame.ProfileData.Following">
+            <summary>Field Following</summary>
+        </member>
+        <member name="P:Frame.ProfileData.Posts">
+            <summary>Field Posts</summary>
+        </member>
+    </members>
+</doc>

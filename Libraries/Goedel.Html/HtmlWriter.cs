@@ -67,6 +67,7 @@ public class HtmlWriter {
                 TextWriter.Write("  ");
                 }
             }
+        TextWriter.Write($"<{tag}");
         }
 
     void WriteAttributes(string[] attributes) {
@@ -83,7 +84,7 @@ public class HtmlWriter {
     public int Element(string tag, params string[] attributes) {
         StartElement(tag);
         WriteAttributes(attributes);
-        TextWriter.Write("/>");
+        TextWriter.WriteLine("/>");
         return Elements.Count-1;
         }
 
@@ -98,7 +99,7 @@ public class HtmlWriter {
         StartElement(tag);
         Elements.Push(new(tag));
         WriteAttributes(attributes);
-        TextWriter.Write(">");
+        TextWriter.WriteLine(">");
         return Elements.Count-1;
         }
 
@@ -121,7 +122,7 @@ public class HtmlWriter {
         (position < 0 | position == Elements.Count-1).AssertTrue(Internal.Throw,"XML nesting incorrect.");
 
         var tag = Elements.Pop();
-        TextWriter.Write($"</{tag.Tag}");
+        TextWriter.WriteLine($"</{tag.Tag}>");
         }
 
 
@@ -131,7 +132,7 @@ public class HtmlWriter {
                 Resource faviCon,
                 DocumentType docType = DocumentType.XHTML, 
                 string language = "en") {
-        TextWriter.Write(DocumentTypes[(int)docType]);
+        TextWriter.WriteLine(DocumentTypes[(int)docType]);
         Open("html", "lang", language);
         positionMain = Open("head");
         Element("meta", "charset", "utf-8");
@@ -195,16 +196,73 @@ public class PageWriter : HtmlWriter {
 
         Body();
 
-        foreach (var field in page.Fields) {
-            switch (field) {
-                case FrameRefMenu item: {
-                    Render(item);
-                    break;
-                    }
-                }
-            }
+        Render(page, page.Fields);
 
         Finish();
+        }
+
+
+    public void Render(IBacked backer, List<FrameField> fields) {
+        foreach (var field in fields) {
+            RenderField(backer, field);
+            }
+        }
+
+    public void RenderField(
+            IBacked backer,
+            FrameField field) {
+        Open("div", "class", field.Id);
+        switch (field) {
+            case FrameRefMenu item: {
+                Render(item);
+                break;
+                }
+            case FrameRefClass item: {
+                Render(backer,item);
+                break;
+                }
+            case FrameRefList item: {
+                RenderField(backer,item);
+                break;
+                }
+            case FrameChooser item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameBoolean item: {
+                Render(backer,item);
+                break;
+                }
+            case FrameInteger item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameDateTime item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameString item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameText item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameImage item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameCount item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameSeparator item: {
+                Render(backer, item);
+                break;
+                }
+            }
+        Close();
         }
 
 
@@ -215,7 +273,7 @@ public class PageWriter : HtmlWriter {
         foreach (var field in menu.Fields) {
 
             switch (field) {
-                case FieldButton item: {
+                case FrameButton item: {
                     Render(item);
                     break;
                     }
@@ -228,10 +286,10 @@ public class PageWriter : HtmlWriter {
         }
 
 
-    public void Render(FieldButton button) {
+    public void Render(FrameButton button) {
         var start = Open("div", "class", "Button " + button.Id);
         Open("p");
-        Open("img", "src", FrameSet.IconPath(button.Id), "class", "ButtonIcon");
+        Element("img", "src", FrameSet.IconPath(button.Id), "class", "ButtonIcon");
         Close();
         Open("div");
         Text(button.Label, "class", "ButtonText");
@@ -239,5 +297,69 @@ public class PageWriter : HtmlWriter {
         Close(start);
         }
 
+    public void Render(
+            IBacked backer) {
+        Render(backer, backer.Fields);
+        }
+
+    public void Render(
+                IBacked backer,
+                FrameRefList item, 
+                int max= -1, 
+                int first=0) {
+
+
+        var value = item.Get(backer);
+        var count = item.Count(value);
+
+        var last = max < 0 ? count : count.Minimum(max - first);
+        for (var i = first; i < last; i++) {
+            Render(item.Item(value,i));
+            }
+        }
+
+
+    public void Render(
+                IBacked backer,
+                FrameRefClass item) {
+        }
+    public void Render(
+                IBacked backer,
+                FrameChooser item) {
+        }
+    public void Render(
+                IBacked backer,
+                FrameBoolean item) {
+        }
+    public void Render(
+                IBacked backer,
+                FrameInteger item) {
+        }
+    public void Render(
+                IBacked backer,
+                FrameDateTime item) {
+        }
+    public void Render(
+                IBacked backer,
+                FrameString item) {
+        }
+    public void Render(
+                IBacked backer,
+                FrameText item) {
+        }
+    public void Render(
+                IBacked backer,
+                FrameImage item) {
+        }
+
+    public void Render(
+            IBacked backer,
+            FrameCount item) {
+        }
+
+    public void Render(
+            IBacked backer,
+            FrameSeparator item) {
+        }
 
     }

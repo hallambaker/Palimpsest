@@ -146,7 +146,7 @@ public abstract record FrameField {
 
 
 
-public record FieldButton(
+public record FrameButton(
                 string Id,
                 string Label,
                 string Action) : FrameField (Id) {
@@ -171,7 +171,7 @@ public record FrameRefMenu(
 
 public record FrameRefClass(
                     string Id,
-                    string Reference) : FrameRef(Id) {
+                    string Reference) : FrameRef(Id)  {
     public string Backing => IsList ? $"List<{Reference}>" : Reference;
 
     public string Base { get; set; }
@@ -181,8 +181,59 @@ public record FrameRefClass(
 
     public FrameClass Class { get; set; }
 
-    public Action<FrameBacker, Object?> Set { get; init; }
-    public Func<FrameBacker, Object?> Get { get; init; }
+    public Action<IBacked, Object?> Set { get; init; }
+    public Func<IBacked, Object?> Get { get; init; }
+
+    }
+
+public record FrameRefClass<T>(
+                    string Id,
+                    string Reference) : FrameRef(Id) where T : FrameClass {
+    public string Backing => IsList ? $"List<{Reference}>" : Reference;
+
+    public string Base { get; set; }
+
+    public bool IsList { get; set; }
+    public override string Type => "FrameRefClass";
+
+    public FrameClass Class { get; set; }
+
+    public Action<IBacked, T?> Set { get; init; }
+    public Func<IBacked, T?> Get { get; init; }
+
+    }
+
+public record FrameRefList(
+                    string Id,
+                    string Reference) : FrameRef(Id) {
+    public string Base { get; set; }
+
+    public bool IsList { get; set; }
+
+    public virtual FrameClass Item(Object? x, int index) => null;
+    public virtual int Count(Object? x) => 0;
+
+    public string Backing => IsList ? $"List<{Reference}>" : Reference;
+
+    public override string Type => "FrameRefClass";
+
+    public FrameClass Class { get; set; }
+
+    public Action<IBacked, Object?> Set { get; init; }
+    public Func<IBacked, Object?> Get { get; init; }
+    }
+
+
+public record FrameRefList<T>(
+                    string Id,
+                    string Reference) : FrameRefList(Id, Reference) where T : FrameClass {
+
+    public List<T>? AsList (Object? x) => x as List<T>;
+
+    public override FrameClass Item(Object? x, int index) => (x as List<T>)![index];
+
+    public override int Count(Object? x)=> (x as List<T>)!.Count;
+
 
     }
 
@@ -203,29 +254,29 @@ public record FrameBoolean(string Id) : FrameField(Id) {
     public override string Backing => "bool";
     public override string Type => "FrameBoolean";
 
-    public Action<FrameBacker, bool?> Set { get; init; }
-    public Func<FrameBacker, bool?> Get { get; init; }
+    public Action<IBacked, bool?> Set { get; init; }
+    public Func<IBacked, bool?> Get { get; init; }
     }
 public record FrameInteger(string Id) : FrameField(Id) {
     public override string Backing => "int";
     public override string Type => "FrameInteger";
 
-    public Action<FrameBacker, int?> Set { get; init; }
-    public Func<FrameBacker, int?> Get { get; init; }
+    public Action<IBacked, int?> Set { get; init; }
+    public Func<IBacked, int?> Get { get; init; }
     }
 public record FrameDateTime(string Id) : FrameField(Id) {
     public override string Backing => "System.DateTime";
     public override string Type => "FrameDateTime";
 
-    public Action<FrameBacker, System.DateTime?> Set { get; init; }
-    public Func<FrameBacker, System.DateTime?> Get { get; init; }
+    public Action<IBacked, System.DateTime?> Set { get; init; }
+    public Func<IBacked, System.DateTime?> Get { get; init; }
     }
 public record FrameString(string Id) : FrameField(Id) {
     public override string Backing => "string";
     public override string Type => "FrameString";
 
-    public Action<FrameBacker,string?> Set { get; init; }
-    public Func<FrameBacker,string?> Get { get; init; }
+    public Action<IBacked, string?> Set { get; init; }
+    public Func<IBacked, string?> Get { get; init; }
 
 
     }
@@ -233,22 +284,22 @@ public record FrameText(string Id) : FrameField(Id) {
     public override string Backing => "string";
     public override string Type => "FrameText";
 
-    public Action<FrameBacker, string?> Set { get; init; }
-    public Func<FrameBacker, string?> Get { get; init; }
+    public Action<IBacked, string?> Set { get; init; }
+    public Func<IBacked, string?> Get { get; init; }
     }
 public record FrameImage(string Id) : FrameField(Id) {
     public override string Backing => "string";
     public override string Type => "FrameImage";
 
-    public Action<FrameBacker, string?> Set { get; init; }
-    public Func<FrameBacker, string?> Get { get; init; }
+    public Action<IBacked, string?> Set { get; init; }
+    public Func<IBacked, string?> Get { get; init; }
     }
 public record FrameCount(string Id) : FrameField(Id) {
     public override string Backing => "int";
     public override string Type => "FrameCount";
 
-    public Action<FrameBacker, int?> Set { get; init; }
-    public Func<FrameBacker, int?> Get { get; init; }
+    public Action<IBacked, int?> Set { get; init; }
+    public Func<IBacked, int?> Get { get; init; }
     }
 public record FrameSeparator(string Id) : FrameField(Id) {
     public override string Type => "FrameSeparator";

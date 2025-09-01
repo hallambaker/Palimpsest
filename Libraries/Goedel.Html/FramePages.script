@@ -8,7 +8,6 @@
 #% var className = "MyClass";
 #% var comma = new Registry.Separator (",");
 
-/* 
 namespace #{frameset.Namespace};
 
 public class #{className} : FrameSet{
@@ -174,7 +173,7 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #!% MakeBacking (fclass);
 #end foreach
 
-/* */
+
 #end method 
 
 #method MakeBacking IBacked backed
@@ -201,8 +200,8 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #% break; }
 #% case FrameRefClass reference: {
 		new FrameRefClass ("#{entry.Id}","#{reference.Reference}"){
-			Get = (FrameBacker data) => (data as #{backed.Id})?.#{entry.Id} ,
-			Set = (FrameBacker data, Object? value) => {(data as #{backed.Id})!.#{entry.Id} = value as  #{reference.Backing}; }},
+			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} ,
+			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{entry.Id} = value as  #{reference.Backing}; }},
 #% break; }
 #% case FrameRef : {
 		new FrameRef ("#{entry.Id}"),
@@ -213,8 +212,8 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #% default: {
 #if entry.Backing != null
 		new #{entry.Type} ("#{entry.Id}") {
-			Get = (FrameBacker data) => (data as #{backed.Id})?.#{entry.Id} ,
-			Set = (FrameBacker data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{entry.Id} = value; }},
+			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} ,
+			Set = (IBacked data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{entry.Id} = value; }},
 #end if
 #% break; }
 #% }

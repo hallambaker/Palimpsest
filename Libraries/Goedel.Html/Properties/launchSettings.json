@@ -3,7 +3,7 @@
     "Profile 1": {
       "commandName": "Project",
       "commandLineArgs": "FrameBlueSky.Frame",
-      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\Palimpsest\\Libraries\\Goedel.Html"
+      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\Palimpsest\\Libraries\\MakeGui"
     }
   }
 }

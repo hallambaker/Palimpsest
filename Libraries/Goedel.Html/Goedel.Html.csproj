@@ -4,7 +4,7 @@
 		<Product>Goedel.Html</Product>
 		<Description>Build MPlace2 Chrome</Description>
 		<Copyright>© 2025</Copyright>
-		<Title>Goedel.Utilities</Title>
+		<Title>Goedel.Html</Title>
 		<OutputType>Exe</OutputType>		
 	</PropertyGroup>
 

@@ -4,395 +4,6 @@
         <name>Goedel.Html</name>
     </assembly>
     <members>
-        <member name="P:Goedel.Html.MyClass.HomePage">
-            <summary>HomePage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.NotificationsPage">
-            <summary>NotificationsPage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.ChatsPage">
-            <summary>ChatsPage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.ChatingPage">
-            <summary>ChatingPage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.FeedsPage">
-            <summary>FeedsPage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.ProfilePage">
-            <summary>ProfilePage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.SettingsPage">
-            <summary>SettingsPage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.AppearancePage">
-            <summary>AppearancePage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.NewPostPage">
-            <summary>NewPostPage</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.MainNav">
-            <summary>MainNav</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.HomeFilter">
-            <summary>HomeFilter</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.PostMenu">
-            <summary>PostMenu</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.ProfileFilter">
-            <summary>ProfileFilter</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.ProfileSelect">
-            <summary>ProfileSelect</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.User">
-            <summary>User</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.Item">
-            <summary>Item</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.Chat">
-            <summary>Chat</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.ChatText">
-            <summary>ChatText</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.Reaction">
-            <summary>Reaction</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.Post">
-            <summary>Post</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.NewPost">
-            <summary>NewPost</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.QuotePost">
-            <summary>QuotePost</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.RePost">
-            <summary>RePost</summary>
-        </member>
-        <member name="P:Goedel.Html.MyClass.ProfileData">
-            <summary>ProfileData</summary>
-        </member>
-        <member name="M:Goedel.Html.MyClass.#ctor">
-            <summary>
-            Constructor, return a new instance.
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.HomePage">
-            <summary>
-            Backing class for HomePage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.HomePage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.NotificationsPage">
-            <summary>
-            Backing class for NotificationsPage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.NotificationsPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.ChatsPage">
-            <summary>
-            Backing class for ChatsPage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.ChatsPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.ChatingPage">
-            <summary>
-            Backing class for ChatingPage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.ChatingPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.FeedsPage">
-            <summary>
-            Backing class for FeedsPage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.FeedsPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.ProfilePage">
-            <summary>
-            Backing class for ProfilePage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.ProfilePage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.SettingsPage">
-            <summary>
-            Backing class for SettingsPage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.SettingsPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.AppearancePage">
-            <summary>
-            Backing class for AppearancePage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.AppearancePage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.NewPostPage">
-            <summary>
-            Backing class for NewPostPage
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.NewPostPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.NewPostPage.Avatar">
-            <summary>Field Avatar</summary>
-        </member>
-        <member name="P:Goedel.Html.NewPostPage.Text">
-            <summary>Field Text</summary>
-        </member>
-        <member name="P:Goedel.Html.NewPostPage.Language">
-            <summary>Field Language</summary>
-        </member>
-        <member name="P:Goedel.Html.NewPostPage.Characters">
-            <summary>Field Characters</summary>
-        </member>
-        <member name="T:Goedel.Html.MainNav">
-            <summary>
-            Backing class for MainNav
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.MainNav.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.HomeFilter">
-            <summary>
-            Backing class for HomeFilter
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.HomeFilter.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.PostMenu">
-            <summary>
-            Backing class for PostMenu
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.PostMenu.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.ProfileFilter">
-            <summary>
-            Backing class for ProfileFilter
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.ProfileFilter.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.ProfileSelect">
-            <summary>
-            Backing class for ProfileSelect
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.ProfileSelect.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileSelect.Avatar">
-            <summary>Field Avatar</summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileSelect.DisplayName">
-            <summary>Field DisplayName</summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileSelect.DiaplayHandle">
-            <summary>Field DiaplayHandle</summary>
-        </member>
-        <member name="T:Goedel.Html.User">
-            <summary>
-            Backing class for User
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.User.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.User.DID">
-            <summary>Field DID</summary>
-        </member>
-        <member name="P:Goedel.Html.User.Avatar">
-            <summary>Field Avatar</summary>
-        </member>
-        <member name="P:Goedel.Html.User.DisplayName">
-            <summary>Field DisplayName</summary>
-        </member>
-        <member name="P:Goedel.Html.User.DiaplayHandle">
-            <summary>Field DiaplayHandle</summary>
-        </member>
-        <member name="T:Goedel.Html.Item">
-            <summary>
-            Backing class for Item
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.Item.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.Item.Id">
-            <summary>Field Id</summary>
-        </member>
-        <member name="P:Goedel.Html.Item.Created">
-            <summary>Field Created</summary>
-        </member>
-        <member name="T:Goedel.Html.Chat">
-            <summary>
-            Backing class for Chat
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.Chat.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.ChatText">
-            <summary>
-            Backing class for ChatText
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.ChatText.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.ChatText.Created">
-            <summary>Field Created</summary>
-        </member>
-        <member name="P:Goedel.Html.ChatText.Self">
-            <summary>Field Self</summary>
-        </member>
-        <member name="P:Goedel.Html.ChatText.Text">
-            <summary>Field Text</summary>
-        </member>
-        <member name="T:Goedel.Html.Reaction">
-            <summary>
-            Backing class for Reaction
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.Reaction.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.Reaction.Type">
-            <summary>Field Type</summary>
-        </member>
-        <member name="T:Goedel.Html.Post">
-            <summary>
-            Backing class for Post
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.Post.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.NewPost">
-            <summary>
-            Backing class for NewPost
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.NewPost.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.NewPost.Text">
-            <summary>Field Text</summary>
-        </member>
-        <member name="T:Goedel.Html.QuotePost">
-            <summary>
-            Backing class for QuotePost
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.QuotePost.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.RePost">
-            <summary>
-            Backing class for RePost
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.RePost.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.ProfileData">
-            <summary>
-            Backing class for ProfileData
-            </summary>
-        </member>
-        <member name="M:Goedel.Html.ProfileData.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileData.Avatar">
-            <summary>Field Avatar</summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileData.Banner">
-            <summary>Field Banner</summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileData.Description">
-            <summary>Field Description</summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileData.Followers">
-            <summary>Field Followers</summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileData.Following">
-            <summary>Field Following</summary>
-        </member>
-        <member name="P:Goedel.Html.ProfileData.Posts">
-            <summary>Field Posts</summary>
-        </member>
         <member name="T:Goedel.Html.Internal">
             <summary>
             An internal assertion check failed.
@@ -455,6 +66,45 @@
         </member>
         <member name="P:Goedel.Html.FrameSelector.Fields">
             <inheritdoc/>
+        </member>
+        <member name="T:Goedel.Html.Resource">
+            <summary>
+            
+            </summary>
+            <param name="Uri">The resource locator.</param>
+            <param name="Type">The icon type</param>
+        </member>
+        <member name="M:Goedel.Html.Resource.#ctor(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="Uri">The resource locator.</param>
+            <param name="Type">The icon type</param>
+        </member>
+        <member name="P:Goedel.Html.Resource.Uri">
+            <summary>The resource locator.</summary>
+        </member>
+        <member name="P:Goedel.Html.Resource.Type">
+            <summary>The icon type</summary>
+        </member>
+        <member name="M:Goedel.Html.HtmlWriter.Open(System.String,System.String[])">
+            <summary>
+            Start an element <paramref name="tag"/> with attribute value pairs from
+            <paramref name="attributes"/>.
+            </summary>
+            <param name="tag">The tag.</param>
+            <param name="attributes">The attributes.</param>
+            <returns>The stack position.</returns>
+        </member>
+        <member name="M:Goedel.Html.HtmlWriter.Close(System.Int32)">
+            <summary>
+            Close the immediately preceding 
+            </summary>
+        </member>
+        <member name="T:Goedel.Html.PageWriter">
+            <summary>
+            Pagewriter adds in methods to emit FramePages and components.
+            </summary>
         </member>
         <member name="T:Goedel.Html.NamespaceDoc">
             <summary>

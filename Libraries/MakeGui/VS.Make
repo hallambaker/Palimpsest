@@ -18,23 +18,19 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
-    Goedel.Protocol.dll\
+    Goedel.Cryptography.Dare.dll\
+    Goedel.Cryptography.Identifiers.dll\
+    Goedel.Cryptography.Jose.dll\
+    Goedel.Cryptography.dll\
+    Goedel.FSR.dll\
+    Goedel.Protocol.Web.dll\
     Goedel.Registry.dll\
-    Goedel.Utilities.dll
+    Goedel.Utilities.dll\
+    Goedel.Protocol.dll\
+    Goedel.Mesh.dll\
+    Goedel.Html.exe
 
-ToolTargets = \
-	FrameData.cs\
-	Exceptions.cs\
-	FramePages.cs
-FrameData.cs : FrameData.gdl 
-	goedel3 FrameData.gdl  /cs  FrameData.cs
-
-Exceptions.cs : Exceptions.exceptional 
-	exceptional Exceptions.exceptional  /cs  Exceptions.cs
-
-FramePages.cs : FramePages.script 
-	gscript FramePages.script  FramePages.cs
-
+ToolTargets = 
 
 
 prebuildRecurse : 
@@ -50,5 +46,5 @@ postbuild : postbuildRecurse
 
 
 postbuildwindows : 
-	powershell publishtarget Goedel.Html.exe $(LinkFiles) 
+	powershell publishtarget MakeGui.exe $(LinkFiles) 
 

@@ -38,7 +38,6 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		 var className = "MyClass";
 		 var comma = new Registry.Separator (",");
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("/* \n{0}", _Indent);
 		_Output.Write ("namespace {1};\n{0}", _Indent, frameset.Namespace);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("public class {1} : FrameSet{{\n{0}", _Indent, className);
@@ -203,7 +202,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		foreach  (var fclass in frameset.Classes)  {
 			}
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("/* */\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
 		}
 	
 	/// <summary>	
@@ -226,7 +225,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("	static List<FrameField> _Fields = [\n{0}", _Indent);
 		foreach  (var entry in backed.Fields)  {
 			 switch (entry) {
-			 case FieldButton button: {
+			 case FrameButton button: {
 			_Output.Write ("		new FrameButton (\"{1}\", \"{2}\", \"{3}\"),\n{0}", _Indent, entry.Id, button.Label, button.Action);
 			 break; }
 			 case FrameRefMenu reference: {
@@ -234,8 +233,8 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			 break; }
 			 case FrameRefClass reference: {
 			_Output.Write ("		new FrameRefClass (\"{1}\",\"{2}\"){{\n{0}", _Indent, entry.Id, reference.Reference);
-			_Output.Write ("			Get = (FrameBacker data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
-			_Output.Write ("			Set = (FrameBacker data, Object? value) => {{(data as {1})!.{2} = value as  {3}; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Backing);
+			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
+			_Output.Write ("			Set = (IBacked data, Object? value) => {{(data as {1})!.{2} = value as  {3}; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Backing);
 			 break; }
 			 case FrameRef : {
 			_Output.Write ("		new FrameRef (\"{1}\"),\n{0}", _Indent, entry.Id);
@@ -246,8 +245,8 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			 default: {
 			if (  entry.Backing != null ) {
 				_Output.Write ("		new {1} (\"{2}\") {{\n{0}", _Indent, entry.Type, entry.Id);
-				_Output.Write ("			Get = (FrameBacker data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
-				_Output.Write ("			Set = (FrameBacker data, {1}? value) => {{(data as {2})!.{3} = value; }}}},\n{0}", _Indent, entry.Backing, backed.Id, entry.Id);
+				_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
+				_Output.Write ("			Set = (IBacked data, {1}? value) => {{(data as {2})!.{3} = value; }}}},\n{0}", _Indent, entry.Backing, backed.Id, entry.Id);
 				}
 			 break; }
 			 }
