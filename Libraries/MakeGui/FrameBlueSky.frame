@@ -4,10 +4,10 @@ Namespace Frame
         Navigation Is MainNav
         Items List Post
         Settings Button SettingsPage "Settings"
-        Filter Is HomeFilter
 
     NotificationsPage Page "Notifications"
         Navigation Is MainNav
+        Filter Is HomeFilter
         x Return HomePage
         Items List Item    
 
@@ -129,7 +129,7 @@ Namespace Frame
 
     User Class
         DID String
-        Avatar Image
+        Avatar Avatar
         DisplayName String
         DiaplayHandle String
 

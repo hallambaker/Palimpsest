@@ -15,6 +15,9 @@ public class FrameSet {
     public virtual List<FrameSelector> Selectors { get; init; } = [];
     public virtual List<FrameClass> Classes { get; init; } = [];
 
+
+
+
     //public Dictionary<string, FrameField> Dictionary { get; } = [];
 
     public void ResolveReferences(IBacked entry) {
@@ -31,8 +34,6 @@ public class FrameSet {
                     }
                 }
             }
-
-
         }
 
     T? GetField<T>(List<T> list, string id) where T: IBacked {
@@ -45,9 +46,7 @@ public class FrameSet {
         return default;
         }
 
-
-
-    public virtual string IconPath(string id) => $"Resources/Icons/{id}";
+    public virtual string IconPath(string id) => $"Resources/Icons/{id}.svg";
 
     }
 
@@ -61,11 +60,15 @@ public interface IBacked {
     List<FrameField> Fields { get; }
 
     string Type { get; }
+
+    FrameClass? Parent { get;  }
+
+    System.DateTime StartRender { get; set; }
     }
 
 
 public class FrameBacker {
-
+    public System.DateTime StartRender { get; set; }
     public string Id { get; init; }
     public FrameBacker(string id) {
         Id = id;
@@ -87,6 +90,8 @@ public class FramePage: FrameBacker, IBacked {
 
     public virtual List<FrameField> Fields {get; init;}
 
+    public FrameClass? Parent { get; init; } = null;
+
     public string Type => "FramePage";
 
     public FramePage(string id, string title, List<FrameField> fields) : base(id) {
@@ -101,6 +106,8 @@ public class FrameMenu : FrameBacker, IBacked {
 
     public string Type => "FrameMenu";
 
+    public FrameClass? Parent { get; init; } = null;
+
     public FrameMenu(string id, List<FrameField> fields) : base(id) {
         Fields = fields;
         }
@@ -112,6 +119,8 @@ public class FrameSelector : FrameBacker, IBacked {
     public virtual List<FrameField> Fields { get; init; }
     public string Type => "FrameSelector";
 
+    public FrameClass? Parent { get; init; } = null;
+
     public FrameSelector(string id, List<FrameField> fields) : base(id) {
         Fields = fields;
         }
@@ -119,15 +128,21 @@ public class FrameSelector : FrameBacker, IBacked {
 
 
 public class FrameClass : FrameBacker, IBacked {
+
+    public static string DefaultAvatar = "Resources/Icons/AvatarDefault.svg";
+
     public FrameSet FrameSet { get; set; }
     public string Type => "FrameClass";
     public virtual List<FrameField> Fields { get; init; }
-    public FrameClass? Parent { get; init; } = null;
+    public FrameClass? Parent { get; set; } = null;
 
     public string? ParentId { get; init; } = null;
 
-    public FrameClass(string id, List<FrameField> fields) : base(id) {
-        Fields = fields;
+    public virtual string? GetAvatar => DefaultAvatar;
+
+
+    public FrameClass(string id) : base(id) {
+        //Fields = fields;
         }
     }
 
@@ -172,48 +187,39 @@ public record FrameRefMenu(
 public record FrameRefClass(
                     string Id,
                     string Reference) : FrameRef(Id)  {
-    public string Backing => IsList ? $"List<{Reference}>" : Reference;
+    public string Backing =>  Reference;
 
-    public string Base { get; set; }
-
-    public bool IsList { get; set; }
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
 
-    public Action<IBacked, Object?> Set { get; init; }
-    public Func<IBacked, Object?> Get { get; init; }
+    public Action<IBacked, IBacked?> Set { get; init; }
+    public Func<IBacked, IBacked?> Get { get; init; }
 
     }
 
 public record FrameRefClass<T>(
                     string Id,
-                    string Reference) : FrameRef(Id) where T : FrameClass {
-    public string Backing => IsList ? $"List<{Reference}>" : Reference;
+                    string Reference) : FrameRefClass(Id, Reference) where T : FrameClass {
 
-    public string Base { get; set; }
-
-    public bool IsList { get; set; }
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
 
-    public Action<IBacked, T?> Set { get; init; }
-    public Func<IBacked, T?> Get { get; init; }
+    //public Action<IBacked, T?> Set { get; init; }
+    //public Func<IBacked, T?> Get { get; init; }
 
     }
 
 public record FrameRefList(
                     string Id,
                     string Reference) : FrameRef(Id) {
-    public string Base { get; set; }
 
-    public bool IsList { get; set; }
 
     public virtual FrameClass Item(Object? x, int index) => null;
     public virtual int Count(Object? x) => 0;
 
-    public string Backing => IsList ? $"List<{Reference}>" : Reference;
+    public string Backing =>  $"List<{Reference}>" ;
 
     public override string Type => "FrameRefClass";
 
@@ -228,7 +234,6 @@ public record FrameRefList<T>(
                     string Id,
                     string Reference) : FrameRefList(Id, Reference) where T : FrameClass {
 
-    public List<T>? AsList (Object? x) => x as List<T>;
 
     public override FrameClass Item(Object? x, int index) => (x as List<T>)![index];
 
@@ -294,6 +299,13 @@ public record FrameImage(string Id) : FrameField(Id) {
     public Action<IBacked, string?> Set { get; init; }
     public Func<IBacked, string?> Get { get; init; }
     }
+
+public record FrameAvatar(string Id) : FrameField(Id) {
+    public override string Type => "FrameAvatar";
+
+    public Func<IBacked, string?> Get { get; init; }
+    }
+
 public record FrameCount(string Id) : FrameField(Id) {
     public override string Backing => "int";
     public override string Type => "FrameCount";

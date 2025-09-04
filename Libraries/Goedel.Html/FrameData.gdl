@@ -50,6 +50,7 @@ Class Goedel.Html FrameStruct
             String
             Text
             Image
+            Avatar
             List
             Selector
             Count
@@ -68,6 +69,7 @@ Class Goedel.Html FrameStruct
             Emphasis
             Separator
             SubMenu
+            Avatar
 
     Type Is
         Parent REF EntryT
@@ -83,6 +85,7 @@ Class Goedel.Html FrameStruct
     Type String
     Type Text
     Type Image
+    Type Avatar
     Type Count
 
     // Display fields

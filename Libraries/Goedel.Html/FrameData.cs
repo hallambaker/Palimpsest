@@ -66,6 +66,7 @@ using Goedel.Utilities;
 //       String
 //       Text
 //       Image
+//       Avatar
 //       List
 //       Count
 //       Emphasis
@@ -113,6 +114,7 @@ namespace Goedel.Html {
         String,
         Text,
         Image,
+        Avatar,
         Count,
         Separator,
         Return,
@@ -622,6 +624,27 @@ namespace Goedel.Html {
 			}
 		}
 
+    public partial class Avatar : _Choice {
+
+        public override FrameStructType _Tag () =>FrameStructType.Avatar;
+
+
+		public override void _InitChildren (_Choice Parent) {
+			Init (Parent);
+			}
+
+		public override void Serialize (StructureWriter Output, bool tag) {
+
+			if (tag) {
+				Output.StartElement ("Avatar");
+				}
+
+			if (tag) {
+				Output.EndElement ("Avatar");
+				}			
+			}
+		}
+
     public partial class Count : _Choice {
 
         public override FrameStructType _Tag () =>FrameStructType.Count;
@@ -852,6 +875,7 @@ namespace Goedel.Html {
 		String_Start,
 		Text_Start,
 		Image_Start,
+		Avatar_Start,
 		Count_Start,
 		Separator_Start,
 		Return_Start,
@@ -953,6 +977,7 @@ namespace Goedel.Html {
                 case "String": return NewString();
                 case "Text": return NewText();
                 case "Image": return NewImage();
+                case "Avatar": return NewAvatar();
                 case "Count": return NewCount();
                 case "Separator": return NewSeparator();
                 case "Return": return NewReturn();
@@ -1112,6 +1137,14 @@ namespace Goedel.Html {
             }
 
 
+        private Goedel.Html.Avatar NewAvatar() {
+            Goedel.Html.Avatar result = new Goedel.Html.Avatar();
+            Push (result);
+            State = StateCode.Avatar_Start;
+            return result;
+            }
+
+
         private Goedel.Html.Count NewCount() {
             Goedel.Html.Count result = new Goedel.Html.Count();
             Push (result);
@@ -1189,6 +1222,7 @@ namespace Goedel.Html {
                 case "String": return Goedel.Html.FrameStructType.String;
                 case "Text": return Goedel.Html.FrameStructType.Text;
                 case "Image": return Goedel.Html.FrameStructType.Image;
+                case "Avatar": return Goedel.Html.FrameStructType.Avatar;
                 case "Count": return Goedel.Html.FrameStructType.Count;
                 case "Separator": return Goedel.Html.FrameStructType.Separator;
                 case "Return": return Goedel.Html.FrameStructType.Return;
@@ -1592,6 +1626,7 @@ namespace Goedel.Html {
 									(LabelType == Goedel.Html.FrameStructType.String) |
 									(LabelType == Goedel.Html.FrameStructType.Text) |
 									(LabelType == Goedel.Html.FrameStructType.Image) |
+									(LabelType == Goedel.Html.FrameStructType.Avatar) |
 									(LabelType == Goedel.Html.FrameStructType.List) |
 									(LabelType == Goedel.Html.FrameStructType.Selector) |
 									(LabelType == Goedel.Html.FrameStructType.Count) ) {
@@ -1599,12 +1634,12 @@ namespace Goedel.Html {
                                 Current_Cast.Type = New_Choice(Text);
                                 }
                             else {
-                               throw new Expected ("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Image List Selector Count ]");
+                               throw new Expected ("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Image Avatar List Selector Count ]");
                                 }
                             break;
                             }
                         else { 
-						    throw new Expected("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Image List Selector Count ]");
+						    throw new Expected("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Image Avatar List Selector Count ]");
                             }
 
                     case StateCode.Field__Type:
@@ -1635,17 +1670,18 @@ namespace Goedel.Html {
 									(LabelType == Goedel.Html.FrameStructType.List) |
 									(LabelType == Goedel.Html.FrameStructType.Emphasis) |
 									(LabelType == Goedel.Html.FrameStructType.Separator) |
-									(LabelType == Goedel.Html.FrameStructType.SubMenu) ) {
+									(LabelType == Goedel.Html.FrameStructType.SubMenu) |
+									(LabelType == Goedel.Html.FrameStructType.Avatar) ) {
                                 State = StateCode.Property__Type;
                                 Current_Cast.Type = New_Choice(Text);
                                 }
                             else {
-                               throw new Expected ("Parser Error Expected [Is Boolean Integer DateTime String Text Image List Emphasis Separator SubMenu ]");
+                               throw new Expected ("Parser Error Expected [Is Boolean Integer DateTime String Text Image List Emphasis Separator SubMenu Avatar ]");
                                 }
                             break;
                             }
                         else { 
-						    throw new Expected("Parser Error Expected [Is Boolean Integer DateTime String Text Image List Emphasis Separator SubMenu ]");
+						    throw new Expected("Parser Error Expected [Is Boolean Integer DateTime String Text Image List Emphasis Separator SubMenu Avatar ]");
                             }
 
                     case StateCode.Property__Type:
@@ -1699,6 +1735,10 @@ namespace Goedel.Html {
                         Represent = true; 
                         break;
                     case StateCode.Image_Start:
+                        Pop ();
+                        Represent = true; 
+                        break;
+                    case StateCode.Avatar_Start:
                         Pop ();
                         Represent = true; 
                         break;

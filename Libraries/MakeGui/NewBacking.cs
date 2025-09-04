@@ -1,7 +1,7 @@
 
 namespace Frame;
 
-public class MyClass : FrameSet{
+public partial class MyClass : FrameSet{
 
 	///<summary>HomePage</summary>
 	public HomePage HomePage {get;} = new();
@@ -102,7 +102,7 @@ public class MyClass : FrameSet{
 			ProfileFilter
 			];
 
-		Selectors = [ 
+        Selectors = [ 
 			ProfileSelect
 			];
 
@@ -118,6 +118,9 @@ public class MyClass : FrameSet{
 			RePost,
 			ProfileData
 			];
+
+
+
 
 			
 		foreach (var backed in Pages) {
@@ -143,7 +146,7 @@ public class MyClass : FrameSet{
 /// <summary>
 /// Backing class for HomePage
 /// </summary>
-public class HomePage : FramePage {
+public partial class HomePage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -152,22 +155,21 @@ public class HomePage : FramePage {
 		}
 
 	// ref class List<Post>, Items
-	public List<Post> Items {get; set;}
+	public List<Post>? Items {get; set;}
 
 	static List<FrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefClass ("Items","Post"){
+		new FrameRefList<Post> ("Items","Post"){
 			Get = (IBacked data) => (data as HomePage)?.Items ,
-			Set = (IBacked data, Object? value) => {(data as HomePage)!.Items = value as  List<Post>; }},
+			Set = (IBacked data, Object? value) => {(data as HomePage)!.Items = value as List<Post>; }},
 		new FrameButton ("Settings", "Settings", "SettingsPage"),
-		new FrameRefMenu ("Filter","HomeFilter"),
 		];
 
 	}
 /// <summary>
 /// Backing class for NotificationsPage
 /// </summary>
-public class NotificationsPage : FramePage {
+public partial class NotificationsPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -176,21 +178,22 @@ public class NotificationsPage : FramePage {
 		}
 
 	// ref class List<Item>, Items
-	public List<Item> Items {get; set;}
+	public List<Item>? Items {get; set;}
 
 	static List<FrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("Filter","HomeFilter"),
 		new FrameRef ("x"),
-		new FrameRefClass ("Items","Item"){
+		new FrameRefList<Item> ("Items","Item"){
 			Get = (IBacked data) => (data as NotificationsPage)?.Items ,
-			Set = (IBacked data, Object? value) => {(data as NotificationsPage)!.Items = value as  List<Item>; }},
+			Set = (IBacked data, Object? value) => {(data as NotificationsPage)!.Items = value as List<Item>; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for ChatsPage
 /// </summary>
-public class ChatsPage : FramePage {
+public partial class ChatsPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -199,21 +202,21 @@ public class ChatsPage : FramePage {
 		}
 
 	// ref class List<Chat>, Items
-	public List<Chat> Items {get; set;}
+	public List<Chat>? Items {get; set;}
 
 	static List<FrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRef ("x"),
-		new FrameRefClass ("Items","Chat"){
+		new FrameRefList<Chat> ("Items","Chat"){
 			Get = (IBacked data) => (data as ChatsPage)?.Items ,
-			Set = (IBacked data, Object? value) => {(data as ChatsPage)!.Items = value as  List<Chat>; }},
+			Set = (IBacked data, Object? value) => {(data as ChatsPage)!.Items = value as List<Chat>; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for ChatingPage
 /// </summary>
-public class ChatingPage : FramePage {
+public partial class ChatingPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -222,27 +225,27 @@ public class ChatingPage : FramePage {
 		}
 
 	// ref class User, With
-	public User With {get; set;}
+	public User? With {get; set;}
 
 	// ref class List<ChatText>, Items
-	public List<ChatText> Items {get; set;}
+	public List<ChatText>? Items {get; set;}
 
 	static List<FrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRef ("x"),
-		new FrameRefClass ("With","User"){
+		new FrameRefClass<User> ("With","User"){
 			Get = (IBacked data) => (data as ChatingPage)?.With ,
-			Set = (IBacked data, Object? value) => {(data as ChatingPage)!.With = value as  User; }},
-		new FrameRefClass ("Items","ChatText"){
+			Set = (IBacked data, IBacked? value) => {(data as ChatingPage)!.With = value as User; }},
+		new FrameRefList<ChatText> ("Items","ChatText"){
 			Get = (IBacked data) => (data as ChatingPage)?.Items ,
-			Set = (IBacked data, Object? value) => {(data as ChatingPage)!.Items = value as  List<ChatText>; }},
+			Set = (IBacked data, Object? value) => {(data as ChatingPage)!.Items = value as List<ChatText>; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for FeedsPage
 /// </summary>
-public class FeedsPage : FramePage {
+public partial class FeedsPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -259,7 +262,7 @@ public class FeedsPage : FramePage {
 /// <summary>
 /// Backing class for ProfilePage
 /// </summary>
-public class ProfilePage : FramePage {
+public partial class ProfilePage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -268,21 +271,21 @@ public class ProfilePage : FramePage {
 		}
 
 	// ref class List<Post>, Items
-	public List<Post> Items {get; set;}
+	public List<Post>? Items {get; set;}
 
 	static List<FrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRef ("x"),
-		new FrameRefClass ("Items","Post"){
+		new FrameRefList<Post> ("Items","Post"){
 			Get = (IBacked data) => (data as ProfilePage)?.Items ,
-			Set = (IBacked data, Object? value) => {(data as ProfilePage)!.Items = value as  List<Post>; }},
+			Set = (IBacked data, Object? value) => {(data as ProfilePage)!.Items = value as List<Post>; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for SettingsPage
 /// </summary>
-public class SettingsPage : FramePage {
+public partial class SettingsPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -301,7 +304,7 @@ public class SettingsPage : FramePage {
 /// <summary>
 /// Backing class for AppearancePage
 /// </summary>
-public class AppearancePage : FramePage {
+public partial class AppearancePage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -316,7 +319,7 @@ public class AppearancePage : FramePage {
 /// <summary>
 /// Backing class for NewPostPage
 /// </summary>
-public class NewPostPage : FramePage {
+public partial class NewPostPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -361,7 +364,7 @@ public class NewPostPage : FramePage {
 /// <summary>
 /// Backing class for MainNav
 /// </summary>
-public class MainNav : FrameMenu {
+public partial class MainNav : FrameMenu {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -384,7 +387,7 @@ public class MainNav : FrameMenu {
 /// <summary>
 /// Backing class for HomeFilter
 /// </summary>
-public class HomeFilter : FrameMenu {
+public partial class HomeFilter : FrameMenu {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -401,7 +404,7 @@ public class HomeFilter : FrameMenu {
 /// <summary>
 /// Backing class for PostMenu
 /// </summary>
-public class PostMenu : FrameMenu {
+public partial class PostMenu : FrameMenu {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -420,7 +423,7 @@ public class PostMenu : FrameMenu {
 /// <summary>
 /// Backing class for ProfileFilter
 /// </summary>
-public class ProfileFilter : FrameMenu {
+public partial class ProfileFilter : FrameMenu {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -443,7 +446,7 @@ public class ProfileFilter : FrameMenu {
 /// <summary>
 /// Backing class for ProfileSelect
 /// </summary>
-public class ProfileSelect : FrameSelector {
+public partial class ProfileSelect : FrameSelector {
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -482,26 +485,24 @@ public class ProfileSelect : FrameSelector {
 /// <summary>
 /// Backing class for User
 /// </summary>
-public class User : FrameClass {
+public partial class User : FrameClass {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public User () : base ("User", _Fields) {
+	public User (string id="User") : base ("User") {
 		}
 
-    protected  User (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
     /// <summary>Field DID</summary>
 	public string? DID {get; set;}
 
-    /// <summary>Field Avatar</summary>
-	public string? Avatar {get; set;}
+	// Avatar Avatar
+	public string Avatar => GetAvatar;
 
     /// <summary>Field DisplayName</summary>
 	public string? DisplayName {get; set;}
@@ -513,9 +514,8 @@ public class User : FrameClass {
 		new FrameString ("DID") {
 			Get = (IBacked data) => (data as User)?.DID ,
 			Set = (IBacked data, string? value) => {(data as User)!.DID = value; }},
-		new FrameImage ("Avatar") {
-			Get = (IBacked data) => (data as User)?.Avatar ,
-			Set = (IBacked data, string? value) => {(data as User)!.Avatar = value; }},
+		new FrameAvatar ("Avatar"){
+			Get = (IBacked data) => (data as User)?.Avatar },
 		new FrameString ("DisplayName") {
 			Get = (IBacked data) => (data as User)?.DisplayName ,
 			Set = (IBacked data, string? value) => {(data as User)!.DisplayName = value; }},
@@ -528,19 +528,17 @@ public class User : FrameClass {
 /// <summary>
 /// Backing class for Item
 /// </summary>
-public class Item : FrameClass {
+public partial class Item : FrameClass {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public Item () : base ("Item", _Fields) {
+	public Item (string id="Item") : base ("Item") {
 		}
 
-    protected  Item (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
     /// <summary>Field Id</summary>
@@ -562,53 +560,55 @@ public class Item : FrameClass {
 /// <summary>
 /// Backing class for Chat
 /// </summary>
-public class Chat : Item {
+public partial class Chat : Item {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public Chat () : base ("Chat", _Fields) {
+	public Chat (string id="Chat") : base ("Chat") {
 		}
 
-    protected  Chat (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
 	// ref class User, User
-	public User User {get; set;}
+	public User? User {get; set;}
 
 	// ref class List<ChatText>, Messages
-	public List<ChatText> Messages {get; set;}
+	public List<ChatText>? Messages {get; set;}
 
 	static List<FrameField> _Fields = [
-		new FrameRefClass ("User","User"){
+		new FrameString ("Id") {
+			Get = (IBacked data) => (data as Item)?.Id ,
+			Set = (IBacked data, string? value) => {(data as Item)!.Id = value; }},
+		new FrameDateTime ("Created") {
+			Get = (IBacked data) => (data as Item)?.Created ,
+			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as Chat)?.User ,
-			Set = (IBacked data, Object? value) => {(data as Chat)!.User = value as  User; }},
-		new FrameRefClass ("Messages","ChatText"){
+			Set = (IBacked data, IBacked? value) => {(data as Chat)!.User = value as User; }},
+		new FrameRefList<ChatText> ("Messages","ChatText"){
 			Get = (IBacked data) => (data as Chat)?.Messages ,
-			Set = (IBacked data, Object? value) => {(data as Chat)!.Messages = value as  List<ChatText>; }},
+			Set = (IBacked data, Object? value) => {(data as Chat)!.Messages = value as List<ChatText>; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for ChatText
 /// </summary>
-public class ChatText : FrameClass {
+public partial class ChatText : FrameClass {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public ChatText () : base ("ChatText", _Fields) {
+	public ChatText (string id="ChatText") : base ("ChatText") {
 		}
 
-    protected  ChatText (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
     /// <summary>Field Created</summary>
@@ -636,87 +636,102 @@ public class ChatText : FrameClass {
 /// <summary>
 /// Backing class for Reaction
 /// </summary>
-public class Reaction : Item {
+public partial class Reaction : Item {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public Reaction () : base ("Reaction", _Fields) {
+	public Reaction (string id="Reaction") : base ("Reaction") {
 		}
 
-    protected  Reaction (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
     /// <summary>Field Type</summary>
 	public string? Type {get; set;}
 
 	// ref class List<User>, Users
-	public List<User> Users {get; set;}
+	public List<User>? Users {get; set;}
 
 	static List<FrameField> _Fields = [
+		new FrameString ("Id") {
+			Get = (IBacked data) => (data as Item)?.Id ,
+			Set = (IBacked data, string? value) => {(data as Item)!.Id = value; }},
+		new FrameDateTime ("Created") {
+			Get = (IBacked data) => (data as Item)?.Created ,
+			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
 		new FrameString ("Type") {
 			Get = (IBacked data) => (data as Reaction)?.Type ,
 			Set = (IBacked data, string? value) => {(data as Reaction)!.Type = value; }},
-		new FrameRefClass ("Users","User"){
+		new FrameRefList<User> ("Users","User"){
 			Get = (IBacked data) => (data as Reaction)?.Users ,
-			Set = (IBacked data, Object? value) => {(data as Reaction)!.Users = value as  List<User>; }},
+			Set = (IBacked data, Object? value) => {(data as Reaction)!.Users = value as List<User>; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for Post
 /// </summary>
-public class Post : Item {
+public partial class Post : Item {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public Post () : base ("Post", _Fields) {
+	public Post (string id="Post") : base ("Post") {
 		}
 
-    protected  Post (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
 	// ref class User, User
-	public User User {get; set;}
+	public User? User {get; set;}
 
 	static List<FrameField> _Fields = [
-		new FrameRefClass ("User","User"){
+		new FrameString ("Id") {
+			Get = (IBacked data) => (data as Item)?.Id ,
+			Set = (IBacked data, string? value) => {(data as Item)!.Id = value; }},
+		new FrameDateTime ("Created") {
+			Get = (IBacked data) => (data as Item)?.Created ,
+			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as Post)?.User ,
-			Set = (IBacked data, Object? value) => {(data as Post)!.User = value as  User; }},
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for NewPost
 /// </summary>
-public class NewPost : Post {
+public partial class NewPost : Post {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public NewPost () : base ("NewPost", _Fields) {
+	public NewPost (string id="NewPost") : base ("NewPost") {
 		}
 
-    protected  NewPost (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
     /// <summary>Field Text</summary>
 	public string? Text {get; set;}
 
 	static List<FrameField> _Fields = [
+		new FrameString ("Id") {
+			Get = (IBacked data) => (data as Item)?.Id ,
+			Set = (IBacked data, string? value) => {(data as Item)!.Id = value; }},
+		new FrameDateTime ("Created") {
+			Get = (IBacked data) => (data as Item)?.Created ,
+			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+		new FrameRefClass<User> ("User","User"){
+			Get = (IBacked data) => (data as Post)?.User ,
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
 		new FrameText ("Text") {
 			Get = (IBacked data) => (data as NewPost)?.Text ,
 			Set = (IBacked data, string? value) => {(data as NewPost)!.Text = value; }},
@@ -726,79 +741,94 @@ public class NewPost : Post {
 /// <summary>
 /// Backing class for QuotePost
 /// </summary>
-public class QuotePost : NewPost {
+public partial class QuotePost : NewPost {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public QuotePost () : base ("QuotePost", _Fields) {
+	public QuotePost (string id="QuotePost") : base ("QuotePost") {
 		}
 
-    protected  QuotePost (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
 	// ref class Post, Base
-	public Post Base {get; set;}
+	public Post? Base {get; set;}
 
 	static List<FrameField> _Fields = [
-		new FrameRefClass ("Base","Post"){
+		new FrameString ("Id") {
+			Get = (IBacked data) => (data as Item)?.Id ,
+			Set = (IBacked data, string? value) => {(data as Item)!.Id = value; }},
+		new FrameDateTime ("Created") {
+			Get = (IBacked data) => (data as Item)?.Created ,
+			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+		new FrameRefClass<User> ("User","User"){
+			Get = (IBacked data) => (data as Post)?.User ,
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
+		new FrameText ("Text") {
+			Get = (IBacked data) => (data as NewPost)?.Text ,
+			Set = (IBacked data, string? value) => {(data as NewPost)!.Text = value; }},
+		new FrameRefClass<Post> ("Base","Post"){
 			Get = (IBacked data) => (data as QuotePost)?.Base ,
-			Set = (IBacked data, Object? value) => {(data as QuotePost)!.Base = value as  Post; }},
+			Set = (IBacked data, IBacked? value) => {(data as QuotePost)!.Base = value as Post; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for RePost
 /// </summary>
-public class RePost : Post {
+public partial class RePost : Post {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public RePost () : base ("RePost", _Fields) {
+	public RePost (string id="RePost") : base ("RePost") {
 		}
 
-    protected  RePost (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
 	// ref class Post, Base
-	public Post Base {get; set;}
+	public Post? Base {get; set;}
 
 	static List<FrameField> _Fields = [
-		new FrameRefClass ("Base","Post"){
+		new FrameString ("Id") {
+			Get = (IBacked data) => (data as Item)?.Id ,
+			Set = (IBacked data, string? value) => {(data as Item)!.Id = value; }},
+		new FrameDateTime ("Created") {
+			Get = (IBacked data) => (data as Item)?.Created ,
+			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+		new FrameRefClass<User> ("User","User"){
+			Get = (IBacked data) => (data as Post)?.User ,
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
+		new FrameRefClass<Post> ("Base","Post"){
 			Get = (IBacked data) => (data as RePost)?.Base ,
-			Set = (IBacked data, Object? value) => {(data as RePost)!.Base = value as  Post; }},
+			Set = (IBacked data, IBacked? value) => {(data as RePost)!.Base = value as Post; }},
 		];
 
 	}
 /// <summary>
 /// Backing class for ProfileData
 /// </summary>
-public class ProfileData : FrameClass {
+public partial class ProfileData : FrameClass {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public ProfileData () : base ("ProfileData", _Fields) {
+	public ProfileData (string id="ProfileData") : base ("ProfileData") {
 		}
 
-    protected  ProfileData (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 
 	// ref class User, User
-	public User User {get; set;}
+	public User? User {get; set;}
 
     /// <summary>Field Avatar</summary>
 	public string? Avatar {get; set;}
@@ -819,9 +849,9 @@ public class ProfileData : FrameClass {
 	public int? Posts {get; set;}
 
 	static List<FrameField> _Fields = [
-		new FrameRefClass ("User","User"){
+		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as ProfileData)?.User ,
-			Set = (IBacked data, Object? value) => {(data as ProfileData)!.User = value as  User; }},
+			Set = (IBacked data, IBacked? value) => {(data as ProfileData)!.User = value as User; }},
 		new FrameImage ("Avatar") {
 			Get = (IBacked data) => (data as ProfileData)?.Avatar ,
 			Set = (IBacked data, string? value) => {(data as ProfileData)!.Avatar = value; }},

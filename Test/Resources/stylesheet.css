@@ -1,0 +1,215 @@
+
+
+
+
+Body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    margin: 0px;
+    border: 0px;
+}
+
+* {
+    outline: 1px solid red;
+}
+
+.HomePage {
+    display: grid;
+    grid-template-areas:
+        "left Top"
+        "left Items";
+    grid-template-columns: 180px 420px;
+
+    gap: 1px;
+    /*padding: 5px;*/
+    margin: 0px;
+    border: 0px;
+
+}
+
+    .HomePage > div {
+        /*padding: 10px;*/
+    }
+
+        .HomePage > div.Navigation {
+            align-self: start;
+            top: 0;
+            left: 0;
+            position: sticky;
+            grid-area: left;
+            align-self: start;
+            padding: 10px;
+
+        }
+
+        .HomePage > div.Items {
+            grid-area: Items;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            padding: 15px;
+        }
+
+        .HomePage > div.Settings {
+            grid-area: Top;
+            top: 0;
+            padding: 0px;
+            position: sticky;
+            text-align: right;
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+
+.Button {
+    border-radius: 10px;
+    text-decoration: none;
+    align-items: center;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    width: 100%;
+    border: 0px;
+    background-color: white;
+}
+    .Button:hover {
+        background-color: lightgray;
+    }
+
+.ButtonIcon {
+    width:24px;
+    height:24px;
+}
+
+.ButtonText{
+    padding-left: 8px;
+}
+
+.DID {
+    display: none;
+}
+
+
+.Id {
+    display: none;
+}
+
+.Item {
+    display: grid;
+    grid-template-areas:
+        "left user"
+        "rule post";
+    grid-template-columns: 36px auto;
+
+}
+
+    .Item > div.Avatar {
+        grid-area: left;
+        vertical-align: middle;
+        align-self: center;
+    }
+
+
+
+    .Item > div.PostBy {
+        vertical-align: middle;
+        grid-area: user;
+        align-self: center;
+    }
+
+    .Item > div.Post {
+        grid-area: post;
+    }
+
+    .Item > div.Rule {
+
+    }
+
+
+.PostBy {
+    display: inline;
+
+}
+.Avatar {
+    height: 32px;
+    width: 32px;
+    align-items: center;
+}
+.DisplayName {
+    font-weight: bold;
+    display: inline;
+    align-items: center;
+}
+.DisplayHandle {
+    display: inline;
+
+}
+.Created {
+    display: inline;
+
+}
+
+    .Created:before {
+        content: "-";
+    }
+/*
+
+a:link, a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.ButtonBox {
+    border-radius: 10px;
+    text-decoration: none;
+    align-items: center;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    padding: 8px
+}
+
+.ButtonBox:hover {
+        background-color: lightgray;
+    }
+
+.ButtonText {
+    padding-left: 10px;
+}
+*/
+
+
+
+/*.NewPost {
+    background-color: dodgerblue;
+    fill: white;
+    stroke: white;
+    color: white;
+}
+
+.NewPost:hover {
+    background-color: dodgerblue;
+    fill: white;
+    stroke: white;
+}
+
+.Button {
+    width: 32px;
+    height: 32px;
+    padding: 0px;
+    background-color: #ffffff;
+    border: 0px;
+}
+
+
+
+
+.Filter {
+    display: inline-block;
+    float: Top;
+    display: block;
+
+    padding: 14px 16px;
+    text-decoration: none;
+}*/
+

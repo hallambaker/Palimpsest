@@ -1,7 +1,7 @@
 ﻿#script 1.0
 #license MITLicense
 #pclass Goedel.Html GenerateBacking
-#% string structure = "class";
+#% string structure = "partial class";
 
 
 #method CreateFrame FrameSet frameset
@@ -10,7 +10,7 @@
 
 namespace #{frameset.Namespace};
 
-public class #{className} : FrameSet{
+public partial class #{className} : FrameSet{
 #foreach (var backer in frameset.Pages) 
 
 	///<summary>#{backer.Id}</summary>
@@ -156,14 +156,17 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public #{backer.Id} () : base ("#{backer.Id}", _Fields) {
+	public #{backer.Id} (string id="#{backer.Id}") : base ("#{backer.Id}") {
 		}
 
-    protected  #{backer.Id} (string id, List<FrameField> fields) : this() {
-		foreach (var field in fields) {
-			Fields.Add (field);
-			}
-		}
+#!    public  #{backer.Id} (string id, List<FrameField> fields=null) : base(id) {
+#!		foreach (var field in fields) {
+#!			//Fields.Add (field);
+#!			}
+#!		}
+
+    public override List<FrameField> Fields => _Fields;
+
 
 #% MakeBacking (backer);
 	}
@@ -182,15 +185,33 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 
     /// <summary>Field #{entry.Id}</summary>
 	public #{entry.Backing}? #{entry.Id} {get; set;}
+#elseif (entry is FrameAvatar avatar) 
+
+	// Avatar #{avatar.Id}
+	public string #{avatar.Id} => GetAvatar;
 #elseif (entry is FrameRefClass refClass) 
 
 	// ref class #{refClass.Backing}, #{refClass.Id}
-	public #{refClass.Backing} #{refClass.Id} {get; set;}
+	public #{refClass.Backing}? #{refClass.Id} {get; set;}
+#elseif (entry is FrameRefList refList) 
+
+	// ref class #{refList.Backing}, #{refList.Id}
+	public #{refList.Backing}? #{refList.Id} {get; set;}
 #end if
 #end foreach
 
 	static List<FrameField> _Fields = [
-#foreach (var entry in backed.Fields) 
+#% RenderFields(backed, backed.Fields);
+		];
+
+#end method 
+
+
+#method2 RenderFields IBacked backed List<FrameField> fields
+#if (backed.Parent is not null) 
+#% RenderFields(backed.Parent, backed.Parent.Fields);
+#end if
+#foreach (var entry in fields) 
 #% switch (entry) {
 #% case FrameButton button: {
 		new FrameButton ("#{entry.Id}", "#{button.Label}", "#{button.Action}"),
@@ -198,10 +219,19 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #% case FrameRefMenu reference: {
 		new FrameRefMenu ("#{entry.Id}","#{reference.Reference}"),
 #% break; }
+#% case FrameAvatar avatar: {
+		new FrameAvatar ("#{entry.Id}"){
+			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} },
+#% break; }
 #% case FrameRefClass reference: {
-		new FrameRefClass ("#{entry.Id}","#{reference.Reference}"){
+		new FrameRefClass<#{reference.Backing}> ("#{entry.Id}","#{reference.Reference}"){
 			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} ,
-			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{entry.Id} = value as  #{reference.Backing}; }},
+			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{entry.Id} = value as #{reference.Reference}; }},
+#% break; }
+#% case FrameRefList reference: {
+		new FrameRefList<#{reference.Reference}> ("#{entry.Id}","#{reference.Reference}"){
+			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} ,
+			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{entry.Id} = value as List<#{reference.Reference}>; }},
 #% break; }
 #% case FrameRef : {
 		new FrameRef ("#{entry.Id}"),
@@ -218,9 +248,6 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #% break; }
 #% }
 #end foreach
-		];
-
-#end method 
-
+#end method2
 
 #end pclass

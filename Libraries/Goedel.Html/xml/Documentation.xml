@@ -58,6 +58,13 @@
             </summary>
             <param name="backed"></param>
         </member>
+        <member name="M:Goedel.Html.GenerateBacking.RenderFields(Goedel.Html.IBacked,System.Collections.Generic.List{Goedel.Html.FrameField})">
+            <summary>	
+            RenderFields
+            </summary>
+            <param name="backed"></param>
+            <param name="fields"></param>
+        </member>
         <member name="P:Goedel.Html.IBacked.Id">
             <summary>The identifier</summary>
         </member>
@@ -98,17 +105,19 @@
         </member>
         <member name="M:Goedel.Html.HtmlWriter.Close(System.Int32)">
             <summary>
-            Close the immediately preceding 
+            Close the immediately preceding tag. If <paramref name="position"/> is
+            specified, the value is checked against the corresponding Open.
+            </summary>
+            <param name="position">Expected stack depth.</param>
+        </member>
+        <member name="T:Goedel.Html.NamespaceDoc">
+            <summary>
+            Desctiption of the 
             </summary>
         </member>
         <member name="T:Goedel.Html.PageWriter">
             <summary>
             Pagewriter adds in methods to emit FramePages and components.
-            </summary>
-        </member>
-        <member name="T:Goedel.Html.NamespaceDoc">
-            <summary>
-            Desctiption of the 
             </summary>
         </member>
     </members>

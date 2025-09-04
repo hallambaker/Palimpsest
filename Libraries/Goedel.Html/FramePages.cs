@@ -28,7 +28,7 @@ using Goedel.Registry;
 namespace Goedel.Html;
 public partial class GenerateBacking : global::Goedel.Registry.Script {
 
-	 string structure = "class";
+	 string structure = "partial class";
 	
 	/// <summary>	
 	/// CreateFrame
@@ -40,7 +40,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("namespace {1};\n{0}", _Indent, frameset.Namespace);
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("public class {1} : FrameSet{{\n{0}", _Indent, className);
+		_Output.Write ("public partial class {1} : FrameSet{{\n{0}", _Indent, className);
 		foreach  (var backer in frameset.Pages)  {
 			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("	///<summary>{1}</summary>\n{0}", _Indent, backer.Id);
@@ -186,14 +186,17 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("	/// <summary>\n{0}", _Indent);
 			_Output.Write ("	/// Constructor, returns a new instance\n{0}", _Indent);
 			_Output.Write ("	/// </summary>\n{0}", _Indent);
-			_Output.Write ("	public {1} () : base (\"{2}\", _Fields) {{\n{0}", _Indent, backer.Id, backer.Id);
+			_Output.Write ("	public {1} (string id=\"{2}\") : base (\"{3}\") {{\n{0}", _Indent, backer.Id, backer.Id, backer.Id);
 			_Output.Write ("		}}\n{0}", _Indent);
 			_Output.Write ("\n{0}", _Indent);
-			_Output.Write ("    protected  {1} (string id, List<FrameField> fields) : this() {{\n{0}", _Indent, backer.Id);
-			_Output.Write ("		foreach (var field in fields) {{\n{0}", _Indent);
-			_Output.Write ("			Fields.Add (field);\n{0}", _Indent);
-			_Output.Write ("			}}\n{0}", _Indent);
-			_Output.Write ("		}}\n{0}", _Indent);
+			//    public  #{backer.Id} (string id, List<FrameField> fields=null) : base(id) {
+			//		foreach (var field in fields) {
+			//			//Fields.Add (field);
+			//			}
+			//		}
+			_Output.Write ("\n{0}", _Indent);
+			_Output.Write ("    public override List<FrameField> Fields => _Fields;\n{0}", _Indent);
+			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("\n{0}", _Indent);
 			 MakeBacking (backer);
 			_Output.Write ("	}}\n{0}", _Indent);
@@ -215,15 +218,37 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("    /// <summary>Field {1}</summary>\n{0}", _Indent, entry.Id);
 				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, entry.Backing, entry.Id);
+				} else if (  (entry is FrameAvatar avatar) ) {
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("	// Avatar {1}\n{0}", _Indent, avatar.Id);
+				_Output.Write ("	public string {1} => GetAvatar;\n{0}", _Indent, avatar.Id);
 				} else if (  (entry is FrameRefClass refClass) ) {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("	// ref class {1}, {2}\n{0}", _Indent, refClass.Backing, refClass.Id);
-				_Output.Write ("	public {1} {2} {{get; set;}}\n{0}", _Indent, refClass.Backing, refClass.Id);
+				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, refClass.Backing, refClass.Id);
+				} else if (  (entry is FrameRefList refList) ) {
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("	// ref class {1}, {2}\n{0}", _Indent, refList.Backing, refList.Id);
+				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, refList.Backing, refList.Id);
 				}
 			}
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("	static List<FrameField> _Fields = [\n{0}", _Indent);
-		foreach  (var entry in backed.Fields)  {
+		 RenderFields(backed, backed.Fields);
+		_Output.Write ("		];\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		}
+	
+	/// <summary>	
+	/// RenderFields
+	/// </summary>
+	/// <param name="backed"></param>
+	/// <param name="fields"></param>
+	public void RenderFields (IBacked backed, List<FrameField> fields) {
+		if (  (backed.Parent is not null)  ) {
+			 RenderFields(backed.Parent, backed.Parent.Fields);
+			}
+		foreach  (var entry in fields)  {
 			 switch (entry) {
 			 case FrameButton button: {
 			_Output.Write ("		new FrameButton (\"{1}\", \"{2}\", \"{3}\"),\n{0}", _Indent, entry.Id, button.Label, button.Action);
@@ -231,10 +256,19 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			 case FrameRefMenu reference: {
 			_Output.Write ("		new FrameRefMenu (\"{1}\",\"{2}\"),\n{0}", _Indent, entry.Id, reference.Reference);
 			 break; }
+			 case FrameAvatar avatar: {
+			_Output.Write ("		new FrameAvatar (\"{1}\"){{\n{0}", _Indent, entry.Id);
+			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} }},\n{0}", _Indent, backed.Id, entry.Id);
+			 break; }
 			 case FrameRefClass reference: {
-			_Output.Write ("		new FrameRefClass (\"{1}\",\"{2}\"){{\n{0}", _Indent, entry.Id, reference.Reference);
+			_Output.Write ("		new FrameRefClass<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Backing, entry.Id, reference.Reference);
 			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
-			_Output.Write ("			Set = (IBacked data, Object? value) => {{(data as {1})!.{2} = value as  {3}; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Backing);
+			_Output.Write ("			Set = (IBacked data, IBacked? value) => {{(data as {1})!.{2} = value as {3}; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Reference);
+			 break; }
+			 case FrameRefList reference: {
+			_Output.Write ("		new FrameRefList<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Reference, entry.Id, reference.Reference);
+			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
+			_Output.Write ("			Set = (IBacked data, Object? value) => {{(data as {1})!.{2} = value as List<{3}>; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Reference);
 			 break; }
 			 case FrameRef : {
 			_Output.Write ("		new FrameRef (\"{1}\"),\n{0}", _Indent, entry.Id);
@@ -251,8 +285,6 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			 break; }
 			 }
 			}
-		_Output.Write ("		];\n{0}", _Indent);
-		_Output.Write ("\n{0}", _Indent);
 		}
 
 	}

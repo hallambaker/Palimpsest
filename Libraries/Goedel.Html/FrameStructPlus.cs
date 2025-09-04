@@ -9,33 +9,45 @@ public partial class Namespace {
 
     public void Collect(FrameSet frameSet) {
         frameSet.Namespace = Id.Label;
+        var dictionary = new Dictionary<string, FrameClass>();
         //foreach (var Name
 
-        foreach (var item in Entries) {
-            switch (item.Type) {
-                case Page page: {
-                    frameSet.Pages.Add(Collect(frameSet, item.Id, page));
+        foreach (var entry in Entries) {
+            switch (entry.Type) {
+                case Page item: {
+                    frameSet.Pages.Add(Collect(frameSet, entry.Id, item));
                     break;
                     }
-                case Menu page: {
-                    frameSet.Menus.Add(CollectMenu(frameSet, item.Id.Label, page.Entries));
+                case Menu item: {
+                    frameSet.Menus.Add(CollectMenu(frameSet, entry.Id.Label, item.Entries));
                     break;
                     }
-                case Selector page: {
-                    frameSet.Selectors.Add(Collect(frameSet, item.Id, page));
+                case Selector item: {
+                    frameSet.Selectors.Add(Collect(frameSet, entry.Id, item));
                     break;
                     }
-                case Class page: {
-                    frameSet.Classes.Add(Collect(frameSet, item.Id, page));
+                case Class item: {
+                    var newClass = Collect(frameSet, entry.Id, item);
+                    dictionary.Add(newClass.Id, newClass);
+                    frameSet.Classes.Add(newClass);
                     break;
                     }
-                case SubClass page: {
-                    frameSet.Classes.Add(Collect(frameSet, item.Id, page));
+                case SubClass item: {
+                    var newClass = Collect(frameSet, entry.Id, item);
+                    dictionary.Add(newClass.Id, newClass);
+                    frameSet.Classes.Add(newClass);
                     break;
                     }
-
                 }
+            }
 
+
+        foreach (var pair in dictionary) {
+            if (pair.Value.ParentId is not null) {
+                if (dictionary.TryGetValue(pair.Value.ParentId, out var parent)) {
+                    pair.Value.Parent = parent;
+                    }
+                }
 
             }
 
@@ -61,14 +73,17 @@ public partial class Namespace {
     public FrameClass Collect(FrameSet frameSet, ID<_Choice> id, Class baseclass) {
         var properties = CollectProperties(frameSet, baseclass.Entries);
 
-        return new FrameClass(id.Label, properties);
+        return new FrameClass(id.Label) {
+            Fields = properties
+            };
         }
 
     public FrameClass Collect(FrameSet frameSet, ID<_Choice> id, SubClass subclass) {
         var properties = CollectProperties(frameSet, subclass.Entries);
 
-        return new FrameClass(id.Label, properties) {
-            ParentId = subclass.Parent.Label
+        return new FrameClass(id.Label) {
+            ParentId = subclass.Parent.Label,
+            Fields = properties
             };
         }
 
@@ -127,7 +142,7 @@ public partial class Namespace {
         }
 
     public FrameRef? GetRef(
-                FrameSet frameset, 
+                FrameSet frameset,
                 string id,
                 IReference reference) {
 
@@ -141,9 +156,9 @@ public partial class Namespace {
                 return new FrameRefMenu(id, entry.Id.Label);
                 }
             case Class:
-            case SubClass : {
-                return new FrameRefClass(id, entry.Id.Label) {
-                    IsList = reference is List};
+            case SubClass: {
+                return reference is List ? new FrameRefList(id, entry.Id.Label) :
+                     new FrameRefClass(id, entry.Id.Label);
                 }
             }
         return new FrameRef(id);
@@ -175,6 +190,7 @@ public partial class Namespace {
         String => new FrameString(id),
         Text => new FrameText(id),
         Image => new FrameImage(id),
+        Avatar => new FrameAvatar(id),
         Count => new FrameCount(id),
         _ => throw new Internal()
         };
@@ -214,6 +230,8 @@ public partial class Text : IIntrinsic {
 public partial class Image : IIntrinsic {
     }
 public partial class Count : IIntrinsic {
+    }
+public partial class Avatar : IIntrinsic {
     }
 
 public interface IReference {
