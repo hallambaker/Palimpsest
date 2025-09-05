@@ -35,8 +35,8 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 	/// </summary>
 	/// <param name="frameset"></param>
 	public void CreateFrame (FrameSet frameset) {
-		 var className = "MyClass";
 		 var comma = new Registry.Separator (",");
+		 var className = "MyClass";
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("namespace {1};\n{0}", _Indent, frameset.Namespace);
 		_Output.Write ("\n{0}", _Indent);
@@ -195,7 +195,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			//			}
 			//		}
 			_Output.Write ("\n{0}", _Indent);
-			_Output.Write ("    public override List<FrameField> Fields => _Fields;\n{0}", _Indent);
+			_Output.Write ("    public override List<FrameField> Fields {{ get; set; }} = _Fields;\n{0}", _Indent);
 			_Output.Write ("\n{0}", _Indent);
 			_Output.Write ("\n{0}", _Indent);
 			 MakeBacking (backer);
@@ -213,6 +213,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 	/// </summary>
 	/// <param name="backed"></param>
 	public void MakeBacking (IBacked backed) {
+		 var comma = new Registry.Separator (",");
 		foreach  (var entry in backed.Fields)  {
 			if (  (entry.Backing != null)  ) {
 				_Output.Write ("\n{0}", _Indent);
@@ -233,9 +234,36 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				}
 			}
 		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("	static List<FrameField> _Fields = [\n{0}", _Indent);
-		 RenderFields(backed, backed.Fields);
+		_Output.Write ("	static List<FrameField> _Fields = [", _Indent);
+		 RenderFields(backed, backed.Fields, true);
 		_Output.Write ("		];\n{0}", _Indent);
+		_Output.Write ("\n{0}", _Indent);
+		foreach  (var entry in backed.Fields)  {
+			if (  (entry is FramePresentation presentation)  ) {
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("	/// <summary>\n{0}", _Indent);
+				_Output.Write ("	/// Presentation style {1}\n{0}", _Indent, presentation.Id);
+				_Output.Write ("	/// </summary>\n{0}", _Indent);
+				_Output.Write ("	public static FramePresentation {1} {{get;}} = new (\"{2}\") {{\n{0}", _Indent, presentation.Id, presentation.Id);
+				_Output.Write ("		Sections = [", _Indent);
+				 comma.Reset();
+				foreach  (var section in presentation.Sections) {
+					_Output.Write ("{1}\n{0}", _Indent, comma);
+					_Output.Write ("			new FrameSection (\"{1}\") {{\n{0}", _Indent, section.Id);
+					_Output.Write ("				Fields = [", _Indent);
+					 var save = Indent (12);
+					 RenderFields (backed, section.Fields);
+					 RestoreIndent (save);
+					_Output.Write ("\n{0}", _Indent);
+					_Output.Write ("					]\n{0}", _Indent);
+					_Output.Write ("				}}", _Indent);
+					}
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("			]\n{0}", _Indent);
+				_Output.Write ("		}};\n{0}", _Indent);
+				}
+			}
+		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		}
 	
@@ -244,43 +272,89 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 	/// </summary>
 	/// <param name="backed"></param>
 	/// <param name="fields"></param>
-	public void RenderFields (IBacked backed, List<FrameField> fields) {
-		if (  (backed.Parent is not null)  ) {
+	/// <param name="parent=false"></param>
+	public void RenderFields (IBacked backed, List<FrameField> fields, bool parent=false) {
+		 var comma = new Registry.Separator (",");
+		if (  (parent && backed.Parent is not null)  ) {
+			_Output.Write ("{1}", _Indent, comma);
 			 RenderFields(backed.Parent, backed.Parent.Fields);
 			}
 		foreach  (var entry in fields)  {
+			 var id = entry.Id.Replace (".", "?.");
+			 var sid = entry.Id.Replace (".", "!.");
 			 switch (entry) {
-			 case FrameButton button: {
-			_Output.Write ("		new FrameButton (\"{1}\", \"{2}\", \"{3}\"),\n{0}", _Indent, entry.Id, button.Label, button.Action);
+			 case FrameButtonParsed button: {
+			 var comma2 = new Registry.Separator (",");
+			_Output.Write ("{1}\n{0}", _Indent, comma);
+			_Output.Write ("		new FrameButton (\"{1}\", \"{2}\", \"{3}\") {{", _Indent, entry.Id, button.Label, button.Action);
+			if (  (button.Active is not null)  ) {
+				 var bid = button.Active.Replace (".", "?.");
+				_Output.Write ("{1}\n{0}", _Indent, comma2);
+				_Output.Write ("			GetActive = (IBacked data) => (data as {1})?.{2}", _Indent, backed.Id, bid);
+				}
+			if (  (button.Integer is not null)  ) {
+				 var bid = button.Integer.Replace (".", "?.");
+				_Output.Write ("{1}\n{0}", _Indent, comma2);
+				_Output.Write ("			GetInteger = (IBacked data) => (data as {1})?.{2}", _Indent, backed.Id, bid);
+				}
+			if (  (button.Text is not null)  ) {
+				 var bid = button.Text.Replace (".", "?.");
+				_Output.Write ("{1}\n{0}", _Indent, comma2);
+				_Output.Write ("			GetText = (IBacked data) => (data as {1})?.{2}", _Indent, backed.Id, bid);
+				}
+			_Output.Write ("\n{0}", _Indent);
+			_Output.Write ("			}}", _Indent);
 			 break; }
 			 case FrameRefMenu reference: {
-			_Output.Write ("		new FrameRefMenu (\"{1}\",\"{2}\"),\n{0}", _Indent, entry.Id, reference.Reference);
+			_Output.Write ("{1}\n{0}", _Indent, comma);
+			_Output.Write ("		new FrameRefMenu (\"{1}\",\"{2}\")", _Indent, entry.Id, reference.Reference);
 			 break; }
 			 case FrameAvatar avatar: {
+			_Output.Write ("{1}\n{0}", _Indent, comma);
 			_Output.Write ("		new FrameAvatar (\"{1}\"){{\n{0}", _Indent, entry.Id);
-			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} }},\n{0}", _Indent, backed.Id, entry.Id);
+			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} }}", _Indent, backed.Id, id);
 			 break; }
 			 case FrameRefClass reference: {
+			_Output.Write ("{1}\n{0}", _Indent, comma);
 			_Output.Write ("		new FrameRefClass<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Backing, entry.Id, reference.Reference);
-			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
-			_Output.Write ("			Set = (IBacked data, IBacked? value) => {{(data as {1})!.{2} = value as {3}; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Reference);
+			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
+			_Output.Write ("			Set = (IBacked data, IBacked? value) => {{(data as {1})!.{2} = value as {3}; }}}}", _Indent, backed.Id, sid, reference.Reference);
 			 break; }
 			 case FrameRefList reference: {
+			_Output.Write ("{1}\n{0}", _Indent, comma);
 			_Output.Write ("		new FrameRefList<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Reference, entry.Id, reference.Reference);
-			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
-			_Output.Write ("			Set = (IBacked data, Object? value) => {{(data as {1})!.{2} = value as List<{3}>; }}}},\n{0}", _Indent, backed.Id, entry.Id, reference.Reference);
+			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
+			_Output.Write ("			Set = (IBacked data, Object? value) => {{(data as {1})!.{2} = value as List<{3}>; }}}}", _Indent, backed.Id, sid, reference.Reference);
 			 break; }
 			 case FrameRef : {
-			_Output.Write ("		new FrameRef (\"{1}\"),\n{0}", _Indent, entry.Id);
+			_Output.Write ("{1}\n{0}", _Indent, comma);
+			_Output.Write ("		new FrameRef (\"{1}\")", _Indent, entry.Id);
 			 break; }
 			 case FrameSeparator : {
-			_Output.Write ("		new FrameSeparator (\"{1}\"),\n{0}", _Indent, entry.Id);
+			_Output.Write ("{1}\n{0}", _Indent, comma);
+			_Output.Write ("		new FrameSeparator (\"{1}\")", _Indent, entry.Id);
+			 break; }
+			 case FramePresentation presentation: {
+			_Output.Write ("{1}\n{0}", _Indent, comma);
+			_Output.Write ("		{1}", _Indent, presentation.Id);
+			 break; }
+			 case FrameSubmenu submenu: {
+			_Output.Write ("{1}\n{0}", _Indent, comma);
+			_Output.Write ("		new FrameSubmenu (\"{1}\", \"{2}\") {{\n{0}", _Indent, submenu.Id, submenu.Label);
+			_Output.Write ("			Fields = [", _Indent);
+			 var save = Indent (8);
+			 RenderFields (backed, submenu.Fields);
+			 RestoreIndent (save);
+			_Output.Write ("\n{0}", _Indent);
+			_Output.Write ("				]\n{0}", _Indent);
+			_Output.Write ("			}}", _Indent);
 			 break; }
 			 default: {
 			if (  entry.Backing != null ) {
+				_Output.Write ("{1}\n{0}", _Indent, comma);
 				_Output.Write ("		new {1} (\"{2}\") {{\n{0}", _Indent, entry.Type, entry.Id);
-				_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, entry.Id);
-				_Output.Write ("			Set = (IBacked data, {1}? value) => {{(data as {2})!.{3} = value; }}}},\n{0}", _Indent, entry.Backing, backed.Id, entry.Id);
+				_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
+				_Output.Write ("			Set = (IBacked data, {1}? value) => {{(data as {2})!.{3} = value; }}}}", _Indent, entry.Backing, backed.Id, sid);
 				}
 			 break; }
 			 }

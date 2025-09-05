@@ -1,6 +1,8 @@
 ﻿using Goedel.Cryptography.Nist;
 using Goedel.Registry;
 
+using System.Reflection.Emit;
+
 namespace Goedel.Html;
 
 public partial class Namespace {
@@ -59,7 +61,7 @@ public partial class Namespace {
         return new FramePage(id.Label, page.Title, fields);
         }
 
-    public FrameMenu CollectMenu(FrameSet frameSet, string id, List<Field> entries) {
+    public FrameMenu CollectMenu(FrameSet frameSet, string id, List<FieldItem> entries) {
         var fields = CollectFields(frameSet, entries);
 
         return new FrameMenu(id, fields);
@@ -87,7 +89,7 @@ public partial class Namespace {
             };
         }
 
-    public List<FrameField> CollectFields(FrameSet frameset, List<Field> entries) {
+    public List<FrameField> CollectFields(FrameSet frameset, List<FieldItem> entries) {
         var result = new List<FrameField>();
         foreach (var entry in entries) {
             Collect(frameset, result, entry);
@@ -110,13 +112,11 @@ public partial class Namespace {
 
         switch (entry.TypeH) {
             case Button button: {
-                result.Add(new FrameButton(label, button.Title,
-                    button.Action.Label));
+                result.Add(GetFrameButton(frameset, label, button));
                 break;
                 }
             case SubMenu menu: {
-                // hack: punt on this for now
-                // result.Add(CollectMenu(frameset, label, menu.Entries));
+                result.Add(GetSubmenu(frameset, label, menu));
                 break;
                 }
             case IReference reference: {
@@ -135,11 +135,86 @@ public partial class Namespace {
                 result.Add(GetIntrinsic(frameset, label, field));
                 break;
                 }
+            case Presentation presentation: {
+                result.Add(GetPresentation(frameset, label, presentation));
+                break;
+                }
             default: {
                 break;
                 }
             }
         }
+
+    public FrameButton GetFrameButton(FrameSet frameset, string label, Button button) {
+        string active = null;
+        string integer = null;
+        string text = null;
+
+        foreach (var entry in button.Entries) {
+            switch (entry.Type) {
+                case Boolean : {
+                    active = entry.Id.Label;
+                    break;
+                    }
+                case Integer : {
+                    integer = entry.Id.Label;
+                    break;
+                    }
+                case String : {
+                    text = entry.Id.Label;
+                    break;
+                    }
+
+                }
+            
+            }
+
+        return new FrameButtonParsed(label, button.Title, button.Action.Label,
+            active, integer, text);
+
+        }
+
+
+    public FrameSubmenu GetSubmenu(FrameSet frameset, string label, SubMenu submenu) {
+        var fields = new List<FrameField>();
+        foreach (var entry in submenu.Entries) {
+            Collect(frameset, fields, entry);
+            }
+
+        return new FrameSubmenu(label, submenu.Title) { 
+            Fields = fields 
+            };
+        }
+
+
+    public FramePresentation GetPresentation(FrameSet frameset, string label, Presentation presentation) {
+
+        var sections = new List<FrameSection> ();
+        foreach (var section in presentation.Sections) {
+            var fields = new List<FrameField>();
+            foreach (var entry in section.Entries) {
+                Collect(frameset, fields, entry);
+                }
+
+            sections.Add(new FrameSection(section.Id.Label) {
+                Fields = fields
+                });
+            }
+
+        var result = new FramePresentation(label) { 
+                Sections = sections
+                };
+
+        return result;
+        }
+
+
+    string MakePath(_Choice item, string prefix="") => item switch {
+        Field field => prefix + field.Id.Label,
+        From from => MakePath (from.Type, prefix + from.Id.Label + "?."),
+        _ => throw new Internal()
+        };
+
 
     public FrameRef? GetRef(
                 FrameSet frameset,
@@ -203,7 +278,7 @@ public interface IFieldEntry {
 
     }
 
-public partial class Field : IFieldEntry {
+public partial class FieldItem : IFieldEntry {
     public TOKEN<_Choice> Token => Id;
     public _Choice TypeH => Type;
     }

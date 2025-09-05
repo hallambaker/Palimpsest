@@ -58,12 +58,13 @@
             </summary>
             <param name="backed"></param>
         </member>
-        <member name="M:Goedel.Html.GenerateBacking.RenderFields(Goedel.Html.IBacked,System.Collections.Generic.List{Goedel.Html.FrameField})">
+        <member name="M:Goedel.Html.GenerateBacking.RenderFields(Goedel.Html.IBacked,System.Collections.Generic.List{Goedel.Html.FrameField},System.Boolean)">
             <summary>	
             RenderFields
             </summary>
             <param name="backed"></param>
             <param name="fields"></param>
+            <param name="parent=false=false"></param>
         </member>
         <member name="P:Goedel.Html.IBacked.Id">
             <summary>The identifier</summary>

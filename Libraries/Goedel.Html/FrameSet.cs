@@ -133,7 +133,7 @@ public class FrameClass : FrameBacker, IBacked {
 
     public FrameSet FrameSet { get; set; }
     public string Type => "FrameClass";
-    public virtual List<FrameField> Fields { get; init; }
+    public virtual List<FrameField> Fields { get; set; }
     public FrameClass? Parent { get; set; } = null;
 
     public string? ParentId { get; init; } = null;
@@ -167,6 +167,21 @@ public record FrameButton(
                 string Action) : FrameField (Id) {
 
     public override string Type => "FrameButton";
+
+    public Func<IBacked, bool?> GetActive { get; init; }
+    public Func<IBacked, int?> GetInteger { get; init; }
+    public Func<IBacked, string?> GetText { get; init; }
+    }
+
+public record FrameButtonParsed(
+                string Id,
+                string Label,
+                string Action,
+                string? Active,
+                string? Integer,
+                string? Text) : FrameButton(Id, Label, Action) {
+
+
     }
 
 
@@ -315,4 +330,23 @@ public record FrameCount(string Id) : FrameField(Id) {
     }
 public record FrameSeparator(string Id) : FrameField(Id) {
     public override string Type => "FrameSeparator";
+    }
+
+public record FramePresentation(string Id) : FrameField(Id) {
+    public override string Type => "FramePresentation";
+
+    public virtual List<FrameSection> Sections { get; init; }
+    }
+
+public record FrameSection(string Id) {
+    public virtual List<FrameField> Fields { get; init; }
+
+    }
+
+public record FrameSubmenu(
+                string Id,
+                string Label) : FrameField(Id) {
+    public override string Type => "FrameSubmenu";
+    public virtual List<FrameField> Fields { get; init; }
+
     }

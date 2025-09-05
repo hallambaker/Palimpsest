@@ -5,8 +5,8 @@
 
 
 #method CreateFrame FrameSet frameset
-#% var className = "MyClass";
 #% var comma = new Registry.Separator (",");
+#% var className = "MyClass";
 
 namespace #{frameset.Namespace};
 
@@ -165,7 +165,7 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #!			}
 #!		}
 
-    public override List<FrameField> Fields => _Fields;
+    public override List<FrameField> Fields { get; set; } = _Fields;
 
 
 #% MakeBacking (backer);
@@ -180,6 +180,7 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #end method 
 
 #method MakeBacking IBacked backed
+#% var comma = new Registry.Separator (",");
 #foreach (var entry in backed.Fields) 
 #if (entry.Backing != null) 
 
@@ -200,54 +201,126 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #end if
 #end foreach
 
-	static List<FrameField> _Fields = [
-#% RenderFields(backed, backed.Fields);
+	static List<FrameField> _Fields = [#!
+#% RenderFields(backed, backed.Fields, true);
 		];
+
+#foreach (var entry in backed.Fields) 
+#if (entry is FramePresentation presentation) 
+
+	/// <summary>
+	/// Presentation style #{presentation.Id}
+	/// </summary>
+	public static FramePresentation #{presentation.Id} {get;} = new ("#{presentation.Id}") {
+		Sections = [#!
+#% comma.Reset();
+#foreach (var section in presentation.Sections)
+#{comma}
+			new FrameSection ("#{section.Id}") {
+				Fields = [#!
+#% var save = Indent (12);
+#% RenderFields (backed, section.Fields);
+#% RestoreIndent (save);
+
+					]
+				}#!
+#end foreach
+
+			]
+		};
+#end if
+#end foreach
+
 
 #end method 
 
 
-#method2 RenderFields IBacked backed List<FrameField> fields
-#if (backed.Parent is not null) 
+#method3 RenderFields IBacked backed List<FrameField> fields bool parent=false
+#% var comma = new Registry.Separator (",");
+#if (parent && backed.Parent is not null) 
+#{comma}#!
 #% RenderFields(backed.Parent, backed.Parent.Fields);
 #end if
 #foreach (var entry in fields) 
+#% var id = entry.Id.Replace (".", "?.");
+#% var sid = entry.Id.Replace (".", "!.");
 #% switch (entry) {
-#% case FrameButton button: {
-		new FrameButton ("#{entry.Id}", "#{button.Label}", "#{button.Action}"),
+#% case FrameButtonParsed button: {
+#% var comma2 = new Registry.Separator (",");
+#{comma}
+		new FrameButton ("#{entry.Id}", "#{button.Label}", "#{button.Action}") {#!
+#if (button.Active is not null) 
+#% var bid = button.Active.Replace (".", "?.");
+#{comma2}
+			GetActive = (IBacked data) => (data as #{backed.Id})?.#{bid}#!
+#end if
+#if (button.Integer is not null) 
+#% var bid = button.Integer.Replace (".", "?.");
+#{comma2}
+			GetInteger = (IBacked data) => (data as #{backed.Id})?.#{bid}#!
+#end if
+#if (button.Text is not null) 
+#% var bid = button.Text.Replace (".", "?.");
+#{comma2}
+			GetText = (IBacked data) => (data as #{backed.Id})?.#{bid}#!
+#end if
+
+			}#!
 #% break; }
 #% case FrameRefMenu reference: {
-		new FrameRefMenu ("#{entry.Id}","#{reference.Reference}"),
+#{comma}
+		new FrameRefMenu ("#{entry.Id}","#{reference.Reference}")#!
 #% break; }
 #% case FrameAvatar avatar: {
+#{comma}
 		new FrameAvatar ("#{entry.Id}"){
-			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} },
+			Get = (IBacked data) => (data as #{backed.Id})?.#{id} }#!
 #% break; }
 #% case FrameRefClass reference: {
+#{comma}
 		new FrameRefClass<#{reference.Backing}> ("#{entry.Id}","#{reference.Reference}"){
-			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} ,
-			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{entry.Id} = value as #{reference.Reference}; }},
+			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
+			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{sid} = value as #{reference.Reference}; }}#!
 #% break; }
 #% case FrameRefList reference: {
+#{comma}
 		new FrameRefList<#{reference.Reference}> ("#{entry.Id}","#{reference.Reference}"){
-			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} ,
-			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{entry.Id} = value as List<#{reference.Reference}>; }},
+			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
+			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{sid} = value as List<#{reference.Reference}>; }}#!
 #% break; }
 #% case FrameRef : {
-		new FrameRef ("#{entry.Id}"),
+#{comma}
+		new FrameRef ("#{entry.Id}")#!
 #% break; }
 #% case FrameSeparator : {
-		new FrameSeparator ("#{entry.Id}"),
+#{comma}
+		new FrameSeparator ("#{entry.Id}")#!
+#% break; }
+#% case FramePresentation presentation: {
+#{comma}
+		#{presentation.Id}#!
+#% break; }
+#% case FrameSubmenu submenu: {
+#{comma}
+		new FrameSubmenu ("#{submenu.Id}", "#{submenu.Label}") {
+			Fields = [#!
+#% var save = Indent (8);
+#% RenderFields (backed, submenu.Fields);
+#% RestoreIndent (save);
+
+				]
+			}#!
 #% break; }
 #% default: {
 #if entry.Backing != null
+#{comma}
 		new #{entry.Type} ("#{entry.Id}") {
-			Get = (IBacked data) => (data as #{backed.Id})?.#{entry.Id} ,
-			Set = (IBacked data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{entry.Id} = value; }},
+			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
+			Set = (IBacked data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{sid} = value; }}#!
 #end if
 #% break; }
 #% }
 #end foreach
-#end method2
+#end method3
 
 #end pclass

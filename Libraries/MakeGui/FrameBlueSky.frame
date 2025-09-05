@@ -32,49 +32,22 @@ Namespace Frame
         Items List Post
 
     MainNav Menu
+        NotificationCount Integer
+
         Profiles Is ProfileSelect
         Home Button HomePage "Home"
         Notifications Button NotificationsPage "Notifications"
-            Count Integer
+            NotificationCount Integer
         Chats Button ChatsPage "Chats" 
         Feeds Button FeedsPage "Feeds"
         Profile Button ProfilePage "Profile"
         Settings Button SettingsPage "Settings"
         NewPost Button NewPostPage "New Post"
-            x Emphasis
        
     HomeFilter Menu
         All Button FilterAll "All"
         Mentions Button FilterMentions "Mentions"
 
-    PostMenu Menu
-        Comment Button CommentAction "Home"
-            Count Integer
-        Repost SubMenu "Repost"
-            Repost Button RepostAction "Home"
-            QuotePost Button QuotePostAction "Home"
-        Like Button LikeAction "Like"
-            Liked Boolean
-        More Button MoreAction "More"
-            RequestMore Boolean
-        Less Button LessAction "Less"
-            RequestLess Boolean
-        Share SubMenu "Share"
-            CopyLink Button HomePage "Copy link to post"
-            ShareDM Button HomePage "Send via direct message"
-            Embed Button HomePage "Embed post"
-        Ellipsis SubMenu "More"
-            Translate Button TranslateAction "Translate"
-            CopyPostText Button CopyPostAction "Copy post text"
-            x Separator 
-            MuteThread Button MuteThreadAction "Translate"
-            MuteWords Button MuteWordsAction "Translate"
-            x Separator
-            HidePost Button HidePostAction "Translate"
-            x Separator
-            MuteAccount Button MuteAccountAction "Translate"
-            BlockAccount Button BlockAccountAction "Translate"
-            ReportPost Button ReportPostAction "Translate"
 
     ProfileSelect Selector
         Avatar Image
@@ -131,7 +104,7 @@ Namespace Frame
         DID String
         Avatar Avatar
         DisplayName String
-        DiaplayHandle String
+        DisplayHandle String
 
     Item Class
         Id String
@@ -151,17 +124,95 @@ Namespace Frame
         Users List User
 
     Post SubClass Item
+        Text Text
         User Is User
 
-    NewPost SubClass Post
-        Text Text
+        Comments Integer
+        Reposts Integer
+        QuotePosts Integer
+        AllReposts Integer
+        Likes Integer
 
-    QuotePost SubClass NewPost
+        Liked Boolean
+        RequestedMore Boolean
+        RequestedLess Boolean
+
+        Replies String   
+
+        Main Presentation Id
+            Avatar
+                User.Avatar Avatar
+            Author
+                User.DisplayName String
+                Created DateTime
+            Body
+                Text Text
+            Detail
+                Created DateTime
+                Replies String             
+            Responses
+                Comment Button CommentAction "Home"
+                    Comments Integer               
+                Repost SubMenu "Repost"
+                    Repost Button RepostAction "Repost"
+                    QuotePost Button QuotePostAction "Quote Post"
+                Like Button LikeAction "Like"
+                    Liked Boolean
+                    Likes Integer
+                More Button MoreAction "More"
+                    RequestedMore Boolean
+                Less Button LessAction "Less"
+                    RequestedLess Boolean
+                Share SubMenu "Share"
+                    CopyLink Button HomePage "Copy link to post"
+                    ShareDM Button HomePage "Send via direct message"
+                    Embed Button HomePage "Embed post"
+                Ellipsis SubMenu "More"
+                    Translate Button TranslateAction "Translate"
+                    CopyPostText Button CopyPostAction "Copy post text"
+                    S1 Separator 
+                    MuteThread Button MuteThreadAction "Mute thread"
+                    MuteWords Button MuteWordsAction "Mute words & tags"
+                    S2 Separator
+                    HidePost Button HidePostAction "Hide post for me"
+                    S3 Separator
+                    MuteAccount Button MuteAccountAction "Mute user"
+                    BlockAccount Button BlockAccountAction "Block user"
+                    ReportPost Button ReportPostAction "Report post"
+
+    QuotePost SubClass Post
         Base Is Post
-
+        QuoteMain Presentation Id
+            Avatar
+                User.Avatar Avatar
+            Author
+                User.DisplayName String
+                User.DisplayHandle String
+                Created DateTime
+            Body
+                Text Text
+            OriginalAuthor
+                Base.User.DisplayName String
+                Base.User.DisplayHandle String
+                Base.Created DateTime
+            OriginalBody
+                Base.Text Text
 
     RePost SubClass Post
         Base Is Post
+        ReMain Presentation Id
+            Avatar
+                User.Avatar Avatar
+            Author
+                User.DisplayName String
+                User.DisplayHandle String
+                Created DateTime
+            OriginalAuthor
+                Base.User.DisplayName String
+                Base.User.DisplayHandle String
+                Base.Created DateTime
+            OriginalBody
+                Base.Text Text
 
     ProfileData Class
         User Is User

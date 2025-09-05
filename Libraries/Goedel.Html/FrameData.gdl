@@ -16,17 +16,17 @@ Class Goedel.Html FrameStruct
 
     Type Page
         Title String
-        Entries List Field
+        Entries List FieldItem
 
     Type Menu
-        Entries List Field
+        Entries List FieldItem
 
     Type SubMenu
         Title String
-        Entries List Field
+        Entries List FieldItem
 
     Type Selector
-        Entries List Field
+        Entries List FieldItem
 
     Type Class
         Entries List Property
@@ -35,7 +35,7 @@ Class Goedel.Html FrameStruct
         Parent REF EntryT
         Entries List Property
 
-    Type Field
+    Type FieldItem
         Id Token EntryT
         Type Choice
             Button
@@ -54,6 +54,7 @@ Class Goedel.Html FrameStruct
             List
             Selector
             Count
+            Presentation 
 
     Type Property
         Id Token EntryT
@@ -70,6 +71,14 @@ Class Goedel.Html FrameStruct
             Separator
             SubMenu
             Avatar
+            Presentation 
+
+    Type ButtonProperty
+        Id Token EntryT
+        Type Choice
+            Boolean
+            Integer
+            String
 
     Type Is
         Parent REF EntryT
@@ -101,7 +110,7 @@ Class Goedel.Html FrameStruct
     Type Button
         Action REF EntryT
         Title String
-        Entries List Property
+        Entries List ButtonProperty
 
     Type Chooser
         Entries List ChooserOption
@@ -109,3 +118,25 @@ Class Goedel.Html FrameStruct
     Type ChooserOption
         Action Token EntryT
         Title String
+
+    Type Presentation 
+        Id Token Uid
+        Sections List Section
+
+    Type Section
+        Id Token EntryT
+        Entries List FieldItem
+
+    Type SectionEntry
+        Type Choice
+            From
+            Field
+
+    Type From
+        Id Token EntryT
+        Type Choice
+            From
+            Field
+
+    Type Field
+        Id Token EntryT

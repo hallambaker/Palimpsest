@@ -15,30 +15,29 @@ class MainClass {
         var user1 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Alice",
-            DiaplayHandle = "alice.example.com"
+            DisplayHandle = "alice.example.com"
             };
 
         var user2 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Bob",
-            DiaplayHandle = "bob.example.com"
+            DisplayHandle = "bob.example.com"
             };
 
         var user3 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Carol",
-            DiaplayHandle = "carol.example.com"
+            DisplayHandle = "carol.example.com"
             };
 
         var user4 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Mallet",
-            DiaplayHandle = "mallet.example.com"
+            DisplayHandle = "mallet.example.com"
             };
 
-
         
-        var post1 = new NewPost() {
+        var post1 = new Post() {
             Id = Udf.Nonce(),
             User = user1,
             Text = "This is a post that was made. It is very gud.",
