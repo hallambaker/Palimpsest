@@ -130,7 +130,7 @@ public class HtmlWriter {
         StartElement(tag);
         WriteAttributes(attributes);
         TextWriter.Write(">");
-        TextWriter.Write(text);
+        Text(text);
         TextWriter.WriteLine($"</{tag}>");
         }
 

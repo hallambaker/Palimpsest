@@ -10,6 +10,9 @@
 
 namespace #{frameset.Namespace};
 
+/// <summary>
+/// Annotated backing classes for data driven GUI.
+/// </summary>
 public partial class #{className} : FrameSet{
 #foreach (var backer in frameset.Pages) 
 
@@ -151,22 +154,16 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 /// <summary>
 /// Backing class for #{backer.Id}
 /// </summary>
-public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
+public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId ?? backer.Type} (id) {
 
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public #{backer.Id} (string id="#{backer.Id}") : base ("#{backer.Id}") {
-		}
-
-#!    public  #{backer.Id} (string id, List<FrameField> fields=null) : base(id) {
-#!		foreach (var field in fields) {
-#!			//Fields.Add (field);
-#!			}
-#!		}
-
+    /// <inheritdoc/>
     public override List<FrameField> Fields { get; set; } = _Fields;
 
+#% var defaultPresentation = GetDefaultPresentation(backer.Fields);
+#if (defaultPresentation is not null)
+    /// <inheritdoc/>
+    public override FramePresentation Presentation => #{defaultPresentation.Id};
+#end if
 
 #% MakeBacking (backer);
 	}
@@ -188,22 +185,18 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 	public #{entry.Backing}? #{entry.Id} {get; set;}
 #elseif (entry is FrameAvatar avatar) 
 
-	// Avatar #{avatar.Id}
-	public string #{avatar.Id} => GetAvatar;
+	///<summary>Avatar #{avatar.Id}</summary>
+	public string? #{avatar.Id} => GetAvatar;
 #elseif (entry is FrameRefClass refClass) 
 
-	// ref class #{refClass.Backing}, #{refClass.Id}
+	///<summary>class #{refClass.Backing}, #{refClass.Id}</summary>
 	public #{refClass.Backing}? #{refClass.Id} {get; set;}
 #elseif (entry is FrameRefList refList) 
 
-	// ref class #{refList.Backing}, #{refList.Id}
+	///<summary>List #{refList.Id}</summary>
 	public #{refList.Backing}? #{refList.Id} {get; set;}
 #end if
 #end foreach
-
-	static List<FrameField> _Fields = [#!
-#% RenderFields(backed, backed.Fields, true);
-		];
 
 #foreach (var entry in backed.Fields) 
 #if (entry is FramePresentation presentation) 
@@ -231,6 +224,10 @@ public #{structure} #{backer.Id} : #{backer.ParentId ?? backer.Type} {
 #end if
 #end foreach
 
+	static readonly List<FrameField> _Fields = [#!
+#% RenderFields(backed, backed.Fields, true);
+
+		];
 
 #end method 
 

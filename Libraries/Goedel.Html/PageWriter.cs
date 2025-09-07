@@ -26,25 +26,57 @@ public class PageWriter : HtmlWriter {
 
         Body();
 
-        Render(page, page.Fields);
+        Open("div", "class", page.Id);
+        RenderFields(page);
+        Close();
 
         Finish();
         }
 
 
+    public void RenderFields(IBacked backer) {
+
+        if (backer.Presentation != null) {
+            Render(backer, backer.Presentation);
+            }
+        else {
+            Render(backer, backer.Fields);
+            }
+        }
+
     public void Render(IBacked backer, List<FrameField> fields) {
+
+        if (fields != backer.Fields) {
+            //throw new NYI();
+            }
+
         backer.StartRender = System.DateTime.Now;
-        Open("div", "class", backer.Id);
+
         foreach (var field in fields) {
             RenderField(backer, field);
             }
-        Close();
+
         }
+
+    public void Render(IBacked backer, FramePresentation presentation) {
+
+
+
+        foreach (var section in presentation.Sections) {
+            Open("div", "class", section.Id);
+            Render(backer, section.Fields);
+            Close();
+            }
+
+        }
+
 
     public void RenderField(
             IBacked backer,
             FrameField field) {
-        Open("div", "class", field.Id);
+
+        var id = NormalizeId(field.Id);
+        Open("div", "class", id);
         switch (field) {
             case FrameButton item: {
                 Render(item);
@@ -139,10 +171,7 @@ public class PageWriter : HtmlWriter {
         Close(start);
         }
 
-    public void Render(
-            IBacked backer) {
-        Render(backer, backer.Fields);
-        }
+
 
     public void Render(
                 IBacked backer,
@@ -157,11 +186,12 @@ public class PageWriter : HtmlWriter {
             }
 
         var count = item.Count(value);
+        var id = item.Id + "Item";
 
         var last = max < 0 ? count : count.Minimum(max - first);
         for (var i = first; i < last; i++) {
-            Open("div", "class", "ListItem");
-            Render(item.Item(value,i));
+            Open("div", "class", id);
+            RenderFields(item.Item(value,i));
             Close();
             }
 
@@ -173,7 +203,7 @@ public class PageWriter : HtmlWriter {
                 FrameRefClass item) {
         var value = item.Get(backer) as IBacked;
         if (value is not null) {
-            Render(value, value.Fields);
+            RenderFields(value);
             }
         }
 
@@ -187,7 +217,7 @@ public class PageWriter : HtmlWriter {
                 FrameBoolean item) {
         var value = item.Get(backer);
         if (value is not null) {
-            Text(value.ToString(), "p", "class", "StringField");
+            Text(value.ToString());
             }
         }
     public void Render(
@@ -195,7 +225,7 @@ public class PageWriter : HtmlWriter {
                 FrameInteger item) {
         var value = item.Get(backer);
         if (value is not null) {
-            Text(value.ToString(), "p", "class", "StringField");
+            Text(value.ToString());
             }
         }
     public void Render(
@@ -226,7 +256,7 @@ public class PageWriter : HtmlWriter {
                 }
 
 
-            Text(result, "p", "class", "StringField");
+            Text(result);
             }
         }
     public void Render(
@@ -234,7 +264,7 @@ public class PageWriter : HtmlWriter {
                 FrameString item) {
         var value = item.Get(backer);
         if (value is not null) {
-            Text(value, "p", "class", "StringField");
+            Text(value.ToString());
             }
         }
     public void Render(
@@ -242,7 +272,7 @@ public class PageWriter : HtmlWriter {
                 FrameText item) {
         var value = item.Get(backer) ;
         if (value is not null) {
-            Text(value, "p", "class", "TextField");
+            Text(value.ToString());
             }
         }
     public void Render(
@@ -266,8 +296,9 @@ public class PageWriter : HtmlWriter {
             IBacked backer,
             FrameCount item) {
         var value = item.Get(backer);
+
         if (value is not null) {
-            Text(value.ToString(), "p", "class", "StringField");
+            Text(value.ToString());
             }
         }
 
@@ -277,4 +308,7 @@ public class PageWriter : HtmlWriter {
         Element("hr", "class", "Separator");
         }
 
+
+
+    string NormalizeId(string id) => id.Replace(".", "");
     }

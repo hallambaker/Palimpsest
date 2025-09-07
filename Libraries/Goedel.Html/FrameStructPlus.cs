@@ -5,6 +5,22 @@ using System.Reflection.Emit;
 
 namespace Goedel.Html;
 
+
+public partial class GenerateBacking {
+
+    public FramePresentation GetDefaultPresentation(List<FrameField> fields) {
+        foreach (var field in fields) {
+            if (field is FramePresentation presentation) {
+                return presentation;
+                }
+            }
+        return null;
+        }
+
+
+    }
+
+
 public partial class Namespace {
 
 

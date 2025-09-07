@@ -10,7 +10,7 @@ Body {
 }
 
 * {
-    outline: 1px solid red;
+    /*outline: 1px solid red;*/
 }
 
 .HomePage {
@@ -94,64 +94,107 @@ Body {
     display: none;
 }
 
-.Item {
+.ItemsItem {
     display: grid;
     grid-template-areas:
-        "left user"
-        "rule post";
+        "left author"
+        "rule body"
+        "rule detail"
+        "rule responses";
     grid-template-columns: 36px auto;
-
 }
 
-    .Item > div.Avatar {
+    .ItemsItem > div.Avatar {
         grid-area: left;
         vertical-align: middle;
         align-self: center;
     }
 
-
-
-    .Item > div.PostBy {
+    .ItemsItem > div.Author {
+        grid-area: author;
         vertical-align: middle;
-        grid-area: user;
         align-self: center;
+        display: inline;
     }
 
-    .Item > div.Post {
-        grid-area: post;
+    .ItemsItem > div.Rule {
+        grid-area: rule;
     }
 
-    .Item > div.Rule {
+    .ItemsItem > div.Body {
+        grid-area: body;
+    }
 
+    .ItemsItem > div.Detail {
+        grid-area: detail;
+        display: none;
+    }
+
+    .ItemsItem > div.Responses {
+        grid-area: responses;
     }
 
 
-.PostBy {
-    display: inline;
 
-}
 .Avatar {
     height: 32px;
     width: 32px;
     align-items: center;
 }
-.DisplayName {
+
+div.Author {
+    display: inline !important;
+}
+.UserDisplayName {
     font-weight: bold;
     display: inline;
     align-items: center;
 }
-.DisplayHandle {
+.UserDisplayHandle {
     display: inline;
-
 }
 .Created {
     display: inline;
-
 }
 
     .Created:before {
         content: "-";
     }
+
+div.Responses {
+    display: inline;
+}
+
+div.Comment {
+    display: inline;
+}
+div.Repost {
+    display: inline;
+}
+div.Like {
+    display: inline;
+}
+div.Comment {
+    display: inline;
+}
+div.SeeMore {
+    display: inline;
+}
+div.SeeLess {
+    display: inline;
+}
+div.Share {
+    display: inline;
+}
+div.Ellipsis {
+    display: inline;
+}
+
+hr.rulethang {
+    height: 100%;
+    width: 1px;
+    color: black;
+}
 /*
 
 a:link, a:visited {

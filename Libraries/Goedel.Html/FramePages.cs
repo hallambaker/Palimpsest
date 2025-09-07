@@ -40,6 +40,9 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("namespace {1};\n{0}", _Indent, frameset.Namespace);
 		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("/// <summary>\n{0}", _Indent);
+		_Output.Write ("/// Annotated backing classes for data driven GUI.\n{0}", _Indent);
+		_Output.Write ("/// </summary>\n{0}", _Indent);
 		_Output.Write ("public partial class {1} : FrameSet{{\n{0}", _Indent, className);
 		foreach  (var backer in frameset.Pages)  {
 			_Output.Write ("\n{0}", _Indent);
@@ -181,22 +184,16 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("/// <summary>\n{0}", _Indent);
 			_Output.Write ("/// Backing class for {1}\n{0}", _Indent, backer.Id);
 			_Output.Write ("/// </summary>\n{0}", _Indent);
-			_Output.Write ("public {1} {2} : {3} {{\n{0}", _Indent, structure, backer.Id, backer.ParentId ?? backer.Type);
+			_Output.Write ("public {1} {2} (string id=\"{3}\") : {4} (id) {{\n{0}", _Indent, structure, backer.Id, backer.Id, backer.ParentId ?? backer.Type);
 			_Output.Write ("\n{0}", _Indent);
-			_Output.Write ("	/// <summary>\n{0}", _Indent);
-			_Output.Write ("	/// Constructor, returns a new instance\n{0}", _Indent);
-			_Output.Write ("	/// </summary>\n{0}", _Indent);
-			_Output.Write ("	public {1} (string id=\"{2}\") : base (\"{3}\") {{\n{0}", _Indent, backer.Id, backer.Id, backer.Id);
-			_Output.Write ("		}}\n{0}", _Indent);
-			_Output.Write ("\n{0}", _Indent);
-			//    public  #{backer.Id} (string id, List<FrameField> fields=null) : base(id) {
-			//		foreach (var field in fields) {
-			//			//Fields.Add (field);
-			//			}
-			//		}
-			_Output.Write ("\n{0}", _Indent);
+			_Output.Write ("    /// <inheritdoc/>\n{0}", _Indent);
 			_Output.Write ("    public override List<FrameField> Fields {{ get; set; }} = _Fields;\n{0}", _Indent);
 			_Output.Write ("\n{0}", _Indent);
+			 var defaultPresentation = GetDefaultPresentation(backer.Fields);
+			if (  (defaultPresentation is not null) ) {
+				_Output.Write ("    /// <inheritdoc/>\n{0}", _Indent);
+				_Output.Write ("    public override FramePresentation Presentation => {1};\n{0}", _Indent, defaultPresentation.Id);
+				}
 			_Output.Write ("\n{0}", _Indent);
 			 MakeBacking (backer);
 			_Output.Write ("	}}\n{0}", _Indent);
@@ -221,22 +218,18 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, entry.Backing, entry.Id);
 				} else if (  (entry is FrameAvatar avatar) ) {
 				_Output.Write ("\n{0}", _Indent);
-				_Output.Write ("	// Avatar {1}\n{0}", _Indent, avatar.Id);
-				_Output.Write ("	public string {1} => GetAvatar;\n{0}", _Indent, avatar.Id);
+				_Output.Write ("	///<summary>Avatar {1}</summary>\n{0}", _Indent, avatar.Id);
+				_Output.Write ("	public string? {1} => GetAvatar;\n{0}", _Indent, avatar.Id);
 				} else if (  (entry is FrameRefClass refClass) ) {
 				_Output.Write ("\n{0}", _Indent);
-				_Output.Write ("	// ref class {1}, {2}\n{0}", _Indent, refClass.Backing, refClass.Id);
+				_Output.Write ("	///<summary>class {1}, {2}</summary>\n{0}", _Indent, refClass.Backing, refClass.Id);
 				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, refClass.Backing, refClass.Id);
 				} else if (  (entry is FrameRefList refList) ) {
 				_Output.Write ("\n{0}", _Indent);
-				_Output.Write ("	// ref class {1}, {2}\n{0}", _Indent, refList.Backing, refList.Id);
+				_Output.Write ("	///<summary>List {1}</summary>\n{0}", _Indent, refList.Id);
 				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, refList.Backing, refList.Id);
 				}
 			}
-		_Output.Write ("\n{0}", _Indent);
-		_Output.Write ("	static List<FrameField> _Fields = [", _Indent);
-		 RenderFields(backed, backed.Fields, true);
-		_Output.Write ("		];\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		foreach  (var entry in backed.Fields)  {
 			if (  (entry is FramePresentation presentation)  ) {
@@ -264,6 +257,10 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				}
 			}
 		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("	static readonly List<FrameField> _Fields = [", _Indent);
+		 RenderFields(backed, backed.Fields, true);
+		_Output.Write ("\n{0}", _Indent);
+		_Output.Write ("		];\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		}
 	

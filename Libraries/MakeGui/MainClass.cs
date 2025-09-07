@@ -38,15 +38,15 @@ class MainClass {
 
         
         var post1 = new Post() {
-            Id = Udf.Nonce(),
+            Uid = Udf.Nonce(),
             User = user1,
             Text = "This is a post that was made. It is very gud.",
-            Created = System.DateTime.Now - TimeSpan.FromDays(1)
+            Created = System.DateTime.Now - TimeSpan.FromDays(1),
             };
 
         // missing the quoted post
         var post2 = new QuotePost() {
-            Id = Udf.Nonce(),
+            Uid = Udf.Nonce(),
             User = user2,
             Text = "Not sure this post as 'gud' as the poster thought.",
             Created = System.DateTime.Now - TimeSpan.FromHours(3)
@@ -54,7 +54,7 @@ class MainClass {
 
         // missing the quoted post
         var post3 = new RePost() {
-            Id = Udf.Nonce(),
+            Uid = Udf.Nonce(),
             User = user3,
             Created = System.DateTime.Now - TimeSpan.FromMinutes(3)
             };

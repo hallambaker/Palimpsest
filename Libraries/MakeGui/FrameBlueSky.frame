@@ -107,7 +107,7 @@ Namespace Frame
         DisplayHandle String
 
     Item Class
-        Id String
+        Uid String
         Created DateTime
 
     Chat SubClass Item
@@ -120,7 +120,7 @@ Namespace Frame
         Text Text
 
     Reaction SubClass Item
-        Type String
+        Semantic String
         Users List User
 
     Post SubClass Item
@@ -139,19 +139,21 @@ Namespace Frame
 
         Replies String   
 
-        Main Presentation Id
+        Main Presentation Uid
             Avatar
                 User.Avatar Avatar
             Author
                 User.DisplayName String
+                User.DisplayHandle String
                 Created DateTime
+            Rule
             Body
                 Text Text
             Detail
                 Created DateTime
                 Replies String             
             Responses
-                Comment Button CommentAction "Home"
+                Comment Button CommentAction "Comment"
                     Comments Integer               
                 Repost SubMenu "Repost"
                     Repost Button RepostAction "Repost"
@@ -159,9 +161,9 @@ Namespace Frame
                 Like Button LikeAction "Like"
                     Liked Boolean
                     Likes Integer
-                More Button MoreAction "More"
+                SeeMore Button MoreAction "More"
                     RequestedMore Boolean
-                Less Button LessAction "Less"
+                SeeLess Button LessAction "Less"
                     RequestedLess Boolean
                 Share SubMenu "Share"
                     CopyLink Button HomePage "Copy link to post"
@@ -182,7 +184,7 @@ Namespace Frame
 
     QuotePost SubClass Post
         Base Is Post
-        QuoteMain Presentation Id
+        QuoteMain Presentation Uid
             Avatar
                 User.Avatar Avatar
             Author
@@ -200,7 +202,7 @@ Namespace Frame
 
     RePost SubClass Post
         Base Is Post
-        ReMain Presentation Id
+        ReMain Presentation Uid
             Avatar
                 User.Avatar Avatar
             Author

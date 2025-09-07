@@ -59,6 +59,8 @@ public interface IBacked {
     ///<summary>The fields</summary>
     List<FrameField> Fields { get; }
 
+    FramePresentation Presentation => null;
+
     string Type { get; }
 
     FrameClass? Parent { get;  }
@@ -68,6 +70,8 @@ public interface IBacked {
 
 
 public class FrameBacker {
+
+    public virtual FramePresentation Presentation { get; init; }
     public System.DateTime StartRender { get; set; }
     public string Id { get; init; }
     public FrameBacker(string id) {
@@ -134,6 +138,10 @@ public class FrameClass : FrameBacker, IBacked {
     public FrameSet FrameSet { get; set; }
     public string Type => "FrameClass";
     public virtual List<FrameField> Fields { get; set; }
+
+
+
+
     public FrameClass? Parent { get; set; } = null;
 
     public string? ParentId { get; init; } = null;

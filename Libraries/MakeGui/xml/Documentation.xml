@@ -14,21 +14,32 @@
         </member>
         <member name="M:Frame.User.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for User
             </summary>
+        </member>
+        <member name="P:Frame.User.Fields">
+            <inheritdoc/>
         </member>
         <member name="P:Frame.User.DID">
             <summary>Field DID</summary>
         </member>
+        <member name="P:Frame.User.Avatar">
+            <summary>Avatar Avatar</summary>
+        </member>
         <member name="P:Frame.User.DisplayName">
             <summary>Field DisplayName</summary>
         </member>
-        <member name="P:Frame.User.DiaplayHandle">
-            <summary>Field DiaplayHandle</summary>
+        <member name="P:Frame.User.DisplayHandle">
+            <summary>Field DisplayHandle</summary>
         </member>
         <member name="T:Frame.NamespaceDoc">
             <summary>
             Desctiption of the 
+            </summary>
+        </member>
+        <member name="T:Frame.MyClass">
+            <summary>
+            Annotated backing classes for data driven GUI.
             </summary>
         </member>
         <member name="P:Frame.MyClass.HomePage">
@@ -64,9 +75,6 @@
         <member name="P:Frame.MyClass.HomeFilter">
             <summary>HomeFilter</summary>
         </member>
-        <member name="P:Frame.MyClass.PostMenu">
-            <summary>PostMenu</summary>
-        </member>
         <member name="P:Frame.MyClass.ProfileFilter">
             <summary>ProfileFilter</summary>
         </member>
@@ -90,9 +98,6 @@
         </member>
         <member name="P:Frame.MyClass.Post">
             <summary>Post</summary>
-        </member>
-        <member name="P:Frame.MyClass.NewPost">
-            <summary>NewPost</summary>
         </member>
         <member name="P:Frame.MyClass.QuotePost">
             <summary>QuotePost</summary>
@@ -118,6 +123,9 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.HomePage.Items">
+            <summary>List Items</summary>
+        </member>
         <member name="T:Frame.NotificationsPage">
             <summary>
             Backing class for NotificationsPage
@@ -127,6 +135,9 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.NotificationsPage.Items">
+            <summary>List Items</summary>
         </member>
         <member name="T:Frame.ChatsPage">
             <summary>
@@ -138,6 +149,9 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.ChatsPage.Items">
+            <summary>List Items</summary>
+        </member>
         <member name="T:Frame.ChatingPage">
             <summary>
             Backing class for ChatingPage
@@ -147,6 +161,12 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.ChatingPage.With">
+            <summary>class User, With</summary>
+        </member>
+        <member name="P:Frame.ChatingPage.Items">
+            <summary>List Items</summary>
         </member>
         <member name="T:Frame.FeedsPage">
             <summary>
@@ -167,6 +187,9 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.ProfilePage.Items">
+            <summary>List Items</summary>
         </member>
         <member name="T:Frame.SettingsPage">
             <summary>
@@ -220,22 +243,15 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.MainNav.NotificationCount">
+            <summary>Field NotificationCount</summary>
+        </member>
         <member name="T:Frame.HomeFilter">
             <summary>
             Backing class for HomeFilter
             </summary>
         </member>
         <member name="M:Frame.HomeFilter.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="T:Frame.PostMenu">
-            <summary>
-            Backing class for PostMenu
-            </summary>
-        </member>
-        <member name="M:Frame.PostMenu.#ctor">
             <summary>
             Constructor, returns a new instance
             </summary>
@@ -276,11 +292,14 @@
         </member>
         <member name="M:Frame.Item.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for Item
             </summary>
         </member>
-        <member name="P:Frame.Item.Id">
-            <summary>Field Id</summary>
+        <member name="P:Frame.Item.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Item.Uid">
+            <summary>Field Uid</summary>
         </member>
         <member name="P:Frame.Item.Created">
             <summary>Field Created</summary>
@@ -292,8 +311,17 @@
         </member>
         <member name="M:Frame.Chat.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for Chat
             </summary>
+        </member>
+        <member name="P:Frame.Chat.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Chat.User">
+            <summary>class User, User</summary>
+        </member>
+        <member name="P:Frame.Chat.Messages">
+            <summary>List Messages</summary>
         </member>
         <member name="T:Frame.ChatText">
             <summary>
@@ -302,8 +330,11 @@
         </member>
         <member name="M:Frame.ChatText.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for ChatText
             </summary>
+        </member>
+        <member name="P:Frame.ChatText.Fields">
+            <inheritdoc/>
         </member>
         <member name="P:Frame.ChatText.Created">
             <summary>Field Created</summary>
@@ -321,11 +352,17 @@
         </member>
         <member name="M:Frame.Reaction.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for Reaction
             </summary>
         </member>
-        <member name="P:Frame.Reaction.Type">
-            <summary>Field Type</summary>
+        <member name="P:Frame.Reaction.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Reaction.Semantic">
+            <summary>Field Semantic</summary>
+        </member>
+        <member name="P:Frame.Reaction.Users">
+            <summary>List Users</summary>
         </member>
         <member name="T:Frame.Post">
             <summary>
@@ -334,21 +371,52 @@
         </member>
         <member name="M:Frame.Post.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for Post
             </summary>
         </member>
-        <member name="T:Frame.NewPost">
-            <summary>
-            Backing class for NewPost
-            </summary>
+        <member name="P:Frame.Post.Fields">
+            <inheritdoc/>
         </member>
-        <member name="M:Frame.NewPost.#ctor(System.String)">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
+        <member name="P:Frame.Post.Presentation">
+            <inheritdoc/>
         </member>
-        <member name="P:Frame.NewPost.Text">
+        <member name="P:Frame.Post.Text">
             <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.Post.User">
+            <summary>class User, User</summary>
+        </member>
+        <member name="P:Frame.Post.Comments">
+            <summary>Field Comments</summary>
+        </member>
+        <member name="P:Frame.Post.Reposts">
+            <summary>Field Reposts</summary>
+        </member>
+        <member name="P:Frame.Post.QuotePosts">
+            <summary>Field QuotePosts</summary>
+        </member>
+        <member name="P:Frame.Post.AllReposts">
+            <summary>Field AllReposts</summary>
+        </member>
+        <member name="P:Frame.Post.Likes">
+            <summary>Field Likes</summary>
+        </member>
+        <member name="P:Frame.Post.Liked">
+            <summary>Field Liked</summary>
+        </member>
+        <member name="P:Frame.Post.RequestedMore">
+            <summary>Field RequestedMore</summary>
+        </member>
+        <member name="P:Frame.Post.RequestedLess">
+            <summary>Field RequestedLess</summary>
+        </member>
+        <member name="P:Frame.Post.Replies">
+            <summary>Field Replies</summary>
+        </member>
+        <member name="P:Frame.Post.Main">
+            <summary>
+            Presentation style Main
+            </summary>
         </member>
         <member name="T:Frame.QuotePost">
             <summary>
@@ -357,7 +425,21 @@
         </member>
         <member name="M:Frame.QuotePost.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for QuotePost
+            </summary>
+        </member>
+        <member name="P:Frame.QuotePost.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.QuotePost.Presentation">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.QuotePost.Base">
+            <summary>class Post, Base</summary>
+        </member>
+        <member name="P:Frame.QuotePost.QuoteMain">
+            <summary>
+            Presentation style QuoteMain
             </summary>
         </member>
         <member name="T:Frame.RePost">
@@ -367,7 +449,21 @@
         </member>
         <member name="M:Frame.RePost.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for RePost
+            </summary>
+        </member>
+        <member name="P:Frame.RePost.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.RePost.Presentation">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.RePost.Base">
+            <summary>class Post, Base</summary>
+        </member>
+        <member name="P:Frame.RePost.ReMain">
+            <summary>
+            Presentation style ReMain
             </summary>
         </member>
         <member name="T:Frame.ProfileData">
@@ -377,8 +473,14 @@
         </member>
         <member name="M:Frame.ProfileData.#ctor(System.String)">
             <summary>
-            Constructor, returns a new instance
+            Backing class for ProfileData
             </summary>
+        </member>
+        <member name="P:Frame.ProfileData.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.ProfileData.User">
+            <summary>class User, User</summary>
         </member>
         <member name="P:Frame.ProfileData.Avatar">
             <summary>Field Avatar</summary>
