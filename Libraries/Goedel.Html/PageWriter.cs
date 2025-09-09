@@ -1,4 +1,6 @@
-﻿namespace Goedel.Html;
+﻿using Goedel.Registry;
+
+namespace Goedel.Html;
 
 /// <summary>
 /// Pagewriter adds in methods to emit FramePages and components.
@@ -59,15 +61,25 @@ public class PageWriter : HtmlWriter {
         }
 
     public void Render(IBacked backer, FramePresentation presentation) {
-
+        OpenClass("form", presentation.Id);
+        if (presentation.GetUid != null) {
+            var id = presentation.GetUid(backer);
+            if (id != null) {
+                Element("input", "type", "hidden", "name", "UID", "value", id);
+                }
+            }
 
 
         foreach (var section in presentation.Sections) {
-            Open("div", "class", section.Id);
+
+            Open("section", "class", section.Id);
+            OpenClass("div", section.Id);
             Render(backer, section.Fields);
+            Close();
             Close();
             }
 
+        Close();
         }
 
 
@@ -76,7 +88,7 @@ public class PageWriter : HtmlWriter {
             FrameField field) {
 
         var id = NormalizeId(field.Id);
-        Open("div", "class", id);
+        //OpenClass("div", id);
         switch (field) {
             case FrameButton item: {
                 Render(item);
@@ -135,13 +147,13 @@ public class PageWriter : HtmlWriter {
                 break;
                 }
             }
-        Close();
+        //Close();
         }
 
 
     public void Render(FrameRefMenu fieldRefMenu) {
         var menu = fieldRefMenu.Menu;
-        //var start = Open("div", "class", fieldRefMenu.Id);
+        var start = OpenClass("div", fieldRefMenu.Id);
 
         foreach (var field in menu.Fields) {
 
@@ -155,19 +167,15 @@ public class PageWriter : HtmlWriter {
             }
 
 
-        //Close(start);
+        Close(start);
         }
 
 
     public void Render(FrameButton button) {
-        //var start = Open("a", "href", ".");
-        var start = Open("div", "class", "ButtonBox " + button.Id);
-        Open("button", "class", "Button");
-        Element("img", "src", FrameSet.IconPath(button.Id), "class", "ButtonIcon");
 
-        Text(button.Label, "div", "class", "ButtonText");
-        Close();
-        //Close();
+        var start = OpenClass("button",  button.Id, "type", "button");
+        ElementClass("img", "ButtonIcon ", "src", FrameSet.IconPath(button.Id), "alt", button.Label);
+        TextClass(button.Label, "ButtonText ", "div");
         Close(start);
         }
 
@@ -217,7 +225,9 @@ public class PageWriter : HtmlWriter {
                 FrameBoolean item) {
         var value = item.Get(backer);
         if (value is not null) {
+            OpenClass("div", item.Id);
             Text(value.ToString());
+            Close();
             }
         }
     public void Render(
@@ -225,7 +235,9 @@ public class PageWriter : HtmlWriter {
                 FrameInteger item) {
         var value = item.Get(backer);
         if (value is not null) {
+            OpenClass("div", item.Id);
             Text(value.ToString());
+            Close();
             }
         }
     public void Render(
@@ -255,8 +267,9 @@ public class PageWriter : HtmlWriter {
                 result = (interval.Minutes).ToString() + "s";
                 }
 
-
+            OpenClass("div", item.Id);
             Text(result);
+            Close();
             }
         }
     public void Render(
@@ -264,7 +277,10 @@ public class PageWriter : HtmlWriter {
                 FrameString item) {
         var value = item.Get(backer);
         if (value is not null) {
+
+            OpenClass("div", item.Id);
             Text(value.ToString());
+            Close();
             }
         }
     public void Render(
@@ -272,7 +288,10 @@ public class PageWriter : HtmlWriter {
                 FrameText item) {
         var value = item.Get(backer) ;
         if (value is not null) {
+
+            OpenClass("div", item.Id);
             Text(value.ToString());
+            Close();
             }
         }
     public void Render(
@@ -280,7 +299,10 @@ public class PageWriter : HtmlWriter {
                 FrameImage item) {
         var value = item.Get(backer);
         if (value is not null) {
-            Element("img", "src", value, "class", item.Id);
+
+            //OpenClass("div", item.Id);
+            ElementClass("img", item.Id, "src", value);
+            //Close();
             }
         }
 
@@ -289,7 +311,10 @@ public class PageWriter : HtmlWriter {
                 FrameAvatar item) {
         var value = item.Get(backer);
         if (value is not null) {
-            Element("img", "src", value, "class", item.Id);
+
+            //OpenClass("div", item.Id);
+            ElementClass("img", item.Id, "src", value);
+            //Close();
             }
         }
     public void Render(
@@ -298,17 +323,18 @@ public class PageWriter : HtmlWriter {
         var value = item.Get(backer);
 
         if (value is not null) {
+
+            OpenClass("div", item.Id);
             Text(value.ToString());
+            Close();
             }
         }
 
     public void Render(
             IBacked backer,
             FrameSeparator item) {
-        Element("hr", "class", "Separator");
+        ElementClass("hr", item.Id);
         }
-
-
 
     string NormalizeId(string id) => id.Replace(".", "");
     }

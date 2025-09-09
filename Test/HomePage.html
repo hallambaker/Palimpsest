@@ -8,187 +8,157 @@
   <body>
     <div class="HomePage">
       <div class="Navigation">
-        <div class="ButtonBox Home">
-          <button class="Button">
-            <img src="Resources/Icons/Home.svg" class="ButtonIcon"/>
-            <div class="ButtonText">Home</div>
-          </button>
-        </div>
-        <div class="ButtonBox Notifications">
-          <button class="Button">
-            <img src="Resources/Icons/Notifications.svg" class="ButtonIcon"/>
-            <div class="ButtonText">Notifications</div>
-          </button>
-        </div>
-        <div class="ButtonBox Chats">
-          <button class="Button">
-            <img src="Resources/Icons/Chats.svg" class="ButtonIcon"/>
-            <div class="ButtonText">Chats</div>
-          </button>
-        </div>
-        <div class="ButtonBox Feeds">
-          <button class="Button">
-            <img src="Resources/Icons/Feeds.svg" class="ButtonIcon"/>
-            <div class="ButtonText">Feeds</div>
-          </button>
-        </div>
-        <div class="ButtonBox Profile">
-          <button class="Button">
-            <img src="Resources/Icons/Profile.svg" class="ButtonIcon"/>
-            <div class="ButtonText">Profile</div>
-          </button>
-        </div>
-        <div class="ButtonBox Settings">
-          <button class="Button">
-            <img src="Resources/Icons/Settings.svg" class="ButtonIcon"/>
-            <div class="ButtonText">Settings</div>
-          </button>
-        </div>
-        <div class="ButtonBox NewPost">
-          <button class="Button">
-            <img src="Resources/Icons/NewPost.svg" class="ButtonIcon"/>
-            <div class="ButtonText">New Post</div>
-          </button>
-        </div>
+        <button class="Navigation Home" type="button">
+          <img class="Navigation Home ButtonIcon " src="Resources/Icons/Home.svg" alt="Home"/>
+          <div class="Navigation Home ButtonText ">Home</div>
+        </button>
+        <button class="Navigation Notifications" type="button">
+          <img class="Navigation Notifications ButtonIcon " src="Resources/Icons/Notifications.svg" alt="Notifications"/>
+          <div class="Navigation Notifications ButtonText ">Notifications</div>
+        </button>
+        <button class="Navigation Chats" type="button">
+          <img class="Navigation Chats ButtonIcon " src="Resources/Icons/Chats.svg" alt="Chats"/>
+          <div class="Navigation Chats ButtonText ">Chats</div>
+        </button>
+        <button class="Navigation Feeds" type="button">
+          <img class="Navigation Feeds ButtonIcon " src="Resources/Icons/Feeds.svg" alt="Feeds"/>
+          <div class="Navigation Feeds ButtonText ">Feeds</div>
+        </button>
+        <button class="Navigation Profile" type="button">
+          <img class="Navigation Profile ButtonIcon " src="Resources/Icons/Profile.svg" alt="Profile"/>
+          <div class="Navigation Profile ButtonText ">Profile</div>
+        </button>
+        <button class="Navigation Settings" type="button">
+          <img class="Navigation Settings ButtonIcon " src="Resources/Icons/Settings.svg" alt="Settings"/>
+          <div class="Navigation Settings ButtonText ">Settings</div>
+        </button>
+        <button class="Navigation NewPost" type="button">
+          <img class="Navigation NewPost ButtonIcon " src="Resources/Icons/NewPost.svg" alt="New Post"/>
+          <div class="Navigation NewPost ButtonText ">New Post</div>
+        </button>
       </div>
-      <div class="Items">
-        <section class="ItemsItem">
-          <div class="Avatar">
-            <div class="UserAvatar">
-              <img src="Resources/Icons/AvatarDefault.svg" class="User.Avatar"/>
+      <div class="ItemsItem">
+        <form class="Main">
+          <input type="hidden" name="UID" value="NBOT-QD4R-US35-AIN6-O7YA-PL7P-TKGQ"/>
+          <section class="Avatar">
+            <div class="Main Avatar">
+              <img class="Main Avatar UserAvatar" src="Resources/Icons/AvatarDefault.svg"/>
             </div>
-          </div>
-          <div class="Author" style="display: inline;">
+          </section>
+          <section class="Author">
+            <div class="Main Author">
+              <div class="Main Author UserDisplayName">
+Alice              </div>
+              <div class="Main Author UserDisplayHandle">
+@alice.example.com              </div>
+              <div class="Main Author Created">
+1d              </div>
+            </div>
+          </section>
+          <section class="Rule">
+            <div class="Main Rule">
+            </div>
+          </section>
+          <section class="Body">
 
-                  <div class="UserDisplayName">
-                      Alice
-                  </div>
-                  <div class="UserDisplayHandle">
-                      alice.example.com
-                  </div>
-                  <div class="Created">
-                      1d
-                  </div>
-          </div>
-          <div class="Rule">
-              <hr class="rulethang"/>
-          </div>
-          <div class="Body">
-            <div class="Text">
-This is a post that was made. It is very gud.            </div>
-          </div>
-          <div class="Detail">
-            <div class="Created">
-1d            </div>
-            <div class="Replies">
-            </div>
-          </div>
-          <div class="Responses">
-            <div class="Comment">
-                <button class="MiniBut">
-                  <img src="Resources/Icons/Comment.svg" class="ButtonIcon"/>
-                  <div class="ButtonText">Home</div>
-                </button>
-            </div>
-            <!--<div class="Repost">
-            </div>-->
-            <div class="Like">
+              <div class="Body">
+This is a post that was made. It is very gud.              </div>
 
-                <button class="MiniBut">
-                  <img src="Resources/Icons/Like.svg" class="ButtonIcon"/>
-                  <div class="ButtonText">Like</div>
-                </button>
-
+          </section>
+          <section class="Detail">
+            <div class="Main Detail">
+              <div class="Main Detail Created">
+1d              </div>
             </div>
-            <div class="SeeMore">
-
-                <button class="MiniBut">
-                  <img src="Resources/Icons/SeeMore.svg" class="ButtonIcon"/>
-                  <div class="ButtonText">More</div>
-                </button>
-
+          </section>
+          <section class="Responses">
+            <div class="Main Responses">
+              <button class="Main Responses Comment" type="button">
+                <img class="Main Responses Comment ButtonIcon " src="Resources/Icons/Comment.svg" alt="Comment"/>
+                <div class="Main Responses Comment ButtonText ">Comment</div>
+              </button>
+              <button class="Main Responses Like" type="button">
+                <img class="Main Responses Like ButtonIcon " src="Resources/Icons/Like.svg" alt="Like"/>
+                <div class="Main Responses Like ButtonText ">Like</div>
+              </button>
+              <button class="Main Responses SeeMore" type="button">
+                <img class="Main Responses SeeMore ButtonIcon " src="Resources/Icons/SeeMore.svg" alt="More"/>
+                <div class="Main Responses SeeMore ButtonText ">More</div>
+              </button>
+              <button class="Main Responses SeeLess" type="button">
+                <img class="Main Responses SeeLess ButtonIcon " src="Resources/Icons/SeeLess.svg" alt="Less"/>
+                <div class="Main Responses SeeLess ButtonText ">Less</div>
+              </button>
             </div>
-            <div class="SeeLess">
-
-                <button class="MiniBut">
-                  <img src="Resources/Icons/SeeLess.svg" class="ButtonIcon"/>
-                  <div class="ButtonText">Less</div>
-                </button>
-
-            </div>
-            <!--<div class="Share">
-            </div>
-            <div class="Ellipsis">
-            </div>-->
-          </div>
-        </section>
-        <section class="ItemsItem">
-          <div class="Avatar">
-            <div class="UserAvatar">
-              <img src="Resources/Icons/AvatarDefault.svg" class="User.Avatar"/>
-            </div>
-          </div>
-          <div class="Author">
-            <div class="UserDisplayName">
-Bob            </div>
-            <div class="UserDisplayHandle">
-bob.example.com            </div>
-            <div class="Created">
-0s            </div>
-          </div>
-          <div class="Body">
-            <div class="Text">
-Not sure this post as 'gud' as the poster thought.            </div>
-          </div>
-          <div class="OriginalAuthor">
-            <div class="BaseUserDisplayName">
-            </div>
-            <div class="BaseUserDisplayHandle">
-            </div>
-            <div class="BaseCreated">
-            </div>
-          </div>
-          <div class="OriginalBody">
-            <div class="BaseText">
-            </div>
-          </div>
-        </section>
-        <section class="ItemsItem">
-          <div class="Avatar">
-            <div class="UserAvatar">
-              <img src="Resources/Icons/AvatarDefault.svg" class="User.Avatar"/>
-            </div>
-          </div>
-          <div class="Author">
-            <div class="UserDisplayName">
-Carol            </div>
-            <div class="UserDisplayHandle">
-carol.example.com            </div>
-            <div class="Created">
-3m            </div>
-          </div>
-          <div class="OriginalAuthor">
-            <div class="BaseUserDisplayName">
-            </div>
-            <div class="BaseUserDisplayHandle">
-            </div>
-            <div class="BaseCreated">
-            </div>
-          </div>
-          <div class="OriginalBody">
-            <div class="BaseText">
-            </div>
-          </div>
-        </section>
+          </section>
+        </form>
       </div>
-      <div class="Settings">
-        <div class="ButtonBox Settings">
-          <button class="Button">
-            <img src="Resources/Icons/Settings.svg" class="ButtonIcon"/>
-            <div class="ButtonText">Settings</div>
-          </button>
-        </div>
+      <div class="ItemsItem">
+        <form class="QuoteMain">
+          <input type="hidden" name="UID" value="NB4Y-FNEF-EOBU-4GQ3-UAJH-YAUY-533O"/>
+          <section class="Avatar">
+            <div class="QuoteMain Avatar">
+              <img class="QuoteMain Avatar UserAvatar" src="Resources/Icons/AvatarDefault.svg"/>
+            </div>
+          </section>
+          <section class="Author">
+            <div class="QuoteMain Author">
+              <div class="QuoteMain Author UserDisplayName">
+Bob              </div>
+              <div class="QuoteMain Author UserDisplayHandle">
+@bob.example.com              </div>
+              <div class="QuoteMain Author Created">
+0s              </div>
+            </div>
+          </section>
+          <section class="Body">
+            <div class="QuoteMain Body">
+              <div class="QuoteMain Body Text">
+Not sure this post as 'gud' as the poster thought.              </div>
+            </div>
+          </section>
+          <section class="OriginalAuthor">
+            <div class="QuoteMain OriginalAuthor">
+            </div>
+          </section>
+          <section class="OriginalBody">
+            <div class="QuoteMain OriginalBody">
+            </div>
+          </section>
+        </form>
       </div>
+      <div class="ItemsItem">
+        <form class="ReMain">
+          <input type="hidden" name="UID" value="NB2C-UKBU-7WCU-DD7G-UPTR-CIPP-H53F"/>
+          <section class="Avatar">
+            <div class="ReMain Avatar">
+              <img class="ReMain Avatar UserAvatar" src="Resources/Icons/AvatarDefault.svg"/>
+            </div>
+          </section>
+          <section class="Author">
+            <div class="ReMain Author">
+              <div class="ReMain Author UserDisplayName">
+Carol              </div>
+              <div class="ReMain Author UserDisplayHandle">
+@carol.example.com              </div>
+              <div class="ReMain Author Created">
+3m              </div>
+            </div>
+          </section>
+          <section class="OriginalAuthor">
+            <div class="ReMain OriginalAuthor">
+            </div>
+          </section>
+          <section class="OriginalBody">
+            <div class="ReMain OriginalBody">
+            </div>
+          </section>
+        </form>
+      </div>
+      <button class="Settings" type="button">
+        <img class="Settings ButtonIcon " src="Resources/Icons/Settings.svg" alt="Settings"/>
+        <div class="Settings ButtonText ">Settings</div>
+      </button>
     </div>
   </body>
 </html>

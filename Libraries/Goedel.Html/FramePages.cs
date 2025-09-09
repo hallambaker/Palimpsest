@@ -238,6 +238,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				_Output.Write ("	/// Presentation style {1}\n{0}", _Indent, presentation.Id);
 				_Output.Write ("	/// </summary>\n{0}", _Indent);
 				_Output.Write ("	public static FramePresentation {1} {{get;}} = new (\"{2}\") {{\n{0}", _Indent, presentation.Id, presentation.Id);
+				_Output.Write ("		GetUid = (IBacked data) => (data as {1})?.{2},\n{0}", _Indent, backed.Id, presentation.UidField);
 				_Output.Write ("		Sections = [", _Indent);
 				 comma.Reset();
 				foreach  (var section in presentation.Sections) {

@@ -205,6 +205,7 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 	/// Presentation style #{presentation.Id}
 	/// </summary>
 	public static FramePresentation #{presentation.Id} {get;} = new ("#{presentation.Id}") {
+		GetUid = (IBacked data) => (data as #{backed.Id})?.#{presentation.UidField},
 		Sections = [#!
 #% comma.Reset();
 #foreach (var section in presentation.Sections)

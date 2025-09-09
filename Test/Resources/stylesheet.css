@@ -1,4 +1,45 @@
+* {
+    outline: 1px solid red;
+}
 
+
+button {
+    background-color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    align-items: center;
+    font-size: 18px;
+    border: 0px;
+}
+button:hover {
+    background-color: lightgray;
+}
+
+
+.ButtonIcon {
+    width: 24px;
+    height: 24px;
+}
+
+
+button.Navigation {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    width: 100%;
+
+}
+
+
+
+.ButtonText {
+    padding-left: 8px;
+}
+
+
+.ItemsItem.ButtonText {
+    display: none;
+}
 
 
 
@@ -9,9 +50,7 @@ Body {
     border: 0px;
 }
 
-* {
-    /*outline: 1px solid red;*/
-}
+
 
 .HomePage {
     display: grid;
@@ -60,41 +99,21 @@ Body {
             border-right: 1px solid black;
         }
 
-.Button {
-    border-radius: 10px;
-    text-decoration: none;
-    align-items: center;
-    font-size: 18px;
-    display: flex;
-    flex-direction: row;
-    padding: 8px;
-    width: 100%;
-    border: 0px;
-    background-color: white;
-}
-    .Button:hover {
-        background-color: lightgray;
-    }
 
-.ButtonIcon {
-    width:24px;
-    height:24px;
-}
 
-.ButtonText{
-    padding-left: 8px;
-}
+
+
+
 
 .DID {
     display: none;
 }
 
-
 .Id {
     display: none;
 }
 
-.ItemsItem {
+.Main {
     display: grid;
     grid-template-areas:
         "left author"
@@ -104,34 +123,39 @@ Body {
     grid-template-columns: 36px auto;
 }
 
-    .ItemsItem > div.Avatar {
+    .Main > section.Avatar {
         grid-area: left;
         vertical-align: middle;
         align-self: center;
     }
 
-    .ItemsItem > div.Author {
+    .Main > section.Author {
         grid-area: author;
         vertical-align: middle;
         align-self: center;
         display: inline;
     }
 
-    .ItemsItem > div.Rule {
+    .Main > section.Rule {
         grid-area: rule;
     }
 
-    .ItemsItem > div.Body {
+    .Main > section.Body {
         grid-area: body;
+        width: 100%
     }
 
-    .ItemsItem > div.Detail {
+    .Main > section.Detail {
         grid-area: detail;
         display: none;
     }
 
-    .ItemsItem > div.Responses {
+    .Main > section.Responses {
         grid-area: responses;
+    }
+
+    .Main.Body.Text {
+        width: 100%
     }
 
 
@@ -156,18 +180,31 @@ div.Author {
 .Created {
     display: inline;
 }
-
     .Created:before {
         content: "-";
     }
 
 div.Responses {
     display: inline;
+    background-color: white;
 }
+
+
+
+        div .Responses.ButtonText {
+        background-color: white;
+        display: none;
+    }
+
+
+
 
 div.Comment {
     display: inline;
 }
+
+
+
 div.Repost {
     display: inline;
 }

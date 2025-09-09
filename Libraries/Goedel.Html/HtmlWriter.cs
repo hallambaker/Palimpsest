@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using Goedel.Registry;
+
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -33,7 +35,7 @@ public record Stylesheet(
     }
 
 
-public record Element(string Tag) {
+public record Element(string Tag, string ClassAttribute=null) {
     }
 
 
@@ -77,14 +79,52 @@ public class HtmlWriter {
     void WriteAttributes(string[] attributes) {
         for (var i= 0; i+1 < attributes.Length; i+=2) {
             if (attributes[i + 1] is not null) {
-                TextWriter.Write(" ");
-                TextWriter.Write(attributes[i]);
-                TextWriter.Write("=\"");
-                TextWriter.Write(attributes[i + 1]);
-                TextWriter.Write("\"");
+                WriteAttribute(attributes[i], attributes[i + 1]);
                 }
             }
         }
+
+    void WriteAttribute(string tag, string value) {
+        TextWriter.Write(" ");
+        TextWriter.Write(tag);
+        TextWriter.Write("=\"");
+        TextWriter.Write(value);
+        TextWriter.Write("\"");
+        }
+
+    string EnclosingClass(string classId) {
+        classId = classId.Replace(".", "");
+
+        var array = Elements.ToArray();
+
+        for (var i = 0; i < Elements.Count; i++) {
+            var classAttribute = array[i].ClassAttribute;
+            if (classAttribute != null) {
+                return classAttribute + " " + classId;
+                }
+            }
+        return classId;
+
+        }
+    //string NormalizeId(string id) => id.Replace(".", "");
+
+    public int OpenClass(string tag, string classId, params string[] attributes) {
+
+        var classAttr = EnclosingClass(classId);
+
+
+        StartElement(tag);
+        Elements.Push(new(tag, classAttr));
+        WriteAttribute("class", classAttr);
+        WriteAttributes(attributes);
+        TextWriter.WriteLine(">");
+
+        return Elements.Count - 1;
+
+        }
+
+    public void CloseClass() => Close();
+
 
 
     /// <summary>
@@ -122,8 +162,14 @@ public class HtmlWriter {
         return Elements.Count - 1;
         }
 
-    public void Text(string text) {
-        TextWriter.Write(text);
+    public int ElementClass(string tag, string classId, params string[] attributes) {
+        var classAttr = EnclosingClass(classId);
+
+        StartElement(tag);
+        WriteAttribute("class", classAttr);
+        WriteAttributes(attributes);
+        TextWriter.WriteLine("/>");
+        return Elements.Count - 1;
         }
 
     public void Text(string text, string tag, params string[] attributes) {
@@ -134,7 +180,20 @@ public class HtmlWriter {
         TextWriter.WriteLine($"</{tag}>");
         }
 
+    public void TextClass(string text, string classId, string tag, params string[] attributes) {
+        var classAttr = EnclosingClass(classId);
 
+        StartElement(tag);
+        WriteAttribute("class", classAttr);
+        WriteAttributes(attributes);
+        TextWriter.Write(">");
+        Text(text);
+        TextWriter.WriteLine($"</{tag}>");
+        }
+
+    public void Text(string text) {
+        TextWriter.Write(text);
+        }
 
 
     int positionMain;

@@ -15,25 +15,25 @@ class MainClass {
         var user1 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Alice",
-            DisplayHandle = "alice.example.com"
+            DisplayHandle = "@alice.example.com"
             };
 
         var user2 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Bob",
-            DisplayHandle = "bob.example.com"
+            DisplayHandle = "@bob.example.com"
             };
 
         var user3 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Carol",
-            DisplayHandle = "carol.example.com"
+            DisplayHandle = "@carol.example.com"
             };
 
         var user4 = new User() {
             DID = Udf.Nonce(),
             DisplayName = "Mallet",
-            DisplayHandle = "mallet.example.com"
+            DisplayHandle = "@mallet.example.com"
             };
 
         

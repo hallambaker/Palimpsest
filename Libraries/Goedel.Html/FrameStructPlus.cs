@@ -217,9 +217,10 @@ public partial class Namespace {
                 });
             }
 
-        var result = new FramePresentation(label) { 
-                Sections = sections
-                };
+        var result = new FramePresentation(label) {
+            Sections = sections,
+            UidField = presentation.Id.Label
+            };
 
         return result;
         }

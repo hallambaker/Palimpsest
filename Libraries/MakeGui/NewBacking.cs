@@ -714,6 +714,7 @@ public partial class Post (string id="Post") : Item (id) {
 	/// Presentation style Main
 	/// </summary>
 	public static FramePresentation Main {get;} = new ("Main") {
+		GetUid = (IBacked data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
 				Fields = [
@@ -757,7 +758,7 @@ public partial class Post (string id="Post") : Item (id) {
 				},
 			new FrameSection ("Responses") {
 				Fields = [
-            		new FrameButton ("Comment", "Home", "CommentAction") {
+            		new FrameButton ("Comment", "Comment", "CommentAction") {
             			GetInteger = (IBacked data) => (data as Post)?.Comments
             			},
             		new FrameSubmenu ("Repost", "Repost") {
@@ -880,6 +881,7 @@ public partial class QuotePost (string id="QuotePost") : Post (id) {
 	/// Presentation style QuoteMain
 	/// </summary>
 	public static FramePresentation QuoteMain {get;} = new ("QuoteMain") {
+		GetUid = (IBacked data) => (data as QuotePost)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
 				Fields = [
@@ -992,6 +994,7 @@ public partial class RePost (string id="RePost") : Post (id) {
 	/// Presentation style ReMain
 	/// </summary>
 	public static FramePresentation ReMain {get;} = new ("ReMain") {
+		GetUid = (IBacked data) => (data as RePost)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
 				Fields = [

@@ -343,6 +343,10 @@ public record FrameSeparator(string Id) : FrameField(Id) {
 public record FramePresentation(string Id) : FrameField(Id) {
     public override string Type => "FramePresentation";
 
+    public string UidField { get; init; }
+
+    public Func<IBacked, string?> GetUid { get; init; }
+
     public virtual List<FrameSection> Sections { get; init; }
     }
 
