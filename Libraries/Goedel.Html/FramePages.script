@@ -200,11 +200,12 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 
 #foreach (var entry in backed.Fields) 
 #if (entry is FramePresentation presentation) 
+#% var storeId = presentation.Id.Uniqueify();
 
 	/// <summary>
 	/// Presentation style #{presentation.Id}
 	/// </summary>
-	public static FramePresentation #{presentation.Id} {get;} = new ("#{presentation.Id}") {
+	public static FramePresentation #{presentation.Id} => #{storeId} ?? new FramePresentation ("#{presentation.Id}") {
 		GetUid = (IBacked data) => (data as #{backed.Id})?.#{presentation.UidField},
 		Sections = [#!
 #% comma.Reset();
@@ -221,7 +222,8 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 #end foreach
 
 			]
-		};
+		}.CacheValue(out #{storeId})!;
+	public static FramePresentation? #{storeId};
 #end if
 #end foreach
 
@@ -277,6 +279,9 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 #% case FrameRefClass reference: {
 #{comma}
 		new FrameRefClass<#{reference.Backing}> ("#{entry.Id}","#{reference.Reference}"){
+#if reference.PresentationId is not null
+			Presentation = #{backed.Id}.#{reference.PresentationId},
+#end if 
 			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
 			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{sid} = value as #{reference.Reference}; }}#!
 #% break; }
@@ -293,6 +298,10 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 #% case FrameSeparator : {
 #{comma}
 		new FrameSeparator ("#{entry.Id}")#!
+#% break; }
+#% case FrameIcon : {
+#{comma}
+		new FrameIcon ("#{entry.Id}")#!
 #% break; }
 #% case FramePresentation presentation: {
 #{comma}

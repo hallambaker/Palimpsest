@@ -37,6 +37,9 @@ public partial class MyClass : FrameSet{
 	///<summary>MainNav</summary>
 	public MainNav MainNav {get;} = new();
 
+	///<summary>TopSettings</summary>
+	public TopSettings TopSettings {get;} = new();
+
 	///<summary>HomeFilter</summary>
 	public HomeFilter HomeFilter {get;} = new();
 
@@ -66,6 +69,9 @@ public partial class MyClass : FrameSet{
 	 ///<summary>Post</summary>
 	 public Post Post {get;} = new();
 
+	 ///<summary>Repost</summary>
+	 public Repost Repost {get;} = new();
+
 	 ///<summary>QuotePost</summary>
 	 public QuotePost QuotePost {get;} = new();
 
@@ -94,6 +100,7 @@ public partial class MyClass : FrameSet{
 
 		Menus = [ 
 			MainNav,
+			TopSettings,
 			HomeFilter,
 			ProfileFilter
 			];
@@ -109,6 +116,7 @@ public partial class MyClass : FrameSet{
 			ChatText,
 			Reaction,
 			Post,
+			Repost,
 			QuotePost,
 			RePost,
 			ProfileData
@@ -147,16 +155,15 @@ public partial class HomePage : FramePage {
 		}
 
 	///<summary>List Items</summary>
-	public List<Post>? Items {get; set;}
+	public List<Item>? Items {get; set;}
 
 
 	static readonly List<FrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefList<Post> ("Items","Post"){
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRefList<Item> ("Items","Item"){
 			Get = (IBacked data) => (data as HomePage)?.Items ,
-			Set = (IBacked data, Object? value) => {(data as HomePage)!.Items = value as List<Post>; }},
-		new FrameButton ("Settings", "Settings", "SettingsPage") {
-			}
+			Set = (IBacked data, Object? value) => {(data as HomePage)!.Items = value as List<Item>; }}
 		];
 
 	}
@@ -404,6 +411,26 @@ public partial class MainNav : FrameMenu {
 		new FrameButton ("Settings", "Settings", "SettingsPage") {
 			},
 		new FrameButton ("NewPost", "New Post", "NewPostPage") {
+			}
+		];
+
+	}
+/// <summary>
+/// Backing class for TopSettings
+/// </summary>
+public partial class TopSettings : FrameMenu {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public TopSettings () : base ("TopSettings", _Fields) {
+		}
+
+
+	static readonly List<FrameField> _Fields = [
+		new FrameButton ("Menu", "Menu", "SettingsPage") {
+			},
+		new FrameButton ("Settings", "Settings", "SettingsPage") {
 			}
 		];
 
@@ -709,11 +736,14 @@ public partial class Post (string id="Post") : Item (id) {
     /// <summary>Field Replies</summary>
 	public string? Replies {get; set;}
 
+	///<summary>class Post, QuotedPost</summary>
+	public Post? QuotedPost {get; set;}
+
 
 	/// <summary>
 	/// Presentation style Main
 	/// </summary>
-	public static FramePresentation Main {get;} = new ("Main") {
+	public static FramePresentation Main => main ?? new FramePresentation ("Main") {
 		GetUid = (IBacked data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
@@ -743,7 +773,11 @@ public partial class Post (string id="Post") : Item (id) {
 				Fields = [
             		new FrameText ("Text") {
             			Get = (IBacked data) => (data as Post)?.Text ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }}
+            			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }},
+            		new FrameRefClass<Post> ("QuotedPost","Post"){
+            			Presentation = Post.Quoted,
+            			Get = (IBacked data) => (data as Post)?.QuotedPost ,
+            			Set = (IBacked data, IBacked? value) => {(data as Post)!.QuotedPost = value as Post; }}
 					]
 				},
 			new FrameSection ("Detail") {
@@ -781,9 +815,9 @@ public partial class Post (string id="Post") : Item (id) {
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
-                    		new FrameButton ("CopyLink", "Copy link to post", "HomePage") {
+                    		new FrameButton ("LinkCopy", "Copy link to post", "HomePage") {
                     			},
-                    		new FrameButton ("ShareDM", "Send via direct message", "HomePage") {
+                    		new FrameButton ("SendByDM", "Send via direct message", "HomePage") {
                     			},
                     		new FrameButton ("Embed", "Embed post", "HomePage") {
                     			}
@@ -793,7 +827,7 @@ public partial class Post (string id="Post") : Item (id) {
             			Fields = [
                     		new FrameButton ("Translate", "Translate", "TranslateAction") {
                     			},
-                    		new FrameButton ("CopyPostText", "Copy post text", "CopyPostAction") {
+                    		new FrameButton ("CopyToClipboard", "Copy post text", "CopyPostAction") {
                     			},
                     		new FrameSeparator ("S1"),
                     		new FrameButton ("MuteThread", "Mute thread", "MuteThreadAction") {
@@ -808,14 +842,51 @@ public partial class Post (string id="Post") : Item (id) {
                     			},
                     		new FrameButton ("BlockAccount", "Block user", "BlockAccountAction") {
                     			},
-                    		new FrameButton ("ReportPost", "Report post", "ReportPostAction") {
+                    		new FrameButton ("Report", "Report post", "ReportPostAction") {
                     			}
             				]
             			}
 					]
 				}
 			]
-		};
+		}.CacheValue(out main)!;
+	public static FramePresentation? main;
+
+	/// <summary>
+	/// Presentation style Quoted
+	/// </summary>
+	public static FramePresentation Quoted => quoted ?? new FramePresentation ("Quoted") {
+		GetUid = (IBacked data) => (data as Post)?.Uid,
+		Sections = [
+			new FrameSection ("Avatar") {
+				Fields = [
+            		new FrameAvatar ("User.Avatar"){
+            			Get = (IBacked data) => (data as Post)?.User?.Avatar }
+					]
+				},
+			new FrameSection ("Author") {
+				Fields = [
+            		new FrameString ("User.DisplayName") {
+            			Get = (IBacked data) => (data as Post)?.User?.DisplayName ,
+            			Set = (IBacked data, string? value) => {(data as Post)!.User!.DisplayName = value; }},
+            		new FrameString ("User.DisplayHandle") {
+            			Get = (IBacked data) => (data as Post)?.User?.DisplayHandle ,
+            			Set = (IBacked data, string? value) => {(data as Post)!.User!.DisplayHandle = value; }},
+            		new FrameDateTime ("Created") {
+            			Get = (IBacked data) => (data as Post)?.Created ,
+            			Set = (IBacked data, System.DateTime? value) => {(data as Post)!.Created = value; }}
+					]
+				},
+			new FrameSection ("Body") {
+				Fields = [
+            		new FrameText ("Text") {
+            			Get = (IBacked data) => (data as Post)?.Text ,
+            			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }}
+					]
+				}
+			]
+		}.CacheValue(out quoted)!;
+	public static FramePresentation? quoted;
 
 	static readonly List<FrameField> _Fields = [
 		new FrameString ("Uid") {
@@ -857,6 +928,169 @@ public partial class Post (string id="Post") : Item (id) {
 		new FrameString ("Replies") {
 			Get = (IBacked data) => (data as Post)?.Replies ,
 			Set = (IBacked data, string? value) => {(data as Post)!.Replies = value; }},
+		new FrameRefClass<Post> ("QuotedPost","Post"){
+			Get = (IBacked data) => (data as Post)?.QuotedPost ,
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.QuotedPost = value as Post; }},
+		Main,
+		Quoted
+		];
+
+	}
+/// <summary>
+/// Backing class for Repost
+/// </summary>
+public partial class Repost (string id="Repost") : Item (id) {
+
+    /// <inheritdoc/>
+    public override List<FrameField> Fields { get; set; } = _Fields;
+
+    /// <inheritdoc/>
+    public override FramePresentation Presentation => Main;
+
+
+	///<summary>class User, Reposter</summary>
+	public User? Reposter {get; set;}
+
+	///<summary>class Post, QuotedPost</summary>
+	public Post? QuotedPost {get; set;}
+
+
+	/// <summary>
+	/// Presentation style Main
+	/// </summary>
+	public static FramePresentation Main => main ?? new FramePresentation ("Main") {
+		GetUid = (IBacked data) => (data as Repost)?.Uid,
+		Sections = [
+			new FrameSection ("RepostIndicator") {
+				Fields = [
+            		new FrameIcon ("Repost")
+					]
+				},
+			new FrameSection ("Reposter") {
+				Fields = [
+            		new FrameString ("Reposter.DisplayName") {
+            			Get = (IBacked data) => (data as Repost)?.Reposter?.DisplayName ,
+            			Set = (IBacked data, string? value) => {(data as Repost)!.Reposter!.DisplayName = value; }},
+            		new FrameString ("Reposter.DisplayHandle") {
+            			Get = (IBacked data) => (data as Repost)?.Reposter?.DisplayHandle ,
+            			Set = (IBacked data, string? value) => {(data as Repost)!.Reposter!.DisplayHandle = value; }}
+					]
+				},
+			new FrameSection ("Avatar") {
+				Fields = [
+            		new FrameAvatar ("QuotedPost.User.Avatar"){
+            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.User?.Avatar }
+					]
+				},
+			new FrameSection ("Author") {
+				Fields = [
+            		new FrameString ("QuotedPost.User.DisplayName") {
+            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.User?.DisplayName ,
+            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.User!.DisplayName = value; }},
+            		new FrameString ("QuotedPost.User.DisplayHandle") {
+            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.User?.DisplayHandle ,
+            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.User!.DisplayHandle = value; }},
+            		new FrameDateTime ("QuotedPost.Created") {
+            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Created ,
+            			Set = (IBacked data, System.DateTime? value) => {(data as Repost)!.QuotedPost!.Created = value; }}
+					]
+				},
+			new FrameSection ("Rule") {
+				Fields = [
+					]
+				},
+			new FrameSection ("Body") {
+				Fields = [
+            		new FrameText ("QuotedPost.Text") {
+            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Text ,
+            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.Text = value; }}
+					]
+				},
+			new FrameSection ("Detail") {
+				Fields = [
+            		new FrameDateTime ("QuotedPost.Created") {
+            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Created ,
+            			Set = (IBacked data, System.DateTime? value) => {(data as Repost)!.QuotedPost!.Created = value; }},
+            		new FrameString ("QuotedPost.Replies") {
+            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Replies ,
+            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.Replies = value; }}
+					]
+				},
+			new FrameSection ("Responses") {
+				Fields = [
+            		new FrameButton ("Comment", "Comment", "CommentAction") {
+            			GetInteger = (IBacked data) => (data as Repost)?.QuotedPost?.Comments
+            			},
+            		new FrameSubmenu ("Repost", "Repost") {
+            			Fields = [
+                    		new FrameButton ("Repost", "Repost", "RepostAction") {
+                    			},
+                    		new FrameButton ("QuotePost", "Quote Post", "QuotePostAction") {
+                    			}
+            				]
+            			},
+            		new FrameButton ("Like", "Like", "LikeAction") {
+            			GetActive = (IBacked data) => (data as Repost)?.QuotedPost?.Liked,
+            			GetInteger = (IBacked data) => (data as Repost)?.QuotedPost?.Likes
+            			},
+            		new FrameButton ("SeeMore", "More", "MoreAction") {
+            			GetActive = (IBacked data) => (data as Repost)?.QuotedPost?.RequestedMore
+            			},
+            		new FrameButton ("SeeLess", "Less", "LessAction") {
+            			GetActive = (IBacked data) => (data as Repost)?.QuotedPost?.RequestedLess
+            			},
+            		new FrameSubmenu ("Share", "Share") {
+            			Fields = [
+                    		new FrameButton ("LinkCopy", "Copy link to post", "HomePage") {
+                    			},
+                    		new FrameButton ("SendByDM", "Send via direct message", "HomePage") {
+                    			},
+                    		new FrameButton ("Embed", "Embed post", "HomePage") {
+                    			}
+            				]
+            			},
+            		new FrameSubmenu ("Ellipsis", "More") {
+            			Fields = [
+                    		new FrameButton ("Translate", "Translate", "TranslateAction") {
+                    			},
+                    		new FrameButton ("CopyToClipboard", "Copy post text", "CopyPostAction") {
+                    			},
+                    		new FrameSeparator ("S1"),
+                    		new FrameButton ("MuteThread", "Mute thread", "MuteThreadAction") {
+                    			},
+                    		new FrameButton ("MuteWords", "Mute words & tags", "MuteWordsAction") {
+                    			},
+                    		new FrameSeparator ("S2"),
+                    		new FrameButton ("HidePost", "Hide post for me", "HidePostAction") {
+                    			},
+                    		new FrameSeparator ("S3"),
+                    		new FrameButton ("MuteAccount", "Mute user", "MuteAccountAction") {
+                    			},
+                    		new FrameButton ("BlockAccount", "Block user", "BlockAccountAction") {
+                    			},
+                    		new FrameButton ("ReportPost", "Report post", "ReportPostAction") {
+                    			}
+            				]
+            			}
+					]
+				}
+			]
+		}.CacheValue(out main)!;
+	public static FramePresentation? main;
+
+	static readonly List<FrameField> _Fields = [
+		new FrameString ("Uid") {
+			Get = (IBacked data) => (data as Item)?.Uid ,
+			Set = (IBacked data, string? value) => {(data as Item)!.Uid = value; }},
+		new FrameDateTime ("Created") {
+			Get = (IBacked data) => (data as Item)?.Created ,
+			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+		new FrameRefClass<User> ("Reposter","User"){
+			Get = (IBacked data) => (data as Repost)?.Reposter ,
+			Set = (IBacked data, IBacked? value) => {(data as Repost)!.Reposter = value as User; }},
+		new FrameRefClass<Post> ("QuotedPost","Post"){
+			Get = (IBacked data) => (data as Repost)?.QuotedPost ,
+			Set = (IBacked data, IBacked? value) => {(data as Repost)!.QuotedPost = value as Post; }},
 		Main
 		];
 
@@ -880,7 +1114,7 @@ public partial class QuotePost (string id="QuotePost") : Post (id) {
 	/// <summary>
 	/// Presentation style QuoteMain
 	/// </summary>
-	public static FramePresentation QuoteMain {get;} = new ("QuoteMain") {
+	public static FramePresentation QuoteMain => quotemain ?? new FramePresentation ("QuoteMain") {
 		GetUid = (IBacked data) => (data as QuotePost)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
@@ -930,7 +1164,8 @@ public partial class QuotePost (string id="QuotePost") : Post (id) {
 					]
 				}
 			]
-		};
+		}.CacheValue(out quotemain)!;
+	public static FramePresentation? quotemain;
 
 	static readonly List<FrameField> _Fields = [
 		new FrameText ("Text") {
@@ -966,7 +1201,11 @@ public partial class QuotePost (string id="QuotePost") : Post (id) {
 		new FrameString ("Replies") {
 			Get = (IBacked data) => (data as Post)?.Replies ,
 			Set = (IBacked data, string? value) => {(data as Post)!.Replies = value; }},
+		new FrameRefClass<Post> ("QuotedPost","Post"){
+			Get = (IBacked data) => (data as Post)?.QuotedPost ,
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.QuotedPost = value as Post; }},
 		Main,
+		Quoted,
 		new FrameRefClass<Post> ("Base","Post"){
 			Get = (IBacked data) => (data as QuotePost)?.Base ,
 			Set = (IBacked data, IBacked? value) => {(data as QuotePost)!.Base = value as Post; }},
@@ -993,7 +1232,7 @@ public partial class RePost (string id="RePost") : Post (id) {
 	/// <summary>
 	/// Presentation style ReMain
 	/// </summary>
-	public static FramePresentation ReMain {get;} = new ("ReMain") {
+	public static FramePresentation ReMain => remain ?? new FramePresentation ("ReMain") {
 		GetUid = (IBacked data) => (data as RePost)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
@@ -1036,7 +1275,8 @@ public partial class RePost (string id="RePost") : Post (id) {
 					]
 				}
 			]
-		};
+		}.CacheValue(out remain)!;
+	public static FramePresentation? remain;
 
 	static readonly List<FrameField> _Fields = [
 		new FrameText ("Text") {
@@ -1072,7 +1312,11 @@ public partial class RePost (string id="RePost") : Post (id) {
 		new FrameString ("Replies") {
 			Get = (IBacked data) => (data as Post)?.Replies ,
 			Set = (IBacked data, string? value) => {(data as Post)!.Replies = value; }},
+		new FrameRefClass<Post> ("QuotedPost","Post"){
+			Get = (IBacked data) => (data as Post)?.QuotedPost ,
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.QuotedPost = value as Post; }},
 		Main,
+		Quoted,
 		new FrameRefClass<Post> ("Base","Post"){
 			Get = (IBacked data) => (data as RePost)?.Base ,
 			Set = (IBacked data, IBacked? value) => {(data as RePost)!.Base = value as Post; }},

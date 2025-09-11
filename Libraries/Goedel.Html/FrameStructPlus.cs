@@ -135,6 +135,10 @@ public partial class Namespace {
                 result.Add(GetSubmenu(frameset, label, menu));
                 break;
                 }
+            case Show show: {
+                result.Add(GetRef(frameset, label, show, show.Display.Label));
+                break;
+                }
             case IReference reference: {
                 result.Add(GetRef(frameset, label, reference));
                 break;
@@ -236,7 +240,8 @@ public partial class Namespace {
     public FrameRef? GetRef(
                 FrameSet frameset,
                 string id,
-                IReference reference) {
+                IReference reference, 
+                string presentation = null) {
 
         var entry = reference.Reference.Definition as Entry;
         if (entry is null) {
@@ -249,8 +254,10 @@ public partial class Namespace {
                 }
             case Class:
             case SubClass: {
-                return reference is List ? new FrameRefList(id, entry.Id.Label) :
-                     new FrameRefClass(id, entry.Id.Label);
+                return reference is List ? new FrameRefList(id, entry.Id.Label) {
+                    PresentationId = presentation} :
+                     new FrameRefClass(id, entry.Id.Label) {
+                         PresentationId = presentation};
                 }
             }
         return new FrameRef(id);
@@ -282,6 +289,7 @@ public partial class Namespace {
         String => new FrameString(id),
         Text => new FrameText(id),
         Image => new FrameImage(id),
+        Icon => new FrameIcon(id),
         Avatar => new FrameAvatar(id),
         Count => new FrameCount(id),
         _ => throw new Internal()
@@ -321,6 +329,8 @@ public partial class Text : IIntrinsic {
     }
 public partial class Image : IIntrinsic {
     }
+public partial class Icon : IIntrinsic {
+    }
 public partial class Count : IIntrinsic {
     }
 public partial class Avatar : IIntrinsic {
@@ -333,6 +343,14 @@ public interface IReference {
 public partial class Is : IReference {
     public REF<_Choice> Reference => Parent;
     }
+
+public partial class Show : IReference {
+    public REF<_Choice> Reference => Field;
+    }
+
+
+
+
 
 public partial class List : IReference {
     public REF<_Choice> Reference => Of;

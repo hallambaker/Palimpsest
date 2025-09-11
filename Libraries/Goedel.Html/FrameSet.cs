@@ -215,6 +215,9 @@ public record FrameRefClass(
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
+    public string? PresentationId { get; set; }
+
+    public FramePresentation? Presentation { get; set; }
 
     public Action<IBacked, IBacked?> Set { get; init; }
     public Func<IBacked, IBacked?> Get { get; init; }
@@ -228,6 +231,9 @@ public record FrameRefClass<T>(
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
+
+
+
 
     //public Action<IBacked, T?> Set { get; init; }
     //public Func<IBacked, T?> Get { get; init; }
@@ -245,7 +251,7 @@ public record FrameRefList(
     public string Backing =>  $"List<{Reference}>" ;
 
     public override string Type => "FrameRefClass";
-
+    public string PresentationId { get; set; }
     public FrameClass Class { get; set; }
 
     public Action<IBacked, Object?> Set { get; init; }
@@ -322,6 +328,13 @@ public record FrameImage(string Id) : FrameField(Id) {
     public Action<IBacked, string?> Set { get; init; }
     public Func<IBacked, string?> Get { get; init; }
     }
+
+public record FrameIcon(string Id) : FrameField(Id) {
+
+    public override string Type => "FrameIcon";
+
+    }
+
 
 public record FrameAvatar(string Id) : FrameField(Id) {
     public override string Type => "FrameAvatar";

@@ -233,11 +233,12 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("\n{0}", _Indent);
 		foreach  (var entry in backed.Fields)  {
 			if (  (entry is FramePresentation presentation)  ) {
+				 var storeId = presentation.Id.Uniqueify();
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("	/// <summary>\n{0}", _Indent);
 				_Output.Write ("	/// Presentation style {1}\n{0}", _Indent, presentation.Id);
 				_Output.Write ("	/// </summary>\n{0}", _Indent);
-				_Output.Write ("	public static FramePresentation {1} {{get;}} = new (\"{2}\") {{\n{0}", _Indent, presentation.Id, presentation.Id);
+				_Output.Write ("	public static FramePresentation {1} => {2} ?? new FramePresentation (\"{3}\") {{\n{0}", _Indent, presentation.Id, storeId, presentation.Id);
 				_Output.Write ("		GetUid = (IBacked data) => (data as {1})?.{2},\n{0}", _Indent, backed.Id, presentation.UidField);
 				_Output.Write ("		Sections = [", _Indent);
 				 comma.Reset();
@@ -254,7 +255,8 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 					}
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("			]\n{0}", _Indent);
-				_Output.Write ("		}};\n{0}", _Indent);
+				_Output.Write ("		}}.CacheValue(out {1})!;\n{0}", _Indent, storeId);
+				_Output.Write ("	public static FramePresentation? {1};\n{0}", _Indent, storeId);
 				}
 			}
 		_Output.Write ("\n{0}", _Indent);
@@ -315,6 +317,9 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			 case FrameRefClass reference: {
 			_Output.Write ("{1}\n{0}", _Indent, comma);
 			_Output.Write ("		new FrameRefClass<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Backing, entry.Id, reference.Reference);
+			if (  reference.PresentationId is not null ) {
+				_Output.Write ("			Presentation = {1}.{2},\n{0}", _Indent, backed.Id, reference.PresentationId);
+				}
 			_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
 			_Output.Write ("			Set = (IBacked data, IBacked? value) => {{(data as {1})!.{2} = value as {3}; }}}}", _Indent, backed.Id, sid, reference.Reference);
 			 break; }
@@ -331,6 +336,10 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			 case FrameSeparator : {
 			_Output.Write ("{1}\n{0}", _Indent, comma);
 			_Output.Write ("		new FrameSeparator (\"{1}\")", _Indent, entry.Id);
+			 break; }
+			 case FrameIcon : {
+			_Output.Write ("{1}\n{0}", _Indent, comma);
+			_Output.Write ("		new FrameIcon (\"{1}\")", _Indent, entry.Id);
 			 break; }
 			 case FramePresentation presentation: {
 			_Output.Write ("{1}\n{0}", _Indent, comma);

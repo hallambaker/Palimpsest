@@ -72,6 +72,9 @@
         <member name="P:Frame.MyClass.MainNav">
             <summary>MainNav</summary>
         </member>
+        <member name="P:Frame.MyClass.TopSettings">
+            <summary>TopSettings</summary>
+        </member>
         <member name="P:Frame.MyClass.HomeFilter">
             <summary>HomeFilter</summary>
         </member>
@@ -98,6 +101,9 @@
         </member>
         <member name="P:Frame.MyClass.Post">
             <summary>Post</summary>
+        </member>
+        <member name="P:Frame.MyClass.Repost">
+            <summary>Repost</summary>
         </member>
         <member name="P:Frame.MyClass.QuotePost">
             <summary>QuotePost</summary>
@@ -245,6 +251,16 @@
         </member>
         <member name="P:Frame.MainNav.NotificationCount">
             <summary>Field NotificationCount</summary>
+        </member>
+        <member name="T:Frame.TopSettings">
+            <summary>
+            Backing class for TopSettings
+            </summary>
+        </member>
+        <member name="M:Frame.TopSettings.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
         </member>
         <member name="T:Frame.HomeFilter">
             <summary>
@@ -413,7 +429,42 @@
         <member name="P:Frame.Post.Replies">
             <summary>Field Replies</summary>
         </member>
+        <member name="P:Frame.Post.QuotedPost">
+            <summary>class Post, QuotedPost</summary>
+        </member>
         <member name="P:Frame.Post.Main">
+            <summary>
+            Presentation style Main
+            </summary>
+        </member>
+        <member name="P:Frame.Post.Quoted">
+            <summary>
+            Presentation style Quoted
+            </summary>
+        </member>
+        <member name="T:Frame.Repost">
+            <summary>
+            Backing class for Repost
+            </summary>
+        </member>
+        <member name="M:Frame.Repost.#ctor(System.String)">
+            <summary>
+            Backing class for Repost
+            </summary>
+        </member>
+        <member name="P:Frame.Repost.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Repost.Presentation">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Repost.Reposter">
+            <summary>class User, Reposter</summary>
+        </member>
+        <member name="P:Frame.Repost.QuotedPost">
+            <summary>class Post, QuotedPost</summary>
+        </member>
+        <member name="P:Frame.Repost.Main">
             <summary>
             Presentation style Main
             </summary>

@@ -1,5 +1,6 @@
 ﻿using Goedel.Cryptography;
 using Goedel.IO;
+using Goedel.Protocol;
 
 namespace Frame;
 
@@ -42,22 +43,34 @@ class MainClass {
             User = user1,
             Text = "This is a post that was made. It is very gud.",
             Created = System.DateTime.Now - TimeSpan.FromDays(1),
+            Liked = true,
+            Likes = 42
             };
 
         // missing the quoted post
-        var post2 = new QuotePost() {
+        var post2 = new Post() {
             Uid = Udf.Nonce(),
             User = user2,
             Text = "Not sure this post as 'gud' as the poster thought.",
-            Created = System.DateTime.Now - TimeSpan.FromHours(3)
+            Created = System.DateTime.Now - TimeSpan.FromHours(3),
+            QuotedPost = post1
             };
 
         // missing the quoted post
-        var post3 = new RePost() {
+        var post3 = new Repost() {
             Uid = Udf.Nonce(),
-            User = user3,
-            Created = System.DateTime.Now - TimeSpan.FromMinutes(3)
+            QuotedPost = post1,
+            Created = System.DateTime.Now - TimeSpan.FromMinutes(3),
+            Reposter = user3
             };
+
+        var post4 = new Repost() {
+            Uid = Udf.Nonce(),
+            QuotedPost = post2,
+            Created = System.DateTime.Now - TimeSpan.FromMinutes(7),
+            Reposter = user4
+            };
+
 
         frameset.Resources = [
             new Stylesheet("Resources/stylesheet.css", "text/css") 
@@ -65,7 +78,7 @@ class MainClass {
 
 
         frameset.ProfileSelect.DisplayName = "";
-        frameset.HomePage.Items = [post1, post2, post3];
+        frameset.HomePage.Items = [post1, post2, post3, post4];
 
         //var writer = new PageWriter(frameset, Console.Out);
         //writer.Render(frameset.HomePage);

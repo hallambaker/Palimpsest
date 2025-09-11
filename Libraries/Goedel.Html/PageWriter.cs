@@ -70,6 +70,14 @@ public class PageWriter : HtmlWriter {
             }
 
 
+        RenderSections(backer, presentation);
+
+        Close();
+        }
+
+
+    public void RenderSections(IBacked backer, FramePresentation presentation) {
+
         foreach (var section in presentation.Sections) {
 
             Open("section", "class", section.Id);
@@ -79,7 +87,6 @@ public class PageWriter : HtmlWriter {
             Close();
             }
 
-        Close();
         }
 
 
@@ -91,11 +98,11 @@ public class PageWriter : HtmlWriter {
         //OpenClass("div", id);
         switch (field) {
             case FrameButton item: {
-                Render(item);
+                Render(item, backer);
                 break;
                 }
             case FrameRefMenu item: {
-                Render(item);
+                Render(backer, item);
                 break;
                 }
             case FrameRefClass item: {
@@ -146,12 +153,20 @@ public class PageWriter : HtmlWriter {
                 Render(backer, item);
                 break;
                 }
+            case FrameIcon item: {
+                Render(backer, item);
+                break;
+                }
+            case FrameSubmenu item: {
+                Render(backer, item);
+                break;
+                }
             }
         //Close();
         }
 
 
-    public void Render(FrameRefMenu fieldRefMenu) {
+    public void Render(IBacked backer, FrameRefMenu fieldRefMenu) {
         var menu = fieldRefMenu.Menu;
         var start = OpenClass("div", fieldRefMenu.Id);
 
@@ -159,7 +174,7 @@ public class PageWriter : HtmlWriter {
 
             switch (field) {
                 case FrameButton item: {
-                    Render(item);
+                    Render(item, backer);
                     break;
                     }
                 }
@@ -171,13 +186,66 @@ public class PageWriter : HtmlWriter {
         }
 
 
-    public void Render(FrameButton button) {
+    public void Render(FrameButton button, IBacked backer) {
+
+        var icon = button.Id;
+        if (button.GetActive is not null) {
+            icon = button.GetActive(backer) == true ? icon + "Active" : icon;
+            }
 
         var start = OpenClass("button",  button.Id, "type", "button");
-        ElementClass("img", "ButtonIcon ", "src", FrameSet.IconPath(button.Id), "alt", button.Label);
+        ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(icon), "alt", button.Label);
+
         TextClass(button.Label, "ButtonText ", "div");
+        if (button.GetText is not null) {
+            var value = button?.GetText(backer);
+            if (value is not null) {
+                TextClass(value, "ButtonVar", "div");
+                }
+            }
+        else if (button.GetInteger is not null) {
+            var value = button?.GetInteger(backer).ToString();
+            if (value is not null) {
+                TextClass(value, "ButtonVar", "div");
+                }
+            }
+        else {
+
+            }
+
         Close(start);
         }
+
+    public void Render(IBacked backer, FrameSubmenu item) {
+
+
+        var start = Open("div", "class", "dropdown");
+
+        Open("button", "type", "button", "class", "dropdown-button");
+        ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(item.Id), "alt", item.Label);
+        Close();
+
+        Open("div", "class", "dropdown-content");
+        foreach (var field in item.Fields) {
+            if (field is FrameButton button) {
+                Open("button", "type", "button", "class", "dropdown-subbutton");
+                Element("img", "class", "ButtonIcon", "src", FrameSet.IconPath(button.Id), "alt", button.Label);
+                Text(button.Label, "div");
+                Close();
+                }
+            }
+        Close();
+
+        Close(start);
+
+
+
+
+        }
+
+
+
+
 
 
 
@@ -192,6 +260,8 @@ public class PageWriter : HtmlWriter {
         if (value is null) {
             return;
             }
+        Open("div", "class", item.Id);
+
 
         var count = item.Count(value);
         var id = item.Id + "Item";
@@ -203,6 +273,7 @@ public class PageWriter : HtmlWriter {
             Close();
             }
 
+        Close();
         }
 
 
@@ -211,7 +282,16 @@ public class PageWriter : HtmlWriter {
                 FrameRefClass item) {
         var value = item.Get(backer) as IBacked;
         if (value is not null) {
-            RenderFields(value);
+
+            if (item.Presentation is not null) {
+                OpenClassNew("section", item.Presentation.Id );
+                RenderSections(value, item.Presentation);
+                Close();
+
+                }
+            else {
+                RenderFields(value);
+                }
             }
         }
 
@@ -225,6 +305,9 @@ public class PageWriter : HtmlWriter {
                 FrameBoolean item) {
         var value = item.Get(backer);
         if (value is not null) {
+
+
+
             OpenClass("div", item.Id);
             Text(value.ToString());
             Close();
@@ -329,6 +412,14 @@ public class PageWriter : HtmlWriter {
             Close();
             }
         }
+
+    public void Render(
+            IBacked backer,
+            FrameIcon item) {
+        var value = FrameSet.IconPath(item.Id);
+        ElementClass("img", item.Id, "src", value);
+        }
+
 
     public void Render(
             IBacked backer,

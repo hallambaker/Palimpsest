@@ -108,6 +108,20 @@ public class HtmlWriter {
         }
     //string NormalizeId(string id) => id.Replace(".", "");
 
+    public int OpenClassNew(string tag, string classId, params string[] attributes) {
+
+
+        StartElement(tag);
+        Elements.Push(new(tag, classId));
+        WriteAttribute("class", classId);
+        WriteAttributes(attributes);
+        TextWriter.WriteLine(">");
+
+        return Elements.Count - 1;
+
+        }
+
+
     public int OpenClass(string tag, string classId, params string[] attributes) {
 
         var classAttr = EnclosingClass(classId);
