@@ -1,0 +1,309 @@
+﻿
+Namespace Frame
+
+    User Class
+        Description "Site visitor"
+        Fields
+            Uid String                  // The globally unique permanent identifier for the user.
+            Avatar Avatar               // Display Avatar, ideally less than 256x256 pixels.
+            DisplayName String          // The user's friendly name, e.g. Alice
+            DisplayHandle String        // The user's DNS handle e.g. @alice.example.com
+            Banned Boolean              // If true, the user is banned from the site
+            Suspended DateTime          // If specified, the user is suspended until the specified date/time
+            Groups List Group           // Groups the user is a member of, highest priority last.
+
+    Group Class                     // 
+        Description "Groups users with shared privileges"
+        Fields
+            Uid String                  // Globally unique identifier
+            Name String                 // The group friendly name
+            Icon Icon                   // Icon used as shorthand for the group (maybe)
+
+    Rights Class
+        Description ""
+        Fields
+            GroupUid String             // Identifier of the group this set of rights applies to
+            Grant Is Privileges         // Set of privileges granted to members of the group
+            Deny Is Privileges          // Set of privileges denied to members of the group
+
+    Access Class
+        Description ""
+        Fields
+            Create Boolean              // Permission to create child nodes (post to topics, comments to posts)
+            Read Boolean                // Permission to read
+            Edit Boolean                // Permission to edit
+            Delete Boolean              // Permission to delete
+            Owner Boolean               // If true, the owner is automatically granted Create/Edit/Read/Delete
+
+    Privileges Class                // 
+        Description "Collection of privleges relating to object and children"
+        Fields
+            Places Is Access            // Manage places
+            Topics Is Access            // Manage topics
+            Threads Is Access           // Manage threads
+            Others Is Access            // Manage comments authored by others
+            Self Is Access              // Manage comments authored by self
+    
+    Place Class                     // 
+        Description "An MPlace2 site with its own DNS address."
+        Fields
+            DNS String                  // The DNS name of the place
+            Title String                // The title of the place
+            Text String                 // Short description
+            Avatar Avatar               // Avatar to represent the place in collections
+            Banner Image                // Banner image for use as a masthead
+            RightsPlace List Rights           // Grant of administration rights top this place
+            RightsTopics List Rights          // Default rights for topics
+            RightsThreads List Rights         // Default rights for groups
+            RightsComments List Rights        // Default rights for comments
+            Topics List Topic           // The topics 
+
+    Entry Class
+        Description ""
+        Fields
+            Uid String                  // Globally unique identifier
+            Owner Is User               // The owner of the entry, typically the user who created/added the entry
+            Semantic String             // The semantic relationship of the entry to the parent
+            Rights List Rights          // Management rights
+
+    Topic SubClass Entry 
+        Description "A collection of posts"
+        Fields
+            Title String                // Resource name
+            Posts List Post             // List of posts
+         
+    Post SubClass Entry
+        Description "A collection of comments"
+        Fields
+            Title String                // Resource name
+            Text String                 // Short text
+            Resources List Resource     // List of associated resources
+
+    Comment SubClass Entry
+        Description "A comment on a post"
+        Fields
+            Text String                 // Short text
+            Resources Is Resource       // An associated resource
+
+    Resource SubClass Entry
+        Description "An image, video or document referred to in a post"
+        Fields
+            Title String                // Resource name
+            Size Integer                // Size of the reource in bytes
+            Type String                 // IANA media type
+
+    Contact SubClass Entry             // Contact presentation class
+        Description "Contact information describing a user"
+        Fields
+            Updated DateTime
+                Description "Time of last contact update"
+            User Is User        
+                Description "The user the contact is associated with"
+            Name Is Name        
+                Description "Primary name"
+            AltNames List Name         
+                Description "Alternative names"
+            NickNames List Name         
+                Description "Nicknames"
+            Organization List Organization
+                Description "Associated companies and organizations"
+            Pronouns Is Pronouns
+                Description ""
+            RelatedTo Is RelatedTo
+                Description ""
+            Addresses List Address
+            Applications List Application
+            Media List Media
+
+    Name Class
+        Description "Contact Name"
+        Fields
+            Full String                 // The full name
+            Components List TagValue    // The name broken down into components
+            PhoneticSystem String             // Phonetic system identifier
+            PhoneticScript String             // Phonetic script
+
+    TagValue Class
+        Fields
+            Tag String 
+            Value String 
+
+    Organization Class
+        Description ""
+        Fields
+            Name String                // Name of the organization
+
+    Pronouns Class
+        Description ""
+        Fields
+            GramaticalGender Choice
+                Description ""
+                Choices
+                    Animate "Animate"
+                    Common "Common"
+                    Feminine "Feminine"
+                    Inanimate "Inanimate"
+                    Masculine "Masculine"
+                    Neuter "Neuter"
+            Subjective String
+            Objective String
+            Posessive String
+
+    Title Class
+        Description ""
+        Fields
+            Type Choice 
+                Description ""
+                Choices
+                    Title "Title"
+                    Role "Role"
+            Name String
+            Organization Is Organization
+
+    RelatedTo Class
+        Description ""
+        Fields
+            Uid String        
+                Description "URI of the related party"
+            Relation Choice 
+                Description "The relationship"
+                Choices
+                    Emergency "Emergency"
+                    Parent "Parent"
+                    Sibling "Sibling"
+                    Spouse "Spouse"
+                    Child "Child"
+                    Kin "Kin"
+                    Kin "Kin"
+                    Agent "Agent"
+                    Colleague "Colleague"
+                    Coresident "Co-Resident"
+            Other String // acquaintance co-worker contact crush date friend me met muse neighbor sweetheart
+
+
+    Application Class
+        Description ""
+        Fields
+            ApplicationName String
+            Address String
+                Description "The user identifier at the service"
+            Keys List Key
+            Preference Integer
+
+    Email SubClass Application
+        Description ""
+        Fields
+
+    Messaging SubClass Application
+        Description ""
+        Fields
+            Type Choice 
+                Description ""
+                Choices
+                    Signal "Signal"
+                    FacebookMessenger "FacebookMessenger"
+                    WhatsApp "WhatsApp"
+                    Telegram "Telegram"
+                    iMessage "iMessage"
+                    Snapchat "Snapchat"
+                    Kik "Kik"
+                    RakutenViber "RakutenViber"
+                    Dust "Dust"
+                    Any "@nytime"
+                    WeChat "WeChat"
+                    QQ "QQ"
+                    DingTalk "DingTalk"
+                    Feishu "Feishu"
+            Other String
+
+    Phone SubClass Application
+        Description ""
+        Fields
+            Features Choice
+                Description ""
+                Choices
+                    Mobile "Mobile"
+                    Voice ""
+                    Text "Voice"
+                    Video "Video"
+                    Main "Main"
+                    Textphone "Textphone"
+                    Fax "Fax"
+                    Pager "Pager"
+
+    Service SubClass Application
+        Description ""
+        Fields
+            ServiceName String
+                Description "The service address"
+            Protocol String 
+            Type Choice
+                Description ""
+                Choices 
+                    Web "Web"
+                    Blog "Blog"
+                    Repository "Repository"
+                    Git "Git"
+
+    Key Class
+        Description ""
+        Fields
+            KeyData Is KeyData
+            Role Choice
+                Description ""
+                Choices
+                    Encrypt "Encrypt"
+                    Sign "Sign"
+                    Authenticate "Sign"
+            Protocol Choice
+                Description ""
+                Choices
+                    OpenPGP "OpenPGP"
+                    SMIME "S/MIME"
+                    SSH "SSH Device"
+                    SSHRoot "SSH Root"
+                    TLSRoot "TLS"
+                    TLSKeySign "TLS Key Sign"
+                    TLSEE "TLS End Entity"
+                    CodeSign "CodeSign"
+                    DNSSEC "DNSSEC"
+                    PKIX "PKIX"
+
+    KeyData Class
+        Description ""
+        Fields
+            UID String
+            Encryption Boolean
+            Signature Boolean
+            Value String
+            Upload File
+
+    Media Class
+        Description ""
+        Fields
+            Kind Choice
+                Description  "The kind of media"
+                Choices
+                    Avatar "Avatar"
+                    Photo "Photo"
+                    Logo "Logo"
+                    Banner "Banner"
+            Data File
+                Description "The media resource"
+            MediaType String
+                Description "The IANA Media Type"
+                ReadOnly
+            Width Integer
+                Description "Width of image/video media in pixels"
+                ReadOnly
+            Height Integer
+                Description "Height of image/video media in pixels"
+                ReadOnly
+            Length Integer
+                Description "Length of audio/video media in seconds"
+                ReadOnly
+            Bytes Integer
+                Description "Size of the resource in bytes"
+                ReadOnly
+
+

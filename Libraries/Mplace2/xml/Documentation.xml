@@ -1,0 +1,703 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mplace2</name>
+    </assembly>
+    <members>
+        <member name="T:Frame.User">
+            <summary>
+            Backing class for User
+            </summary>
+        </member>
+        <member name="P:Frame.User.GetAvatar">
+            <inheritdoc/>
+        </member>
+        <member name="M:Frame.User.#ctor(System.String)">
+            <summary>
+            Backing class for User
+            </summary>
+        </member>
+        <member name="P:Frame.User.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.User.Uid">
+            <summary>Field Uid</summary>
+        </member>
+        <member name="P:Frame.User.Avatar">
+            <summary>Avatar Avatar</summary>
+        </member>
+        <member name="P:Frame.User.DisplayName">
+            <summary>Field DisplayName</summary>
+        </member>
+        <member name="P:Frame.User.DisplayHandle">
+            <summary>Field DisplayHandle</summary>
+        </member>
+        <member name="P:Frame.User.Banned">
+            <summary>Field Banned</summary>
+        </member>
+        <member name="P:Frame.User.Suspended">
+            <summary>Field Suspended</summary>
+        </member>
+        <member name="P:Frame.User.Groups">
+            <summary>List Groups</summary>
+        </member>
+        <member name="T:Frame.NamespaceDoc">
+            <summary>
+            Desctiption of the 
+            </summary>
+        </member>
+        <member name="T:Frame.MyClass">
+            <summary>
+            Annotated backing classes for data driven GUI.
+            </summary>
+        </member>
+        <member name="P:Frame.MyClass.User">
+            <summary>User</summary>
+        </member>
+        <member name="P:Frame.MyClass.Group">
+            <summary>Group</summary>
+        </member>
+        <member name="P:Frame.MyClass.Rights">
+            <summary>Rights</summary>
+        </member>
+        <member name="P:Frame.MyClass.Access">
+            <summary>Access</summary>
+        </member>
+        <member name="P:Frame.MyClass.Privileges">
+            <summary>Privileges</summary>
+        </member>
+        <member name="P:Frame.MyClass.Place">
+            <summary>Place</summary>
+        </member>
+        <member name="P:Frame.MyClass.Entry">
+            <summary>Entry</summary>
+        </member>
+        <member name="P:Frame.MyClass.Topic">
+            <summary>Topic</summary>
+        </member>
+        <member name="P:Frame.MyClass.Post">
+            <summary>Post</summary>
+        </member>
+        <member name="P:Frame.MyClass.Comment">
+            <summary>Comment</summary>
+        </member>
+        <member name="P:Frame.MyClass.Resource">
+            <summary>Resource</summary>
+        </member>
+        <member name="P:Frame.MyClass.Contact">
+            <summary>Contact</summary>
+        </member>
+        <member name="P:Frame.MyClass.Name">
+            <summary>Name</summary>
+        </member>
+        <member name="P:Frame.MyClass.TagValue">
+            <summary>TagValue</summary>
+        </member>
+        <member name="P:Frame.MyClass.Organization">
+            <summary>Organization</summary>
+        </member>
+        <member name="P:Frame.MyClass.Pronouns">
+            <summary>Pronouns</summary>
+        </member>
+        <member name="P:Frame.MyClass.Title">
+            <summary>Title</summary>
+        </member>
+        <member name="P:Frame.MyClass.RelatedTo">
+            <summary>RelatedTo</summary>
+        </member>
+        <member name="P:Frame.MyClass.Application">
+            <summary>Application</summary>
+        </member>
+        <member name="P:Frame.MyClass.Email">
+            <summary>Email</summary>
+        </member>
+        <member name="P:Frame.MyClass.Messaging">
+            <summary>Messaging</summary>
+        </member>
+        <member name="P:Frame.MyClass.Phone">
+            <summary>Phone</summary>
+        </member>
+        <member name="P:Frame.MyClass.Service">
+            <summary>Service</summary>
+        </member>
+        <member name="P:Frame.MyClass.Key">
+            <summary>Key</summary>
+        </member>
+        <member name="P:Frame.MyClass.KeyData">
+            <summary>KeyData</summary>
+        </member>
+        <member name="P:Frame.MyClass.Media">
+            <summary>Media</summary>
+        </member>
+        <member name="M:Frame.MyClass.#ctor">
+            <summary>
+            Constructor, return a new instance.
+            </summary>
+        </member>
+        <member name="T:Frame.Group">
+            <summary>
+            Backing class for Group
+            </summary>
+        </member>
+        <member name="M:Frame.Group.#ctor(System.String)">
+            <summary>
+            Backing class for Group
+            </summary>
+        </member>
+        <member name="P:Frame.Group.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Group.Uid">
+            <summary>Field Uid</summary>
+        </member>
+        <member name="P:Frame.Group.Name">
+            <summary>Field Name</summary>
+        </member>
+        <member name="T:Frame.Rights">
+            <summary>
+            Backing class for Rights
+            </summary>
+        </member>
+        <member name="M:Frame.Rights.#ctor(System.String)">
+            <summary>
+            Backing class for Rights
+            </summary>
+        </member>
+        <member name="P:Frame.Rights.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Rights.GroupUid">
+            <summary>Field GroupUid</summary>
+        </member>
+        <member name="P:Frame.Rights.Grant">
+            <summary>class Privileges, Grant</summary>
+        </member>
+        <member name="P:Frame.Rights.Deny">
+            <summary>class Privileges, Deny</summary>
+        </member>
+        <member name="T:Frame.Access">
+            <summary>
+            Backing class for Access
+            </summary>
+        </member>
+        <member name="M:Frame.Access.#ctor(System.String)">
+            <summary>
+            Backing class for Access
+            </summary>
+        </member>
+        <member name="P:Frame.Access.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Access.Create">
+            <summary>Field Create</summary>
+        </member>
+        <member name="P:Frame.Access.Read">
+            <summary>Field Read</summary>
+        </member>
+        <member name="P:Frame.Access.Edit">
+            <summary>Field Edit</summary>
+        </member>
+        <member name="P:Frame.Access.Delete">
+            <summary>Field Delete</summary>
+        </member>
+        <member name="P:Frame.Access.Owner">
+            <summary>Field Owner</summary>
+        </member>
+        <member name="T:Frame.Privileges">
+            <summary>
+            Backing class for Privileges
+            </summary>
+        </member>
+        <member name="M:Frame.Privileges.#ctor(System.String)">
+            <summary>
+            Backing class for Privileges
+            </summary>
+        </member>
+        <member name="P:Frame.Privileges.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Privileges.Places">
+            <summary>class Access, Places</summary>
+        </member>
+        <member name="P:Frame.Privileges.Topics">
+            <summary>class Access, Topics</summary>
+        </member>
+        <member name="P:Frame.Privileges.Threads">
+            <summary>class Access, Threads</summary>
+        </member>
+        <member name="P:Frame.Privileges.Others">
+            <summary>class Access, Others</summary>
+        </member>
+        <member name="P:Frame.Privileges.Self">
+            <summary>class Access, Self</summary>
+        </member>
+        <member name="T:Frame.Place">
+            <summary>
+            Backing class for Place
+            </summary>
+        </member>
+        <member name="M:Frame.Place.#ctor(System.String)">
+            <summary>
+            Backing class for Place
+            </summary>
+        </member>
+        <member name="P:Frame.Place.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Place.DNS">
+            <summary>Field DNS</summary>
+        </member>
+        <member name="P:Frame.Place.Title">
+            <summary>Field Title</summary>
+        </member>
+        <member name="P:Frame.Place.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.Place.Avatar">
+            <summary>Avatar Avatar</summary>
+        </member>
+        <member name="P:Frame.Place.Banner">
+            <summary>Field Banner</summary>
+        </member>
+        <member name="P:Frame.Place.RightsPlace">
+            <summary>List RightsPlace</summary>
+        </member>
+        <member name="P:Frame.Place.RightsTopics">
+            <summary>List RightsTopics</summary>
+        </member>
+        <member name="P:Frame.Place.RightsThreads">
+            <summary>List RightsThreads</summary>
+        </member>
+        <member name="P:Frame.Place.RightsComments">
+            <summary>List RightsComments</summary>
+        </member>
+        <member name="P:Frame.Place.Topics">
+            <summary>List Topics</summary>
+        </member>
+        <member name="T:Frame.Entry">
+            <summary>
+            Backing class for Entry
+            </summary>
+        </member>
+        <member name="M:Frame.Entry.#ctor(System.String)">
+            <summary>
+            Backing class for Entry
+            </summary>
+        </member>
+        <member name="P:Frame.Entry.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Entry.Uid">
+            <summary>Field Uid</summary>
+        </member>
+        <member name="P:Frame.Entry.Owner">
+            <summary>class User, Owner</summary>
+        </member>
+        <member name="P:Frame.Entry.Semantic">
+            <summary>Field Semantic</summary>
+        </member>
+        <member name="P:Frame.Entry.Rights">
+            <summary>List Rights</summary>
+        </member>
+        <member name="T:Frame.Topic">
+            <summary>
+            Backing class for Topic
+            </summary>
+        </member>
+        <member name="M:Frame.Topic.#ctor(System.String)">
+            <summary>
+            Backing class for Topic
+            </summary>
+        </member>
+        <member name="P:Frame.Topic.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Topic.Title">
+            <summary>Field Title</summary>
+        </member>
+        <member name="P:Frame.Topic.Posts">
+            <summary>List Posts</summary>
+        </member>
+        <member name="T:Frame.Post">
+            <summary>
+            Backing class for Post
+            </summary>
+        </member>
+        <member name="M:Frame.Post.#ctor(System.String)">
+            <summary>
+            Backing class for Post
+            </summary>
+        </member>
+        <member name="P:Frame.Post.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Post.Title">
+            <summary>Field Title</summary>
+        </member>
+        <member name="P:Frame.Post.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.Post.Resources">
+            <summary>List Resources</summary>
+        </member>
+        <member name="T:Frame.Comment">
+            <summary>
+            Backing class for Comment
+            </summary>
+        </member>
+        <member name="M:Frame.Comment.#ctor(System.String)">
+            <summary>
+            Backing class for Comment
+            </summary>
+        </member>
+        <member name="P:Frame.Comment.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Comment.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.Comment.Resources">
+            <summary>class Resource, Resources</summary>
+        </member>
+        <member name="T:Frame.Resource">
+            <summary>
+            Backing class for Resource
+            </summary>
+        </member>
+        <member name="M:Frame.Resource.#ctor(System.String)">
+            <summary>
+            Backing class for Resource
+            </summary>
+        </member>
+        <member name="P:Frame.Resource.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Resource.Title">
+            <summary>Field Title</summary>
+        </member>
+        <member name="P:Frame.Resource.Size">
+            <summary>Field Size</summary>
+        </member>
+        <member name="P:Frame.Resource.Type">
+            <summary>Field Type</summary>
+        </member>
+        <member name="T:Frame.Contact">
+            <summary>
+            Backing class for Contact
+            </summary>
+        </member>
+        <member name="M:Frame.Contact.#ctor(System.String)">
+            <summary>
+            Backing class for Contact
+            </summary>
+        </member>
+        <member name="P:Frame.Contact.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Contact.Updated">
+            <summary>Field Updated</summary>
+        </member>
+        <member name="P:Frame.Contact.User">
+            <summary>class User, User</summary>
+        </member>
+        <member name="P:Frame.Contact.Name">
+            <summary>class Name, Name</summary>
+        </member>
+        <member name="P:Frame.Contact.AltNames">
+            <summary>List AltNames</summary>
+        </member>
+        <member name="P:Frame.Contact.NickNames">
+            <summary>List NickNames</summary>
+        </member>
+        <member name="P:Frame.Contact.Organization">
+            <summary>List Organization</summary>
+        </member>
+        <member name="P:Frame.Contact.Pronouns">
+            <summary>class Pronouns, Pronouns</summary>
+        </member>
+        <member name="P:Frame.Contact.RelatedTo">
+            <summary>class RelatedTo, RelatedTo</summary>
+        </member>
+        <member name="P:Frame.Contact.Applications">
+            <summary>List Applications</summary>
+        </member>
+        <member name="P:Frame.Contact.Media">
+            <summary>List Media</summary>
+        </member>
+        <member name="T:Frame.Name">
+            <summary>
+            Backing class for Name
+            </summary>
+        </member>
+        <member name="M:Frame.Name.#ctor(System.String)">
+            <summary>
+            Backing class for Name
+            </summary>
+        </member>
+        <member name="P:Frame.Name.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Name.Full">
+            <summary>Field Full</summary>
+        </member>
+        <member name="P:Frame.Name.Components">
+            <summary>List Components</summary>
+        </member>
+        <member name="P:Frame.Name.PhoneticSystem">
+            <summary>Field PhoneticSystem</summary>
+        </member>
+        <member name="P:Frame.Name.PhoneticScript">
+            <summary>Field PhoneticScript</summary>
+        </member>
+        <member name="T:Frame.TagValue">
+            <summary>
+            Backing class for TagValue
+            </summary>
+        </member>
+        <member name="M:Frame.TagValue.#ctor(System.String)">
+            <summary>
+            Backing class for TagValue
+            </summary>
+        </member>
+        <member name="P:Frame.TagValue.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.TagValue.Tag">
+            <summary>Field Tag</summary>
+        </member>
+        <member name="P:Frame.TagValue.Value">
+            <summary>Field Value</summary>
+        </member>
+        <member name="T:Frame.Organization">
+            <summary>
+            Backing class for Organization
+            </summary>
+        </member>
+        <member name="M:Frame.Organization.#ctor(System.String)">
+            <summary>
+            Backing class for Organization
+            </summary>
+        </member>
+        <member name="P:Frame.Organization.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Organization.Name">
+            <summary>Field Name</summary>
+        </member>
+        <member name="T:Frame.Pronouns">
+            <summary>
+            Backing class for Pronouns
+            </summary>
+        </member>
+        <member name="M:Frame.Pronouns.#ctor(System.String)">
+            <summary>
+            Backing class for Pronouns
+            </summary>
+        </member>
+        <member name="P:Frame.Pronouns.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Pronouns.Subjective">
+            <summary>Field Subjective</summary>
+        </member>
+        <member name="P:Frame.Pronouns.Objective">
+            <summary>Field Objective</summary>
+        </member>
+        <member name="P:Frame.Pronouns.Posessive">
+            <summary>Field Posessive</summary>
+        </member>
+        <member name="T:Frame.Title">
+            <summary>
+            Backing class for Title
+            </summary>
+        </member>
+        <member name="M:Frame.Title.#ctor(System.String)">
+            <summary>
+            Backing class for Title
+            </summary>
+        </member>
+        <member name="P:Frame.Title.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Title.Name">
+            <summary>Field Name</summary>
+        </member>
+        <member name="P:Frame.Title.Organization">
+            <summary>class Organization, Organization</summary>
+        </member>
+        <member name="T:Frame.RelatedTo">
+            <summary>
+            Backing class for RelatedTo
+            </summary>
+        </member>
+        <member name="M:Frame.RelatedTo.#ctor(System.String)">
+            <summary>
+            Backing class for RelatedTo
+            </summary>
+        </member>
+        <member name="P:Frame.RelatedTo.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.RelatedTo.Uid">
+            <summary>Field Uid</summary>
+        </member>
+        <member name="P:Frame.RelatedTo.Other">
+            <summary>Field Other</summary>
+        </member>
+        <member name="T:Frame.Application">
+            <summary>
+            Backing class for Application
+            </summary>
+        </member>
+        <member name="M:Frame.Application.#ctor(System.String)">
+            <summary>
+            Backing class for Application
+            </summary>
+        </member>
+        <member name="P:Frame.Application.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Application.ApplicationName">
+            <summary>Field ApplicationName</summary>
+        </member>
+        <member name="P:Frame.Application.Address">
+            <summary>Field Address</summary>
+        </member>
+        <member name="P:Frame.Application.Keys">
+            <summary>List Keys</summary>
+        </member>
+        <member name="P:Frame.Application.Preference">
+            <summary>Field Preference</summary>
+        </member>
+        <member name="T:Frame.Email">
+            <summary>
+            Backing class for Email
+            </summary>
+        </member>
+        <member name="M:Frame.Email.#ctor(System.String)">
+            <summary>
+            Backing class for Email
+            </summary>
+        </member>
+        <member name="P:Frame.Email.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="T:Frame.Messaging">
+            <summary>
+            Backing class for Messaging
+            </summary>
+        </member>
+        <member name="M:Frame.Messaging.#ctor(System.String)">
+            <summary>
+            Backing class for Messaging
+            </summary>
+        </member>
+        <member name="P:Frame.Messaging.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Messaging.Other">
+            <summary>Field Other</summary>
+        </member>
+        <member name="T:Frame.Phone">
+            <summary>
+            Backing class for Phone
+            </summary>
+        </member>
+        <member name="M:Frame.Phone.#ctor(System.String)">
+            <summary>
+            Backing class for Phone
+            </summary>
+        </member>
+        <member name="P:Frame.Phone.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="T:Frame.Service">
+            <summary>
+            Backing class for Service
+            </summary>
+        </member>
+        <member name="M:Frame.Service.#ctor(System.String)">
+            <summary>
+            Backing class for Service
+            </summary>
+        </member>
+        <member name="P:Frame.Service.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Service.ServiceName">
+            <summary>Field ServiceName</summary>
+        </member>
+        <member name="P:Frame.Service.Protocol">
+            <summary>Field Protocol</summary>
+        </member>
+        <member name="T:Frame.Key">
+            <summary>
+            Backing class for Key
+            </summary>
+        </member>
+        <member name="M:Frame.Key.#ctor(System.String)">
+            <summary>
+            Backing class for Key
+            </summary>
+        </member>
+        <member name="P:Frame.Key.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Key.KeyData">
+            <summary>class KeyData, KeyData</summary>
+        </member>
+        <member name="T:Frame.KeyData">
+            <summary>
+            Backing class for KeyData
+            </summary>
+        </member>
+        <member name="M:Frame.KeyData.#ctor(System.String)">
+            <summary>
+            Backing class for KeyData
+            </summary>
+        </member>
+        <member name="P:Frame.KeyData.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.KeyData.UID">
+            <summary>Field UID</summary>
+        </member>
+        <member name="P:Frame.KeyData.Encryption">
+            <summary>Field Encryption</summary>
+        </member>
+        <member name="P:Frame.KeyData.Signature">
+            <summary>Field Signature</summary>
+        </member>
+        <member name="P:Frame.KeyData.Value">
+            <summary>Field Value</summary>
+        </member>
+        <member name="T:Frame.Media">
+            <summary>
+            Backing class for Media
+            </summary>
+        </member>
+        <member name="M:Frame.Media.#ctor(System.String)">
+            <summary>
+            Backing class for Media
+            </summary>
+        </member>
+        <member name="P:Frame.Media.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Media.MediaType">
+            <summary>Field MediaType</summary>
+        </member>
+        <member name="P:Frame.Media.Width">
+            <summary>Field Width</summary>
+        </member>
+        <member name="P:Frame.Media.Height">
+            <summary>Field Height</summary>
+        </member>
+        <member name="P:Frame.Media.Length">
+            <summary>Field Length</summary>
+        </member>
+        <member name="P:Frame.Media.Bytes">
+            <summary>Field Bytes</summary>
+        </member>
+    </members>
+</doc>

@@ -8,7 +8,7 @@ namespace Goedel.Html;
 
 public partial class GenerateBacking {
 
-    public FramePresentation GetDefaultPresentation(List<FrameField> fields) {
+    public FramePresentation GetDefaultPresentation(List<IFrameField> fields) {
         foreach (var field in fields) {
             if (field is FramePresentation presentation) {
                 return presentation;
@@ -46,13 +46,13 @@ public partial class Namespace {
                     }
                 case Class item: {
                     var newClass = Collect(frameSet, entry.Id, item);
-                    dictionary.Add(newClass.Id, newClass);
+                    dictionary.Add(newClass.Tag, newClass);
                     frameSet.Classes.Add(newClass);
                     break;
                     }
                 case SubClass item: {
                     var newClass = Collect(frameSet, entry.Id, item);
-                    dictionary.Add(newClass.Id, newClass);
+                    dictionary.Add(newClass.Tag, newClass);
                     frameSet.Classes.Add(newClass);
                     break;
                     }
@@ -89,6 +89,8 @@ public partial class Namespace {
         }
 
     public FrameClass Collect(FrameSet frameSet, ID<_Choice> id, Class baseclass) {
+
+
         var properties = CollectProperties(frameSet, baseclass.Entries);
 
         return new FrameClass(id.Label) {
@@ -105,8 +107,8 @@ public partial class Namespace {
             };
         }
 
-    public List<FrameField> CollectFields(FrameSet frameset, List<FieldItem> entries) {
-        var result = new List<FrameField>();
+    public List<IFrameField> CollectFields(FrameSet frameset, List<FieldItem> entries) {
+        var result = new List<IFrameField>();
         foreach (var entry in entries) {
             Collect(frameset, result, entry);
             }
@@ -114,15 +116,15 @@ public partial class Namespace {
         return result;
         }
 
-    public List<FrameField> CollectProperties (FrameSet frameset, List<Property> entries) {
-        var result = new List<FrameField>();
+    public List<IFrameField> CollectProperties (FrameSet frameset, List<Property> entries) {
+        var result = new List<IFrameField>();
         foreach (var entry in entries) {
             Collect(frameset, result, entry);
             }
         return result;
         }
 
-    private void Collect(FrameSet frameset, List<FrameField> result, IFieldEntry entry) {
+    private void Collect(FrameSet frameset, List<IFrameField> result, IFieldEntry entry) {
 
         var label = entry.Token.Label;
 
@@ -196,7 +198,7 @@ public partial class Namespace {
 
 
     public FrameSubmenu GetSubmenu(FrameSet frameset, string label, SubMenu submenu) {
-        var fields = new List<FrameField>();
+        var fields = new List<IFrameField>();
         foreach (var entry in submenu.Entries) {
             Collect(frameset, fields, entry);
             }
@@ -211,7 +213,7 @@ public partial class Namespace {
 
         var sections = new List<FrameSection> ();
         foreach (var section in presentation.Sections) {
-            var fields = new List<FrameField>();
+            var fields = new List<IFrameField>();
             foreach (var entry in section.Entries) {
                 Collect(frameset, fields, entry);
                 }
@@ -277,12 +279,12 @@ public partial class Namespace {
         return new FrameChooser(id, options);
         }
 
-    public FrameField GetIntrinsic(
+    public IFrameField GetIntrinsic(
             FrameSet frameset,
             string id,
             IIntrinsic field) => GetBackingFrame (id, field);
 
-    public FrameField GetBackingFrame(string id, IIntrinsic field) => field switch {
+    public IFrameField GetBackingFrame(string id, IIntrinsic field) => field switch {
         Boolean => new FrameBoolean(id),
         Integer => new FrameInteger(id),
         DateTime => new FrameDateTime(id),
@@ -358,4 +360,107 @@ public partial class List : IReference {
 
 public partial class Return : IReference {
     public REF<_Choice> Reference => To;
+    }
+
+
+public partial class FrameStruct {
+
+    public override void Init() {
+
+        foreach (var entry in Top) {
+            entry._InitChildren(null);
+            }
+
+        }
+
+    }
+
+public partial class _Choice {
+
+
+
+    }
+
+public partial class Namespace {
+
+
+    }
+
+
+//public interface IClass {
+//    _Choice Parent { get; set; }
+
+//    List<Property> Entries { get; set; }
+
+//    string Description { get; set; }
+
+//    public static void InitIClass(IClass target, _Choice parent, List<Struct> typeEntries) {
+//        target.Parent = parent;
+        
+//        foreach (var entry in typeEntries) {
+//            entry.Init(target);
+//            switch (entry.Type) {
+//                case Fields fields: {
+//                    Entries = fields.Entries;
+//                    break;
+//                    }
+//                case Description description: {
+//                    Description = description.Text;
+//                    break;
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
+public static class Extensions {
+    }
+
+
+
+public partial class Class  {
+
+    public List<Property> Entries { get; set; }
+
+    public string Description { get; set; }
+
+    public override void Init(_Choice parent) {
+        foreach (var entry in TypeEntries) {
+            entry.Init(this);
+            switch (entry.Type) {
+                case Fields fields: {
+                    Entries = fields.Entries;
+                    break;
+                    }
+                case Description description: {
+                    Description = description.Text;
+                    break;
+                    }
+                }
+            }
+        }
+    }
+
+public partial class SubClass {
+
+    public List<Property> Entries { get; set; }
+
+    public string Description { get; set; }
+
+    public override void Init(_Choice parent) {
+        foreach (var entry in TypeEntries) {
+            switch (entry.Type) {
+                case Fields fields: {
+                    Entries = fields.Entries;
+                    break;
+                    }
+                case Description description: {
+                    Description = description.Text;
+                    break;
+                    }
+                }
+            }
+        }
+
     }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MakeGui": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\Palimpsest"
+    }
+  }
+}

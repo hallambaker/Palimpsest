@@ -16,26 +16,26 @@ namespace #{frameset.Namespace};
 public partial class #{className} : FrameSet{
 #foreach (var backer in frameset.Pages) 
 
-	///<summary>#{backer.Id}</summary>
-	public #{backer.Id} #{backer.Id} {get;} = new();
+	///<summary>#{backer.Tag}</summary>
+	public #{backer.Tag} #{backer.Tag} {get;} = new();
 #end foreach
 
 #foreach (var backer in frameset.Menus) 
 
-	///<summary>#{backer.Id}</summary>
-	public #{backer.Id} #{backer.Id} {get;} = new();
+	///<summary>#{backer.Tag}</summary>
+	public #{backer.Tag} #{backer.Tag} {get;} = new();
 #end foreach
 
 #foreach (var backer in frameset.Selectors) 
 
-	 ///<summary>#{backer.Id}</summary>
-	 public #{backer.Id} #{backer.Id} {get;} = new();
+	 ///<summary>#{backer.Tag}</summary>
+	 public #{backer.Tag} #{backer.Tag} {get;} = new();
 #end foreach
 
 #foreach (var backer in frameset.Classes) 
 
-	 ///<summary>#{backer.Id}</summary>
-	 public #{backer.Id} #{backer.Id} {get;} = new();
+	 ///<summary>#{backer.Tag}</summary>
+	 public #{backer.Tag} #{backer.Tag} {get;} = new();
 #end foreach
 
 	/// <summary>
@@ -47,7 +47,7 @@ public partial class #{className} : FrameSet{
 		Pages = [ #!
 #foreach (var backer in frameset.Pages) 
 #{comma}
-			#{backer.Id}#!
+			#{backer.Tag}#!
 #end foreach
 
 			];
@@ -56,7 +56,7 @@ public partial class #{className} : FrameSet{
 		Menus = [ #!
 #foreach (var backer in frameset.Menus) 
 #{comma}
-			#{backer.Id}#!
+			#{backer.Tag}#!
 #end foreach
 
 			];
@@ -65,7 +65,7 @@ public partial class #{className} : FrameSet{
 		Selectors = [ #!
 #foreach (var backer in frameset.Selectors) 
 #{comma}
-			#{backer.Id}#!
+			#{backer.Tag}#!
 #end foreach
 
 			];
@@ -74,7 +74,7 @@ public partial class #{className} : FrameSet{
 		Classes = [ #!
 #foreach (var backer in frameset.Classes) 
 #{comma}
-			#{backer.Id}#!
+			#{backer.Tag}#!
 #end foreach
 
 			];
@@ -102,14 +102,14 @@ public partial class #{className} : FrameSet{
 // Pages
 #foreach (var backer in frameset.Pages) 
 /// <summary>
-/// Backing class for #{backer.Id}
+/// Backing class for #{backer.Tag}
 /// </summary>
-public #{structure} #{backer.Id} : #{backer.Type} {
+public #{structure} #{backer.Tag} : #{backer.Type} {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public #{backer.Id} () : base ("#{backer.Id}", "#{backer.Title}", _Fields) {
+	public #{backer.Tag} () : base ("#{backer.Tag}", "#{backer.Title}", _Fields) {
 		}
 #% MakeBacking (backer);
 	}
@@ -118,14 +118,14 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 // Menus 
 #foreach (var backer in frameset.Menus) 
 /// <summary>
-/// Backing class for #{backer.Id}
+/// Backing class for #{backer.Tag}
 /// </summary>
-public #{structure} #{backer.Id} : #{backer.Type} {
+public #{structure} #{backer.Tag} : #{backer.Type} {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public #{backer.Id} () : base ("#{backer.Id}", _Fields) {
+	public #{backer.Tag} () : base ("#{backer.Tag}", _Fields) {
 		}
 #% MakeBacking (backer);
 	}
@@ -134,14 +134,14 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 // Classes 
 #foreach (var backer in frameset.Selectors) 
 /// <summary>
-/// Backing class for #{backer.Id}
+/// Backing class for #{backer.Tag}
 /// </summary>
-public #{structure} #{backer.Id} : #{backer.Type} {
+public #{structure} #{backer.Tag} : #{backer.Type} {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public #{backer.Id} () : base ("#{backer.Id}", _Fields) {
+	public #{backer.Tag} () : base ("#{backer.Tag}", _Fields) {
 		}
 #% MakeBacking (backer);
 	}
@@ -152,17 +152,17 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 // Classes 
 #foreach (var backer in frameset.Classes) 
 /// <summary>
-/// Backing class for #{backer.Id}
+/// Backing class for #{backer.Tag}
 /// </summary>
-public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId ?? backer.Type} (id) {
+public #{structure} #{backer.Tag} (string Tag="#{backer.Tag}") : #{backer.ParentId ?? backer.Type} (Tag) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
 #% var defaultPresentation = GetDefaultPresentation(backer.Fields);
 #if (defaultPresentation is not null)
     /// <inheritdoc/>
-    public override FramePresentation Presentation => #{defaultPresentation.Id};
+    public override FramePresentation Presentation => #{defaultPresentation.Tag};
 #end if
 
 #% MakeBacking (backer);
@@ -181,37 +181,37 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 #foreach (var entry in backed.Fields) 
 #if (entry.Backing != null) 
 
-    /// <summary>Field #{entry.Id}</summary>
-	public #{entry.Backing}? #{entry.Id} {get; set;}
+    /// <summary>Field #{entry.Tag}</summary>
+	public #{entry.Backing}? #{entry.Tag} {get; set;}
 #elseif (entry is FrameAvatar avatar) 
 
-	///<summary>Avatar #{avatar.Id}</summary>
-	public string? #{avatar.Id} => GetAvatar;
+	///<summary>Avatar #{avatar.Tag}</summary>
+	public string? #{avatar.Tag} => GetAvatar;
 #elseif (entry is FrameRefClass refClass) 
 
-	///<summary>class #{refClass.Backing}, #{refClass.Id}</summary>
-	public #{refClass.Backing}? #{refClass.Id} {get; set;}
+	///<summary>class #{refClass.Backing}, #{refClass.Tag}</summary>
+	public #{refClass.Backing}? #{refClass.Tag} {get; set;}
 #elseif (entry is FrameRefList refList) 
 
-	///<summary>List #{refList.Id}</summary>
-	public #{refList.Backing}? #{refList.Id} {get; set;}
+	///<summary>List #{refList.Tag}</summary>
+	public #{refList.Backing}? #{refList.Tag} {get; set;}
 #end if
 #end foreach
 
 #foreach (var entry in backed.Fields) 
 #if (entry is FramePresentation presentation) 
-#% var storeId = presentation.Id.Uniqueify();
+#% var storeId = presentation.Tag.Uniqueify();
 
 	/// <summary>
-	/// Presentation style #{presentation.Id}
+	/// Presentation style #{presentation.Tag}
 	/// </summary>
-	public static FramePresentation #{presentation.Id} => #{storeId} ?? new FramePresentation ("#{presentation.Id}") {
-		GetUid = (IBacked data) => (data as #{backed.Id})?.#{presentation.UidField},
+	public static FramePresentation #{presentation.Tag} => #{storeId} ?? new FramePresentation ("#{presentation.Tag}") {
+		GetUid = (IBacked data) => (data as #{backed.Tag})?.#{presentation.UidField},
 		Sections = [#!
 #% comma.Reset();
 #foreach (var section in presentation.Sections)
 #{comma}
-			new FrameSection ("#{section.Id}") {
+			new FrameSection ("#{section.Tag}") {
 				Fields = [#!
 #% var save = Indent (12);
 #% RenderFields (backed, section.Fields);
@@ -227,7 +227,7 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 #end if
 #end foreach
 
-	static readonly List<FrameField> _Fields = [#!
+	static readonly List<IFrameField> _Fields = [#!
 #% RenderFields(backed, backed.Fields, true);
 
 		];
@@ -235,81 +235,81 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 #end method 
 
 
-#method3 RenderFields IBacked backed List<FrameField> fields bool parent=false
+#method3 RenderFields IBacked backed List<IFrameField> fields bool parent=false
 #% var comma = new Registry.Separator (",");
 #if (parent && backed.Parent is not null) 
 #{comma}#!
 #% RenderFields(backed.Parent, backed.Parent.Fields);
 #end if
 #foreach (var entry in fields) 
-#% var id = entry.Id.Replace (".", "?.");
-#% var sid = entry.Id.Replace (".", "!.");
+#% var id = entry.Tag.Replace (".", "?.");
+#% var sid = entry.Tag.Replace (".", "!.");
 #% switch (entry) {
 #% case FrameButtonParsed button: {
 #% var comma2 = new Registry.Separator (",");
 #{comma}
-		new FrameButton ("#{entry.Id}", "#{button.Label}", "#{button.Action}") {#!
+		new FrameButton ("#{entry.Tag}", "#{button.Label}", "#{button.Action}") {#!
 #if (button.Active is not null) 
 #% var bid = button.Active.Replace (".", "?.");
 #{comma2}
-			GetActive = (IBacked data) => (data as #{backed.Id})?.#{bid}#!
+			GetActive = (IBinding data) => (data as #{backed.Tag})?.#{bid}#!
 #end if
 #if (button.Integer is not null) 
 #% var bid = button.Integer.Replace (".", "?.");
 #{comma2}
-			GetInteger = (IBacked data) => (data as #{backed.Id})?.#{bid}#!
+			GetInteger = (IBinding data) => (data as #{backed.Tag})?.#{bid}#!
 #end if
 #if (button.Text is not null) 
 #% var bid = button.Text.Replace (".", "?.");
 #{comma2}
-			GetText = (IBacked data) => (data as #{backed.Id})?.#{bid}#!
+			GetText = (IBinding data) => (data as #{backed.Tag})?.#{bid}#!
 #end if
 
 			}#!
 #% break; }
 #% case FrameRefMenu reference: {
 #{comma}
-		new FrameRefMenu ("#{entry.Id}","#{reference.Reference}")#!
+		new FrameRefMenu ("#{entry.Tag}","#{reference.Reference}")#!
 #% break; }
 #% case FrameAvatar avatar: {
 #{comma}
-		new FrameAvatar ("#{entry.Id}"){
-			Get = (IBacked data) => (data as #{backed.Id})?.#{id} }#!
+		new FrameAvatar ("#{entry.Tag}"){
+			Get = (IBinding data) => (data as #{backed.Tag})?.#{id} }#!
 #% break; }
 #% case FrameRefClass reference: {
 #{comma}
-		new FrameRefClass<#{reference.Backing}> ("#{entry.Id}","#{reference.Reference}"){
+		new FrameRefClass<#{reference.Backing}> ("#{entry.Tag}","#{reference.Reference}"){
 #if reference.PresentationId is not null
-			Presentation = #{backed.Id}.#{reference.PresentationId},
+			Presentation = #{backed.Tag}.#{reference.PresentationId},
 #end if 
-			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
-			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{sid} = value as #{reference.Reference}; }}#!
+			Get = (IBacked data) => (data as #{backed.Tag})?.#{id} ,
+			Set = (IBacked data, IBacked? value) => {(data as #{backed.Tag})!.#{sid} = value as #{reference.Reference}; }}#!
 #% break; }
 #% case FrameRefList reference: {
 #{comma}
-		new FrameRefList<#{reference.Reference}> ("#{entry.Id}","#{reference.Reference}"){
-			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
-			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{sid} = value as List<#{reference.Reference}>; }}#!
+		new FrameRefList<#{reference.Reference}> ("#{entry.Tag}","#{reference.Reference}"){
+			Get = (IBacked data) => (data as #{backed.Tag})?.#{id} ,
+			Set = (IBacked data, Object? value) => {(data as #{backed.Tag})!.#{sid} = value as List<#{reference.Reference}>; }}#!
 #% break; }
 #% case FrameRef : {
 #{comma}
-		new FrameRef ("#{entry.Id}")#!
+		new FrameRef ("#{entry.Tag}")#!
 #% break; }
 #% case FrameSeparator : {
 #{comma}
-		new FrameSeparator ("#{entry.Id}")#!
+		new FrameSeparator ("#{entry.Tag}")#!
 #% break; }
 #% case FrameIcon : {
 #{comma}
-		new FrameIcon ("#{entry.Id}")#!
+		new FrameIcon ("#{entry.Tag}")#!
 #% break; }
 #% case FramePresentation presentation: {
 #{comma}
-		#{presentation.Id}#!
+		#{presentation.Tag}#!
 #% break; }
 #% case FrameSubmenu submenu: {
 #{comma}
-		new FrameSubmenu ("#{submenu.Id}", "#{submenu.Label}") {
+		new FrameSubmenu ("#{submenu.Tag}", "#{submenu.Label}") {
 			Fields = [#!
 #% var save = Indent (8);
 #% RenderFields (backed, submenu.Fields);
@@ -321,9 +321,9 @@ public #{structure} #{backer.Id} (string id="#{backer.Id}") : #{backer.ParentId 
 #% default: {
 #if entry.Backing != null
 #{comma}
-		new #{entry.Type} ("#{entry.Id}") {
-			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
-			Set = (IBacked data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{sid} = value; }}#!
+		new #{entry.Type} ("#{entry.Tag}",
+			(IBinding data, #{entry.Backing}? value) => {(data as #{backed.Tag})!.#{sid} = value; },
+			(IBinding data) => (data as #{backed.Tag})?.#{id})#!
 #end if
 #% break; }
 #% }

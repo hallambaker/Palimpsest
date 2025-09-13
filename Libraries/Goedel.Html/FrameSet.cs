@@ -1,5 +1,7 @@
 ﻿using Goedel.Registry;
 
+using Goedel.Protocol;
+
 namespace Goedel.Html;
 
 
@@ -38,7 +40,7 @@ public class FrameSet {
 
     T? GetField<T>(List<T> list, string id) where T: IBacked {
         foreach (var field in list) {
-            if (field.Id == id) {
+            if (field.Tag == id) {
                 return field;
                 }
             }
@@ -51,13 +53,13 @@ public class FrameSet {
     }
 
 
-public interface IBacked {
+public interface IBacked : IBinding{
     FrameSet FrameSet { get; set; }
     ///<summary>The identifier</summary>
-    string Id { get; }
+    string Tag { get; }
 
     ///<summary>The fields</summary>
-    List<FrameField> Fields { get; }
+    List<IFrameField> Fields { get; }
 
     FramePresentation Presentation => null;
 
@@ -73,11 +75,13 @@ public class FrameBacker {
 
     public virtual FramePresentation Presentation { get; init; }
     public System.DateTime StartRender { get; set; }
-    public string Id { get; init; }
+    public string Tag { get; init; }
     public FrameBacker(string id) {
-        Id = id;
+        Tag = id;
         }
+    public virtual Protocol.Property[] _Properties => throw new NotImplementedException();
 
+    public virtual Binding _Binding => throw new NotImplementedException();
 
     }
 
@@ -92,13 +96,14 @@ public class FramePage: FrameBacker, IBacked {
     public FrameSet FrameSet { get; set; }
     public string Title { get; init; }
 
-    public virtual List<FrameField> Fields {get; init;}
+    public virtual List<IFrameField> Fields {get; init;}
 
     public FrameClass? Parent { get; init; } = null;
 
     public string Type => "FramePage";
 
-    public FramePage(string id, string title, List<FrameField> fields) : base(id) {
+
+    public FramePage(string id, string title, List<IFrameField> fields) : base(id) {
         Fields = fields;
         Title = title;
         }
@@ -106,13 +111,13 @@ public class FramePage: FrameBacker, IBacked {
 
 public class FrameMenu : FrameBacker, IBacked {
     public FrameSet FrameSet { get; set; }
-    public virtual List<FrameField> Fields { get; init; }
+    public virtual List<IFrameField> Fields { get; init; }
 
     public string Type => "FrameMenu";
 
     public FrameClass? Parent { get; init; } = null;
 
-    public FrameMenu(string id, List<FrameField> fields) : base(id) {
+    public FrameMenu(string id, List<IFrameField> fields) : base(id) {
         Fields = fields;
         }
     }
@@ -120,12 +125,12 @@ public class FrameMenu : FrameBacker, IBacked {
 public class FrameSelector : FrameBacker, IBacked {
     public FrameSet FrameSet { get; set; }
     /// <inheritdoc/>
-    public virtual List<FrameField> Fields { get; init; }
+    public virtual List<IFrameField> Fields { get; init; }
     public string Type => "FrameSelector";
 
     public FrameClass? Parent { get; init; } = null;
 
-    public FrameSelector(string id, List<FrameField> fields) : base(id) {
+    public FrameSelector(string id, List<IFrameField> fields) : base(id) {
         Fields = fields;
         }
     }
@@ -137,7 +142,7 @@ public class FrameClass : FrameBacker, IBacked {
 
     public FrameSet FrameSet { get; set; }
     public string Type => "FrameClass";
-    public virtual List<FrameField> Fields { get; set; }
+    public virtual List<IFrameField> Fields { get; set; }
 
 
 
@@ -155,15 +160,19 @@ public class FrameClass : FrameBacker, IBacked {
     }
 
 
+
+
+
+
 // Fields
-public abstract record FrameField {
-    public string Id { get; init; }
+public abstract record FrameField : IFrameField {
+    public string Tag { get; init; }
     public virtual string Backing => null;
 
-    public abstract string Type {get;}
+    public abstract string Type { get; }
 
     public FrameField(string id) {
-        Id = id;
+        Tag = id;
         }
     }
 
@@ -176,9 +185,9 @@ public record FrameButton(
 
     public override string Type => "FrameButton";
 
-    public Func<IBacked, bool?> GetActive { get; init; }
-    public Func<IBacked, int?> GetInteger { get; init; }
-    public Func<IBacked, string?> GetText { get; init; }
+    public Func<IBinding, bool?> GetActive { get; init; }
+    public Func<IBinding, int?> GetInteger { get; init; }
+    public Func<IBinding, string?> GetText { get; init; }
     }
 
 public record FrameButtonParsed(
@@ -284,49 +293,76 @@ public record FrameChooserOption(
             string Label) {
     }
 
-public record FrameBoolean(string Id) : FrameField(Id) {
+public record FrameBoolean(
+            string Id,
+            Action<IBinding, bool?>? Set = null,
+            Func<IBinding, bool?>? Get = null) : FrameField(Id) {
+
     public override string Backing => "bool";
     public override string Type => "FrameBoolean";
 
-    public Action<IBacked, bool?> Set { get; init; }
-    public Func<IBacked, bool?> Get { get; init; }
     }
-public record FrameInteger(string Id) : FrameField(Id) {
+public record FrameInteger(
+            string Id,
+            Action<IBinding, int?>? Set = null,
+             Func<IBinding, int?>? Get = null
+            ) : FrameField(Id) {
     public override string Backing => "int";
     public override string Type => "FrameInteger";
 
-    public Action<IBacked, int?> Set { get; init; }
-    public Func<IBacked, int?> Get { get; init; }
+
     }
-public record FrameDateTime(string Id) : FrameField(Id) {
+public record FrameDateTime(
+            string Id,
+            Action<IBinding, System.DateTime?>? Set = null,
+            Func<IBinding, System.DateTime?>? Get = null
+            ) : FrameField(Id) {
     public override string Backing => "System.DateTime";
     public override string Type => "FrameDateTime";
 
-    public Action<IBacked, System.DateTime?> Set { get; init; }
-    public Func<IBacked, System.DateTime?> Get { get; init; }
     }
-public record FrameString(string Id) : FrameField(Id) {
-    public override string Backing => "string";
-    public override string Type => "FrameString";
-
-    public Action<IBacked, string?> Set { get; init; }
-    public Func<IBacked, string?> Get { get; init; }
 
 
+
+
+
+//public record FrameString(string Id) : FrameField(Id) {
+//    public override string Backing => "string";
+//    public override string Type => "FrameString";
+
+//    public Action<IBacked, string?> Set { get; init; }
+//    public Func<IBacked, string?> Get { get; init; }
+
+
+//    }
+
+
+
+public record FrameString(
+            string Tag,
+            Action<IBinding, string?>? Set = null,
+            Func<IBinding, string?>? Get=null) : PropertyString (Tag, Set, Get), IFrameField {
+    public string Backing => "string";
+    public string Type => "FrameString";
     }
-public record FrameText(string Id) : FrameField(Id) {
+
+public record FrameText(
+            string Tag,
+            Action<IBinding, string?>? Set = null,
+            Func<IBinding, string?>? Get = null) : FrameField(Tag) {
     public override string Backing => "string";
     public override string Type => "FrameText";
 
-    public Action<IBacked, string?> Set { get; init; }
-    public Func<IBacked, string?> Get { get; init; }
+
     }
-public record FrameImage(string Id) : FrameField(Id) {
+public record FrameImage(
+            string Tag,
+            Action<IBinding, string?>? Set = null,
+            Func<IBinding, string?>? Get = null) : FrameField(Tag) {
     public override string Backing => "string";
     public override string Type => "FrameImage";
 
-    public Action<IBacked, string?> Set { get; init; }
-    public Func<IBacked, string?> Get { get; init; }
+
     }
 
 public record FrameIcon(string Id) : FrameField(Id) {
@@ -336,18 +372,21 @@ public record FrameIcon(string Id) : FrameField(Id) {
     }
 
 
-public record FrameAvatar(string Id) : FrameField(Id) {
+public record FrameAvatar(
+            string Id,
+            Func<IBinding, string?>? Get = null) : FrameField(Id) {
     public override string Type => "FrameAvatar";
 
-    public Func<IBacked, string?> Get { get; init; }
     }
 
-public record FrameCount(string Id) : FrameField(Id) {
+public record FrameCount(
+            string Id,
+            Action<IBinding, int?>? Set = null,
+             Func<IBinding, int?>? Get = null
+            ) : FrameField(Id) {
     public override string Backing => "int";
     public override string Type => "FrameCount";
 
-    public Action<IBacked, int?> Set { get; init; }
-    public Func<IBacked, int?> Get { get; init; }
     }
 public record FrameSeparator(string Id) : FrameField(Id) {
     public override string Type => "FrameSeparator";
@@ -363,8 +402,8 @@ public record FramePresentation(string Id) : FrameField(Id) {
     public virtual List<FrameSection> Sections { get; init; }
     }
 
-public record FrameSection(string Id) {
-    public virtual List<FrameField> Fields { get; init; }
+public record FrameSection(string Tag) {
+    public virtual List<IFrameField> Fields { get; init; }
 
     }
 
@@ -372,6 +411,6 @@ public record FrameSubmenu(
                 string Id,
                 string Label) : FrameField(Id) {
     public override string Type => "FrameSubmenu";
-    public virtual List<FrameField> Fields { get; init; }
+    public virtual List<IFrameField> Fields { get; init; }
 
     }

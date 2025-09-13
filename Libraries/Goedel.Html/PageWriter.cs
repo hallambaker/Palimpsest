@@ -28,7 +28,7 @@ public class PageWriter : HtmlWriter {
 
         Body();
 
-        Open("div", "class", page.Id);
+        Open("div", "class", page.Tag);
         RenderFields(page);
         Close();
 
@@ -46,7 +46,7 @@ public class PageWriter : HtmlWriter {
             }
         }
 
-    public void Render(IBacked backer, List<FrameField> fields) {
+    public void Render(IBacked backer, List<IFrameField> fields) {
 
         if (fields != backer.Fields) {
             //throw new NYI();
@@ -61,7 +61,7 @@ public class PageWriter : HtmlWriter {
         }
 
     public void Render(IBacked backer, FramePresentation presentation) {
-        OpenClass("form", presentation.Id);
+        OpenClass("form", presentation.Tag);
         if (presentation.GetUid != null) {
             var id = presentation.GetUid(backer);
             if (id != null) {
@@ -80,8 +80,8 @@ public class PageWriter : HtmlWriter {
 
         foreach (var section in presentation.Sections) {
 
-            Open("section", "class", section.Id);
-            OpenClass("div", section.Id);
+            Open("section", "class", section.Tag);
+            OpenClass("div", section.Tag);
             Render(backer, section.Fields);
             Close();
             Close();
@@ -92,9 +92,9 @@ public class PageWriter : HtmlWriter {
 
     public void RenderField(
             IBacked backer,
-            FrameField field) {
+            IFrameField field) {
 
-        var id = NormalizeId(field.Id);
+        var id = NormalizeId(field.Tag);
         //OpenClass("div", id);
         switch (field) {
             case FrameButton item: {
@@ -168,7 +168,7 @@ public class PageWriter : HtmlWriter {
 
     public void Render(IBacked backer, FrameRefMenu fieldRefMenu) {
         var menu = fieldRefMenu.Menu;
-        var start = OpenClass("div", fieldRefMenu.Id);
+        var start = OpenClass("div", fieldRefMenu.Tag);
 
         foreach (var field in menu.Fields) {
 
@@ -188,12 +188,12 @@ public class PageWriter : HtmlWriter {
 
     public void Render(FrameButton button, IBacked backer) {
 
-        var icon = button.Id;
+        var icon = button.Tag;
         if (button.GetActive is not null) {
             icon = button.GetActive(backer) == true ? icon + "Active" : icon;
             }
 
-        var start = OpenClass("button",  button.Id, "type", "button");
+        var start = OpenClass("button",  button.Tag, "type", "button");
         ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(icon), "alt", button.Label);
 
         TextClass(button.Label, "ButtonText ", "div");
@@ -222,14 +222,14 @@ public class PageWriter : HtmlWriter {
         var start = Open("div", "class", "dropdown");
 
         Open("button", "type", "button", "class", "dropdown-button");
-        ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(item.Id), "alt", item.Label);
+        ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(item.Tag), "alt", item.Label);
         Close();
 
         Open("div", "class", "dropdown-content");
         foreach (var field in item.Fields) {
             if (field is FrameButton button) {
                 Open("button", "type", "button", "class", "dropdown-subbutton");
-                Element("img", "class", "ButtonIcon", "src", FrameSet.IconPath(button.Id), "alt", button.Label);
+                Element("img", "class", "ButtonIcon", "src", FrameSet.IconPath(button.Tag), "alt", button.Label);
                 Text(button.Label, "div");
                 Close();
                 }
@@ -260,11 +260,11 @@ public class PageWriter : HtmlWriter {
         if (value is null) {
             return;
             }
-        Open("div", "class", item.Id);
+        Open("div", "class", item.Tag);
 
 
         var count = item.Count(value);
-        var id = item.Id + "Item";
+        var id = item.Tag + "Item";
 
         var last = max < 0 ? count : count.Minimum(max - first);
         for (var i = first; i < last; i++) {
@@ -284,7 +284,7 @@ public class PageWriter : HtmlWriter {
         if (value is not null) {
 
             if (item.Presentation is not null) {
-                OpenClassNew("section", item.Presentation.Id );
+                OpenClassNew("section", item.Presentation.Tag );
                 RenderSections(value, item.Presentation);
                 Close();
 
@@ -308,7 +308,7 @@ public class PageWriter : HtmlWriter {
 
 
 
-            OpenClass("div", item.Id);
+            OpenClass("div", item.Tag);
             Text(value.ToString());
             Close();
             }
@@ -318,7 +318,7 @@ public class PageWriter : HtmlWriter {
                 FrameInteger item) {
         var value = item.Get(backer);
         if (value is not null) {
-            OpenClass("div", item.Id);
+            OpenClass("div", item.Tag);
             Text(value.ToString());
             Close();
             }
@@ -350,7 +350,7 @@ public class PageWriter : HtmlWriter {
                 result = (interval.Minutes).ToString() + "s";
                 }
 
-            OpenClass("div", item.Id);
+            OpenClass("div", item.Tag);
             Text(result);
             Close();
             }
@@ -361,7 +361,7 @@ public class PageWriter : HtmlWriter {
         var value = item.Get(backer);
         if (value is not null) {
 
-            OpenClass("div", item.Id);
+            OpenClass("div", item.Tag);
             Text(value.ToString());
             Close();
             }
@@ -372,7 +372,7 @@ public class PageWriter : HtmlWriter {
         var value = item.Get(backer) ;
         if (value is not null) {
 
-            OpenClass("div", item.Id);
+            OpenClass("div", item.Tag);
             Text(value.ToString());
             Close();
             }
@@ -384,7 +384,7 @@ public class PageWriter : HtmlWriter {
         if (value is not null) {
 
             //OpenClass("div", item.Id);
-            ElementClass("img", item.Id, "src", value);
+            ElementClass("img", item.Tag, "src", value);
             //Close();
             }
         }
@@ -396,7 +396,7 @@ public class PageWriter : HtmlWriter {
         if (value is not null) {
 
             //OpenClass("div", item.Id);
-            ElementClass("img", item.Id, "src", value);
+            ElementClass("img", item.Tag, "src", value);
             //Close();
             }
         }
@@ -407,7 +407,7 @@ public class PageWriter : HtmlWriter {
 
         if (value is not null) {
 
-            OpenClass("div", item.Id);
+            OpenClass("div", item.Tag);
             Text(value.ToString());
             Close();
             }
@@ -416,15 +416,15 @@ public class PageWriter : HtmlWriter {
     public void Render(
             IBacked backer,
             FrameIcon item) {
-        var value = FrameSet.IconPath(item.Id);
-        ElementClass("img", item.Id, "src", value);
+        var value = FrameSet.IconPath(item.Tag);
+        ElementClass("img", item.Tag, "src", value);
         }
 
 
     public void Render(
             IBacked backer,
             FrameSeparator item) {
-        ElementClass("hr", item.Id);
+        ElementClass("hr", item.Tag);
         }
 
     string NormalizeId(string id) => id.Replace(".", "");

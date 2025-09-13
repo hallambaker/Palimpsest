@@ -13,6 +13,8 @@ Class Goedel.Html FrameStruct
             Selector
             Class
             SubClass
+            External
+
 
     Type Page
         Title String
@@ -29,11 +31,23 @@ Class Goedel.Html FrameStruct
         Entries List FieldItem
 
     Type Class
-        Entries List Property
+        TypeEntries List Struct
 
     Type SubClass
         Parent REF EntryT
+        TypeEntries List Struct
+
+
+    Type Struct
+        Type Choice
+            Fields
+            Description
+
+
+    Type Fields
         Entries List Property
+
+
 
     Type FieldItem
         Id Token EntryT
@@ -57,6 +71,8 @@ Class Goedel.Html FrameStruct
             Presentation
             Show
             Icon
+            Choice
+            File
 
     Type Property
         Id Token EntryT
@@ -69,12 +85,16 @@ Class Goedel.Html FrameStruct
             Text
             Image
             List
-            Emphasis
             Separator
             SubMenu
             Avatar
             Presentation 
             Icon
+            Choice
+            File
+
+
+
 
     Type ButtonProperty
         Id Token EntryT
@@ -85,35 +105,63 @@ Class Goedel.Html FrameStruct
 
     Type Is
         Parent REF EntryT
+        Properties List FieldProperty
 
     Type Show
         Field REF EntryT
         Display Token EntryT
+        Properties List FieldProperty
 
     Type List
         Of REF EntryT
+        Properties List FieldProperty
 
 
     // intrinsic types
     Type Boolean
+        Properties List FieldProperty
     Type Integer
+        Properties List FieldProperty
     Type DateTime
+        Properties List FieldProperty
     Type String
+        Properties List FieldProperty
+    Type File
+        Properties List FieldProperty
     Type Text
+        Properties List FieldProperty
     Type Image
+        Properties List FieldProperty
     Type Icon
+        Properties List FieldProperty
     Type Avatar
+        Properties List FieldProperty
     Type Count
+        Properties List FieldProperty
+    Type Choice
+        Choices List ChoiceEntry
+
+    Type ChoiceEntry
+        Type Choice
+            Description
+            Choices
+
+    Type Choices
+        Items List ChoiceOption    
+
+    Type ChoiceOption
+        Tag REF EntryT
+        Text String   
 
 
     // Display fields
     Type Separator
-        
+        Properties List FieldProperty
+
 
     Type Return
         To REF EntryT
-
-    Type Emphasis
+        Properties List FieldProperty
 
 
     Type Button
@@ -149,3 +197,17 @@ Class Goedel.Html FrameStruct
 
     Type Field
         Id Token EntryT
+
+
+    Type FieldProperty
+        Type Choice
+            External
+            Description
+            ReadOnly
+
+
+    Type Description
+        Text String
+
+    Type External
+    Type ReadOnly

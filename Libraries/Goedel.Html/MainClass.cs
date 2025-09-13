@@ -18,6 +18,9 @@ class MainClass {
             schema.Process(infile, parse);
             }
 
+        parse.Init();
+
+
         var frameSet = new FrameSet();
         foreach (var entry in parse.Top) {
             var nameSpace = entry as Namespace;

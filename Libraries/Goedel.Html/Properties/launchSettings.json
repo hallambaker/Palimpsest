@@ -1,9 +1,14 @@
 {
   "profiles": {
-    "Profile 1": {
+    "BlueSky": {
       "commandName": "Project",
       "commandLineArgs": "FrameBlueSky.Frame",
       "workingDirectory": "C:\\Users\\hallam\\source\\repos\\Palimpsest\\Libraries\\MakeGui"
+    },
+    "Mplace2": {
+      "commandName": "Project",
+      "commandLineArgs": "Mplace2.Frame",
+      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\Palimpsest\\Libraries\\Mplace2"
     }
   }
 }
