@@ -13,8 +13,6 @@ Class Goedel.Html FrameStruct
             Selector
             Class
             SubClass
-            External
-
 
     Type Page
         Title String
@@ -73,6 +71,7 @@ Class Goedel.Html FrameStruct
             Icon
             Choice
             File
+            Hidden 
 
     Type Property
         Id Token EntryT
@@ -92,7 +91,7 @@ Class Goedel.Html FrameStruct
             Icon
             Choice
             File
-
+            Hidden
 
 
 
@@ -201,13 +200,28 @@ Class Goedel.Html FrameStruct
 
     Type FieldProperty
         Type Choice
-            External
+            Exclude
             Description
             ReadOnly
-
+            Range
+            Compact
+            Local
+            UTC
+            Comment
+            Post
+            Rich
+            Hidden
 
     Type Description
         Text String
 
-    Type External
+    Type Exclude
     Type ReadOnly
+    Type Range
+    Type Compact
+    Type Local
+    Type UTC
+    Type Comment
+    Type Post
+    Type Rich
+    Type Hidden

@@ -136,15 +136,8 @@ Namespace Frame
     Pronouns Class
         Description ""
         Fields
-            GramaticalGender Choice
+            GramaticalGender List Option
                 Description ""
-                Choices
-                    Animate "Animate"
-                    Common "Common"
-                    Feminine "Feminine"
-                    Inanimate "Inanimate"
-                    Masculine "Masculine"
-                    Neuter "Neuter"
             Subjective String
             Objective String
             Posessive String
@@ -165,19 +158,8 @@ Namespace Frame
         Fields
             Uid String        
                 Description "URI of the related party"
-            Relation Choice 
+            Relation List Option 
                 Description "The relationship"
-                Choices
-                    Emergency "Emergency"
-                    Parent "Parent"
-                    Sibling "Sibling"
-                    Spouse "Spouse"
-                    Child "Child"
-                    Kin "Kin"
-                    Kin "Kin"
-                    Agent "Agent"
-                    Colleague "Colleague"
-                    Coresident "Co-Resident"
             Other String // acquaintance co-worker contact crush date friend me met muse neighbor sweetheart
 
 
@@ -197,39 +179,15 @@ Namespace Frame
     Messaging SubClass Application
         Description ""
         Fields
-            Type Choice 
+            Service Is ServiceOption 
                 Description ""
-                Choices
-                    Signal "Signal"
-                    FacebookMessenger "FacebookMessenger"
-                    WhatsApp "WhatsApp"
-                    Telegram "Telegram"
-                    iMessage "iMessage"
-                    Snapchat "Snapchat"
-                    Kik "Kik"
-                    RakutenViber "RakutenViber"
-                    Dust "Dust"
-                    Any "@nytime"
-                    WeChat "WeChat"
-                    QQ "QQ"
-                    DingTalk "DingTalk"
-                    Feishu "Feishu"
+
             Other String
 
     Phone SubClass Application
         Description ""
         Fields
-            Features Choice
-                Description ""
-                Choices
-                    Mobile "Mobile"
-                    Voice ""
-                    Text "Voice"
-                    Video "Video"
-                    Main "Main"
-                    Textphone "Textphone"
-                    Fax "Fax"
-                    Pager "Pager"
+            Features List Option
 
     Service SubClass Application
         Description ""
@@ -237,13 +195,8 @@ Namespace Frame
             ServiceName String
                 Description "The service address"
             Protocol String 
-            Type Choice
-                Description ""
-                Choices 
-                    Web "Web"
-                    Blog "Blog"
-                    Repository "Repository"
-                    Git "Git"
+            Type Is Option 
+                Description "The service type"
 
     Key Class
         Description ""
@@ -255,19 +208,8 @@ Namespace Frame
                     Encrypt "Encrypt"
                     Sign "Sign"
                     Authenticate "Sign"
-            Protocol Choice
+            Protocol Is ServiceOption
                 Description ""
-                Choices
-                    OpenPGP "OpenPGP"
-                    SMIME "S/MIME"
-                    SSH "SSH Device"
-                    SSHRoot "SSH Root"
-                    TLSRoot "TLS"
-                    TLSKeySign "TLS Key Sign"
-                    TLSEE "TLS End Entity"
-                    CodeSign "CodeSign"
-                    DNSSEC "DNSSEC"
-                    PKIX "PKIX"
 
     KeyData Class
         Description ""
@@ -306,4 +248,22 @@ Namespace Frame
                 Description "Size of the resource in bytes"
                 ReadOnly
 
+
+    Option Class
+        Fields
+            Id String        
+                Description "Unique identifier"
+                Hidden
+            Text String
+                Description "Text prompt for the option"
+            Icon String
+                Description "Icon prompt for the option"
+            Priority Integer
+
+    ServiceOption SubClass Option
+        Fields
+            Uri String     
+                Description "The service address"
+            Template String
+                Description "Template that converts the user address to a URI"
 

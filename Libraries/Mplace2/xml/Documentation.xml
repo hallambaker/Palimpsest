@@ -41,6 +41,18 @@
         <member name="P:Frame.User.Groups">
             <summary>List Groups</summary>
         </member>
+        <member name="P:Frame.User._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.User._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.User._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.User._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.NamespaceDoc">
             <summary>
             Desctiption of the 
@@ -153,6 +165,18 @@
         <member name="P:Frame.Group.Name">
             <summary>Field Name</summary>
         </member>
+        <member name="P:Frame.Group._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Group._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Group._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Group._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Rights">
             <summary>
             Backing class for Rights
@@ -174,6 +198,18 @@
         </member>
         <member name="P:Frame.Rights.Deny">
             <summary>class Privileges, Deny</summary>
+        </member>
+        <member name="P:Frame.Rights._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Rights._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Rights._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Rights._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Access">
             <summary>
@@ -203,6 +239,18 @@
         <member name="P:Frame.Access.Owner">
             <summary>Field Owner</summary>
         </member>
+        <member name="P:Frame.Access._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Access._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Access._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Access._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Privileges">
             <summary>
             Backing class for Privileges
@@ -230,6 +278,18 @@
         </member>
         <member name="P:Frame.Privileges.Self">
             <summary>class Access, Self</summary>
+        </member>
+        <member name="P:Frame.Privileges._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Privileges._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Privileges._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Privileges._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Place">
             <summary>
@@ -274,6 +334,18 @@
         <member name="P:Frame.Place.Topics">
             <summary>List Topics</summary>
         </member>
+        <member name="P:Frame.Place._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Place._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Place._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Place._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Entry">
             <summary>
             Backing class for Entry
@@ -299,6 +371,18 @@
         <member name="P:Frame.Entry.Rights">
             <summary>List Rights</summary>
         </member>
+        <member name="P:Frame.Entry._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Entry._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Entry._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Entry._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Topic">
             <summary>
             Backing class for Topic
@@ -317,6 +401,18 @@
         </member>
         <member name="P:Frame.Topic.Posts">
             <summary>List Posts</summary>
+        </member>
+        <member name="P:Frame.Topic._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Topic._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Topic._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Topic._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Post">
             <summary>
@@ -340,6 +436,18 @@
         <member name="P:Frame.Post.Resources">
             <summary>List Resources</summary>
         </member>
+        <member name="P:Frame.Post._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Post._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Post._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Post._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Comment">
             <summary>
             Backing class for Comment
@@ -358,6 +466,18 @@
         </member>
         <member name="P:Frame.Comment.Resources">
             <summary>class Resource, Resources</summary>
+        </member>
+        <member name="P:Frame.Comment._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Comment._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Comment._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Comment._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Resource">
             <summary>
@@ -380,6 +500,18 @@
         </member>
         <member name="P:Frame.Resource.Type">
             <summary>Field Type</summary>
+        </member>
+        <member name="P:Frame.Resource._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Resource._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Resource._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Resource._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Contact">
             <summary>
@@ -424,6 +556,18 @@
         <member name="P:Frame.Contact.Media">
             <summary>List Media</summary>
         </member>
+        <member name="P:Frame.Contact._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Contact._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Contact._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Contact._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Name">
             <summary>
             Backing class for Name
@@ -449,6 +593,18 @@
         <member name="P:Frame.Name.PhoneticScript">
             <summary>Field PhoneticScript</summary>
         </member>
+        <member name="P:Frame.Name._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Name._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Name._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Name._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.TagValue">
             <summary>
             Backing class for TagValue
@@ -468,6 +624,18 @@
         <member name="P:Frame.TagValue.Value">
             <summary>Field Value</summary>
         </member>
+        <member name="P:Frame.TagValue._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.TagValue._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.TagValue._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.TagValue._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Organization">
             <summary>
             Backing class for Organization
@@ -483,6 +651,18 @@
         </member>
         <member name="P:Frame.Organization.Name">
             <summary>Field Name</summary>
+        </member>
+        <member name="P:Frame.Organization._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Organization._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Organization._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Organization._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Pronouns">
             <summary>
@@ -506,6 +686,18 @@
         <member name="P:Frame.Pronouns.Posessive">
             <summary>Field Posessive</summary>
         </member>
+        <member name="P:Frame.Pronouns._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Pronouns._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Pronouns._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Pronouns._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Title">
             <summary>
             Backing class for Title
@@ -525,6 +717,18 @@
         <member name="P:Frame.Title.Organization">
             <summary>class Organization, Organization</summary>
         </member>
+        <member name="P:Frame.Title._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Title._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Title._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Title._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.RelatedTo">
             <summary>
             Backing class for RelatedTo
@@ -543,6 +747,18 @@
         </member>
         <member name="P:Frame.RelatedTo.Other">
             <summary>Field Other</summary>
+        </member>
+        <member name="P:Frame.RelatedTo._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.RelatedTo._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.RelatedTo._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.RelatedTo._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Application">
             <summary>
@@ -569,6 +785,18 @@
         <member name="P:Frame.Application.Preference">
             <summary>Field Preference</summary>
         </member>
+        <member name="P:Frame.Application._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Application._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Application._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Application._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Email">
             <summary>
             Backing class for Email
@@ -581,6 +809,18 @@
         </member>
         <member name="P:Frame.Email.Fields">
             <inheritdoc/>
+        </member>
+        <member name="P:Frame.Email._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Email._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Email._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Email._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Messaging">
             <summary>
@@ -598,6 +838,18 @@
         <member name="P:Frame.Messaging.Other">
             <summary>Field Other</summary>
         </member>
+        <member name="P:Frame.Messaging._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Messaging._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Messaging._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Messaging._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Phone">
             <summary>
             Backing class for Phone
@@ -610,6 +862,18 @@
         </member>
         <member name="P:Frame.Phone.Fields">
             <inheritdoc/>
+        </member>
+        <member name="P:Frame.Phone._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Phone._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Phone._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Phone._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Service">
             <summary>
@@ -630,6 +894,18 @@
         <member name="P:Frame.Service.Protocol">
             <summary>Field Protocol</summary>
         </member>
+        <member name="P:Frame.Service._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Service._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Service._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Service._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Key">
             <summary>
             Backing class for Key
@@ -645,6 +921,18 @@
         </member>
         <member name="P:Frame.Key.KeyData">
             <summary>class KeyData, KeyData</summary>
+        </member>
+        <member name="P:Frame.Key._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Key._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Key._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Key._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.KeyData">
             <summary>
@@ -670,6 +958,18 @@
         </member>
         <member name="P:Frame.KeyData.Value">
             <summary>Field Value</summary>
+        </member>
+        <member name="P:Frame.KeyData._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.KeyData._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.KeyData._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.KeyData._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Media">
             <summary>
@@ -698,6 +998,18 @@
         </member>
         <member name="P:Frame.Media.Bytes">
             <summary>Field Bytes</summary>
+        </member>
+        <member name="P:Frame.Media._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Media._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Media._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Media._binding">
+            <summary>Binding</summary> 
         </member>
     </members>
 </doc>

@@ -375,8 +375,37 @@ public partial class FrameStruct {
 
     }
 
+public enum Attribute {
+    // Integer presentations
+    Range,
+
+    // DateTime presentations
+    Compact,
+    Local,
+    UTC,
+
+    // String presentations
+    Comment,
+    Post,
+    Rich,
+
+    Default
+    }
+
 public partial class _Choice {
 
+    ///<summary>Description text.</summary>
+    public string? Description { get; set; } = null;
+
+    ///<summary>If true, include this field in serialization.</summary>
+    public bool Include { get; set; } = true;
+
+    ///<summary></summary>
+    public bool IsRange { get; set; } = true;
+    ///<summary></summary>
+    public bool ReadOnly { get; set; } = false;
+    ///<summary></summary>
+    public Attribute Attribute { get; set; } = Attribute.Default;
 
 
     }
@@ -384,34 +413,9 @@ public partial class _Choice {
 public partial class Namespace {
 
 
+
     }
 
-
-//public interface IClass {
-//    _Choice Parent { get; set; }
-
-//    List<Property> Entries { get; set; }
-
-//    string Description { get; set; }
-
-//    public static void InitIClass(IClass target, _Choice parent, List<Struct> typeEntries) {
-//        target.Parent = parent;
-        
-//        foreach (var entry in typeEntries) {
-//            entry.Init(target);
-//            switch (entry.Type) {
-//                case Fields fields: {
-//                    Entries = fields.Entries;
-//                    break;
-//                    }
-//                case Description description: {
-//                    Description = description.Text;
-//                    break;
-//                    }
-//                }
-//            }
-//        }
-//    }
 
 
 public static class Extensions {
@@ -423,7 +427,7 @@ public partial class Class  {
 
     public List<Property> Entries { get; set; }
 
-    public string Description { get; set; }
+
 
     public override void Init(_Choice parent) {
         foreach (var entry in TypeEntries) {
@@ -449,18 +453,87 @@ public partial class SubClass {
     public string Description { get; set; }
 
     public override void Init(_Choice parent) {
+
+        // Raise the fields entry to be a child of this.
         foreach (var entry in TypeEntries) {
             switch (entry.Type) {
                 case Fields fields: {
                     Entries = fields.Entries;
                     break;
                     }
-                case Description description: {
-                    Description = description.Text;
-                    break;
-                    }
+                //case Description description: {
+                //    Description = description.Text;
+                //    break;
+                //    }
                 }
             }
         }
+    }
 
+public partial class Description {
+
+    public override void Init(_Choice parent) {
+        parent.Description = this.Text;
+        }
+
+    }
+
+public partial class Exclude {
+
+    public override void Init(_Choice parent) {
+        parent.Include = false;
+        }
+
+    }
+
+
+public partial class ReadOnly {
+
+    public override void Init(_Choice parent) {
+        parent.ReadOnly = true;
+        }
+
+    }
+
+
+public partial class Compact {
+
+    public override void Init(_Choice parent) {
+        parent.Attribute = Attribute.Compact;
+        }
+    }
+
+public partial class Local {
+
+    public override void Init(_Choice parent) {
+        parent.Attribute = Attribute.Local;
+        }
+    }
+
+public partial class UTC {
+
+    public override void Init(_Choice parent) {
+        parent.Attribute = Attribute.UTC;
+        }
+    }
+
+public partial class Comment {
+
+    public override void Init(_Choice parent) {
+        parent.Attribute = Attribute.Comment;
+        }
+    }
+
+public partial class Post {
+
+    public override void Init(_Choice parent) {
+        parent.Attribute = Attribute.Post;
+        }
+    }
+
+public partial class Rich {
+
+    public override void Init(_Choice parent) {
+        parent.Attribute = Attribute.Rich;
+        }
     }

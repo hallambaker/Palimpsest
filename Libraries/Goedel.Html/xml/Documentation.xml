@@ -46,6 +46,21 @@
             Static initializer, is called once when the module loads.
             </summary>
         </member>
+        <member name="P:Goedel.Html._Choice.Description">
+            <summary>Description text.</summary>
+        </member>
+        <member name="P:Goedel.Html._Choice.Include">
+            <summary>If true, include this field in serialization.</summary>
+        </member>
+        <member name="P:Goedel.Html._Choice.IsRange">
+            <summary></summary>
+        </member>
+        <member name="P:Goedel.Html._Choice.ReadOnly">
+            <summary></summary>
+        </member>
+        <member name="P:Goedel.Html._Choice.Attribute">
+            <summary></summary>
+        </member>
         <member name="M:Goedel.Html.GenerateBacking.CreateFrame(Goedel.Html.FrameSet)">
             <summary>	
             CreateFrame
@@ -65,6 +80,14 @@
             <param name="backed"></param>
             <param name="fields"></param>
             <param name="parent=false=false"></param>
+        </member>
+        <member name="M:Goedel.Html.GenerateBacking.RenderField(Goedel.Html.IBacked,Goedel.Html.IFrameField,Goedel.Registry.Separator)">
+            <summary>	
+            RenderField
+            </summary>
+            <param name="backed"></param>
+            <param name="entry"></param>
+            <param name="comma"></param>
         </member>
         <member name="P:Goedel.Html.IBacked.Tag">
             <summary>The identifier</summary>

@@ -80,8 +80,8 @@ public class PageWriter : HtmlWriter {
 
         foreach (var section in presentation.Sections) {
 
-            Open("section", "class", section.Tag);
-            OpenClass("div", section.Tag);
+            Open("section", "class", section.Id);
+            OpenClass("div", section.Id);
             Render(backer, section.Fields);
             Close();
             Close();
@@ -121,6 +121,10 @@ public class PageWriter : HtmlWriter {
                 Render(backer,item);
                 break;
                 }
+            case FrameCount item: {
+                Render(backer, item);
+                break;
+                }
             case FrameInteger item: {
                 Render(backer, item);
                 break;
@@ -129,11 +133,11 @@ public class PageWriter : HtmlWriter {
                 Render(backer, item);
                 break;
                 }
-            case FrameString item: {
+            case FrameText item: {
                 Render(backer, item);
                 break;
                 }
-            case FrameText item: {
+            case FrameString item: {
                 Render(backer, item);
                 break;
                 }
@@ -142,10 +146,6 @@ public class PageWriter : HtmlWriter {
                 break;
                 }
             case FrameAvatar item: {
-                Render(backer, item);
-                break;
-                }
-            case FrameCount item: {
                 Render(backer, item);
                 break;
                 }

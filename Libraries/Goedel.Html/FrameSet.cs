@@ -57,7 +57,7 @@ public interface IBacked : IBinding{
     FrameSet FrameSet { get; set; }
     ///<summary>The identifier</summary>
     string Tag { get; }
-
+    string Id { get; }
     ///<summary>The fields</summary>
     List<IFrameField> Fields { get; }
 
@@ -75,8 +75,10 @@ public class FrameBacker {
 
     public virtual FramePresentation Presentation { get; init; }
     public System.DateTime StartRender { get; set; }
+    public string Id { get; set; }
     public string Tag { get; init; }
     public FrameBacker(string id) {
+        Id = id;
         Tag = id;
         }
     public virtual Protocol.Property[] _Properties => throw new NotImplementedException();
@@ -166,12 +168,15 @@ public class FrameClass : FrameBacker, IBacked {
 
 // Fields
 public abstract record FrameField : IFrameField {
+
+    public string Id { get; init; }
     public string Tag { get; init; }
     public virtual string Backing => null;
 
     public abstract string Type { get; }
 
     public FrameField(string id) {
+        Id = id;
         Tag = id;
         }
     }
@@ -283,92 +288,77 @@ public record FrameRefList<T>(
 
 
 
-public record FrameChooser(
-                string Id,
-                List<FrameChooserOption> Options) : FrameField(Id) {
-    public override string Type => "FrameButton";
-    }
-public record FrameChooserOption(
-            string Id,
-            string Label) {
-    }
-
+// Boolean backing type
 public record FrameBoolean(
             string Id,
             Action<IBinding, bool?>? Set = null,
-            Func<IBinding, bool?>? Get = null) : FrameField(Id) {
+            Func<IBinding, bool?>? Get = null) : PropertyBoolean(Id, Set, Get) ,IFrameField{
 
-    public override string Backing => "bool";
-    public override string Type => "FrameBoolean";
+    public string Backing => "bool";
+    public virtual string Type => "FrameBoolean";
 
     }
+
+
+// Integer backing type
+
 public record FrameInteger(
             string Id,
             Action<IBinding, int?>? Set = null,
              Func<IBinding, int?>? Get = null
-            ) : FrameField(Id) {
-    public override string Backing => "int";
-    public override string Type => "FrameInteger";
-
-
+            ) : PropertyInteger32(Id, Set, Get), IFrameField {
+    public string Backing => "int";
+    public virtual string Type => "FrameInteger";
     }
+public record FrameCount(
+            string Id,
+            Action<IBinding, int?>? Set = null,
+             Func<IBinding, int?>? Get = null
+            ) : FrameInteger(Id, Set, Get) {
+    public override string Type => "FrameCount";
+        }
+
+
+// DateTime bacxking type
+
 public record FrameDateTime(
             string Id,
             Action<IBinding, System.DateTime?>? Set = null,
             Func<IBinding, System.DateTime?>? Get = null
-            ) : FrameField(Id) {
-    public override string Backing => "System.DateTime";
-    public override string Type => "FrameDateTime";
+            ) : PropertyDateTime(Id, Set, Get), IFrameField {
+    public string Backing => "System.DateTime";
+    public virtual string Type => "FrameDateTime";
 
     }
 
 
-
-
-
-//public record FrameString(string Id) : FrameField(Id) {
-//    public override string Backing => "string";
-//    public override string Type => "FrameString";
-
-//    public Action<IBacked, string?> Set { get; init; }
-//    public Func<IBacked, string?> Get { get; init; }
-
-
-//    }
-
-
+// String backing type
 
 public record FrameString(
-            string Tag,
+            string Id,
             Action<IBinding, string?>? Set = null,
-            Func<IBinding, string?>? Get=null) : PropertyString (Tag, Set, Get), IFrameField {
+            Func<IBinding, string?>? Get=null) : PropertyString (Id, Set, Get), IFrameField {
     public string Backing => "string";
-    public string Type => "FrameString";
+    public virtual string Type => "FrameString";
     }
 
 public record FrameText(
-            string Tag,
+            string Id,
             Action<IBinding, string?>? Set = null,
-            Func<IBinding, string?>? Get = null) : FrameField(Tag) {
-    public override string Backing => "string";
+            Func<IBinding, string?>? Get = null) : FrameString(Id, Set, Get) {
     public override string Type => "FrameText";
-
-
     }
+
+
+// Image backing type (will need fixin')
+
+
 public record FrameImage(
-            string Tag,
+            string Id,
             Action<IBinding, string?>? Set = null,
-            Func<IBinding, string?>? Get = null) : FrameField(Tag) {
-    public override string Backing => "string";
-    public override string Type => "FrameImage";
-
-
-    }
-
-public record FrameIcon(string Id) : FrameField(Id) {
-
-    public override string Type => "FrameIcon";
-
+            Func<IBinding, string?>? Get = null) : PropertyString(Id, Set, Get), IFrameField {
+    public string Backing => "string";
+    public virtual string Type => "FrameImage";
     }
 
 
@@ -379,15 +369,22 @@ public record FrameAvatar(
 
     }
 
-public record FrameCount(
-            string Id,
-            Action<IBinding, int?>? Set = null,
-             Func<IBinding, int?>? Get = null
-            ) : FrameField(Id) {
-    public override string Backing => "int";
-    public override string Type => "FrameCount";
 
+
+
+// Non property entries, are not serialized.
+public record FrameChooser(
+                string Id,
+                List<FrameChooserOption> Options) : FrameField(Id) {
+    public override string Type => "FrameButton";
     }
+
+
+public record FrameChooserOption(
+            string Id,
+            string Label) {
+    }
+
 public record FrameSeparator(string Id) : FrameField(Id) {
     public override string Type => "FrameSeparator";
     }
@@ -402,7 +399,11 @@ public record FramePresentation(string Id) : FrameField(Id) {
     public virtual List<FrameSection> Sections { get; init; }
     }
 
-public record FrameSection(string Tag) {
+
+
+
+
+public record FrameSection(string Id) {
     public virtual List<IFrameField> Fields { get; init; }
 
     }
@@ -412,5 +413,9 @@ public record FrameSubmenu(
                 string Label) : FrameField(Id) {
     public override string Type => "FrameSubmenu";
     public virtual List<IFrameField> Fields { get; init; }
+
+    }
+public record FrameIcon(string Id) : FrameField(Id) {
+    public override string Type => "FrameIcon";
 
     }
