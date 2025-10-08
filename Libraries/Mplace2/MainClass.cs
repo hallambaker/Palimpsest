@@ -130,7 +130,7 @@ class MainClass {
 
         var ModalityOptions = MakeOptions("Voice", "Mobile", "Home", "Office", "Message", "Mail", "Video", "File",
                     "Web", "Blog", "Podcast", "Multimedia");
-        AddOptionsNoIcons(ModalityOptions, "Textphone", "Fax", "Pager");
+        AddOptions(ModalityOptions, 2, "Textphone", "Fax", "Pager");
         SetIcon(ModalityOptions, "File", "FolderTree");
 
 
@@ -158,8 +158,7 @@ class MainClass {
             new () {
                 Text="PKIX Intermediate",
                 Icon ="Brands/CertificateIntermediate"
-                }
-            ,
+                },
             new () {
                 Text="PKIX End Entity",
                 Icon ="Brands/CertificateEndEntity"
@@ -173,87 +172,119 @@ class MainClass {
 
         var MediaOptions = MakeOptions("Avatar", "Photo", "Logo", "Banner");
 
-        //var frameset = new MyClass();
+        var frameset = new MyClass();
+        frameset.Resources = [
+            new Stylesheet("Resources/stylesheet.css", "text/css")
+            ];
 
-        //var user1 = new User() {
-        //    DID = Udf.Nonce(),
-        //    DisplayName = "Alice",
-        //    DisplayHandle = "@alice.example.com"
-        //    };
+        var basePlace = new Place() {
+            DNS="mplace2.social",
+            Title="MPlace2",
+            Text = "Making personal places on the Web",
+            Banner = "Mplace2Banner.png",
+            Avatar = "avatar.png"
+            };
 
-        //var user2 = new User() {
-        //    DID = Udf.Nonce(),
-        //    DisplayName = "Bob",
-        //    DisplayHandle = "@bob.example.com"
-        //    };
+        var phbPlace = new Place() {
+            DNS = "phill.hallambaker.com",
+            Title = "Phill's Place",
+            Text = "PHB's place on the Web",
+            Banner = "PHBBanner.png",
+            Avatar = "PHBInDalek.png"
+            };
 
-        //var user3 = new User() {
-        //    DID = Udf.Nonce(),
-        //    DisplayName = "Carol",
-        //    DisplayHandle = "@carol.example.com"
-        //    };
+        var buildingPlace = new Place() {
+            DNS = "building.mplace2.social",
+            Title = "MPlace2 Building",
+            Text = "Building MPlace2",
+            Banner = "Mplace2Banner.png",
+            Avatar = "avatar.png"
+            };
 
-        //var user4 = new User() {
-        //    DID = Udf.Nonce(),
-        //    DisplayName = "Mallet",
-        //    DisplayHandle = "@mallet.example.com"
-        //    };
+        var anyonePlace = new Place() {
+            DNS = "anyone.mplace2.social",
+            Title = "MPlace2",
+            Text = "Intelligent contacts that work",
+            Banner = "Mplace2Banner.png",
+            Avatar = "avatar.png"
+            };
 
-
-        //var post1 = new Post() {
-        //    Uid = Udf.Nonce(),
-        //    User = user1,
-        //    Text = "This is a post that was made. It is very gud.",
-        //    Created = System.DateTime.Now - TimeSpan.FromDays(1),
-        //    Liked = true,
-        //    Likes = 42
-        //    };
-
-        //// missing the quoted post
-        //var post2 = new Post() {
-        //    Uid = Udf.Nonce(),
-        //    User = user2,
-        //    Text = "Not sure this post as 'gud' as the poster thought.",
-        //    Created = System.DateTime.Now - TimeSpan.FromHours(3),
-        //    QuotedPost = post1
-        //    };
-
-        //// missing the quoted post
-        //var post3 = new Repost() {
-        //    Uid = Udf.Nonce(),
-        //    QuotedPost = post1,
-        //    Created = System.DateTime.Now - TimeSpan.FromMinutes(3),
-        //    Reposter = user3
-        //    };
-
-        //var post4 = new Repost() {
-        //    Uid = Udf.Nonce(),
-        //    QuotedPost = post2,
-        //    Created = System.DateTime.Now - TimeSpan.FromMinutes(7),
-        //    Reposter = user4
-        //    };
-
-
-        //frameset.Resources = [
-        //    new Stylesheet("Resources/stylesheet.css", "text/css") 
-        //    ];
-
+        var anythingPlace = new Place() {
+            DNS = "anything.mplace2.social",
+            Title = "@nything",
+            Text = "Making personal devices personal.",
+            Banner = "Mplace2Banner.png",
+            Avatar = "avatar.png"
+            };
 
         //frameset.ProfileSelect.DisplayName = "";
-        //frameset.HomePage.Items = [post1, post2, post3, post4];
-
-        ////var writer = new PageWriter(frameset, Console.Out);
-        ////writer.Render(frameset.HomePage);
+        frameset.HomePage.Places = [phbPlace, buildingPlace, anyonePlace, anythingPlace];
+        frameset.HomePage.MetaPlace = basePlace;
 
 
 
-        //using (var file = "Test/HomePage.html".OpenTextWriterNew()) {
-        //    var writer = new PageWriter(frameset, file);
-        //    writer.Render(frameset.HomePage);
-        //    }
 
 
 
+        using (var file = "Test/Places.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.HomePage);
+            }
+
+        using (var file = "Test/SignIn.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.SignIn);
+            }
+
+        using (var file = "Test/SwitchPage.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.SwitchPage);
+            }
+
+        using (var file = "Test/NotificationsPage.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.NotificationsPage);
+            }
+
+        using (var file = "Test/BookmarkPage.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.BookmarkPage);
+            }
+
+        using (var file = "Test/YourPlacePageCreate.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.YourPlacePageCreate);
+            }
+
+        using (var file = "Test/YourPlacePage.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.YourPlacePage);
+            }
+        using (var file = "Test/SettingsPage.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.SettingsPage);
+            }
+        using (var file = "Test/NewPlacePage.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.NewPlacePage);
+            }
+        using (var file = "Test/AboutSettingsPage.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.AboutSettingsPage);
+            }
+
+
+
+        using (var file = "Test/CreatePost.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.CreatePost);
+            }
+
+
+        using (var file = "Test/CreateComment.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.CreateComment);
+            }
         // Produce a set of contact sheets for each page
 
         }
@@ -266,12 +297,28 @@ class MainClass {
             var option = new T() {
                 Id = identifier.ToLower(),
                 Text =identifier,
-                Icon = identifier
+                Icon = identifier,
+                Priority = 0
                 };
             result.Add(option);
             }
 
         return result;
+        }
+
+    public static void AddOptions<T>(
+            List<T> options, int priority, params string[] identifiers) where T : Option, new() {
+
+        foreach (string identifier in identifiers) {
+            var option = new T() {
+                Id = identifier.ToLower(),
+                Text = identifier,
+                Icon = identifier,
+                Priority = priority
+                };
+            options.Add(option);
+            }
+
         }
 
     public static void AddOptionsNoIcons<T>(
@@ -280,8 +327,7 @@ class MainClass {
         foreach (string identifier in identifiers) {
             var option = new T() {
                 Id = identifier.ToLower(),
-                Text = identifier,
-                Icon = identifier
+                Text = identifier
                 };
             options.Add(option);
             }

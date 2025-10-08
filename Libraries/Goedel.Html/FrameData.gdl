@@ -61,17 +61,20 @@ Class Goedel.Html FrameStruct
             DateTime
             String
             Text
+            RichText
             Image
             Avatar
             List
+            Choice
             Selector
             Count
             Presentation
             Show
             Icon
-            Choice
             File
             Hidden 
+            Form
+            Selection
 
     Type Property
         Id Token EntryT
@@ -84,14 +87,17 @@ Class Goedel.Html FrameStruct
             Text
             Image
             List
+            Choice
             Separator
             SubMenu
             Avatar
             Presentation 
             Icon
-            Choice
             File
             Hidden
+            Selection
+            Form
+            RichText
 
 
 
@@ -101,6 +107,10 @@ Class Goedel.Html FrameStruct
             Boolean
             Integer
             String
+            Link
+
+    Type Link
+        Uri String
 
     Type Is
         Parent REF EntryT
@@ -115,6 +125,9 @@ Class Goedel.Html FrameStruct
         Of REF EntryT
         Properties List FieldProperty
 
+    Type Selection
+        Of REF EntryT
+        Properties List FieldProperty
 
     // intrinsic types
     Type Boolean
@@ -124,6 +137,8 @@ Class Goedel.Html FrameStruct
     Type DateTime
         Properties List FieldProperty
     Type String
+        Properties List FieldProperty
+    Type RichText
         Properties List FieldProperty
     Type File
         Properties List FieldProperty
@@ -178,6 +193,10 @@ Class Goedel.Html FrameStruct
     Type Presentation 
         Id Token Uid
         Sections List Section
+
+    Type Form
+        Id Token EntryT
+        Properties List FieldProperty
 
     Type Section
         Id Token EntryT

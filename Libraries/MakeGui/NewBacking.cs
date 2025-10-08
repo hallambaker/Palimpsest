@@ -158,13 +158,35 @@ public partial class HomePage : FramePage {
 	public List<Item>? Items {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Item> ("Items","Item"){
 			Get = (IBacked data) => (data as HomePage)?.Items ,
 			Set = (IBacked data, Object? value) => {(data as HomePage)!.Items = value as List<Item>; }}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<HomePage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "HomePage",
+		() => new HomePage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -182,7 +204,7 @@ public partial class NotificationsPage : FramePage {
 	public List<Item>? Items {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefMenu ("Filter","HomeFilter"),
 		new FrameRef ("x"),
@@ -190,6 +212,28 @@ public partial class NotificationsPage : FramePage {
 			Get = (IBacked data) => (data as NotificationsPage)?.Items ,
 			Set = (IBacked data, Object? value) => {(data as NotificationsPage)!.Items = value as List<Item>; }}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<NotificationsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "NotificationsPage",
+		() => new NotificationsPage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -207,13 +251,35 @@ public partial class ChatsPage : FramePage {
 	public List<Chat>? Items {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRef ("x"),
 		new FrameRefList<Chat> ("Items","Chat"){
 			Get = (IBacked data) => (data as ChatsPage)?.Items ,
 			Set = (IBacked data, Object? value) => {(data as ChatsPage)!.Items = value as List<Chat>; }}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<ChatsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "ChatsPage",
+		() => new ChatsPage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -234,7 +300,7 @@ public partial class ChatingPage : FramePage {
 	public List<ChatText>? Items {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRef ("x"),
 		new FrameRefClass<User> ("With","User"){
@@ -244,6 +310,28 @@ public partial class ChatingPage : FramePage {
 			Get = (IBacked data) => (data as ChatingPage)?.Items ,
 			Set = (IBacked data, Object? value) => {(data as ChatingPage)!.Items = value as List<ChatText>; }}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<ChatingPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "ChatingPage",
+		() => new ChatingPage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -258,10 +346,32 @@ public partial class FeedsPage : FramePage {
 		}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRef ("x")
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<FeedsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "FeedsPage",
+		() => new FeedsPage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -279,13 +389,35 @@ public partial class ProfilePage : FramePage {
 	public List<Post>? Items {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRef ("x"),
 		new FrameRefList<Post> ("Items","Post"){
 			Get = (IBacked data) => (data as ProfilePage)?.Items ,
 			Set = (IBacked data, Object? value) => {(data as ProfilePage)!.Items = value as List<Post>; }}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<ProfilePage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "ProfilePage",
+		() => new ProfilePage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -300,7 +432,7 @@ public partial class SettingsPage : FramePage {
 		}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameButton ("SwitchAccount", "Switch account", "ProfileSelect") {
 			},
 		new FrameButton ("Appearance", "Appearance", "AppearancePage") {
@@ -309,6 +441,28 @@ public partial class SettingsPage : FramePage {
 		new FrameButton ("SignOut", "Sign out", "SignOutAction") {
 			}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<SettingsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "SettingsPage",
+		() => new SettingsPage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -323,8 +477,30 @@ public partial class AppearancePage : FramePage {
 		}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<AppearancePage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "AppearancePage",
+		() => new AppearancePage(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -351,28 +527,66 @@ public partial class NewPostPage : FramePage {
 	public int? Characters {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameButton ("Cancel", "Cancel", "Cancel") {
 			},
 		new FrameButton ("Post", "Post", "Post") {
 			},
-		new FrameImage ("Avatar") {
-			Get = (IBacked data) => (data as NewPostPage)?.Avatar ,
-			Set = (IBacked data, string? value) => {(data as NewPostPage)!.Avatar = value; }},
-		new FrameText ("Text") {
-			Get = (IBacked data) => (data as NewPostPage)?.Text ,
-			Set = (IBacked data, string? value) => {(data as NewPostPage)!.Text = value; }},
+		new FrameImage ("Avatar",
+			(IBinding data, string? value) => {(data as NewPostPage)!.Avatar = value; },
+			(IBinding data) => (data as NewPostPage)?.Avatar),
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as NewPostPage)!.Text = value; },
+			(IBinding data) => (data as NewPostPage)?.Text),
 		new FrameButton ("Image", "Image", "Image") {
 			},
 		new FrameButton ("Video", "Video", "Video") {
 			},
-		new FrameString ("Language") {
-			Get = (IBacked data) => (data as NewPostPage)?.Language ,
-			Set = (IBacked data, string? value) => {(data as NewPostPage)!.Language = value; }},
-		new FrameCount ("Characters") {
-			Get = (IBacked data) => (data as NewPostPage)?.Characters ,
-			Set = (IBacked data, int? value) => {(data as NewPostPage)!.Characters = value; }}
+		new FrameString ("Language",
+			(IBinding data, string? value) => {(data as NewPostPage)!.Language = value; },
+			(IBinding data) => (data as NewPostPage)?.Language),
+		new FrameCount ("Characters",
+			(IBinding data, int? value) => {(data as NewPostPage)!.Characters = value; },
+			(IBinding data) => (data as NewPostPage)?.Characters)
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameImage ("Avatar",
+			(IBinding data, string? value) => {(data as NewPostPage)!.Avatar = value; },
+			(IBinding data) => (data as NewPostPage)?.Avatar),
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as NewPostPage)!.Text = value; },
+			(IBinding data) => (data as NewPostPage)?.Text),
+		new FrameString ("Language",
+			(IBinding data, string? value) => {(data as NewPostPage)!.Language = value; },
+			(IBinding data) => (data as NewPostPage)?.Language),
+		new FrameCount ("Characters",
+			(IBinding data, int? value) => {(data as NewPostPage)!.Characters = value; },
+			(IBinding data) => (data as NewPostPage)?.Characters)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<NewPostPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Avatar", _properties[0]},
+			{"Text", _properties[1]},
+			{"Language", _properties[2]},
+			{"Characters", _properties[3]}
+			}, "NewPostPage",
+		() => new NewPostPage(), () => [], () => [], null, Generic: false);
+
 
 	}
 
@@ -392,15 +606,15 @@ public partial class MainNav : FrameMenu {
 	public int? NotificationCount {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
-		new FrameInteger ("NotificationCount") {
-			Get = (IBacked data) => (data as MainNav)?.NotificationCount ,
-			Set = (IBacked data, int? value) => {(data as MainNav)!.NotificationCount = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameInteger ("NotificationCount",
+			(IBinding data, int? value) => {(data as MainNav)!.NotificationCount = value; },
+			(IBinding data) => (data as MainNav)?.NotificationCount),
 		new FrameRef ("Profiles"),
 		new FrameButton ("Home", "Home", "HomePage") {
 			},
 		new FrameButton ("Notifications", "Notifications", "NotificationsPage") {
-			GetInteger = (IBacked data) => (data as MainNav)?.NotificationCount
+			GetInteger = (IBinding data) => (data as MainNav)?.NotificationCount
 			},
 		new FrameButton ("Chats", "Chats", "ChatsPage") {
 			},
@@ -413,6 +627,32 @@ public partial class MainNav : FrameMenu {
 		new FrameButton ("NewPost", "New Post", "NewPostPage") {
 			}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameInteger ("NotificationCount",
+			(IBinding data, int? value) => {(data as MainNav)!.NotificationCount = value; },
+			(IBinding data) => (data as MainNav)?.NotificationCount)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<MainNav> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"NotificationCount", _properties[0]}
+			}, "MainNav",
+		() => new MainNav(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -427,12 +667,34 @@ public partial class TopSettings : FrameMenu {
 		}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameButton ("Menu", "Menu", "SettingsPage") {
 			},
 		new FrameButton ("Settings", "Settings", "SettingsPage") {
 			}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<TopSettings> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "TopSettings",
+		() => new TopSettings(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -447,12 +709,34 @@ public partial class HomeFilter : FrameMenu {
 		}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameButton ("All", "All", "FilterAll") {
 			},
 		new FrameButton ("Mentions", "Mentions", "FilterMentions") {
 			}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<HomeFilter> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "HomeFilter",
+		() => new HomeFilter(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
@@ -467,7 +751,7 @@ public partial class ProfileFilter : FrameMenu {
 		}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameButton ("Posts", "All", "FilterPosts") {
 			},
 		new FrameButton ("Replies", "Mentions", "FilterReplies") {
@@ -481,6 +765,28 @@ public partial class ProfileFilter : FrameMenu {
 		new FrameButton ("Feeds", "Mentions", "FilterFeeds") {
 			}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<ProfileFilter> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "ProfileFilter",
+		() => new ProfileFilter(), () => [], () => [], null, Generic: false);
+
 
 	}
 
@@ -506,21 +812,55 @@ public partial class ProfileSelect : FrameSelector {
 	public string? DiaplayHandle {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
-		new FrameImage ("Avatar") {
-			Get = (IBacked data) => (data as ProfileSelect)?.Avatar ,
-			Set = (IBacked data, string? value) => {(data as ProfileSelect)!.Avatar = value; }},
-		new FrameString ("DisplayName") {
-			Get = (IBacked data) => (data as ProfileSelect)?.DisplayName ,
-			Set = (IBacked data, string? value) => {(data as ProfileSelect)!.DisplayName = value; }},
-		new FrameString ("DiaplayHandle") {
-			Get = (IBacked data) => (data as ProfileSelect)?.DiaplayHandle ,
-			Set = (IBacked data, string? value) => {(data as ProfileSelect)!.DiaplayHandle = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameImage ("Avatar",
+			(IBinding data, string? value) => {(data as ProfileSelect)!.Avatar = value; },
+			(IBinding data) => (data as ProfileSelect)?.Avatar),
+		new FrameString ("DisplayName",
+			(IBinding data, string? value) => {(data as ProfileSelect)!.DisplayName = value; },
+			(IBinding data) => (data as ProfileSelect)?.DisplayName),
+		new FrameString ("DiaplayHandle",
+			(IBinding data, string? value) => {(data as ProfileSelect)!.DiaplayHandle = value; },
+			(IBinding data) => (data as ProfileSelect)?.DiaplayHandle),
 		new FrameButton ("AddAccount", "Add another account", "AddAccountAction") {
 			},
 		new FrameButton ("SignOut", "Sign out", "SignOutAction") {
 			}
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameImage ("Avatar",
+			(IBinding data, string? value) => {(data as ProfileSelect)!.Avatar = value; },
+			(IBinding data) => (data as ProfileSelect)?.Avatar),
+		new FrameString ("DisplayName",
+			(IBinding data, string? value) => {(data as ProfileSelect)!.DisplayName = value; },
+			(IBinding data) => (data as ProfileSelect)?.DisplayName),
+		new FrameString ("DiaplayHandle",
+			(IBinding data, string? value) => {(data as ProfileSelect)!.DiaplayHandle = value; },
+			(IBinding data) => (data as ProfileSelect)?.DiaplayHandle)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<ProfileSelect> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Avatar", _properties[0]},
+			{"DisplayName", _properties[1]},
+			{"DiaplayHandle", _properties[2]}
+			}, "ProfileSelect",
+		() => new ProfileSelect(), () => [], () => [], null, Generic: false);
+
 
 	}
 
@@ -530,10 +870,10 @@ public partial class ProfileSelect : FrameSelector {
 /// <summary>
 /// Backing class for User
 /// </summary>
-public partial class User (string id="User") : FrameClass (id) {
+public partial class User (string Id="User") : FrameClass (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
 
 
@@ -550,28 +890,62 @@ public partial class User (string id="User") : FrameClass (id) {
 	public string? DisplayHandle {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
-		new FrameString ("DID") {
-			Get = (IBacked data) => (data as User)?.DID ,
-			Set = (IBacked data, string? value) => {(data as User)!.DID = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("DID",
+			(IBinding data, string? value) => {(data as User)!.DID = value; },
+			(IBinding data) => (data as User)?.DID),
 		new FrameAvatar ("Avatar"){
-			Get = (IBacked data) => (data as User)?.Avatar },
-		new FrameString ("DisplayName") {
-			Get = (IBacked data) => (data as User)?.DisplayName ,
-			Set = (IBacked data, string? value) => {(data as User)!.DisplayName = value; }},
-		new FrameString ("DisplayHandle") {
-			Get = (IBacked data) => (data as User)?.DisplayHandle ,
-			Set = (IBacked data, string? value) => {(data as User)!.DisplayHandle = value; }}
+			Get = (IBinding data) => (data as User)?.Avatar },
+		new FrameString ("DisplayName",
+			(IBinding data, string? value) => {(data as User)!.DisplayName = value; },
+			(IBinding data) => (data as User)?.DisplayName),
+		new FrameString ("DisplayHandle",
+			(IBinding data, string? value) => {(data as User)!.DisplayHandle = value; },
+			(IBinding data) => (data as User)?.DisplayHandle)
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameString ("DID",
+			(IBinding data, string? value) => {(data as User)!.DID = value; },
+			(IBinding data) => (data as User)?.DID),
+		new FrameString ("DisplayName",
+			(IBinding data, string? value) => {(data as User)!.DisplayName = value; },
+			(IBinding data) => (data as User)?.DisplayName),
+		new FrameString ("DisplayHandle",
+			(IBinding data, string? value) => {(data as User)!.DisplayHandle = value; },
+			(IBinding data) => (data as User)?.DisplayHandle)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<User> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"DID", _properties[0]},
+			{"DisplayName", _properties[1]},
+			{"DisplayHandle", _properties[2]}
+			}, "User",
+		() => new User(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
 /// Backing class for Item
 /// </summary>
-public partial class Item (string id="Item") : FrameClass (id) {
+public partial class Item (string Id="Item") : FrameClass (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
 
 
@@ -582,23 +956,53 @@ public partial class Item (string id="Item") : FrameClass (id) {
 	public System.DateTime? Created {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
-		new FrameString ("Uid") {
-			Get = (IBacked data) => (data as Item)?.Uid ,
-			Set = (IBacked data, string? value) => {(data as Item)!.Uid = value; }},
-		new FrameDateTime ("Created") {
-			Get = (IBacked data) => (data as Item)?.Created ,
-			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }}
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("Uid",
+			(IBinding data, string? value) => {(data as Item)!.Uid = value; },
+			(IBinding data) => (data as Item)?.Uid),
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as Item)!.Created = value; },
+			(IBinding data) => (data as Item)?.Created)
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameString ("Uid",
+			(IBinding data, string? value) => {(data as Item)!.Uid = value; },
+			(IBinding data) => (data as Item)?.Uid),
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as Item)!.Created = value; },
+			(IBinding data) => (data as Item)?.Created)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Item> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Uid", _properties[0]},
+			{"Created", _properties[1]}
+			}, "Item",
+		() => new Item(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
 /// Backing class for Chat
 /// </summary>
-public partial class Chat (string id="Chat") : Item (id) {
+public partial class Chat (string Id="Chat") : Item (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
 
 
@@ -609,13 +1013,13 @@ public partial class Chat (string id="Chat") : Item (id) {
 	public List<ChatText>? Messages {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
-		new FrameString ("Uid") {
-			Get = (IBacked data) => (data as Item)?.Uid ,
-			Set = (IBacked data, string? value) => {(data as Item)!.Uid = value; }},
-		new FrameDateTime ("Created") {
-			Get = (IBacked data) => (data as Item)?.Created ,
-			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("Uid",
+			(IBinding data, string? value) => {(data as Item)!.Uid = value; },
+			(IBinding data) => (data as Item)?.Uid),
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as Item)!.Created = value; },
+			(IBinding data) => (data as Item)?.Created),
 		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as Chat)?.User ,
 			Set = (IBacked data, IBacked? value) => {(data as Chat)!.User = value as User; }},
@@ -624,14 +1028,36 @@ public partial class Chat (string id="Chat") : Item (id) {
 			Set = (IBacked data, Object? value) => {(data as Chat)!.Messages = value as List<ChatText>; }}
 		];
 
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Chat> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "Chat",
+		() => new Chat(), () => [], () => [], null, Generic: false);
+
+
 	}
 /// <summary>
 /// Backing class for ChatText
 /// </summary>
-public partial class ChatText (string id="ChatText") : FrameClass (id) {
+public partial class ChatText (string Id="ChatText") : FrameClass (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
 
 
@@ -645,26 +1071,60 @@ public partial class ChatText (string id="ChatText") : FrameClass (id) {
 	public string? Text {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
-		new FrameDateTime ("Created") {
-			Get = (IBacked data) => (data as ChatText)?.Created ,
-			Set = (IBacked data, System.DateTime? value) => {(data as ChatText)!.Created = value; }},
-		new FrameBoolean ("Self") {
-			Get = (IBacked data) => (data as ChatText)?.Self ,
-			Set = (IBacked data, bool? value) => {(data as ChatText)!.Self = value; }},
-		new FrameText ("Text") {
-			Get = (IBacked data) => (data as ChatText)?.Text ,
-			Set = (IBacked data, string? value) => {(data as ChatText)!.Text = value; }}
+	static readonly List<IFrameField> _Fields = [
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as ChatText)!.Created = value; },
+			(IBinding data) => (data as ChatText)?.Created),
+		new FrameBoolean ("Self",
+			(IBinding data, bool? value) => {(data as ChatText)!.Self = value; },
+			(IBinding data) => (data as ChatText)?.Self),
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as ChatText)!.Text = value; },
+			(IBinding data) => (data as ChatText)?.Text)
 		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as ChatText)!.Created = value; },
+			(IBinding data) => (data as ChatText)?.Created),
+		new FrameBoolean ("Self",
+			(IBinding data, bool? value) => {(data as ChatText)!.Self = value; },
+			(IBinding data) => (data as ChatText)?.Self),
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as ChatText)!.Text = value; },
+			(IBinding data) => (data as ChatText)?.Text)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<ChatText> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Created", _properties[0]},
+			{"Self", _properties[1]},
+			{"Text", _properties[2]}
+			}, "ChatText",
+		() => new ChatText(), () => [], () => [], null, Generic: false);
+
 
 	}
 /// <summary>
 /// Backing class for Reaction
 /// </summary>
-public partial class Reaction (string id="Reaction") : Item (id) {
+public partial class Reaction (string Id="Reaction") : Item (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
 
 
@@ -675,29 +1135,55 @@ public partial class Reaction (string id="Reaction") : Item (id) {
 	public List<User>? Users {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
-		new FrameString ("Uid") {
-			Get = (IBacked data) => (data as Item)?.Uid ,
-			Set = (IBacked data, string? value) => {(data as Item)!.Uid = value; }},
-		new FrameDateTime ("Created") {
-			Get = (IBacked data) => (data as Item)?.Created ,
-			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
-		new FrameString ("Semantic") {
-			Get = (IBacked data) => (data as Reaction)?.Semantic ,
-			Set = (IBacked data, string? value) => {(data as Reaction)!.Semantic = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("Uid",
+			(IBinding data, string? value) => {(data as Item)!.Uid = value; },
+			(IBinding data) => (data as Item)?.Uid),
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as Item)!.Created = value; },
+			(IBinding data) => (data as Item)?.Created),
+		new FrameString ("Semantic",
+			(IBinding data, string? value) => {(data as Reaction)!.Semantic = value; },
+			(IBinding data) => (data as Reaction)?.Semantic),
 		new FrameRefList<User> ("Users","User"){
 			Get = (IBacked data) => (data as Reaction)?.Users ,
 			Set = (IBacked data, Object? value) => {(data as Reaction)!.Users = value as List<User>; }}
 		];
 
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameString ("Semantic",
+			(IBinding data, string? value) => {(data as Reaction)!.Semantic = value; },
+			(IBinding data) => (data as Reaction)?.Semantic)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Reaction> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Semantic", _properties[0]}
+			}, "Reaction",
+		() => new Reaction(), () => [], () => [], null, Generic: false);
+
+
 	}
 /// <summary>
 /// Backing class for Post
 /// </summary>
-public partial class Post (string id="Post") : Item (id) {
+public partial class Post (string Id="Post") : Item (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => Main;
@@ -749,20 +1235,20 @@ public partial class Post (string id="Post") : Item (id) {
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
-            			Get = (IBacked data) => (data as Post)?.User?.Avatar }
+            			Get = (IBinding data) => (data as Post)?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
-            		new FrameString ("User.DisplayName") {
-            			Get = (IBacked data) => (data as Post)?.User?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.User!.DisplayName = value; }},
-            		new FrameString ("User.DisplayHandle") {
-            			Get = (IBacked data) => (data as Post)?.User?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.User!.DisplayHandle = value; }},
-            		new FrameDateTime ("Created") {
-            			Get = (IBacked data) => (data as Post)?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as Post)!.Created = value; }}
+            		new FrameString ("User.DisplayName",
+            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayName = value; },
+            			(IBinding data) => (data as Post)?.User?.DisplayName),
+            		new FrameString ("User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as Post)?.User?.DisplayHandle),
+            		new FrameDateTime ("Created",
+            			(IBinding data, System.DateTime? value) => {(data as Post)!.Created = value; },
+            			(IBinding data) => (data as Post)?.Created)
 					]
 				},
 			new FrameSection ("Rule") {
@@ -771,9 +1257,9 @@ public partial class Post (string id="Post") : Item (id) {
 				},
 			new FrameSection ("Body") {
 				Fields = [
-            		new FrameText ("Text") {
-            			Get = (IBacked data) => (data as Post)?.Text ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }},
+            		new FrameText ("Text",
+            			(IBinding data, string? value) => {(data as Post)!.Text = value; },
+            			(IBinding data) => (data as Post)?.Text),
             		new FrameRefClass<Post> ("QuotedPost","Post"){
             			Presentation = Post.Quoted,
             			Get = (IBacked data) => (data as Post)?.QuotedPost ,
@@ -782,18 +1268,18 @@ public partial class Post (string id="Post") : Item (id) {
 				},
 			new FrameSection ("Detail") {
 				Fields = [
-            		new FrameDateTime ("Created") {
-            			Get = (IBacked data) => (data as Post)?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as Post)!.Created = value; }},
-            		new FrameString ("Replies") {
-            			Get = (IBacked data) => (data as Post)?.Replies ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.Replies = value; }}
+            		new FrameDateTime ("Created",
+            			(IBinding data, System.DateTime? value) => {(data as Post)!.Created = value; },
+            			(IBinding data) => (data as Post)?.Created),
+            		new FrameString ("Replies",
+            			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
+            			(IBinding data) => (data as Post)?.Replies)
 					]
 				},
 			new FrameSection ("Responses") {
 				Fields = [
             		new FrameButton ("Comment", "Comment", "CommentAction") {
-            			GetInteger = (IBacked data) => (data as Post)?.Comments
+            			GetInteger = (IBinding data) => (data as Post)?.Comments
             			},
             		new FrameSubmenu ("Repost", "Repost") {
             			Fields = [
@@ -804,14 +1290,14 @@ public partial class Post (string id="Post") : Item (id) {
             				]
             			},
             		new FrameButton ("Like", "Like", "LikeAction") {
-            			GetActive = (IBacked data) => (data as Post)?.Liked,
-            			GetInteger = (IBacked data) => (data as Post)?.Likes
+            			GetActive = (IBinding data) => (data as Post)?.Liked,
+            			GetInteger = (IBinding data) => (data as Post)?.Likes
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (IBacked data) => (data as Post)?.RequestedMore
+            			GetActive = (IBinding data) => (data as Post)?.RequestedMore
             			},
             		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (IBacked data) => (data as Post)?.RequestedLess
+            			GetActive = (IBinding data) => (data as Post)?.RequestedLess
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
@@ -861,73 +1347,73 @@ public partial class Post (string id="Post") : Item (id) {
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
-            			Get = (IBacked data) => (data as Post)?.User?.Avatar }
+            			Get = (IBinding data) => (data as Post)?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
-            		new FrameString ("User.DisplayName") {
-            			Get = (IBacked data) => (data as Post)?.User?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.User!.DisplayName = value; }},
-            		new FrameString ("User.DisplayHandle") {
-            			Get = (IBacked data) => (data as Post)?.User?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.User!.DisplayHandle = value; }},
-            		new FrameDateTime ("Created") {
-            			Get = (IBacked data) => (data as Post)?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as Post)!.Created = value; }}
+            		new FrameString ("User.DisplayName",
+            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayName = value; },
+            			(IBinding data) => (data as Post)?.User?.DisplayName),
+            		new FrameString ("User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as Post)?.User?.DisplayHandle),
+            		new FrameDateTime ("Created",
+            			(IBinding data, System.DateTime? value) => {(data as Post)!.Created = value; },
+            			(IBinding data) => (data as Post)?.Created)
 					]
 				},
 			new FrameSection ("Body") {
 				Fields = [
-            		new FrameText ("Text") {
-            			Get = (IBacked data) => (data as Post)?.Text ,
-            			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }}
+            		new FrameText ("Text",
+            			(IBinding data, string? value) => {(data as Post)!.Text = value; },
+            			(IBinding data) => (data as Post)?.Text)
 					]
 				}
 			]
 		}.CacheValue(out quoted)!;
 	public static FramePresentation? quoted;
 
-	static readonly List<FrameField> _Fields = [
-		new FrameString ("Uid") {
-			Get = (IBacked data) => (data as Item)?.Uid ,
-			Set = (IBacked data, string? value) => {(data as Item)!.Uid = value; }},
-		new FrameDateTime ("Created") {
-			Get = (IBacked data) => (data as Item)?.Created ,
-			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
-		new FrameText ("Text") {
-			Get = (IBacked data) => (data as Post)?.Text ,
-			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("Uid",
+			(IBinding data, string? value) => {(data as Item)!.Uid = value; },
+			(IBinding data) => (data as Item)?.Uid),
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as Item)!.Created = value; },
+			(IBinding data) => (data as Item)?.Created),
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as Post)!.Text = value; },
+			(IBinding data) => (data as Post)?.Text),
 		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as Post)?.User ,
 			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
-		new FrameInteger ("Comments") {
-			Get = (IBacked data) => (data as Post)?.Comments ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Comments = value; }},
-		new FrameInteger ("Reposts") {
-			Get = (IBacked data) => (data as Post)?.Reposts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Reposts = value; }},
-		new FrameInteger ("QuotePosts") {
-			Get = (IBacked data) => (data as Post)?.QuotePosts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.QuotePosts = value; }},
-		new FrameInteger ("AllReposts") {
-			Get = (IBacked data) => (data as Post)?.AllReposts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.AllReposts = value; }},
-		new FrameInteger ("Likes") {
-			Get = (IBacked data) => (data as Post)?.Likes ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Likes = value; }},
-		new FrameBoolean ("Liked") {
-			Get = (IBacked data) => (data as Post)?.Liked ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.Liked = value; }},
-		new FrameBoolean ("RequestedMore") {
-			Get = (IBacked data) => (data as Post)?.RequestedMore ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.RequestedMore = value; }},
-		new FrameBoolean ("RequestedLess") {
-			Get = (IBacked data) => (data as Post)?.RequestedLess ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.RequestedLess = value; }},
-		new FrameString ("Replies") {
-			Get = (IBacked data) => (data as Post)?.Replies ,
-			Set = (IBacked data, string? value) => {(data as Post)!.Replies = value; }},
+		new FrameInteger ("Comments",
+			(IBinding data, int? value) => {(data as Post)!.Comments = value; },
+			(IBinding data) => (data as Post)?.Comments),
+		new FrameInteger ("Reposts",
+			(IBinding data, int? value) => {(data as Post)!.Reposts = value; },
+			(IBinding data) => (data as Post)?.Reposts),
+		new FrameInteger ("QuotePosts",
+			(IBinding data, int? value) => {(data as Post)!.QuotePosts = value; },
+			(IBinding data) => (data as Post)?.QuotePosts),
+		new FrameInteger ("AllReposts",
+			(IBinding data, int? value) => {(data as Post)!.AllReposts = value; },
+			(IBinding data) => (data as Post)?.AllReposts),
+		new FrameInteger ("Likes",
+			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
+			(IBinding data) => (data as Post)?.Likes),
+		new FrameBoolean ("Liked",
+			(IBinding data, bool? value) => {(data as Post)!.Liked = value; },
+			(IBinding data) => (data as Post)?.Liked),
+		new FrameBoolean ("RequestedMore",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedMore = value; },
+			(IBinding data) => (data as Post)?.RequestedMore),
+		new FrameBoolean ("RequestedLess",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedLess = value; },
+			(IBinding data) => (data as Post)?.RequestedLess),
+		new FrameString ("Replies",
+			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
+			(IBinding data) => (data as Post)?.Replies),
 		new FrameRefClass<Post> ("QuotedPost","Post"){
 			Get = (IBacked data) => (data as Post)?.QuotedPost ,
 			Set = (IBacked data, IBacked? value) => {(data as Post)!.QuotedPost = value as Post; }},
@@ -935,14 +1421,76 @@ public partial class Post (string id="Post") : Item (id) {
 		Quoted
 		];
 
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as Post)!.Text = value; },
+			(IBinding data) => (data as Post)?.Text),
+		new FrameInteger ("Comments",
+			(IBinding data, int? value) => {(data as Post)!.Comments = value; },
+			(IBinding data) => (data as Post)?.Comments),
+		new FrameInteger ("Reposts",
+			(IBinding data, int? value) => {(data as Post)!.Reposts = value; },
+			(IBinding data) => (data as Post)?.Reposts),
+		new FrameInteger ("QuotePosts",
+			(IBinding data, int? value) => {(data as Post)!.QuotePosts = value; },
+			(IBinding data) => (data as Post)?.QuotePosts),
+		new FrameInteger ("AllReposts",
+			(IBinding data, int? value) => {(data as Post)!.AllReposts = value; },
+			(IBinding data) => (data as Post)?.AllReposts),
+		new FrameInteger ("Likes",
+			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
+			(IBinding data) => (data as Post)?.Likes),
+		new FrameBoolean ("Liked",
+			(IBinding data, bool? value) => {(data as Post)!.Liked = value; },
+			(IBinding data) => (data as Post)?.Liked),
+		new FrameBoolean ("RequestedMore",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedMore = value; },
+			(IBinding data) => (data as Post)?.RequestedMore),
+		new FrameBoolean ("RequestedLess",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedLess = value; },
+			(IBinding data) => (data as Post)?.RequestedLess),
+		new FrameString ("Replies",
+			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
+			(IBinding data) => (data as Post)?.Replies)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Post> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]},
+			{"Comments", _properties[1]},
+			{"Reposts", _properties[2]},
+			{"QuotePosts", _properties[3]},
+			{"AllReposts", _properties[4]},
+			{"Likes", _properties[5]},
+			{"Liked", _properties[6]},
+			{"RequestedMore", _properties[7]},
+			{"RequestedLess", _properties[8]},
+			{"Replies", _properties[9]}
+			}, "Post",
+		() => new Post(), () => [], () => [], null, Generic: false);
+
+
 	}
 /// <summary>
 /// Backing class for Repost
 /// </summary>
-public partial class Repost (string id="Repost") : Item (id) {
+public partial class Repost (string Id="Repost") : Item (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => Main;
@@ -968,31 +1516,31 @@ public partial class Repost (string id="Repost") : Item (id) {
 				},
 			new FrameSection ("Reposter") {
 				Fields = [
-            		new FrameString ("Reposter.DisplayName") {
-            			Get = (IBacked data) => (data as Repost)?.Reposter?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as Repost)!.Reposter!.DisplayName = value; }},
-            		new FrameString ("Reposter.DisplayHandle") {
-            			Get = (IBacked data) => (data as Repost)?.Reposter?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as Repost)!.Reposter!.DisplayHandle = value; }}
+            		new FrameString ("Reposter.DisplayName",
+            			(IBinding data, string? value) => {(data as Repost)!.Reposter!.DisplayName = value; },
+            			(IBinding data) => (data as Repost)?.Reposter?.DisplayName),
+            		new FrameString ("Reposter.DisplayHandle",
+            			(IBinding data, string? value) => {(data as Repost)!.Reposter!.DisplayHandle = value; },
+            			(IBinding data) => (data as Repost)?.Reposter?.DisplayHandle)
 					]
 				},
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("QuotedPost.User.Avatar"){
-            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.User?.Avatar }
+            			Get = (IBinding data) => (data as Repost)?.QuotedPost?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
-            		new FrameString ("QuotedPost.User.DisplayName") {
-            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.User?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.User!.DisplayName = value; }},
-            		new FrameString ("QuotedPost.User.DisplayHandle") {
-            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.User?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.User!.DisplayHandle = value; }},
-            		new FrameDateTime ("QuotedPost.Created") {
-            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as Repost)!.QuotedPost!.Created = value; }}
+            		new FrameString ("QuotedPost.User.DisplayName",
+            			(IBinding data, string? value) => {(data as Repost)!.QuotedPost!.User!.DisplayName = value; },
+            			(IBinding data) => (data as Repost)?.QuotedPost?.User?.DisplayName),
+            		new FrameString ("QuotedPost.User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as Repost)!.QuotedPost!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as Repost)?.QuotedPost?.User?.DisplayHandle),
+            		new FrameDateTime ("QuotedPost.Created",
+            			(IBinding data, System.DateTime? value) => {(data as Repost)!.QuotedPost!.Created = value; },
+            			(IBinding data) => (data as Repost)?.QuotedPost?.Created)
 					]
 				},
 			new FrameSection ("Rule") {
@@ -1001,25 +1549,25 @@ public partial class Repost (string id="Repost") : Item (id) {
 				},
 			new FrameSection ("Body") {
 				Fields = [
-            		new FrameText ("QuotedPost.Text") {
-            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Text ,
-            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.Text = value; }}
+            		new FrameText ("QuotedPost.Text",
+            			(IBinding data, string? value) => {(data as Repost)!.QuotedPost!.Text = value; },
+            			(IBinding data) => (data as Repost)?.QuotedPost?.Text)
 					]
 				},
 			new FrameSection ("Detail") {
 				Fields = [
-            		new FrameDateTime ("QuotedPost.Created") {
-            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as Repost)!.QuotedPost!.Created = value; }},
-            		new FrameString ("QuotedPost.Replies") {
-            			Get = (IBacked data) => (data as Repost)?.QuotedPost?.Replies ,
-            			Set = (IBacked data, string? value) => {(data as Repost)!.QuotedPost!.Replies = value; }}
+            		new FrameDateTime ("QuotedPost.Created",
+            			(IBinding data, System.DateTime? value) => {(data as Repost)!.QuotedPost!.Created = value; },
+            			(IBinding data) => (data as Repost)?.QuotedPost?.Created),
+            		new FrameString ("QuotedPost.Replies",
+            			(IBinding data, string? value) => {(data as Repost)!.QuotedPost!.Replies = value; },
+            			(IBinding data) => (data as Repost)?.QuotedPost?.Replies)
 					]
 				},
 			new FrameSection ("Responses") {
 				Fields = [
             		new FrameButton ("Comment", "Comment", "CommentAction") {
-            			GetInteger = (IBacked data) => (data as Repost)?.QuotedPost?.Comments
+            			GetInteger = (IBinding data) => (data as Repost)?.QuotedPost?.Comments
             			},
             		new FrameSubmenu ("Repost", "Repost") {
             			Fields = [
@@ -1030,14 +1578,14 @@ public partial class Repost (string id="Repost") : Item (id) {
             				]
             			},
             		new FrameButton ("Like", "Like", "LikeAction") {
-            			GetActive = (IBacked data) => (data as Repost)?.QuotedPost?.Liked,
-            			GetInteger = (IBacked data) => (data as Repost)?.QuotedPost?.Likes
+            			GetActive = (IBinding data) => (data as Repost)?.QuotedPost?.Liked,
+            			GetInteger = (IBinding data) => (data as Repost)?.QuotedPost?.Likes
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (IBacked data) => (data as Repost)?.QuotedPost?.RequestedMore
+            			GetActive = (IBinding data) => (data as Repost)?.QuotedPost?.RequestedMore
             			},
             		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (IBacked data) => (data as Repost)?.QuotedPost?.RequestedLess
+            			GetActive = (IBinding data) => (data as Repost)?.QuotedPost?.RequestedLess
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
@@ -1078,13 +1626,13 @@ public partial class Repost (string id="Repost") : Item (id) {
 		}.CacheValue(out main)!;
 	public static FramePresentation? main;
 
-	static readonly List<FrameField> _Fields = [
-		new FrameString ("Uid") {
-			Get = (IBacked data) => (data as Item)?.Uid ,
-			Set = (IBacked data, string? value) => {(data as Item)!.Uid = value; }},
-		new FrameDateTime ("Created") {
-			Get = (IBacked data) => (data as Item)?.Created ,
-			Set = (IBacked data, System.DateTime? value) => {(data as Item)!.Created = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("Uid",
+			(IBinding data, string? value) => {(data as Item)!.Uid = value; },
+			(IBinding data) => (data as Item)?.Uid),
+		new FrameDateTime ("Created",
+			(IBinding data, System.DateTime? value) => {(data as Item)!.Created = value; },
+			(IBinding data) => (data as Item)?.Created),
 		new FrameRefClass<User> ("Reposter","User"){
 			Get = (IBacked data) => (data as Repost)?.Reposter ,
 			Set = (IBacked data, IBacked? value) => {(data as Repost)!.Reposter = value as User; }},
@@ -1094,14 +1642,36 @@ public partial class Repost (string id="Repost") : Item (id) {
 		Main
 		];
 
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Repost> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "Repost",
+		() => new Repost(), () => [], () => [], null, Generic: false);
+
+
 	}
 /// <summary>
 /// Backing class for QuotePost
 /// </summary>
-public partial class QuotePost (string id="QuotePost") : Post (id) {
+public partial class QuotePost (string Id="QuotePost") : Post (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => QuoteMain;
@@ -1120,87 +1690,87 @@ public partial class QuotePost (string id="QuotePost") : Post (id) {
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
-            			Get = (IBacked data) => (data as QuotePost)?.User?.Avatar }
+            			Get = (IBinding data) => (data as QuotePost)?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
-            		new FrameString ("User.DisplayName") {
-            			Get = (IBacked data) => (data as QuotePost)?.User?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as QuotePost)!.User!.DisplayName = value; }},
-            		new FrameString ("User.DisplayHandle") {
-            			Get = (IBacked data) => (data as QuotePost)?.User?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as QuotePost)!.User!.DisplayHandle = value; }},
-            		new FrameDateTime ("Created") {
-            			Get = (IBacked data) => (data as QuotePost)?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as QuotePost)!.Created = value; }}
+            		new FrameString ("User.DisplayName",
+            			(IBinding data, string? value) => {(data as QuotePost)!.User!.DisplayName = value; },
+            			(IBinding data) => (data as QuotePost)?.User?.DisplayName),
+            		new FrameString ("User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as QuotePost)!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as QuotePost)?.User?.DisplayHandle),
+            		new FrameDateTime ("Created",
+            			(IBinding data, System.DateTime? value) => {(data as QuotePost)!.Created = value; },
+            			(IBinding data) => (data as QuotePost)?.Created)
 					]
 				},
 			new FrameSection ("Body") {
 				Fields = [
-            		new FrameText ("Text") {
-            			Get = (IBacked data) => (data as QuotePost)?.Text ,
-            			Set = (IBacked data, string? value) => {(data as QuotePost)!.Text = value; }}
+            		new FrameText ("Text",
+            			(IBinding data, string? value) => {(data as QuotePost)!.Text = value; },
+            			(IBinding data) => (data as QuotePost)?.Text)
 					]
 				},
 			new FrameSection ("OriginalAuthor") {
 				Fields = [
-            		new FrameString ("Base.User.DisplayName") {
-            			Get = (IBacked data) => (data as QuotePost)?.Base?.User?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as QuotePost)!.Base!.User!.DisplayName = value; }},
-            		new FrameString ("Base.User.DisplayHandle") {
-            			Get = (IBacked data) => (data as QuotePost)?.Base?.User?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as QuotePost)!.Base!.User!.DisplayHandle = value; }},
-            		new FrameDateTime ("Base.Created") {
-            			Get = (IBacked data) => (data as QuotePost)?.Base?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as QuotePost)!.Base!.Created = value; }}
+            		new FrameString ("Base.User.DisplayName",
+            			(IBinding data, string? value) => {(data as QuotePost)!.Base!.User!.DisplayName = value; },
+            			(IBinding data) => (data as QuotePost)?.Base?.User?.DisplayName),
+            		new FrameString ("Base.User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as QuotePost)!.Base!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as QuotePost)?.Base?.User?.DisplayHandle),
+            		new FrameDateTime ("Base.Created",
+            			(IBinding data, System.DateTime? value) => {(data as QuotePost)!.Base!.Created = value; },
+            			(IBinding data) => (data as QuotePost)?.Base?.Created)
 					]
 				},
 			new FrameSection ("OriginalBody") {
 				Fields = [
-            		new FrameText ("Base.Text") {
-            			Get = (IBacked data) => (data as QuotePost)?.Base?.Text ,
-            			Set = (IBacked data, string? value) => {(data as QuotePost)!.Base!.Text = value; }}
+            		new FrameText ("Base.Text",
+            			(IBinding data, string? value) => {(data as QuotePost)!.Base!.Text = value; },
+            			(IBinding data) => (data as QuotePost)?.Base?.Text)
 					]
 				}
 			]
 		}.CacheValue(out quotemain)!;
 	public static FramePresentation? quotemain;
 
-	static readonly List<FrameField> _Fields = [
-		new FrameText ("Text") {
-			Get = (IBacked data) => (data as Post)?.Text ,
-			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as Post)!.Text = value; },
+			(IBinding data) => (data as Post)?.Text),
 		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as Post)?.User ,
 			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
-		new FrameInteger ("Comments") {
-			Get = (IBacked data) => (data as Post)?.Comments ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Comments = value; }},
-		new FrameInteger ("Reposts") {
-			Get = (IBacked data) => (data as Post)?.Reposts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Reposts = value; }},
-		new FrameInteger ("QuotePosts") {
-			Get = (IBacked data) => (data as Post)?.QuotePosts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.QuotePosts = value; }},
-		new FrameInteger ("AllReposts") {
-			Get = (IBacked data) => (data as Post)?.AllReposts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.AllReposts = value; }},
-		new FrameInteger ("Likes") {
-			Get = (IBacked data) => (data as Post)?.Likes ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Likes = value; }},
-		new FrameBoolean ("Liked") {
-			Get = (IBacked data) => (data as Post)?.Liked ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.Liked = value; }},
-		new FrameBoolean ("RequestedMore") {
-			Get = (IBacked data) => (data as Post)?.RequestedMore ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.RequestedMore = value; }},
-		new FrameBoolean ("RequestedLess") {
-			Get = (IBacked data) => (data as Post)?.RequestedLess ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.RequestedLess = value; }},
-		new FrameString ("Replies") {
-			Get = (IBacked data) => (data as Post)?.Replies ,
-			Set = (IBacked data, string? value) => {(data as Post)!.Replies = value; }},
+		new FrameInteger ("Comments",
+			(IBinding data, int? value) => {(data as Post)!.Comments = value; },
+			(IBinding data) => (data as Post)?.Comments),
+		new FrameInteger ("Reposts",
+			(IBinding data, int? value) => {(data as Post)!.Reposts = value; },
+			(IBinding data) => (data as Post)?.Reposts),
+		new FrameInteger ("QuotePosts",
+			(IBinding data, int? value) => {(data as Post)!.QuotePosts = value; },
+			(IBinding data) => (data as Post)?.QuotePosts),
+		new FrameInteger ("AllReposts",
+			(IBinding data, int? value) => {(data as Post)!.AllReposts = value; },
+			(IBinding data) => (data as Post)?.AllReposts),
+		new FrameInteger ("Likes",
+			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
+			(IBinding data) => (data as Post)?.Likes),
+		new FrameBoolean ("Liked",
+			(IBinding data, bool? value) => {(data as Post)!.Liked = value; },
+			(IBinding data) => (data as Post)?.Liked),
+		new FrameBoolean ("RequestedMore",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedMore = value; },
+			(IBinding data) => (data as Post)?.RequestedMore),
+		new FrameBoolean ("RequestedLess",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedLess = value; },
+			(IBinding data) => (data as Post)?.RequestedLess),
+		new FrameString ("Replies",
+			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
+			(IBinding data) => (data as Post)?.Replies),
 		new FrameRefClass<Post> ("QuotedPost","Post"){
 			Get = (IBacked data) => (data as Post)?.QuotedPost ,
 			Set = (IBacked data, IBacked? value) => {(data as Post)!.QuotedPost = value as Post; }},
@@ -1212,14 +1782,36 @@ public partial class QuotePost (string id="QuotePost") : Post (id) {
 		QuoteMain
 		];
 
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<QuotePost> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "QuotePost",
+		() => new QuotePost(), () => [], () => [], null, Generic: false);
+
+
 	}
 /// <summary>
 /// Backing class for RePost
 /// </summary>
-public partial class RePost (string id="RePost") : Post (id) {
+public partial class RePost (string Id="RePost") : Post (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => ReMain;
@@ -1238,80 +1830,80 @@ public partial class RePost (string id="RePost") : Post (id) {
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
-            			Get = (IBacked data) => (data as RePost)?.User?.Avatar }
+            			Get = (IBinding data) => (data as RePost)?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
-            		new FrameString ("User.DisplayName") {
-            			Get = (IBacked data) => (data as RePost)?.User?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as RePost)!.User!.DisplayName = value; }},
-            		new FrameString ("User.DisplayHandle") {
-            			Get = (IBacked data) => (data as RePost)?.User?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as RePost)!.User!.DisplayHandle = value; }},
-            		new FrameDateTime ("Created") {
-            			Get = (IBacked data) => (data as RePost)?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as RePost)!.Created = value; }}
+            		new FrameString ("User.DisplayName",
+            			(IBinding data, string? value) => {(data as RePost)!.User!.DisplayName = value; },
+            			(IBinding data) => (data as RePost)?.User?.DisplayName),
+            		new FrameString ("User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as RePost)!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as RePost)?.User?.DisplayHandle),
+            		new FrameDateTime ("Created",
+            			(IBinding data, System.DateTime? value) => {(data as RePost)!.Created = value; },
+            			(IBinding data) => (data as RePost)?.Created)
 					]
 				},
 			new FrameSection ("OriginalAuthor") {
 				Fields = [
-            		new FrameString ("Base.User.DisplayName") {
-            			Get = (IBacked data) => (data as RePost)?.Base?.User?.DisplayName ,
-            			Set = (IBacked data, string? value) => {(data as RePost)!.Base!.User!.DisplayName = value; }},
-            		new FrameString ("Base.User.DisplayHandle") {
-            			Get = (IBacked data) => (data as RePost)?.Base?.User?.DisplayHandle ,
-            			Set = (IBacked data, string? value) => {(data as RePost)!.Base!.User!.DisplayHandle = value; }},
-            		new FrameDateTime ("Base.Created") {
-            			Get = (IBacked data) => (data as RePost)?.Base?.Created ,
-            			Set = (IBacked data, System.DateTime? value) => {(data as RePost)!.Base!.Created = value; }}
+            		new FrameString ("Base.User.DisplayName",
+            			(IBinding data, string? value) => {(data as RePost)!.Base!.User!.DisplayName = value; },
+            			(IBinding data) => (data as RePost)?.Base?.User?.DisplayName),
+            		new FrameString ("Base.User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as RePost)!.Base!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as RePost)?.Base?.User?.DisplayHandle),
+            		new FrameDateTime ("Base.Created",
+            			(IBinding data, System.DateTime? value) => {(data as RePost)!.Base!.Created = value; },
+            			(IBinding data) => (data as RePost)?.Base?.Created)
 					]
 				},
 			new FrameSection ("OriginalBody") {
 				Fields = [
-            		new FrameText ("Base.Text") {
-            			Get = (IBacked data) => (data as RePost)?.Base?.Text ,
-            			Set = (IBacked data, string? value) => {(data as RePost)!.Base!.Text = value; }}
+            		new FrameText ("Base.Text",
+            			(IBinding data, string? value) => {(data as RePost)!.Base!.Text = value; },
+            			(IBinding data) => (data as RePost)?.Base?.Text)
 					]
 				}
 			]
 		}.CacheValue(out remain)!;
 	public static FramePresentation? remain;
 
-	static readonly List<FrameField> _Fields = [
-		new FrameText ("Text") {
-			Get = (IBacked data) => (data as Post)?.Text ,
-			Set = (IBacked data, string? value) => {(data as Post)!.Text = value; }},
+	static readonly List<IFrameField> _Fields = [
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as Post)!.Text = value; },
+			(IBinding data) => (data as Post)?.Text),
 		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as Post)?.User ,
 			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
-		new FrameInteger ("Comments") {
-			Get = (IBacked data) => (data as Post)?.Comments ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Comments = value; }},
-		new FrameInteger ("Reposts") {
-			Get = (IBacked data) => (data as Post)?.Reposts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Reposts = value; }},
-		new FrameInteger ("QuotePosts") {
-			Get = (IBacked data) => (data as Post)?.QuotePosts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.QuotePosts = value; }},
-		new FrameInteger ("AllReposts") {
-			Get = (IBacked data) => (data as Post)?.AllReposts ,
-			Set = (IBacked data, int? value) => {(data as Post)!.AllReposts = value; }},
-		new FrameInteger ("Likes") {
-			Get = (IBacked data) => (data as Post)?.Likes ,
-			Set = (IBacked data, int? value) => {(data as Post)!.Likes = value; }},
-		new FrameBoolean ("Liked") {
-			Get = (IBacked data) => (data as Post)?.Liked ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.Liked = value; }},
-		new FrameBoolean ("RequestedMore") {
-			Get = (IBacked data) => (data as Post)?.RequestedMore ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.RequestedMore = value; }},
-		new FrameBoolean ("RequestedLess") {
-			Get = (IBacked data) => (data as Post)?.RequestedLess ,
-			Set = (IBacked data, bool? value) => {(data as Post)!.RequestedLess = value; }},
-		new FrameString ("Replies") {
-			Get = (IBacked data) => (data as Post)?.Replies ,
-			Set = (IBacked data, string? value) => {(data as Post)!.Replies = value; }},
+		new FrameInteger ("Comments",
+			(IBinding data, int? value) => {(data as Post)!.Comments = value; },
+			(IBinding data) => (data as Post)?.Comments),
+		new FrameInteger ("Reposts",
+			(IBinding data, int? value) => {(data as Post)!.Reposts = value; },
+			(IBinding data) => (data as Post)?.Reposts),
+		new FrameInteger ("QuotePosts",
+			(IBinding data, int? value) => {(data as Post)!.QuotePosts = value; },
+			(IBinding data) => (data as Post)?.QuotePosts),
+		new FrameInteger ("AllReposts",
+			(IBinding data, int? value) => {(data as Post)!.AllReposts = value; },
+			(IBinding data) => (data as Post)?.AllReposts),
+		new FrameInteger ("Likes",
+			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
+			(IBinding data) => (data as Post)?.Likes),
+		new FrameBoolean ("Liked",
+			(IBinding data, bool? value) => {(data as Post)!.Liked = value; },
+			(IBinding data) => (data as Post)?.Liked),
+		new FrameBoolean ("RequestedMore",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedMore = value; },
+			(IBinding data) => (data as Post)?.RequestedMore),
+		new FrameBoolean ("RequestedLess",
+			(IBinding data, bool? value) => {(data as Post)!.RequestedLess = value; },
+			(IBinding data) => (data as Post)?.RequestedLess),
+		new FrameString ("Replies",
+			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
+			(IBinding data) => (data as Post)?.Replies),
 		new FrameRefClass<Post> ("QuotedPost","Post"){
 			Get = (IBacked data) => (data as Post)?.QuotedPost ,
 			Set = (IBacked data, IBacked? value) => {(data as Post)!.QuotedPost = value as Post; }},
@@ -1323,14 +1915,36 @@ public partial class RePost (string id="RePost") : Post (id) {
 		ReMain
 		];
 
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<RePost> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "RePost",
+		() => new RePost(), () => [], () => [], null, Generic: false);
+
+
 	}
 /// <summary>
 /// Backing class for ProfileData
 /// </summary>
-public partial class ProfileData (string id="ProfileData") : FrameClass (id) {
+public partial class ProfileData (string Id="ProfileData") : FrameClass (Id) {
 
     /// <inheritdoc/>
-    public override List<FrameField> Fields { get; set; } = _Fields;
+    public override List<IFrameField> Fields { get; set; } = _Fields;
 
 
 
@@ -1356,31 +1970,76 @@ public partial class ProfileData (string id="ProfileData") : FrameClass (id) {
 	public int? Posts {get; set;}
 
 
-	static readonly List<FrameField> _Fields = [
+	static readonly List<IFrameField> _Fields = [
 		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as ProfileData)?.User ,
 			Set = (IBacked data, IBacked? value) => {(data as ProfileData)!.User = value as User; }},
-		new FrameImage ("Avatar") {
-			Get = (IBacked data) => (data as ProfileData)?.Avatar ,
-			Set = (IBacked data, string? value) => {(data as ProfileData)!.Avatar = value; }},
-		new FrameImage ("Banner") {
-			Get = (IBacked data) => (data as ProfileData)?.Banner ,
-			Set = (IBacked data, string? value) => {(data as ProfileData)!.Banner = value; }},
-		new FrameText ("Description") {
-			Get = (IBacked data) => (data as ProfileData)?.Description ,
-			Set = (IBacked data, string? value) => {(data as ProfileData)!.Description = value; }},
-		new FrameInteger ("Followers") {
-			Get = (IBacked data) => (data as ProfileData)?.Followers ,
-			Set = (IBacked data, int? value) => {(data as ProfileData)!.Followers = value; }},
-		new FrameInteger ("Following") {
-			Get = (IBacked data) => (data as ProfileData)?.Following ,
-			Set = (IBacked data, int? value) => {(data as ProfileData)!.Following = value; }},
-		new FrameInteger ("Posts") {
-			Get = (IBacked data) => (data as ProfileData)?.Posts ,
-			Set = (IBacked data, int? value) => {(data as ProfileData)!.Posts = value; }}
+		new FrameImage ("Avatar",
+			(IBinding data, string? value) => {(data as ProfileData)!.Avatar = value; },
+			(IBinding data) => (data as ProfileData)?.Avatar),
+		new FrameImage ("Banner",
+			(IBinding data, string? value) => {(data as ProfileData)!.Banner = value; },
+			(IBinding data) => (data as ProfileData)?.Banner),
+		new FrameText ("Description",
+			(IBinding data, string? value) => {(data as ProfileData)!.Description = value; },
+			(IBinding data) => (data as ProfileData)?.Description),
+		new FrameInteger ("Followers",
+			(IBinding data, int? value) => {(data as ProfileData)!.Followers = value; },
+			(IBinding data) => (data as ProfileData)?.Followers),
+		new FrameInteger ("Following",
+			(IBinding data, int? value) => {(data as ProfileData)!.Following = value; },
+			(IBinding data) => (data as ProfileData)?.Following),
+		new FrameInteger ("Posts",
+			(IBinding data, int? value) => {(data as ProfileData)!.Posts = value; },
+			(IBinding data) => (data as ProfileData)?.Posts)
 		];
 
-	}
 
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameImage ("Avatar",
+			(IBinding data, string? value) => {(data as ProfileData)!.Avatar = value; },
+			(IBinding data) => (data as ProfileData)?.Avatar),
+		new FrameImage ("Banner",
+			(IBinding data, string? value) => {(data as ProfileData)!.Banner = value; },
+			(IBinding data) => (data as ProfileData)?.Banner),
+		new FrameText ("Description",
+			(IBinding data, string? value) => {(data as ProfileData)!.Description = value; },
+			(IBinding data) => (data as ProfileData)?.Description),
+		new FrameInteger ("Followers",
+			(IBinding data, int? value) => {(data as ProfileData)!.Followers = value; },
+			(IBinding data) => (data as ProfileData)?.Followers),
+		new FrameInteger ("Following",
+			(IBinding data, int? value) => {(data as ProfileData)!.Following = value; },
+			(IBinding data) => (data as ProfileData)?.Following),
+		new FrameInteger ("Posts",
+			(IBinding data, int? value) => {(data as ProfileData)!.Posts = value; },
+			(IBinding data) => (data as ProfileData)?.Posts)		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<ProfileData> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Avatar", _properties[0]},
+			{"Banner", _properties[1]},
+			{"Description", _properties[2]},
+			{"Followers", _properties[3]},
+			{"Following", _properties[4]},
+			{"Posts", _properties[5]}
+			}, "ProfileData",
+		() => new ProfileData(), () => [], () => [], null, Generic: false);
+
+
+	}
 
 

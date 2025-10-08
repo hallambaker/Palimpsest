@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="$(SolutionDir)Settings/CommonSettingsLinemode.xml" />
+	<PropertyGroup>
+		<AssemblyName>PHost</AssemblyName>
+		<Product>PHost</Product>
+		<Description>Palimpsest host daemon</Description>
+		<Copyright>© 2024</Copyright>
+		<TargetFrameworks>net9.0</TargetFrameworks>
+		<DefineConstants>_Github_</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Identifiers\Goedel.Cryptography.Identifiers.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography\Goedel.Cryptography.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.FSR\Goedel.FSR.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Web\Goedel.Protocol.Web.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
+    <ProjectReference Include="..\Goedel.Palimpsest\Goedel.Palimpsest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Exceptions.cs">
+      <DependentUpon>Exceptions.exceptional</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Exceptions.exceptional">
+      <LastGenOutput>Exceptions.cs</LastGenOutput>
+      <Generator>exceptional</Generator>
+    </None>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Pages\" />
+	</ItemGroup>
+
+</Project>

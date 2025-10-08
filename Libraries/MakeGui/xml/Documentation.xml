@@ -32,6 +32,18 @@
         <member name="P:Frame.User.DisplayHandle">
             <summary>Field DisplayHandle</summary>
         </member>
+        <member name="P:Frame.User._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.User._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.User._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.User._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.NamespaceDoc">
             <summary>
             Desctiption of the 
@@ -132,6 +144,18 @@
         <member name="P:Frame.HomePage.Items">
             <summary>List Items</summary>
         </member>
+        <member name="P:Frame.HomePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.HomePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomePage._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.NotificationsPage">
             <summary>
             Backing class for NotificationsPage
@@ -145,6 +169,18 @@
         <member name="P:Frame.NotificationsPage.Items">
             <summary>List Items</summary>
         </member>
+        <member name="P:Frame.NotificationsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NotificationsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.NotificationsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NotificationsPage._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.ChatsPage">
             <summary>
             Backing class for ChatsPage
@@ -157,6 +193,18 @@
         </member>
         <member name="P:Frame.ChatsPage.Items">
             <summary>List Items</summary>
+        </member>
+        <member name="P:Frame.ChatsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ChatsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ChatsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ChatsPage._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.ChatingPage">
             <summary>
@@ -174,6 +222,18 @@
         <member name="P:Frame.ChatingPage.Items">
             <summary>List Items</summary>
         </member>
+        <member name="P:Frame.ChatingPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ChatingPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ChatingPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ChatingPage._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.FeedsPage">
             <summary>
             Backing class for FeedsPage
@@ -183,6 +243,18 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.FeedsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.FeedsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.FeedsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.FeedsPage._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.ProfilePage">
             <summary>
@@ -197,6 +269,18 @@
         <member name="P:Frame.ProfilePage.Items">
             <summary>List Items</summary>
         </member>
+        <member name="P:Frame.ProfilePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfilePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ProfilePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfilePage._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.SettingsPage">
             <summary>
             Backing class for SettingsPage
@@ -207,6 +291,18 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.SettingsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SettingsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.SettingsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SettingsPage._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.AppearancePage">
             <summary>
             Backing class for AppearancePage
@@ -216,6 +312,18 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.AppearancePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.AppearancePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.AppearancePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.AppearancePage._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.NewPostPage">
             <summary>
@@ -239,6 +347,18 @@
         <member name="P:Frame.NewPostPage.Characters">
             <summary>Field Characters</summary>
         </member>
+        <member name="P:Frame.NewPostPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NewPostPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.NewPostPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NewPostPage._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.MainNav">
             <summary>
             Backing class for MainNav
@@ -252,6 +372,18 @@
         <member name="P:Frame.MainNav.NotificationCount">
             <summary>Field NotificationCount</summary>
         </member>
+        <member name="P:Frame.MainNav._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.MainNav._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.MainNav._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.MainNav._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.TopSettings">
             <summary>
             Backing class for TopSettings
@@ -261,6 +393,18 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.TopSettings._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.TopSettings._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.TopSettings._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.TopSettings._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.HomeFilter">
             <summary>
@@ -272,6 +416,18 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.HomeFilter._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomeFilter._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.HomeFilter._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomeFilter._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.ProfileFilter">
             <summary>
             Backing class for ProfileFilter
@@ -281,6 +437,18 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.ProfileFilter._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfileFilter._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ProfileFilter._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfileFilter._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.ProfileSelect">
             <summary>
@@ -301,6 +469,18 @@
         <member name="P:Frame.ProfileSelect.DiaplayHandle">
             <summary>Field DiaplayHandle</summary>
         </member>
+        <member name="P:Frame.ProfileSelect._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfileSelect._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ProfileSelect._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfileSelect._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Item">
             <summary>
             Backing class for Item
@@ -320,6 +500,18 @@
         <member name="P:Frame.Item.Created">
             <summary>Field Created</summary>
         </member>
+        <member name="P:Frame.Item._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Item._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Item._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Item._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Chat">
             <summary>
             Backing class for Chat
@@ -338,6 +530,18 @@
         </member>
         <member name="P:Frame.Chat.Messages">
             <summary>List Messages</summary>
+        </member>
+        <member name="P:Frame.Chat._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Chat._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Chat._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Chat._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.ChatText">
             <summary>
@@ -361,6 +565,18 @@
         <member name="P:Frame.ChatText.Text">
             <summary>Field Text</summary>
         </member>
+        <member name="P:Frame.ChatText._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ChatText._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ChatText._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ChatText._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Reaction">
             <summary>
             Backing class for Reaction
@@ -379,6 +595,18 @@
         </member>
         <member name="P:Frame.Reaction.Users">
             <summary>List Users</summary>
+        </member>
+        <member name="P:Frame.Reaction._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Reaction._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Reaction._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Reaction._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Post">
             <summary>
@@ -442,6 +670,18 @@
             Presentation style Quoted
             </summary>
         </member>
+        <member name="P:Frame.Post._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Post._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Post._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Post._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Repost">
             <summary>
             Backing class for Repost
@@ -469,6 +709,18 @@
             Presentation style Main
             </summary>
         </member>
+        <member name="P:Frame.Repost._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Repost._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Repost._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Repost._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.QuotePost">
             <summary>
             Backing class for QuotePost
@@ -493,6 +745,18 @@
             Presentation style QuoteMain
             </summary>
         </member>
+        <member name="P:Frame.QuotePost._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.QuotePost._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.QuotePost._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.QuotePost._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.RePost">
             <summary>
             Backing class for RePost
@@ -516,6 +780,18 @@
             <summary>
             Presentation style ReMain
             </summary>
+        </member>
+        <member name="P:Frame.RePost._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.RePost._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.RePost._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.RePost._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.ProfileData">
             <summary>
@@ -550,6 +826,18 @@
         </member>
         <member name="P:Frame.ProfileData.Posts">
             <summary>Field Posts</summary>
+        </member>
+        <member name="P:Frame.ProfileData._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfileData._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ProfileData._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ProfileData._binding">
+            <summary>Binding</summary> 
         </member>
     </members>
 </doc>

@@ -188,7 +188,7 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 #elseif (entry is FrameAvatar avatar) 
 
 	///<summary>Avatar #{avatar.Id}</summary>
-	public string? #{avatar.Id} => GetAvatar;
+	public string? #{avatar.Id} {get; set;}
 #elseif (entry is FrameRefClass refClass) 
 
 	///<summary>class #{refClass.Backing}, #{refClass.Id}</summary>
@@ -266,7 +266,7 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 #if entry is Goedel.Protocol.Property property
 #if (dictionary.TryGetValue (property.Tag, out var i))
 #{comma}
-			{"property.Tag", _properties[#{i}]}
+			{"#{property.Tag}", _properties[#{i}]}#!
 #end if
 #end if
 #end foreach

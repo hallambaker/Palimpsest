@@ -53,6 +53,43 @@
         <member name="F:Frame.User._binding">
             <summary>Binding</summary> 
         </member>
+        <member name="T:Frame.Option">
+            <summary>
+            Backing class for Option
+            </summary>
+        </member>
+        <member name="M:Frame.Option.#ctor(System.String)">
+            <summary>
+            Backing class for Option
+            </summary>
+        </member>
+        <member name="P:Frame.Option.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Option.Id">
+            <summary>Field Id</summary>
+        </member>
+        <member name="P:Frame.Option.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.Option.Icon">
+            <summary>Field Icon</summary>
+        </member>
+        <member name="P:Frame.Option.Priority">
+            <summary>Field Priority</summary>
+        </member>
+        <member name="P:Frame.Option._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Option._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Option._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Option._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.NamespaceDoc">
             <summary>
             Desctiption of the 
@@ -62,6 +99,60 @@
             <summary>
             Annotated backing classes for data driven GUI.
             </summary>
+        </member>
+        <member name="P:Frame.MyClass.HomePage">
+            <summary>HomePage</summary>
+        </member>
+        <member name="P:Frame.MyClass.SignIn">
+            <summary>SignIn</summary>
+        </member>
+        <member name="P:Frame.MyClass.SwitchPage">
+            <summary>SwitchPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.NotificationsPage">
+            <summary>NotificationsPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.BookmarkPage">
+            <summary>BookmarkPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.YourPlacePageCreate">
+            <summary>YourPlacePageCreate</summary>
+        </member>
+        <member name="P:Frame.MyClass.YourPlacePage">
+            <summary>YourPlacePage</summary>
+        </member>
+        <member name="P:Frame.MyClass.SettingsPage">
+            <summary>SettingsPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.NewPlacePage">
+            <summary>NewPlacePage</summary>
+        </member>
+        <member name="P:Frame.MyClass.AboutSettingsPage">
+            <summary>AboutSettingsPage</summary>
+        </member>
+        <member name="P:Frame.MyClass.CreatePost">
+            <summary>CreatePost</summary>
+        </member>
+        <member name="P:Frame.MyClass.CreateComment">
+            <summary>CreateComment</summary>
+        </member>
+        <member name="P:Frame.MyClass.MainNav">
+            <summary>MainNav</summary>
+        </member>
+        <member name="P:Frame.MyClass.TopSettings">
+            <summary>TopSettings</summary>
+        </member>
+        <member name="P:Frame.MyClass.SettingsMenu">
+            <summary>SettingsMenu</summary>
+        </member>
+        <member name="P:Frame.MyClass.AboutSettings">
+            <summary>AboutSettings</summary>
+        </member>
+        <member name="P:Frame.MyClass.Handle">
+            <summary>Handle</summary>
+        </member>
+        <member name="P:Frame.MyClass.Provider">
+            <summary>Provider</summary>
         </member>
         <member name="P:Frame.MyClass.User">
             <summary>User</summary>
@@ -141,10 +232,457 @@
         <member name="P:Frame.MyClass.Media">
             <summary>Media</summary>
         </member>
+        <member name="P:Frame.MyClass.Option">
+            <summary>Option</summary>
+        </member>
+        <member name="P:Frame.MyClass.ServiceOption">
+            <summary>ServiceOption</summary>
+        </member>
         <member name="M:Frame.MyClass.#ctor">
             <summary>
             Constructor, return a new instance.
             </summary>
+        </member>
+        <member name="T:Frame.HomePage">
+            <summary>
+            Backing class for HomePage
+            </summary>
+        </member>
+        <member name="M:Frame.HomePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.HomePage.MetaPlace">
+            <summary>class Place, MetaPlace</summary>
+        </member>
+        <member name="P:Frame.HomePage.Places">
+            <summary>List Places</summary>
+        </member>
+        <member name="P:Frame.HomePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.HomePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomePage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.SignIn">
+            <summary>
+            Backing class for SignIn
+            </summary>
+        </member>
+        <member name="M:Frame.SignIn.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.SignIn.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.SignIn.RegisterText">
+            <summary>Field RegisterText</summary>
+        </member>
+        <member name="P:Frame.SignIn.Providers">
+            <summary>List Providers</summary>
+        </member>
+        <member name="P:Frame.SignIn._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SignIn._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.SignIn._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SignIn._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.SwitchPage">
+            <summary>
+            Backing class for SwitchPage
+            </summary>
+        </member>
+        <member name="M:Frame.SwitchPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.SwitchPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SwitchPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.SwitchPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SwitchPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.NotificationsPage">
+            <summary>
+            Backing class for NotificationsPage
+            </summary>
+        </member>
+        <member name="M:Frame.NotificationsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.NotificationsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NotificationsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.NotificationsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NotificationsPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.BookmarkPage">
+            <summary>
+            Backing class for BookmarkPage
+            </summary>
+        </member>
+        <member name="M:Frame.BookmarkPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.BookmarkPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.BookmarkPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.BookmarkPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.BookmarkPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.YourPlacePageCreate">
+            <summary>
+            Backing class for YourPlacePageCreate
+            </summary>
+        </member>
+        <member name="M:Frame.YourPlacePageCreate.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.YourPlacePageCreate._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.YourPlacePageCreate._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.YourPlacePageCreate._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.YourPlacePageCreate._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.YourPlacePage">
+            <summary>
+            Backing class for YourPlacePage
+            </summary>
+        </member>
+        <member name="M:Frame.YourPlacePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.YourPlacePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.YourPlacePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.YourPlacePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.YourPlacePage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.SettingsPage">
+            <summary>
+            Backing class for SettingsPage
+            </summary>
+        </member>
+        <member name="M:Frame.SettingsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.SettingsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SettingsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.SettingsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SettingsPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.NewPlacePage">
+            <summary>
+            Backing class for NewPlacePage
+            </summary>
+        </member>
+        <member name="M:Frame.NewPlacePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.NewPlacePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NewPlacePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.NewPlacePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NewPlacePage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.AboutSettingsPage">
+            <summary>
+            Backing class for AboutSettingsPage
+            </summary>
+        </member>
+        <member name="M:Frame.AboutSettingsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.AboutSettingsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.AboutSettingsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.AboutSettingsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.AboutSettingsPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.CreatePost">
+            <summary>
+            Backing class for CreatePost
+            </summary>
+        </member>
+        <member name="M:Frame.CreatePost.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.CreatePost.Crosspost">
+            <summary>List Crosspost</summary>
+        </member>
+        <member name="P:Frame.CreatePost._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.CreatePost._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.CreatePost._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.CreatePost._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.CreateComment">
+            <summary>
+            Backing class for CreateComment
+            </summary>
+        </member>
+        <member name="M:Frame.CreateComment.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.CreateComment.Target">
+            <summary>class Comment, Target</summary>
+        </member>
+        <member name="P:Frame.CreateComment._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.CreateComment._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.CreateComment._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.CreateComment._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.MainNav">
+            <summary>
+            Backing class for MainNav
+            </summary>
+        </member>
+        <member name="M:Frame.MainNav.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.MainNav.NotificationCount">
+            <summary>Field NotificationCount</summary>
+        </member>
+        <member name="P:Frame.MainNav._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.MainNav._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.MainNav._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.MainNav._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.TopSettings">
+            <summary>
+            Backing class for TopSettings
+            </summary>
+        </member>
+        <member name="M:Frame.TopSettings.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.TopSettings._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.TopSettings._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.TopSettings._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.TopSettings._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.SettingsMenu">
+            <summary>
+            Backing class for SettingsMenu
+            </summary>
+        </member>
+        <member name="M:Frame.SettingsMenu.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.SettingsMenu._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SettingsMenu._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.SettingsMenu._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.SettingsMenu._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.AboutSettings">
+            <summary>
+            Backing class for AboutSettings
+            </summary>
+        </member>
+        <member name="M:Frame.AboutSettings.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.AboutSettings._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.AboutSettings._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.AboutSettings._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.AboutSettings._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.Handle">
+            <summary>
+            Backing class for Handle
+            </summary>
+        </member>
+        <member name="M:Frame.Handle.#ctor(System.String)">
+            <summary>
+            Backing class for Handle
+            </summary>
+        </member>
+        <member name="P:Frame.Handle.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Handle.DNS">
+            <summary>Field DNS</summary>
+        </member>
+        <member name="P:Frame.Handle._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Handle._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Handle._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Handle._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.Provider">
+            <summary>
+            Backing class for Provider
+            </summary>
+        </member>
+        <member name="M:Frame.Provider.#ctor(System.String)">
+            <summary>
+            Backing class for Provider
+            </summary>
+        </member>
+        <member name="P:Frame.Provider.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Provider.Signup">
+            <summary>Field Signup</summary>
+        </member>
+        <member name="P:Frame.Provider.Crosspost">
+            <summary>Field Crosspost</summary>
+        </member>
+        <member name="P:Frame.Provider.Title">
+            <summary>Field Title</summary>
+        </member>
+        <member name="P:Frame.Provider.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.Provider._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Provider._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Provider._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Provider._binding">
+            <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Group">
             <summary>
@@ -430,8 +968,11 @@
         <member name="P:Frame.Post.Title">
             <summary>Field Title</summary>
         </member>
-        <member name="P:Frame.Post.Text">
-            <summary>Field Text</summary>
+        <member name="P:Frame.Post.Abstract">
+            <summary>Field Abstract</summary>
+        </member>
+        <member name="P:Frame.Post.Body">
+            <summary>Field Body</summary>
         </member>
         <member name="P:Frame.Post.Resources">
             <summary>List Resources</summary>
@@ -677,6 +1218,9 @@
         <member name="P:Frame.Pronouns.Fields">
             <inheritdoc/>
         </member>
+        <member name="P:Frame.Pronouns.GramaticalGender">
+            <summary>List GramaticalGender</summary>
+        </member>
         <member name="P:Frame.Pronouns.Subjective">
             <summary>Field Subjective</summary>
         </member>
@@ -744,6 +1288,9 @@
         </member>
         <member name="P:Frame.RelatedTo.Uid">
             <summary>Field Uid</summary>
+        </member>
+        <member name="P:Frame.RelatedTo.Relation">
+            <summary>List Relation</summary>
         </member>
         <member name="P:Frame.RelatedTo.Other">
             <summary>Field Other</summary>
@@ -835,6 +1382,9 @@
         <member name="P:Frame.Messaging.Fields">
             <inheritdoc/>
         </member>
+        <member name="P:Frame.Messaging.Service">
+            <summary>class ServiceOption, Service</summary>
+        </member>
         <member name="P:Frame.Messaging.Other">
             <summary>Field Other</summary>
         </member>
@@ -862,6 +1412,9 @@
         </member>
         <member name="P:Frame.Phone.Fields">
             <inheritdoc/>
+        </member>
+        <member name="P:Frame.Phone.Features">
+            <summary>List Features</summary>
         </member>
         <member name="P:Frame.Phone._Properties">
             <inheritdoc/>
@@ -894,6 +1447,9 @@
         <member name="P:Frame.Service.Protocol">
             <summary>Field Protocol</summary>
         </member>
+        <member name="P:Frame.Service.Type">
+            <summary>class Option, Type</summary>
+        </member>
         <member name="P:Frame.Service._Properties">
             <inheritdoc/>
         </member>
@@ -921,6 +1477,9 @@
         </member>
         <member name="P:Frame.Key.KeyData">
             <summary>class KeyData, KeyData</summary>
+        </member>
+        <member name="P:Frame.Key.Protocol">
+            <summary>class ServiceOption, Protocol</summary>
         </member>
         <member name="P:Frame.Key._Properties">
             <inheritdoc/>
@@ -1009,6 +1568,37 @@
             <inheritdoc/>
         </member>
         <member name="F:Frame.Media._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.ServiceOption">
+            <summary>
+            Backing class for ServiceOption
+            </summary>
+        </member>
+        <member name="M:Frame.ServiceOption.#ctor(System.String)">
+            <summary>
+            Backing class for ServiceOption
+            </summary>
+        </member>
+        <member name="P:Frame.ServiceOption.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.ServiceOption.Uri">
+            <summary>Field Uri</summary>
+        </member>
+        <member name="P:Frame.ServiceOption.Template">
+            <summary>Field Template</summary>
+        </member>
+        <member name="P:Frame.ServiceOption._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ServiceOption._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.ServiceOption._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.ServiceOption._binding">
             <summary>Binding</summary> 
         </member>
     </members>

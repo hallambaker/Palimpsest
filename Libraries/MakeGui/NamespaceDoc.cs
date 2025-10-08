@@ -27,6 +27,7 @@ global using Goedel.Cryptography;
 
 global using Goedel.Html;
 global using Goedel.Utilities;
+global using Goedel.Protocol;
 
 #if !(_Github_)
 [assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]

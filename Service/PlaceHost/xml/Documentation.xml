@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PHost</name>
+    </assembly>
+    <members>
+        <member name="T:Goedel.Palimpsest.EventExtensions">
+            <summary>
+            Extensions class defining logging events and convenience methods.
+            </summary>
+        </member>
+        <member name="M:Goedel.Palimpsest.EventExtensions.#cctor">
+            <summary>
+            Static initializer, is called once when the module loads.
+            </summary>
+        </member>
+        <member name="T:Goedel.Palimpsest.NamespaceDoc">
+            <summary>
+            Desctiption of the 
+            </summary>
+        </member>
+    </members>
+</doc>

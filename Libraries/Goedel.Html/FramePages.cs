@@ -218,7 +218,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				} else if (  (entry is FrameAvatar avatar) ) {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("	///<summary>Avatar {1}</summary>\n{0}", _Indent, avatar.Id);
-				_Output.Write ("	public string? {1} => GetAvatar;\n{0}", _Indent, avatar.Id);
+				_Output.Write ("	public string? {1} {{get; set;}}\n{0}", _Indent, avatar.Id);
 				} else if (  (entry is FrameRefClass refClass) ) {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("	///<summary>class {1}, {2}</summary>\n{0}", _Indent, refClass.Backing, refClass.Id);
@@ -296,7 +296,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			if (  entry is Goedel.Protocol.Property property ) {
 				if (  (dictionary.TryGetValue (property.Tag, out var i)) ) {
 					_Output.Write ("{1}\n{0}", _Indent, comma);
-					_Output.Write ("			{{\"property.Tag\", _properties[{1}]}}\n{0}", _Indent, i);
+					_Output.Write ("			{{\"{1}\", _properties[{2}]}}", _Indent, property.Tag, i);
 					}
 				}
 			}

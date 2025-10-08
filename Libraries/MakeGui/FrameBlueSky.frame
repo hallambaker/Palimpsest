@@ -103,203 +103,212 @@ Namespace Frame
         Language String
         Characters Count
 
-
     User Class
-        DID String
-        Avatar Avatar
-        DisplayName String
-        DisplayHandle String
+        Fields
+            DID String
+            Avatar Avatar
+            DisplayName String
+            DisplayHandle String
 
     Item Class
-        Uid String
-        Created DateTime
+        Fields
+            Uid String
+            Created DateTime
 
     Chat SubClass Item
-        User Is User
-        Messages List ChatText
+        Fields
+            User Is User
+            Messages List ChatText
 
     ChatText Class
-        Created DateTime
-        Self Boolean
-        Text Text
+        Fields
+            Created DateTime
+            Self Boolean
+            Text Text
 
     Reaction SubClass Item
-        Semantic String
-        Users List User
+        Fields
+            Semantic String
+            Users List User
 
     Post SubClass Item
-        Text Text
-        User Is User
+        Fields
+            Text Text
+            User Is User
 
-        Comments Integer
-        Reposts Integer
-        QuotePosts Integer
-        AllReposts Integer
-        Likes Integer
+            Comments Integer
+            Reposts Integer
+            QuotePosts Integer
+            AllReposts Integer
+            Likes Integer
 
-        Liked Boolean
-        RequestedMore Boolean
-        RequestedLess Boolean
+            Liked Boolean
+            RequestedMore Boolean
+            RequestedLess Boolean
 
-        Replies String   
+            Replies String   
 
-        // A quoted post
-        QuotedPost Is Post
+            // A quoted post
+            QuotedPost Is Post
 
 
 
-        Main Presentation Uid
-            Avatar
-                User.Avatar Avatar
-            Author
-                User.DisplayName String
-                User.DisplayHandle String
-                Created DateTime
-            Rule
-            Body
-                Text Text
-                QuotedPost Show Post Quoted 
-            Detail
-                Created DateTime
-                Replies String             
-            Responses
-                Comment Button CommentAction "Comment"
-                    Comments Integer               
-                Repost SubMenu "Repost"
-                    Repost Button RepostAction "Repost"
-                    QuotePost Button QuotePostAction "Quote Post"
-                Like Button LikeAction "Like"
-                    Liked Boolean
-                    Likes Integer
-                SeeMore Button MoreAction "More"
-                    RequestedMore Boolean
-                SeeLess Button LessAction "Less"
-                    RequestedLess Boolean
-                Share SubMenu "Share"
-                    LinkCopy Button HomePage "Copy link to post"
-                    SendByDM Button HomePage "Send via direct message"
-                    Embed Button HomePage "Embed post"
-                Ellipsis SubMenu "More"
-                    Translate Button TranslateAction "Translate"
-                    CopyToClipboard Button CopyPostAction "Copy post text"
-                    S1 Separator 
-                    MuteThread Button MuteThreadAction "Mute thread"
-                    MuteWords Button MuteWordsAction "Mute words & tags"
-                    S2 Separator
-                    HidePost Button HidePostAction "Hide post for me"
-                    S3 Separator
-                    MuteAccount Button MuteAccountAction "Mute user"
-                    BlockAccount Button BlockAccountAction "Block user"
-                    Report Button ReportPostAction "Report post"
+            Main Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Body
+                    Text Text
+                    QuotedPost Show Post Quoted 
+                Detail
+                    Created DateTime
+                    Replies String             
+                Responses
+                    Comment Button CommentAction "Comment"
+                        Comments Integer               
+                    Repost SubMenu "Repost"
+                        Repost Button RepostAction "Repost"
+                        QuotePost Button QuotePostAction "Quote Post"
+                    Like Button LikeAction "Like"
+                        Liked Boolean
+                        Likes Integer
+                    SeeMore Button MoreAction "More"
+                        RequestedMore Boolean
+                    SeeLess Button LessAction "Less"
+                        RequestedLess Boolean
+                    Share SubMenu "Share"
+                        LinkCopy Button HomePage "Copy link to post"
+                        SendByDM Button HomePage "Send via direct message"
+                        Embed Button HomePage "Embed post"
+                    Ellipsis SubMenu "More"
+                        Translate Button TranslateAction "Translate"
+                        CopyToClipboard Button CopyPostAction "Copy post text"
+                        S1 Separator 
+                        MuteThread Button MuteThreadAction "Mute thread"
+                        MuteWords Button MuteWordsAction "Mute words & tags"
+                        S2 Separator
+                        HidePost Button HidePostAction "Hide post for me"
+                        S3 Separator
+                        MuteAccount Button MuteAccountAction "Mute user"
+                        BlockAccount Button BlockAccountAction "Block user"
+                        Report Button ReportPostAction "Report post"
 
-        Quoted Presentation Uid
-            Avatar
-                User.Avatar Avatar
-            Author
-                User.DisplayName String
-                User.DisplayHandle String
-                Created DateTime
-            Body
-                Text Text
+            Quoted Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Body
+                    Text Text
 
     Repost SubClass Item
-        // The person reposting the post
-        Reposter Is User
-        QuotedPost Is Post
+        Fields
+            // The person reposting the post
+            Reposter Is User
+            QuotedPost Is Post
 
-        Main Presentation Uid
-            RepostIndicator
-                Repost Icon
-            Reposter
-                Reposter.DisplayName String
-                Reposter.DisplayHandle String
-            Avatar
-                QuotedPost.User.Avatar Avatar
-            Author
-                QuotedPost.User.DisplayName String
-                QuotedPost.User.DisplayHandle String
-                QuotedPost.Created DateTime
-            Rule
-            Body
-                QuotedPost.Text Text
-            Detail
-                QuotedPost.Created DateTime
-                QuotedPost.Replies String             
+            Main Presentation Uid
+                RepostIndicator
+                    Repost Icon
+                Reposter
+                    Reposter.DisplayName String
+                    Reposter.DisplayHandle String
+                Avatar
+                    QuotedPost.User.Avatar Avatar
+                Author
+                    QuotedPost.User.DisplayName String
+                    QuotedPost.User.DisplayHandle String
+                    QuotedPost.Created DateTime
+                Rule
+                Body
+                    QuotedPost.Text Text
+                Detail
+                    QuotedPost.Created DateTime
+                    QuotedPost.Replies String             
 
-            // Consider making this a named menu section can be spliced in.
-            Responses
-                Comment Button CommentAction "Comment"
-                    QuotedPost.Comments Integer               
-                Repost SubMenu "Repost"
-                    Repost Button RepostAction "Repost"
-                    QuotePost Button QuotePostAction "Quote Post"
-                Like Button LikeAction "Like"
-                    QuotedPost.Liked Boolean
-                    QuotedPost.Likes Integer
-                SeeMore Button MoreAction "More"
-                    QuotedPost.RequestedMore Boolean
-                SeeLess Button LessAction "Less"
-                    QuotedPost.RequestedLess Boolean
-                Share SubMenu "Share"
-                    LinkCopy Button HomePage "Copy link to post"
-                    SendByDM Button HomePage "Send via direct message"
-                    Embed Button HomePage "Embed post"
-                Ellipsis SubMenu "More"
-                    Translate Button TranslateAction "Translate"
-                    CopyToClipboard Button CopyPostAction "Copy post text"
-                    S1 Separator 
-                    MuteThread Button MuteThreadAction "Mute thread"
-                    MuteWords Button MuteWordsAction "Mute words & tags"
-                    S2 Separator
-                    HidePost Button HidePostAction "Hide post for me"
-                    S3 Separator
-                    MuteAccount Button MuteAccountAction "Mute user"
-                    BlockAccount Button BlockAccountAction "Block user"
-                    ReportPost Button ReportPostAction "Report post"
+                // Consider making this a named menu section can be spliced in.
+                Responses
+                    Comment Button CommentAction "Comment"
+                        QuotedPost.Comments Integer               
+                    Repost SubMenu "Repost"
+                        Repost Button RepostAction "Repost"
+                        QuotePost Button QuotePostAction "Quote Post"
+                    Like Button LikeAction "Like"
+                        QuotedPost.Liked Boolean
+                        QuotedPost.Likes Integer
+                    SeeMore Button MoreAction "More"
+                        QuotedPost.RequestedMore Boolean
+                    SeeLess Button LessAction "Less"
+                        QuotedPost.RequestedLess Boolean
+                    Share SubMenu "Share"
+                        LinkCopy Button HomePage "Copy link to post"
+                        SendByDM Button HomePage "Send via direct message"
+                        Embed Button HomePage "Embed post"
+                    Ellipsis SubMenu "More"
+                        Translate Button TranslateAction "Translate"
+                        CopyToClipboard Button CopyPostAction "Copy post text"
+                        S1 Separator 
+                        MuteThread Button MuteThreadAction "Mute thread"
+                        MuteWords Button MuteWordsAction "Mute words & tags"
+                        S2 Separator
+                        HidePost Button HidePostAction "Hide post for me"
+                        S3 Separator
+                        MuteAccount Button MuteAccountAction "Mute user"
+                        BlockAccount Button BlockAccountAction "Block user"
+                        ReportPost Button ReportPostAction "Report post"
 
 
 
     QuotePost SubClass Post
-        Base Is Post
-        QuoteMain Presentation Uid
-            Avatar
-                User.Avatar Avatar
-            Author
-                User.DisplayName String
-                User.DisplayHandle String
-                Created DateTime
-            Body
-                Text Text
-            OriginalAuthor
-                Base.User.DisplayName String
-                Base.User.DisplayHandle String
-                Base.Created DateTime
-            OriginalBody
-                Base.Text Text
+        Fields
+            Base Is Post
+            QuoteMain Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Body
+                    Text Text
+                OriginalAuthor
+                    Base.User.DisplayName String
+                    Base.User.DisplayHandle String
+                    Base.Created DateTime
+                OriginalBody
+                    Base.Text Text
 
     RePost SubClass Post
-        Base Is Post
-        ReMain Presentation Uid
-            Avatar
-                User.Avatar Avatar
-            Author
-                User.DisplayName String
-                User.DisplayHandle String
-                Created DateTime
-            OriginalAuthor
-                Base.User.DisplayName String
-                Base.User.DisplayHandle String
-                Base.Created DateTime
-            OriginalBody
-                Base.Text Text
+        Fields
+            Base Is Post
+            ReMain Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                OriginalAuthor
+                    Base.User.DisplayName String
+                    Base.User.DisplayHandle String
+                    Base.Created DateTime
+                OriginalBody
+                    Base.Text Text
 
     ProfileData Class
-        User Is User
-        Avatar Image
-        Banner Image
-        Description Text
-        Followers Integer
-        Following Integer
-        Posts Integer
+        Fields
+            User Is User
+            Avatar Image
+            Banner Image
+            Description Text
+            Followers Integer
+            Following Integer
+            Posts Integer
 
 

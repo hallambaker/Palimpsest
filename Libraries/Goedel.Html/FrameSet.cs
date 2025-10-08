@@ -350,6 +350,13 @@ public record FrameText(
     }
 
 
+public record FrameRichText(
+            string Id,
+            Action<IBinding, string?>? Set = null,
+            Func<IBinding, string?>? Get = null) : FrameString(Id, Set, Get) {
+    public override string Type => "FrameRichText";
+    }
+
 // Image backing type (will need fixin')
 
 

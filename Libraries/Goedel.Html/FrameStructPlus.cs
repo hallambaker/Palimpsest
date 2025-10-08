@@ -290,6 +290,7 @@ public partial class Namespace {
         DateTime => new FrameDateTime(id),
         String => new FrameString(id),
         Text => new FrameText(id),
+        RichText => new FrameRichText(id),
         Image => new FrameImage(id),
         Icon => new FrameIcon(id),
         Avatar => new FrameAvatar(id),
@@ -327,7 +328,11 @@ public partial class DateTime : IIntrinsic {
     }
 public partial class String : IIntrinsic {
     }
+
+
 public partial class Text : IIntrinsic {
+    }
+public partial class RichText : IIntrinsic {
     }
 public partial class Image : IIntrinsic {
     }
