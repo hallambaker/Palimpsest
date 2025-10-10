@@ -310,13 +310,15 @@ public partial class SignIn : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as SignIn)!.Text = value; },
-			(IBinding data) => (data as SignIn)?.Text),
+			(IBinding data) => (data as SignIn)?.Text) {
+				},
 		new FrameRefForm<Handle> ("Form","Handle"){
 			Get = (IBacked data) => (data as SignIn)?.Form ,
 			Set = (IBacked data, IBacked? value) => {(data as SignIn)!.Form = value as Handle; }},
 		new FrameString ("RegisterText",
 			(IBinding data, string? value) => {(data as SignIn)!.RegisterText = value; },
-			(IBinding data) => (data as SignIn)?.RegisterText),
+			(IBinding data) => (data as SignIn)?.RegisterText) {
+				},
 		new FrameRefList<Provider> ("Providers","Provider"){
 			Get = (IBacked data) => (data as SignIn)?.Providers ,
 			Set = (IBacked data, Object? value) => {(data as SignIn)!.Providers = value as List<Provider>; }}
@@ -333,10 +335,12 @@ public partial class SignIn : FramePage {
 
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as SignIn)!.Text = value; },
-			(IBinding data) => (data as SignIn)?.Text),
+			(IBinding data) => (data as SignIn)?.Text) {
+				},
 		new FrameString ("RegisterText",
 			(IBinding data, string? value) => {(data as SignIn)!.RegisterText = value; },
-			(IBinding data) => (data as SignIn)?.RegisterText)		];
+			(IBinding data) => (data as SignIn)?.RegisterText) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -618,6 +622,8 @@ public partial class NewPlacePage : FramePage {
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefForm<Place> ("Form","Place"){
 			Get = (IBacked data) => (data as NewPlacePage)?.Form ,
 			Set = (IBacked data, IBacked? value) => {(data as NewPlacePage)!.Form = value as Place; }}
@@ -705,6 +711,8 @@ public partial class CreatePost : FramePage {
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefForm<Post> ("Form","Post"){
 			Get = (IBacked data) => (data as CreatePost)?.Form ,
 			Set = (IBacked data, IBacked? value) => {(data as CreatePost)!.Form = value as Post; }},
@@ -755,6 +763,8 @@ public partial class CreateComment : FramePage {
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefClass<Comment> ("Target","Comment"){
 			Get = (IBacked data) => (data as CreateComment)?.Target ,
 			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Target = value as Comment; }},
@@ -806,7 +816,8 @@ public partial class MainNav : FrameMenu {
 	static readonly List<IFrameField> _Fields = [
 		new FrameInteger ("NotificationCount",
 			(IBinding data, int? value) => {(data as MainNav)!.NotificationCount = value; },
-			(IBinding data) => (data as MainNav)?.NotificationCount),
+			(IBinding data) => (data as MainNav)?.NotificationCount) {
+				},
 		new FrameButton ("Any", "Sign In", "SignIn") {
 			},
 		new FrameButton ("Home", "Home", "HomePage") {
@@ -837,7 +848,8 @@ public partial class MainNav : FrameMenu {
 
 		new FrameInteger ("NotificationCount",
 			(IBinding data, int? value) => {(data as MainNav)!.NotificationCount = value; },
-			(IBinding data) => (data as MainNav)?.NotificationCount)		];
+			(IBinding data) => (data as MainNav)?.NotificationCount) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1013,7 +1025,8 @@ public partial class Handle (string Id="Handle") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("DNS",
 			(IBinding data, string? value) => {(data as Handle)!.DNS = value; },
-			(IBinding data) => (data as Handle)?.DNS)
+			(IBinding data) => (data as Handle)?.DNS) {
+				}
 		];
 
 
@@ -1027,7 +1040,8 @@ public partial class Handle (string Id="Handle") : FrameClass (Id) {
 
 		new FrameString ("DNS",
 			(IBinding data, string? value) => {(data as Handle)!.DNS = value; },
-			(IBinding data) => (data as Handle)?.DNS)		];
+			(IBinding data) => (data as Handle)?.DNS) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1069,16 +1083,20 @@ public partial class Provider (string Id="Provider") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameText ("Signup",
 			(IBinding data, string? value) => {(data as Provider)!.Signup = value; },
-			(IBinding data) => (data as Provider)?.Signup),
+			(IBinding data) => (data as Provider)?.Signup) {
+				},
 		new FrameText ("Crosspost",
 			(IBinding data, string? value) => {(data as Provider)!.Crosspost = value; },
-			(IBinding data) => (data as Provider)?.Crosspost),
+			(IBinding data) => (data as Provider)?.Crosspost) {
+				},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Provider)!.Title = value; },
-			(IBinding data) => (data as Provider)?.Title),
+			(IBinding data) => (data as Provider)?.Title) {
+				},
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as Provider)!.Text = value; },
-			(IBinding data) => (data as Provider)?.Text),
+			(IBinding data) => (data as Provider)?.Text) {
+				},
 		new FrameIcon ("Logo")
 		];
 
@@ -1093,16 +1111,20 @@ public partial class Provider (string Id="Provider") : FrameClass (Id) {
 
 		new FrameText ("Signup",
 			(IBinding data, string? value) => {(data as Provider)!.Signup = value; },
-			(IBinding data) => (data as Provider)?.Signup),
+			(IBinding data) => (data as Provider)?.Signup) {
+				},
 		new FrameText ("Crosspost",
 			(IBinding data, string? value) => {(data as Provider)!.Crosspost = value; },
-			(IBinding data) => (data as Provider)?.Crosspost),
+			(IBinding data) => (data as Provider)?.Crosspost) {
+				},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Provider)!.Title = value; },
-			(IBinding data) => (data as Provider)?.Title),
+			(IBinding data) => (data as Provider)?.Title) {
+				},
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as Provider)!.Text = value; },
-			(IBinding data) => (data as Provider)?.Text)		];
+			(IBinding data) => (data as Provider)?.Text) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1156,21 +1178,26 @@ public partial class User (string Id="User") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as User)!.Uid = value; },
-			(IBinding data) => (data as User)?.Uid),
+			(IBinding data) => (data as User)?.Uid) {
+				},
 		new FrameAvatar ("Avatar"){
 			Get = (IBinding data) => (data as User)?.Avatar },
 		new FrameString ("DisplayName",
 			(IBinding data, string? value) => {(data as User)!.DisplayName = value; },
-			(IBinding data) => (data as User)?.DisplayName),
+			(IBinding data) => (data as User)?.DisplayName) {
+				},
 		new FrameString ("DisplayHandle",
 			(IBinding data, string? value) => {(data as User)!.DisplayHandle = value; },
-			(IBinding data) => (data as User)?.DisplayHandle),
+			(IBinding data) => (data as User)?.DisplayHandle) {
+				},
 		new FrameBoolean ("Banned",
 			(IBinding data, bool? value) => {(data as User)!.Banned = value; },
-			(IBinding data) => (data as User)?.Banned),
+			(IBinding data) => (data as User)?.Banned) {
+				},
 		new FrameDateTime ("Suspended",
 			(IBinding data, System.DateTime? value) => {(data as User)!.Suspended = value; },
-			(IBinding data) => (data as User)?.Suspended),
+			(IBinding data) => (data as User)?.Suspended) {
+				},
 		new FrameRefList<Group> ("Groups","Group"){
 			Get = (IBacked data) => (data as User)?.Groups ,
 			Set = (IBacked data, Object? value) => {(data as User)!.Groups = value as List<Group>; }}
@@ -1187,19 +1214,24 @@ public partial class User (string Id="User") : FrameClass (Id) {
 
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as User)!.Uid = value; },
-			(IBinding data) => (data as User)?.Uid),
+			(IBinding data) => (data as User)?.Uid) {
+				},
 		new FrameString ("DisplayName",
 			(IBinding data, string? value) => {(data as User)!.DisplayName = value; },
-			(IBinding data) => (data as User)?.DisplayName),
+			(IBinding data) => (data as User)?.DisplayName) {
+				},
 		new FrameString ("DisplayHandle",
 			(IBinding data, string? value) => {(data as User)!.DisplayHandle = value; },
-			(IBinding data) => (data as User)?.DisplayHandle),
+			(IBinding data) => (data as User)?.DisplayHandle) {
+				},
 		new FrameBoolean ("Banned",
 			(IBinding data, bool? value) => {(data as User)!.Banned = value; },
-			(IBinding data) => (data as User)?.Banned),
+			(IBinding data) => (data as User)?.Banned) {
+				},
 		new FrameDateTime ("Suspended",
 			(IBinding data, System.DateTime? value) => {(data as User)!.Suspended = value; },
-			(IBinding data) => (data as User)?.Suspended)		];
+			(IBinding data) => (data as User)?.Suspended) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1239,10 +1271,12 @@ public partial class Group (string Id="Group") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Group)!.Uid = value; },
-			(IBinding data) => (data as Group)?.Uid),
+			(IBinding data) => (data as Group)?.Uid) {
+				},
 		new FrameString ("Name",
 			(IBinding data, string? value) => {(data as Group)!.Name = value; },
-			(IBinding data) => (data as Group)?.Name),
+			(IBinding data) => (data as Group)?.Name) {
+				},
 		new FrameIcon ("Icon")
 		];
 
@@ -1257,10 +1291,12 @@ public partial class Group (string Id="Group") : FrameClass (Id) {
 
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Group)!.Uid = value; },
-			(IBinding data) => (data as Group)?.Uid),
+			(IBinding data) => (data as Group)?.Uid) {
+				},
 		new FrameString ("Name",
 			(IBinding data, string? value) => {(data as Group)!.Name = value; },
-			(IBinding data) => (data as Group)?.Name)		];
+			(IBinding data) => (data as Group)?.Name) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1300,7 +1336,8 @@ public partial class Rights (string Id="Rights") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("GroupUid",
 			(IBinding data, string? value) => {(data as Rights)!.GroupUid = value; },
-			(IBinding data) => (data as Rights)?.GroupUid),
+			(IBinding data) => (data as Rights)?.GroupUid) {
+				},
 		new FrameRefClass<Privileges> ("Grant","Privileges"){
 			Get = (IBacked data) => (data as Rights)?.Grant ,
 			Set = (IBacked data, IBacked? value) => {(data as Rights)!.Grant = value as Privileges; }},
@@ -1320,7 +1357,8 @@ public partial class Rights (string Id="Rights") : FrameClass (Id) {
 
 		new FrameString ("GroupUid",
 			(IBinding data, string? value) => {(data as Rights)!.GroupUid = value; },
-			(IBinding data) => (data as Rights)?.GroupUid)		];
+			(IBinding data) => (data as Rights)?.GroupUid) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1365,19 +1403,24 @@ public partial class Access (string Id="Access") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameBoolean ("Create",
 			(IBinding data, bool? value) => {(data as Access)!.Create = value; },
-			(IBinding data) => (data as Access)?.Create),
+			(IBinding data) => (data as Access)?.Create) {
+				},
 		new FrameBoolean ("Read",
 			(IBinding data, bool? value) => {(data as Access)!.Read = value; },
-			(IBinding data) => (data as Access)?.Read),
+			(IBinding data) => (data as Access)?.Read) {
+				},
 		new FrameBoolean ("Edit",
 			(IBinding data, bool? value) => {(data as Access)!.Edit = value; },
-			(IBinding data) => (data as Access)?.Edit),
+			(IBinding data) => (data as Access)?.Edit) {
+				},
 		new FrameBoolean ("Delete",
 			(IBinding data, bool? value) => {(data as Access)!.Delete = value; },
-			(IBinding data) => (data as Access)?.Delete),
+			(IBinding data) => (data as Access)?.Delete) {
+				},
 		new FrameBoolean ("Owner",
 			(IBinding data, bool? value) => {(data as Access)!.Owner = value; },
-			(IBinding data) => (data as Access)?.Owner)
+			(IBinding data) => (data as Access)?.Owner) {
+				}
 		];
 
 
@@ -1391,19 +1434,24 @@ public partial class Access (string Id="Access") : FrameClass (Id) {
 
 		new FrameBoolean ("Create",
 			(IBinding data, bool? value) => {(data as Access)!.Create = value; },
-			(IBinding data) => (data as Access)?.Create),
+			(IBinding data) => (data as Access)?.Create) {
+				},
 		new FrameBoolean ("Read",
 			(IBinding data, bool? value) => {(data as Access)!.Read = value; },
-			(IBinding data) => (data as Access)?.Read),
+			(IBinding data) => (data as Access)?.Read) {
+				},
 		new FrameBoolean ("Edit",
 			(IBinding data, bool? value) => {(data as Access)!.Edit = value; },
-			(IBinding data) => (data as Access)?.Edit),
+			(IBinding data) => (data as Access)?.Edit) {
+				},
 		new FrameBoolean ("Delete",
 			(IBinding data, bool? value) => {(data as Access)!.Delete = value; },
-			(IBinding data) => (data as Access)?.Delete),
+			(IBinding data) => (data as Access)?.Delete) {
+				},
 		new FrameBoolean ("Owner",
 			(IBinding data, bool? value) => {(data as Access)!.Owner = value; },
-			(IBinding data) => (data as Access)?.Owner)		];
+			(IBinding data) => (data as Access)?.Owner) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1506,8 +1554,8 @@ public partial class Place (string Id="Place") : FrameClass (Id) {
     /// <summary>Field Title</summary>
 	public string? Title {get; set;}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
+    /// <summary>Field Description</summary>
+	public string? Description {get; set;}
 
 	///<summary>Avatar Avatar</summary>
 	public string? Avatar {get; set;}
@@ -1534,18 +1582,26 @@ public partial class Place (string Id="Place") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("DNS",
 			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-			(IBinding data) => (data as Place)?.DNS),
+			(IBinding data) => (data as Place)?.DNS) {
+				Prompt = "DNS Address",
+				Description = "Can be any DNS name that is resolved to the service."
+				},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-			(IBinding data) => (data as Place)?.Title),
-		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as Place)!.Text = value; },
-			(IBinding data) => (data as Place)?.Text),
+			(IBinding data) => (data as Place)?.Title) {
+				Prompt = "Name"
+				},
+		new FrameText ("Description",
+			(IBinding data, string? value) => {(data as Place)!.Description = value; },
+			(IBinding data) => (data as Place)?.Description) {
+				Prompt = "Description"
+				},
 		new FrameAvatar ("Avatar"){
 			Get = (IBinding data) => (data as Place)?.Avatar },
 		new FrameImage ("Banner",
 			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-			(IBinding data) => (data as Place)?.Banner),
+			(IBinding data) => (data as Place)?.Banner) {
+				},
 		new FrameRefList<Rights> ("RightsPlace","Rights"){
 			Get = (IBacked data) => (data as Place)?.RightsPlace ,
 			Set = (IBacked data, Object? value) => {(data as Place)!.RightsPlace = value as List<Rights>; }},
@@ -1574,16 +1630,24 @@ public partial class Place (string Id="Place") : FrameClass (Id) {
 
 		new FrameString ("DNS",
 			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-			(IBinding data) => (data as Place)?.DNS),
+			(IBinding data) => (data as Place)?.DNS) {
+				Prompt = "DNS Address",
+				Description = "Can be any DNS name that is resolved to the service."
+				},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-			(IBinding data) => (data as Place)?.Title),
-		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as Place)!.Text = value; },
-			(IBinding data) => (data as Place)?.Text),
+			(IBinding data) => (data as Place)?.Title) {
+				Prompt = "Name"
+				},
+		new FrameText ("Description",
+			(IBinding data, string? value) => {(data as Place)!.Description = value; },
+			(IBinding data) => (data as Place)?.Description) {
+				Prompt = "Description"
+				},
 		new FrameImage ("Banner",
 			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-			(IBinding data) => (data as Place)?.Banner)		];
+			(IBinding data) => (data as Place)?.Banner) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1595,7 +1659,7 @@ public partial class Place (string Id="Place") : FrameClass (Id) {
 			// Only inclue the serialized items here
 			{"DNS", _properties[0]},
 			{"Title", _properties[1]},
-			{"Text", _properties[2]},
+			{"Description", _properties[2]},
 			{"Banner", _properties[3]}
 			}, "Place",
 		() => new Place(), () => [], () => [], null, Generic: false);
@@ -1628,13 +1692,17 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid),
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("Owner","User"){
 			Get = (IBacked data) => (data as Entry)?.Owner ,
 			Set = (IBacked data, IBacked? value) => {(data as Entry)!.Owner = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic),
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				},
 		new FrameRefList<Rights> ("Rights","Rights"){
 			Get = (IBacked data) => (data as Entry)?.Rights ,
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }}
@@ -1651,10 +1719,14 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
 
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid),
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic)		];
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1691,19 +1763,24 @@ public partial class Topic (string Id="Topic") : Entry (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid),
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("Owner","User"){
 			Get = (IBacked data) => (data as Entry)?.Owner ,
 			Set = (IBacked data, IBacked? value) => {(data as Entry)!.Owner = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic),
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				},
 		new FrameRefList<Rights> ("Rights","Rights"){
 			Get = (IBacked data) => (data as Entry)?.Rights ,
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Topic)!.Title = value; },
-			(IBinding data) => (data as Topic)?.Title),
+			(IBinding data) => (data as Topic)?.Title) {
+				},
 		new FrameRefList<Post> ("Posts","Post"){
 			Get = (IBacked data) => (data as Topic)?.Posts ,
 			Set = (IBacked data, Object? value) => {(data as Topic)!.Posts = value as List<Post>; }}
@@ -1720,7 +1797,8 @@ public partial class Topic (string Id="Topic") : Entry (Id) {
 
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Topic)!.Title = value; },
-			(IBinding data) => (data as Topic)?.Title)		];
+			(IBinding data) => (data as Topic)?.Title) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1762,29 +1840,33 @@ public partial class Post (string Id="Post") : Entry (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid),
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("Owner","User"){
 			Get = (IBacked data) => (data as Entry)?.Owner ,
 			Set = (IBacked data, IBacked? value) => {(data as Entry)!.Owner = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic),
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				},
 		new FrameRefList<Rights> ("Rights","Rights"){
 			Get = (IBacked data) => (data as Entry)?.Rights ,
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-			(IBinding data) => (data as Post)?.Title){
+			(IBinding data) => (data as Post)?.Title) {
 				Prompt = "Title"
 				},
 		new FrameText ("Summary",
 			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
-			(IBinding data) => (data as Post)?.Summary){
+			(IBinding data) => (data as Post)?.Summary) {
 				Prompt = "Summary"
 				},
 		new FrameRichText ("Body",
 			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-			(IBinding data) => (data as Post)?.Body){
+			(IBinding data) => (data as Post)?.Body) {
 				Prompt = "Body"
 				},
 		new FrameRefList<Resource> ("Resources","Resource"){
@@ -1803,17 +1885,17 @@ public partial class Post (string Id="Post") : Entry (Id) {
 
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-			(IBinding data) => (data as Post)?.Title){
+			(IBinding data) => (data as Post)?.Title) {
 				Prompt = "Title"
 				},
 		new FrameText ("Summary",
 			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
-			(IBinding data) => (data as Post)?.Summary){
+			(IBinding data) => (data as Post)?.Summary) {
 				Prompt = "Summary"
 				},
 		new FrameRichText ("Body",
 			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-			(IBinding data) => (data as Post)?.Body){
+			(IBinding data) => (data as Post)?.Body) {
 				Prompt = "Body"
 				}		];
 
@@ -1853,19 +1935,24 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid),
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("Owner","User"){
 			Get = (IBacked data) => (data as Entry)?.Owner ,
 			Set = (IBacked data, IBacked? value) => {(data as Entry)!.Owner = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic),
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				},
 		new FrameRefList<Rights> ("Rights","Rights"){
 			Get = (IBacked data) => (data as Entry)?.Rights ,
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
-			(IBinding data) => (data as Comment)?.Text),
+			(IBinding data) => (data as Comment)?.Text) {
+				},
 		new FrameRefClass<Resource> ("Resources","Resource"){
 			Get = (IBacked data) => (data as Comment)?.Resources ,
 			Set = (IBacked data, IBacked? value) => {(data as Comment)!.Resources = value as Resource; }}
@@ -1882,7 +1969,8 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
-			(IBinding data) => (data as Comment)?.Text)		];
+			(IBinding data) => (data as Comment)?.Text) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1921,25 +2009,32 @@ public partial class Resource (string Id="Resource") : Entry (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid),
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("Owner","User"){
 			Get = (IBacked data) => (data as Entry)?.Owner ,
 			Set = (IBacked data, IBacked? value) => {(data as Entry)!.Owner = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic),
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				},
 		new FrameRefList<Rights> ("Rights","Rights"){
 			Get = (IBacked data) => (data as Entry)?.Rights ,
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Resource)!.Title = value; },
-			(IBinding data) => (data as Resource)?.Title),
+			(IBinding data) => (data as Resource)?.Title) {
+				},
 		new FrameInteger ("Size",
 			(IBinding data, int? value) => {(data as Resource)!.Size = value; },
-			(IBinding data) => (data as Resource)?.Size),
+			(IBinding data) => (data as Resource)?.Size) {
+				},
 		new FrameString ("Type",
 			(IBinding data, string? value) => {(data as Resource)!.Type = value; },
-			(IBinding data) => (data as Resource)?.Type)
+			(IBinding data) => (data as Resource)?.Type) {
+				}
 		];
 
 
@@ -1953,13 +2048,16 @@ public partial class Resource (string Id="Resource") : Entry (Id) {
 
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Resource)!.Title = value; },
-			(IBinding data) => (data as Resource)?.Title),
+			(IBinding data) => (data as Resource)?.Title) {
+				},
 		new FrameInteger ("Size",
 			(IBinding data, int? value) => {(data as Resource)!.Size = value; },
-			(IBinding data) => (data as Resource)?.Size),
+			(IBinding data) => (data as Resource)?.Size) {
+				},
 		new FrameString ("Type",
 			(IBinding data, string? value) => {(data as Resource)!.Type = value; },
-			(IBinding data) => (data as Resource)?.Type)		];
+			(IBinding data) => (data as Resource)?.Type) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2021,19 +2119,25 @@ public partial class Contact (string Id="Contact") : Entry (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid),
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("Owner","User"){
 			Get = (IBacked data) => (data as Entry)?.Owner ,
 			Set = (IBacked data, IBacked? value) => {(data as Entry)!.Owner = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic),
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				},
 		new FrameRefList<Rights> ("Rights","Rights"){
 			Get = (IBacked data) => (data as Entry)?.Rights ,
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Updated",
 			(IBinding data, System.DateTime? value) => {(data as Contact)!.Updated = value; },
-			(IBinding data) => (data as Contact)?.Updated),
+			(IBinding data) => (data as Contact)?.Updated) {
+				Description = "Time of last contact update"
+				},
 		new FrameRefClass<User> ("User","User"){
 			Get = (IBacked data) => (data as Contact)?.User ,
 			Set = (IBacked data, IBacked? value) => {(data as Contact)!.User = value as User; }},
@@ -2075,7 +2179,9 @@ public partial class Contact (string Id="Contact") : Entry (Id) {
 
 		new FrameDateTime ("Updated",
 			(IBinding data, System.DateTime? value) => {(data as Contact)!.Updated = value; },
-			(IBinding data) => (data as Contact)?.Updated)		];
+			(IBinding data) => (data as Contact)?.Updated) {
+				Description = "Time of last contact update"
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2117,16 +2223,19 @@ public partial class Name (string Id="Name") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Full",
 			(IBinding data, string? value) => {(data as Name)!.Full = value; },
-			(IBinding data) => (data as Name)?.Full),
+			(IBinding data) => (data as Name)?.Full) {
+				},
 		new FrameRefList<TagValue> ("Components","TagValue"){
 			Get = (IBacked data) => (data as Name)?.Components ,
 			Set = (IBacked data, Object? value) => {(data as Name)!.Components = value as List<TagValue>; }},
 		new FrameString ("PhoneticSystem",
 			(IBinding data, string? value) => {(data as Name)!.PhoneticSystem = value; },
-			(IBinding data) => (data as Name)?.PhoneticSystem),
+			(IBinding data) => (data as Name)?.PhoneticSystem) {
+				},
 		new FrameString ("PhoneticScript",
 			(IBinding data, string? value) => {(data as Name)!.PhoneticScript = value; },
-			(IBinding data) => (data as Name)?.PhoneticScript)
+			(IBinding data) => (data as Name)?.PhoneticScript) {
+				}
 		];
 
 
@@ -2140,13 +2249,16 @@ public partial class Name (string Id="Name") : FrameClass (Id) {
 
 		new FrameString ("Full",
 			(IBinding data, string? value) => {(data as Name)!.Full = value; },
-			(IBinding data) => (data as Name)?.Full),
+			(IBinding data) => (data as Name)?.Full) {
+				},
 		new FrameString ("PhoneticSystem",
 			(IBinding data, string? value) => {(data as Name)!.PhoneticSystem = value; },
-			(IBinding data) => (data as Name)?.PhoneticSystem),
+			(IBinding data) => (data as Name)?.PhoneticSystem) {
+				},
 		new FrameString ("PhoneticScript",
 			(IBinding data, string? value) => {(data as Name)!.PhoneticScript = value; },
-			(IBinding data) => (data as Name)?.PhoneticScript)		];
+			(IBinding data) => (data as Name)?.PhoneticScript) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2184,10 +2296,12 @@ public partial class TagValue (string Id="TagValue") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Tag",
 			(IBinding data, string? value) => {(data as TagValue)!.Tag = value; },
-			(IBinding data) => (data as TagValue)?.Tag),
+			(IBinding data) => (data as TagValue)?.Tag) {
+				},
 		new FrameString ("Value",
 			(IBinding data, string? value) => {(data as TagValue)!.Value = value; },
-			(IBinding data) => (data as TagValue)?.Value)
+			(IBinding data) => (data as TagValue)?.Value) {
+				}
 		];
 
 
@@ -2201,10 +2315,12 @@ public partial class TagValue (string Id="TagValue") : FrameClass (Id) {
 
 		new FrameString ("Tag",
 			(IBinding data, string? value) => {(data as TagValue)!.Tag = value; },
-			(IBinding data) => (data as TagValue)?.Tag),
+			(IBinding data) => (data as TagValue)?.Tag) {
+				},
 		new FrameString ("Value",
 			(IBinding data, string? value) => {(data as TagValue)!.Value = value; },
-			(IBinding data) => (data as TagValue)?.Value)		];
+			(IBinding data) => (data as TagValue)?.Value) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2238,7 +2354,8 @@ public partial class Organization (string Id="Organization") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Name",
 			(IBinding data, string? value) => {(data as Organization)!.Name = value; },
-			(IBinding data) => (data as Organization)?.Name)
+			(IBinding data) => (data as Organization)?.Name) {
+				}
 		];
 
 
@@ -2252,7 +2369,8 @@ public partial class Organization (string Id="Organization") : FrameClass (Id) {
 
 		new FrameString ("Name",
 			(IBinding data, string? value) => {(data as Organization)!.Name = value; },
-			(IBinding data) => (data as Organization)?.Name)		];
+			(IBinding data) => (data as Organization)?.Name) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2297,13 +2415,16 @@ public partial class Pronouns (string Id="Pronouns") : FrameClass (Id) {
 			Set = (IBacked data, Object? value) => {(data as Pronouns)!.GramaticalGender = value as List<Option>; }},
 		new FrameString ("Subjective",
 			(IBinding data, string? value) => {(data as Pronouns)!.Subjective = value; },
-			(IBinding data) => (data as Pronouns)?.Subjective),
+			(IBinding data) => (data as Pronouns)?.Subjective) {
+				},
 		new FrameString ("Objective",
 			(IBinding data, string? value) => {(data as Pronouns)!.Objective = value; },
-			(IBinding data) => (data as Pronouns)?.Objective),
+			(IBinding data) => (data as Pronouns)?.Objective) {
+				},
 		new FrameString ("Posessive",
 			(IBinding data, string? value) => {(data as Pronouns)!.Posessive = value; },
-			(IBinding data) => (data as Pronouns)?.Posessive)
+			(IBinding data) => (data as Pronouns)?.Posessive) {
+				}
 		];
 
 
@@ -2317,13 +2438,16 @@ public partial class Pronouns (string Id="Pronouns") : FrameClass (Id) {
 
 		new FrameString ("Subjective",
 			(IBinding data, string? value) => {(data as Pronouns)!.Subjective = value; },
-			(IBinding data) => (data as Pronouns)?.Subjective),
+			(IBinding data) => (data as Pronouns)?.Subjective) {
+				},
 		new FrameString ("Objective",
 			(IBinding data, string? value) => {(data as Pronouns)!.Objective = value; },
-			(IBinding data) => (data as Pronouns)?.Objective),
+			(IBinding data) => (data as Pronouns)?.Objective) {
+				},
 		new FrameString ("Posessive",
 			(IBinding data, string? value) => {(data as Pronouns)!.Posessive = value; },
-			(IBinding data) => (data as Pronouns)?.Posessive)		];
+			(IBinding data) => (data as Pronouns)?.Posessive) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2361,7 +2485,8 @@ public partial class Title (string Id="Title") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Name",
 			(IBinding data, string? value) => {(data as Title)!.Name = value; },
-			(IBinding data) => (data as Title)?.Name),
+			(IBinding data) => (data as Title)?.Name) {
+				},
 		new FrameRefClass<Organization> ("Organization","Organization"){
 			Get = (IBacked data) => (data as Title)?.Organization ,
 			Set = (IBacked data, IBacked? value) => {(data as Title)!.Organization = value as Organization; }}
@@ -2378,7 +2503,8 @@ public partial class Title (string Id="Title") : FrameClass (Id) {
 
 		new FrameString ("Name",
 			(IBinding data, string? value) => {(data as Title)!.Name = value; },
-			(IBinding data) => (data as Title)?.Name)		];
+			(IBinding data) => (data as Title)?.Name) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2417,13 +2543,16 @@ public partial class RelatedTo (string Id="RelatedTo") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as RelatedTo)!.Uid = value; },
-			(IBinding data) => (data as RelatedTo)?.Uid),
+			(IBinding data) => (data as RelatedTo)?.Uid) {
+				Description = "URI of the related party"
+				},
 		new FrameRefList<Option> ("Relation","Option"){
 			Get = (IBacked data) => (data as RelatedTo)?.Relation ,
 			Set = (IBacked data, Object? value) => {(data as RelatedTo)!.Relation = value as List<Option>; }},
 		new FrameString ("Other",
 			(IBinding data, string? value) => {(data as RelatedTo)!.Other = value; },
-			(IBinding data) => (data as RelatedTo)?.Other)
+			(IBinding data) => (data as RelatedTo)?.Other) {
+				}
 		];
 
 
@@ -2437,10 +2566,13 @@ public partial class RelatedTo (string Id="RelatedTo") : FrameClass (Id) {
 
 		new FrameString ("Uid",
 			(IBinding data, string? value) => {(data as RelatedTo)!.Uid = value; },
-			(IBinding data) => (data as RelatedTo)?.Uid),
+			(IBinding data) => (data as RelatedTo)?.Uid) {
+				Description = "URI of the related party"
+				},
 		new FrameString ("Other",
 			(IBinding data, string? value) => {(data as RelatedTo)!.Other = value; },
-			(IBinding data) => (data as RelatedTo)?.Other)		];
+			(IBinding data) => (data as RelatedTo)?.Other) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2483,16 +2615,20 @@ public partial class Application (string Id="Application") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
 			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName),
+			(IBinding data) => (data as Application)?.ApplicationName) {
+				},
 		new FrameString ("Address",
 			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address),
+			(IBinding data) => (data as Application)?.Address) {
+				Description = "The user identifier at the service"
+				},
 		new FrameRefList<Key> ("Keys","Key"){
 			Get = (IBacked data) => (data as Application)?.Keys ,
 			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
 			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference)
+			(IBinding data) => (data as Application)?.Preference) {
+				}
 		];
 
 
@@ -2506,13 +2642,17 @@ public partial class Application (string Id="Application") : FrameClass (Id) {
 
 		new FrameString ("ApplicationName",
 			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName),
+			(IBinding data) => (data as Application)?.ApplicationName) {
+				},
 		new FrameString ("Address",
 			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address),
+			(IBinding data) => (data as Application)?.Address) {
+				Description = "The user identifier at the service"
+				},
 		new FrameInteger ("Preference",
 			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference)		];
+			(IBinding data) => (data as Application)?.Preference) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2544,16 +2684,20 @@ public partial class Email (string Id="Email") : Application (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
 			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName),
+			(IBinding data) => (data as Application)?.ApplicationName) {
+				},
 		new FrameString ("Address",
 			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address),
+			(IBinding data) => (data as Application)?.Address) {
+				Description = "The user identifier at the service"
+				},
 		new FrameRefList<Key> ("Keys","Key"){
 			Get = (IBacked data) => (data as Application)?.Keys ,
 			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
 			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference)
+			(IBinding data) => (data as Application)?.Preference) {
+				}
 		];
 
 
@@ -2599,22 +2743,27 @@ public partial class Messaging (string Id="Messaging") : Application (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
 			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName),
+			(IBinding data) => (data as Application)?.ApplicationName) {
+				},
 		new FrameString ("Address",
 			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address),
+			(IBinding data) => (data as Application)?.Address) {
+				Description = "The user identifier at the service"
+				},
 		new FrameRefList<Key> ("Keys","Key"){
 			Get = (IBacked data) => (data as Application)?.Keys ,
 			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
 			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference),
+			(IBinding data) => (data as Application)?.Preference) {
+				},
 		new FrameRefClass<ServiceOption> ("Service","ServiceOption"){
 			Get = (IBacked data) => (data as Messaging)?.Service ,
 			Set = (IBacked data, IBacked? value) => {(data as Messaging)!.Service = value as ServiceOption; }},
 		new FrameString ("Other",
 			(IBinding data, string? value) => {(data as Messaging)!.Other = value; },
-			(IBinding data) => (data as Messaging)?.Other)
+			(IBinding data) => (data as Messaging)?.Other) {
+				}
 		];
 
 
@@ -2628,7 +2777,8 @@ public partial class Messaging (string Id="Messaging") : Application (Id) {
 
 		new FrameString ("Other",
 			(IBinding data, string? value) => {(data as Messaging)!.Other = value; },
-			(IBinding data) => (data as Messaging)?.Other)		];
+			(IBinding data) => (data as Messaging)?.Other) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2661,16 +2811,20 @@ public partial class Phone (string Id="Phone") : Application (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
 			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName),
+			(IBinding data) => (data as Application)?.ApplicationName) {
+				},
 		new FrameString ("Address",
 			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address),
+			(IBinding data) => (data as Application)?.Address) {
+				Description = "The user identifier at the service"
+				},
 		new FrameRefList<Key> ("Keys","Key"){
 			Get = (IBacked data) => (data as Application)?.Keys ,
 			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
 			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference),
+			(IBinding data) => (data as Application)?.Preference) {
+				},
 		new FrameRefList<Option> ("Features","Option"){
 			Get = (IBacked data) => (data as Phone)?.Features ,
 			Set = (IBacked data, Object? value) => {(data as Phone)!.Features = value as List<Option>; }}
@@ -2722,22 +2876,29 @@ public partial class Service (string Id="Service") : Application (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
 			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName),
+			(IBinding data) => (data as Application)?.ApplicationName) {
+				},
 		new FrameString ("Address",
 			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address),
+			(IBinding data) => (data as Application)?.Address) {
+				Description = "The user identifier at the service"
+				},
 		new FrameRefList<Key> ("Keys","Key"){
 			Get = (IBacked data) => (data as Application)?.Keys ,
 			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
 			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference),
+			(IBinding data) => (data as Application)?.Preference) {
+				},
 		new FrameString ("ServiceName",
 			(IBinding data, string? value) => {(data as Service)!.ServiceName = value; },
-			(IBinding data) => (data as Service)?.ServiceName),
+			(IBinding data) => (data as Service)?.ServiceName) {
+				Description = "The service address"
+				},
 		new FrameString ("Protocol",
 			(IBinding data, string? value) => {(data as Service)!.Protocol = value; },
-			(IBinding data) => (data as Service)?.Protocol),
+			(IBinding data) => (data as Service)?.Protocol) {
+				},
 		new FrameRefClass<Option> ("Type","Option"){
 			Get = (IBacked data) => (data as Service)?.Type ,
 			Set = (IBacked data, IBacked? value) => {(data as Service)!.Type = value as Option; }}
@@ -2754,10 +2915,13 @@ public partial class Service (string Id="Service") : Application (Id) {
 
 		new FrameString ("ServiceName",
 			(IBinding data, string? value) => {(data as Service)!.ServiceName = value; },
-			(IBinding data) => (data as Service)?.ServiceName),
+			(IBinding data) => (data as Service)?.ServiceName) {
+				Description = "The service address"
+				},
 		new FrameString ("Protocol",
 			(IBinding data, string? value) => {(data as Service)!.Protocol = value; },
-			(IBinding data) => (data as Service)?.Protocol)		];
+			(IBinding data) => (data as Service)?.Protocol) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2849,16 +3013,20 @@ public partial class KeyData (string Id="KeyData") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("UID",
 			(IBinding data, string? value) => {(data as KeyData)!.UID = value; },
-			(IBinding data) => (data as KeyData)?.UID),
+			(IBinding data) => (data as KeyData)?.UID) {
+				},
 		new FrameBoolean ("Encryption",
 			(IBinding data, bool? value) => {(data as KeyData)!.Encryption = value; },
-			(IBinding data) => (data as KeyData)?.Encryption),
+			(IBinding data) => (data as KeyData)?.Encryption) {
+				},
 		new FrameBoolean ("Signature",
 			(IBinding data, bool? value) => {(data as KeyData)!.Signature = value; },
-			(IBinding data) => (data as KeyData)?.Signature),
+			(IBinding data) => (data as KeyData)?.Signature) {
+				},
 		new FrameString ("Value",
 			(IBinding data, string? value) => {(data as KeyData)!.Value = value; },
-			(IBinding data) => (data as KeyData)?.Value)
+			(IBinding data) => (data as KeyData)?.Value) {
+				}
 		];
 
 
@@ -2872,16 +3040,20 @@ public partial class KeyData (string Id="KeyData") : FrameClass (Id) {
 
 		new FrameString ("UID",
 			(IBinding data, string? value) => {(data as KeyData)!.UID = value; },
-			(IBinding data) => (data as KeyData)?.UID),
+			(IBinding data) => (data as KeyData)?.UID) {
+				},
 		new FrameBoolean ("Encryption",
 			(IBinding data, bool? value) => {(data as KeyData)!.Encryption = value; },
-			(IBinding data) => (data as KeyData)?.Encryption),
+			(IBinding data) => (data as KeyData)?.Encryption) {
+				},
 		new FrameBoolean ("Signature",
 			(IBinding data, bool? value) => {(data as KeyData)!.Signature = value; },
-			(IBinding data) => (data as KeyData)?.Signature),
+			(IBinding data) => (data as KeyData)?.Signature) {
+				},
 		new FrameString ("Value",
 			(IBinding data, string? value) => {(data as KeyData)!.Value = value; },
-			(IBinding data) => (data as KeyData)?.Value)		];
+			(IBinding data) => (data as KeyData)?.Value) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2929,19 +3101,29 @@ public partial class Media (string Id="Media") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("MediaType",
 			(IBinding data, string? value) => {(data as Media)!.MediaType = value; },
-			(IBinding data) => (data as Media)?.MediaType),
+			(IBinding data) => (data as Media)?.MediaType) {
+				Description = "The IANA Media Type"
+				},
 		new FrameInteger ("Width",
 			(IBinding data, int? value) => {(data as Media)!.Width = value; },
-			(IBinding data) => (data as Media)?.Width),
+			(IBinding data) => (data as Media)?.Width) {
+				Description = "Width of image/video media in pixels"
+				},
 		new FrameInteger ("Height",
 			(IBinding data, int? value) => {(data as Media)!.Height = value; },
-			(IBinding data) => (data as Media)?.Height),
+			(IBinding data) => (data as Media)?.Height) {
+				Description = "Height of image/video media in pixels"
+				},
 		new FrameInteger ("Length",
 			(IBinding data, int? value) => {(data as Media)!.Length = value; },
-			(IBinding data) => (data as Media)?.Length),
+			(IBinding data) => (data as Media)?.Length) {
+				Description = "Length of audio/video media in seconds"
+				},
 		new FrameInteger ("Bytes",
 			(IBinding data, int? value) => {(data as Media)!.Bytes = value; },
-			(IBinding data) => (data as Media)?.Bytes)
+			(IBinding data) => (data as Media)?.Bytes) {
+				Description = "Size of the resource in bytes"
+				}
 		];
 
 
@@ -2955,19 +3137,29 @@ public partial class Media (string Id="Media") : FrameClass (Id) {
 
 		new FrameString ("MediaType",
 			(IBinding data, string? value) => {(data as Media)!.MediaType = value; },
-			(IBinding data) => (data as Media)?.MediaType),
+			(IBinding data) => (data as Media)?.MediaType) {
+				Description = "The IANA Media Type"
+				},
 		new FrameInteger ("Width",
 			(IBinding data, int? value) => {(data as Media)!.Width = value; },
-			(IBinding data) => (data as Media)?.Width),
+			(IBinding data) => (data as Media)?.Width) {
+				Description = "Width of image/video media in pixels"
+				},
 		new FrameInteger ("Height",
 			(IBinding data, int? value) => {(data as Media)!.Height = value; },
-			(IBinding data) => (data as Media)?.Height),
+			(IBinding data) => (data as Media)?.Height) {
+				Description = "Height of image/video media in pixels"
+				},
 		new FrameInteger ("Length",
 			(IBinding data, int? value) => {(data as Media)!.Length = value; },
-			(IBinding data) => (data as Media)?.Length),
+			(IBinding data) => (data as Media)?.Length) {
+				Description = "Length of audio/video media in seconds"
+				},
 		new FrameInteger ("Bytes",
 			(IBinding data, int? value) => {(data as Media)!.Bytes = value; },
-			(IBinding data) => (data as Media)?.Bytes)		];
+			(IBinding data) => (data as Media)?.Bytes) {
+				Description = "Size of the resource in bytes"
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -3013,16 +3205,24 @@ public partial class Option (string Id="Option") : FrameClass (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Id",
 			(IBinding data, string? value) => {(data as Option)!.Id = value; },
-			(IBinding data) => (data as Option)?.Id),
+			(IBinding data) => (data as Option)?.Id) {
+				Hidden = true,
+				Description = "Unique identifier"
+				},
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as Option)!.Text = value; },
-			(IBinding data) => (data as Option)?.Text),
+			(IBinding data) => (data as Option)?.Text) {
+				Description = "Text prompt for the option"
+				},
 		new FrameString ("Icon",
 			(IBinding data, string? value) => {(data as Option)!.Icon = value; },
-			(IBinding data) => (data as Option)?.Icon),
+			(IBinding data) => (data as Option)?.Icon) {
+				Description = "Icon prompt for the option"
+				},
 		new FrameInteger ("Priority",
 			(IBinding data, int? value) => {(data as Option)!.Priority = value; },
-			(IBinding data) => (data as Option)?.Priority)
+			(IBinding data) => (data as Option)?.Priority) {
+				}
 		];
 
 
@@ -3036,16 +3236,24 @@ public partial class Option (string Id="Option") : FrameClass (Id) {
 
 		new FrameString ("Id",
 			(IBinding data, string? value) => {(data as Option)!.Id = value; },
-			(IBinding data) => (data as Option)?.Id),
+			(IBinding data) => (data as Option)?.Id) {
+				Hidden = true,
+				Description = "Unique identifier"
+				},
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as Option)!.Text = value; },
-			(IBinding data) => (data as Option)?.Text),
+			(IBinding data) => (data as Option)?.Text) {
+				Description = "Text prompt for the option"
+				},
 		new FrameString ("Icon",
 			(IBinding data, string? value) => {(data as Option)!.Icon = value; },
-			(IBinding data) => (data as Option)?.Icon),
+			(IBinding data) => (data as Option)?.Icon) {
+				Description = "Icon prompt for the option"
+				},
 		new FrameInteger ("Priority",
 			(IBinding data, int? value) => {(data as Option)!.Priority = value; },
-			(IBinding data) => (data as Option)?.Priority)		];
+			(IBinding data) => (data as Option)?.Priority) {
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -3084,22 +3292,34 @@ public partial class ServiceOption (string Id="ServiceOption") : Option (Id) {
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Id",
 			(IBinding data, string? value) => {(data as Option)!.Id = value; },
-			(IBinding data) => (data as Option)?.Id),
+			(IBinding data) => (data as Option)?.Id) {
+				Hidden = true,
+				Description = "Unique identifier"
+				},
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as Option)!.Text = value; },
-			(IBinding data) => (data as Option)?.Text),
+			(IBinding data) => (data as Option)?.Text) {
+				Description = "Text prompt for the option"
+				},
 		new FrameString ("Icon",
 			(IBinding data, string? value) => {(data as Option)!.Icon = value; },
-			(IBinding data) => (data as Option)?.Icon),
+			(IBinding data) => (data as Option)?.Icon) {
+				Description = "Icon prompt for the option"
+				},
 		new FrameInteger ("Priority",
 			(IBinding data, int? value) => {(data as Option)!.Priority = value; },
-			(IBinding data) => (data as Option)?.Priority),
+			(IBinding data) => (data as Option)?.Priority) {
+				},
 		new FrameString ("Uri",
 			(IBinding data, string? value) => {(data as ServiceOption)!.Uri = value; },
-			(IBinding data) => (data as ServiceOption)?.Uri),
+			(IBinding data) => (data as ServiceOption)?.Uri) {
+				Description = "The service address"
+				},
 		new FrameString ("Template",
 			(IBinding data, string? value) => {(data as ServiceOption)!.Template = value; },
-			(IBinding data) => (data as ServiceOption)?.Template)
+			(IBinding data) => (data as ServiceOption)?.Template) {
+				Description = "Template that converts the user address to a URI"
+				}
 		];
 
 
@@ -3113,10 +3333,14 @@ public partial class ServiceOption (string Id="ServiceOption") : Option (Id) {
 
 		new FrameString ("Uri",
 			(IBinding data, string? value) => {(data as ServiceOption)!.Uri = value; },
-			(IBinding data) => (data as ServiceOption)?.Uri),
+			(IBinding data) => (data as ServiceOption)?.Uri) {
+				Description = "The service address"
+				},
 		new FrameString ("Template",
 			(IBinding data, string? value) => {(data as ServiceOption)!.Template = value; },
-			(IBinding data) => (data as ServiceOption)?.Template)		];
+			(IBinding data) => (data as ServiceOption)?.Template) {
+				Description = "Template that converts the user address to a URI"
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;

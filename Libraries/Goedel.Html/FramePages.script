@@ -382,12 +382,22 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 #{comma}
 		new #{entry.Type} ("#{entry.Tag}",
 			(IBinding data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{sid} = value; },
-			(IBinding data) => (data as #{backed.Id})?.#{id})#!
+			(IBinding data) => (data as #{backed.Id})?.#{id}) {#!
+#% var comma3 = new Registry.Separator (",");
 #if entry.Prompt is not null
-{
-				Prompt = "#{entry.Prompt}"
-				}#!
+#{comma3}
+				Prompt = "#{entry.Prompt}"#!
 #end if
+#if entry.Hidden
+#{comma3}
+				Hidden = true#!
+#end if
+#if entry.Description is not null
+#{comma3}
+				Description = "#{entry.Description}"#!
+#end if
+
+				}#!
 #end if
 #% break; }
 #% }

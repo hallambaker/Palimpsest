@@ -187,7 +187,7 @@ class MainClass {
         var basePlace = new Place() {
             DNS="mplace2.social",
             Title="MPlace2",
-            Text = "Making personal places on the Web",
+            Description = "Making personal places on the Web",
             Banner = "Mplace2Banner.png",
             Avatar = "avatar.png"
             };
@@ -195,7 +195,7 @@ class MainClass {
         var phbPlace = new Place() {
             DNS = "phill.hallambaker.com",
             Title = "Phill's Place",
-            Text = "PHB's place on the Web",
+            Description = "PHB's place on the Web",
             Banner = "PHBBanner.png",
             Avatar = "PHBInDalek.png"
             };
@@ -203,7 +203,7 @@ class MainClass {
         var buildingPlace = new Place() {
             DNS = "building.mplace2.social",
             Title = "MPlace2 Building",
-            Text = "Building MPlace2",
+            Description = "Building MPlace2",
             Banner = "Mplace2Banner.png",
             Avatar = "avatar.png"
             };
@@ -211,7 +211,7 @@ class MainClass {
         var anyonePlace = new Place() {
             DNS = "anyone.mplace2.social",
             Title = "MPlace2",
-            Text = "Intelligent contacts that work",
+            Description = "Intelligent contacts that work",
             Banner = "Mplace2Banner.png",
             Avatar = "avatar.png"
             };
@@ -219,7 +219,7 @@ class MainClass {
         var anythingPlace = new Place() {
             DNS = "anything.mplace2.social",
             Title = "@nything",
-            Text = "Making personal devices personal.",
+            Description = "Making personal devices personal.",
             Banner = "Mplace2Banner.png",
             Avatar = "avatar.png"
             };

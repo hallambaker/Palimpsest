@@ -207,10 +207,13 @@ public partial class PageWriter : HtmlWriter {
             icon = button.GetActive(backer) == true ? icon + "Active" : icon;
             }
 
-        var start = OpenClass("button",  button.Tag, "type", "button");
-        ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(icon), "alt", button.Label);
+        var start = OpenClass("div", button.Tag);
+        Open("p");
+        Open ("a", "href", button.Action+".html");
 
-        TextClass(button.Label, "ButtonText ", "div");
+        ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(icon), "alt", button.Label);
+        TextClass(button.Label, "ButtonText", "div");
+
         if (button.GetText is not null) {
             var value = button?.GetText(backer);
             if (value is not null) {
@@ -223,11 +226,34 @@ public partial class PageWriter : HtmlWriter {
                 TextClass(value, "ButtonVar", "div");
                 }
             }
-        else {
 
-            }
+        Close();
+        Close();
 
         Close(start);
+
+
+
+
+
+
+        //var start = OpenClass("button",  button.Tag, "type", "button");
+        //ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(icon), "alt", button.Label);
+
+        //TextClass(button.Label, "ButtonText ", "div");
+        //if (button.GetText is not null) {
+        //    var value = button?.GetText(backer);
+        //    if (value is not null) {
+        //        TextClass(value, "ButtonVar", "div");
+        //        }
+        //    }
+        //else if (button.GetInteger is not null) {
+        //    var value = button?.GetInteger(backer).ToString();
+        //    if (value is not null) {
+        //        TextClass(value, "ButtonVar", "div");
+        //        }
+        //    }
+        //Close(start);
         }
 
     public void Render(IBacked backer, FrameSubmenu item) {

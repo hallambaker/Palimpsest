@@ -9,18 +9,103 @@
   </head>
   <body>
     <div class="NewPlacePage">
+      <div class="Navigation">
+        <div class="Navigation Any">
+          <p>
+            <a href="SignIn.html">
+              <img class="Navigation Any ButtonIcon" src="Resources/Icons/Any.svg" alt="Sign In"/>
+              <div class="Navigation Any ButtonText">Sign In</div>
+            </a>
+          </p>
+        </div>
+        <div class="Navigation Home">
+          <p>
+            <a href="HomePage.html">
+              <img class="Navigation Home ButtonIcon" src="Resources/Icons/Home.svg" alt="Home"/>
+              <div class="Navigation Home ButtonText">Home</div>
+            </a>
+          </p>
+        </div>
+        <div class="Navigation Notifications">
+          <p>
+            <a href="NotificationsPage.html">
+              <img class="Navigation Notifications ButtonIcon" src="Resources/Icons/Notifications.svg" alt="Notifications"/>
+              <div class="Navigation Notifications ButtonText">Notifications</div>
+              <div class="Navigation Notifications ButtonVar"></div>
+            </a>
+          </p>
+        </div>
+        <div class="Navigation Places">
+          <p>
+            <a href="PlacesPage.html">
+              <img class="Navigation Places ButtonIcon" src="Resources/Icons/Places.svg" alt="Places"/>
+              <div class="Navigation Places ButtonText">Places</div>
+            </a>
+          </p>
+        </div>
+        <div class="Navigation Bookmark">
+          <p>
+            <a href="BookmarkPage.html">
+              <img class="Navigation Bookmark ButtonIcon" src="Resources/Icons/Bookmark.svg" alt="Saved"/>
+              <div class="Navigation Bookmark ButtonText">Saved</div>
+            </a>
+          </p>
+        </div>
+        <div class="Navigation Place">
+          <p>
+            <a href="YourPlacePage.html">
+              <img class="Navigation Place ButtonIcon" src="Resources/Icons/Place.svg" alt="Your Place"/>
+              <div class="Navigation Place ButtonText">Your Place</div>
+            </a>
+          </p>
+        </div>
+        <div class="Navigation Settings">
+          <p>
+            <a href="SettingsPage.html">
+              <img class="Navigation Settings ButtonIcon" src="Resources/Icons/Settings.svg" alt="Settings"/>
+              <div class="Navigation Settings ButtonText">Settings</div>
+            </a>
+          </p>
+        </div>
+        <div class="Navigation NewPlace">
+          <p>
+            <a href="NewPostPage.html">
+              <img class="Navigation NewPlace ButtonIcon" src="Resources/Icons/NewPlace.svg" alt="New Place"/>
+              <div class="Navigation NewPlace ButtonText">New Place</div>
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="TopSettings">
+        <div class="TopSettings Menu">
+          <p>
+            <a href="SettingsPage.html">
+              <img class="TopSettings Menu ButtonIcon" src="Resources/Icons/Menu.svg" alt="Menu"/>
+              <div class="TopSettings Menu ButtonText">Menu</div>
+            </a>
+          </p>
+        </div>
+        <div class="TopSettings Settings">
+          <p>
+            <a href="SettingsPage.html">
+              <img class="TopSettings Settings ButtonIcon" src="Resources/Icons/Settings.svg" alt="Settings"/>
+              <div class="TopSettings Settings ButtonText">Settings</div>
+            </a>
+          </p>
+        </div>
+      </div>
       <form class="Form" action="https://httpbin.org/post" method="post">
         <div class="Form DNS">
-          <label></label>
+          <label>DNS Address</label>
           <input type="text" id="DNS" name="DNS"/>
         </div>
         <div class="Form Title">
-          <label></label>
+          <label>Name</label>
           <input type="text" id="Title" name="Title"/>
         </div>
-        <div class="Form Text">
-          <label></label>
-          <input type="text" id="Text" name="Text"/>
+        <div class="Form Description">
+          <label>Description</label>
+          <textarea type="text" id="Description" name="Description"></textarea>
         </div>
         <input type="submit" value="Submit"/>
         <input type="reset" value="Reset"/>

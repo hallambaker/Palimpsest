@@ -9,5 +9,9 @@ public interface IFrameField {
 
     string Prompt { get; set; }
 
+    bool Hidden { get; set; }
+
+    string Description { get; set; }
+
 
     }

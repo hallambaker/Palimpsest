@@ -174,6 +174,8 @@ public class FrameClass : FrameBacker, IBacked {
 // Fields
 public abstract record FrameField : IFrameField {
     public string Prompt { get; set; }
+    public bool Hidden { get; set; } = false;
+    public string Description { get; set; }
     public string Id { get; init; }
     public string Tag { get; init; }
     public virtual string Backing => null;
@@ -318,6 +320,8 @@ public record FrameBoolean(
             Action<IBinding, bool?>? Set = null,
             Func<IBinding, bool?>? Get = null) : PropertyBoolean(Id, Set, Get) ,IFrameField{
     public string Prompt { get; set; }
+    public bool Hidden { get; set; } = false;
+    public string Description { get; set; }
     public string Backing => "bool";
     public virtual string Type => "FrameBoolean";
 
@@ -332,6 +336,8 @@ public record FrameInteger(
              Func<IBinding, int?>? Get = null
             ) : PropertyInteger32(Id, Set, Get), IFrameField {
     public string Prompt { get; set; }
+    public bool Hidden { get; set; } = false;
+    public string Description { get; set; }
     public string Backing => "int";
     public virtual string Type => "FrameInteger";
     }
@@ -351,6 +357,8 @@ public record FrameDateTime(
             Func<IBinding, System.DateTime?>? Get = null
             ) : PropertyDateTime(Id, Set, Get), IFrameField {
     public string Prompt { get; set; }
+    public bool Hidden { get; set; } = false;
+    public string Description { get; set; }
     public string Backing => "System.DateTime";
     public virtual string Type => "FrameDateTime";
     }
@@ -363,6 +371,8 @@ public record FrameString(
             Action<IBinding, string?>? Set = null,
             Func<IBinding, string?>? Get=null) : PropertyString (Id, Set, Get), IFrameField {
     public string Prompt { get; set; }
+    public bool Hidden { get; set; } = false;
+    public string Description { get; set; }
 
     public string Backing => "string";
     public virtual string Type => "FrameString";
@@ -389,6 +399,8 @@ public record FrameImage(
             Action<IBinding, string?>? Set = null,
             Func<IBinding, string?>? Get = null) : PropertyString(Id, Set, Get), IFrameField {
     public string Prompt { get; set; }
+    public bool Hidden { get; set; } = false;
+    public string Description { get; set; }
     public string Backing => "string";
     public virtual string Type => "FrameImage";
     }

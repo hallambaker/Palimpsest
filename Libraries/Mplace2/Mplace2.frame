@@ -62,6 +62,8 @@ Namespace Frame
         SetingsCategory Is SettingsMenu
 
     NewPlacePage Page "Create New Place"
+        Navigation Is MainNav
+        TopSettings Is TopSettings
         Form Form Place
 
     SettingsMenu Menu
@@ -83,10 +85,14 @@ Namespace Frame
         SystemLog       Button SystemLog        "System Log"
 
     CreatePost Page "Create New Post"
+        Navigation Is MainNav
+        TopSettings Is TopSettings
         Form Form Post                 // Post entry form, i.e. Quill
         Crosspost List Provider         // Crossposting targets
 
     CreateComment Page "Create Comment"
+        Navigation Is MainNav
+        TopSettings Is TopSettings
         Target Is Comment               // Comment being responded to
         Form Form Comment               // Comment entry form
 
@@ -157,8 +163,13 @@ Namespace Frame
         Description "An MPlace2 site with its own DNS address."
         Fields
             DNS String                  // The DNS name of the place
+                Prompt "DNS Address"
+                Description "Can be any DNS name that is resolved to the service."
             Title String                // The title of the place
-            Text String                 // Short description
+                Prompt "Name"
+            Description Text                 // Short description
+                Prompt "Description"
+
             Avatar Avatar        // Avatar to represent the place in collections
             Banner Image                // Banner image for use as a masthead
             RightsPlace List Rights           // Grant of administration rights top this place
@@ -173,8 +184,10 @@ Namespace Frame
         Description ""
         Fields
             Uid String                  // Globally unique identifier
+                Hidden
             Owner Is User               // The owner of the entry, typically the user who created/added the entry
             Semantic String             // The semantic relationship of the entry to the parent
+                Hidden
             Rights List Rights          // Management rights
 
     Topic SubClass Entry 

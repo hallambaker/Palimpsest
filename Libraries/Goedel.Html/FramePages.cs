@@ -422,12 +422,22 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("{1}\n{0}", _Indent, comma);
 			_Output.Write ("		new {1} (\"{2}\",\n{0}", _Indent, entry.Type, entry.Tag);
 			_Output.Write ("			(IBinding data, {1}? value) => {{(data as {2})!.{3} = value; }},\n{0}", _Indent, entry.Backing, backed.Id, sid);
-			_Output.Write ("			(IBinding data) => (data as {1})?.{2})", _Indent, backed.Id, id);
+			_Output.Write ("			(IBinding data) => (data as {1})?.{2}) {{", _Indent, backed.Id, id);
+			 var comma3 = new Registry.Separator (",");
 			if (  entry.Prompt is not null ) {
-				_Output.Write ("{{\n{0}", _Indent);
-				_Output.Write ("				Prompt = \"{1}\"\n{0}", _Indent, entry.Prompt);
-				_Output.Write ("				}}", _Indent);
+				_Output.Write ("{1}\n{0}", _Indent, comma3);
+				_Output.Write ("				Prompt = \"{1}\"", _Indent, entry.Prompt);
 				}
+			if (  entry.Hidden ) {
+				_Output.Write ("{1}\n{0}", _Indent, comma3);
+				_Output.Write ("				Hidden = true", _Indent);
+				}
+			if (  entry.Description is not null ) {
+				_Output.Write ("{1}\n{0}", _Indent, comma3);
+				_Output.Write ("				Description = \"{1}\"", _Indent, entry.Description);
+				}
+			_Output.Write ("\n{0}", _Indent);
+			_Output.Write ("				}}", _Indent);
 			}
 		 break; }
 		 }

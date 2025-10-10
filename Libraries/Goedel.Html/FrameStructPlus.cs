@@ -312,11 +312,10 @@ public partial class Namespace {
             _ => throw new Internal()
             };
 
-        if (field.Prompt is not null) {
-            }
 
         result.Prompt = field.Prompt;
-
+        result.Hidden = field.Hidden;
+        result.Description = field.Description;
         return result;
         }
 
@@ -341,6 +340,8 @@ public partial class Property : IFieldEntry {
 
 public interface IIntrinsic {
     string Prompt { get; }
+    bool Hidden { get; }
+    string Description { get; }
     }
 
 public partial class Boolean : IIntrinsic {
@@ -431,6 +432,9 @@ public partial class _Choice {
     ///<summary>Description text.</summary>
     public string? Prompt { get; set; } = null;
 
+    public bool Hidden { get; set; } = false;
+
+
     ///<summary>If true, include this field in serialization.</summary>
     public bool Include { get; set; } = true;
 
@@ -445,9 +449,6 @@ public partial class _Choice {
     }
 
 public partial class Namespace {
-
-
-
     }
 
 
@@ -495,10 +496,6 @@ public partial class SubClass {
                     Entries = fields.Entries;
                     break;
                     }
-                //case Description description: {
-                //    Description = description.Text;
-                //    break;
-                //    }
                 }
             }
         }
@@ -507,7 +504,7 @@ public partial class SubClass {
 public partial class Description {
 
     public override void Init(_Choice parent) {
-        parent.Description = this.Text;
+        parent._Parent.Description = Text;
         }
 
     }
@@ -562,6 +559,13 @@ public partial class Prompt {
 
     public override void Init(_Choice parent) {
         parent._Parent.Prompt = Text;
+        }
+    }
+
+public partial class Hidden {
+
+    public override void Init(_Choice parent) {
+        parent._Parent.Hidden = true;
         }
     }
 

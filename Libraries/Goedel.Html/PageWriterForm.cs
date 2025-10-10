@@ -33,7 +33,8 @@ public partial class PageWriter : HtmlWriter {
             IBacked? backer,
             IFrameField field) {
 
-        var id = NormalizeId(field.Tag);
+
+
         //OpenClass("div", id);
         switch (field) {
             case FrameString item: {
@@ -61,20 +62,39 @@ public partial class PageWriter : HtmlWriter {
             }
 
         OpenClass("div", item.Tag);
-        Text(item.Prompt, "label");
 
+        if (!item.Hidden) {
+            Text(item.Prompt, "label");
+            }
 
+        var id = NormalizeId(item.Tag);
         switch (item) {
             case FrameText: {
-                Text("", "textarea", "type", "text", "id", item.Tag, "name", item.Tag, "value", value);
+                if (item.Hidden) {
+                    Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
+                    }
+                else {
+                    Text("", "textarea", "type", "text", "id", id, "name", item.Tag, "value", value!);
+                    }
                 break;
                 }
             case FrameRichText: {
-                Text("", "div", "id", "richtext");
+                if (item.Hidden) {
+                    Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
+                    }
+                else {
+                    Text("", "div", "id", "richtext");
+                    }
                 break;
                 }
             default: {
-                Element("input", "type", "text", "id", item.Tag, "name", item.Tag, "value", value);
+                if (item.Hidden) {
+                    Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
+                    }
+                else {
+                    Element("input", "type", "text", "id", item.Tag, "name", item.Tag, "value", value!);
+                    }
+
                 break;
                 }
             }

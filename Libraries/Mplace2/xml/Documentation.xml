@@ -863,8 +863,8 @@
         <member name="P:Frame.Place.Title">
             <summary>Field Title</summary>
         </member>
-        <member name="P:Frame.Place.Text">
-            <summary>Field Text</summary>
+        <member name="P:Frame.Place.Description">
+            <summary>Field Description</summary>
         </member>
         <member name="P:Frame.Place.Avatar">
             <summary>Avatar Avatar</summary>
