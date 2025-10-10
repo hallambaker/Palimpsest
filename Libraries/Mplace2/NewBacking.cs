@@ -297,6 +297,9 @@ public partial class SignIn : FramePage {
     /// <summary>Field Text</summary>
 	public string? Text {get; set;}
 
+	///<summary>List Form</summary>
+	public Handle? Form {get; set;}
+
     /// <summary>Field RegisterText</summary>
 	public string? RegisterText {get; set;}
 
@@ -308,6 +311,9 @@ public partial class SignIn : FramePage {
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as SignIn)!.Text = value; },
 			(IBinding data) => (data as SignIn)?.Text),
+		new FrameRefForm<Handle> ("Form","Handle"){
+			Get = (IBacked data) => (data as SignIn)?.Form ,
+			Set = (IBacked data, IBacked? value) => {(data as SignIn)!.Form = value as Handle; }},
 		new FrameString ("RegisterText",
 			(IBinding data, string? value) => {(data as SignIn)!.RegisterText = value; },
 			(IBinding data) => (data as SignIn)?.RegisterText),
@@ -480,10 +486,16 @@ public partial class YourPlacePageCreate : FramePage {
 	public YourPlacePageCreate () : base ("YourPlacePageCreate", "Create Your Place", _Fields) {
 		}
 
+	///<summary>List Place</summary>
+	public Place? Place {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings")
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRefForm<Place> ("Place","Place"){
+			Get = (IBacked data) => (data as YourPlacePageCreate)?.Place ,
+			Set = (IBacked data, IBacked? value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
 		];
 
 
@@ -601,8 +613,14 @@ public partial class NewPlacePage : FramePage {
 	public NewPlacePage () : base ("NewPlacePage", "Create New Place", _Fields) {
 		}
 
+	///<summary>List Form</summary>
+	public Place? Form {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefForm<Place> ("Form","Place"){
+			Get = (IBacked data) => (data as NewPlacePage)?.Form ,
+			Set = (IBacked data, IBacked? value) => {(data as NewPlacePage)!.Form = value as Place; }}
 		];
 
 
@@ -679,11 +697,17 @@ public partial class CreatePost : FramePage {
 	public CreatePost () : base ("CreatePost", "Create New Post", _Fields) {
 		}
 
+	///<summary>List Form</summary>
+	public Post? Form {get; set;}
+
 	///<summary>List Crosspost</summary>
 	public List<Provider>? Crosspost {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefForm<Post> ("Form","Post"){
+			Get = (IBacked data) => (data as CreatePost)?.Form ,
+			Set = (IBacked data, IBacked? value) => {(data as CreatePost)!.Form = value as Post; }},
 		new FrameRefList<Provider> ("Crosspost","Provider"){
 			Get = (IBacked data) => (data as CreatePost)?.Crosspost ,
 			Set = (IBacked data, Object? value) => {(data as CreatePost)!.Crosspost = value as List<Provider>; }}
@@ -726,11 +750,17 @@ public partial class CreateComment : FramePage {
 	///<summary>class Comment, Target</summary>
 	public Comment? Target {get; set;}
 
+	///<summary>List Form</summary>
+	public Comment? Form {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefClass<Comment> ("Target","Comment"){
 			Get = (IBacked data) => (data as CreateComment)?.Target ,
-			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Target = value as Comment; }}
+			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Target = value as Comment; }},
+		new FrameRefForm<Comment> ("Form","Comment"){
+			Get = (IBacked data) => (data as CreateComment)?.Form ,
+			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Form = value as Comment; }}
 		];
 
 
@@ -1719,8 +1749,8 @@ public partial class Post (string Id="Post") : Entry (Id) {
     /// <summary>Field Title</summary>
 	public string? Title {get; set;}
 
-    /// <summary>Field Abstract</summary>
-	public string? Abstract {get; set;}
+    /// <summary>Field Summary</summary>
+	public string? Summary {get; set;}
 
     /// <summary>Field Body</summary>
 	public string? Body {get; set;}
@@ -1744,13 +1774,19 @@ public partial class Post (string Id="Post") : Entry (Id) {
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-			(IBinding data) => (data as Post)?.Title),
-		new FrameString ("Abstract",
-			(IBinding data, string? value) => {(data as Post)!.Abstract = value; },
-			(IBinding data) => (data as Post)?.Abstract),
+			(IBinding data) => (data as Post)?.Title){
+				Prompt = "Title"
+				},
+		new FrameText ("Summary",
+			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
+			(IBinding data) => (data as Post)?.Summary){
+				Prompt = "Summary"
+				},
 		new FrameRichText ("Body",
 			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-			(IBinding data) => (data as Post)?.Body),
+			(IBinding data) => (data as Post)?.Body){
+				Prompt = "Body"
+				},
 		new FrameRefList<Resource> ("Resources","Resource"){
 			Get = (IBacked data) => (data as Post)?.Resources ,
 			Set = (IBacked data, Object? value) => {(data as Post)!.Resources = value as List<Resource>; }}
@@ -1767,13 +1803,19 @@ public partial class Post (string Id="Post") : Entry (Id) {
 
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-			(IBinding data) => (data as Post)?.Title),
-		new FrameString ("Abstract",
-			(IBinding data, string? value) => {(data as Post)!.Abstract = value; },
-			(IBinding data) => (data as Post)?.Abstract),
+			(IBinding data) => (data as Post)?.Title){
+				Prompt = "Title"
+				},
+		new FrameText ("Summary",
+			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
+			(IBinding data) => (data as Post)?.Summary){
+				Prompt = "Summary"
+				},
 		new FrameRichText ("Body",
 			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-			(IBinding data) => (data as Post)?.Body)		];
+			(IBinding data) => (data as Post)?.Body){
+				Prompt = "Body"
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1784,7 +1826,7 @@ public partial class Post (string Id="Post") : Entry (Id) {
 
 			// Only inclue the serialized items here
 			{"Title", _properties[0]},
-			{"Abstract", _properties[1]},
+			{"Summary", _properties[1]},
 			{"Body", _properties[2]}
 			}, "Post",
 		() => new Post(), () => [], () => [], null, Generic: false);

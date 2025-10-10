@@ -99,6 +99,7 @@ using Goedel.Utilities;
 //       Comment
 //       Post
 //       Rich
+//       Prompt
 //   IdType
 //       NamespaceT
 //       EntryT
@@ -180,6 +181,7 @@ namespace Goedel.Html {
         Field,
         FieldProperty,
         Description,
+        Prompt,
         Exclude,
         ReadOnly,
         Range,
@@ -1559,6 +1561,29 @@ namespace Goedel.Html {
 			}
 		}
 
+    public partial class Prompt : _Choice {
+		public string					Text;
+
+        public override FrameStructType _Tag () =>FrameStructType.Prompt;
+
+
+		public override void _InitChildren (_Choice Parent) {
+			Init (Parent);
+			}
+
+		public override void Serialize (StructureWriter Output, bool tag) {
+
+			if (tag) {
+				Output.StartElement ("Prompt");
+				}
+
+			Output.WriteAttribute ("Text", Text);
+			if (tag) {
+				Output.EndElement ("Prompt");
+				}			
+			}
+		}
+
     public partial class Exclude : _Choice {
 
         public override FrameStructType _Tag () =>FrameStructType.Exclude;
@@ -1901,6 +1926,8 @@ namespace Goedel.Html {
 		FieldProperty__Type,				
 		Description_Start,
 		Description__Text,				
+		Prompt_Start,
+		Prompt__Text,				
 		Exclude_Start,
 		ReadOnly_Start,
 		Range_Start,
@@ -2028,6 +2055,7 @@ namespace Goedel.Html {
                 case "Field": return NewField();
                 case "FieldProperty": return NewFieldProperty();
                 case "Description": return NewDescription();
+                case "Prompt": return NewPrompt();
                 case "Exclude": return NewExclude();
                 case "ReadOnly": return NewReadOnly();
                 case "Range": return NewRange();
@@ -2414,6 +2442,14 @@ namespace Goedel.Html {
             }
 
 
+        private Goedel.Html.Prompt NewPrompt() {
+            Goedel.Html.Prompt result = new Goedel.Html.Prompt();
+            Push (result);
+            State = StateCode.Prompt_Start;
+            return result;
+            }
+
+
         private Goedel.Html.Exclude NewExclude() {
             Goedel.Html.Exclude result = new Goedel.Html.Exclude();
             Push (result);
@@ -2543,6 +2579,7 @@ namespace Goedel.Html {
                 case "Field": return Goedel.Html.FrameStructType.Field;
                 case "FieldProperty": return Goedel.Html.FrameStructType.FieldProperty;
                 case "Description": return Goedel.Html.FrameStructType.Description;
+                case "Prompt": return Goedel.Html.FrameStructType.Prompt;
                 case "Exclude": return Goedel.Html.FrameStructType.Exclude;
                 case "ReadOnly": return Goedel.Html.FrameStructType.ReadOnly;
                 case "Range": return Goedel.Html.FrameStructType.Range;
@@ -4071,17 +4108,18 @@ namespace Goedel.Html {
 									(LabelType == Goedel.Html.FrameStructType.Comment) |
 									(LabelType == Goedel.Html.FrameStructType.Post) |
 									(LabelType == Goedel.Html.FrameStructType.Rich) |
-									(LabelType == Goedel.Html.FrameStructType.Hidden) ) {
+									(LabelType == Goedel.Html.FrameStructType.Hidden) |
+									(LabelType == Goedel.Html.FrameStructType.Prompt) ) {
                                 State = StateCode.FieldProperty__Type;
                                 Current_Cast.Type = New_Choice(Text);
                                 }
                             else {
-                               throw new Expected ("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden ]");
+                               throw new Expected ("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden Prompt ]");
                                 }
                             break;
                             }
                         else { 
-						    throw new Expected("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden ]");
+						    throw new Expected("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden Prompt ]");
                             }
 
                     case StateCode.FieldProperty__Type:
@@ -4098,6 +4136,19 @@ namespace Goedel.Html {
                         throw new Expected("Expected String");
 
                     case StateCode.Description__Text:
+                        Pop ();
+                        Represent = true; 
+                        break;
+                    case StateCode.Prompt_Start:
+                        if (Token == TokenType.STRING) {
+                            Goedel.Html.Prompt Current_Cast = (Goedel.Html.Prompt)Current;
+                            Current_Cast.Text = Text;
+                            State = StateCode.Prompt__Text;
+                            break;
+                            }
+                        throw new Expected("Expected String");
+
+                    case StateCode.Prompt__Text:
                         Pop ();
                         Represent = true; 
                         break;

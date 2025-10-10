@@ -4,9 +4,29 @@
     <meta charset="utf-8"/>
     <title>Create New Place</title>
     <link rel="stylesheet" type="text/css" href="Resources/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="Resources/quill.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"/>
   </head>
   <body>
     <div class="NewPlacePage">
+      <form class="Form" action="https://httpbin.org/post" method="post">
+        <div class="Form DNS">
+          <label></label>
+          <input type="text" id="DNS" name="DNS"/>
+        </div>
+        <div class="Form Title">
+          <label></label>
+          <input type="text" id="Title" name="Title"/>
+        </div>
+        <div class="Form Text">
+          <label></label>
+          <input type="text" id="Text" name="Text"/>
+        </div>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset"/>
+      </form>
     </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script type="text/javascript" src="Resources/quill.js"></script>
   </body>
 </html>

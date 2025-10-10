@@ -174,8 +174,15 @@ class MainClass {
 
         var frameset = new MyClass();
         frameset.Resources = [
-            new Stylesheet("Resources/stylesheet.css", "text/css")
+            new Stylesheet("Resources/stylesheet.css", "text/css"),
+            new Stylesheet("Resources/quill.css", "text/css"),
+            new Stylesheet("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css", "text/css")
             ];
+        frameset.EndResources = [
+            new Script("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js","text/javascript"),
+            new Script("Resources/quill.js","text/javascript")
+    ];
+
 
         var basePlace = new Place() {
             DNS="mplace2.social",
@@ -222,7 +229,10 @@ class MainClass {
         frameset.HomePage.MetaPlace = basePlace;
 
 
-
+        using (var file = "Test/SignIn.html".OpenTextWriterNew()) {
+            var writer = new PageWriter(frameset, file);
+            writer.Render(frameset.SignIn);
+            }
 
 
 
@@ -231,10 +241,7 @@ class MainClass {
             writer.Render(frameset.HomePage);
             }
 
-        using (var file = "Test/SignIn.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.SignIn);
-            }
+
 
         using (var file = "Test/SwitchPage.html".OpenTextWriterNew()) {
             var writer = new PageWriter(frameset, file);

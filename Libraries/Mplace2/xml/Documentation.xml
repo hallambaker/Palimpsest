@@ -284,6 +284,9 @@
         <member name="P:Frame.SignIn.Text">
             <summary>Field Text</summary>
         </member>
+        <member name="P:Frame.SignIn.Form">
+            <summary>List Form</summary>
+        </member>
         <member name="P:Frame.SignIn.RegisterText">
             <summary>Field RegisterText</summary>
         </member>
@@ -378,6 +381,9 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.YourPlacePageCreate.Place">
+            <summary>List Place</summary>
+        </member>
         <member name="P:Frame.YourPlacePageCreate._Properties">
             <inheritdoc/>
         </member>
@@ -444,6 +450,9 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.NewPlacePage.Form">
+            <summary>List Form</summary>
+        </member>
         <member name="P:Frame.NewPlacePage._Properties">
             <inheritdoc/>
         </member>
@@ -488,6 +497,9 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.CreatePost.Form">
+            <summary>List Form</summary>
+        </member>
         <member name="P:Frame.CreatePost.Crosspost">
             <summary>List Crosspost</summary>
         </member>
@@ -515,6 +527,9 @@
         </member>
         <member name="P:Frame.CreateComment.Target">
             <summary>class Comment, Target</summary>
+        </member>
+        <member name="P:Frame.CreateComment.Form">
+            <summary>List Form</summary>
         </member>
         <member name="P:Frame.CreateComment._Properties">
             <inheritdoc/>
@@ -968,8 +983,8 @@
         <member name="P:Frame.Post.Title">
             <summary>Field Title</summary>
         </member>
-        <member name="P:Frame.Post.Abstract">
-            <summary>Field Abstract</summary>
+        <member name="P:Frame.Post.Summary">
+            <summary>Field Summary</summary>
         </member>
         <member name="P:Frame.Post.Body">
             <summary>Field Body</summary>

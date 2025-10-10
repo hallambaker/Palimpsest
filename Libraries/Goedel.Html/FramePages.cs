@@ -227,6 +227,10 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("	///<summary>List {1}</summary>\n{0}", _Indent, refList.Id);
 				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, refList.Backing, refList.Id);
+				} else if (  (entry is FrameRefForm refForm) ) {
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("	///<summary>List {1}</summary>\n{0}", _Indent, refForm.Id);
+				_Output.Write ("	public {1}? {2} {{get; set;}}\n{0}", _Indent, refForm.Backing, refForm.Id);
 				}
 			}
 		_Output.Write ("\n{0}", _Indent);
@@ -380,6 +384,12 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
 		_Output.Write ("			Set = (IBacked data, Object? value) => {{(data as {1})!.{2} = value as List<{3}>; }}}}", _Indent, backed.Id, sid, reference.Reference);
 		 break; }
+		 case FrameRefForm reference: {
+		_Output.Write ("{1}\n{0}", _Indent, comma);
+		_Output.Write ("		new FrameRefForm<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Reference, entry.Id, reference.Reference);
+		_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
+		_Output.Write ("			Set = (IBacked data, IBacked? value) => {{(data as {1})!.{2} = value as {3}; }}}}", _Indent, backed.Id, sid, reference.Reference);
+		 break; }
 		 case FrameRef : {
 		_Output.Write ("{1}\n{0}", _Indent, comma);
 		_Output.Write ("		new FrameRef (\"{1}\")", _Indent, entry.Id);
@@ -413,6 +423,11 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("		new {1} (\"{2}\",\n{0}", _Indent, entry.Type, entry.Tag);
 			_Output.Write ("			(IBinding data, {1}? value) => {{(data as {2})!.{3} = value; }},\n{0}", _Indent, entry.Backing, backed.Id, sid);
 			_Output.Write ("			(IBinding data) => (data as {1})?.{2})", _Indent, backed.Id, id);
+			if (  entry.Prompt is not null ) {
+				_Output.Write ("{{\n{0}", _Indent);
+				_Output.Write ("				Prompt = \"{1}\"\n{0}", _Indent, entry.Prompt);
+				_Output.Write ("				}}", _Indent);
+				}
 			}
 		 break; }
 		 }

@@ -186,9 +186,12 @@ Namespace Frame
     Post SubClass Entry
         Description "A collection of comments"
         Fields
-            Title String                // Resource name
-            Abstract String                 // Short text
+            Title String                // Post Title
+                Prompt "Title"
+            Summary Text                 // Short text
+                Prompt "Summary"
             Body RichText
+                Prompt "Body"
             Resources List Resource     // List of associated resources
 
     Comment SubClass Entry

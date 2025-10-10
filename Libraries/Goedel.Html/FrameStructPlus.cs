@@ -5,7 +5,6 @@ using System.Reflection.Emit;
 
 namespace Goedel.Html;
 
-
 public partial class GenerateBacking {
 
     public FramePresentation GetDefaultPresentation(List<IFrameField> fields) {
@@ -256,10 +255,24 @@ public partial class Namespace {
                 }
             case Class:
             case SubClass: {
-                return reference is List ? new FrameRefList(id, entry.Id.Label) {
-                    PresentationId = presentation} :
-                     new FrameRefClass(id, entry.Id.Label) {
-                         PresentationId = presentation};
+                switch (reference) {
+                    case List: {
+                        return new FrameRefList(id, entry.Id.Label) {
+                            PresentationId = presentation
+                            };
+                        }
+                    case Form: {
+                        return new FrameRefForm(id, entry.Id.Label) {
+                            PresentationId = presentation
+                            };
+                        }
+                    case Is: {
+                        return new FrameRefClass(id, entry.Id.Label) {
+                            PresentationId = presentation
+                            };
+                        }
+                    }
+                throw new Internal();
                 }
             }
         return new FrameRef(id);
@@ -284,19 +297,28 @@ public partial class Namespace {
             string id,
             IIntrinsic field) => GetBackingFrame (id, field);
 
-    public IFrameField GetBackingFrame(string id, IIntrinsic field) => field switch {
-        Boolean => new FrameBoolean(id),
-        Integer => new FrameInteger(id),
-        DateTime => new FrameDateTime(id),
-        String => new FrameString(id),
-        Text => new FrameText(id),
-        RichText => new FrameRichText(id),
-        Image => new FrameImage(id),
-        Icon => new FrameIcon(id),
-        Avatar => new FrameAvatar(id),
-        Count => new FrameCount(id),
-        _ => throw new Internal()
-        };
+    public IFrameField GetBackingFrame(string id, IIntrinsic field) {
+        IFrameField result = field switch {
+            Boolean => new FrameBoolean(id),
+            Integer => new FrameInteger(id),
+            DateTime => new FrameDateTime(id),
+            String => new FrameString(id),
+            Text => new FrameText(id),
+            RichText => new FrameRichText(id),
+            Image => new FrameImage(id),
+            Icon => new FrameIcon(id),
+            Avatar => new FrameAvatar(id),
+            Count => new FrameCount(id),
+            _ => throw new Internal()
+            };
+
+        if (field.Prompt is not null) {
+            }
+
+        result.Prompt = field.Prompt;
+
+        return result;
+        }
 
     }
 
@@ -318,6 +340,7 @@ public partial class Property : IFieldEntry {
 
 
 public interface IIntrinsic {
+    string Prompt { get; }
     }
 
 public partial class Boolean : IIntrinsic {
@@ -355,6 +378,9 @@ public partial class Show : IReference {
     public REF<_Choice> Reference => Field;
     }
 
+public partial class Form : IReference {
+    public REF<_Choice> Reference => Id;
+    }
 
 
 
@@ -401,6 +427,9 @@ public partial class _Choice {
 
     ///<summary>Description text.</summary>
     public string? Description { get; set; } = null;
+
+    ///<summary>Description text.</summary>
+    public string? Prompt { get; set; } = null;
 
     ///<summary>If true, include this field in serialization.</summary>
     public bool Include { get; set; } = true;
@@ -526,6 +555,13 @@ public partial class Comment {
 
     public override void Init(_Choice parent) {
         parent.Attribute = Attribute.Comment;
+        }
+    }
+
+public partial class Prompt {
+
+    public override void Init(_Choice parent) {
+        parent._Parent.Prompt = Text;
         }
     }
 

@@ -35,9 +35,9 @@ resetForm();
 const form = document.querySelector('form');
 form.addEventListener('formdata', (event) => {
     // Append Quill content before submitting
-    event.formData.append('about', JSON.stringify(quill.getContents().ops));
+    event.formData.append('about', quill.getSemanticHTML());
 });
 
 document.querySelector('#resetForm').addEventListener('click', () => {
     resetForm();
-});
+});5

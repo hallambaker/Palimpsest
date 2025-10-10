@@ -4,9 +4,37 @@
     <meta charset="utf-8"/>
     <title>Create New Post</title>
     <link rel="stylesheet" type="text/css" href="Resources/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="Resources/quill.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"/>
   </head>
   <body>
     <div class="CreatePost">
+      <form class="Form" action="https://httpbin.org/post" method="post">
+        <div class="Form Uid">
+          <label></label>
+          <input type="text" id="Uid" name="Uid"/>
+        </div>
+        <div class="Form Semantic">
+          <label></label>
+          <input type="text" id="Semantic" name="Semantic"/>
+        </div>
+        <div class="Form Title">
+          <label>Title</label>
+          <input type="text" id="Title" name="Title"/>
+        </div>
+        <div class="Form Summary">
+          <label>Summary</label>
+          <textarea type="text" id="Summary" name="Summary"></textarea>
+        </div>
+        <div class="Form Body">
+          <label>Body</label>
+          <div id="richtext"></div>
+        </div>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset"/>
+      </form>
     </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script type="text/javascript" src="Resources/quill.js"></script>
   </body>
 </html>

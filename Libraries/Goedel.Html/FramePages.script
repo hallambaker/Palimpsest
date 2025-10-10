@@ -197,6 +197,10 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 
 	///<summary>List #{refList.Id}</summary>
 	public #{refList.Backing}? #{refList.Id} {get; set;}
+#elseif (entry is FrameRefForm refForm) 
+
+	///<summary>List #{refForm.Id}</summary>
+	public #{refForm.Backing}? #{refForm.Id} {get; set;}
 #end if
 #end foreach
 
@@ -340,6 +344,12 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
 			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{sid} = value as List<#{reference.Reference}>; }}#!
 #% break; }
+#% case FrameRefForm reference: {
+#{comma}
+		new FrameRefForm<#{reference.Reference}> ("#{entry.Id}","#{reference.Reference}"){
+			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
+			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{sid} = value as #{reference.Reference}; }}#!
+#% break; }
 #% case FrameRef : {
 #{comma}
 		new FrameRef ("#{entry.Id}")#!
@@ -373,6 +383,11 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 		new #{entry.Type} ("#{entry.Tag}",
 			(IBinding data, #{entry.Backing}? value) => {(data as #{backed.Id})!.#{sid} = value; },
 			(IBinding data) => (data as #{backed.Id})?.#{id})#!
+#if entry.Prompt is not null
+{
+				Prompt = "#{entry.Prompt}"
+				}#!
+#end if
 #end if
 #% break; }
 #% }

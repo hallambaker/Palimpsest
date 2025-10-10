@@ -169,14 +169,14 @@ public class HtmlWriter {
         TextWriter.WriteLine($"</{tag.Tag}>");
         }
 
-    public int Element(string tag, params string[] attributes) {
+    public int Element(string tag, params string[]? attributes) {
         StartElement(tag);
         WriteAttributes(attributes);
         TextWriter.WriteLine("/>");
         return Elements.Count - 1;
         }
 
-    public int ElementClass(string tag, string classId, params string[] attributes) {
+    public int ElementClass(string tag, string classId, params string[]? attributes) {
         var classAttr = EnclosingClass(classId);
 
         StartElement(tag);
@@ -186,7 +186,7 @@ public class HtmlWriter {
         return Elements.Count - 1;
         }
 
-    public void Text(string text, string tag, params string[] attributes) {
+    public void Text(string text, string tag, params string[]? attributes) {
         StartElement(tag);
         WriteAttributes(attributes);
         TextWriter.Write(">");
@@ -194,7 +194,7 @@ public class HtmlWriter {
         TextWriter.WriteLine($"</{tag}>");
         }
 
-    public void TextClass(string text, string classId, string tag, params string[] attributes) {
+    public void TextClass(string text, string classId, string tag, params string[]? attributes) {
         var classAttr = EnclosingClass(classId);
 
         StartElement(tag);
@@ -234,7 +234,6 @@ public class HtmlWriter {
         Close(0);
         }
 
-
     public void Reources(List<Resource>? resources) {
         foreach (var resource in resources.IfEnumerable()) {
             switch (resource) {
@@ -243,12 +242,27 @@ public class HtmlWriter {
                     break;
                     }
                 case Script script: {
-                    Element("script", "type", resource.Type, "href", resource.Uri, "integrity", resource.Integrity);
+                    Text("", "script", "type", resource.Type, "src", resource.Uri, "integrity", resource.Integrity);
                     break;
                     }
                 }
-
             }
         }
+
+    public void EndReources(List<Resource>? resources) {
+        foreach (var resource in resources.IfEnumerable()) {
+            switch (resource) {
+                case Stylesheet stylesheet: {
+                    Element("link", "rel", "stylesheet", "type", resource.Type, "href", resource.Uri);
+                    break;
+                    }
+                case Script script: {
+                    Text("", "script", "type", resource.Type, "src", resource.Uri, "integrity", resource.Integrity);
+                    break;
+                    }
+                }
+            }
+        }
+
 
     }

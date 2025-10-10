@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <title>Create Your Place</title>
     <link rel="stylesheet" type="text/css" href="Resources/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="Resources/quill.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"/>
   </head>
   <body>
     <div class="YourPlacePageCreate">
@@ -52,6 +54,24 @@
           <div class="TopSettings Settings ButtonText ">Settings</div>
         </button>
       </div>
+      <form class="Place" action="https://httpbin.org/post" method="post">
+        <div class="Place DNS">
+          <label></label>
+          <input type="text" id="DNS" name="DNS"/>
+        </div>
+        <div class="Place Title">
+          <label></label>
+          <input type="text" id="Title" name="Title"/>
+        </div>
+        <div class="Place Text">
+          <label></label>
+          <input type="text" id="Text" name="Text"/>
+        </div>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset"/>
+      </form>
     </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script type="text/javascript" src="Resources/quill.js"></script>
   </body>
 </html>

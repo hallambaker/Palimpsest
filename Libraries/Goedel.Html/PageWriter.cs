@@ -2,10 +2,14 @@
 
 namespace Goedel.Html;
 
+
+
 /// <summary>
 /// Pagewriter adds in methods to emit FramePages and components.
 /// </summary>
-public class PageWriter : HtmlWriter {
+public partial class PageWriter : HtmlWriter {
+
+    public PageText PageText { get; set;} = PageText.English;
 
     FrameSet FrameSet { get; }
 
@@ -32,6 +36,8 @@ public class PageWriter : HtmlWriter {
         RenderFields(page);
         Close();
 
+        Reources(page.FrameSet.EndResources);
+        Reources(page.EndResources);
         Finish();
         }
 
@@ -161,6 +167,14 @@ public class PageWriter : HtmlWriter {
                 Render(backer, item);
                 break;
                 }
+            case FrameRefForm item: {
+                Render(backer, item);
+                break;
+                }
+            default : {
+                break;
+                }
+
             }
         //Close();
         }
@@ -280,7 +294,7 @@ public class PageWriter : HtmlWriter {
     public void Render(
                 IBacked backer,
                 FrameRefClass item) {
-        var value = item.Get(backer) as IBacked;
+        var value = item.Get(backer);
         if (value is not null) {
 
             if (item.Presentation is not null) {
@@ -294,6 +308,9 @@ public class PageWriter : HtmlWriter {
                 }
             }
         }
+
+
+
 
 
     public void Render(
@@ -371,7 +388,6 @@ public class PageWriter : HtmlWriter {
                 FrameText item) {
         var value = item.Get(backer) ;
         if (value is not null) {
-
             OpenClass("div", item.Tag);
             Text(value.ToString());
             Close();

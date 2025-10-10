@@ -9,7 +9,7 @@ namespace Goedel.Html;
 public class FrameSet {
 
     public List<Resource> Resources { get; set; } = null;
-
+    public List<Resource> EndResources { get; set; } = null;
 
     public virtual string Namespace { get; set; }
     public virtual List<FramePage> Pages { get; init; } = [];
@@ -31,6 +31,10 @@ public class FrameSet {
                     break;
                     }
                 case FrameRefClass item: {
+                    item.Class = GetField(Classes, item.Reference);
+                    break;
+                    }
+                case FrameRefForm item: {
                     item.Class = GetField(Classes, item.Reference);
                     break;
                     }
@@ -92,6 +96,7 @@ public class FramePage: FrameBacker, IBacked {
 
     public List<Resource> Resources { get; set; } = null;
 
+    public List<Resource> EndResources { get; set; } = null;
     public Resource FaviCon { get; set; } = null;
     public string PageTitle { get; set; } = null;
 
@@ -168,7 +173,7 @@ public class FrameClass : FrameBacker, IBacked {
 
 // Fields
 public abstract record FrameField : IFrameField {
-
+    public string Prompt { get; set; }
     public string Id { get; init; }
     public string Tag { get; init; }
     public virtual string Backing => null;
@@ -242,17 +247,36 @@ public record FrameRefClass<T>(
                     string Id,
                     string Reference) : FrameRefClass(Id, Reference) where T : FrameClass {
 
+
+    }
+
+
+public record FrameRefForm(
+                    string Id,
+                    string Reference) : FrameRef(Id) {
+    public string Backing => Reference;
+
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
+    public string? PresentationId { get; set; }
 
+    public FramePresentation? Presentation { get; set; }
 
-
-
-    //public Action<IBacked, T?> Set { get; init; }
-    //public Func<IBacked, T?> Get { get; init; }
+    public Action<IBacked, IBacked?> Set { get; init; }
+    public Func<IBacked, IBacked?> Get { get; init; }
 
     }
+
+public record FrameRefForm<T>(
+                    string Id,
+                    string Reference) : FrameRefForm(Id, Reference) where T : FrameClass {
+
+    public override string Type => "FrameRefClass";
+
+    }
+
+
 
 public record FrameRefList(
                     string Id,
@@ -293,7 +317,7 @@ public record FrameBoolean(
             string Id,
             Action<IBinding, bool?>? Set = null,
             Func<IBinding, bool?>? Get = null) : PropertyBoolean(Id, Set, Get) ,IFrameField{
-
+    public string Prompt { get; set; }
     public string Backing => "bool";
     public virtual string Type => "FrameBoolean";
 
@@ -307,6 +331,7 @@ public record FrameInteger(
             Action<IBinding, int?>? Set = null,
              Func<IBinding, int?>? Get = null
             ) : PropertyInteger32(Id, Set, Get), IFrameField {
+    public string Prompt { get; set; }
     public string Backing => "int";
     public virtual string Type => "FrameInteger";
     }
@@ -318,7 +343,6 @@ public record FrameCount(
     public override string Type => "FrameCount";
         }
 
-
 // DateTime bacxking type
 
 public record FrameDateTime(
@@ -326,9 +350,9 @@ public record FrameDateTime(
             Action<IBinding, System.DateTime?>? Set = null,
             Func<IBinding, System.DateTime?>? Get = null
             ) : PropertyDateTime(Id, Set, Get), IFrameField {
+    public string Prompt { get; set; }
     public string Backing => "System.DateTime";
     public virtual string Type => "FrameDateTime";
-
     }
 
 
@@ -338,6 +362,8 @@ public record FrameString(
             string Id,
             Action<IBinding, string?>? Set = null,
             Func<IBinding, string?>? Get=null) : PropertyString (Id, Set, Get), IFrameField {
+    public string Prompt { get; set; }
+
     public string Backing => "string";
     public virtual string Type => "FrameString";
     }
@@ -357,13 +383,12 @@ public record FrameRichText(
     public override string Type => "FrameRichText";
     }
 
-// Image backing type (will need fixin')
-
 
 public record FrameImage(
             string Id,
             Action<IBinding, string?>? Set = null,
             Func<IBinding, string?>? Get = null) : PropertyString(Id, Set, Get), IFrameField {
+    public string Prompt { get; set; }
     public string Backing => "string";
     public virtual string Type => "FrameImage";
     }

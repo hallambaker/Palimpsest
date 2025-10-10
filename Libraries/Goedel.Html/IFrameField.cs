@@ -7,4 +7,7 @@ public interface IFrameField {
     string Tag { get; init; }
     string Type { get; }
 
+    string Prompt { get; set; }
+
+
     }

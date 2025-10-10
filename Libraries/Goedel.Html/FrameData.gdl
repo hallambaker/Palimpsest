@@ -230,8 +230,12 @@ Class Goedel.Html FrameStruct
             Post
             Rich
             Hidden
+            Prompt
 
     Type Description
+        Text String
+
+    Type Prompt
         Text String
 
     Type Exclude

@@ -49,6 +49,9 @@
         <member name="P:Goedel.Html._Choice.Description">
             <summary>Description text.</summary>
         </member>
+        <member name="P:Goedel.Html._Choice.Prompt">
+            <summary>Description text.</summary>
+        </member>
         <member name="P:Goedel.Html._Choice.Include">
             <summary>If true, include this field in serialization.</summary>
         </member>
@@ -139,7 +142,33 @@
             Desctiption of the 
             </summary>
         </member>
+        <member name="T:Goedel.Html.PageText">
+            <summary>
+            Text used in page generation, to be pulled from properties
+            </summary>
+        </member>
+        <member name="P:Goedel.Html.PageText.Submit">
+            <summary>The submit label text</summary>
+        </member>
+        <member name="P:Goedel.Html.PageText.Reset">
+            <summary>The reset label text</summary>
+        </member>
+        <member name="P:Goedel.Html.PageText.Cancel">
+            <summary>The cancel label text</summary>
+        </member>
+        <member name="P:Goedel.Html.PageText.InvalidEntry">
+            <summary></summary>
+        </member>
+        <member name="P:Goedel.Html.PageText.Required">
+            <summary></summary>
+        </member>
+        <member name="P:Goedel.Html.PageText.English">
+            <summary>English text</summary>
+        </member>
         <member name="T:Goedel.Html.PageWriter">
+            <summary>
+            Pagewriter adds in methods to emit FramePages and components.
+            </summary>
             <summary>
             Pagewriter adds in methods to emit FramePages and components.
             </summary>
