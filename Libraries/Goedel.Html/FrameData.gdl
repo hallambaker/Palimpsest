@@ -75,6 +75,7 @@ Class Goedel.Html FrameStruct
             Hidden 
             Form
             Selection
+            Container
 
     Type Property
         Id Token EntryT
@@ -98,6 +99,7 @@ Class Goedel.Html FrameStruct
             Selection
             Form
             RichText
+            Container
 
 
 
@@ -108,6 +110,8 @@ Class Goedel.Html FrameStruct
             Integer
             String
             Link
+    Type Container
+
 
     Type Link
         Uri String

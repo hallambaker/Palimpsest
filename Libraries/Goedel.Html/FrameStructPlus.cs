@@ -72,8 +72,10 @@ public partial class Namespace {
 
     public FramePage Collect(FrameSet frameSet, ID<_Choice> id, Page page) {
         var fields = CollectFields(frameSet, page.Entries);
-
-        return new FramePage(id.Label, page.Title, fields);
+       
+        return new FramePage(id.Label, page.Title, fields) {
+            Container = page.Container
+            };
         }
 
     public FrameMenu CollectMenu(FrameSet frameSet, string id, List<FieldItem> entries) {
@@ -434,6 +436,8 @@ public partial class _Choice {
 
     public bool Hidden { get; set; } = false;
 
+    public string? Container { get; set; } = null;
+
 
     ///<summary>If true, include this field in serialization.</summary>
     public bool Include { get; set; } = true;
@@ -559,6 +563,15 @@ public partial class Prompt {
 
     public override void Init(_Choice parent) {
         parent._Parent.Prompt = Text;
+        }
+    }
+
+
+public partial class Container {
+
+    public override void Init(_Choice parent) {
+        var fieldItem = parent as FieldItem;
+        parent._Parent.Container = fieldItem.Id.Label;
         }
     }
 

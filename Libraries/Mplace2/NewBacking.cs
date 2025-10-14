@@ -9,20 +9,14 @@ public partial class MyClass : FrameSet{
 	///<summary>HomePage</summary>
 	public HomePage HomePage {get;} = new();
 
-	///<summary>SignIn</summary>
-	public SignIn SignIn {get;} = new();
-
-	///<summary>SwitchPage</summary>
-	public SwitchPage SwitchPage {get;} = new();
-
 	///<summary>NotificationsPage</summary>
 	public NotificationsPage NotificationsPage {get;} = new();
 
+	///<summary>PlacesPage</summary>
+	public PlacesPage PlacesPage {get;} = new();
+
 	///<summary>BookmarkPage</summary>
 	public BookmarkPage BookmarkPage {get;} = new();
-
-	///<summary>YourPlacePageCreate</summary>
-	public YourPlacePageCreate YourPlacePageCreate {get;} = new();
 
 	///<summary>YourPlacePage</summary>
 	public YourPlacePage YourPlacePage {get;} = new();
@@ -30,17 +24,53 @@ public partial class MyClass : FrameSet{
 	///<summary>SettingsPage</summary>
 	public SettingsPage SettingsPage {get;} = new();
 
-	///<summary>NewPlacePage</summary>
-	public NewPlacePage NewPlacePage {get;} = new();
+	///<summary>AccountSettings</summary>
+	public AccountSettings AccountSettings {get;} = new();
+
+	///<summary>AppearanceSettings</summary>
+	public AppearanceSettings AppearanceSettings {get;} = new();
 
 	///<summary>AboutSettingsPage</summary>
 	public AboutSettingsPage AboutSettingsPage {get;} = new();
+
+	///<summary>SignIn</summary>
+	public SignIn SignIn {get;} = new();
+
+	///<summary>SwitchPage</summary>
+	public SwitchPage SwitchPage {get;} = new();
 
 	///<summary>CreatePost</summary>
 	public CreatePost CreatePost {get;} = new();
 
 	///<summary>CreateComment</summary>
 	public CreateComment CreateComment {get;} = new();
+
+	///<summary>NewPlacePage</summary>
+	public NewPlacePage NewPlacePage {get;} = new();
+
+	///<summary>YourPlacePageCreate</summary>
+	public YourPlacePageCreate YourPlacePageCreate {get;} = new();
+
+	///<summary>Help</summary>
+	public Help Help {get;} = new();
+
+	///<summary>TermsOfService</summary>
+	public TermsOfService TermsOfService {get;} = new();
+
+	///<summary>PrivacyPolicy</summary>
+	public PrivacyPolicy PrivacyPolicy {get;} = new();
+
+	///<summary>Contributors</summary>
+	public Contributors Contributors {get;} = new();
+
+	///<summary>Status</summary>
+	public Status Status {get;} = new();
+
+	///<summary>SystemLog</summary>
+	public SystemLog SystemLog {get;} = new();
+
+	///<summary>Repository</summary>
+	public Repository Repository {get;} = new();
 
 
 	///<summary>MainNav</summary>
@@ -54,6 +84,9 @@ public partial class MyClass : FrameSet{
 
 	///<summary>AboutSettings</summary>
 	public AboutSettings AboutSettings {get;} = new();
+
+	///<summary>SupportMenu</summary>
+	public SupportMenu SupportMenu {get;} = new();
 
 
 
@@ -78,11 +111,11 @@ public partial class MyClass : FrameSet{
 	 ///<summary>Privileges</summary>
 	 public Privileges Privileges {get;} = new();
 
-	 ///<summary>Place</summary>
-	 public Place Place {get;} = new();
-
 	 ///<summary>Entry</summary>
 	 public Entry Entry {get;} = new();
+
+	 ///<summary>Place</summary>
+	 public Place Place {get;} = new();
 
 	 ///<summary>Topic</summary>
 	 public Topic Topic {get;} = new();
@@ -154,24 +187,35 @@ public partial class MyClass : FrameSet{
 
 		Pages = [ 
 			HomePage,
-			SignIn,
-			SwitchPage,
 			NotificationsPage,
+			PlacesPage,
 			BookmarkPage,
-			YourPlacePageCreate,
 			YourPlacePage,
 			SettingsPage,
-			NewPlacePage,
+			AccountSettings,
+			AppearanceSettings,
 			AboutSettingsPage,
+			SignIn,
+			SwitchPage,
 			CreatePost,
-			CreateComment
+			CreateComment,
+			NewPlacePage,
+			YourPlacePageCreate,
+			Help,
+			TermsOfService,
+			PrivacyPolicy,
+			Contributors,
+			Status,
+			SystemLog,
+			Repository
 			];
 
 		Menus = [ 
 			MainNav,
 			TopSettings,
 			SettingsMenu,
-			AboutSettings
+			AboutSettings,
+			SupportMenu
 			];
 
 		Selectors = [ 
@@ -185,8 +229,8 @@ public partial class MyClass : FrameSet{
 			Rights,
 			Access,
 			Privileges,
-			Place,
 			Entry,
+			Place,
 			Topic,
 			Post,
 			Comment,
@@ -240,13 +284,14 @@ public partial class HomePage : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public HomePage () : base ("HomePage", "MPlace2 - Welcome! Everything is fine.", _Fields) {
+		Container = "FlowPage";
 		}
 
 	///<summary>class Place, MetaPlace</summary>
 	public Place? MetaPlace {get; set;}
 
-	///<summary>List Places</summary>
-	public List<Place>? Places {get; set;}
+	///<summary>List Entries</summary>
+	public List<Place>? Entries {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
@@ -255,9 +300,9 @@ public partial class HomePage : FramePage {
 		new FrameRefClass<Place> ("MetaPlace","Place"){
 			Get = (IBacked data) => (data as HomePage)?.MetaPlace ,
 			Set = (IBacked data, IBacked? value) => {(data as HomePage)!.MetaPlace = value as Place; }},
-		new FrameRefList<Place> ("Places","Place"){
-			Get = (IBacked data) => (data as HomePage)?.Places ,
-			Set = (IBacked data, Object? value) => {(data as HomePage)!.Places = value as List<Place>; }}
+		new FrameRefList<Place> ("Entries","Place"){
+			Get = (IBacked data) => (data as HomePage)?.Entries ,
+			Set = (IBacked data, Object? value) => {(data as HomePage)!.Entries = value as List<Place>; }}
 		];
 
 
@@ -284,6 +329,336 @@ public partial class HomePage : FramePage {
 
 	}
 /// <summary>
+/// Backing class for NotificationsPage
+/// </summary>
+public partial class NotificationsPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public NotificationsPage () : base ("NotificationsPage", "Notifications", _Fields) {
+		Container = "FlowPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRef ("Entries")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<NotificationsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "NotificationsPage",
+		() => new NotificationsPage(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for PlacesPage
+/// </summary>
+public partial class PlacesPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public PlacesPage () : base ("PlacesPage", "Places", _Fields) {
+		Container = "FlowPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRef ("Entries")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<PlacesPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "PlacesPage",
+		() => new PlacesPage(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for BookmarkPage
+/// </summary>
+public partial class BookmarkPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public BookmarkPage () : base ("BookmarkPage", "Saved", _Fields) {
+		Container = "FlowPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRef ("Entries")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<BookmarkPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "BookmarkPage",
+		() => new BookmarkPage(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for YourPlacePage
+/// </summary>
+public partial class YourPlacePage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public YourPlacePage () : base ("YourPlacePage", "Your Place", _Fields) {
+		Container = "FlowPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRef ("Entries")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<YourPlacePage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "YourPlacePage",
+		() => new YourPlacePage(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for SettingsPage
+/// </summary>
+public partial class SettingsPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public SettingsPage () : base ("SettingsPage", "Settings", _Fields) {
+		Container = "EntryPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("SetingsCategory","SettingsMenu")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<SettingsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "SettingsPage",
+		() => new SettingsPage(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for AccountSettings
+/// </summary>
+public partial class AccountSettings : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public AccountSettings () : base ("AccountSettings", "Account Settings", _Fields) {
+		Container = "EntryPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<AccountSettings> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "AccountSettings",
+		() => new AccountSettings(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for AppearanceSettings
+/// </summary>
+public partial class AppearanceSettings : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public AppearanceSettings () : base ("AppearanceSettings", "Appearance Settings", _Fields) {
+		Container = "EntryPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<AppearanceSettings> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "AppearanceSettings",
+		() => new AppearanceSettings(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for AboutSettingsPage
+/// </summary>
+public partial class AboutSettingsPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public AboutSettingsPage () : base ("AboutSettingsPage", "About - MPlace2", _Fields) {
+		Container = "EntryPage";
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("Settings","AboutSettings")
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<AboutSettingsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "AboutSettingsPage",
+		() => new AboutSettingsPage(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
 /// Backing class for SignIn
 /// </summary>
 public partial class SignIn : FramePage {
@@ -292,6 +667,7 @@ public partial class SignIn : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public SignIn () : base ("SignIn", "Sign In", _Fields) {
+		Container = "EntryPage";
 		}
 
     /// <summary>Field Text</summary>
@@ -308,6 +684,7 @@ public partial class SignIn : FramePage {
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameString ("Text",
 			(IBinding data, string? value) => {(data as SignIn)!.Text = value; },
 			(IBinding data) => (data as SignIn)?.Text) {
@@ -366,6 +743,7 @@ public partial class SwitchPage : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public SwitchPage () : base ("SwitchPage", "Switch Account", _Fields) {
+		Container = "EntryPage";
 		}
 
 
@@ -398,301 +776,6 @@ public partial class SwitchPage : FramePage {
 
 	}
 /// <summary>
-/// Backing class for NotificationsPage
-/// </summary>
-public partial class NotificationsPage : FramePage {
-
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public NotificationsPage () : base ("NotificationsPage", "Notifications", _Fields) {
-		}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRef ("Entries")
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<NotificationsPage> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			}, "NotificationsPage",
-		() => new NotificationsPage(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
-/// Backing class for BookmarkPage
-/// </summary>
-public partial class BookmarkPage : FramePage {
-
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public BookmarkPage () : base ("BookmarkPage", "Saved", _Fields) {
-		}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRef ("Entries")
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<BookmarkPage> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			}, "BookmarkPage",
-		() => new BookmarkPage(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
-/// Backing class for YourPlacePageCreate
-/// </summary>
-public partial class YourPlacePageCreate : FramePage {
-
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public YourPlacePageCreate () : base ("YourPlacePageCreate", "Create Your Place", _Fields) {
-		}
-
-	///<summary>List Place</summary>
-	public Place? Place {get; set;}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRefForm<Place> ("Place","Place"){
-			Get = (IBacked data) => (data as YourPlacePageCreate)?.Place ,
-			Set = (IBacked data, IBacked? value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<YourPlacePageCreate> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			}, "YourPlacePageCreate",
-		() => new YourPlacePageCreate(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
-/// Backing class for YourPlacePage
-/// </summary>
-public partial class YourPlacePage : FramePage {
-
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public YourPlacePage () : base ("YourPlacePage", "Your Place", _Fields) {
-		}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRef ("Entries")
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<YourPlacePage> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			}, "YourPlacePage",
-		() => new YourPlacePage(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
-/// Backing class for SettingsPage
-/// </summary>
-public partial class SettingsPage : FramePage {
-
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public SettingsPage () : base ("SettingsPage", "Settings", _Fields) {
-		}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("SetingsCategory","SettingsMenu")
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<SettingsPage> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			}, "SettingsPage",
-		() => new SettingsPage(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
-/// Backing class for NewPlacePage
-/// </summary>
-public partial class NewPlacePage : FramePage {
-
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public NewPlacePage () : base ("NewPlacePage", "Create New Place", _Fields) {
-		}
-
-	///<summary>List Form</summary>
-	public Place? Form {get; set;}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRefForm<Place> ("Form","Place"){
-			Get = (IBacked data) => (data as NewPlacePage)?.Form ,
-			Set = (IBacked data, IBacked? value) => {(data as NewPlacePage)!.Form = value as Place; }}
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<NewPlacePage> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			}, "NewPlacePage",
-		() => new NewPlacePage(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
-/// Backing class for AboutSettingsPage
-/// </summary>
-public partial class AboutSettingsPage : FramePage {
-
-	/// <summary>
-	/// Constructor, returns a new instance
-	/// </summary>
-	public AboutSettingsPage () : base ("AboutSettingsPage", "About - MPlace2", _Fields) {
-		}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("Settings","AboutSettings")
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<AboutSettingsPage> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			}, "AboutSettingsPage",
-		() => new AboutSettingsPage(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
 /// Backing class for CreatePost
 /// </summary>
 public partial class CreatePost : FramePage {
@@ -701,6 +784,7 @@ public partial class CreatePost : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public CreatePost () : base ("CreatePost", "Create New Post", _Fields) {
+		Container = "EntryPage";
 		}
 
 	///<summary>List Form</summary>
@@ -753,6 +837,7 @@ public partial class CreateComment : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public CreateComment () : base ("CreateComment", "Create Comment", _Fields) {
+		Container = "EntryPage";
 		}
 
 	///<summary>class Comment, Target</summary>
@@ -796,6 +881,464 @@ public partial class CreateComment : FramePage {
 
 
 	}
+/// <summary>
+/// Backing class for NewPlacePage
+/// </summary>
+public partial class NewPlacePage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public NewPlacePage () : base ("NewPlacePage", "Create New Place", _Fields) {
+		Container = "EntryPage";
+		}
+
+	///<summary>List Form</summary>
+	public Place? Form {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRefForm<Place> ("Form","Place"){
+			Get = (IBacked data) => (data as NewPlacePage)?.Form ,
+			Set = (IBacked data, IBacked? value) => {(data as NewPlacePage)!.Form = value as Place; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<NewPlacePage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "NewPlacePage",
+		() => new NewPlacePage(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for YourPlacePageCreate
+/// </summary>
+public partial class YourPlacePageCreate : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public YourPlacePageCreate () : base ("YourPlacePageCreate", "Create Your Place", _Fields) {
+		Container = "FlowPage";
+		}
+
+	///<summary>List Place</summary>
+	public Place? Place {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRefForm<Place> ("Place","Place"){
+			Get = (IBacked data) => (data as YourPlacePageCreate)?.Place ,
+			Set = (IBacked data, IBacked? value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<YourPlacePageCreate> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "YourPlacePageCreate",
+		() => new YourPlacePageCreate(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for Help
+/// </summary>
+public partial class Help : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public Help () : base ("Help", "Help", _Fields) {
+		Container = "Support";
+		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("SupportNav","SupportMenu"),
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Help)!.Text = value; },
+			(IBinding data) => (data as Help)?.Text) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Help)!.Text = value; },
+			(IBinding data) => (data as Help)?.Text) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Help> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]}
+			}, "Help",
+		() => new Help(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for TermsOfService
+/// </summary>
+public partial class TermsOfService : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public TermsOfService () : base ("TermsOfService", "Terms of Service", _Fields) {
+		Container = "Support";
+		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("SupportNav","SupportMenu"),
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as TermsOfService)!.Text = value; },
+			(IBinding data) => (data as TermsOfService)?.Text) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as TermsOfService)!.Text = value; },
+			(IBinding data) => (data as TermsOfService)?.Text) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<TermsOfService> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]}
+			}, "TermsOfService",
+		() => new TermsOfService(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for PrivacyPolicy
+/// </summary>
+public partial class PrivacyPolicy : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public PrivacyPolicy () : base ("PrivacyPolicy", "Privacy Policy", _Fields) {
+		Container = "Support";
+		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("SupportNav","SupportMenu"),
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as PrivacyPolicy)!.Text = value; },
+			(IBinding data) => (data as PrivacyPolicy)?.Text) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as PrivacyPolicy)!.Text = value; },
+			(IBinding data) => (data as PrivacyPolicy)?.Text) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<PrivacyPolicy> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]}
+			}, "PrivacyPolicy",
+		() => new PrivacyPolicy(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for Contributors
+/// </summary>
+public partial class Contributors : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public Contributors () : base ("Contributors", "Contributors", _Fields) {
+		Container = "Support";
+		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("SupportNav","SupportMenu"),
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Contributors)!.Text = value; },
+			(IBinding data) => (data as Contributors)?.Text) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Contributors)!.Text = value; },
+			(IBinding data) => (data as Contributors)?.Text) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Contributors> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]}
+			}, "Contributors",
+		() => new Contributors(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for Status
+/// </summary>
+public partial class Status : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public Status () : base ("Status", "System Status", _Fields) {
+		Container = "Support";
+		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("SupportNav","SupportMenu"),
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Status)!.Text = value; },
+			(IBinding data) => (data as Status)?.Text) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Status)!.Text = value; },
+			(IBinding data) => (data as Status)?.Text) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Status> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]}
+			}, "Status",
+		() => new Status(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for SystemLog
+/// </summary>
+public partial class SystemLog : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public SystemLog () : base ("SystemLog", "System Log", _Fields) {
+		Container = "Support";
+		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("SupportNav","SupportMenu"),
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as SystemLog)!.Text = value; },
+			(IBinding data) => (data as SystemLog)?.Text) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as SystemLog)!.Text = value; },
+			(IBinding data) => (data as SystemLog)?.Text) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<SystemLog> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]}
+			}, "SystemLog",
+		() => new SystemLog(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for Repository
+/// </summary>
+public partial class Repository : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public Repository () : base ("Repository", "Source Code Repository", _Fields) {
+		Container = "Support";
+		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("SupportNav","SupportMenu"),
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Repository)!.Text = value; },
+			(IBinding data) => (data as Repository)?.Text) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameRichText ("Text",
+			(IBinding data, string? value) => {(data as Repository)!.Text = value; },
+			(IBinding data) => (data as Repository)?.Text) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Repository> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"Text", _properties[0]}
+			}, "Repository",
+		() => new Repository(), () => [], () => [], null, Generic: false);
+
+
+	}
 
 // Menus 
 /// <summary>
@@ -819,21 +1362,35 @@ public partial class MainNav : FrameMenu {
 			(IBinding data) => (data as MainNav)?.NotificationCount) {
 				},
 		new FrameButton ("Any", "Sign In", "SignIn") {
+			GetActive = (IBinding data) => (data as MainNav)?.SignInActive
+			},
+		new FrameButton ("Avatar", "Sign Out", "SwitchPage") {
+			GetActive = (IBinding data) => (data as MainNav)?.SignOutActive
 			},
 		new FrameButton ("Home", "Home", "HomePage") {
+			GetActive = (IBinding data) => (data as MainNav)?.HomePageActive
 			},
 		new FrameButton ("Notifications", "Notifications", "NotificationsPage") {
+			GetActive = (IBinding data) => (data as MainNav)?.NotificationsActive,
 			GetInteger = (IBinding data) => (data as MainNav)?.NotificationCount
 			},
 		new FrameButton ("Places", "Places", "PlacesPage") {
+			GetActive = (IBinding data) => (data as MainNav)?.PlacesActive
 			},
 		new FrameButton ("Bookmark", "Saved", "BookmarkPage") {
+			GetActive = (IBinding data) => (data as MainNav)?.BookmarksActive
 			},
 		new FrameButton ("Place", "Your Place", "YourPlacePage") {
+			GetActive = (IBinding data) => (data as MainNav)?.YourPlaceActive
+			},
+		new FrameButton ("CreateYour", "Your Place", "YourPlacePageCreate") {
+			GetActive = (IBinding data) => (data as MainNav)?.CreateYourPlaceActive
 			},
 		new FrameButton ("Settings", "Settings", "SettingsPage") {
+			GetActive = (IBinding data) => (data as MainNav)?.SettingsActive
 			},
-		new FrameButton ("NewPlace", "New Place", "NewPostPage") {
+		new FrameButton ("NewPlace", "New Place", "NewPlacePage") {
+			GetActive = (IBinding data) => (data as MainNav)?.CreatePlaceActive
 			}
 		];
 
@@ -966,7 +1523,7 @@ public partial class AboutSettings : FrameMenu {
 
 
 	static readonly List<IFrameField> _Fields = [
-		new FrameButton ("TermsOfService", "Terms of Service", "HelpSettings") {
+		new FrameButton ("TermsOfService", "Terms of Service", "TermsOfService") {
 			},
 		new FrameButton ("PrivacyPolicy", "Privacy Policy", "PrivacyPolicy") {
 			},
@@ -999,6 +1556,52 @@ public partial class AboutSettings : FrameMenu {
 			// Only inclue the serialized items here
 			}, "AboutSettings",
 		() => new AboutSettings(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for SupportMenu
+/// </summary>
+public partial class SupportMenu : FrameMenu {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public SupportMenu () : base ("SupportMenu", _Fields) {
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameButton ("Home", "Home", "HomePage") {
+			},
+		new FrameButton ("TermsOfService", "Terms of Service", "TermsOfService") {
+			},
+		new FrameButton ("Contributors", "Contributors", "Contributors") {
+			},
+		new FrameButton ("Repository", "Source", "Repository") {
+			}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<SupportMenu> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "SupportMenu",
+		() => new SupportMenu(), () => [], () => [], null, Generic: false);
 
 
 	}
@@ -1539,134 +2142,6 @@ public partial class Privileges (string Id="Privileges") : FrameClass (Id) {
 
 	}
 /// <summary>
-/// Backing class for Place
-/// </summary>
-public partial class Place (string Id="Place") : FrameClass (Id) {
-
-    /// <inheritdoc/>
-    public override List<IFrameField> Fields { get; set; } = _Fields;
-
-
-
-    /// <summary>Field DNS</summary>
-	public string? DNS {get; set;}
-
-    /// <summary>Field Title</summary>
-	public string? Title {get; set;}
-
-    /// <summary>Field Description</summary>
-	public string? Description {get; set;}
-
-	///<summary>Avatar Avatar</summary>
-	public string? Avatar {get; set;}
-
-    /// <summary>Field Banner</summary>
-	public string? Banner {get; set;}
-
-	///<summary>List RightsPlace</summary>
-	public List<Rights>? RightsPlace {get; set;}
-
-	///<summary>List RightsTopics</summary>
-	public List<Rights>? RightsTopics {get; set;}
-
-	///<summary>List RightsThreads</summary>
-	public List<Rights>? RightsThreads {get; set;}
-
-	///<summary>List RightsComments</summary>
-	public List<Rights>? RightsComments {get; set;}
-
-	///<summary>List Topics</summary>
-	public List<Topic>? Topics {get; set;}
-
-
-	static readonly List<IFrameField> _Fields = [
-		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-			(IBinding data) => (data as Place)?.DNS) {
-				Prompt = "DNS Address",
-				Description = "Can be any DNS name that is resolved to the service."
-				},
-		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-			(IBinding data) => (data as Place)?.Title) {
-				Prompt = "Name"
-				},
-		new FrameText ("Description",
-			(IBinding data, string? value) => {(data as Place)!.Description = value; },
-			(IBinding data) => (data as Place)?.Description) {
-				Prompt = "Description"
-				},
-		new FrameAvatar ("Avatar"){
-			Get = (IBinding data) => (data as Place)?.Avatar },
-		new FrameImage ("Banner",
-			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-			(IBinding data) => (data as Place)?.Banner) {
-				},
-		new FrameRefList<Rights> ("RightsPlace","Rights"){
-			Get = (IBacked data) => (data as Place)?.RightsPlace ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.RightsPlace = value as List<Rights>; }},
-		new FrameRefList<Rights> ("RightsTopics","Rights"){
-			Get = (IBacked data) => (data as Place)?.RightsTopics ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.RightsTopics = value as List<Rights>; }},
-		new FrameRefList<Rights> ("RightsThreads","Rights"){
-			Get = (IBacked data) => (data as Place)?.RightsThreads ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.RightsThreads = value as List<Rights>; }},
-		new FrameRefList<Rights> ("RightsComments","Rights"){
-			Get = (IBacked data) => (data as Place)?.RightsComments ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.RightsComments = value as List<Rights>; }},
-		new FrameRefList<Topic> ("Topics","Topic"){
-			Get = (IBacked data) => (data as Place)?.Topics ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.Topics = value as List<Topic>; }}
-		];
-
-
-
-    /// <inheritdoc/>
-	public override Goedel.Protocol.Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Goedel.Protocol.Property[] _properties = [
-		// Only inclue the serialized items here
-
-		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-			(IBinding data) => (data as Place)?.DNS) {
-				Prompt = "DNS Address",
-				Description = "Can be any DNS name that is resolved to the service."
-				},
-		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-			(IBinding data) => (data as Place)?.Title) {
-				Prompt = "Name"
-				},
-		new FrameText ("Description",
-			(IBinding data, string? value) => {(data as Place)!.Description = value; },
-			(IBinding data) => (data as Place)?.Description) {
-				Prompt = "Description"
-				},
-		new FrameImage ("Banner",
-			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-			(IBinding data) => (data as Place)?.Banner) {
-				}		];
-
-    /// <inheritdoc/>
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	static readonly new Binding<Place> _binding = new (
-			new() {
-
-			// Only inclue the serialized items here
-			{"DNS", _properties[0]},
-			{"Title", _properties[1]},
-			{"Description", _properties[2]},
-			{"Banner", _properties[3]}
-			}, "Place",
-		() => new Place(), () => [], () => [], null, Generic: false);
-
-
-	}
-/// <summary>
 /// Backing class for Entry
 /// </summary>
 public partial class Entry (string Id="Entry") : FrameClass (Id) {
@@ -1740,6 +2215,144 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
 			{"Semantic", _properties[1]}
 			}, "Entry",
 		() => new Entry(), () => [], () => [], null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for Place
+/// </summary>
+public partial class Place (string Id="Place") : Entry (Id) {
+
+    /// <inheritdoc/>
+    public override List<IFrameField> Fields { get; set; } = _Fields;
+
+
+
+    /// <summary>Field DNS</summary>
+	public string? DNS {get; set;}
+
+    /// <summary>Field Title</summary>
+	public string? Title {get; set;}
+
+    /// <summary>Field Description</summary>
+	public string? Description {get; set;}
+
+	///<summary>Avatar Avatar</summary>
+	public string? Avatar {get; set;}
+
+    /// <summary>Field Banner</summary>
+	public string? Banner {get; set;}
+
+	///<summary>List RightsTopics</summary>
+	public List<Rights>? RightsTopics {get; set;}
+
+	///<summary>List RightsThreads</summary>
+	public List<Rights>? RightsThreads {get; set;}
+
+	///<summary>List RightsComments</summary>
+	public List<Rights>? RightsComments {get; set;}
+
+	///<summary>List Topics</summary>
+	public List<Topic>? Topics {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("Uid",
+			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
+			(IBinding data) => (data as Entry)?.Uid) {
+				Hidden = true
+				},
+		new FrameRefClass<User> ("Owner","User"){
+			Get = (IBacked data) => (data as Entry)?.Owner ,
+			Set = (IBacked data, IBacked? value) => {(data as Entry)!.Owner = value as User; }},
+		new FrameString ("Semantic",
+			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
+			(IBinding data) => (data as Entry)?.Semantic) {
+				Hidden = true
+				},
+		new FrameRefList<Rights> ("Rights","Rights"){
+			Get = (IBacked data) => (data as Entry)?.Rights ,
+			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+		new FrameString ("DNS",
+			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
+			(IBinding data) => (data as Place)?.DNS) {
+				Prompt = "DNS Address",
+				Description = "Can be any DNS name that is resolved to the service."
+				},
+		new FrameString ("Title",
+			(IBinding data, string? value) => {(data as Place)!.Title = value; },
+			(IBinding data) => (data as Place)?.Title) {
+				Prompt = "Name"
+				},
+		new FrameText ("Description",
+			(IBinding data, string? value) => {(data as Place)!.Description = value; },
+			(IBinding data) => (data as Place)?.Description) {
+				Prompt = "Description"
+				},
+		new FrameAvatar ("Avatar"){
+			Get = (IBinding data) => (data as Place)?.Avatar },
+		new FrameImage ("Banner",
+			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
+			(IBinding data) => (data as Place)?.Banner) {
+				},
+		new FrameRefList<Rights> ("RightsTopics","Rights"){
+			Get = (IBacked data) => (data as Place)?.RightsTopics ,
+			Set = (IBacked data, Object? value) => {(data as Place)!.RightsTopics = value as List<Rights>; }},
+		new FrameRefList<Rights> ("RightsThreads","Rights"){
+			Get = (IBacked data) => (data as Place)?.RightsThreads ,
+			Set = (IBacked data, Object? value) => {(data as Place)!.RightsThreads = value as List<Rights>; }},
+		new FrameRefList<Rights> ("RightsComments","Rights"){
+			Get = (IBacked data) => (data as Place)?.RightsComments ,
+			Set = (IBacked data, Object? value) => {(data as Place)!.RightsComments = value as List<Rights>; }},
+		new FrameRefList<Topic> ("Topics","Topic"){
+			Get = (IBacked data) => (data as Place)?.Topics ,
+			Set = (IBacked data, Object? value) => {(data as Place)!.Topics = value as List<Topic>; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameString ("DNS",
+			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
+			(IBinding data) => (data as Place)?.DNS) {
+				Prompt = "DNS Address",
+				Description = "Can be any DNS name that is resolved to the service."
+				},
+		new FrameString ("Title",
+			(IBinding data, string? value) => {(data as Place)!.Title = value; },
+			(IBinding data) => (data as Place)?.Title) {
+				Prompt = "Name"
+				},
+		new FrameText ("Description",
+			(IBinding data, string? value) => {(data as Place)!.Description = value; },
+			(IBinding data) => (data as Place)?.Description) {
+				Prompt = "Description"
+				},
+		new FrameImage ("Banner",
+			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
+			(IBinding data) => (data as Place)?.Banner) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	static readonly new Binding<Place> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"DNS", _properties[0]},
+			{"Title", _properties[1]},
+			{"Description", _properties[2]},
+			{"Banner", _properties[3]}
+			}, "Place",
+		() => new Place(), () => [], () => [], null, Generic: false);
 
 
 	}

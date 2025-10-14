@@ -1,70 +1,80 @@
 ﻿
 Namespace Frame
 
-    // The main navigation chrome
-    HomePage Page "MPlace2 - Welcome! Everything is fine." 
-        Navigation Is MainNav
-        TopSettings Is TopSettings
-        MetaPlace Is Place
-        Places List Place
-
     MainNav Menu
         NotificationCount Integer
 
         Any Button SignIn "Sign In"
+            SignInActive Boolean
+        Avatar Button SwitchPage "Sign Out"
+            SignOutActive Boolean
+
         Home Button HomePage "Home"
+            HomePageActive Boolean
+
         Notifications Button NotificationsPage "Notifications"
+            NotificationsActive Boolean
             NotificationCount Integer
+
         Places Button PlacesPage "Places"
+            PlacesActive Boolean
+
         Bookmark Button BookmarkPage "Saved"
+            BookmarksActive Boolean
+
         Place Button YourPlacePage "Your Place"
+            YourPlaceActive Boolean
+
+        CreateYour Button YourPlacePageCreate "Your Place"
+            CreateYourPlaceActive Boolean
+
         Settings Button SettingsPage "Settings"
-        NewPlace Button NewPostPage "New Place"
+            SettingsActive Boolean
+
+        NewPlace Button NewPlacePage "New Place"
+            CreatePlaceActive Boolean
 
     TopSettings Menu
         Menu Button SettingsPage "Menu"
         Settings Button SettingsPage "Settings"
 
-    SignIn Page "Sign In"
-        Text String                     // Short explanation
-        Form Form Handle
-        RegisterText String             // Short explanation
-        Providers List Provider         // Providers where you can signup
-
-
-    SwitchPage Page "Switch Account"
-        SignOut Button SignOut "Sign Out"   // Sign out
-        Users Selection User                     // Alternative Users
+    // The main navigation chrome
+    HomePage Page "MPlace2 - Welcome! Everything is fine." 
+        FlowPage Container
+        Navigation Is MainNav
+        TopSettings Is TopSettings
+        MetaPlace Is Place
+        Entries List Place
 
     NotificationsPage Page "Notifications"
+        FlowPage Container
+        Navigation Is MainNav
+        TopSettings Is TopSettings
+        Entries List Entries
+
+    PlacesPage Page "Places"
+        FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Entries List Entries
 
     BookmarkPage Page "Saved"
+        FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Entries List Entries
-
-    YourPlacePageCreate Page "Create Your Place"
-        Navigation Is MainNav
-        TopSettings Is TopSettings
-        Place Form Place
 
     YourPlacePage Page "Your Place"
+        FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Entries List Entries
 
-
+    // Settings Menu pages with nested navigation
     SettingsPage Page "Settings"
+        EntryPage Container
         Navigation Is MainNav
         SetingsCategory Is SettingsMenu
-
-    NewPlacePage Page "Create New Place"
-        Navigation Is MainNav
-        TopSettings Is TopSettings
-        Form Form Place
 
     SettingsMenu Menu
         Account Button AccountSettings "Account"
@@ -72,29 +82,113 @@ Namespace Frame
         Help Button Help "Help"
         About Button AboutSettingsPage "About"
 
+    AccountSettings Page "Account Settings" 
+        EntryPage Container
+        Navigation Is MainNav
+
+    AppearanceSettings Page "Appearance Settings" 
+        EntryPage Container
+        Navigation Is MainNav
+
     AboutSettingsPage Page "About - MPlace2" 
+        EntryPage Container
         Navigation Is MainNav
         Settings Is AboutSettings
 
     AboutSettings Menu
-        TermsOfService  Button HelpSettings     "Terms of Service"
+        TermsOfService  Button TermsOfService     "Terms of Service"
         PrivacyPolicy   Button PrivacyPolicy    "Privacy Policy"
         Contributors    Button Contributors     "Contributors"
         Status          Button Status           "Status Page"
         S1 Separator
         SystemLog       Button SystemLog        "System Log"
 
+
+    // SignIn / Sign Out
+    SignIn Page "Sign In"
+        EntryPage Container
+        Navigation Is MainNav
+        Text String                     // Short explanation
+        Form Form Handle
+        RegisterText String             // Short explanation
+        Providers List Provider         // Providers where you can signup
+
+    SwitchPage Page "Switch Account"
+        EntryPage Container
+        SignOut Button SignOut "Sign Out"   // Sign out
+        Users Selection User                     // Alternative Users
+
+
+    // The data entry pages
     CreatePost Page "Create New Post"
+        EntryPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Form Form Post                 // Post entry form, i.e. Quill
         Crosspost List Provider         // Crossposting targets
 
     CreateComment Page "Create Comment"
+        EntryPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Target Is Comment               // Comment being responded to
         Form Form Comment               // Comment entry form
+
+    NewPlacePage Page "Create New Place"
+        EntryPage Container
+        Navigation Is MainNav
+        TopSettings Is TopSettings
+        Form Form Place
+
+    YourPlacePageCreate Page "Create Your Place"
+        FlowPage Container
+        Navigation Is MainNav
+        TopSettings Is TopSettings
+        Place Form Place
+
+
+
+    // The support pages, use a different format
+    SupportMenu Menu
+        Home Button HomePage "Home"
+        TermsOfService  Button TermsOfService     "Terms of Service"
+        Contributors    Button Contributors     "Contributors"       
+        Repository      Button Repository           "Source"   
+
+    Help Page "Help"
+        Support Container
+        SupportNav Is SupportMenu
+        Text RichText 
+
+    TermsOfService Page "Terms of Service"
+        Support Container
+        SupportNav Is SupportMenu
+        Text RichText 
+
+    PrivacyPolicy Page "Privacy Policy"
+        Support Container
+        SupportNav Is SupportMenu
+        Text RichText 
+
+    Contributors Page "Contributors"
+        Support Container
+        SupportNav Is SupportMenu
+        Text RichText 
+
+    Status Page "System Status"
+        Support Container
+        SupportNav Is SupportMenu
+        Text RichText 
+
+    SystemLog Page "System Log"
+        Support Container
+        SupportNav Is SupportMenu
+        Text RichText 
+
+    Repository Page "Source Code Repository"
+        Support Container
+        SupportNav Is SupportMenu
+        Text RichText 
 
 
 
@@ -159,9 +253,20 @@ Namespace Frame
     
 
 
-    Place Class                     // 
+    Entry Class  
+        Description ""
+        Fields
+            Uid String                  // Globally unique identifier
+                Hidden
+            Owner Is User               // The owner of the entry, typically the user who created/added the entry
+            Semantic String             // The semantic relationship of the entry to the parent
+                Hidden
+            Rights List Rights          // Management rights
+
+    Place SubClass Entry                      // 
         Description "An MPlace2 site with its own DNS address."
         Fields
+
             DNS String                  // The DNS name of the place
                 Prompt "DNS Address"
                 Description "Can be any DNS name that is resolved to the service."
@@ -172,23 +277,12 @@ Namespace Frame
 
             Avatar Avatar        // Avatar to represent the place in collections
             Banner Image                // Banner image for use as a masthead
-            RightsPlace List Rights           // Grant of administration rights top this place
             RightsTopics List Rights          // Default rights for topics
             RightsThreads List Rights         // Default rights for groups
             RightsComments List Rights        // Default rights for comments
             Topics List Topic           // The topics 
 
 
-
-    Entry Class
-        Description ""
-        Fields
-            Uid String                  // Globally unique identifier
-                Hidden
-            Owner Is User               // The owner of the entry, typically the user who created/added the entry
-            Semantic String             // The semantic relationship of the entry to the parent
-                Hidden
-            Rights List Rights          // Management rights
 
     Topic SubClass Entry 
         Description "A collection of posts"

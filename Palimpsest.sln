@@ -73,6 +73,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Settings\CommonSettingsPlatform.xml = Settings\CommonSettingsPlatform.xml
 		Settings\CommonSettingsTest.xml = Settings\CommonSettingsTest.xml
 		Settings\CommonSettingsWindows.xml = Settings\CommonSettingsWindows.xml
+		Test\Contributors.html = Test\Contributors.html
 		Test\CreateComment.html = Test\CreateComment.html
 		Test\CreatePost.html = Test\CreatePost.html
 		Test\HomePage.html = Test\HomePage.html

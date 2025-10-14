@@ -145,7 +145,7 @@ public partial class MyClass : FrameSet{
 // Pages
 /// <summary>
 /// Backing class for HomePage
-/// </summary>
+/// </summary>,mkjhgljhgkjlhgf
 public partial class HomePage : FramePage {
 
 	/// <summary>

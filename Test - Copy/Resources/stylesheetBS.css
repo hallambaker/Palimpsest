@@ -1,0 +1,360 @@
+* {
+    /*outline: 1px solid red;*/
+}
+
+/* Global settings */
+
+/* Font, decoration, etc. */
+
+Body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    margin: 0px;
+    border: 0px;
+}
+
+/* Buttons are always on a white background, turn grey on hover and icons are 24x24 */
+button {
+    background-color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    align-items: center;
+    font-size: 18px;
+    border: 0px;
+}
+
+    button:hover {
+        background-color: lightgray;
+    }
+
+.ButtonIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.ButtonText {
+    padding-left: 8px;
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    align-self: center;
+}
+
+button.dropdown-button {
+    align-self: center;
+    align-items: center;
+    display: flex;
+}
+
+button.dropdown-subbutton {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    width: 100%;
+
+}
+
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 240px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+    .dropdown-content img {
+        width: 18px;
+        height: 18px;
+        padding-right: 4px;
+    }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+.dropdown:hover .dropdown-button {
+
+}
+
+
+
+
+
+/* Slice and dice the Main section into three parts */
+
+.HomePage {
+    display: grid;
+    grid-template-areas:
+        "left Top"
+        "left Items";
+    grid-template-columns: 180px 420px;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+}
+
+    .HomePage > div.Navigation {
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        grid-area: left;
+        align-self: start;
+        padding: 10px;
+    }
+
+    .HomePage > div.Items {
+        grid-area: Items;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+    }
+
+    .HomePage > div.TopSettings {
+        grid-area: Top;
+        top: 0;
+        padding: 0px;
+        position: sticky;
+        text-align: right;
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+
+/* All the stuff relating to JUST the Navigation grid */
+
+button.Navigation {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    width: 100%;
+}
+
+
+
+/* All the stuff relating to JUST the Settings grid */
+
+div.TopSettings {
+    display: flex;
+    flex-direction: row-reverse;
+    /*width: 100%;*/
+}
+
+
+.TopSettings.ButtonText {
+    display: none;
+}
+
+
+
+/* The per post grids */
+form.Main {
+    display: grid;
+    grid-template-areas:
+        "isrepost reposter"
+        "left author"
+        "rule body"
+        "rule detail"
+        "rule responses";
+    grid-template-columns: 36px auto;
+}
+
+    .Main > section.RepostIndicator {
+        grid-area: isrepost;
+        vertical-align: middle;
+        display: flex;
+    }
+
+    .Main > section.Reposter {
+        grid-area: reposter;
+        vertical-align: middle;
+        display: inline;
+    }
+
+    .Main > section.Avatar {
+        grid-area: left;
+        vertical-align: middle;
+        align-self: center;
+    }
+
+    .Main > section.Author {
+        grid-area: author;
+        vertical-align: middle;
+        align-self: center;
+        display: inline;
+    }
+
+    .Main > section.Rule {
+        grid-area: rule;
+    }
+
+    .Main > section.Body {
+        grid-area: body;
+        width: 100%
+    }
+
+    .Main > section.Detail {
+        grid-area: detail;
+        display: none;
+    }
+
+    .Main > section.Responses {
+        grid-area: responses;
+        justify-content: space-between;
+    }
+
+section.Quoted {
+    outline: 1px solid black;
+    display: grid;
+    grid-template-areas:
+        "left author"
+        "rule body";
+    grid-template-columns: 36px auto;
+    border-radius: 10px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+    .Quoted > section.Avatar {
+        grid-area: left;
+        vertical-align: middle;
+        align-self: center;
+    }
+
+    .Quoted > section.Author {
+        grid-area: author;
+        vertical-align: middle;
+        align-self: center;
+        display: inline;
+    }
+
+    .Quoted > section.Body {
+        grid-area: body;
+        width: 100%
+    }
+
+
+/* Everything to do with the Avatar section */
+
+div.Avatar {
+    height: 32px;
+    width: 32px;
+    align-items: center;
+}
+
+/* Reposter is similar to Author */
+
+div.Main.RepostIndicator {
+    display: inline;
+    margin-left: auto;
+    align-items: center;
+}
+
+img.RepostIndicator {
+    width: 12px;
+    height: 12px;
+    align-self: center;
+    padding-right: 4px;
+}
+
+div.ReposterDisplayName {
+    font-size: 12px;
+    display: inline;
+    align-items: center;
+
+}
+
+div.ReposterDisplayHandle {
+    font-size: 12px;
+    display: inline;
+}
+
+div.ReposterDisplayName::before {
+    content: "Reposted by";
+}
+/* Everything to do with the Author section */
+div.Author {
+    display: inline !important;
+}
+
+div.UserDisplayName {
+    font-weight: bold;
+    display: inline;
+    align-items: center;
+}
+
+div.UserDisplayHandle {
+    display: inline;
+}
+
+
+div.Created {
+    display: inline;
+}
+
+    div.Created:before {
+        content: "-";
+    }
+
+
+section.Detail {
+    display: none;
+}
+
+
+
+/* Everything to do with the Responses section */
+
+div.Responses {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+}
+
+button.Responses {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 12px;
+}
+
+img.Responses.ButtonIcon {
+    align-self: center;
+    width: 18px;
+    width: 18px;
+}
+
+
+
+div.Responses.ButtonText {
+    display: none;
+}
+
+
+/* This has been used to do a vertical rule in testing */
+
+hr.rulethang {
+    height: 100%;
+    width: 1px;
+    color: black;
+}

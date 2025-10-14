@@ -185,7 +185,8 @@ class MainClass {
 
 
         var basePlace = new Place() {
-            DNS="mplace2.social",
+            Uid = Udf.Nonce(),
+            DNS ="mplace2.social",
             Title="MPlace2",
             Description = "Making personal places on the Web",
             Banner = "Mplace2Banner.png",
@@ -193,6 +194,7 @@ class MainClass {
             };
 
         var phbPlace = new Place() {
+            Uid = Udf.Nonce(),
             DNS = "phill.hallambaker.com",
             Title = "Phill's Place",
             Description = "PHB's place on the Web",
@@ -201,6 +203,7 @@ class MainClass {
             };
 
         var buildingPlace = new Place() {
+            Uid = Udf.Nonce(),
             DNS = "building.mplace2.social",
             Title = "MPlace2 Building",
             Description = "Building MPlace2",
@@ -209,6 +212,7 @@ class MainClass {
             };
 
         var anyonePlace = new Place() {
+            Uid = Udf.Nonce(),
             DNS = "anyone.mplace2.social",
             Title = "MPlace2",
             Description = "Intelligent contacts that work",
@@ -217,6 +221,7 @@ class MainClass {
             };
 
         var anythingPlace = new Place() {
+            Uid = Udf.Nonce(),
             DNS = "anything.mplace2.social",
             Title = "@nything",
             Description = "Making personal devices personal.",
@@ -225,74 +230,106 @@ class MainClass {
             };
 
         //frameset.ProfileSelect.DisplayName = "";
-        frameset.HomePage.Places = [phbPlace, buildingPlace, anyonePlace, anythingPlace];
+        frameset.HomePage.Entries = [phbPlace, buildingPlace, anyonePlace, anythingPlace];
         frameset.HomePage.MetaPlace = basePlace;
 
 
-        using (var file = "Test/SignIn.html".OpenTextWriterNew()) {
+
+        var user1 = new User() {
+            Uid = Udf.Nonce(),
+            DisplayName = "Alice",
+            DisplayHandle = "alice.example.com"
+            };
+
+        var user2 = new User() {
+            Uid = Udf.Nonce(),
+            DisplayName = "Bob",
+            DisplayHandle = "bob.example.com"
+            };
+
+        var user3 = new User() {
+            Uid = Udf.Nonce(),
+            DisplayName = "Carol",
+            DisplayHandle = "carol.example.com"
+            };
+
+
+        var post1 = new Post() {
+            Uid = Udf.Nonce(),
+            Owner = user1,
+            Title = "First Post!",
+            Summary = "I am the first person to post here! Sweeeet!",
+            Body = "<h1>Not really got anything to say mind</h1>" +
+            "<p>In fact this post is a bit boring to be honest.</p>" +
+            "<p>Maybe the next one will be better."
+            };
+
+
+        var post2 = new Post() {
+            Uid = Udf.Nonce(),
+            Owner = user1,
+            Title = "Try again",
+            Summary = "Trying a second post here",
+            Body = "<p>So much for having something to say!</p>"
+            };
+
+        var post3 = new Post() {
+            Uid = Udf.Nonce(),
+            Owner = user2,
+            Title = "Oh, just thought of something",
+            Summary = "This is the text that goes out to Blue Sky, Facebook, etc.",
+            Body = "<h1>This text doesn't get posted anywhere else, just here.</h1>" +
+            "<p>Unless of course, there is some reason to do it different</p>" +
+            "<p>A user could use a service that allows them to make a post, share" +
+            "it with a small audience initially and then post the whole thing" +
+            "to Facebook/OnlyFans/Subspace/etc. after discussions.</p>"
+            };
+
+
+
+        var post4 = new Post() {
+            Uid = Udf.Nonce(),
+            Owner = user3,
+            Title = "What about user links",
+            Summary = "Need to work out how the user link thing works.",
+            Body = "<h1>Need to do some reasearch here</h1>"
+            };
+
+
+        var dummyText = "<h1>This is a dummy page</h1>" +
+            "<p>will be filled as needed</p>" +
+            "<p>will be filled as needed</p>" +
+            "<p>will be filled as needed</p>" +
+            "<p>will be filled as needed</p>" +
+            "<p>will be filled as needed</p>";
+
+        frameset.Help.Text = dummyText;
+        frameset.TermsOfService.Text = dummyText;
+        frameset.PrivacyPolicy.Text = dummyText;
+        frameset.Contributors.Text = dummyText;
+        frameset.Status.Text = dummyText;
+        frameset.SystemLog.Text = dummyText;
+        frameset.Repository.Text = dummyText;
+
+        //frameset.SignIn.Title = "Sign In";
+        frameset.SignIn.Text = "Enter your Blue Sky handle here";
+        frameset.SignIn.RegisterText = "If you don't have a handle yet, you can register one here";
+
+
+        frameset.MainNav.SignInState = SignInState.NoPersonalPlace;
+
+        // Write out contact sheets for each page
+        foreach (var page in frameset.Pages) {
+            var fileName = $"Test/{page.Id}.html";
+            using var file = fileName.OpenTextWriterNew();
+            frameset.Page = page;
+
             var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.SignIn);
+            writer.Render(page);
             }
 
 
 
-        using (var file = "Test/Places.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.HomePage);
-            }
-
-
-
-        using (var file = "Test/SwitchPage.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.SwitchPage);
-            }
-
-        using (var file = "Test/NotificationsPage.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.NotificationsPage);
-            }
-
-        using (var file = "Test/BookmarkPage.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.BookmarkPage);
-            }
-
-        using (var file = "Test/YourPlacePageCreate.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.YourPlacePageCreate);
-            }
-
-        using (var file = "Test/YourPlacePage.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.YourPlacePage);
-            }
-        using (var file = "Test/SettingsPage.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.SettingsPage);
-            }
-        using (var file = "Test/NewPlacePage.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.NewPlacePage);
-            }
-        using (var file = "Test/AboutSettingsPage.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.AboutSettingsPage);
-            }
-
-
-
-        using (var file = "Test/CreatePost.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.CreatePost);
-            }
-
-
-        using (var file = "Test/CreateComment.html".OpenTextWriterNew()) {
-            var writer = new PageWriter(frameset, file);
-            writer.Render(frameset.CreateComment);
-            }
-        // Produce a set of contact sheets for each page
 
         }
     public static List<Option> MakeOptions(params string[] identifiers) => MakeOptions<Option>(identifiers);

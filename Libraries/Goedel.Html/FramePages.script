@@ -110,6 +110,7 @@ public #{structure} #{backer.Id} : #{backer.Type} {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public #{backer.Id} () : base ("#{backer.Id}", "#{backer.Title}", _Fields) {
+		Container = #{backer.Container.QuotedOrNull()};
 		}
 #% MakeBacking (backer);
 	}

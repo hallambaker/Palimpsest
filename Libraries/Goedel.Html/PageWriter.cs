@@ -23,8 +23,10 @@ public partial class PageWriter : HtmlWriter {
     public void Render(FramePage page) {
 
         page.StartRender = System.DateTime.Now;
+        var title = page.PageTitle ?? page.Title;
+
         // Basics, title and favicon
-        Head(page.PageTitle ?? page.Title, page.FaviCon);
+        Head(title, page.FaviCon);
 
         // Stylesheets and scripts with usual defaults
         Reources(page.FrameSet.Resources);
@@ -32,9 +34,21 @@ public partial class PageWriter : HtmlWriter {
 
         Body();
 
-        Open("div", "class", page.Tag);
+        if (page.Container is not null) {
+            Open("div", "class", page.Container);
+            }
+        else {
+            Open("div", "class", page.Tag);
+            }
+
+        Text(title, "div", "class", "Title");
+
         RenderFields(page);
         Close();
+
+        //if (page.Container is not null) {
+        //    Close();
+        //    }
 
         Reources(page.FrameSet.EndResources);
         Reources(page.EndResources);
@@ -188,7 +202,7 @@ public partial class PageWriter : HtmlWriter {
 
             switch (field) {
                 case FrameButton item: {
-                    Render(item, backer);
+                    Render(item, fieldRefMenu.Menu);
                     break;
                     }
                 }
@@ -202,14 +216,38 @@ public partial class PageWriter : HtmlWriter {
 
     public void Render(FrameButton button, IBacked backer) {
 
+
+        var disabled = false;
+
         var icon = button.Tag;
         if (button.GetActive is not null) {
-            icon = button.GetActive(backer) == true ? icon + "Active" : icon;
+            var active = button.GetActive(backer);
+            switch (active) {
+                case ButtonVisibility.None: {
+                    return;
+                    }
+                case ButtonVisibility.Active: {
+                    icon = icon + "Active";
+                    disabled = true;
+                    break;
+                    }
+                case ButtonVisibility.Disabled: {
+                    icon = icon + "Disabled";
+                    disabled = true;
+                    break;
+                    }
+                }
             }
 
-        var start = OpenClass("div", button.Tag);
-        Open("p");
-        Open ("a", "href", button.Action+".html");
+        var buttonType = disabled ? "ButtonDummy " : "Button ";
+        var start = Open("div", "class", buttonType + button.Tag);
+
+        if (!disabled) {
+            Open("a", "class", "ButtonAnchor", "href", button.Action + ".html");
+            }
+        else {
+            Open("div", "class", "ButtonDummyAnchor");
+            }
 
         ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(icon), "alt", button.Label);
         TextClass(button.Label, "ButtonText", "div");
@@ -228,32 +266,7 @@ public partial class PageWriter : HtmlWriter {
             }
 
         Close();
-        Close();
-
         Close(start);
-
-
-
-
-
-
-        //var start = OpenClass("button",  button.Tag, "type", "button");
-        //ElementClass("img", "ButtonIcon", "src", FrameSet.IconPath(icon), "alt", button.Label);
-
-        //TextClass(button.Label, "ButtonText ", "div");
-        //if (button.GetText is not null) {
-        //    var value = button?.GetText(backer);
-        //    if (value is not null) {
-        //        TextClass(value, "ButtonVar", "div");
-        //        }
-        //    }
-        //else if (button.GetInteger is not null) {
-        //    var value = button?.GetInteger(backer).ToString();
-        //    if (value is not null) {
-        //        TextClass(value, "ButtonVar", "div");
-        //        }
-        //    }
-        //Close(start);
         }
 
     public void Render(IBacked backer, FrameSubmenu item) {
@@ -322,7 +335,7 @@ public partial class PageWriter : HtmlWriter {
                 FrameRefClass item) {
         var value = item.Get(backer);
         if (value is not null) {
-
+            Open("div", "class", item.Id);
             if (item.Presentation is not null) {
                 OpenClassNew("section", item.Presentation.Tag );
                 RenderSections(value, item.Presentation);
@@ -332,6 +345,7 @@ public partial class PageWriter : HtmlWriter {
             else {
                 RenderFields(value);
                 }
+            Close();
             }
         }
 

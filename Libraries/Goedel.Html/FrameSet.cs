@@ -7,7 +7,7 @@ namespace Goedel.Html;
 
 
 public class FrameSet {
-
+    public FramePage Page { get; set; }
     public List<Resource> Resources { get; set; } = null;
     public List<Resource> EndResources { get; set; } = null;
 
@@ -102,7 +102,7 @@ public class FramePage: FrameBacker, IBacked {
 
     public FrameSet FrameSet { get; set; }
     public string Title { get; init; }
-
+    public string? Container { get; init; }
     public virtual List<IFrameField> Fields {get; init;}
 
     public FrameClass? Parent { get; init; } = null;
@@ -188,7 +188,12 @@ public abstract record FrameField : IFrameField {
         }
     }
 
-
+public enum ButtonVisibility {
+    Available,
+    Active,
+    Disabled,
+    None
+    }
 
 public record FrameButton(
                 string Id,
@@ -197,7 +202,7 @@ public record FrameButton(
 
     public override string Type => "FrameButton";
 
-    public Func<IBinding, bool?> GetActive { get; init; }
+    public Func<IBinding, ButtonVisibility?> GetActive { get; init; }
     public Func<IBinding, int?> GetInteger { get; init; }
     public Func<IBinding, string?> GetText { get; init; }
     }

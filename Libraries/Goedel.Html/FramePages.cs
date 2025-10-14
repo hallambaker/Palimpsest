@@ -140,6 +140,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 			_Output.Write ("	/// Constructor, returns a new instance\n{0}", _Indent);
 			_Output.Write ("	/// </summary>\n{0}", _Indent);
 			_Output.Write ("	public {1} () : base (\"{2}\", \"{3}\", _Fields) {{\n{0}", _Indent, backer.Id, backer.Id, backer.Title);
+			_Output.Write ("		Container = {1};\n{0}", _Indent, backer.Container.QuotedOrNull());
 			_Output.Write ("		}}\n{0}", _Indent);
 			 MakeBacking (backer);
 			_Output.Write ("	}}\n{0}", _Indent);

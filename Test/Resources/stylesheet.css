@@ -4,6 +4,35 @@
 
 /* Global settings */
 
+:root {
+    --color-text: black;
+    --color-background: white;
+    --color-hover: lightgrey;
+    --button-background: white;
+}
+
+/*:root {
+    --color-text: white;
+    --color-background: black;
+    --color-hover: grey;
+}
+*/
+
+/*
+    Need to work out how to change the color of the inline icons.
+
+    https://www.getfishtank.com/insights/change-svg-colors-using-css-filters
+
+    One option, probably the simplest is to suck all the SVG code 
+    into the service when it starts up and emit inline. This allows the color
+    to be changed with a simple fill attribute:
+
+    .fish:hover .st0 {
+    fill: red;
+    }
+*/
+
+
 /* Font, decoration, etc. */
 
 Body {
@@ -11,7 +40,106 @@ Body {
     text-decoration: none;
     margin: 0px;
     border: 0px;
+    color: var(--color-text);
+    background-color: var(--color-background);
 }
+
+/* Styling for Navigation buttons, also the default styling, eg for the button 'Any'
+        <div class="Navigation Button Any">
+            <a href="SignIn.html" class="Navigation ButtonAnchor Any">
+              <img class="Navigation Any ButtonIcon" src="Resources/Icons/Any.svg" alt="Sign In"/>
+              <div class="Navigation ButtonText">Sign In</div>
+            </a>
+        </div>
+*/
+
+
+
+.Button {
+    justify-content: left;
+    display: flex;
+    background-color: var(--button-background);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    align-items: center;
+    height: 30px;
+    margin: 5px;
+}
+
+    .Button:hover {
+        background-color: var(--color-hover);
+    }
+
+.ButtonDummy {
+    justify-content: left;
+    display: flex;
+    background-color: var(--button-background);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    align-items: center;
+    height: 30px;
+    margin: 5px;
+}
+
+
+
+.ButtonAnchor {
+    display: flex;
+    padding-left: 8px;
+    align-items: center;
+    height: 24px;
+    width: 100%;
+    text-decoration: none;
+}
+
+    .ButtonAnchor:visited {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+    .ButtonAnchor:link {
+        text-decoration: none;
+        color: var(--color-text);
+    }
+
+.ButtonDummyAnchor {
+    display: flex;
+    padding-left: 8px;
+    align-items: center;
+    height: 24px;
+    width: 100%;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+
+.ButtonIcon {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    text-align: left;
+    align-items: center;
+}
+
+.ButtonText {
+    display: flex;
+    padding-left: 8px;
+    text-align: left;
+    align-items: center;
+    height: 24px;
+    text-decoration: none;
+}
+
+
+
+
+
+
 
 /* Buttons are always on a white background, turn grey on hover and icons are 24x24 */
 button {
@@ -27,14 +155,7 @@ button {
         background-color: lightgray;
     }
 
-.ButtonIcon {
-    width: 24px;
-    height: 24px;
-}
 
-.ButtonText {
-    padding-left: 8px;
-}
 
 
 .dropdown {
@@ -100,10 +221,11 @@ button.dropdown-subbutton {
 
 /* Slice and dice the Main section into three parts */
 
-.HomePage {
+.FlowPage {
     display: grid;
     grid-template-areas:
         "left Top"
+        "left First"
         "left Items";
     grid-template-columns: 180px 420px;
     gap: 1px;
@@ -111,7 +233,11 @@ button.dropdown-subbutton {
     border: 0px;
 }
 
-    .HomePage > div.Navigation {
+    .FlowPage > div.Title {
+        display: none;
+    }
+
+    .FlowPage > div.Navigation {
         align-self: start;
         top: 0;
         left: 0;
@@ -121,14 +247,21 @@ button.dropdown-subbutton {
         padding: 10px;
     }
 
-    .HomePage > div.Items {
+    .FlowPage > div.MetaPlace {
+        grid-area: First;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+    }
+
+    .FlowPage > div.Places {
         grid-area: Items;
         border-left: 1px solid black;
         border-right: 1px solid black;
         padding: 15px;
     }
 
-    .HomePage > div.TopSettings {
+    .FlowPage > div.TopSettings {
         grid-area: Top;
         top: 0;
         padding: 0px;
@@ -139,9 +272,92 @@ button.dropdown-subbutton {
         border-right: 1px solid black;
     }
 
+.EntryPage {
+    display: grid;
+    grid-template-areas: 
+        "NavMenu TopNav"
+        "NavMenu SubMenu";
+    grid-template-columns: 180px 420px;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+}
+    .EntryPage > div.Title {
+        grid-area: TopNav;
+        display: block;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        align-self: start;
+        padding: 10px;
+    }
+
+
+    .EntryPage > div.Navigation {
+        grid-area: NavMenu;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        align-self: start;
+        padding: 10px;
+    }
+
+    .EntryPage > div.SetingsCategory {
+        grid-area: SubMenu;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        align-self: start;
+        padding: 10px;
+    }
+
+.Support {
+    display: grid;
+    grid-template-areas:
+        "Menu" "Text";
+
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+}
+
+
+    .Support > div.SupportNav {
+        grid-area: Menu;
+        display: inline-flex;
+        top: 0;
+        padding: 0px;
+        text-align: right;
+    }
+
+    .Support > div.Text {
+        grid-area: Text;
+    }
+
+
+.SupportNav .Button {
+
+}
+
+
+.SupportNav .Home .ButtonIcon {
+    display: none;
+}
+.SupportNav .TermsOfService .ButtonIcon {
+    display: none;
+}
+.SupportNav .Contributors .ButtonIcon {
+    display: none;
+}
+
+.SupportNav .Repository .ButtonText {
+    display: none;
+}
 
 /* All the stuff relating to JUST the Navigation grid */
-
 button.Navigation {
     display: flex;
     flex-direction: row;
