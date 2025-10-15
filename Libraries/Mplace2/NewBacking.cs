@@ -284,7 +284,7 @@ public partial class HomePage : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public HomePage () : base ("HomePage", "MPlace2 - Welcome! Everything is fine.", _Fields) {
-		Container = "FlowPage";
+		Container = null;
 		}
 
 	///<summary>class Place, MetaPlace</summary>
@@ -340,11 +340,16 @@ public partial class NotificationsPage : FramePage {
 		Container = "FlowPage";
 		}
 
+	///<summary>List Entries</summary>
+	public List<Entry>? Entries {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRef ("Entries")
+		new FrameRefList<Entry> ("Entries","Entry"){
+			Get = (IBacked data) => (data as NotificationsPage)?.Entries ,
+			Set = (IBacked data, Object? value) => {(data as NotificationsPage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -382,11 +387,16 @@ public partial class PlacesPage : FramePage {
 		Container = "FlowPage";
 		}
 
+	///<summary>List Entries</summary>
+	public List<Entry>? Entries {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRef ("Entries")
+		new FrameRefList<Entry> ("Entries","Entry"){
+			Get = (IBacked data) => (data as PlacesPage)?.Entries ,
+			Set = (IBacked data, Object? value) => {(data as PlacesPage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -424,11 +434,16 @@ public partial class BookmarkPage : FramePage {
 		Container = "FlowPage";
 		}
 
+	///<summary>List Entries</summary>
+	public List<Entry>? Entries {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRef ("Entries")
+		new FrameRefList<Entry> ("Entries","Entry"){
+			Get = (IBacked data) => (data as BookmarkPage)?.Entries ,
+			Set = (IBacked data, Object? value) => {(data as BookmarkPage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -466,11 +481,22 @@ public partial class YourPlacePage : FramePage {
 		Container = "FlowPage";
 		}
 
+	///<summary>class Place, MetaPlace</summary>
+	public Place? MetaPlace {get; set;}
+
+	///<summary>List Entries</summary>
+	public List<Entry>? Entries {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefMenu ("TopSettings","TopSettings"),
-		new FrameRef ("Entries")
+		new FrameRefClass<Place> ("MetaPlace","Place"){
+			Get = (IBacked data) => (data as YourPlacePage)?.MetaPlace ,
+			Set = (IBacked data, IBacked? value) => {(data as YourPlacePage)!.MetaPlace = value as Place; }},
+		new FrameRefList<Entry> ("Entries","Entry"){
+			Get = (IBacked data) => (data as YourPlacePage)?.Entries ,
+			Set = (IBacked data, Object? value) => {(data as YourPlacePage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -796,7 +822,6 @@ public partial class CreatePost : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefForm<Post> ("Form","Post"){
 			Get = (IBacked data) => (data as CreatePost)?.Form ,
 			Set = (IBacked data, IBacked? value) => {(data as CreatePost)!.Form = value as Post; }},
@@ -849,7 +874,6 @@ public partial class CreateComment : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefClass<Comment> ("Target","Comment"){
 			Get = (IBacked data) => (data as CreateComment)?.Target ,
 			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Target = value as Comment; }},
@@ -899,7 +923,6 @@ public partial class NewPlacePage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefForm<Place> ("Form","Place"){
 			Get = (IBacked data) => (data as NewPlacePage)?.Form ,
 			Set = (IBacked data, IBacked? value) => {(data as NewPlacePage)!.Form = value as Place; }}
@@ -936,7 +959,7 @@ public partial class YourPlacePageCreate : FramePage {
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public YourPlacePageCreate () : base ("YourPlacePageCreate", "Create Your Place", _Fields) {
+	public YourPlacePageCreate () : base ("YourPlacePageCreate", "Create Your Personal Place", _Fields) {
 		Container = "FlowPage";
 		}
 
@@ -946,7 +969,6 @@ public partial class YourPlacePageCreate : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefForm<Place> ("Place","Place"){
 			Get = (IBacked data) => (data as YourPlacePageCreate)?.Place ,
 			Set = (IBacked data, IBacked? value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
@@ -1391,6 +1413,10 @@ public partial class MainNav : FrameMenu {
 			},
 		new FrameButton ("NewPlace", "New Place", "NewPlacePage") {
 			GetActive = (IBinding data) => (data as MainNav)?.CreatePlaceActive
+			},
+		new FrameButton ("CreatePost", "Create Post", "CreatePost") {
+			},
+		new FrameButton ("CreateComment", "Add Comment", "CreateComment") {
 			}
 		];
 
@@ -1784,6 +1810,7 @@ public partial class User (string Id="User") : FrameClass (Id) {
 			(IBinding data) => (data as User)?.Uid) {
 				},
 		new FrameAvatar ("Avatar"){
+			Prompt = null,
 			Get = (IBinding data) => (data as User)?.Avatar },
 		new FrameString ("DisplayName",
 			(IBinding data, string? value) => {(data as User)!.DisplayName = value; },
@@ -2290,10 +2317,12 @@ public partial class Place (string Id="Place") : Entry (Id) {
 				Prompt = "Description"
 				},
 		new FrameAvatar ("Avatar"){
+			Prompt = "Avatar Image",
 			Get = (IBinding data) => (data as Place)?.Avatar },
 		new FrameImage ("Banner",
 			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
 			(IBinding data) => (data as Place)?.Banner) {
+				Prompt = "Banner Image"
 				},
 		new FrameRefList<Rights> ("RightsTopics","Rights"){
 			Get = (IBacked data) => (data as Place)?.RightsTopics ,
@@ -2337,6 +2366,7 @@ public partial class Place (string Id="Place") : Entry (Id) {
 		new FrameImage ("Banner",
 			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
 			(IBinding data) => (data as Place)?.Banner) {
+				Prompt = "Banner Image"
 				}		];
 
     /// <inheritdoc/>
@@ -2562,7 +2592,7 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 		new FrameRefList<Rights> ("Rights","Rights"){
 			Get = (IBacked data) => (data as Entry)?.Rights ,
 			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
-		new FrameString ("Text",
+		new FrameText ("Text",
 			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
 			(IBinding data) => (data as Comment)?.Text) {
 				},
@@ -2580,7 +2610,7 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
 
-		new FrameString ("Text",
+		new FrameText ("Text",
 			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
 			(IBinding data) => (data as Comment)?.Text) {
 				}		];

@@ -438,9 +438,11 @@ public partial class PageWriter : HtmlWriter {
                 FrameImage item) {
         var value = item.Get(backer);
         if (value is not null) {
+            var file = "Images/" + value;
+
 
             //OpenClass("div", item.Id);
-            ElementClass("img", item.Tag, "src", value);
+            ElementClass("img", item.Tag, "src", file, "alt", "");
             //Close();
             }
         }
@@ -450,9 +452,9 @@ public partial class PageWriter : HtmlWriter {
                 FrameAvatar item) {
         var value = item.Get(backer);
         if (value is not null) {
-
+            var file = "Images/" + value;
             //OpenClass("div", item.Id);
-            ElementClass("img", item.Tag, "src", value);
+            ElementClass("img", item.Tag, "src", file, "alt", "");
             //Close();
             }
         }

@@ -368,6 +368,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		 case FrameAvatar avatar: {
 		_Output.Write ("{1}\n{0}", _Indent, comma);
 		_Output.Write ("		new FrameAvatar (\"{1}\"){{\n{0}", _Indent, entry.Id);
+		_Output.Write ("			Prompt = {1},\n{0}", _Indent, entry.Prompt.QuotedOrNull());
 		_Output.Write ("			Get = (IBinding data) => (data as {1})?.{2} }}", _Indent, backed.Id, id);
 		 break; }
 		 case FrameRefClass reference: {

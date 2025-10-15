@@ -315,8 +315,9 @@ class MainClass {
         frameset.SignIn.Text = "Enter your Blue Sky handle here";
         frameset.SignIn.RegisterText = "If you don't have a handle yet, you can register one here";
 
-
-        frameset.MainNav.SignInState = SignInState.NoPersonalPlace;
+        frameset.YourPlacePage.MetaPlace = phbPlace;
+        frameset.YourPlacePage.Entries = [post1, post2, post3, post4];
+        frameset.MainNav.SignInState = SignInState.HasPersonalPlace;
 
         // Write out contact sheets for each page
         foreach (var page in frameset.Pages) {

@@ -33,6 +33,8 @@ Namespace Frame
 
         NewPlace Button NewPlacePage "New Place"
             CreatePlaceActive Boolean
+        CreatePost Button CreatePost "Create Post"
+        CreateComment Button CreateComment "Add Comment"
 
     TopSettings Menu
         Menu Button SettingsPage "Menu"
@@ -40,7 +42,6 @@ Namespace Frame
 
     // The main navigation chrome
     HomePage Page "MPlace2 - Welcome! Everything is fine." 
-        FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         MetaPlace Is Place
@@ -50,25 +51,26 @@ Namespace Frame
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
-        Entries List Entries
+        Entries List Entry
 
     PlacesPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
-        Entries List Entries
+        Entries List Entry
 
     BookmarkPage Page "Saved"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
-        Entries List Entries
+        Entries List Entry
 
     YourPlacePage Page "Your Place"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
-        Entries List Entries
+        MetaPlace Is Place
+        Entries List Entry
 
     // Settings Menu pages with nested navigation
     SettingsPage Page "Settings"
@@ -123,27 +125,25 @@ Namespace Frame
     CreatePost Page "Create New Post"
         EntryPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+
         Form Form Post                 // Post entry form, i.e. Quill
         Crosspost List Provider         // Crossposting targets
 
     CreateComment Page "Create Comment"
         EntryPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+
         Target Is Comment               // Comment being responded to
         Form Form Comment               // Comment entry form
 
     NewPlacePage Page "Create New Place"
         EntryPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
         Form Form Place
 
-    YourPlacePageCreate Page "Create Your Place"
+    YourPlacePageCreate Page "Create Your Personal Place"
         FlowPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
         Place Form Place
 
 
@@ -274,9 +274,10 @@ Namespace Frame
                 Prompt "Name"
             Description Text                 // Short description
                 Prompt "Description"
-
             Avatar Avatar        // Avatar to represent the place in collections
+                Prompt "Avatar Image"
             Banner Image                // Banner image for use as a masthead
+                Prompt "Banner Image"
             RightsTopics List Rights          // Default rights for topics
             RightsThreads List Rights         // Default rights for groups
             RightsComments List Rights        // Default rights for comments
@@ -304,7 +305,7 @@ Namespace Frame
     Comment SubClass Entry
         Description "A comment on a post"
         Fields
-            Text String                 // Short text
+            Text Text                   // Short text
             Resources Is Resource       // An associated resource
 
     Resource SubClass Entry

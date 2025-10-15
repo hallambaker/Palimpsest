@@ -339,6 +339,9 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.NotificationsPage.Entries">
+            <summary>List Entries</summary>
+        </member>
         <member name="P:Frame.NotificationsPage._Properties">
             <inheritdoc/>
         </member>
@@ -360,6 +363,9 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.PlacesPage.Entries">
+            <summary>List Entries</summary>
         </member>
         <member name="P:Frame.PlacesPage._Properties">
             <inheritdoc/>
@@ -383,6 +389,9 @@
             Constructor, returns a new instance
             </summary>
         </member>
+        <member name="P:Frame.BookmarkPage.Entries">
+            <summary>List Entries</summary>
+        </member>
         <member name="P:Frame.BookmarkPage._Properties">
             <inheritdoc/>
         </member>
@@ -404,6 +413,12 @@
             <summary>
             Constructor, returns a new instance
             </summary>
+        </member>
+        <member name="P:Frame.YourPlacePage.MetaPlace">
+            <summary>class Place, MetaPlace</summary>
+        </member>
+        <member name="P:Frame.YourPlacePage.Entries">
+            <summary>List Entries</summary>
         </member>
         <member name="P:Frame.YourPlacePage._Properties">
             <inheritdoc/>

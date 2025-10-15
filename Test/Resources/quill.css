@@ -1,4 +1,4 @@
-.container {
+/*.container {
     width: 500px;
     max-width: 100%;
 }
@@ -16,12 +16,7 @@ input {
     border: 1px solid #ccc;
 }
 
-input,
-.ql-editor {
-    padding: 4px;
-    font-size: 14px;
-}
 
-#richtext {
-    height: 230px;
-}
+
+
+*/

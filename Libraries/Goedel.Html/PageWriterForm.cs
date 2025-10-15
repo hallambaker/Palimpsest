@@ -41,8 +41,14 @@ public partial class PageWriter : HtmlWriter {
                 RenderForm(backer, item);
                 break;
                 }
-
-
+            case FrameImage item: {
+                RenderForm(backer, item);
+                break;
+                }
+            case FrameAvatar item: {
+                RenderForm(backer, item);
+                break;
+                }
             default: {
                 break;
                 }
@@ -54,8 +60,58 @@ public partial class PageWriter : HtmlWriter {
 
     public void RenderForm(
                     IBacked? backer,
+            FrameImage item) {
+
+        string? value = null;
+
+        var id = NormalizeId(item.Tag);
+        if (backer is not null) {
+            value = item.Get(backer);
+            }
+
+        OpenClass("div", item.Tag);
+        if (item.Hidden) {
+            Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
+            }
+        else {
+            Text(item.Prompt, "label", "class", "InputLabel", "for", id);
+            Element("input", "class", "InputForm", "type", "file", "id", id, "name", item.Tag);
+            }
+
+        Close();
+
+        }
+    public void RenderForm(
+                    IBacked? backer,
+            FrameAvatar item) {
+
+        string? value = null;
+
+        var id = NormalizeId(item.Tag);
+        if (backer is not null) {
+            value = item.Get(backer);
+            }
+
+        OpenClass("div", item.Tag);
+        if (item.Hidden) {
+            Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
+            }
+        else {
+            Text(item.Prompt, "label", "class", "InputLabel", "for", id);
+            Element("input", "class", "InputForm", "type", "file", "id", id, "name", item.Tag);
+            }
+
+        Close();
+
+        }
+
+
+
+    public void RenderForm(
+                    IBacked? backer,
             FrameString item) {
 
+        var id = NormalizeId(item.Tag);
         string? value=null;
         if (backer is not null) {
             value = item.Get(backer);
@@ -64,17 +120,17 @@ public partial class PageWriter : HtmlWriter {
         OpenClass("div", item.Tag);
 
         if (!item.Hidden) {
-            Text(item.Prompt, "label");
+            Text(item.Prompt, "label", "class", "InputLabel", "for", id);
             }
 
-        var id = NormalizeId(item.Tag);
+
         switch (item) {
             case FrameText: {
                 if (item.Hidden) {
                     Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
                     }
                 else {
-                    Text("", "textarea", "type", "text", "id", id, "name", item.Tag, "value", value!);
+                    Text("", "textarea", "class", "InputForm", "id", id, "name", item.Tag, "value", value!);
                     }
                 break;
                 }
@@ -83,7 +139,7 @@ public partial class PageWriter : HtmlWriter {
                     Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
                     }
                 else {
-                    Text("", "div", "id", "richtext");
+                    Text("", "div", "class", "InputForm", "id", "richtext");
                     }
                 break;
                 }
@@ -92,7 +148,7 @@ public partial class PageWriter : HtmlWriter {
                     Element("input", "type", "hidden", "id", id, "name", item.Tag, "value", value!);
                     }
                 else {
-                    Element("input", "type", "text", "id", item.Tag, "name", item.Tag, "value", value!);
+                    Element("input", "class", "InputForm", "type", "text", "id", item.Tag, "name", item.Tag, "value", value!);
                     }
 
                 break;

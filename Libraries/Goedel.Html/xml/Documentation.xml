@@ -4,6 +4,96 @@
         <name>Goedel.Html</name>
     </assembly>
     <members>
+        <member name="T:Goedel.Html.BackingType">
+            <summary>
+            Base type for extended backing types
+            </summary>
+        </member>
+        <member name="T:Goedel.Html.BackingTypeImage">
+            <summary>
+            Image backing type, allows the file name, alt text, etc. to be specified.
+            </summary>
+            <param name="File">The file identifier.</param>
+            <param name="Alt">The alt text.</param>
+            <param name="Width">The width (if known).</param>
+            <param name="Height">The height (if known).</param>
+        </member>
+        <member name="M:Goedel.Html.BackingTypeImage.#ctor(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Image backing type, allows the file name, alt text, etc. to be specified.
+            </summary>
+            <param name="File">The file identifier.</param>
+            <param name="Alt">The alt text.</param>
+            <param name="Width">The width (if known).</param>
+            <param name="Height">The height (if known).</param>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeImage.File">
+            <summary>The file identifier.</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeImage.Alt">
+            <summary>The alt text.</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeImage.Width">
+            <summary>The width (if known).</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeImage.Height">
+            <summary>The height (if known).</summary>
+        </member>
+        <member name="T:Goedel.Html.BackingTypeFile">
+            <summary>
+            Backing type for uploaded file.
+            </summary>
+            <param name="Uid">The unique identifier</param>
+            <param name="OriginalFileName">Suggested file name</param>
+            <param name="Data">The raw data</param>
+            <param name="Size">The file size</param>
+            <param name="Conversions">Alternative versions of the file.</param>
+        </member>
+        <member name="M:Goedel.Html.BackingTypeFile.#ctor(System.String,System.String,System.Byte[],System.Int32,System.Collections.Generic.List{Goedel.Html.BackingTypeImage})">
+            <summary>
+            Backing type for uploaded file.
+            </summary>
+            <param name="Uid">The unique identifier</param>
+            <param name="OriginalFileName">Suggested file name</param>
+            <param name="Data">The raw data</param>
+            <param name="Size">The file size</param>
+            <param name="Conversions">Alternative versions of the file.</param>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeFile.Uid">
+            <summary>The unique identifier</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeFile.OriginalFileName">
+            <summary>Suggested file name</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeFile.Data">
+            <summary>The raw data</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeFile.Size">
+            <summary>The file size</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeFile.Conversions">
+            <summary>Alternative versions of the file.</summary>
+        </member>
+        <member name="T:Goedel.Html.BackingTypeLink">
+            <summary>
+            Backing type for links
+            </summary>
+            <param name="Text">The text to display.</param>
+            <param name="Link">The link to show.</param>
+        </member>
+        <member name="M:Goedel.Html.BackingTypeLink.#ctor(System.String,System.String)">
+            <summary>
+            Backing type for links
+            </summary>
+            <param name="Text">The text to display.</param>
+            <param name="Link">The link to show.</param>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeLink.Text">
+            <summary>The text to display.</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeLink.Link">
+            <summary>The link to show.</summary>
+        </member>
         <member name="T:Goedel.Html.Internal">
             <summary>
             An internal assertion check failed.

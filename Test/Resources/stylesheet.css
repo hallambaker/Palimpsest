@@ -221,7 +221,8 @@ button.dropdown-subbutton {
 
 /* Slice and dice the Main section into three parts */
 
-.FlowPage {
+
+.HomePage {
     display: grid;
     grid-template-areas:
         "left Top"
@@ -233,9 +234,160 @@ button.dropdown-subbutton {
     border: 0px;
 }
 
-    .FlowPage > div.Title {
+    .HomePage > div.Title {
         display: none;
     }
+
+
+    .HomePage > div.Navigation {
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        grid-area: left;
+        align-self: start;
+        padding: 10px;
+    }
+
+    .HomePage > div.MetaPlace {
+        grid-area: First;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+    }
+
+    .HomePage > div.Places {
+        grid-area: Items;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+    }
+
+    .HomePage > div.TopSettings {
+        grid-area: Top;
+        top: 0;
+        padding: 0px;
+        position: sticky;
+        text-align: right;
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+
+.MetaPlace {
+    display: grid;
+    grid-template-areas:
+        "Avatar Banner"
+        "Blank Title"
+        "Blank DNS"
+        "Blank Description";
+    grid-template-columns: 40px;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+}
+
+    .MetaPlace > img.Avatar {
+        grid-area: Avatar;
+        width: 36px;
+        height: 36px;
+    }
+
+    .MetaPlace > img.Banner {
+        grid-area: Banner;
+        max-width: 380px;
+        max-height: 160px;
+    }
+
+
+
+    .MetaPlace > div.Title {
+        grid-area: Title;
+    }
+
+    .MetaPlace > div.DNS {
+        grid-area: DNS;
+    }
+
+    .MetaPlace > div.Description {
+        grid-area: Description;
+    }
+
+    .MetaPlace > div.Uid {
+        display: none;
+    }
+
+.EntriesItem {
+    display: grid;
+    grid-template-areas:
+        "Avatar Banner"
+        "Blank Title"
+        "Blank DNS"
+        "Blank Description";
+    grid-template-columns: 40px;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+}
+
+    .EntriesItem > img.Avatar {
+        grid-area: Avatar;
+        width: 36px;
+        height: 36px;
+    }
+
+    .EntriesItem > img.Banner {
+        grid-area: Banner;
+        max-width: 380px;
+        max-height: 160px;
+    }
+
+
+
+    .EntriesItem > div.Title {
+        grid-area: Title;
+    }
+
+    .EntriesItem > div.DNS {
+        grid-area: DNS;
+    }
+
+    .EntriesItem > div.Description {
+        grid-area: Description;
+    }
+
+    .EntriesItem > div.Uid {
+        display: none;
+    }
+
+
+
+
+
+.FlowPage {
+    display: grid;
+    grid-template-areas:
+        "left Title"
+        "left Top"
+        "left First"
+        "left Items";
+    grid-template-columns: 180px 420px;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+}
+    .FlowPage > div.Title {
+        grid-area: Title;
+        display: block;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        align-self: start;
+        padding: 10px;
+    }
+
 
     .FlowPage > div.Navigation {
         align-self: start;
@@ -274,45 +426,109 @@ button.dropdown-subbutton {
 
 .EntryPage {
     display: grid;
-    grid-template-areas: 
-        "NavMenu TopNav"
-        "NavMenu SubMenu";
+    grid-template-areas:
+        "NavMenu Title"
+        "NavMenu SubMenu"
+        "NavMenu Empty";
     grid-template-columns: 180px 420px;
+    align-content: flex-start;
     gap: 1px;
     margin: 0px;
     border: 0px;
+    grid-auto-rows: max-content;
 }
     .EntryPage > div.Title {
-        grid-area: TopNav;
-        display: block;
-        align-self: start;
+        grid-area: Title;
+        flex-wrap: wrap;
         top: 0;
         left: 0;
         position: sticky;
-        align-self: start;
         padding: 10px;
     }
 
 
     .EntryPage > div.Navigation {
         grid-area: NavMenu;
-        align-self: start;
         top: 0;
         left: 0;
         position: sticky;
-        align-self: start;
         padding: 10px;
     }
 
     .EntryPage > div.SetingsCategory {
         grid-area: SubMenu;
-        align-self: start;
         top: 0;
         left: 0;
-        position: sticky;
+
         align-self: start;
         padding: 10px;
     }
+
+    .EntryPage > form.Form {
+        grid-area: SubMenu;
+
+        top: 0;
+        left: 0;
+        padding: 10px;
+        height: 100%
+    }
+
+div.Form {
+    /*display: block;*/
+}
+
+.InputLabel {
+    display: block;
+}
+
+.InputForm {
+    display: block;
+}
+
+
+.DNS input {
+    width: 100%;
+}
+
+.Title  input {
+    width: 100%;
+}
+
+.Description textarea {
+    width: 100%;
+    height: 60px;
+}
+
+textarea.InputForm {
+    font-family: "Arial", sans-serif; /* Change the font */
+}
+
+.Summary textarea {
+    width: 100%;
+    height: 60px;
+}
+
+.Text textarea {
+    width: 100%;
+    height: 60px;
+}
+
+.Body div {
+    width: 100%;
+}
+
+input,
+.ql-editor {
+    padding: 4px;
+    font-size: 14px;
+}
+
+#richtext {
+    /*width: 420px;*/
+    height: 230px;
+}
+
+
 
 .Support {
     display: grid;
@@ -471,11 +687,11 @@ section.Quoted {
 
 /* Everything to do with the Avatar section */
 
-div.Avatar {
+/*div.Avatar {
     height: 32px;
     width: 32px;
     align-items: center;
-}
+}*/
 
 /* Reposter is similar to Author */
 

@@ -42,9 +42,9 @@
             <div class="Navigation ButtonText">Saved</div>
           </a>
         </div>
-        <div class="Button CreateYour">
-          <a class="ButtonAnchor" href="YourPlacePageCreate.html">
-            <img class="Navigation ButtonIcon" src="Resources/Icons/CreateYour.svg" alt="Your Place"/>
+        <div class="Button Place">
+          <a class="ButtonAnchor" href="YourPlacePage.html">
+            <img class="Navigation ButtonIcon" src="Resources/Icons/Place.svg" alt="Your Place"/>
             <div class="Navigation ButtonText">Your Place</div>
           </a>
         </div>
@@ -60,13 +60,25 @@
             <div class="Navigation ButtonText">New Place</div>
           </a>
         </div>
+        <div class="Button CreatePost">
+          <a class="ButtonAnchor" href="CreatePost.html">
+            <img class="Navigation ButtonIcon" src="Resources/Icons/CreatePost.svg" alt="Create Post"/>
+            <div class="Navigation ButtonText">Create Post</div>
+          </a>
+        </div>
+        <div class="Button CreateComment">
+          <a class="ButtonAnchor" href="CreateComment.html">
+            <img class="Navigation ButtonIcon" src="Resources/Icons/CreateComment.svg" alt="Add Comment"/>
+            <div class="Navigation ButtonText">Add Comment</div>
+          </a>
+        </div>
       </div>
       <div class="Text">
 Enter your Blue Sky handle here      </div>
       <form class="Form" action="https://httpbin.org/post" method="post">
         <div class="Form DNS">
-          <label></label>
-          <input type="text" id="DNS" name="DNS"/>
+          <label class="InputLabel" for="DNS"></label>
+          <input class="InputForm" type="text" id="DNS" name="DNS"/>
         </div>
         <input type="submit" value="Submit"/>
         <input type="reset" value="Reset"/>

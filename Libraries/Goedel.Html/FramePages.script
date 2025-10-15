@@ -328,6 +328,7 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 #% case FrameAvatar avatar: {
 #{comma}
 		new FrameAvatar ("#{entry.Id}"){
+			Prompt = #{entry.Prompt.QuotedOrNull()},
 			Get = (IBinding data) => (data as #{backed.Id})?.#{id} }#!
 #% break; }
 #% case FrameRefClass reference: {

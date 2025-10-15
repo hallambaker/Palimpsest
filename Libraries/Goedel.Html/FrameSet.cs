@@ -173,7 +173,7 @@ public class FrameClass : FrameBacker, IBacked {
 
 // Fields
 public abstract record FrameField : IFrameField {
-    public string Prompt { get; set; }
+    public string? Prompt { get; set; }
     public bool Hidden { get; set; } = false;
     public string Description { get; set; }
     public string Id { get; init; }
@@ -282,7 +282,6 @@ public record FrameRefForm<T>(
     public override string Type => "FrameRefClass";
 
     }
-
 
 
 public record FrameRefList(
@@ -403,6 +402,7 @@ public record FrameImage(
             string Id,
             Action<IBinding, string?>? Set = null,
             Func<IBinding, string?>? Get = null) : PropertyString(Id, Set, Get), IFrameField {
+    
     public string Prompt { get; set; }
     public bool Hidden { get; set; } = false;
     public string Description { get; set; }
