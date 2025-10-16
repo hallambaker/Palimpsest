@@ -61,6 +61,7 @@ Class Goedel.Html FrameStruct
             DateTime
             String
             Text
+            Anchor
             RichText
             Image
             Avatar
@@ -86,6 +87,7 @@ Class Goedel.Html FrameStruct
             DateTime
             String
             Text
+            Anchor
             Image
             List
             Choice
@@ -101,6 +103,8 @@ Class Goedel.Html FrameStruct
             RichText
             Container
 
+    Type Anchor
+        Properties List FieldProperty
 
 
     Type ButtonProperty
@@ -158,6 +162,7 @@ Class Goedel.Html FrameStruct
         Properties List FieldProperty
     Type Choice
         Choices List ChoiceEntry
+
 
     Type ChoiceEntry
         Type Choice
@@ -235,6 +240,11 @@ Class Goedel.Html FrameStruct
             Rich
             Hidden
             Prompt
+            Display
+
+    Type Display
+        Id Token EntryT
+
 
     Type Description
         Text String

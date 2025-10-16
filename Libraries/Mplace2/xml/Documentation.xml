@@ -4,6 +4,108 @@
         <name>Mplace2</name>
     </assembly>
     <members>
+        <member name="T:Frame.Entry">
+            <summary>
+            Backing class for Entry
+            </summary>
+        </member>
+        <member name="M:Frame.Entry.#ctor(System.String)">
+            <summary>
+            Backing class for Entry
+            </summary>
+        </member>
+        <member name="P:Frame.Entry.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Entry.Presentation">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Entry.Uid">
+            <summary>Field Uid</summary>
+        </member>
+        <member name="P:Frame.Entry.User">
+            <summary>class User, User</summary>
+        </member>
+        <member name="P:Frame.Entry.Semantic">
+            <summary>Field Semantic</summary>
+        </member>
+        <member name="P:Frame.Entry.Rights">
+            <summary>List Rights</summary>
+        </member>
+        <member name="P:Frame.Entry.Created">
+            <summary>Field Created</summary>
+        </member>
+        <member name="P:Frame.Entry.Brief">
+            <summary>
+            Presentation style Brief
+            </summary>
+        </member>
+        <member name="P:Frame.Entry._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Entry._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Entry._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Entry._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.Post">
+            <summary>
+            Backing class for Post
+            </summary>
+        </member>
+        <member name="M:Frame.Post.#ctor(System.String)">
+            <summary>
+            Backing class for Post
+            </summary>
+        </member>
+        <member name="P:Frame.Post.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Post.Presentation">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Post.Title">
+            <summary>Field Title</summary>
+        </member>
+        <member name="P:Frame.Post.Summary">
+            <summary>Field Summary</summary>
+        </member>
+        <member name="P:Frame.Post.Body">
+            <summary>Field Body</summary>
+        </member>
+        <member name="P:Frame.Post.Resources">
+            <summary>List Resources</summary>
+        </member>
+        <member name="P:Frame.Post.Replies">
+            <summary>Field Replies</summary>
+        </member>
+        <member name="P:Frame.Post.Comments">
+            <summary>Field Comments</summary>
+        </member>
+        <member name="P:Frame.Post.Likes">
+            <summary>Field Likes</summary>
+        </member>
+        <member name="P:Frame.Post.Full">
+            <summary>
+            Presentation style Full
+            </summary>
+        </member>
+        <member name="P:Frame.Post._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Post._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Post._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Post._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.User">
             <summary>
             Backing class for User
@@ -139,6 +241,9 @@
         </member>
         <member name="P:Frame.MyClass.YourPlacePage">
             <summary>YourPlacePage</summary>
+        </member>
+        <member name="P:Frame.MyClass.PostPage">
+            <summary>PostPage</summary>
         </member>
         <member name="P:Frame.MyClass.SettingsPage">
             <summary>SettingsPage</summary>
@@ -430,6 +535,34 @@
             <inheritdoc/>
         </member>
         <member name="F:Frame.YourPlacePage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.PostPage">
+            <summary>
+            Backing class for PostPage
+            </summary>
+        </member>
+        <member name="M:Frame.PostPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.PostPage.MetaPlace">
+            <summary>class Post, MetaPlace</summary>
+        </member>
+        <member name="P:Frame.PostPage.Entries">
+            <summary>List Entries</summary>
+        </member>
+        <member name="P:Frame.PostPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.PostPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.PostPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.PostPage._binding">
             <summary>Binding</summary> 
         </member>
         <member name="T:Frame.SettingsPage">
@@ -1155,43 +1288,6 @@
         <member name="F:Frame.Privileges._binding">
             <summary>Binding</summary> 
         </member>
-        <member name="T:Frame.Entry">
-            <summary>
-            Backing class for Entry
-            </summary>
-        </member>
-        <member name="M:Frame.Entry.#ctor(System.String)">
-            <summary>
-            Backing class for Entry
-            </summary>
-        </member>
-        <member name="P:Frame.Entry.Fields">
-            <inheritdoc/>
-        </member>
-        <member name="P:Frame.Entry.Uid">
-            <summary>Field Uid</summary>
-        </member>
-        <member name="P:Frame.Entry.Owner">
-            <summary>class User, Owner</summary>
-        </member>
-        <member name="P:Frame.Entry.Semantic">
-            <summary>Field Semantic</summary>
-        </member>
-        <member name="P:Frame.Entry.Rights">
-            <summary>List Rights</summary>
-        </member>
-        <member name="P:Frame.Entry._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Entry._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.Entry._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Entry._binding">
-            <summary>Binding</summary> 
-        </member>
         <member name="T:Frame.Place">
             <summary>
             Backing class for Place
@@ -1273,43 +1369,6 @@
             <inheritdoc/>
         </member>
         <member name="F:Frame.Topic._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.Post">
-            <summary>
-            Backing class for Post
-            </summary>
-        </member>
-        <member name="M:Frame.Post.#ctor(System.String)">
-            <summary>
-            Backing class for Post
-            </summary>
-        </member>
-        <member name="P:Frame.Post.Fields">
-            <inheritdoc/>
-        </member>
-        <member name="P:Frame.Post.Title">
-            <summary>Field Title</summary>
-        </member>
-        <member name="P:Frame.Post.Summary">
-            <summary>Field Summary</summary>
-        </member>
-        <member name="P:Frame.Post.Body">
-            <summary>Field Body</summary>
-        </member>
-        <member name="P:Frame.Post.Resources">
-            <summary>List Resources</summary>
-        </member>
-        <member name="P:Frame.Post._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Post._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.Post._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Post._binding">
             <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Comment">

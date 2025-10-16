@@ -260,7 +260,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("			]\n{0}", _Indent);
 				_Output.Write ("		}}.CacheValue(out {1})!;\n{0}", _Indent, storeId);
-				_Output.Write ("	public static FramePresentation? {1};\n{0}", _Indent, storeId);
+				_Output.Write ("	static FramePresentation? {1};\n{0}", _Indent, storeId);
 				}
 			}
 		_Output.Write ("\n{0}", _Indent);
@@ -375,7 +375,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("{1}\n{0}", _Indent, comma);
 		_Output.Write ("		new FrameRefClass<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Backing, entry.Id, reference.Reference);
 		if (  reference.PresentationId is not null ) {
-			_Output.Write ("			Presentation = {1}.{2},\n{0}", _Indent, backed.Id, reference.PresentationId);
+			_Output.Write ("			Presentation = {1},\n{0}", _Indent, reference.PresentationId);
 			}
 		_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
 		_Output.Write ("			Set = (IBacked data, IBacked? value) => {{(data as {1})!.{2} = value as {3}; }}}}", _Indent, backed.Id, sid, reference.Reference);
@@ -383,12 +383,18 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		 case FrameRefList reference: {
 		_Output.Write ("{1}\n{0}", _Indent, comma);
 		_Output.Write ("		new FrameRefList<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Reference, entry.Id, reference.Reference);
+		if (  reference.PresentationId is not null ) {
+			_Output.Write ("			Presentation = {1},\n{0}", _Indent, reference.PresentationId);
+			}
 		_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
 		_Output.Write ("			Set = (IBacked data, Object? value) => {{(data as {1})!.{2} = value as List<{3}>; }}}}", _Indent, backed.Id, sid, reference.Reference);
 		 break; }
 		 case FrameRefForm reference: {
 		_Output.Write ("{1}\n{0}", _Indent, comma);
 		_Output.Write ("		new FrameRefForm<{1}> (\"{2}\",\"{3}\"){{\n{0}", _Indent, reference.Reference, entry.Id, reference.Reference);
+		if (  reference.PresentationId is not null ) {
+			_Output.Write ("			Presentation = {1},\n{0}", _Indent, reference.PresentationId);
+			}
 		_Output.Write ("			Get = (IBacked data) => (data as {1})?.{2} ,\n{0}", _Indent, backed.Id, id);
 		_Output.Write ("			Set = (IBacked data, IBacked? value) => {{(data as {1})!.{2} = value as {3}; }}}}", _Indent, backed.Id, sid, reference.Reference);
 		 break; }

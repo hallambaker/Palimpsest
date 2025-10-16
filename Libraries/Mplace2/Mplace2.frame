@@ -35,6 +35,8 @@ Namespace Frame
             CreatePlaceActive Boolean
         CreatePost Button CreatePost "Create Post"
         CreateComment Button CreateComment "Add Comment"
+        Post Button PostPage "Test Post"
+
 
     TopSettings Menu
         Menu Button SettingsPage "Menu"
@@ -44,33 +46,51 @@ Namespace Frame
     HomePage Page "MPlace2 - Welcome! Everything is fine." 
         Navigation Is MainNav
         TopSettings Is TopSettings
-        MetaPlace Is Place
-        Entries List Place
+        MainEntry Is Place
+            Display FullPresentation
+        Entries List Entry
+            Display SummaryPresentation
+
 
     NotificationsPage Page "Notifications"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Entries List Entry
+            Display SummaryPresentation
+
 
     PlacesPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Entries List Entry
+            Display SummaryPresentation
 
     BookmarkPage Page "Saved"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
         Entries List Entry
+            Display SummaryPresentation
 
     YourPlacePage Page "Your Place"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
-        MetaPlace Is Place
+        MainEntry Is Place
+            Display FullPresentation
         Entries List Entry
+            Display SummaryPresentation
+
+    PostPage Page "Post"
+        FlowPage Container
+        Navigation Is MainNav
+        MainEntry Is Post
+            Display PostPresentation
+        Entries List Comment
+            Display CommentPresentation
+
 
     // Settings Menu pages with nested navigation
     SettingsPage Page "Settings"
@@ -258,10 +278,23 @@ Namespace Frame
         Fields
             Uid String                  // Globally unique identifier
                 Hidden
-            Owner Is User               // The owner of the entry, typically the user who created/added the entry
+            User Is User                // The owner of the entry, typically the user who created/added the entry
             Semantic String             // The semantic relationship of the entry to the parent
                 Hidden
             Rights List Rights          // Management rights
+            Created DateTime            // Creation time
+
+            Brief Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Body
+                    Text Text
+                    //QuotedPost Show Post Quoted 
 
     Place SubClass Entry                      // 
         Description "An MPlace2 site with its own DNS address."
@@ -284,6 +317,19 @@ Namespace Frame
             Topics List Topic           // The topics 
 
 
+            Brief Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Body
+                    Text Text
+                    //QuotedPost Show Post Quoted 
+
+
 
     Topic SubClass Entry 
         Description "A collection of posts"
@@ -301,6 +347,55 @@ Namespace Frame
             Body RichText
                 Prompt "Body"
             Resources List Resource     // List of associated resources
+            Replies String
+            Comments Integer    
+            Likes Integer
+
+            Full Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Body
+                    Text Text
+                    //QuotedPost Show Post Quoted 
+                Detail
+                    Created DateTime
+                    Replies String             
+                Responses
+                    Comment Button CommentAction "Comment"
+                        Comments Integer               
+                    Repost SubMenu "Repost"
+                        Repost Button RepostAction "Repost"
+                        QuotePost Button QuotePostAction "Quote Post"
+                    Like Button LikeAction "Like"
+                        Liked Boolean
+                        Likes Integer
+                    SeeMore Button MoreAction "More"
+                        RequestedMore Boolean
+                    SeeLess Button LessAction "Less"
+                        RequestedLess Boolean
+                    Share SubMenu "Share"
+                        LinkCopy Button HomePage "Copy link to post"
+                        SendByDM Button HomePage "Send via direct message"
+                        Embed Button HomePage "Embed post"
+                    Ellipsis SubMenu "More"
+                        Translate Button TranslateAction "Translate"
+                        CopyToClipboard Button CopyPostAction "Copy post text"
+                        S1 Separator 
+                        MuteThread Button MuteThreadAction "Mute thread"
+                        MuteWords Button MuteWordsAction "Mute words & tags"
+                        S2 Separator
+                        HidePost Button HidePostAction "Hide post for me"
+                        S3 Separator
+                        MuteAccount Button MuteAccountAction "Mute user"
+                        BlockAccount Button BlockAccountAction "Block user"
+                        Report Button ReportPostAction "Report post"
+
+
 
     Comment SubClass Entry
         Description "A comment on a post"

@@ -68,6 +68,7 @@ using Goedel.Utilities;
 //       DateTime
 //       String
 //       Text
+//       Anchor
 //       RichText
 //       Image
 //       Avatar
@@ -82,9 +83,9 @@ using Goedel.Utilities;
 //       Form
 //       Selection
 //       Container
+//       FieldProperty
 //       ButtonProperty
 //       Link
-//       FieldProperty
 //       ChoiceEntry
 //       ChoiceOption
 //       ChooserOption
@@ -115,8 +116,8 @@ using Goedel.Utilities;
 //       Title
 //       TypeEntries
 //       Parent
-//       Uri
 //       Properties
+//       Uri
 //       Field
 //       Display
 //       Of
@@ -148,6 +149,7 @@ namespace Goedel.Html {
         Fields,
         FieldItem,
         Property,
+        Anchor,
         ButtonProperty,
         Container,
         Link,
@@ -182,6 +184,7 @@ namespace Goedel.Html {
         From,
         Field,
         FieldProperty,
+        Display,
         Description,
         Prompt,
         Exclude,
@@ -574,6 +577,36 @@ namespace Goedel.Html {
 	        Type.Serialize (Output, true);
 			if (tag) {
 				Output.EndElement ("Property");
+				}			
+			}
+		}
+
+    public partial class Anchor : _Choice {
+        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+
+        public override FrameStructType _Tag () =>FrameStructType.Anchor;
+
+
+		public override void _InitChildren (_Choice Parent) {
+			Init (Parent);
+			foreach (var Sub in Properties) {
+				Sub._InitChildren (this);
+				}
+			}
+
+		public override void Serialize (StructureWriter Output, bool tag) {
+
+			if (tag) {
+				Output.StartElement ("Anchor");
+				}
+
+			Output.StartList ("");
+			foreach (FieldProperty _e in Properties) {
+				_e.Serialize (Output, true);
+				}
+			Output.EndList ("");
+			if (tag) {
+				Output.EndElement ("Anchor");
 				}			
 			}
 		}
@@ -1561,6 +1594,29 @@ namespace Goedel.Html {
 			}
 		}
 
+    public partial class Display : _Choice {
+        public TOKEN<_Choice>			Id;
+
+        public override FrameStructType _Tag () =>FrameStructType.Display;
+
+
+		public override void _InitChildren (_Choice Parent) {
+			Init (Parent);
+			}
+
+		public override void Serialize (StructureWriter Output, bool tag) {
+
+			if (tag) {
+				Output.StartElement ("Display");
+				}
+
+	        Output.WriteId ("Id", Id.ToString());
+			if (tag) {
+				Output.EndElement ("Display");
+				}			
+			}
+		}
+
     public partial class Description : _Choice {
 		public string					Text;
 
@@ -1866,6 +1922,8 @@ namespace Goedel.Html {
 		Property_Start,
 		Property__Id,				
 		Property__Type,				
+		Anchor_Start,
+		Anchor__Properties,				
 		ButtonProperty_Start,
 		ButtonProperty__Id,				
 		ButtonProperty__Type,				
@@ -1948,6 +2006,8 @@ namespace Goedel.Html {
 		Field__Id,				
 		FieldProperty_Start,
 		FieldProperty__Type,				
+		Display_Start,
+		Display__Id,				
 		Description_Start,
 		Description__Text,				
 		Prompt_Start,
@@ -2045,6 +2105,7 @@ namespace Goedel.Html {
                 case "Fields": return NewFields();
                 case "FieldItem": return NewFieldItem();
                 case "Property": return NewProperty();
+                case "Anchor": return NewAnchor();
                 case "ButtonProperty": return NewButtonProperty();
                 case "Container": return NewContainer();
                 case "Link": return NewLink();
@@ -2079,6 +2140,7 @@ namespace Goedel.Html {
                 case "From": return NewFrom();
                 case "Field": return NewField();
                 case "FieldProperty": return NewFieldProperty();
+                case "Display": return NewDisplay();
                 case "Description": return NewDescription();
                 case "Prompt": return NewPrompt();
                 case "Exclude": return NewExclude();
@@ -2191,6 +2253,14 @@ namespace Goedel.Html {
             Goedel.Html.Property result = new Goedel.Html.Property();
             Push (result);
             State = StateCode.Property_Start;
+            return result;
+            }
+
+
+        private Goedel.Html.Anchor NewAnchor() {
+            Goedel.Html.Anchor result = new Goedel.Html.Anchor();
+            Push (result);
+            State = StateCode.Anchor_Start;
             return result;
             }
 
@@ -2467,6 +2537,14 @@ namespace Goedel.Html {
             }
 
 
+        private Goedel.Html.Display NewDisplay() {
+            Goedel.Html.Display result = new Goedel.Html.Display();
+            Push (result);
+            State = StateCode.Display_Start;
+            return result;
+            }
+
+
         private Goedel.Html.Description NewDescription() {
             Goedel.Html.Description result = new Goedel.Html.Description();
             Push (result);
@@ -2578,6 +2656,7 @@ namespace Goedel.Html {
                 case "Fields": return Goedel.Html.FrameStructType.Fields;
                 case "FieldItem": return Goedel.Html.FrameStructType.FieldItem;
                 case "Property": return Goedel.Html.FrameStructType.Property;
+                case "Anchor": return Goedel.Html.FrameStructType.Anchor;
                 case "ButtonProperty": return Goedel.Html.FrameStructType.ButtonProperty;
                 case "Container": return Goedel.Html.FrameStructType.Container;
                 case "Link": return Goedel.Html.FrameStructType.Link;
@@ -2612,6 +2691,7 @@ namespace Goedel.Html {
                 case "From": return Goedel.Html.FrameStructType.From;
                 case "Field": return Goedel.Html.FrameStructType.Field;
                 case "FieldProperty": return Goedel.Html.FrameStructType.FieldProperty;
+                case "Display": return Goedel.Html.FrameStructType.Display;
                 case "Description": return Goedel.Html.FrameStructType.Description;
                 case "Prompt": return Goedel.Html.FrameStructType.Prompt;
                 case "Exclude": return Goedel.Html.FrameStructType.Exclude;
@@ -3071,6 +3151,7 @@ namespace Goedel.Html {
 									(LabelType == Goedel.Html.FrameStructType.DateTime) |
 									(LabelType == Goedel.Html.FrameStructType.String) |
 									(LabelType == Goedel.Html.FrameStructType.Text) |
+									(LabelType == Goedel.Html.FrameStructType.Anchor) |
 									(LabelType == Goedel.Html.FrameStructType.RichText) |
 									(LabelType == Goedel.Html.FrameStructType.Image) |
 									(LabelType == Goedel.Html.FrameStructType.Avatar) |
@@ -3090,12 +3171,12 @@ namespace Goedel.Html {
                                 Current_Cast.Type = New_Choice(Text);
                                 }
                             else {
-                               throw new Expected ("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text RichText Image Avatar List Choice Selector Count Presentation Show Icon File Hidden Form Selection Container ]");
+                               throw new Expected ("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Anchor RichText Image Avatar List Choice Selector Count Presentation Show Icon File Hidden Form Selection Container ]");
                                 }
                             break;
                             }
                         else { 
-						    throw new Expected("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text RichText Image Avatar List Choice Selector Count Presentation Show Icon File Hidden Form Selection Container ]");
+						    throw new Expected("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Anchor RichText Image Avatar List Choice Selector Count Presentation Show Icon File Hidden Form Selection Container ]");
                             }
 
                     case StateCode.FieldItem__Type:
@@ -3122,6 +3203,7 @@ namespace Goedel.Html {
 									(LabelType == Goedel.Html.FrameStructType.DateTime) |
 									(LabelType == Goedel.Html.FrameStructType.String) |
 									(LabelType == Goedel.Html.FrameStructType.Text) |
+									(LabelType == Goedel.Html.FrameStructType.Anchor) |
 									(LabelType == Goedel.Html.FrameStructType.Image) |
 									(LabelType == Goedel.Html.FrameStructType.List) |
 									(LabelType == Goedel.Html.FrameStructType.Choice) |
@@ -3140,18 +3222,47 @@ namespace Goedel.Html {
                                 Current_Cast.Type = New_Choice(Text);
                                 }
                             else {
-                               throw new Expected ("Parser Error Expected [Is Boolean Integer DateTime String Text Image List Choice Separator SubMenu Avatar Presentation Icon File Hidden Selection Form RichText Container ]");
+                               throw new Expected ("Parser Error Expected [Is Boolean Integer DateTime String Text Anchor Image List Choice Separator SubMenu Avatar Presentation Icon File Hidden Selection Form RichText Container ]");
                                 }
                             break;
                             }
                         else { 
-						    throw new Expected("Parser Error Expected [Is Boolean Integer DateTime String Text Image List Choice Separator SubMenu Avatar Presentation Icon File Hidden Selection Form RichText Container ]");
+						    throw new Expected("Parser Error Expected [Is Boolean Integer DateTime String Text Anchor Image List Choice Separator SubMenu Avatar Presentation Icon File Hidden Selection Form RichText Container ]");
                             }
 
                     case StateCode.Property__Type:
                         Pop ();
                         Represent = true; 
                         break;
+                    case StateCode.Anchor_Start:
+
+                        if (Token == TokenType.BEGIN) {
+                            State = StateCode.Anchor__Properties;
+                            }
+                        else {
+							Pop ();
+                            Represent = true;
+                            }
+                        break;
+                    case StateCode.Anchor__Properties: 
+                        if (Token == TokenType.END) {
+                            Pop();
+                            break;
+                            }
+
+						// Parser transition for LIST $$$$$
+
+
+						/// Label
+                        else {
+                            Goedel.Html.Anchor Current_Cast = (Goedel.Html.Anchor)Current;
+                            Current_Cast.Properties.Add (NewFieldProperty ());
+                            Represent = true;
+                            }
+
+                        break;
+
+
                     case StateCode.ButtonProperty_Start:
                         if ((Token == TokenType.LABEL) | (Token == TokenType.LITERAL)) {
                             Goedel.Html.ButtonProperty Current_Cast = (Goedel.Html.ButtonProperty)Current;
@@ -4149,20 +4260,34 @@ namespace Goedel.Html {
 									(LabelType == Goedel.Html.FrameStructType.Post) |
 									(LabelType == Goedel.Html.FrameStructType.Rich) |
 									(LabelType == Goedel.Html.FrameStructType.Hidden) |
-									(LabelType == Goedel.Html.FrameStructType.Prompt) ) {
+									(LabelType == Goedel.Html.FrameStructType.Prompt) |
+									(LabelType == Goedel.Html.FrameStructType.Display) ) {
                                 State = StateCode.FieldProperty__Type;
                                 Current_Cast.Type = New_Choice(Text);
                                 }
                             else {
-                               throw new Expected ("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden Prompt ]");
+                               throw new Expected ("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden Prompt Display ]");
                                 }
                             break;
                             }
                         else { 
-						    throw new Expected("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden Prompt ]");
+						    throw new Expected("Parser Error Expected [Exclude Description ReadOnly Range Compact Local UTC Comment Post Rich Hidden Prompt Display ]");
                             }
 
                     case StateCode.FieldProperty__Type:
+                        Pop ();
+                        Represent = true; 
+                        break;
+                    case StateCode.Display_Start:
+                        if ((Token == TokenType.LABEL) | (Token == TokenType.LITERAL)) {
+                            Goedel.Html.Display Current_Cast = (Goedel.Html.Display)Current;
+                            Current_Cast.Id = Registry.TOKEN(Position, Text, TYPE__EntryT, Current_Cast);
+                            State = StateCode.Display__Id;
+                            break;
+                            }
+                        throw new Expected("Expected LABEL or LITERAL");
+
+                    case StateCode.Display__Id:
                         Pop ();
                         Represent = true; 
                         break;

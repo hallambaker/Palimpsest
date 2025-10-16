@@ -72,6 +72,12 @@
             <div class="Navigation ButtonText">Add Comment</div>
           </a>
         </div>
+        <div class="Button Post">
+          <a class="ButtonAnchor" href="PostPage.html">
+            <img class="Navigation ButtonIcon" src="Resources/Icons/Post.svg" alt="Test Post"/>
+            <div class="Navigation ButtonText">Test Post</div>
+          </a>
+        </div>
       </div>
       <form class="Form" action="https://httpbin.org/post" method="post">
         <div class="Form Uid">
@@ -91,6 +97,10 @@
         <div class="Form Body">
           <label class="InputLabel" for="Body">Body</label>
           <div class="InputForm" id="richtext"></div>
+        </div>
+        <div class="Form Replies">
+          <label class="InputLabel" for="Replies"></label>
+          <input class="InputForm" type="text" id="Replies" name="Replies"/>
         </div>
         <input type="submit" value="Submit"/>
         <input type="reset" value="Reset"/>

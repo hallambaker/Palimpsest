@@ -230,7 +230,7 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 
 			]
 		}.CacheValue(out #{storeId})!;
-	public static FramePresentation? #{storeId};
+	static FramePresentation? #{storeId};
 #end if
 #end foreach
 
@@ -335,7 +335,7 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 #{comma}
 		new FrameRefClass<#{reference.Backing}> ("#{entry.Id}","#{reference.Reference}"){
 #if reference.PresentationId is not null
-			Presentation = #{backed.Id}.#{reference.PresentationId},
+			Presentation = #{reference.PresentationId},
 #end if 
 			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
 			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{sid} = value as #{reference.Reference}; }}#!
@@ -343,12 +343,18 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 #% case FrameRefList reference: {
 #{comma}
 		new FrameRefList<#{reference.Reference}> ("#{entry.Id}","#{reference.Reference}"){
+#if reference.PresentationId is not null
+			Presentation = #{reference.PresentationId},
+#end if 
 			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
 			Set = (IBacked data, Object? value) => {(data as #{backed.Id})!.#{sid} = value as List<#{reference.Reference}>; }}#!
 #% break; }
 #% case FrameRefForm reference: {
 #{comma}
 		new FrameRefForm<#{reference.Reference}> ("#{entry.Id}","#{reference.Reference}"){
+#if reference.PresentationId is not null
+			Presentation = #{reference.PresentationId},
+#end if 
 			Get = (IBacked data) => (data as #{backed.Id})?.#{id} ,
 			Set = (IBacked data, IBacked? value) => {(data as #{backed.Id})!.#{sid} = value as #{reference.Reference}; }}#!
 #% break; }

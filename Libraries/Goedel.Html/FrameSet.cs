@@ -170,18 +170,36 @@ public class FrameClass : FrameBacker, IBacked {
 
 
 
-
-// Fields
+/// <summary>
+/// Frame fields
+/// </summary>
 public abstract record FrameField : IFrameField {
+
+    /// <inheritdoc/>
     public string? Prompt { get; set; }
+
+    /// <inheritdoc/>
     public bool Hidden { get; set; } = false;
-    public string Description { get; set; }
+
+    /// <inheritdoc/>
+    public string? Description { get; set; } = null;
+
+    /// <inheritdoc/>
     public string Id { get; init; }
+
+    /// <inheritdoc/>
     public string Tag { get; init; }
+
+    /// <inheritdoc/>
     public virtual string Backing => null;
 
+    /// <inheritdoc/>
     public abstract string Type { get; }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="id">The frame field identifier.</param>
     public FrameField(string id) {
         Id = id;
         Tag = id;
@@ -236,14 +254,18 @@ public record FrameRefMenu(
 public record FrameRefClass(
                     string Id,
                     string Reference) : FrameRef(Id)  {
-    public string Backing =>  Reference;
+
+    /// <inheritdoc/>
+    public override string Backing =>  Reference;
 
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
     public string? PresentationId { get; set; }
 
-    public FramePresentation? Presentation { get; set; }
+
+
+    public Func<IBinding,FramePresentation?>? Presentation { get; set; }
 
     public Action<IBacked, IBacked?> Set { get; init; }
     public Func<IBacked, IBacked?> Get { get; init; }
@@ -261,14 +283,14 @@ public record FrameRefClass<T>(
 public record FrameRefForm(
                     string Id,
                     string Reference) : FrameRef(Id) {
-    public string Backing => Reference;
+    public override string Backing => Reference;
 
     public override string Type => "FrameRefClass";
 
     public FrameClass Class { get; set; }
     public string? PresentationId { get; set; }
 
-    public FramePresentation? Presentation { get; set; }
+    public Func<IBinding, FramePresentation?>? Presentation { get; set; }
 
     public Action<IBacked, IBacked?> Set { get; init; }
     public Func<IBacked, IBacked?> Get { get; init; }
@@ -292,10 +314,15 @@ public record FrameRefList(
     public virtual FrameClass Item(Object? x, int index) => null;
     public virtual int Count(Object? x) => 0;
 
-    public string Backing =>  $"List<{Reference}>" ;
+    /// <inheritdoc/>
+    public override string Backing =>  $"List<{Reference}>" ;
 
     public override string Type => "FrameRefClass";
+
+
     public string PresentationId { get; set; }
+    public Func<IBinding, FramePresentation?>? Presentation { get; set; }
+
     public FrameClass Class { get; set; }
 
     public Action<IBacked, Object?> Set { get; init; }
@@ -381,6 +408,20 @@ public record FrameString(
     public string Backing => "string";
     public virtual string Type => "FrameString";
     }
+
+public record FrameAnchor(
+            string Id,
+            Action<IBinding, BackingTypeLink?>? Set = null,
+            Func<IBinding, BackingTypeLink?>? Get = null) : IFrameField {
+
+    public string Tag { get; init; } = Id;
+    public string Type => "FrameAnchor";
+    public string Backing => "BackingTypeLink";
+    public string Prompt { get; set; }
+    public bool Hidden { get; set; } = false;
+    public string Description { get; set; }
+    }
+
 
 public record FrameText(
             string Id,

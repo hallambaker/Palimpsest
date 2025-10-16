@@ -17,8 +17,9 @@
             <param name="Alt">The alt text.</param>
             <param name="Width">The width (if known).</param>
             <param name="Height">The height (if known).</param>
+            <param name="Link">Optional link target</param>
         </member>
-        <member name="M:Goedel.Html.BackingTypeImage.#ctor(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Goedel.Html.BackingTypeImage.#ctor(System.String,System.String,System.Int32,System.Int32,System.String)">
             <summary>
             Image backing type, allows the file name, alt text, etc. to be specified.
             </summary>
@@ -26,6 +27,7 @@
             <param name="Alt">The alt text.</param>
             <param name="Width">The width (if known).</param>
             <param name="Height">The height (if known).</param>
+            <param name="Link">Optional link target</param>
         </member>
         <member name="P:Goedel.Html.BackingTypeImage.File">
             <summary>The file identifier.</summary>
@@ -38,6 +40,9 @@
         </member>
         <member name="P:Goedel.Html.BackingTypeImage.Height">
             <summary>The height (if known).</summary>
+        </member>
+        <member name="P:Goedel.Html.BackingTypeImage.Link">
+            <summary>Optional link target</summary>
         </member>
         <member name="T:Goedel.Html.BackingTypeFile">
             <summary>
@@ -79,20 +84,20 @@
             Backing type for links
             </summary>
             <param name="Text">The text to display.</param>
-            <param name="Link">The link to show.</param>
+            <param name="Link">The link target.</param>
         </member>
         <member name="M:Goedel.Html.BackingTypeLink.#ctor(System.String,System.String)">
             <summary>
             Backing type for links
             </summary>
             <param name="Text">The text to display.</param>
-            <param name="Link">The link to show.</param>
+            <param name="Link">The link target.</param>
         </member>
         <member name="P:Goedel.Html.BackingTypeLink.Text">
             <summary>The text to display.</summary>
         </member>
         <member name="P:Goedel.Html.BackingTypeLink.Link">
-            <summary>The link to show.</summary>
+            <summary>The link target.</summary>
         </member>
         <member name="T:Goedel.Html.Internal">
             <summary>
@@ -191,6 +196,44 @@
         <member name="P:Goedel.Html.FrameSelector.Fields">
             <inheritdoc/>
         </member>
+        <member name="T:Goedel.Html.FrameField">
+            <summary>
+            Frame fields
+            </summary>
+        </member>
+        <member name="P:Goedel.Html.FrameField.Prompt">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Html.FrameField.Hidden">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Html.FrameField.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Html.FrameField.Id">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Html.FrameField.Tag">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Html.FrameField.Backing">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Html.FrameField.Type">
+            <inheritdoc/>
+        </member>
+        <member name="M:Goedel.Html.FrameField.#ctor(System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="id">The frame field identifier.</param>
+        </member>
+        <member name="P:Goedel.Html.FrameRefClass.Backing">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Html.FrameRefList.Backing">
+            <inheritdoc/>
+        </member>
         <member name="T:Goedel.Html.Resource">
             <summary>
             
@@ -226,6 +269,32 @@
             specified, the value is checked against the corresponding Open.
             </summary>
             <param name="position">Expected stack depth.</param>
+        </member>
+        <member name="T:Goedel.Html.IFrameField">
+            <summary>
+            Frame field interface
+            </summary>
+        </member>
+        <member name="P:Goedel.Html.IFrameField.Backing">
+            <summary>The backing type</summary>
+        </member>
+        <member name="P:Goedel.Html.IFrameField.Id">
+            <summary>Identifier</summary>
+        </member>
+        <member name="P:Goedel.Html.IFrameField.Tag">
+            <summary>Tag</summary>
+        </member>
+        <member name="P:Goedel.Html.IFrameField.Type">
+            <summary>Type</summary>
+        </member>
+        <member name="P:Goedel.Html.IFrameField.Prompt">
+            <summary>Prompt to show if used in a form.</summary>
+        </member>
+        <member name="P:Goedel.Html.IFrameField.Hidden">
+            <summary>If true, this is a hidden field.</summary>
+        </member>
+        <member name="P:Goedel.Html.IFrameField.Description">
+            <summary>Long description for use in hover text, etc.</summary>
         </member>
         <member name="T:Goedel.Html.NamespaceDoc">
             <summary>

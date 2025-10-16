@@ -138,10 +138,10 @@ public partial class Namespace {
                 result.Add(GetSubmenu(frameset, label, menu));
                 break;
                 }
-            case Show show: {
-                result.Add(GetRef(frameset, label, show, show.Display.Label));
-                break;
-                }
+            //case Show show: {
+            //    result.Add(GetRef(frameset, label, show, show.Display.Label));
+            //    break;
+            //    }
             case IReference reference: {
                 result.Add(GetRef(frameset, label, reference));
                 break;
@@ -243,8 +243,8 @@ public partial class Namespace {
     public FrameRef? GetRef(
                 FrameSet frameset,
                 string id,
-                IReference reference, 
-                string presentation = null) {
+                IReference reference) {
+
 
         var entry = reference.Reference.Definition as Entry;
         if (entry is null) {
@@ -260,17 +260,17 @@ public partial class Namespace {
                 switch (reference) {
                     case List: {
                         return new FrameRefList(id, entry.Id.Label) {
-                            PresentationId = presentation
+                            PresentationId = reference.Display
                             };
                         }
                     case Form: {
                         return new FrameRefForm(id, entry.Id.Label) {
-                            PresentationId = presentation
+                            PresentationId = reference.Display
                             };
                         }
                     case Is: {
                         return new FrameRefClass(id, entry.Id.Label) {
-                            PresentationId = presentation
+                            PresentationId = reference.Display
                             };
                         }
                     }
@@ -306,6 +306,7 @@ public partial class Namespace {
             DateTime => new FrameDateTime(id),
             String => new FrameString(id),
             Text => new FrameText(id),
+            Anchor => new FrameAnchor(id),
             RichText => new FrameRichText(id),
             Image => new FrameImage(id),
             Icon => new FrameIcon(id),
@@ -355,7 +356,8 @@ public partial class DateTime : IIntrinsic {
 public partial class String : IIntrinsic {
     }
 
-
+public partial class Anchor : IIntrinsic {
+    }
 public partial class Text : IIntrinsic {
     }
 public partial class RichText : IIntrinsic {
@@ -371,6 +373,8 @@ public partial class Avatar : IIntrinsic {
 
 public interface IReference {
     public REF<_Choice> Reference { get; }
+
+    public string? Display { get; set; }
     }
 
 public partial class Is : IReference {
@@ -437,7 +441,7 @@ public partial class _Choice {
     public bool Hidden { get; set; } = false;
 
     public string? Container { get; set; } = null;
-
+    public string? Display { get; set; } = null;
 
     ///<summary>If true, include this field in serialization.</summary>
     public bool Include { get; set; } = true;
@@ -503,6 +507,14 @@ public partial class SubClass {
                 }
             }
         }
+    }
+
+public partial class Display {
+
+    public override void Init(_Choice parent) {
+        parent._Parent.Display = Id.Label;
+        }
+
     }
 
 public partial class Description {

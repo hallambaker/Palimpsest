@@ -321,6 +321,11 @@ public partial class PageWriter : HtmlWriter {
 
         var last = max < 0 ? count : count.Minimum(max - first);
         for (var i = first; i < last; i++) {
+
+            // Change this to perform the extract presentation code on the thing we are about to render.
+
+
+
             Open("div", "class", id);
             RenderFields(item.Item(value,i));
             Close();
@@ -336,11 +341,17 @@ public partial class PageWriter : HtmlWriter {
         var value = item.Get(backer);
         if (value is not null) {
             Open("div", "class", item.Id);
-            if (item.Presentation is not null) {
-                OpenClassNew("section", item.Presentation.Tag );
-                RenderSections(value, item.Presentation);
-                Close();
 
+            // Change this to perform the extract presentation code on the thing we are about to render.
+
+
+            if (item.Presentation is not null) {
+                //OpenClassNew("section", item.Presentation.Tag );
+                //RenderSections(value, item.Presentation);
+                //Close();
+
+
+                RenderFields(value);
                 }
             else {
                 RenderFields(value);

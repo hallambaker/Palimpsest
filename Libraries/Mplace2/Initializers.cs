@@ -10,6 +10,9 @@ namespace Frame;
 
 
 
+
+
+
 public partial class User {
 
 

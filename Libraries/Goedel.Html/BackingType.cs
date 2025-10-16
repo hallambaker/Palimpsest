@@ -14,11 +14,13 @@ public record BackingType {
 /// <param name="Alt">The alt text.</param>
 /// <param name="Width">The width (if known).</param>
 /// <param name="Height">The height (if known).</param>
+/// <param name="Link">Optional link target</param>
 public record BackingTypeImage (
             string File,
             string Alt,
             int Width,
-            int Height): BackingType (){
+            int Height,
+            string? Link=null): BackingType (){
     }
 
 /// <summary>
@@ -43,8 +45,8 @@ public record BackingTypeFile(
 /// Backing type for links
 /// </summary>
 /// <param name="Text">The text to display.</param>
-/// <param name="Link">The link to show.</param>
+/// <param name="Link">The link target.</param>
 public record BackingTypeLink (
-            string Text,
-            string Link) {
+            string? Text,
+            string? Link) {
     }

@@ -249,7 +249,7 @@ button.dropdown-subbutton {
         padding: 10px;
     }
 
-    .HomePage > div.MetaPlace {
+    .HomePage > div.MainEntry {
         grid-area: First;
         border-left: 1px solid black;
         border-right: 1px solid black;
@@ -399,7 +399,7 @@ button.dropdown-subbutton {
         padding: 10px;
     }
 
-    .FlowPage > div.MetaPlace {
+    .FlowPage > div.MainEntry {
         grid-area: First;
         border-left: 1px solid black;
         border-right: 1px solid black;

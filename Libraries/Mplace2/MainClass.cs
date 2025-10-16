@@ -231,7 +231,7 @@ class MainClass {
 
         //frameset.ProfileSelect.DisplayName = "";
         frameset.HomePage.Entries = [phbPlace, buildingPlace, anyonePlace, anythingPlace];
-        frameset.HomePage.MetaPlace = basePlace;
+        frameset.HomePage.MainEntry = basePlace;
 
 
 
@@ -256,7 +256,7 @@ class MainClass {
 
         var post1 = new Post() {
             Uid = Udf.Nonce(),
-            Owner = user1,
+            User = user1,
             Title = "First Post!",
             Summary = "I am the first person to post here! Sweeeet!",
             Body = "<h1>Not really got anything to say mind</h1>" +
@@ -267,7 +267,7 @@ class MainClass {
 
         var post2 = new Post() {
             Uid = Udf.Nonce(),
-            Owner = user1,
+            User = user1,
             Title = "Try again",
             Summary = "Trying a second post here",
             Body = "<p>So much for having something to say!</p>"
@@ -275,7 +275,7 @@ class MainClass {
 
         var post3 = new Post() {
             Uid = Udf.Nonce(),
-            Owner = user2,
+            User = user2,
             Title = "Oh, just thought of something",
             Summary = "This is the text that goes out to Blue Sky, Facebook, etc.",
             Body = "<h1>This text doesn't get posted anywhere else, just here.</h1>" +
@@ -289,11 +289,35 @@ class MainClass {
 
         var post4 = new Post() {
             Uid = Udf.Nonce(),
-            Owner = user3,
+            User = user3,
             Title = "What about user links",
             Summary = "Need to work out how the user link thing works.",
             Body = "<h1>Need to do some reasearch here</h1>"
             };
+
+
+        var comment1 = new Comment() {
+            Uid = Udf.Nonce(),
+            User = user3,
+            Text = "A good start to commenting",
+            Created = System.DateTime.UtcNow
+            };
+
+        var comment2 = new Comment() {
+            Uid = Udf.Nonce(),
+            User = user1,
+            Text = "I will just comment as well",
+            Created = System.DateTime.UtcNow
+            };
+
+        var comment3 = new Comment() {
+            Uid = Udf.Nonce(),
+            User = user2,
+            Text = "Good point!",
+            Created = System.DateTime.UtcNow
+            };
+
+
 
 
         var dummyText = "<h1>This is a dummy page</h1>" +
@@ -315,9 +339,12 @@ class MainClass {
         frameset.SignIn.Text = "Enter your Blue Sky handle here";
         frameset.SignIn.RegisterText = "If you don't have a handle yet, you can register one here";
 
-        frameset.YourPlacePage.MetaPlace = phbPlace;
+        frameset.YourPlacePage.MainEntry = phbPlace;
         frameset.YourPlacePage.Entries = [post1, post2, post3, post4];
         frameset.MainNav.SignInState = SignInState.HasPersonalPlace;
+
+        frameset.PostPage.MainEntry = post1;
+        frameset.PostPage.Entries = [comment1, comment2, comment3];
 
         // Write out contact sheets for each page
         foreach (var page in frameset.Pages) {
