@@ -230,6 +230,7 @@ button.dropdown-subbutton {
     gap: 1px;
     margin: 0px;
     border: 0px;
+    justify-content: center;
 }
 
     .HomePage > div.Title {
@@ -287,6 +288,7 @@ button.dropdown-subbutton {
     gap: 1px;
     margin: 0px;
     border: 0px;
+    justify-content: center;
 }
     .FlowPage > div.Title {
         grid-area: Title;
@@ -351,6 +353,7 @@ button.dropdown-subbutton {
     margin: 0px;
     border: 0px;
     grid-auto-rows: max-content;
+    justify-content: center;
 }
     .EntryPage > div.Title {
         grid-area: Title;
