@@ -83,6 +83,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Test\NotificationsPage.html = Test\NotificationsPage.html
 		Settings\Nuget.xml = Settings\Nuget.xml
 		Test\Places.html = Test\Places.html
+		Test\PostPage.html = Test\PostPage.html
 		README.md = README.md
 		Test\SettingsPage.html = Test\SettingsPage.html
 		Test\SignIn.html = Test\SignIn.html

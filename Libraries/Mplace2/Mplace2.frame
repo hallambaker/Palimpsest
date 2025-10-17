@@ -355,7 +355,7 @@ Namespace Frame
             Comments Integer    
             Likes Integer
 
-            Brief Presentation Uid
+            PostSummary Presentation Uid
                 Avatar
                     User.Avatar Avatar
                 Author
@@ -367,7 +367,7 @@ Namespace Frame
                     Title String 
                     Summary Text 
 
-            Full Presentation Uid
+            PostFull Presentation Uid
                 Avatar
                     User.Avatar Avatar
                 Author
@@ -419,6 +419,18 @@ Namespace Frame
             User Is User                // The owner of the entry, typically the user who created/added the entry
             Text Text                   // Short text
             Resources Is Resource       // An associated resource
+
+            CommentFull Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Body
+                    Text Text
+
 
     Resource SubClass Entry
         Description "An image, video or document referred to in a post"

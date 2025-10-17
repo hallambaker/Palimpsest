@@ -45,8 +45,16 @@ public partial class BookmarkPage {
 public partial class YourPlacePage {
 
 
-    public static FramePresentation? FullPresentation(IBinding data) => null;
-    public static FramePresentation? SummaryPresentation(IBinding data) => null;
+    public static FramePresentation? FullPresentation(IBinding data) => data switch {
+        Post => Post.PostFull,
+        Place => Place.PlaceReference,
+        _ => null
+        };
+    public static FramePresentation? SummaryPresentation(IBinding data) => data switch {
+        Post => Post.PostSummary,
+        Place => Place.PlaceReference,
+        _ => null
+        };
 
     }
 
@@ -55,13 +63,13 @@ public partial class PostPage {
 
 
     public static FramePresentation? PostPresentation(IBinding data) => data switch {
-        Post => Post.Full,
+        Post => Post.PostFull,
         _ => null
         };
 
     public static FramePresentation? CommentPresentation(IBinding data) => data switch {
-        Post => Post.Full,
-        Comment => null,
+        Post => Post.PostSummary,
+        Comment => Comment.CommentFull,
         _ => null
         };
 

@@ -221,9 +221,9 @@ button.dropdown-subbutton {
 .HomePage {
     display: grid;
     grid-template-areas:
-        "left First"
-        "left Items"
-        "left Blank";
+        "Nav First"
+        "Nav Items"
+        "Nav Blank";
     grid-template-columns: 180px 420px;
     align-content: flex-start;
     grid-auto-rows: max-content;
@@ -237,11 +237,11 @@ button.dropdown-subbutton {
     }
 
     .HomePage > div.Navigation {
+        grid-area: Nav;
         align-self: start;
         top: 0;
         left: 0;
         position: sticky;
-        grid-area: left;
         padding: 10px;
     }
 
@@ -270,105 +270,20 @@ button.dropdown-subbutton {
 
 
 
-/*.MetaPlace {
-    display: grid;
-    grid-template-areas:
-        "Avatar Banner"
-        "Blank Title"
-        "Blank DNS"
-        "Blank Description";
-    grid-template-columns: 40px;
-    gap: 1px;
-    margin: 0px;
-    border: 0px;
-}
 
-    .MetaPlace > img.Avatar {
-        grid-area: Avatar;
-        width: 36px;
-        height: 36px;
-    }
-
-    .MetaPlace > img.Banner {
-        grid-area: Banner;
-        max-width: 380px;
-        max-height: 160px;
-    }
-
-
-
-    .MetaPlace > div.Title {
-        grid-area: Title;
-    }
-
-    .MetaPlace > div.DNS {
-        grid-area: DNS;
-    }
-
-    .MetaPlace > div.Description {
-        grid-area: Description;
-    }
-
-    .MetaPlace > div.Uid {
-        display: none;
-    }
-*/
-/*.EntriesItem {
-    display: grid;
-    grid-template-areas:
-        "Avatar Banner"
-        "Blank Title"
-        "Blank DNS"
-        "Blank Description";
-    grid-template-columns: 40px;
-    gap: 1px;
-    margin: 0px;
-    border: 0px;
-}
-
-    .EntriesItem > img.Avatar {
-        grid-area: Avatar;
-        width: 36px;
-        height: 36px;
-    }
-
-    .EntriesItem > img.Banner {
-        grid-area: Banner;
-        max-width: 380px;
-        max-height: 160px;
-    }
-
-
-
-    .EntriesItem > div.Title {
-        grid-area: Title;
-    }
-
-    .EntriesItem > div.DNS {
-        grid-area: DNS;
-    }
-
-    .EntriesItem > div.Description {
-        grid-area: Description;
-    }
-
-    .EntriesItem > div.Uid {
-        display: none;
-    }
-
-*/
 
 
 
 .FlowPage {
     display: grid;
     grid-template-areas:
-        "left Title"
-        "left Top"
-        "left First"
-        "left Items";
+        "Nav Title"
+        "Nav First"
+        "Nav Items"
+        "Nav Blank";
     grid-template-columns: 180px 420px;
     align-content: flex-start;
+    grid-auto-rows: max-content;
     gap: 1px;
     margin: 0px;
     border: 0px;
@@ -382,15 +297,17 @@ button.dropdown-subbutton {
         position: sticky;
         align-self: start;
         padding: 10px;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
     }
 
 
     .FlowPage > div.Navigation {
+        grid-area: Nav;
         align-self: start;
         top: 0;
         left: 0;
         position: sticky;
-        grid-area: left;
         align-self: start;
         padding: 10px;
     }
@@ -400,13 +317,15 @@ button.dropdown-subbutton {
         border-left: 1px solid black;
         border-right: 1px solid black;
         padding: 15px;
+        align-self: start;
     }
 
-    .FlowPage > div.Places {
+    .FlowPage > div.Entries {
         grid-area: Items;
         border-left: 1px solid black;
         border-right: 1px solid black;
         padding: 15px;
+        align-self: start;
     }
 
     .FlowPage > div.TopSettings {
@@ -528,7 +447,109 @@ button.dropdown-subbutton {
     }
 
 
+.PostSummary {
+    display: grid;
+    grid-template-areas:
+        "Avatar Author"
+        "Avatar Title"
+        "Blank Body";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+    border-bottom: 1px solid black;
+}
 
+    .PostSummary > section.Avatar {
+        grid-area: Avatar;
+        height: 28px;
+        width: 28px;
+    }
+    .PostSummary div.Author {
+        display: inline;
+        font-weight: bold;
+    }
+    .PostSummary div.Title {
+        display: inline;
+        font-weight: bold;
+    }
+    .PostSummary > section.Body {
+        grid-area: Body;
+    }
+
+
+.PostFull{
+    display: grid;
+    grid-template-areas:
+        "Avatar Author"
+        "Avatar Title"
+        "Blank Body";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+    border-bottom: 1px solid black;
+}
+
+    .PostFull > section.Avatar {
+        grid-area: Avatar;
+        height: 28px;
+        width: 28px;
+        align-self: start;
+    }
+
+    .PostFull div.Author {
+        display: inline;
+        font-weight: bold;
+        align-self: start;
+    }
+
+    .PostFull div.Title {
+        display: inline;
+        font-weight: bold;
+        align-self: start;
+    }
+
+    .PostFull > section.Body {
+        grid-area: Body;
+        align-self: start;
+    }
+
+    .PostFull > section.Responses {
+        /*        grid-area: Body;*/
+        display: none;
+        align-self: start;
+    }
+
+.CommentFull {
+    display: grid;
+    grid-template-areas:
+        "Avatar Author"
+        "Avatar Title"
+        "Blank Body";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+    border-bottom: 1px solid black;
+}
+
+    .CommentFull > section.Avatar {
+        grid-area: Avatar;
+        height: 28px;
+        width: 28px;
+    }
+
+    .CommentFull div.Author {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .CommentFull div.Title {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .CommentFull > section.Body {
+        grid-area: Body;
+    }
 
 
 

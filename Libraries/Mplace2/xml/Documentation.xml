@@ -313,14 +313,14 @@
         <member name="P:Frame.Post.Likes">
             <summary>Field Likes</summary>
         </member>
-        <member name="P:Frame.Post.Brief">
+        <member name="P:Frame.Post.PostSummary">
             <summary>
-            Presentation style Brief
+            Presentation style PostSummary
             </summary>
         </member>
-        <member name="P:Frame.Post.Full">
+        <member name="P:Frame.Post.PostFull">
             <summary>
-            Presentation style Full
+            Presentation style PostFull
             </summary>
         </member>
         <member name="P:Frame.Post._Properties">
@@ -1402,6 +1402,9 @@
         <member name="P:Frame.Comment.Fields">
             <inheritdoc/>
         </member>
+        <member name="P:Frame.Comment.Presentation">
+            <inheritdoc/>
+        </member>
         <member name="P:Frame.Comment.User">
             <summary>Field User</summary>
         </member>
@@ -1410,6 +1413,11 @@
         </member>
         <member name="P:Frame.Comment.Resources">
             <summary>Field Resources</summary>
+        </member>
+        <member name="P:Frame.Comment.CommentFull">
+            <summary>
+            Presentation style CommentFull
+            </summary>
         </member>
         <member name="P:Frame.Comment._Properties">
             <inheritdoc/>

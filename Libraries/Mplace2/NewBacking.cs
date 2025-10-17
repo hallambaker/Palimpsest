@@ -2665,7 +2665,7 @@ public partial class Post (string Id="Post") : Entry (Id) {
     public override List<IFrameField> Fields { get; set; } = _Fields;
 
     /// <inheritdoc/>
-    public override FramePresentation Presentation => Brief;
+    public override FramePresentation Presentation => PostSummary;
 
 
     /// <summary>Field User</summary>
@@ -2694,9 +2694,9 @@ public partial class Post (string Id="Post") : Entry (Id) {
 
 
 	/// <summary>
-	/// Presentation style Brief
+	/// Presentation style PostSummary
 	/// </summary>
-	public static FramePresentation Brief => brief ?? new FramePresentation ("Brief") {
+	public static FramePresentation PostSummary => postsummary ?? new FramePresentation ("PostSummary") {
 		GetUid = (IBacked data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
@@ -2739,13 +2739,13 @@ public partial class Post (string Id="Post") : Entry (Id) {
 					]
 				}
 			]
-		}.CacheValue(out brief)!;
-	static FramePresentation? brief;
+		}.CacheValue(out postsummary)!;
+	static FramePresentation? postsummary;
 
 	/// <summary>
-	/// Presentation style Full
+	/// Presentation style PostFull
 	/// </summary>
-	public static FramePresentation Full => full ?? new FramePresentation ("Full") {
+	public static FramePresentation PostFull => postfull ?? new FramePresentation ("PostFull") {
 		GetUid = (IBacked data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
@@ -2854,8 +2854,8 @@ public partial class Post (string Id="Post") : Entry (Id) {
 					]
 				}
 			]
-		}.CacheValue(out full)!;
-	static FramePresentation? full;
+		}.CacheValue(out postfull)!;
+	static FramePresentation? postfull;
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
@@ -2909,8 +2909,8 @@ public partial class Post (string Id="Post") : Entry (Id) {
 			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
 			(IBinding data) => (data as Post)?.Likes) {
 				},
-		Brief,
-		Full
+		PostSummary,
+		PostFull
 		];
 
 
@@ -2977,6 +2977,8 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
 
+    /// <inheritdoc/>
+    public override FramePresentation Presentation => CommentFull;
 
 
     /// <summary>Field User</summary>
@@ -2988,6 +2990,51 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
     /// <summary>Field Resources</summary>
 	public Resource? Resources {get; set;}
 
+
+	/// <summary>
+	/// Presentation style CommentFull
+	/// </summary>
+	public static FramePresentation CommentFull => commentfull ?? new FramePresentation ("CommentFull") {
+		GetUid = (IBacked data) => (data as Comment)?.Uid,
+		Sections = [
+			new FrameSection ("Avatar") {
+				Fields = [
+            		new FrameAvatar ("User.Avatar"){
+            			Prompt = null,
+            			Get = (IBinding data) => (data as Comment)?.User?.Avatar }
+					]
+				},
+			new FrameSection ("Author") {
+				Fields = [
+            		new FrameString ("User.DisplayName",
+            			(IBinding data, string? value) => {(data as Comment)!.User!.DisplayName = value; },
+            			(IBinding data) => (data as Comment)?.User?.DisplayName) {
+            				},
+            		new FrameString ("User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as Comment)!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as Comment)?.User?.DisplayHandle) {
+            				},
+            		new FrameDateTime ("Created",
+            			(IBinding data, System.DateTime? value) => {(data as Comment)!.Created = value; },
+            			(IBinding data) => (data as Comment)?.Created) {
+            				}
+					]
+				},
+			new FrameSection ("Rule") {
+				Fields = [
+					]
+				},
+			new FrameSection ("Body") {
+				Fields = [
+            		new FrameText ("Text",
+            			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
+            			(IBinding data) => (data as Comment)?.Text) {
+            				}
+					]
+				}
+			]
+		}.CacheValue(out commentfull)!;
+	static FramePresentation? commentfull;
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
@@ -3017,7 +3064,8 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 				},
 		new FrameRefClass<Resource> ("Resources","Resource"){
 			Get = (IBacked data) => (data as Comment)?.Resources ,
-			Set = (IBacked data, IBacked? value) => {(data as Comment)!.Resources = value as Resource; }}
+			Set = (IBacked data, IBacked? value) => {(data as Comment)!.Resources = value as Resource; }},
+		CommentFull
 		];
 
 
