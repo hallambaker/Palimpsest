@@ -37,7 +37,6 @@ Namespace Frame
         CreateComment Button CreateComment "Add Comment"
         Post Button PostPage "Test Post"
 
-
     TopSettings Menu
         Menu Button SettingsPage "Menu"
         Settings Button SettingsPage "Settings"
@@ -45,7 +44,6 @@ Namespace Frame
     // The main navigation chrome
     HomePage Page "MPlace2 - Welcome! Everything is fine." 
         Navigation Is MainNav
-        TopSettings Is TopSettings
         MainEntry Is Place
             Display FullPresentation
         Entries List Entry
@@ -278,23 +276,18 @@ Namespace Frame
         Fields
             Uid String                  // Globally unique identifier
                 Hidden
-            User Is User                // The owner of the entry, typically the user who created/added the entry
+
             Semantic String             // The semantic relationship of the entry to the parent
                 Hidden
             Rights List Rights          // Management rights
             Created DateTime            // Creation time
 
             Brief Presentation Uid
-                Avatar
-                    User.Avatar Avatar
-                Author
-                    User.DisplayName String
-                    User.DisplayHandle String
+                Title
                     Created DateTime
-                Rule
                 Body
                     Text Text
-                    //QuotedPost Show Post Quoted 
+
 
     Place SubClass Entry                      // 
         Description "An MPlace2 site with its own DNS address."
@@ -317,17 +310,27 @@ Namespace Frame
             Topics List Topic           // The topics 
 
 
-            Brief Presentation Uid
+            PlaceReference Presentation Uid
+                Title
+                    Title String
+                    DNS String
                 Avatar
-                    User.Avatar Avatar
-                Author
-                    User.DisplayName String
-                    User.DisplayHandle String
-                    Created DateTime
-                Rule
+                    Avatar Avatar
+                Banner
+                    Banner Image
                 Body
-                    Text Text
-                    //QuotedPost Show Post Quoted 
+                    Description Text
+
+            PlaceBanner Presentation Uid
+                Title
+                    TitleLink Anchor
+                    HandleLink Anchor
+                Avatar
+                    Avatar Avatar
+                Banner
+                    Banner Image
+                Body
+                    Description Text
 
 
 
@@ -340,6 +343,7 @@ Namespace Frame
     Post SubClass Entry
         Description "A collection of comments"
         Fields
+            User Is User                // The owner of the entry, typically the user who created/added the entry
             Title String                // Post Title
                 Prompt "Title"
             Summary Text                 // Short text
@@ -350,6 +354,18 @@ Namespace Frame
             Replies String
             Comments Integer    
             Likes Integer
+
+            Brief Presentation Uid
+                Avatar
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Body
+                    Title String 
+                    Summary Text 
 
             Full Presentation Uid
                 Avatar
@@ -400,6 +416,7 @@ Namespace Frame
     Comment SubClass Entry
         Description "A comment on a post"
         Fields
+            User Is User                // The owner of the entry, typically the user who created/added the entry
             Text Text                   // Short text
             Resources Is Resource       // An associated resource
 

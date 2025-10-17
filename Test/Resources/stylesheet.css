@@ -155,9 +155,6 @@ button {
         background-color: lightgray;
     }
 
-
-
-
 .dropdown {
     position: relative;
     display: inline-block;
@@ -176,7 +173,6 @@ button.dropdown-subbutton {
     flex-direction: row;
     padding: 8px;
     width: 100%;
-
 }
 
 
@@ -221,14 +217,16 @@ button.dropdown-subbutton {
 
 /* Slice and dice the Main section into three parts */
 
-
+/* The home page consists of a banner for the place followed by a list of brief entries */
 .HomePage {
     display: grid;
     grid-template-areas:
-        "left Top"
         "left First"
-        "left Items";
+        "left Items"
+        "left Blank";
     grid-template-columns: 180px 420px;
+    align-content: flex-start;
+    grid-auto-rows: max-content;
     gap: 1px;
     margin: 0px;
     border: 0px;
@@ -238,44 +236,41 @@ button.dropdown-subbutton {
         display: none;
     }
 
-
     .HomePage > div.Navigation {
         align-self: start;
         top: 0;
         left: 0;
         position: sticky;
         grid-area: left;
-        align-self: start;
         padding: 10px;
     }
 
     .HomePage > div.MainEntry {
         grid-area: First;
+        align-self: start;
         border-left: 1px solid black;
         border-right: 1px solid black;
+        border-bottom: 1px solid black;
         padding: 15px;
     }
 
-    .HomePage > div.Places {
+    .HomePage > div.Entries {
         grid-area: Items;
+        align-self: start;
         border-left: 1px solid black;
         border-right: 1px solid black;
         padding: 15px;
     }
 
     .HomePage > div.TopSettings {
-        grid-area: Top;
-        top: 0;
-        padding: 0px;
-        position: sticky;
-        text-align: right;
-        border-left: 1px solid black;
-        border-bottom: 1px solid black;
-        border-right: 1px solid black;
+        display: none;
     }
 
 
-.MetaPlace {
+
+
+
+/*.MetaPlace {
     display: grid;
     grid-template-areas:
         "Avatar Banner"
@@ -317,8 +312,8 @@ button.dropdown-subbutton {
     .MetaPlace > div.Uid {
         display: none;
     }
-
-.EntriesItem {
+*/
+/*.EntriesItem {
     display: grid;
     grid-template-areas:
         "Avatar Banner"
@@ -361,7 +356,7 @@ button.dropdown-subbutton {
         display: none;
     }
 
-
+*/
 
 
 
@@ -373,6 +368,7 @@ button.dropdown-subbutton {
         "left First"
         "left Items";
     grid-template-columns: 180px 420px;
+    align-content: flex-start;
     gap: 1px;
     margin: 0px;
     border: 0px;
@@ -472,6 +468,70 @@ button.dropdown-subbutton {
         padding: 10px;
         height: 100%
     }
+
+
+/* Grid to display a Place entry */
+
+.PlaceReference {
+    display: grid;
+    grid-template-areas:
+        "Avatar Banner"
+        "Blank Title"
+        "Blank Body";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+}
+
+
+    .PlaceReference > section.Title {
+        grid-area: Title;
+    }
+
+
+    .PlaceReference div.Title {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .PlaceReference div.DNS {
+        display: none;
+    }
+
+
+    .PlaceReference > section.Avatar {
+        grid-area: Avatar;
+        height: 28px;
+        width: 28px;
+    }
+
+    .PlaceReference img.Avatar {
+        height: 28px;
+        width: 28px;
+    }
+
+    .PlaceReference > section.Banner {
+        grid-area: Banner;
+        height: 200px;
+        max-width: 100%;
+    }
+
+
+    .PlaceReference img.Banner {
+        height: 200px;
+        max-width: 100%;
+    }
+
+
+    .PlaceReference > section.Body {
+        grid-area: Body;
+    }
+
+
+
+
+
+
 
 div.Form {
     /*display: block;*/

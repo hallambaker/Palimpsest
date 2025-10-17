@@ -4,8 +4,14 @@
 public partial class HomePage {
 
 
-    public static FramePresentation? FullPresentation(IBinding data) => null;
-    public static FramePresentation? SummaryPresentation(IBinding data) => null;
+    public static FramePresentation? FullPresentation(IBinding data) => data switch {
+        Place => Place.PlaceReference,
+        _ => null
+        };
+    public static FramePresentation? SummaryPresentation(IBinding data) => data switch {
+        Place => Place.PlaceReference,
+        _ => null
+        };
 
     }
 
@@ -48,23 +54,40 @@ public partial class YourPlacePage {
 public partial class PostPage {
 
 
-    public static FramePresentation? PostPresentation(IBinding data) => null;
-    public static FramePresentation? CommentPresentation(IBinding data) => null;
+    public static FramePresentation? PostPresentation(IBinding data) => data switch {
+        Post => Post.Full,
+        _ => null
+        };
+
+    public static FramePresentation? CommentPresentation(IBinding data) => data switch {
+        Post => Post.Full,
+        Comment => null,
+        _ => null
+        };
 
     }
 
 
 
+public partial class Place {
 
+    public BackingTypeLink? TitleLink { get => Utilities.GetPlacePage(Title, DNS);
+        set { } }
+
+    public BackingTypeLink? HandleLink {
+        get => Utilities.GetPlacePage(DNS, DNS);
+        set { }}
+
+    }
 
 
 
 public partial class Entry {
-    /// <summary>Field UserLink</summary>
-    public BackingTypeLink? UserLink => Utilities.GetUserPage(User?.DisplayHandle, User?.DisplayHandle);
+ //   /// <summary>Field UserLink</summary>
+ //   public BackingTypeLink? UserLink => Utilities.GetUserPage(User?.DisplayHandle, User?.DisplayHandle);
 
-    /// <summary>Field EntryLink</summary>
-	public BackingTypeLink? EntryLink => Utilities.GetPostPage(User?.DisplayHandle, User?.DisplayHandle);
+ //   /// <summary>Field EntryLink</summary>
+	//public BackingTypeLink? EntryLink => Utilities.GetPostPage(User?.DisplayHandle, User?.DisplayHandle);
 
     public virtual string Text { get; set; } = "TBS";
 

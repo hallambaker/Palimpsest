@@ -19,6 +19,13 @@ public static class Utilities {
      * Functions that vary by the site.
      */
 
+    /// <summary>
+    /// Return the link to the page of place <paramref name="dns"/>
+    /// </summary>
+    /// <param name="dns">The place to return the home page for.</param>
+    /// <returns>The link.</returns>
+    public static string GetPlaceAnchor(string dns) => $"https://{dns}";
+
 
     /// <summary>
     /// Return the link to the page of user <paramref name="uid"/>
@@ -50,6 +57,16 @@ public static class Utilities {
     /*
      * Derrived functions
      */
+
+    /// <summary>
+    /// Return a backing link for the page <paramref name="dns"/> with 
+    /// the text description <paramref name="text"/>.
+    /// </summary>
+    /// <param name="text">The text to display.</param>
+    ///  <param name="dns">The place to return the home page for.</param>
+    /// <returns>The backing link.</returns>
+    public static BackingTypeLink GetPlacePage(string? text, string? dns) =>
+                new(text, GetPlaceAnchor(dns));
 
     /// <summary>
     /// Return a backing link for the page of user <paramref name="uid"/> with 

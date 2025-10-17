@@ -300,7 +300,6 @@ public partial class HomePage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefClass<Place> ("MainEntry","Place"){
 			Presentation = FullPresentation,
 			Get = (IBacked data) => (data as HomePage)?.MainEntry ,
@@ -2250,9 +2249,6 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
     /// <summary>Field Uid</summary>
 	public string? Uid {get; set;}
 
-    /// <summary>Field User</summary>
-	public User? User {get; set;}
-
     /// <summary>Field Semantic</summary>
 	public string? Semantic {get; set;}
 
@@ -2269,31 +2265,12 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
 	public static FramePresentation Brief => brief ?? new FramePresentation ("Brief") {
 		GetUid = (IBacked data) => (data as Entry)?.Uid,
 		Sections = [
-			new FrameSection ("Avatar") {
+			new FrameSection ("Title") {
 				Fields = [
-            		new FrameAvatar ("User.Avatar"){
-            			Prompt = null,
-            			Get = (IBinding data) => (data as Entry)?.User?.Avatar }
-					]
-				},
-			new FrameSection ("Author") {
-				Fields = [
-            		new FrameString ("User.DisplayName",
-            			(IBinding data, string? value) => {(data as Entry)!.User!.DisplayName = value; },
-            			(IBinding data) => (data as Entry)?.User?.DisplayName) {
-            				},
-            		new FrameString ("User.DisplayHandle",
-            			(IBinding data, string? value) => {(data as Entry)!.User!.DisplayHandle = value; },
-            			(IBinding data) => (data as Entry)?.User?.DisplayHandle) {
-            				},
             		new FrameDateTime ("Created",
             			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
             			(IBinding data) => (data as Entry)?.Created) {
             				}
-					]
-				},
-			new FrameSection ("Rule") {
-				Fields = [
 					]
 				},
 			new FrameSection ("Body") {
@@ -2314,9 +2291,6 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
 			(IBinding data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
-		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Entry)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Entry)!.User = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
 			(IBinding data) => (data as Entry)?.Semantic) {
@@ -2381,7 +2355,7 @@ public partial class Place (string Id="Place") : Entry (Id) {
     public override List<IFrameField> Fields { get; set; } = _Fields;
 
     /// <inheritdoc/>
-    public override FramePresentation Presentation => Brief;
+    public override FramePresentation Presentation => PlaceReference;
 
 
     /// <summary>Field DNS</summary>
@@ -2413,49 +2387,94 @@ public partial class Place (string Id="Place") : Entry (Id) {
 
 
 	/// <summary>
-	/// Presentation style Brief
+	/// Presentation style PlaceReference
 	/// </summary>
-	public static FramePresentation Brief => brief ?? new FramePresentation ("Brief") {
+	public static FramePresentation PlaceReference => placereference ?? new FramePresentation ("PlaceReference") {
 		GetUid = (IBacked data) => (data as Place)?.Uid,
 		Sections = [
-			new FrameSection ("Avatar") {
+			new FrameSection ("Title") {
 				Fields = [
-            		new FrameAvatar ("User.Avatar"){
-            			Prompt = null,
-            			Get = (IBinding data) => (data as Place)?.User?.Avatar }
-					]
-				},
-			new FrameSection ("Author") {
-				Fields = [
-            		new FrameString ("User.DisplayName",
-            			(IBinding data, string? value) => {(data as Place)!.User!.DisplayName = value; },
-            			(IBinding data) => (data as Place)?.User?.DisplayName) {
+            		new FrameString ("Title",
+            			(IBinding data, string? value) => {(data as Place)!.Title = value; },
+            			(IBinding data) => (data as Place)?.Title) {
             				},
-            		new FrameString ("User.DisplayHandle",
-            			(IBinding data, string? value) => {(data as Place)!.User!.DisplayHandle = value; },
-            			(IBinding data) => (data as Place)?.User?.DisplayHandle) {
-            				},
-            		new FrameDateTime ("Created",
-            			(IBinding data, System.DateTime? value) => {(data as Place)!.Created = value; },
-            			(IBinding data) => (data as Place)?.Created) {
+            		new FrameString ("DNS",
+            			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
+            			(IBinding data) => (data as Place)?.DNS) {
             				}
 					]
 				},
-			new FrameSection ("Rule") {
+			new FrameSection ("Avatar") {
 				Fields = [
+            		new FrameAvatar ("Avatar"){
+            			Prompt = null,
+            			Get = (IBinding data) => (data as Place)?.Avatar }
+					]
+				},
+			new FrameSection ("Banner") {
+				Fields = [
+            		new FrameImage ("Banner",
+            			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
+            			(IBinding data) => (data as Place)?.Banner) {
+            				}
 					]
 				},
 			new FrameSection ("Body") {
 				Fields = [
-            		new FrameText ("Text",
-            			(IBinding data, string? value) => {(data as Place)!.Text = value; },
-            			(IBinding data) => (data as Place)?.Text) {
+            		new FrameText ("Description",
+            			(IBinding data, string? value) => {(data as Place)!.Description = value; },
+            			(IBinding data) => (data as Place)?.Description) {
             				}
 					]
 				}
 			]
-		}.CacheValue(out brief)!;
-	static FramePresentation? brief;
+		}.CacheValue(out placereference)!;
+	static FramePresentation? placereference;
+
+	/// <summary>
+	/// Presentation style PlaceBanner
+	/// </summary>
+	public static FramePresentation PlaceBanner => placebanner ?? new FramePresentation ("PlaceBanner") {
+		GetUid = (IBacked data) => (data as Place)?.Uid,
+		Sections = [
+			new FrameSection ("Title") {
+				Fields = [
+            		new FrameAnchor ("TitleLink",
+            			(IBinding data, BackingTypeLink? value) => {(data as Place)!.TitleLink = value; },
+            			(IBinding data) => (data as Place)?.TitleLink) {
+            				},
+            		new FrameAnchor ("HandleLink",
+            			(IBinding data, BackingTypeLink? value) => {(data as Place)!.HandleLink = value; },
+            			(IBinding data) => (data as Place)?.HandleLink) {
+            				}
+					]
+				},
+			new FrameSection ("Avatar") {
+				Fields = [
+            		new FrameAvatar ("Avatar"){
+            			Prompt = null,
+            			Get = (IBinding data) => (data as Place)?.Avatar }
+					]
+				},
+			new FrameSection ("Banner") {
+				Fields = [
+            		new FrameImage ("Banner",
+            			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
+            			(IBinding data) => (data as Place)?.Banner) {
+            				}
+					]
+				},
+			new FrameSection ("Body") {
+				Fields = [
+            		new FrameText ("Description",
+            			(IBinding data, string? value) => {(data as Place)!.Description = value; },
+            			(IBinding data) => (data as Place)?.Description) {
+            				}
+					]
+				}
+			]
+		}.CacheValue(out placebanner)!;
+	static FramePresentation? placebanner;
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
@@ -2463,9 +2482,6 @@ public partial class Place (string Id="Place") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
-		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Entry)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Entry)!.User = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
 			(IBinding data) => (data as Entry)?.Semantic) {
@@ -2515,7 +2531,8 @@ public partial class Place (string Id="Place") : Entry (Id) {
 		new FrameRefList<Topic> ("Topics","Topic"){
 			Get = (IBacked data) => (data as Place)?.Topics ,
 			Set = (IBacked data, Object? value) => {(data as Place)!.Topics = value as List<Topic>; }},
-		Brief
+		PlaceReference,
+		PlaceBanner
 		];
 
 
@@ -2589,9 +2606,6 @@ public partial class Topic (string Id="Topic") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
-		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Entry)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Entry)!.User = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
 			(IBinding data) => (data as Entry)?.Semantic) {
@@ -2651,8 +2665,11 @@ public partial class Post (string Id="Post") : Entry (Id) {
     public override List<IFrameField> Fields { get; set; } = _Fields;
 
     /// <inheritdoc/>
-    public override FramePresentation Presentation => Full;
+    public override FramePresentation Presentation => Brief;
 
+
+    /// <summary>Field User</summary>
+	public User? User {get; set;}
 
     /// <summary>Field Title</summary>
 	public string? Title {get; set;}
@@ -2675,6 +2692,55 @@ public partial class Post (string Id="Post") : Entry (Id) {
     /// <summary>Field Likes</summary>
 	public int? Likes {get; set;}
 
+
+	/// <summary>
+	/// Presentation style Brief
+	/// </summary>
+	public static FramePresentation Brief => brief ?? new FramePresentation ("Brief") {
+		GetUid = (IBacked data) => (data as Post)?.Uid,
+		Sections = [
+			new FrameSection ("Avatar") {
+				Fields = [
+            		new FrameAvatar ("User.Avatar"){
+            			Prompt = null,
+            			Get = (IBinding data) => (data as Post)?.User?.Avatar }
+					]
+				},
+			new FrameSection ("Author") {
+				Fields = [
+            		new FrameString ("User.DisplayName",
+            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayName = value; },
+            			(IBinding data) => (data as Post)?.User?.DisplayName) {
+            				},
+            		new FrameString ("User.DisplayHandle",
+            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayHandle = value; },
+            			(IBinding data) => (data as Post)?.User?.DisplayHandle) {
+            				},
+            		new FrameDateTime ("Created",
+            			(IBinding data, System.DateTime? value) => {(data as Post)!.Created = value; },
+            			(IBinding data) => (data as Post)?.Created) {
+            				}
+					]
+				},
+			new FrameSection ("Rule") {
+				Fields = [
+					]
+				},
+			new FrameSection ("Body") {
+				Fields = [
+            		new FrameString ("Title",
+            			(IBinding data, string? value) => {(data as Post)!.Title = value; },
+            			(IBinding data) => (data as Post)?.Title) {
+            				},
+            		new FrameText ("Summary",
+            			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
+            			(IBinding data) => (data as Post)?.Summary) {
+            				}
+					]
+				}
+			]
+		}.CacheValue(out brief)!;
+	static FramePresentation? brief;
 
 	/// <summary>
 	/// Presentation style Full
@@ -2797,9 +2863,6 @@ public partial class Post (string Id="Post") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
-		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Entry)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Entry)!.User = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
 			(IBinding data) => (data as Entry)?.Semantic) {
@@ -2813,6 +2876,9 @@ public partial class Post (string Id="Post") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Created) {
 				},
 		Brief,
+		new FrameRefClass<User> ("User","User"){
+			Get = (IBacked data) => (data as Post)?.User ,
+			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
 		new FrameString ("Title",
 			(IBinding data, string? value) => {(data as Post)!.Title = value; },
 			(IBinding data) => (data as Post)?.Title) {
@@ -2843,6 +2909,7 @@ public partial class Post (string Id="Post") : Entry (Id) {
 			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
 			(IBinding data) => (data as Post)?.Likes) {
 				},
+		Brief,
 		Full
 		];
 
@@ -2912,6 +2979,9 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 
 
 
+    /// <summary>Field User</summary>
+	public User? User {get; set;}
+
     /// <summary>Field Text</summary>
 	public string? Text {get; set;}
 
@@ -2925,9 +2995,6 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
-		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Entry)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Entry)!.User = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
 			(IBinding data) => (data as Entry)?.Semantic) {
@@ -2941,6 +3008,9 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Created) {
 				},
 		Brief,
+		new FrameRefClass<User> ("User","User"){
+			Get = (IBacked data) => (data as Comment)?.User ,
+			Set = (IBacked data, IBacked? value) => {(data as Comment)!.User = value as User; }},
 		new FrameText ("Text",
 			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
 			(IBinding data) => (data as Comment)?.Text) {
@@ -3004,9 +3074,6 @@ public partial class Resource (string Id="Resource") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
-		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Entry)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Entry)!.User = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
 			(IBinding data) => (data as Entry)?.Semantic) {
@@ -3119,9 +3186,6 @@ public partial class Contact (string Id="Contact") : Entry (Id) {
 			(IBinding data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
-		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Entry)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Entry)!.User = value as User; }},
 		new FrameString ("Semantic",
 			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
 			(IBinding data) => (data as Entry)?.Semantic) {

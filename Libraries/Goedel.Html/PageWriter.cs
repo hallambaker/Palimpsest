@@ -57,22 +57,24 @@ public partial class PageWriter : HtmlWriter {
 
 
     public void RenderFields(IBacked backer) {
+        Render(backer, backer.Fields);
 
-        if (backer.Presentation != null) {
-            Render(backer, backer.Presentation);
-            }
-        else {
-            Render(backer, backer.Fields);
-            }
+
+        //if (backer.Presentation != null) {
+        //    Render(backer, backer.Presentation);
+        //    }
+        //else {
+        //    Render(backer, backer.Fields);
+        //    }
         }
 
     public void Render(IBacked backer, List<IFrameField> fields) {
 
-        if (fields != backer.Fields) {
-            //throw new NYI();
-            }
+        //if (fields != backer.Fields) {
+        //    //throw new NYI();
+        //    }
 
-        backer.StartRender = System.DateTime.Now;
+        //backer.StartRender = System.DateTime.Now;
 
         foreach (var field in fields) {
             RenderField(backer, field);
@@ -101,9 +103,7 @@ public partial class PageWriter : HtmlWriter {
         foreach (var section in presentation.Sections) {
 
             Open("section", "class", section.Id);
-            OpenClass("div", section.Id);
             Render(backer, section.Fields);
-            Close();
             Close();
             }
 
@@ -304,9 +304,9 @@ public partial class PageWriter : HtmlWriter {
 
     public void Render(
                 IBacked backer,
-                FrameRefList item, 
-                int max= -1, 
-                int first=0) {
+                FrameRefList item,
+                int max = -1,
+                int first = 0) {
 
 
         var value = item.Get(backer);
@@ -322,13 +322,33 @@ public partial class PageWriter : HtmlWriter {
         var last = max < 0 ? count : count.Minimum(max - first);
         for (var i = first; i < last; i++) {
 
+            var listItem = item.Item(value, i);
+
+            if (item.Presentation is not null) {
+                var presentation = item.Presentation(listItem);
+
+
+                if (presentation is not null) {
+                    Open("section", "class", presentation.Tag);
+                    RenderSections(listItem, presentation);
+                    Close();
+                    }
+                else {
+                    RenderFields(listItem);
+                    }
+                }
+            else {
+                RenderFields(listItem);
+                }
+
+
+
+            //Render(backer, listItem.Fields);
+
             // Change this to perform the extract presentation code on the thing we are about to render.
-
-
-
-            Open("div", "class", id);
-            RenderFields(item.Item(value,i));
-            Close();
+            //Open("div", "class", id);
+            //RenderFields(item.Item(value, i));
+            //Close();
             }
 
         Close();
@@ -346,12 +366,16 @@ public partial class PageWriter : HtmlWriter {
 
 
             if (item.Presentation is not null) {
-                //OpenClassNew("section", item.Presentation.Tag );
-                //RenderSections(value, item.Presentation);
-                //Close();
+                var presentation = item.Presentation(value);
 
-
-                RenderFields(value);
+                if (presentation is not null) {
+                    Open("section", "class", presentation.Tag);
+                    RenderSections(value, presentation);
+                    Close();
+                    }
+                else {
+                    RenderFields(value);
+                    }
                 }
             else {
                 RenderFields(value);

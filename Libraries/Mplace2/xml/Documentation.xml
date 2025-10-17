@@ -4,6 +4,230 @@
         <name>Mplace2</name>
     </assembly>
     <members>
+        <member name="T:Frame.HomePage">
+            <summary>
+            Backing class for HomePage
+            </summary>
+        </member>
+        <member name="M:Frame.HomePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.HomePage.MainEntry">
+            <summary>Field MainEntry</summary>
+        </member>
+        <member name="P:Frame.HomePage.Entries">
+            <summary>Field Entries</summary>
+        </member>
+        <member name="P:Frame.HomePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.HomePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.HomePage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.NotificationsPage">
+            <summary>
+            Backing class for NotificationsPage
+            </summary>
+        </member>
+        <member name="M:Frame.NotificationsPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.NotificationsPage.Entries">
+            <summary>Field Entries</summary>
+        </member>
+        <member name="P:Frame.NotificationsPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NotificationsPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.NotificationsPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.NotificationsPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.PlacesPage">
+            <summary>
+            Backing class for PlacesPage
+            </summary>
+        </member>
+        <member name="M:Frame.PlacesPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.PlacesPage.Entries">
+            <summary>Field Entries</summary>
+        </member>
+        <member name="P:Frame.PlacesPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.PlacesPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.PlacesPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.PlacesPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.BookmarkPage">
+            <summary>
+            Backing class for BookmarkPage
+            </summary>
+        </member>
+        <member name="M:Frame.BookmarkPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.BookmarkPage.Entries">
+            <summary>Field Entries</summary>
+        </member>
+        <member name="P:Frame.BookmarkPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.BookmarkPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.BookmarkPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.BookmarkPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.YourPlacePage">
+            <summary>
+            Backing class for YourPlacePage
+            </summary>
+        </member>
+        <member name="M:Frame.YourPlacePage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.YourPlacePage.MainEntry">
+            <summary>Field MainEntry</summary>
+        </member>
+        <member name="P:Frame.YourPlacePage.Entries">
+            <summary>Field Entries</summary>
+        </member>
+        <member name="P:Frame.YourPlacePage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.YourPlacePage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.YourPlacePage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.YourPlacePage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.PostPage">
+            <summary>
+            Backing class for PostPage
+            </summary>
+        </member>
+        <member name="M:Frame.PostPage.#ctor">
+            <summary>
+            Constructor, returns a new instance
+            </summary>
+        </member>
+        <member name="P:Frame.PostPage.MainEntry">
+            <summary>Field MainEntry</summary>
+        </member>
+        <member name="P:Frame.PostPage.Entries">
+            <summary>Field Entries</summary>
+        </member>
+        <member name="P:Frame.PostPage._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.PostPage._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.PostPage._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.PostPage._binding">
+            <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.Place">
+            <summary>
+            Backing class for Place
+            </summary>
+        </member>
+        <member name="M:Frame.Place.#ctor(System.String)">
+            <summary>
+            Backing class for Place
+            </summary>
+        </member>
+        <member name="P:Frame.Place.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Place.Presentation">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Place.DNS">
+            <summary>Field DNS</summary>
+        </member>
+        <member name="P:Frame.Place.Title">
+            <summary>Field Title</summary>
+        </member>
+        <member name="P:Frame.Place.Description">
+            <summary>Field Description</summary>
+        </member>
+        <member name="P:Frame.Place.Avatar">
+            <summary>Avatar Avatar</summary>
+        </member>
+        <member name="P:Frame.Place.Banner">
+            <summary>Field Banner</summary>
+        </member>
+        <member name="P:Frame.Place.RightsTopics">
+            <summary>Field RightsTopics</summary>
+        </member>
+        <member name="P:Frame.Place.RightsThreads">
+            <summary>Field RightsThreads</summary>
+        </member>
+        <member name="P:Frame.Place.RightsComments">
+            <summary>Field RightsComments</summary>
+        </member>
+        <member name="P:Frame.Place.Topics">
+            <summary>Field Topics</summary>
+        </member>
+        <member name="P:Frame.Place.PlaceReference">
+            <summary>
+            Presentation style PlaceReference
+            </summary>
+        </member>
+        <member name="P:Frame.Place.PlaceBanner">
+            <summary>
+            Presentation style PlaceBanner
+            </summary>
+        </member>
+        <member name="P:Frame.Place._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Place._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Place._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Place._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.Entry">
             <summary>
             Backing class for Entry
@@ -23,14 +247,11 @@
         <member name="P:Frame.Entry.Uid">
             <summary>Field Uid</summary>
         </member>
-        <member name="P:Frame.Entry.User">
-            <summary>class User, User</summary>
-        </member>
         <member name="P:Frame.Entry.Semantic">
             <summary>Field Semantic</summary>
         </member>
         <member name="P:Frame.Entry.Rights">
-            <summary>List Rights</summary>
+            <summary>Field Rights</summary>
         </member>
         <member name="P:Frame.Entry.Created">
             <summary>Field Created</summary>
@@ -68,6 +289,9 @@
         <member name="P:Frame.Post.Presentation">
             <inheritdoc/>
         </member>
+        <member name="P:Frame.Post.User">
+            <summary>Field User</summary>
+        </member>
         <member name="P:Frame.Post.Title">
             <summary>Field Title</summary>
         </member>
@@ -78,7 +302,7 @@
             <summary>Field Body</summary>
         </member>
         <member name="P:Frame.Post.Resources">
-            <summary>List Resources</summary>
+            <summary>Field Resources</summary>
         </member>
         <member name="P:Frame.Post.Replies">
             <summary>Field Replies</summary>
@@ -88,6 +312,11 @@
         </member>
         <member name="P:Frame.Post.Likes">
             <summary>Field Likes</summary>
+        </member>
+        <member name="P:Frame.Post.Brief">
+            <summary>
+            Presentation style Brief
+            </summary>
         </member>
         <member name="P:Frame.Post.Full">
             <summary>
@@ -141,7 +370,7 @@
             <summary>Field Suspended</summary>
         </member>
         <member name="P:Frame.User.Groups">
-            <summary>List Groups</summary>
+            <summary>Field Groups</summary>
         </member>
         <member name="P:Frame.User._Properties">
             <inheritdoc/>
@@ -406,165 +635,6 @@
             Constructor, return a new instance.
             </summary>
         </member>
-        <member name="T:Frame.HomePage">
-            <summary>
-            Backing class for HomePage
-            </summary>
-        </member>
-        <member name="M:Frame.HomePage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Frame.HomePage.MetaPlace">
-            <summary>class Place, MetaPlace</summary>
-        </member>
-        <member name="P:Frame.HomePage.Entries">
-            <summary>List Entries</summary>
-        </member>
-        <member name="P:Frame.HomePage._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.HomePage._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.HomePage._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.HomePage._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.NotificationsPage">
-            <summary>
-            Backing class for NotificationsPage
-            </summary>
-        </member>
-        <member name="M:Frame.NotificationsPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Frame.NotificationsPage.Entries">
-            <summary>List Entries</summary>
-        </member>
-        <member name="P:Frame.NotificationsPage._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.NotificationsPage._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.NotificationsPage._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.NotificationsPage._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.PlacesPage">
-            <summary>
-            Backing class for PlacesPage
-            </summary>
-        </member>
-        <member name="M:Frame.PlacesPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Frame.PlacesPage.Entries">
-            <summary>List Entries</summary>
-        </member>
-        <member name="P:Frame.PlacesPage._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.PlacesPage._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.PlacesPage._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.PlacesPage._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.BookmarkPage">
-            <summary>
-            Backing class for BookmarkPage
-            </summary>
-        </member>
-        <member name="M:Frame.BookmarkPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Frame.BookmarkPage.Entries">
-            <summary>List Entries</summary>
-        </member>
-        <member name="P:Frame.BookmarkPage._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.BookmarkPage._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.BookmarkPage._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.BookmarkPage._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.YourPlacePage">
-            <summary>
-            Backing class for YourPlacePage
-            </summary>
-        </member>
-        <member name="M:Frame.YourPlacePage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Frame.YourPlacePage.MetaPlace">
-            <summary>class Place, MetaPlace</summary>
-        </member>
-        <member name="P:Frame.YourPlacePage.Entries">
-            <summary>List Entries</summary>
-        </member>
-        <member name="P:Frame.YourPlacePage._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.YourPlacePage._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.YourPlacePage._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.YourPlacePage._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.PostPage">
-            <summary>
-            Backing class for PostPage
-            </summary>
-        </member>
-        <member name="M:Frame.PostPage.#ctor">
-            <summary>
-            Constructor, returns a new instance
-            </summary>
-        </member>
-        <member name="P:Frame.PostPage.MetaPlace">
-            <summary>class Post, MetaPlace</summary>
-        </member>
-        <member name="P:Frame.PostPage.Entries">
-            <summary>List Entries</summary>
-        </member>
-        <member name="P:Frame.PostPage._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.PostPage._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.PostPage._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.PostPage._binding">
-            <summary>Binding</summary> 
-        </member>
         <member name="T:Frame.SettingsPage">
             <summary>
             Backing class for SettingsPage
@@ -667,13 +737,13 @@
             <summary>Field Text</summary>
         </member>
         <member name="P:Frame.SignIn.Form">
-            <summary>List Form</summary>
+            <summary>Field Form</summary>
         </member>
         <member name="P:Frame.SignIn.RegisterText">
             <summary>Field RegisterText</summary>
         </member>
         <member name="P:Frame.SignIn.Providers">
-            <summary>List Providers</summary>
+            <summary>Field Providers</summary>
         </member>
         <member name="P:Frame.SignIn._Properties">
             <inheritdoc/>
@@ -720,10 +790,10 @@
             </summary>
         </member>
         <member name="P:Frame.CreatePost.Form">
-            <summary>List Form</summary>
+            <summary>Field Form</summary>
         </member>
         <member name="P:Frame.CreatePost.Crosspost">
-            <summary>List Crosspost</summary>
+            <summary>Field Crosspost</summary>
         </member>
         <member name="P:Frame.CreatePost._Properties">
             <inheritdoc/>
@@ -748,10 +818,10 @@
             </summary>
         </member>
         <member name="P:Frame.CreateComment.Target">
-            <summary>class Comment, Target</summary>
+            <summary>Field Target</summary>
         </member>
         <member name="P:Frame.CreateComment.Form">
-            <summary>List Form</summary>
+            <summary>Field Form</summary>
         </member>
         <member name="P:Frame.CreateComment._Properties">
             <inheritdoc/>
@@ -776,7 +846,7 @@
             </summary>
         </member>
         <member name="P:Frame.NewPlacePage.Form">
-            <summary>List Form</summary>
+            <summary>Field Form</summary>
         </member>
         <member name="P:Frame.NewPlacePage._Properties">
             <inheritdoc/>
@@ -801,7 +871,7 @@
             </summary>
         </member>
         <member name="P:Frame.YourPlacePageCreate.Place">
-            <summary>List Place</summary>
+            <summary>Field Place</summary>
         </member>
         <member name="P:Frame.YourPlacePageCreate._Properties">
             <inheritdoc/>
@@ -1191,10 +1261,10 @@
             <summary>Field GroupUid</summary>
         </member>
         <member name="P:Frame.Rights.Grant">
-            <summary>class Privileges, Grant</summary>
+            <summary>Field Grant</summary>
         </member>
         <member name="P:Frame.Rights.Deny">
-            <summary>class Privileges, Deny</summary>
+            <summary>Field Deny</summary>
         </member>
         <member name="P:Frame.Rights._Properties">
             <inheritdoc/>
@@ -1262,19 +1332,19 @@
             <inheritdoc/>
         </member>
         <member name="P:Frame.Privileges.Places">
-            <summary>class Access, Places</summary>
+            <summary>Field Places</summary>
         </member>
         <member name="P:Frame.Privileges.Topics">
-            <summary>class Access, Topics</summary>
+            <summary>Field Topics</summary>
         </member>
         <member name="P:Frame.Privileges.Threads">
-            <summary>class Access, Threads</summary>
+            <summary>Field Threads</summary>
         </member>
         <member name="P:Frame.Privileges.Others">
-            <summary>class Access, Others</summary>
+            <summary>Field Others</summary>
         </member>
         <member name="P:Frame.Privileges.Self">
-            <summary>class Access, Self</summary>
+            <summary>Field Self</summary>
         </member>
         <member name="P:Frame.Privileges._Properties">
             <inheritdoc/>
@@ -1286,58 +1356,6 @@
             <inheritdoc/>
         </member>
         <member name="F:Frame.Privileges._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.Place">
-            <summary>
-            Backing class for Place
-            </summary>
-        </member>
-        <member name="M:Frame.Place.#ctor(System.String)">
-            <summary>
-            Backing class for Place
-            </summary>
-        </member>
-        <member name="P:Frame.Place.Fields">
-            <inheritdoc/>
-        </member>
-        <member name="P:Frame.Place.DNS">
-            <summary>Field DNS</summary>
-        </member>
-        <member name="P:Frame.Place.Title">
-            <summary>Field Title</summary>
-        </member>
-        <member name="P:Frame.Place.Description">
-            <summary>Field Description</summary>
-        </member>
-        <member name="P:Frame.Place.Avatar">
-            <summary>Avatar Avatar</summary>
-        </member>
-        <member name="P:Frame.Place.Banner">
-            <summary>Field Banner</summary>
-        </member>
-        <member name="P:Frame.Place.RightsTopics">
-            <summary>List RightsTopics</summary>
-        </member>
-        <member name="P:Frame.Place.RightsThreads">
-            <summary>List RightsThreads</summary>
-        </member>
-        <member name="P:Frame.Place.RightsComments">
-            <summary>List RightsComments</summary>
-        </member>
-        <member name="P:Frame.Place.Topics">
-            <summary>List Topics</summary>
-        </member>
-        <member name="P:Frame.Place._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Place._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.Place._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Place._binding">
             <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Topic">
@@ -1357,7 +1375,7 @@
             <summary>Field Title</summary>
         </member>
         <member name="P:Frame.Topic.Posts">
-            <summary>List Posts</summary>
+            <summary>Field Posts</summary>
         </member>
         <member name="P:Frame.Topic._Properties">
             <inheritdoc/>
@@ -1384,11 +1402,14 @@
         <member name="P:Frame.Comment.Fields">
             <inheritdoc/>
         </member>
+        <member name="P:Frame.Comment.User">
+            <summary>Field User</summary>
+        </member>
         <member name="P:Frame.Comment.Text">
             <summary>Field Text</summary>
         </member>
         <member name="P:Frame.Comment.Resources">
-            <summary>class Resource, Resources</summary>
+            <summary>Field Resources</summary>
         </member>
         <member name="P:Frame.Comment._Properties">
             <inheritdoc/>
@@ -1453,31 +1474,31 @@
             <summary>Field Updated</summary>
         </member>
         <member name="P:Frame.Contact.User">
-            <summary>class User, User</summary>
+            <summary>Field User</summary>
         </member>
         <member name="P:Frame.Contact.Name">
-            <summary>class Name, Name</summary>
+            <summary>Field Name</summary>
         </member>
         <member name="P:Frame.Contact.AltNames">
-            <summary>List AltNames</summary>
+            <summary>Field AltNames</summary>
         </member>
         <member name="P:Frame.Contact.NickNames">
-            <summary>List NickNames</summary>
+            <summary>Field NickNames</summary>
         </member>
         <member name="P:Frame.Contact.Organization">
-            <summary>List Organization</summary>
+            <summary>Field Organization</summary>
         </member>
         <member name="P:Frame.Contact.Pronouns">
-            <summary>class Pronouns, Pronouns</summary>
+            <summary>Field Pronouns</summary>
         </member>
         <member name="P:Frame.Contact.RelatedTo">
-            <summary>class RelatedTo, RelatedTo</summary>
+            <summary>Field RelatedTo</summary>
         </member>
         <member name="P:Frame.Contact.Applications">
-            <summary>List Applications</summary>
+            <summary>Field Applications</summary>
         </member>
         <member name="P:Frame.Contact.Media">
-            <summary>List Media</summary>
+            <summary>Field Media</summary>
         </member>
         <member name="P:Frame.Contact._Properties">
             <inheritdoc/>
@@ -1508,7 +1529,7 @@
             <summary>Field Full</summary>
         </member>
         <member name="P:Frame.Name.Components">
-            <summary>List Components</summary>
+            <summary>Field Components</summary>
         </member>
         <member name="P:Frame.Name.PhoneticSystem">
             <summary>Field PhoneticSystem</summary>
@@ -1601,7 +1622,7 @@
             <inheritdoc/>
         </member>
         <member name="P:Frame.Pronouns.GramaticalGender">
-            <summary>List GramaticalGender</summary>
+            <summary>Field GramaticalGender</summary>
         </member>
         <member name="P:Frame.Pronouns.Subjective">
             <summary>Field Subjective</summary>
@@ -1641,7 +1662,7 @@
             <summary>Field Name</summary>
         </member>
         <member name="P:Frame.Title.Organization">
-            <summary>class Organization, Organization</summary>
+            <summary>Field Organization</summary>
         </member>
         <member name="P:Frame.Title._Properties">
             <inheritdoc/>
@@ -1672,7 +1693,7 @@
             <summary>Field Uid</summary>
         </member>
         <member name="P:Frame.RelatedTo.Relation">
-            <summary>List Relation</summary>
+            <summary>Field Relation</summary>
         </member>
         <member name="P:Frame.RelatedTo.Other">
             <summary>Field Other</summary>
@@ -1709,7 +1730,7 @@
             <summary>Field Address</summary>
         </member>
         <member name="P:Frame.Application.Keys">
-            <summary>List Keys</summary>
+            <summary>Field Keys</summary>
         </member>
         <member name="P:Frame.Application.Preference">
             <summary>Field Preference</summary>
@@ -1765,7 +1786,7 @@
             <inheritdoc/>
         </member>
         <member name="P:Frame.Messaging.Service">
-            <summary>class ServiceOption, Service</summary>
+            <summary>Field Service</summary>
         </member>
         <member name="P:Frame.Messaging.Other">
             <summary>Field Other</summary>
@@ -1796,7 +1817,7 @@
             <inheritdoc/>
         </member>
         <member name="P:Frame.Phone.Features">
-            <summary>List Features</summary>
+            <summary>Field Features</summary>
         </member>
         <member name="P:Frame.Phone._Properties">
             <inheritdoc/>
@@ -1830,7 +1851,7 @@
             <summary>Field Protocol</summary>
         </member>
         <member name="P:Frame.Service.Type">
-            <summary>class Option, Type</summary>
+            <summary>Field Type</summary>
         </member>
         <member name="P:Frame.Service._Properties">
             <inheritdoc/>
@@ -1858,10 +1879,10 @@
             <inheritdoc/>
         </member>
         <member name="P:Frame.Key.KeyData">
-            <summary>class KeyData, KeyData</summary>
+            <summary>Field KeyData</summary>
         </member>
         <member name="P:Frame.Key.Protocol">
-            <summary>class ServiceOption, Protocol</summary>
+            <summary>Field Protocol</summary>
         </member>
         <member name="P:Frame.Key._Properties">
             <inheritdoc/>
@@ -1982,6 +2003,66 @@
         </member>
         <member name="F:Frame.ServiceOption._binding">
             <summary>Binding</summary> 
+        </member>
+        <member name="T:Frame.Utilities">
+            <summary>
+            General utilities class.
+            </summary>
+        </member>
+        <member name="M:Frame.Utilities.GetPlaceAnchor(System.String)">
+            <summary>
+            Return the link to the page of place <paramref name="dns"/>
+            </summary>
+            <param name="dns">The place to return the home page for.</param>
+            <returns>The link.</returns>
+        </member>
+        <member name="M:Frame.Utilities.GetUserAnchor(System.String)">
+            <summary>
+            Return the link to the page of user <paramref name="uid"/>
+            </summary>
+            <param name="uid">The user to return the page for.</param>
+            <returns>The link.</returns>
+        </member>
+        <member name="M:Frame.Utilities.GetPostAnchor(System.String)">
+            <summary>
+            Return the link to the page of post <paramref name="uid"/>
+            </summary>
+            <param name="uid">The post to return the page for.</param>
+            <returns>The link.</returns>
+        </member>
+        <member name="M:Frame.Utilities.GetCommentAnchor(System.String)">
+            <summary>
+            Return the link to the page of comment <paramref name="uid"/>
+            </summary>
+            <param name="uid">The comment to return the page for.</param>
+            <returns>The link.</returns>
+        </member>
+        <member name="M:Frame.Utilities.GetPlacePage(System.String,System.String)">
+            <summary>
+            Return a backing link for the page <paramref name="dns"/> with 
+            the text description <paramref name="text"/>.
+            </summary>
+            <param name="text">The text to display.</param>
+             <param name="dns">The place to return the home page for.</param>
+            <returns>The backing link.</returns>
+        </member>
+        <member name="M:Frame.Utilities.GetUserPage(System.String,System.String)">
+            <summary>
+            Return a backing link for the page of user <paramref name="uid"/> with 
+            the text description <paramref name="text"/>.
+            </summary>
+            <param name="text">The text to display.</param>
+            <param name="uid">The user's handle.</param>
+            <returns>The backing link.</returns>
+        </member>
+        <member name="M:Frame.Utilities.GetPostPage(System.String,System.String)">
+            <summary>
+            Return a backing link for the page of post <paramref name="uid"/> with 
+            the text description <paramref name="text"/>.
+            </summary>
+            <param name="text">The text to display.</param>
+            <param name="uid">The user's handle.</param>
+            <returns>The backing link.</returns>
         </member>
     </members>
 </doc>
