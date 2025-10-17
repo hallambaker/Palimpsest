@@ -480,11 +480,12 @@ button.dropdown-subbutton {
     }
 
 
-.PostFull{
+.PostFull {
     display: grid;
     grid-template-areas:
         "Avatar Author"
         "Avatar Title"
+        "Blank Summary"
         "Blank Body";
     align-content: flex-start;
     grid-auto-rows: max-content;
@@ -508,6 +509,11 @@ button.dropdown-subbutton {
     .PostFull div.Title {
         display: inline;
         font-weight: bold;
+        align-self: start;
+    }
+
+    .PostFull > section.Summary {
+        grid-area: Summary;
         align-self: start;
     }
 

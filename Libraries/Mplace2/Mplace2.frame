@@ -375,9 +375,10 @@ Namespace Frame
                     User.DisplayHandle String
                     Created DateTime
                 Rule
+                Summary
+                    Summary Text
                 Body
-                    Text Text
-                    //QuotedPost Show Post Quoted 
+                    Body RichText
                 Detail
                     Created DateTime
                     Replies String             
