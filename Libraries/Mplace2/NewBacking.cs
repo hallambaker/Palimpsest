@@ -2777,6 +2777,10 @@ public partial class Post (string Id="Post") : Entry (Id) {
 				},
 			new FrameSection ("Summary") {
 				Fields = [
+            		new FrameString ("Title",
+            			(IBinding data, string? value) => {(data as Post)!.Title = value; },
+            			(IBinding data) => (data as Post)?.Title) {
+            				},
             		new FrameText ("Summary",
             			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
             			(IBinding data) => (data as Post)?.Summary) {

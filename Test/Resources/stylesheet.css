@@ -486,7 +486,8 @@ button.dropdown-subbutton {
         "Avatar Author"
         "Avatar Title"
         "Blank Summary"
-        "Blank Body";
+        "Blank Body"
+        "Blank Responses";
     align-content: flex-start;
     grid-auto-rows: max-content;
     grid-template-columns: 48px;
@@ -523,8 +524,7 @@ button.dropdown-subbutton {
     }
 
     .PostFull > section.Responses {
-        /*        grid-area: Body;*/
-        display: none;
+        grid-area: Responses;
         align-self: start;
     }
 
@@ -533,7 +533,8 @@ button.dropdown-subbutton {
     grid-template-areas:
         "Avatar Author"
         "Avatar Title"
-        "Blank Body";
+        "Blank Body"
+        "Blank Responses";
     align-content: flex-start;
     grid-auto-rows: max-content;
     grid-template-columns: 48px;

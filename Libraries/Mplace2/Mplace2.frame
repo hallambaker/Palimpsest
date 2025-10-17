@@ -376,6 +376,7 @@ Namespace Frame
                     Created DateTime
                 Rule
                 Summary
+                    Title String 
                     Summary Text
                 Body
                     Body RichText
