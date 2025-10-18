@@ -421,6 +421,9 @@ Namespace Frame
             User Is User                // The owner of the entry, typically the user who created/added the entry
             Text Text                   // Short text
             Resources Is Resource       // An associated resource
+            Likes Integer
+            Replies String
+
 
             CommentFull Presentation Uid
                 Avatar
@@ -432,6 +435,33 @@ Namespace Frame
                 Rule
                 Body
                     Text Text
+                Responses
+                    Comment Button CommentAction "Comment"                    Repost SubMenu "Repost"
+                        Repost Button RepostAction "Repost"
+                        QuotePost Button QuotePostAction "Quote Post"
+                    Like Button LikeAction "Like"
+                        Liked Boolean
+                        Likes Integer
+                    SeeMore Button MoreAction "More"
+                        RequestedMore Boolean
+                    SeeLess Button LessAction "Less"
+                        RequestedLess Boolean
+                    Share SubMenu "Share"
+                        LinkCopy Button HomePage "Copy link to post"
+                        SendByDM Button HomePage "Send via direct message"
+                        Embed Button HomePage "Embed post"
+                    Ellipsis SubMenu "More"
+                        Translate Button TranslateAction "Translate"
+                        CopyToClipboard Button CopyPostAction "Copy post text"
+                        S1 Separator 
+                        MuteThread Button MuteThreadAction "Mute thread"
+                        MuteWords Button MuteWordsAction "Mute words & tags"
+                        S2 Separator
+                        HidePost Button HidePostAction "Hide post for me"
+                        S3 Separator
+                        MuteAccount Button MuteAccountAction "Mute user"
+                        BlockAccount Button BlockAccountAction "Block user"
+                        Report Button ReportPostAction "Report post"
 
 
     Resource SubClass Entry

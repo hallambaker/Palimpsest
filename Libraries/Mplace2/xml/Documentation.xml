@@ -335,6 +335,54 @@
         <member name="F:Frame.Post._binding">
             <summary>Binding</summary> 
         </member>
+        <member name="T:Frame.Comment">
+            <summary>
+            Backing class for Comment
+            </summary>
+        </member>
+        <member name="M:Frame.Comment.#ctor(System.String)">
+            <summary>
+            Backing class for Comment
+            </summary>
+        </member>
+        <member name="P:Frame.Comment.Fields">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Comment.Presentation">
+            <inheritdoc/>
+        </member>
+        <member name="P:Frame.Comment.User">
+            <summary>Field User</summary>
+        </member>
+        <member name="P:Frame.Comment.Text">
+            <summary>Field Text</summary>
+        </member>
+        <member name="P:Frame.Comment.Resources">
+            <summary>Field Resources</summary>
+        </member>
+        <member name="P:Frame.Comment.Likes">
+            <summary>Field Likes</summary>
+        </member>
+        <member name="P:Frame.Comment.Replies">
+            <summary>Field Replies</summary>
+        </member>
+        <member name="P:Frame.Comment.CommentFull">
+            <summary>
+            Presentation style CommentFull
+            </summary>
+        </member>
+        <member name="P:Frame.Comment._Properties">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Comment._properties">
+            <summary>Binding</summary> 
+        </member>
+        <member name="P:Frame.Comment._Binding">
+            <inheritdoc/>
+        </member>
+        <member name="F:Frame.Comment._binding">
+            <summary>Binding</summary> 
+        </member>
         <member name="T:Frame.User">
             <summary>
             Backing class for User
@@ -1387,48 +1435,6 @@
             <inheritdoc/>
         </member>
         <member name="F:Frame.Topic._binding">
-            <summary>Binding</summary> 
-        </member>
-        <member name="T:Frame.Comment">
-            <summary>
-            Backing class for Comment
-            </summary>
-        </member>
-        <member name="M:Frame.Comment.#ctor(System.String)">
-            <summary>
-            Backing class for Comment
-            </summary>
-        </member>
-        <member name="P:Frame.Comment.Fields">
-            <inheritdoc/>
-        </member>
-        <member name="P:Frame.Comment.Presentation">
-            <inheritdoc/>
-        </member>
-        <member name="P:Frame.Comment.User">
-            <summary>Field User</summary>
-        </member>
-        <member name="P:Frame.Comment.Text">
-            <summary>Field Text</summary>
-        </member>
-        <member name="P:Frame.Comment.Resources">
-            <summary>Field Resources</summary>
-        </member>
-        <member name="P:Frame.Comment.CommentFull">
-            <summary>
-            Presentation style CommentFull
-            </summary>
-        </member>
-        <member name="P:Frame.Comment._Properties">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Comment._properties">
-            <summary>Binding</summary> 
-        </member>
-        <member name="P:Frame.Comment._Binding">
-            <inheritdoc/>
-        </member>
-        <member name="F:Frame.Comment._binding">
             <summary>Binding</summary> 
         </member>
         <member name="T:Frame.Resource">

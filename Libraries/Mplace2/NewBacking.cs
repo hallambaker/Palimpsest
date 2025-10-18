@@ -3002,6 +3002,12 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
     /// <summary>Field Resources</summary>
 	public Resource? Resources {get; set;}
 
+    /// <summary>Field Likes</summary>
+	public int? Likes {get; set;}
+
+    /// <summary>Field Replies</summary>
+	public string? Replies {get; set;}
+
 
 	/// <summary>
 	/// Presentation style CommentFull
@@ -3043,6 +3049,63 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
             			(IBinding data) => (data as Comment)?.Text) {
             				}
 					]
+				},
+			new FrameSection ("Responses") {
+				Fields = [
+            		new FrameButton ("Comment", "Comment", "CommentAction") {
+            			},
+            		new FrameSubmenu ("Repost", "Repost") {
+            			Fields = [
+                    		new FrameButton ("Repost", "Repost", "RepostAction") {
+                    			},
+                    		new FrameButton ("QuotePost", "Quote Post", "QuotePostAction") {
+                    			}
+            				]
+            			},
+            		new FrameButton ("Like", "Like", "LikeAction") {
+            			GetActive = (IBinding data) => (data as Comment)?.Liked,
+            			GetInteger = (IBinding data) => (data as Comment)?.Likes
+            			},
+            		new FrameButton ("SeeMore", "More", "MoreAction") {
+            			GetActive = (IBinding data) => (data as Comment)?.RequestedMore
+            			},
+            		new FrameButton ("SeeLess", "Less", "LessAction") {
+            			GetActive = (IBinding data) => (data as Comment)?.RequestedLess
+            			},
+            		new FrameSubmenu ("Share", "Share") {
+            			Fields = [
+                    		new FrameButton ("LinkCopy", "Copy link to post", "HomePage") {
+                    			},
+                    		new FrameButton ("SendByDM", "Send via direct message", "HomePage") {
+                    			},
+                    		new FrameButton ("Embed", "Embed post", "HomePage") {
+                    			}
+            				]
+            			},
+            		new FrameSubmenu ("Ellipsis", "More") {
+            			Fields = [
+                    		new FrameButton ("Translate", "Translate", "TranslateAction") {
+                    			},
+                    		new FrameButton ("CopyToClipboard", "Copy post text", "CopyPostAction") {
+                    			},
+                    		new FrameSeparator ("S1"),
+                    		new FrameButton ("MuteThread", "Mute thread", "MuteThreadAction") {
+                    			},
+                    		new FrameButton ("MuteWords", "Mute words & tags", "MuteWordsAction") {
+                    			},
+                    		new FrameSeparator ("S2"),
+                    		new FrameButton ("HidePost", "Hide post for me", "HidePostAction") {
+                    			},
+                    		new FrameSeparator ("S3"),
+                    		new FrameButton ("MuteAccount", "Mute user", "MuteAccountAction") {
+                    			},
+                    		new FrameButton ("BlockAccount", "Block user", "BlockAccountAction") {
+                    			},
+                    		new FrameButton ("Report", "Report post", "ReportPostAction") {
+                    			}
+            				]
+            			}
+					]
 				}
 			]
 		}.CacheValue(out commentfull)!;
@@ -3077,6 +3140,14 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 		new FrameRefClass<Resource> ("Resources","Resource"){
 			Get = (IBacked data) => (data as Comment)?.Resources ,
 			Set = (IBacked data, IBacked? value) => {(data as Comment)!.Resources = value as Resource; }},
+		new FrameInteger ("Likes",
+			(IBinding data, int? value) => {(data as Comment)!.Likes = value; },
+			(IBinding data) => (data as Comment)?.Likes) {
+				},
+		new FrameString ("Replies",
+			(IBinding data, string? value) => {(data as Comment)!.Replies = value; },
+			(IBinding data) => (data as Comment)?.Replies) {
+				},
 		CommentFull
 		];
 
@@ -3092,6 +3163,14 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 		new FrameText ("Text",
 			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
 			(IBinding data) => (data as Comment)?.Text) {
+				},
+		new FrameInteger ("Likes",
+			(IBinding data, int? value) => {(data as Comment)!.Likes = value; },
+			(IBinding data) => (data as Comment)?.Likes) {
+				},
+		new FrameString ("Replies",
+			(IBinding data, string? value) => {(data as Comment)!.Replies = value; },
+			(IBinding data) => (data as Comment)?.Replies) {
 				}		];
 
     /// <inheritdoc/>
@@ -3102,7 +3181,9 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
+			{"Text", _properties[0]},
+			{"Likes", _properties[1]},
+			{"Replies", _properties[2]}
 			}, "Comment",
 		() => new Comment(), () => [], () => [], null, Generic: false);
 

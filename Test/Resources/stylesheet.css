@@ -526,6 +526,13 @@ button.dropdown-subbutton {
     .PostFull > section.Responses {
         grid-area: Responses;
         align-self: start;
+        display: flex;
+        width: 100%;
+
+    }
+
+    .PostFull div.ButtonText {
+        display: none;
     }
 
 .CommentFull {
@@ -561,7 +568,15 @@ button.dropdown-subbutton {
         grid-area: Body;
     }
 
-
+    .CommentFull > section.Responses {
+        grid-area: Responses;
+        align-self: start;
+        display: flex;
+        width: 100%;
+    }
+    .CommentFull div.ButtonText {
+        display: none;
+    }
 
 
 div.Form {
