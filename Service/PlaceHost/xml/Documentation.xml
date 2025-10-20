@@ -14,7 +14,7 @@
             Static initializer, is called once when the module loads.
             </summary>
         </member>
-        <member name="T:Goedel.Palimpsest.NamespaceDoc">
+        <member name="T:Goedel.Places.NamespaceDoc">
             <summary>
             Desctiption of the 
             </summary>

@@ -7,7 +7,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Frame;
+namespace Goedel.Places;
 
 
 /// <summary>

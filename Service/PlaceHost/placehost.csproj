@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\buildtools\SiteBuilder\Goedel.Sitebuilder\Goedel.Sitebuilder.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Identifiers\Goedel.Cryptography.Identifiers.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
@@ -21,7 +22,8 @@
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
     <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
     <ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
-    <ProjectReference Include="..\Goedel.Palimpsest\Goedel.Palimpsest.csproj" />
+    <ProjectReference Include="..\..\Libraries\Mplace2\Mplace2.csproj" />
+    <ProjectReference Include="..\Goedel.Places\Goedel.Places.csproj" />
   </ItemGroup>
 
   <ItemGroup>

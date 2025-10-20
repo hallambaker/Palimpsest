@@ -9,10 +9,16 @@ namespace Goedel.Html;
 /// </summary>
 public partial class PageWriter : HtmlWriter {
 
+    ///<summary>Text to use for the page.</summary>
     public PageText PageText { get; set;} = PageText.English;
 
     FrameSet FrameSet { get; }
 
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    /// <param name="frameset">The frame set context to render in.</param>
+    /// <param name="textWriter">The text writer to write to.</param>
     public PageWriter(
             FrameSet frameset,
             TextWriter textWriter
@@ -20,6 +26,10 @@ public partial class PageWriter : HtmlWriter {
         FrameSet = frameset;
         }
 
+    /// <summary>
+    /// Render page <paramref name="page"/>.
+    /// </summary>
+    /// <param name="page">The page to render.</param>
     public void Render(FramePage page) {
 
         page.StartRender = System.DateTime.Now;
@@ -46,58 +56,38 @@ public partial class PageWriter : HtmlWriter {
         RenderFields(page);
         Close();
 
-        //if (page.Container is not null) {
-        //    Close();
-        //    }
 
         Reources(page.FrameSet.EndResources);
         Reources(page.EndResources);
         Finish();
         }
 
-
+    /// <summary>
+    /// Render the fields of <paramref name="backer"/> using the default presentation.
+    /// </summary>
+    /// <param name="backer"></param>
     public void RenderFields(IBacked backer) {
         Render(backer, backer.Fields);
-
-
-        //if (backer.Presentation != null) {
-        //    Render(backer, backer.Presentation);
-        //    }
-        //else {
-        //    Render(backer, backer.Fields);
-        //    }
         }
 
+    /// <summary>
+    /// Render the list of fields <paramref name="fields"/> of <paramref name="backer"/>.
+    /// </summary>
+    /// <param name="backer">The data to render.</param>
+    /// <param name="fields">The field descriptions.</param>
     public void Render(IBacked backer, List<IFrameField> fields) {
-
-        //if (fields != backer.Fields) {
-        //    //throw new NYI();
-        //    }
-
-        //backer.StartRender = System.DateTime.Now;
-
         foreach (var field in fields) {
             RenderField(backer, field);
             }
 
         }
 
-    public void Render(IBacked backer, FramePresentation presentation) {
-        OpenClass("form", presentation.Tag);
-        if (presentation.GetUid != null) {
-            var id = presentation.GetUid(backer);
-            if (id != null) {
-                Element("input", "type", "hidden", "name", "UID", "value", id);
-                }
-            }
-
-
-        RenderSections(backer, presentation);
-
-        Close();
-        }
-
-
+    /// <summary>
+    /// Render the data <paramref name="backer"/> using presentation template
+    /// <paramref name="presentation"/>.
+    /// </summary>
+    /// <param name="backer">The data to render.</param>
+    /// <param name="presentation">The presentation definition.</param>
     public void RenderSections(IBacked backer, FramePresentation presentation) {
 
         foreach (var section in presentation.Sections) {
@@ -109,7 +99,12 @@ public partial class PageWriter : HtmlWriter {
 
         }
 
-
+    /// <summary>
+    /// Use the field specifier <paramref name="field"/> to render data from
+    /// <paramref name="backer"/>.
+    /// </summary>
+    /// <param name="backer">The data to render.</param>
+    /// <param name="field">The field to render</param>
     public void RenderField(
             IBacked backer,
             IFrameField field) {

@@ -70,7 +70,6 @@ Class Goedel.Html FrameStruct
             Selector
             Count
             Presentation
-            Show
             Icon
             File
             Hidden 
@@ -124,10 +123,6 @@ Class Goedel.Html FrameStruct
         Parent REF EntryT
         Properties List FieldProperty
 
-    Type Show
-        Field REF EntryT
-        Display Token EntryT
-        Properties List FieldProperty
 
     Type List
         Of REF EntryT

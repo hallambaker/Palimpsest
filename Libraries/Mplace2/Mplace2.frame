@@ -1,5 +1,5 @@
 ﻿
-Namespace Frame
+Namespace Goedel.Places
 
     MainNav Menu
         NotificationCount Integer

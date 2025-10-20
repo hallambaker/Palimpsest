@@ -262,7 +262,7 @@ public #{structure} #{backer.Id} (string Id="#{backer.Id}") : #{backer.ParentId 
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<#{backed.Id}> _binding = new (
+	static readonly Binding<#{backed.Id}> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here#!

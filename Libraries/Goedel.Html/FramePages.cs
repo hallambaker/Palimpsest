@@ -292,7 +292,7 @@ public partial class GenerateBacking : global::Goedel.Registry.Script {
 		_Output.Write ("	public override Binding _Binding => _binding;\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("	///<summary>Binding</summary> \n{0}", _Indent);
-		_Output.Write ("	static readonly new Binding<{1}> _binding = new (\n{0}", _Indent, backed.Id);
+		_Output.Write ("	static readonly Binding<{1}> _binding = new (\n{0}", _Indent, backed.Id);
 		_Output.Write ("			new() {{\n{0}", _Indent);
 		_Output.Write ("\n{0}", _Indent);
 		_Output.Write ("			// Only inclue the serialized items here", _Indent);

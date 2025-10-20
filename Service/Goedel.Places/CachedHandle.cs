@@ -1,5 +1,5 @@
 ﻿#region // Copyright - MIT License
-//  © 2021 by Phill Hallam-Baker
+//  © 2024 by Phill Hallam-Baker
 //  
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,24 +20,44 @@
 //  THE SOFTWARE.
 #endregion
 
-
-
-
-global using Goedel.Cryptography;
-
-global using Goedel.Html;
-global using Goedel.Utilities;
-global using Goedel.Protocol;
-
-#if !(_Github_)
-[assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]
-#endif
-
 namespace Goedel.Places;
-/// <summary>
-/// Desctiption of the 
-/// </summary>
 
-[System.Runtime.CompilerServices.CompilerGenerated]
-class NamespaceDoc {
+/// <summary>
+/// Root class for all cachable forum items.
+/// </summary>
+public abstract class CachedHandle<T> : IComparable where T : CatalogedEntry{
+
+
+    public T CatalogedEntry { get; }
+
+    public string Uid => CatalogedEntry.Uid;
+    public string LocalName => CatalogedEntry.LocalName;
+
+
+
+
+    public CachedHandle(T catalogedEntry) {
+        CatalogedEntry = catalogedEntry;
+        }
+
+    public DateTime Accessed = DateTime.Now;
+    public string Key { get; private set; } = null;
+
+    public virtual void Touch() {
+        Accessed = DateTime.Now;
+        }
+
+    ///<inheritdoc/>
+    public int CompareTo(object? obj) {
+        return ((IComparable)Accessed).CompareTo(obj);
+        }
+
+    /// <summary>
+    /// Release resources associated with the resource allowing them to
+    /// be reused.
+    /// </summary>
+    public void Release () { 
+        }
+
     }
+

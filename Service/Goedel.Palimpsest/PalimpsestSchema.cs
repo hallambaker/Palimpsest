@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 10/14/2025 3:42:02 PM
+//  This file was automatically generated at 10/20/2025 6:32:12 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -44,6 +44,7 @@ using System.Text.Json.Serialization;
 using Goedel.Protocol;
 using Goedel.Utilities;
 
+#pragma warning disable IDE0028 // Don't warn collection initialization can be simplified.
 #pragma warning disable IDE0079
 #pragma warning disable IDE1006
 #pragma warning disable CA2255 // The 'ModuleInitializer' attribute should not be used in libraries
@@ -141,11 +142,11 @@ public partial class CatalogedForumEntry : CatalogedEntry {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyDateTime ("Added", 
-					(IBinding data, DateTime? value) => {(data as CatalogedForumEntry).Added = value;}, 
-					(IBinding data) => (data as CatalogedForumEntry).Added ),
+					(data, value) => {(data as CatalogedForumEntry).Added = value;}, 
+					data => (data as CatalogedForumEntry).Added ),
 		new PropertyListStruct ("Entries", typeof (EntryAttibutes),
-					(IBinding data, object? value) => {(data as CatalogedForumEntry).Entries = value as List<EntryAttibutes>;}, 
-					(IBinding data) => (data as CatalogedForumEntry).Entries,
+					(data, value) => {(data as CatalogedForumEntry).Entries = value as List<EntryAttibutes>;}, 
+					data => (data as CatalogedForumEntry).Entries,
 					false, ()=>new  List<EntryAttibutes>(), ()=>new EntryAttibutes())
 		];
 
@@ -205,11 +206,11 @@ public partial class EntryAttibutes : ForumItem {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Tag", 
-					(IBinding data, string? value) => {(data as EntryAttibutes).Tag = value;}, 
-					(IBinding data) => (data as EntryAttibutes).Tag ),
+					(data, value) => {(data as EntryAttibutes).Tag = value;}, 
+					data => (data as EntryAttibutes).Tag ),
 		new PropertyString ("Value", 
-					(IBinding data, string? value) => {(data as EntryAttibutes).Value = value;}, 
-					(IBinding data) => (data as EntryAttibutes).Value )
+					(data, value) => {(data as EntryAttibutes).Value = value;}, 
+					data => (data as EntryAttibutes).Value )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -272,14 +273,14 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("ParentForum", 
-					(IBinding data, string? value) => {(data as CatalogedPlace).ParentForum = value;}, 
-					(IBinding data) => (data as CatalogedPlace).ParentForum ),
+					(data, value) => {(data as CatalogedPlace).ParentForum = value;}, 
+					data => (data as CatalogedPlace).ParentForum ),
 		new PropertyListString ("Aliases", 
-					(IBinding data, List<string>? value) => {(data as CatalogedPlace).Aliases = value;}, 
-					(IBinding data) => (data as CatalogedPlace).Aliases ),
+					(data, value) => {(data as CatalogedPlace).Aliases = value;}, 
+					data => (data as CatalogedPlace).Aliases ),
 		new PropertyListString ("Owners", 
-					(IBinding data, List<string>? value) => {(data as CatalogedPlace).Owners = value;}, 
-					(IBinding data) => (data as CatalogedPlace).Owners )
+					(data, value) => {(data as CatalogedPlace).Owners = value;}, 
+					data => (data as CatalogedPlace).Owners )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -366,23 +367,23 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Did", 
-					(IBinding data, string? value) => {(data as CatalogedForumMember).Did = value;}, 
-					(IBinding data) => (data as CatalogedForumMember).Did ),
+					(data, value) => {(data as CatalogedForumMember).Did = value;}, 
+					data => (data as CatalogedForumMember).Did ),
 		new PropertyString ("ProfileUdf", 
-					(IBinding data, string? value) => {(data as CatalogedForumMember).ProfileUdf = value;}, 
-					(IBinding data) => (data as CatalogedForumMember).ProfileUdf ),
+					(data, value) => {(data as CatalogedForumMember).ProfileUdf = value;}, 
+					data => (data as CatalogedForumMember).ProfileUdf ),
 		new PropertyBinary ("PasswordDigest", 
-					(IBinding data, byte[]? value) => {(data as CatalogedForumMember).PasswordDigest = value;}, 
-					(IBinding data) => (data as CatalogedForumMember).PasswordDigest ),
+					(data, value) => {(data as CatalogedForumMember).PasswordDigest = value;}, 
+					data => (data as CatalogedForumMember).PasswordDigest ),
 		new PropertyBinary ("Contact", 
-					(IBinding data, byte[]? value) => {(data as CatalogedForumMember).Contact = value;}, 
-					(IBinding data) => (data as CatalogedForumMember).Contact ),
+					(data, value) => {(data as CatalogedForumMember).Contact = value;}, 
+					data => (data as CatalogedForumMember).Contact ),
 		new PropertyString ("Status", 
-					(IBinding data, string? value) => {(data as CatalogedForumMember).Status = value;}, 
-					(IBinding data) => (data as CatalogedForumMember).Status ),
+					(data, value) => {(data as CatalogedForumMember).Status = value;}, 
+					data => (data as CatalogedForumMember).Status ),
 		new PropertyListString ("Privileges", 
-					(IBinding data, List<string>? value) => {(data as CatalogedForumMember).Privileges = value;}, 
-					(IBinding data) => (data as CatalogedForumMember).Privileges )
+					(data, value) => {(data as CatalogedForumMember).Privileges = value;}, 
+					data => (data as CatalogedForumMember).Privileges )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -540,17 +541,17 @@ public partial class CatalogedResource : CatalogedForum {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("ContentType", 
-					(IBinding data, string? value) => {(data as CatalogedResource).ContentType = value;}, 
-					(IBinding data) => (data as CatalogedResource).ContentType ),
+					(data, value) => {(data as CatalogedResource).ContentType = value;}, 
+					data => (data as CatalogedResource).ContentType ),
 		new PropertyString ("SeriesId", 
-					(IBinding data, string? value) => {(data as CatalogedResource).SeriesId = value;}, 
-					(IBinding data) => (data as CatalogedResource).SeriesId ),
+					(data, value) => {(data as CatalogedResource).SeriesId = value;}, 
+					data => (data as CatalogedResource).SeriesId ),
 		new PropertyString ("Version", 
-					(IBinding data, string? value) => {(data as CatalogedResource).Version = value;}, 
-					(IBinding data) => (data as CatalogedResource).Version ),
+					(data, value) => {(data as CatalogedResource).Version = value;}, 
+					data => (data as CatalogedResource).Version ),
 		new PropertyBoolean ("Annotatable", 
-					(IBinding data, bool? value) => {(data as CatalogedResource).Annotatable = value;}, 
-					(IBinding data) => (data as CatalogedResource).Annotatable )
+					(data, value) => {(data as CatalogedResource).Annotatable = value;}, 
+					data => (data as CatalogedResource).Annotatable )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -722,23 +723,23 @@ public partial class CatalogedEvent : CatalogedResource {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Venue", 
-					(IBinding data, string? value) => {(data as CatalogedEvent).Venue = value;}, 
-					(IBinding data) => (data as CatalogedEvent).Venue ),
+					(data, value) => {(data as CatalogedEvent).Venue = value;}, 
+					data => (data as CatalogedEvent).Venue ),
 		new PropertyDateTime ("Start", 
-					(IBinding data, DateTime? value) => {(data as CatalogedEvent).Start = value;}, 
-					(IBinding data) => (data as CatalogedEvent).Start ),
+					(data, value) => {(data as CatalogedEvent).Start = value;}, 
+					data => (data as CatalogedEvent).Start ),
 		new PropertyDateTime ("Finish", 
-					(IBinding data, DateTime? value) => {(data as CatalogedEvent).Finish = value;}, 
-					(IBinding data) => (data as CatalogedEvent).Finish ),
+					(data, value) => {(data as CatalogedEvent).Finish = value;}, 
+					data => (data as CatalogedEvent).Finish ),
 		new PropertyString ("PhysicalLocation", 
-					(IBinding data, string? value) => {(data as CatalogedEvent).PhysicalLocation = value;}, 
-					(IBinding data) => (data as CatalogedEvent).PhysicalLocation ),
+					(data, value) => {(data as CatalogedEvent).PhysicalLocation = value;}, 
+					data => (data as CatalogedEvent).PhysicalLocation ),
 		new PropertyString ("Online", 
-					(IBinding data, string? value) => {(data as CatalogedEvent).Online = value;}, 
-					(IBinding data) => (data as CatalogedEvent).Online ),
+					(data, value) => {(data as CatalogedEvent).Online = value;}, 
+					data => (data as CatalogedEvent).Online ),
 		new PropertyListString ("Organizers", 
-					(IBinding data, List<string>? value) => {(data as CatalogedEvent).Organizers = value;}, 
-					(IBinding data) => (data as CatalogedEvent).Organizers )
+					(data, value) => {(data as CatalogedEvent).Organizers = value;}, 
+					data => (data as CatalogedEvent).Organizers )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -802,11 +803,11 @@ public partial class CatalogedReaction : CatalogedForumEntry {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("MemberId", 
-					(IBinding data, string? value) => {(data as CatalogedReaction).MemberId = value;}, 
-					(IBinding data) => (data as CatalogedReaction).MemberId ),
+					(data, value) => {(data as CatalogedReaction).MemberId = value;}, 
+					data => (data as CatalogedReaction).MemberId ),
 		new PropertyString ("Semantic", 
-					(IBinding data, string? value) => {(data as CatalogedReaction).Semantic = value;}, 
-					(IBinding data) => (data as CatalogedReaction).Semantic )
+					(data, value) => {(data as CatalogedReaction).Semantic = value;}, 
+					data => (data as CatalogedReaction).Semantic )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -866,11 +867,11 @@ public partial class CatalogedReactionSummary : CatalogedReaction {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyBinary ("Filter", 
-					(IBinding data, byte[]? value) => {(data as CatalogedReactionSummary).Filter = value;}, 
-					(IBinding data) => (data as CatalogedReactionSummary).Filter ),
+					(data, value) => {(data as CatalogedReactionSummary).Filter = value;}, 
+					data => (data as CatalogedReactionSummary).Filter ),
 		new PropertyStruct ("Summaries", typeof (ResponseSummary),
-					(IBinding data, object? value) => {(data as CatalogedReactionSummary).Summaries = value as ResponseSummary;}, 
-					(IBinding data) => (data as CatalogedReactionSummary).Summaries,
+					(data, value) => {(data as CatalogedReactionSummary).Summaries = value as ResponseSummary;}, 
+					data => (data as CatalogedReactionSummary).Summaries,
 					false, ()=>new  ResponseSummary(), ()=>new ResponseSummary())
 		];
 
@@ -934,14 +935,14 @@ public partial class ResponseSummary : ForumItem {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Semantic", 
-					(IBinding data, string? value) => {(data as ResponseSummary).Semantic = value;}, 
-					(IBinding data) => (data as ResponseSummary).Semantic ),
+					(data, value) => {(data as ResponseSummary).Semantic = value;}, 
+					data => (data as ResponseSummary).Semantic ),
 		new PropertyInteger32 ("Count", 
-					(IBinding data, int? value) => {(data as ResponseSummary).Count = value;}, 
-					(IBinding data) => (data as ResponseSummary).Count ),
+					(data, value) => {(data as ResponseSummary).Count = value;}, 
+					data => (data as ResponseSummary).Count ),
 		new PropertyListString ("MemberIds", 
-					(IBinding data, List<string>? value) => {(data as ResponseSummary).MemberIds = value;}, 
-					(IBinding data) => (data as ResponseSummary).MemberIds )
+					(data, value) => {(data as ResponseSummary).MemberIds = value;}, 
+					data => (data as ResponseSummary).MemberIds )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -1001,11 +1002,11 @@ public partial class CatalogedPost : CatalogedReaction {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Subject", 
-					(IBinding data, string? value) => {(data as CatalogedPost).Subject = value;}, 
-					(IBinding data) => (data as CatalogedPost).Subject ),
+					(data, value) => {(data as CatalogedPost).Subject = value;}, 
+					data => (data as CatalogedPost).Subject ),
 		new PropertyString ("Text", 
-					(IBinding data, string? value) => {(data as CatalogedPost).Text = value;}, 
-					(IBinding data) => (data as CatalogedPost).Text )
+					(data, value) => {(data as CatalogedPost).Text = value;}, 
+					data => (data as CatalogedPost).Text )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -1057,8 +1058,8 @@ public partial class CatalogedComment : CatalogedReaction {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Text", 
-					(IBinding data, string? value) => {(data as CatalogedComment).Text = value;}, 
-					(IBinding data) => (data as CatalogedComment).Text )
+					(data, value) => {(data as CatalogedComment).Text = value;}, 
+					data => (data as CatalogedComment).Text )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -1122,14 +1123,14 @@ public partial class CatalogedAnnotation : CatalogedReaction {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Anchor", 
-					(IBinding data, string? value) => {(data as CatalogedAnnotation).Anchor = value;}, 
-					(IBinding data) => (data as CatalogedAnnotation).Anchor ),
+					(data, value) => {(data as CatalogedAnnotation).Anchor = value;}, 
+					data => (data as CatalogedAnnotation).Anchor ),
 		new PropertyString ("Text", 
-					(IBinding data, string? value) => {(data as CatalogedAnnotation).Text = value;}, 
-					(IBinding data) => (data as CatalogedAnnotation).Text ),
+					(data, value) => {(data as CatalogedAnnotation).Text = value;}, 
+					data => (data as CatalogedAnnotation).Text ),
 		new PropertyListString ("References", 
-					(IBinding data, List<string>? value) => {(data as CatalogedAnnotation).References = value;}, 
-					(IBinding data) => (data as CatalogedAnnotation).References )
+					(data, value) => {(data as CatalogedAnnotation).References = value;}, 
+					data => (data as CatalogedAnnotation).References )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -1188,12 +1189,12 @@ public partial class AnnotatedResource : ForumItem {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyStruct ("Resource", typeof (CatalogedResource),
-					(IBinding data, object? value) => {(data as AnnotatedResource).Resource = value as CatalogedResource;}, 
-					(IBinding data) => (data as AnnotatedResource).Resource,
+					(data, value) => {(data as AnnotatedResource).Resource = value as CatalogedResource;}, 
+					data => (data as AnnotatedResource).Resource,
 					false, ()=>new  CatalogedResource(), ()=>new CatalogedResource()),
 		new PropertyListStruct ("Responses", typeof (CatalogedReaction),
-					(IBinding data, object? value) => {(data as AnnotatedResource).Responses = value as List<CatalogedReaction>;}, 
-					(IBinding data) => (data as AnnotatedResource).Responses,
+					(data, value) => {(data as AnnotatedResource).Responses = value as List<CatalogedReaction>;}, 
+					data => (data as AnnotatedResource).Responses,
 					false, ()=>new  List<CatalogedReaction>(), ()=>new CatalogedReaction())
 		];
 

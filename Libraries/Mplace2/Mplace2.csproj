@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<Import Project="$(SolutionDir)Settings/CommonSettingsLinemode.xml" />
+	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
 	<PropertyGroup>
 		<Product>Goedel.Html</Product>
 		<Description>Build MPlace2 Chrome</Description>
 		<Copyright>© 2025</Copyright>
-		<Title>Goedel.MakeGui</Title>
-		<OutputType>Exe</OutputType>
+		<Title>Goedel.Mplace2</Title>
+
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\buildtools\SiteBuilder\Goedel.Sitebuilder\Goedel.Sitebuilder.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Identifiers\Goedel.Cryptography.Identifiers.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
@@ -24,7 +25,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <None Update="FrameBlueSky.frame">
+	  <None Update="Mplace2.frame">
 	    <Generator>Frame</Generator>
 	  </None>
 	</ItemGroup>

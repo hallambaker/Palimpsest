@@ -159,6 +159,11 @@
         <member name="P:Goedel.Html._Choice.Attribute">
             <summary></summary>
         </member>
+        <member name="T:Goedel.Html.GenerateBacking">
+            <summary>
+            Generate the backing data for the GUI.
+            </summary>
+        </member>
         <member name="M:Goedel.Html.GenerateBacking.CreateFrame(Goedel.Html.FrameSet)">
             <summary>	
             CreateFrame
@@ -186,6 +191,14 @@
             <param name="backed"></param>
             <param name="entry"></param>
             <param name="comma"></param>
+        </member>
+        <member name="M:Goedel.Html.GenerateBacking.GetDefaultPresentation(System.Collections.Generic.List{Goedel.Html.IFrameField})">
+            <summary>
+            Return the first presentation from the list of fields 
+            <paramref name="fields"/> or null if none is found.
+            </summary>
+            <param name="fields">The list of fields to scan.</param>
+            <returns>The first presentation if found, otherwise null.</returns>
         </member>
         <member name="P:Goedel.Html.IBacked.Tag">
             <summary>The identifier</summary>
@@ -331,6 +344,51 @@
             <summary>
             Pagewriter adds in methods to emit FramePages and components.
             </summary>
+        </member>
+        <member name="P:Goedel.Html.PageWriter.PageText">
+            <summary>Text to use for the page.</summary>
+        </member>
+        <member name="M:Goedel.Html.PageWriter.#ctor(Goedel.Html.FrameSet,System.IO.TextWriter)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="frameset">The frame set context to render in.</param>
+            <param name="textWriter">The text writer to write to.</param>
+        </member>
+        <member name="M:Goedel.Html.PageWriter.Render(Goedel.Html.FramePage)">
+            <summary>
+            Render page <paramref name="page"/>.
+            </summary>
+            <param name="page">The page to render.</param>
+        </member>
+        <member name="M:Goedel.Html.PageWriter.RenderFields(Goedel.Html.IBacked)">
+            <summary>
+            Render the fields of <paramref name="backer"/> using the default presentation.
+            </summary>
+            <param name="backer"></param>
+        </member>
+        <member name="M:Goedel.Html.PageWriter.Render(Goedel.Html.IBacked,System.Collections.Generic.List{Goedel.Html.IFrameField})">
+            <summary>
+            Render the list of fields <paramref name="fields"/> of <paramref name="backer"/>.
+            </summary>
+            <param name="backer">The data to render.</param>
+            <param name="fields">The field descriptions.</param>
+        </member>
+        <member name="M:Goedel.Html.PageWriter.RenderSections(Goedel.Html.IBacked,Goedel.Html.FramePresentation)">
+            <summary>
+            Render the data <paramref name="backer"/> using presentation template
+            <paramref name="presentation"/>.
+            </summary>
+            <param name="backer">The data to render.</param>
+            <param name="presentation">The presentation definition.</param>
+        </member>
+        <member name="M:Goedel.Html.PageWriter.RenderField(Goedel.Html.IBacked,Goedel.Html.IFrameField)">
+            <summary>
+            Use the field specifier <paramref name="field"/> to render data from
+            <paramref name="backer"/>.
+            </summary>
+            <param name="backer">The data to render.</param>
+            <param name="field">The field to render</param>
         </member>
     </members>
 </doc>

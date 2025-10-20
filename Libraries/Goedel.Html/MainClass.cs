@@ -13,13 +13,11 @@ class MainClass {
         var inputfile = args[0];
         var schema = new Lexer(inputfile);
 
-
         using (var infile = inputfile.OpenFileRead()) {
             schema.Process(infile, parse);
             }
 
         parse.Init();
-
 
         var frameSet = new FrameSet();
         foreach (var entry in parse.Top) {
@@ -27,12 +25,11 @@ class MainClass {
             nameSpace?.Collect(frameSet);
             }
 
-        using (var outfile = "NewBacking.cs".OpenTextWriterNew()) {
-            var backing = new GenerateBacking() {
-                _Output = outfile
-                };
-            backing.CreateFrame(frameSet);
-            }
+        using var outfile = "NewBacking.cs".OpenTextWriterNew();
+        var backing = new GenerateBacking() {
+            _Output = outfile
+            };
+        backing.CreateFrame(frameSet);
 
 
 

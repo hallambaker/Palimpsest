@@ -37,26 +37,28 @@ using System.Threading.Tasks;
 
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Annotate;
+namespace Goedel.Places;
 
 internal sealed class Program {
 
     // We can decorate this with stuff later.
     static void Main(string[] args) {
 
-        Goedel.Palimpsest.Initialization.Initialized.AssertTrue(NYI.Throw);
+        //Goedel.Palimpsest.Initialization.Initialized.AssertTrue(NYI.Throw);
 
         var directory = args[0];
         var resources = args[1];
 
-        var forum = Forum.Create(directory, resources, "MPlace2");
+        //var forum = Forum.Create(directory, resources, "MPlace2");
 
         Screen.ToFile("servicelog.md");
         Screen.WriteLine("# MPlace2 log");
         Screen.Flush();
 
-        var AnnotationService = new AnnotationService(forum);
-        AnnotationService.Start();
+        var frameset = new MyClass();
+
+        var annotationService = new AnnotationService(frameset);
+        annotationService.Start();
         }
 
     }

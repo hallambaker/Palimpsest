@@ -59,7 +59,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     #region // Properties
     ///<summary>The persistent data store</summary> 
-    public Forum Forum { get; }
+    //public Forum Forum { get; }
 
 
 
@@ -134,10 +134,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #region // Constructor
 
 
-    static AnnotationService() {
-        JmapBaseSchema._Initialized.AssertTrue(NYI.Throw);
-        Goedel.Contacts.Contacts._Initialized.AssertTrue(NYI.Throw);
-        }
+    //static AnnotationService() {
+    //    JmapBaseSchema._Initialized.AssertTrue(NYI.Throw);
+    //    Goedel.Contacts.Contacts._Initialized.AssertTrue(NYI.Throw);
+    //    }
 
 
     ///<summary>
@@ -150,93 +150,93 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     /// https://www.misterpki.com/netsh-http-add-sslcert/
     /// </remarks>
     ///<param name="forum">The persistence store.</param>
-    public AnnotationService(Forum forum) {
-        Forum = forum;
-        HttpListener = new();
-        HttpListener.Prefixes.Add(HttpEndpoint);
-        HttpListener.Prefixes.Add(HttpsEndpoint);
+    public AnnotationService() {
+        //Forum = forum;
+        //HttpListener = new();
+        //HttpListener.Prefixes.Add(HttpEndpoint);
+        //HttpListener.Prefixes.Add(HttpsEndpoint);
 
-        // Bind the OAUTH client here
+        //// Bind the OAUTH client here
 
-        // These should all belong to Oauth client
-        OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
-        OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
+        //// These should all belong to Oauth client
+        //OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
+        //OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
 
-        JWKS = new JWKS {
-            Keys = [JWK.Factory(OauthClientSignature)
-                , JWK.Factory(OauthClientEncryption)
-                ]
-            };
+        //JWKS = new JWKS {
+        //    Keys = [JWK.Factory(OauthClientSignature)
+        //        , JWK.Factory(OauthClientEncryption)
+        //        ]
+        //    };
 
-        OauthClient = new OauthClient(
-                    ClientMetadataLocation,
-                    RedirectLocation,
-                    JWKS
-                    );
-
-
-        var clientBoilerplate = new BoilerplateVerbatim() {
-            Bytes = OauthClient.ClientMetadataBytes,
-            ContentType = PalimpsestConstants.ClientMetadataType
-            };
-
-        Boilerplate = new Dictionary<string, Boilerplate>() {
-                        { PalimpsestConstants.ClientMetadata, clientBoilerplate },
-            };
-
-        AddBoilerplate(ForumNavigation, true);
-        AddBoilerplate(ForumAdditional);
-
-        ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
-            // public pages, visible to all users but with possibly reduced functionality
-            { "", new (GetHome, false) }, // Home page
-            { PalimpsestConstants.resources, new (GetResources,false) },
-            { PalimpsestConstants.WellKnown, new (GetWellKnown,false) },
-
-            { PalimpsestConstants.SignIn, new (GetSignIn, false) },
-            { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
-            { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
-            { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
-            { PalimpsestConstants.Redirect, new (GetRedirect, false) },
-            { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
-            { PalimpsestConstants.SignOut, new (GetSignOut) },
-
-            /// Wet edge here, pages above have been fixed
+        //OauthClient = new OauthClient(
+        //            ClientMetadataLocation,
+        //            RedirectLocation,
+        //            JWKS
+        //            );
 
 
-            //{ PalimpsestConstants.Terms, new (GetTerms, false) },
-            //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
-            //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
-            //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
-            // private pages, requires log in
+        //var clientBoilerplate = new BoilerplateVerbatim() {
+        //    Bytes = OauthClient.ClientMetadataBytes,
+        //    ContentType = PalimpsestConstants.ClientMetadataType
+        //    };
 
-            { PalimpsestConstants.Place, new (GetPlace,false) },
-            { PalimpsestConstants.AddDocument, new (GetAddDocument) },
-            { PalimpsestConstants.AddTopic, new (GetAddTopic) },
+        //Boilerplate = new Dictionary<string, Boilerplate>() {
+        //                { PalimpsestConstants.ClientMetadata, clientBoilerplate },
+        //    };
 
-            { PalimpsestConstants.Document, new (GetDocument,false) },
-            { PalimpsestConstants.Topic, new (GetTopic,false) },
-            { PalimpsestConstants.Post, new (GetPost,false) },
-            { PalimpsestConstants.User, new (GetVisitor, false) },
+        //AddBoilerplate(ForumNavigation, true);
+        //AddBoilerplate(ForumAdditional);
 
-            { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
-            { PalimpsestConstants.CreatePlacePost, new (PostCreatePlace) },
-            { PalimpsestConstants.DocumentUpload, new (PostUploadDocument) },
-            { PalimpsestConstants.TopicCreate, new (PostCreateTopic) },
+        //ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
+        //    // public pages, visible to all users but with possibly reduced functionality
+        //    { "", new (GetHome, false) }, // Home page
+        //    { PalimpsestConstants.resources, new (GetResources,false) },
+        //    { PalimpsestConstants.WellKnown, new (GetWellKnown,false) },
 
-            { PalimpsestConstants.Actions, new (GetListActions) },
-            { PalimpsestConstants.Comment, new (GetCommentForm) },
-            { PalimpsestConstants.CommentPost, new (PostComment) },
+        //    { PalimpsestConstants.SignIn, new (GetSignIn, false) },
+        //    { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
+        //    { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
+        //    { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
+        //    { PalimpsestConstants.Redirect, new (GetRedirect, false) },
+        //    { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
+        //    { PalimpsestConstants.SignOut, new (GetSignOut) },
 
-            { PalimpsestConstants.CreatePost, new (GetPostForm) },
-            { PalimpsestConstants.PostPost, new (PostPost) },
+        //    /// Wet edge here, pages above have been fixed
 
-            { PalimpsestConstants.CreatePostComment, new (GetPostCommentForm) },
-            { PalimpsestConstants.PostCommentPost, new (PostPostComment) },
 
-             { "*", new (Error) }
+        //    //{ PalimpsestConstants.Terms, new (GetTerms, false) },
+        //    //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
+        //    //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
+        //    //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
+        //    // private pages, requires log in
 
-            };
+        //    { PalimpsestConstants.Place, new (GetPlace,false) },
+        //    { PalimpsestConstants.AddDocument, new (GetAddDocument) },
+        //    { PalimpsestConstants.AddTopic, new (GetAddTopic) },
+
+        //    { PalimpsestConstants.Document, new (GetDocument,false) },
+        //    { PalimpsestConstants.Topic, new (GetTopic,false) },
+        //    { PalimpsestConstants.Post, new (GetPost,false) },
+        //    { PalimpsestConstants.User, new (GetVisitor, false) },
+
+        //    { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
+        //    { PalimpsestConstants.CreatePlacePost, new (PostCreatePlace) },
+        //    { PalimpsestConstants.DocumentUpload, new (PostUploadDocument) },
+        //    { PalimpsestConstants.TopicCreate, new (PostCreateTopic) },
+
+        //    { PalimpsestConstants.Actions, new (GetListActions) },
+        //    { PalimpsestConstants.Comment, new (GetCommentForm) },
+        //    { PalimpsestConstants.CommentPost, new (PostComment) },
+
+        //    { PalimpsestConstants.CreatePost, new (GetPostForm) },
+        //    { PalimpsestConstants.PostPost, new (PostPost) },
+
+        //    { PalimpsestConstants.CreatePostComment, new (GetPostCommentForm) },
+        //    { PalimpsestConstants.PostCommentPost, new (PostPostComment) },
+
+        //     { "*", new (Error) }
+
+            //};
         }
 
     void AddBoilerplate(NavigationItem[] items, bool indexed = false) {

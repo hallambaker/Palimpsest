@@ -5,9 +5,19 @@ using System.Reflection.Emit;
 
 namespace Goedel.Html;
 
+/// <summary>
+/// Generate the backing data for the GUI.
+/// </summary>
 public partial class GenerateBacking {
 
-    public FramePresentation GetDefaultPresentation(List<IFrameField> fields) {
+
+    /// <summary>
+    /// Return the first presentation from the list of fields 
+    /// <paramref name="fields"/> or null if none is found.
+    /// </summary>
+    /// <param name="fields">The list of fields to scan.</param>
+    /// <returns>The first presentation if found, otherwise null.</returns>
+    public static FramePresentation? GetDefaultPresentation(List<IFrameField> fields) {
         foreach (var field in fields) {
             if (field is FramePresentation presentation) {
                 return presentation;
@@ -131,7 +141,7 @@ public partial class Namespace {
 
         switch (entry.TypeH) {
             case Button button: {
-                result.Add(GetFrameButton(frameset, label, button));
+                result.Add(GetFrameButton(label, button));
                 break;
                 }
             case SubMenu menu: {
@@ -143,19 +153,19 @@ public partial class Namespace {
             //    break;
             //    }
             case IReference reference: {
-                result.Add(GetRef(frameset, label, reference));
+                result.Add(GetRef(label, reference));
                 break;
                 }
-            case Separator separator: {
+            case Separator: {
                 result.Add(new FrameSeparator(label));
                 break;
                 }
             case Chooser chooser: {
-                result.Add(GetChooser(frameset, label, chooser));
+                result.Add(GetChooser(label, chooser));
                 break;
                 }
             case IIntrinsic field: {
-                result.Add(GetIntrinsic(frameset, label, field));
+                result.Add(GetIntrinsic(label, field));
                 break;
                 }
             case Presentation presentation: {
@@ -168,10 +178,10 @@ public partial class Namespace {
             }
         }
 
-    public FrameButton GetFrameButton(FrameSet frameset, string label, Button button) {
-        string active = null;
-        string integer = null;
-        string text = null;
+    static FrameButtonParsed GetFrameButton(string label, Button button) {
+        string? active = null;
+        string? integer = null;
+        string? text = null;
 
         foreach (var entry in button.Entries) {
             switch (entry.Type) {
@@ -233,26 +243,23 @@ public partial class Namespace {
         }
 
 
-    string MakePath(_Choice item, string prefix="") => item switch {
+    static string MakePath(_Choice item, string prefix="") => item switch {
         Field field => prefix + field.Id.Label,
         From from => MakePath (from.Type, prefix + from.Id.Label + "?."),
         _ => throw new Internal()
         };
 
 
-    public FrameRef? GetRef(
-                FrameSet frameset,
+    public static FrameRef? GetRef(
                 string id,
                 IReference reference) {
 
-
-        var entry = reference.Reference.Definition as Entry;
-        if (entry is null) {
+        if (reference.Reference.Definition is not Entry entry) {
             return new FrameRef(id);
             }
 
         switch (entry.Type) {
-            case Menu menu: {
+            case Menu: {
                 return new FrameRefMenu(id, entry.Id.Label);
                 }
             case Class:
@@ -281,8 +288,7 @@ public partial class Namespace {
 
 
         }
-    public FrameChooser GetChooser(
-                FrameSet frameset,
+    public static FrameChooser GetChooser(
                 string id,
                 Chooser chooser) {
 
@@ -294,12 +300,11 @@ public partial class Namespace {
         return new FrameChooser(id, options);
         }
 
-    public IFrameField GetIntrinsic(
-            FrameSet frameset,
+    public static IFrameField GetIntrinsic(
             string id,
             IIntrinsic field) => GetBackingFrame (id, field);
 
-    public IFrameField GetBackingFrame(string id, IIntrinsic field) {
+    public static IFrameField GetBackingFrame(string id, IIntrinsic field) {
         IFrameField result = field switch {
             Boolean => new FrameBoolean(id),
             Integer => new FrameInteger(id),
@@ -379,10 +384,6 @@ public interface IReference {
 
 public partial class Is : IReference {
     public REF<_Choice> Reference => Parent;
-    }
-
-public partial class Show : IReference {
-    public REF<_Choice> Reference => Field;
     }
 
 public partial class Form : IReference {
@@ -472,7 +473,7 @@ public partial class Class  {
 
 
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         foreach (var entry in TypeEntries) {
             entry.Init(this);
             switch (entry.Type) {
@@ -493,9 +494,7 @@ public partial class SubClass {
 
     public List<Property> Entries { get; set; }
 
-    public string Description { get; set; }
-
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
 
         // Raise the fields entry to be a child of this.
         foreach (var entry in TypeEntries) {
@@ -511,7 +510,7 @@ public partial class SubClass {
 
 public partial class Display {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent._Parent.Display = Id.Label;
         }
 
@@ -519,7 +518,7 @@ public partial class Display {
 
 public partial class Description {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent._Parent.Description = Text;
         }
 
@@ -527,7 +526,7 @@ public partial class Description {
 
 public partial class Exclude {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.Include = false;
         }
 
@@ -536,7 +535,7 @@ public partial class Exclude {
 
 public partial class ReadOnly {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.ReadOnly = true;
         }
 
@@ -545,35 +544,35 @@ public partial class ReadOnly {
 
 public partial class Compact {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.Attribute = Attribute.Compact;
         }
     }
 
 public partial class Local {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.Attribute = Attribute.Local;
         }
     }
 
 public partial class UTC {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.Attribute = Attribute.UTC;
         }
     }
 
 public partial class Comment {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.Attribute = Attribute.Comment;
         }
     }
 
 public partial class Prompt {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent._Parent.Prompt = Text;
         }
     }
@@ -581,7 +580,7 @@ public partial class Prompt {
 
 public partial class Container {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         var fieldItem = parent as FieldItem;
         parent._Parent.Container = fieldItem.Id.Label;
         }
@@ -589,21 +588,21 @@ public partial class Container {
 
 public partial class Hidden {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent._Parent.Hidden = true;
         }
     }
 
 public partial class Post {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.Attribute = Attribute.Post;
         }
     }
 
 public partial class Rich {
 
-    public override void Init(_Choice parent) {
+    public override void Init(_Choice? parent) {
         parent.Attribute = Attribute.Rich;
         }
     }

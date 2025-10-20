@@ -1,8 +1,10 @@
-﻿namespace Frame;
+﻿namespace Goedel.Places;
 
 
 public partial class HomePage {
 
+    ///<summary>Override the path stem to make the home page the default.</summary>
+    public override string PathStem => "";
 
     public static FramePresentation? FullPresentation(IBinding data) => data switch {
         Place => Place.PlaceReference,
@@ -91,13 +93,14 @@ public partial class Place {
 
 
 public partial class Entry {
- //   /// <summary>Field UserLink</summary>
- //   public BackingTypeLink? UserLink => Utilities.GetUserPage(User?.DisplayHandle, User?.DisplayHandle);
+    //   /// <summary>Field UserLink</summary>
+    //   public BackingTypeLink? UserLink => Utilities.GetUserPage(User?.DisplayHandle, User?.DisplayHandle);
 
- //   /// <summary>Field EntryLink</summary>
-	//public BackingTypeLink? EntryLink => Utilities.GetPostPage(User?.DisplayHandle, User?.DisplayHandle);
+    //   /// <summary>Field EntryLink</summary>
+    //public BackingTypeLink? EntryLink => Utilities.GetPostPage(User?.DisplayHandle, User?.DisplayHandle);
 
-    public virtual string Text { get; set; } = "TBS";
+    ///<summary>Entry text.</summary>
+    public virtual string? Text { get; set; } = "TBS";
 
 
 

@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
+	<PropertyGroup>
+		<Product>Goedel.Utilities</Product>
+		<Description>Coding utilities common to all Goedel libraries.</Description>
+		<Copyright>© 2023</Copyright>
+		<Title>Goedel.Utilities</Title>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Contacts\Goedel.Contacts.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Identifiers\Goedel.Cryptography.Identifiers.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Oauth\Goedel.Cryptography.Oauth.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography\Goedel.Cryptography.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.FSR\Goedel.FSR.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.GenericHost\Goedel.Protocol.GenericHost.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Service\Goedel.Protocol.Service.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol.Web\Goedel.Protocol.Web.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Serialization\Goedel.Serialization.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh.Core\Goedel.Mesh.Core.csproj" />
+		<ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
+		<ProjectReference Include="..\..\DocTools\Goedel.Document.Markdown\Goedel.Document.Markdown.csproj" />
+		<ProjectReference Include="..\..\DocTools\Goedel.Document.OpenXML\Goedel.Document.OpenXML.csproj" />
+		<ProjectReference Include="..\..\DocTools\Goedel.Document.RFC\Goedel.Document.RFC.csproj" />
+		<ProjectReference Include="..\..\Libraries\Goedel.Html\Goedel.Html.csproj" />
+	</ItemGroup>
+	
+	
+	
+	<ItemGroup>
+		<Compile Update="Exceptions.cs">
+			<DependentUpon>Exceptions.exceptional</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="PalimpsestSchema.cs">
+		  <DependentUpon>PalimpsestSchema.protocol</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="PalimsestConstants.cs">
+		  <DependentUpon>PalimsestConstants.constant</DependentUpon>
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		</Compile>
+
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Exceptions.exceptional">
+			<LastGenOutput>Exceptions.cs</LastGenOutput>
+			<Generator>exceptional</Generator>
+		</None>
+		<None Update="PalimpsestSchema.protocol">
+		  <LastGenOutput>PalimpsestSchema.cs</LastGenOutput>
+		  <Generator>Protogen</Generator>
+		</None>
+		<None Update="PalimsestConstants.constant">
+		  <LastGenOutput>PalimsestConstants.cs</LastGenOutput>
+		  <Generator>Constant</Generator>
+		</None>
+
+
+	</ItemGroup>
+
+</Project>
+

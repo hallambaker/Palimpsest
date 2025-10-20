@@ -1,0 +1,15 @@
+﻿Protocol Goedel.Places ForumItem ForumItem
+	Description 
+		|A Palimpsest forum
+
+
+	Extern CatalogedEntry
+
+
+	Section 2 "Catalog Entries"
+
+	Structure CatalogedForumEntry
+		Inherits CatalogedEntry // Uid, LocalName, Path, Description
+		Description
+			|
+		DateTime Added

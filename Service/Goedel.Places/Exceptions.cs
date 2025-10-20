@@ -1,5 +1,5 @@
 ﻿
-//  This file was automatically generated at 10/20/2025 5:06:27 PM
+//  This file was automatically generated at 10/20/2025 6:33:58 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -20,7 +20,7 @@
 
 #pragma warning disable IDE0079
 #pragma warning disable IDE1006 // Naming Styles
-namespace Goedel.Html ;
+namespace Goedel.Places ;
 
 
 /// <summary>

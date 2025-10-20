@@ -76,7 +76,6 @@ using Goedel.Utilities;
 //       Choice
 //       Count
 //       Presentation
-//       Show
 //       Icon
 //       File
 //       Hidden
@@ -92,6 +91,7 @@ using Goedel.Utilities;
 //       Section
 //       SectionEntry
 //       From
+//       Field
 //       Exclude
 //       ReadOnly
 //       Range
@@ -102,6 +102,7 @@ using Goedel.Utilities;
 //       Post
 //       Rich
 //       Prompt
+//       Display
 //   IdType
 //       NamespaceT
 //       EntryT
@@ -118,8 +119,6 @@ using Goedel.Utilities;
 //       Parent
 //       Properties
 //       Uri
-//       Field
-//       Display
 //       Of
 //       Choices
 //       Items
@@ -130,7 +129,7 @@ using Goedel.Utilities;
 //   TokenType
 //       Uid
 
-#pragma warning disable IDE0022, IDE0066, IDE1006, IDE0059
+#pragma warning disable IDE0022, IDE0066, IDE1006, IDE0059, IDE0161, CS1591, CS8618
 namespace Goedel.Html {
 
 
@@ -154,7 +153,6 @@ namespace Goedel.Html {
         Container,
         Link,
         Is,
-        Show,
         List,
         Selection,
         Boolean,
@@ -206,12 +204,12 @@ namespace Goedel.Html {
     public abstract partial class _Choice {
         abstract public FrameStructType _Tag ();
 
-        public _Choice _Parent;
-        public FrameStruct _Base;
+        public _Choice? _Parent;
+        public FrameStruct? _Base;
 
 		public abstract void Serialize (StructureWriter Output, bool tag);
 
-    	public virtual void Init (_Choice parent) {
+    	public virtual void Init (_Choice? parent) {
             _Parent = parent;
             _Base ??= parent?._Base;
 			}
@@ -219,9 +217,9 @@ namespace Goedel.Html {
         
 
 		bool _Initialized = false;
-		public virtual void _InitChildren (_Choice parent) {
+		public virtual void _InitChildren (_Choice? parent) {
 			Init (parent);
-            _Base = parent._Base;
+            _Base = parent?._Base;
 			if (_Initialized) {
 				return;
 				}
@@ -233,12 +231,12 @@ namespace Goedel.Html {
 
     public partial class Namespace : _Choice {
         public ID<_Choice>				Id; 
-        public List <Entry>           Entries = new List<Entry> ();
+        public List <Entry>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Namespace;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -270,7 +268,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Entry;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -291,12 +289,12 @@ namespace Goedel.Html {
 
     public partial class Page : _Choice {
 		public string					Title;
-        public List <FieldItem>           Entries = new List<FieldItem> ();
+        public List <FieldItem>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Page;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -322,12 +320,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Menu : _Choice {
-        public List <FieldItem>           Entries = new List<FieldItem> ();
+        public List <FieldItem>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Menu;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -353,12 +351,12 @@ namespace Goedel.Html {
 
     public partial class SubMenu : _Choice {
 		public string					Title;
-        public List <FieldItem>           Entries = new List<FieldItem> ();
+        public List <FieldItem>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.SubMenu;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -384,12 +382,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Selector : _Choice {
-        public List <FieldItem>           Entries = new List<FieldItem> ();
+        public List <FieldItem>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Selector;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -414,12 +412,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Class : _Choice {
-        public List <Struct>           TypeEntries = new List<Struct> ();
+        public List <Struct>           TypeEntries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Class;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in TypeEntries) {
 				Sub._InitChildren (this);
@@ -445,12 +443,12 @@ namespace Goedel.Html {
 
     public partial class SubClass : _Choice {
         public REF<_Choice>				Parent;
-        public List <Struct>           TypeEntries = new List<Struct> ();
+        public List <Struct>           TypeEntries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.SubClass;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in TypeEntries) {
 				Sub._InitChildren (this);
@@ -481,7 +479,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Struct;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -500,12 +498,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Fields : _Choice {
-        public List <Property>           Entries = new List<Property> ();
+        public List <Property>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Fields;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -536,7 +534,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.FieldItem;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -562,7 +560,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Property;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -582,12 +580,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Anchor : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Anchor;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -618,7 +616,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.ButtonProperty;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -642,7 +640,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Container;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -664,7 +662,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Link;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -683,12 +681,12 @@ namespace Goedel.Html {
 
     public partial class Is : _Choice {
         public REF<_Choice>				Parent;
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Is;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -713,48 +711,14 @@ namespace Goedel.Html {
 			}
 		}
 
-    public partial class Show : _Choice {
-        public REF<_Choice>				Field;
-        public TOKEN<_Choice>			Display;
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
-
-        public override FrameStructType _Tag () =>FrameStructType.Show;
-
-
-		public override void _InitChildren (_Choice Parent) {
-			Init (Parent);
-			foreach (var Sub in Properties) {
-				Sub._InitChildren (this);
-				}
-			}
-
-		public override void Serialize (StructureWriter Output, bool tag) {
-
-			if (tag) {
-				Output.StartElement ("Show");
-				}
-
-	        Output.WriteId ("Field", Field.ToString());
-	        Output.WriteId ("Display", Display.ToString());
-			Output.StartList ("");
-			foreach (FieldProperty _e in Properties) {
-				_e.Serialize (Output, true);
-				}
-			Output.EndList ("");
-			if (tag) {
-				Output.EndElement ("Show");
-				}			
-			}
-		}
-
     public partial class List : _Choice {
         public REF<_Choice>				Of;
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.List;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -781,12 +745,12 @@ namespace Goedel.Html {
 
     public partial class Selection : _Choice {
         public REF<_Choice>				Of;
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Selection;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -812,12 +776,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Boolean : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Boolean;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -842,12 +806,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Integer : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Integer;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -872,12 +836,12 @@ namespace Goedel.Html {
 		}
 
     public partial class DateTime : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.DateTime;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -902,12 +866,12 @@ namespace Goedel.Html {
 		}
 
     public partial class String : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.String;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -932,12 +896,12 @@ namespace Goedel.Html {
 		}
 
     public partial class RichText : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.RichText;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -962,12 +926,12 @@ namespace Goedel.Html {
 		}
 
     public partial class File : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.File;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -992,12 +956,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Text : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Text;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1022,12 +986,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Image : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Image;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1052,12 +1016,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Icon : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Icon;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1082,12 +1046,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Avatar : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Avatar;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1112,12 +1076,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Count : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Count;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1142,12 +1106,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Choice : _Choice {
-        public List <ChoiceEntry>           Choices = new List<ChoiceEntry> ();
+        public List <ChoiceEntry>           Choices = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Choice;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Choices) {
 				Sub._InitChildren (this);
@@ -1177,7 +1141,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.ChoiceEntry;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -1196,12 +1160,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Choices : _Choice {
-        public List <ChoiceOption>           Items = new List<ChoiceOption> ();
+        public List <ChoiceOption>           Items = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Choices;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Items) {
 				Sub._InitChildren (this);
@@ -1232,7 +1196,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.ChoiceOption;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1251,12 +1215,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Separator : _Choice {
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Separator;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1282,12 +1246,12 @@ namespace Goedel.Html {
 
     public partial class Return : _Choice {
         public REF<_Choice>				To;
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Return;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1315,12 +1279,12 @@ namespace Goedel.Html {
     public partial class Button : _Choice {
         public REF<_Choice>				Action;
 		public string					Title;
-        public List <ButtonProperty>           Entries = new List<ButtonProperty> ();
+        public List <ButtonProperty>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Button;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -1347,12 +1311,12 @@ namespace Goedel.Html {
 		}
 
     public partial class Chooser : _Choice {
-        public List <ChooserOption>           Entries = new List<ChooserOption> ();
+        public List <ChooserOption>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Chooser;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -1383,7 +1347,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.ChooserOption;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1403,12 +1367,12 @@ namespace Goedel.Html {
 
     public partial class Presentation : _Choice {
         public TOKEN<_Choice>			Id;
-        public List <Section>           Sections = new List<Section> ();
+        public List <Section>           Sections = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Presentation;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Sections) {
 				Sub._InitChildren (this);
@@ -1435,12 +1399,12 @@ namespace Goedel.Html {
 
     public partial class Form : _Choice {
         public TOKEN<_Choice>			Id;
-        public List <FieldProperty>           Properties = new List<FieldProperty> ();
+        public List <FieldProperty>           Properties = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Form;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Properties) {
 				Sub._InitChildren (this);
@@ -1467,12 +1431,12 @@ namespace Goedel.Html {
 
     public partial class Section : _Choice {
         public TOKEN<_Choice>			Id;
-        public List <FieldItem>           Entries = new List<FieldItem> ();
+        public List <FieldItem>           Entries = [];
 
         public override FrameStructType _Tag () =>FrameStructType.Section;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -1503,7 +1467,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.SectionEntry;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -1528,7 +1492,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.From;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -1553,7 +1517,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Field;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1576,7 +1540,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.FieldProperty;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			Type._InitChildren (this);
 			}
@@ -1600,7 +1564,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Display;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1623,7 +1587,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Description;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1646,7 +1610,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Prompt;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1668,7 +1632,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Exclude;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1689,7 +1653,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.ReadOnly;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1710,7 +1674,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Range;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1731,7 +1695,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Compact;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1752,7 +1716,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Local;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1773,7 +1737,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.UTC;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1794,7 +1758,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Comment;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1815,7 +1779,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Post;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1836,7 +1800,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Rich;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1857,7 +1821,7 @@ namespace Goedel.Html {
         public override FrameStructType _Tag () =>FrameStructType.Hidden;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -1874,7 +1838,7 @@ namespace Goedel.Html {
 		}
 
     class _Label : _Choice {
-        public REF<_Choice>            Label;
+        public REF<_Choice>?            Label;
 
 		// This method is never called. It exists only to prevent a warning when a
 		// Schema does not contain a ChoiceREF element.
@@ -1882,7 +1846,7 @@ namespace Goedel.Html {
 
         public override FrameStructType _Tag () => FrameStructType._Label;
 
-		public override void Serialize (StructureWriter Output, bool tag) =>Output.WriteId ("ID", Label.ToString());
+		public override void Serialize (StructureWriter Output, bool tag) =>Output.WriteId ("ID", Label?.ToString()??"");
         }
 
 
@@ -1933,10 +1897,6 @@ namespace Goedel.Html {
 		Is_Start,
 		Is__Parent,				
 		Is__Properties,				
-		Show_Start,
-		Show__Field,				
-		Show__Display,				
-		Show__Properties,				
 		List_Start,
 		List__Of,				
 		List__Properties,				
@@ -2031,14 +1991,12 @@ namespace Goedel.Html {
         }
 
     public partial class FrameStruct : Goedel.Registry.Parser{
-        public List <Goedel.Html._Choice>        Top;
+        public List <Goedel.Html._Choice>        Top = [];
         public Registry	<Goedel.Html._Choice>	Registry;
-
         public bool StartOfEntry {get;  private set;}
-
-        StateCode								State;
+        StateCode								State = StateCode._Start;
         Goedel.Html._Choice				Current;
-        List <_StackItem>						Stack;
+        readonly List <_StackItem>						Stack = [];
 
 
         public static FrameStruct Parse(string File, Goedel.Registry.Dispatch Options) {
@@ -2048,7 +2006,7 @@ namespace Goedel.Html {
 
             using (Stream infile =
                         new FileStream(File, FileMode.Open, FileAccess.Read)) {
-                Lexer Schema = new Lexer(File);
+                Lexer Schema = new (File);
                 Schema.Process(infile, Result);
                 }
             Result.Init ();
@@ -2070,10 +2028,7 @@ namespace Goedel.Html {
 			}
 
         public FrameStruct() {
-            Top = new List<Goedel.Html._Choice> () ;
             Registry = new Registry <Goedel.Html._Choice> ();
-            State = StateCode._Start;
-            Stack = new List <_StackItem> ();
             StartOfEntry = true;
 
 			TYPE__NamespaceT = Registry.TYPE ("NamespaceT"); 
@@ -2110,7 +2065,6 @@ namespace Goedel.Html {
                 case "Container": return NewContainer();
                 case "Link": return NewLink();
                 case "Is": return NewIs();
-                case "Show": return NewShow();
                 case "List": return NewList();
                 case "Selection": return NewSelection();
                 case "Boolean": return NewBoolean();
@@ -2162,7 +2116,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Namespace NewNamespace() {
-            Goedel.Html.Namespace result = new Goedel.Html.Namespace();
+            Goedel.Html.Namespace result = new ();
             Push (result);
             State = StateCode.Namespace_Start;
             return result;
@@ -2170,7 +2124,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Entry NewEntry() {
-            Goedel.Html.Entry result = new Goedel.Html.Entry();
+            Goedel.Html.Entry result = new ();
             Push (result);
             State = StateCode.Entry_Start;
             return result;
@@ -2178,7 +2132,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Page NewPage() {
-            Goedel.Html.Page result = new Goedel.Html.Page();
+            Goedel.Html.Page result = new ();
             Push (result);
             State = StateCode.Page_Start;
             return result;
@@ -2186,7 +2140,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Menu NewMenu() {
-            Goedel.Html.Menu result = new Goedel.Html.Menu();
+            Goedel.Html.Menu result = new ();
             Push (result);
             State = StateCode.Menu_Start;
             return result;
@@ -2194,7 +2148,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.SubMenu NewSubMenu() {
-            Goedel.Html.SubMenu result = new Goedel.Html.SubMenu();
+            Goedel.Html.SubMenu result = new ();
             Push (result);
             State = StateCode.SubMenu_Start;
             return result;
@@ -2202,7 +2156,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Selector NewSelector() {
-            Goedel.Html.Selector result = new Goedel.Html.Selector();
+            Goedel.Html.Selector result = new ();
             Push (result);
             State = StateCode.Selector_Start;
             return result;
@@ -2210,7 +2164,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Class NewClass() {
-            Goedel.Html.Class result = new Goedel.Html.Class();
+            Goedel.Html.Class result = new ();
             Push (result);
             State = StateCode.Class_Start;
             return result;
@@ -2218,7 +2172,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.SubClass NewSubClass() {
-            Goedel.Html.SubClass result = new Goedel.Html.SubClass();
+            Goedel.Html.SubClass result = new ();
             Push (result);
             State = StateCode.SubClass_Start;
             return result;
@@ -2226,7 +2180,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Struct NewStruct() {
-            Goedel.Html.Struct result = new Goedel.Html.Struct();
+            Goedel.Html.Struct result = new ();
             Push (result);
             State = StateCode.Struct_Start;
             return result;
@@ -2234,7 +2188,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Fields NewFields() {
-            Goedel.Html.Fields result = new Goedel.Html.Fields();
+            Goedel.Html.Fields result = new ();
             Push (result);
             State = StateCode.Fields_Start;
             return result;
@@ -2242,7 +2196,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.FieldItem NewFieldItem() {
-            Goedel.Html.FieldItem result = new Goedel.Html.FieldItem();
+            Goedel.Html.FieldItem result = new ();
             Push (result);
             State = StateCode.FieldItem_Start;
             return result;
@@ -2250,7 +2204,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Property NewProperty() {
-            Goedel.Html.Property result = new Goedel.Html.Property();
+            Goedel.Html.Property result = new ();
             Push (result);
             State = StateCode.Property_Start;
             return result;
@@ -2258,7 +2212,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Anchor NewAnchor() {
-            Goedel.Html.Anchor result = new Goedel.Html.Anchor();
+            Goedel.Html.Anchor result = new ();
             Push (result);
             State = StateCode.Anchor_Start;
             return result;
@@ -2266,7 +2220,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.ButtonProperty NewButtonProperty() {
-            Goedel.Html.ButtonProperty result = new Goedel.Html.ButtonProperty();
+            Goedel.Html.ButtonProperty result = new ();
             Push (result);
             State = StateCode.ButtonProperty_Start;
             return result;
@@ -2274,7 +2228,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Container NewContainer() {
-            Goedel.Html.Container result = new Goedel.Html.Container();
+            Goedel.Html.Container result = new ();
             Push (result);
             State = StateCode.Container_Start;
             return result;
@@ -2282,7 +2236,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Link NewLink() {
-            Goedel.Html.Link result = new Goedel.Html.Link();
+            Goedel.Html.Link result = new ();
             Push (result);
             State = StateCode.Link_Start;
             return result;
@@ -2290,23 +2244,15 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Is NewIs() {
-            Goedel.Html.Is result = new Goedel.Html.Is();
+            Goedel.Html.Is result = new ();
             Push (result);
             State = StateCode.Is_Start;
             return result;
             }
 
 
-        private Goedel.Html.Show NewShow() {
-            Goedel.Html.Show result = new Goedel.Html.Show();
-            Push (result);
-            State = StateCode.Show_Start;
-            return result;
-            }
-
-
         private Goedel.Html.List NewList() {
-            Goedel.Html.List result = new Goedel.Html.List();
+            Goedel.Html.List result = new ();
             Push (result);
             State = StateCode.List_Start;
             return result;
@@ -2314,7 +2260,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Selection NewSelection() {
-            Goedel.Html.Selection result = new Goedel.Html.Selection();
+            Goedel.Html.Selection result = new ();
             Push (result);
             State = StateCode.Selection_Start;
             return result;
@@ -2322,7 +2268,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Boolean NewBoolean() {
-            Goedel.Html.Boolean result = new Goedel.Html.Boolean();
+            Goedel.Html.Boolean result = new ();
             Push (result);
             State = StateCode.Boolean_Start;
             return result;
@@ -2330,7 +2276,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Integer NewInteger() {
-            Goedel.Html.Integer result = new Goedel.Html.Integer();
+            Goedel.Html.Integer result = new ();
             Push (result);
             State = StateCode.Integer_Start;
             return result;
@@ -2338,7 +2284,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.DateTime NewDateTime() {
-            Goedel.Html.DateTime result = new Goedel.Html.DateTime();
+            Goedel.Html.DateTime result = new ();
             Push (result);
             State = StateCode.DateTime_Start;
             return result;
@@ -2346,7 +2292,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.String NewString() {
-            Goedel.Html.String result = new Goedel.Html.String();
+            Goedel.Html.String result = new ();
             Push (result);
             State = StateCode.String_Start;
             return result;
@@ -2354,7 +2300,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.RichText NewRichText() {
-            Goedel.Html.RichText result = new Goedel.Html.RichText();
+            Goedel.Html.RichText result = new ();
             Push (result);
             State = StateCode.RichText_Start;
             return result;
@@ -2362,7 +2308,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.File NewFile() {
-            Goedel.Html.File result = new Goedel.Html.File();
+            Goedel.Html.File result = new ();
             Push (result);
             State = StateCode.File_Start;
             return result;
@@ -2370,7 +2316,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Text NewText() {
-            Goedel.Html.Text result = new Goedel.Html.Text();
+            Goedel.Html.Text result = new ();
             Push (result);
             State = StateCode.Text_Start;
             return result;
@@ -2378,7 +2324,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Image NewImage() {
-            Goedel.Html.Image result = new Goedel.Html.Image();
+            Goedel.Html.Image result = new ();
             Push (result);
             State = StateCode.Image_Start;
             return result;
@@ -2386,7 +2332,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Icon NewIcon() {
-            Goedel.Html.Icon result = new Goedel.Html.Icon();
+            Goedel.Html.Icon result = new ();
             Push (result);
             State = StateCode.Icon_Start;
             return result;
@@ -2394,7 +2340,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Avatar NewAvatar() {
-            Goedel.Html.Avatar result = new Goedel.Html.Avatar();
+            Goedel.Html.Avatar result = new ();
             Push (result);
             State = StateCode.Avatar_Start;
             return result;
@@ -2402,7 +2348,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Count NewCount() {
-            Goedel.Html.Count result = new Goedel.Html.Count();
+            Goedel.Html.Count result = new ();
             Push (result);
             State = StateCode.Count_Start;
             return result;
@@ -2410,7 +2356,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Choice NewChoice() {
-            Goedel.Html.Choice result = new Goedel.Html.Choice();
+            Goedel.Html.Choice result = new ();
             Push (result);
             State = StateCode.Choice_Start;
             return result;
@@ -2418,7 +2364,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.ChoiceEntry NewChoiceEntry() {
-            Goedel.Html.ChoiceEntry result = new Goedel.Html.ChoiceEntry();
+            Goedel.Html.ChoiceEntry result = new ();
             Push (result);
             State = StateCode.ChoiceEntry_Start;
             return result;
@@ -2426,7 +2372,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Choices NewChoices() {
-            Goedel.Html.Choices result = new Goedel.Html.Choices();
+            Goedel.Html.Choices result = new ();
             Push (result);
             State = StateCode.Choices_Start;
             return result;
@@ -2434,7 +2380,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.ChoiceOption NewChoiceOption() {
-            Goedel.Html.ChoiceOption result = new Goedel.Html.ChoiceOption();
+            Goedel.Html.ChoiceOption result = new ();
             Push (result);
             State = StateCode.ChoiceOption_Start;
             return result;
@@ -2442,7 +2388,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Separator NewSeparator() {
-            Goedel.Html.Separator result = new Goedel.Html.Separator();
+            Goedel.Html.Separator result = new ();
             Push (result);
             State = StateCode.Separator_Start;
             return result;
@@ -2450,7 +2396,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Return NewReturn() {
-            Goedel.Html.Return result = new Goedel.Html.Return();
+            Goedel.Html.Return result = new ();
             Push (result);
             State = StateCode.Return_Start;
             return result;
@@ -2458,7 +2404,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Button NewButton() {
-            Goedel.Html.Button result = new Goedel.Html.Button();
+            Goedel.Html.Button result = new ();
             Push (result);
             State = StateCode.Button_Start;
             return result;
@@ -2466,7 +2412,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Chooser NewChooser() {
-            Goedel.Html.Chooser result = new Goedel.Html.Chooser();
+            Goedel.Html.Chooser result = new ();
             Push (result);
             State = StateCode.Chooser_Start;
             return result;
@@ -2474,7 +2420,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.ChooserOption NewChooserOption() {
-            Goedel.Html.ChooserOption result = new Goedel.Html.ChooserOption();
+            Goedel.Html.ChooserOption result = new ();
             Push (result);
             State = StateCode.ChooserOption_Start;
             return result;
@@ -2482,7 +2428,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Presentation NewPresentation() {
-            Goedel.Html.Presentation result = new Goedel.Html.Presentation();
+            Goedel.Html.Presentation result = new ();
             Push (result);
             State = StateCode.Presentation_Start;
             return result;
@@ -2490,7 +2436,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Form NewForm() {
-            Goedel.Html.Form result = new Goedel.Html.Form();
+            Goedel.Html.Form result = new ();
             Push (result);
             State = StateCode.Form_Start;
             return result;
@@ -2498,7 +2444,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Section NewSection() {
-            Goedel.Html.Section result = new Goedel.Html.Section();
+            Goedel.Html.Section result = new ();
             Push (result);
             State = StateCode.Section_Start;
             return result;
@@ -2506,7 +2452,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.SectionEntry NewSectionEntry() {
-            Goedel.Html.SectionEntry result = new Goedel.Html.SectionEntry();
+            Goedel.Html.SectionEntry result = new ();
             Push (result);
             State = StateCode.SectionEntry_Start;
             return result;
@@ -2514,7 +2460,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.From NewFrom() {
-            Goedel.Html.From result = new Goedel.Html.From();
+            Goedel.Html.From result = new ();
             Push (result);
             State = StateCode.From_Start;
             return result;
@@ -2522,7 +2468,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Field NewField() {
-            Goedel.Html.Field result = new Goedel.Html.Field();
+            Goedel.Html.Field result = new ();
             Push (result);
             State = StateCode.Field_Start;
             return result;
@@ -2530,7 +2476,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.FieldProperty NewFieldProperty() {
-            Goedel.Html.FieldProperty result = new Goedel.Html.FieldProperty();
+            Goedel.Html.FieldProperty result = new ();
             Push (result);
             State = StateCode.FieldProperty_Start;
             return result;
@@ -2538,7 +2484,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Display NewDisplay() {
-            Goedel.Html.Display result = new Goedel.Html.Display();
+            Goedel.Html.Display result = new ();
             Push (result);
             State = StateCode.Display_Start;
             return result;
@@ -2546,7 +2492,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Description NewDescription() {
-            Goedel.Html.Description result = new Goedel.Html.Description();
+            Goedel.Html.Description result = new ();
             Push (result);
             State = StateCode.Description_Start;
             return result;
@@ -2554,7 +2500,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Prompt NewPrompt() {
-            Goedel.Html.Prompt result = new Goedel.Html.Prompt();
+            Goedel.Html.Prompt result = new ();
             Push (result);
             State = StateCode.Prompt_Start;
             return result;
@@ -2562,7 +2508,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Exclude NewExclude() {
-            Goedel.Html.Exclude result = new Goedel.Html.Exclude();
+            Goedel.Html.Exclude result = new ();
             Push (result);
             State = StateCode.Exclude_Start;
             return result;
@@ -2570,7 +2516,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.ReadOnly NewReadOnly() {
-            Goedel.Html.ReadOnly result = new Goedel.Html.ReadOnly();
+            Goedel.Html.ReadOnly result = new ();
             Push (result);
             State = StateCode.ReadOnly_Start;
             return result;
@@ -2578,7 +2524,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Range NewRange() {
-            Goedel.Html.Range result = new Goedel.Html.Range();
+            Goedel.Html.Range result = new ();
             Push (result);
             State = StateCode.Range_Start;
             return result;
@@ -2586,7 +2532,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Compact NewCompact() {
-            Goedel.Html.Compact result = new Goedel.Html.Compact();
+            Goedel.Html.Compact result = new ();
             Push (result);
             State = StateCode.Compact_Start;
             return result;
@@ -2594,7 +2540,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Local NewLocal() {
-            Goedel.Html.Local result = new Goedel.Html.Local();
+            Goedel.Html.Local result = new ();
             Push (result);
             State = StateCode.Local_Start;
             return result;
@@ -2602,7 +2548,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.UTC NewUTC() {
-            Goedel.Html.UTC result = new Goedel.Html.UTC();
+            Goedel.Html.UTC result = new ();
             Push (result);
             State = StateCode.UTC_Start;
             return result;
@@ -2610,7 +2556,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Comment NewComment() {
-            Goedel.Html.Comment result = new Goedel.Html.Comment();
+            Goedel.Html.Comment result = new ();
             Push (result);
             State = StateCode.Comment_Start;
             return result;
@@ -2618,7 +2564,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Post NewPost() {
-            Goedel.Html.Post result = new Goedel.Html.Post();
+            Goedel.Html.Post result = new ();
             Push (result);
             State = StateCode.Post_Start;
             return result;
@@ -2626,7 +2572,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Rich NewRich() {
-            Goedel.Html.Rich result = new Goedel.Html.Rich();
+            Goedel.Html.Rich result = new ();
             Push (result);
             State = StateCode.Rich_Start;
             return result;
@@ -2634,7 +2580,7 @@ namespace Goedel.Html {
 
 
         private Goedel.Html.Hidden NewHidden() {
-            Goedel.Html.Hidden result = new Goedel.Html.Hidden();
+            Goedel.Html.Hidden result = new ();
             Push (result);
             State = StateCode.Hidden_Start;
             return result;
@@ -2661,7 +2607,6 @@ namespace Goedel.Html {
                 case "Container": return Goedel.Html.FrameStructType.Container;
                 case "Link": return Goedel.Html.FrameStructType.Link;
                 case "Is": return Goedel.Html.FrameStructType.Is;
-                case "Show": return Goedel.Html.FrameStructType.Show;
                 case "List": return Goedel.Html.FrameStructType.List;
                 case "Selection": return Goedel.Html.FrameStructType.Selection;
                 case "Boolean": return Goedel.Html.FrameStructType.Boolean;
@@ -2724,7 +2669,7 @@ namespace Goedel.Html {
 
 
         void Push (Goedel.Html._Choice Token) {
-            _StackItem Item = new _StackItem () {
+            _StackItem Item = new  () {
 					State = State,
 					Token = Current
 					};
@@ -2739,7 +2684,7 @@ namespace Goedel.Html {
         void Pop () {
 			Assert.AssertFalse (Stack.Count == 0, InternalError.Throw);
 
-            _StackItem Item = Stack[Stack.Count -1];
+            _StackItem Item = Stack[^1];
             State = Item.State;
             Current = Item.Token;
 
@@ -2827,8 +2772,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Namespace Current_Cast = (Goedel.Html.Namespace)Current;
                             Current_Cast.Entries.Add (NewEntry ());
@@ -2900,8 +2843,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Page Current_Cast = (Goedel.Html.Page)Current;
                             Current_Cast.Entries.Add (NewFieldItem ());
@@ -2929,8 +2870,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Menu Current_Cast = (Goedel.Html.Menu)Current;
                             Current_Cast.Entries.Add (NewFieldItem ());
@@ -2967,8 +2906,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.SubMenu Current_Cast = (Goedel.Html.SubMenu)Current;
                             Current_Cast.Entries.Add (NewFieldItem ());
@@ -2996,8 +2933,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Selector Current_Cast = (Goedel.Html.Selector)Current;
                             Current_Cast.Entries.Add (NewFieldItem ());
@@ -3025,8 +2960,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Class Current_Cast = (Goedel.Html.Class)Current;
                             Current_Cast.TypeEntries.Add (NewStruct ());
@@ -3063,8 +2996,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.SubClass Current_Cast = (Goedel.Html.SubClass)Current;
                             Current_Cast.TypeEntries.Add (NewStruct ());
@@ -3115,8 +3046,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Fields Current_Cast = (Goedel.Html.Fields)Current;
                             Current_Cast.Entries.Add (NewProperty ());
@@ -3160,7 +3089,6 @@ namespace Goedel.Html {
 									(LabelType == Goedel.Html.FrameStructType.Selector) |
 									(LabelType == Goedel.Html.FrameStructType.Count) |
 									(LabelType == Goedel.Html.FrameStructType.Presentation) |
-									(LabelType == Goedel.Html.FrameStructType.Show) |
 									(LabelType == Goedel.Html.FrameStructType.Icon) |
 									(LabelType == Goedel.Html.FrameStructType.File) |
 									(LabelType == Goedel.Html.FrameStructType.Hidden) |
@@ -3171,12 +3099,12 @@ namespace Goedel.Html {
                                 Current_Cast.Type = New_Choice(Text);
                                 }
                             else {
-                               throw new Expected ("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Anchor RichText Image Avatar List Choice Selector Count Presentation Show Icon File Hidden Form Selection Container ]");
+                               throw new Expected ("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Anchor RichText Image Avatar List Choice Selector Count Presentation Icon File Hidden Form Selection Container ]");
                                 }
                             break;
                             }
                         else { 
-						    throw new Expected("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Anchor RichText Image Avatar List Choice Selector Count Presentation Show Icon File Hidden Form Selection Container ]");
+						    throw new Expected("Parser Error Expected [Button Chooser Separator SubMenu Return Is Boolean Integer DateTime String Text Anchor RichText Image Avatar List Choice Selector Count Presentation Icon File Hidden Form Selection Container ]");
                             }
 
                     case StateCode.FieldItem__Type:
@@ -3252,8 +3180,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Anchor Current_Cast = (Goedel.Html.Anchor)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3341,57 +3267,8 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Is Current_Cast = (Goedel.Html.Is)Current;
-                            Current_Cast.Properties.Add (NewFieldProperty ());
-                            Represent = true;
-                            }
-
-                        break;
-
-
-                    case StateCode.Show_Start:
-                        if ((Token == TokenType.LABEL) | (Token == TokenType.LITERAL)) {
-                            Goedel.Html.Show Current_Cast = (Goedel.Html.Show)Current;
-                            Current_Cast.Field = Registry.REF(Position, Text, TYPE__EntryT, Current_Cast);
-                            State = StateCode.Show__Field;
-                            break;
-                            }
-                        throw new Expected("Expected LABEL or LITERAL");
-
-                    case StateCode.Show__Field:
-                        if ((Token == TokenType.LABEL) | (Token == TokenType.LITERAL)) {
-                            Goedel.Html.Show Current_Cast = (Goedel.Html.Show)Current;
-                            Current_Cast.Display = Registry.TOKEN(Position, Text, TYPE__EntryT, Current_Cast);
-                            State = StateCode.Show__Display;
-                            break;
-                            }
-                        throw new Expected("Expected LABEL or LITERAL");
-
-                    case StateCode.Show__Display:
-
-                        if (Token == TokenType.BEGIN) {
-                            State = StateCode.Show__Properties;
-                            }
-                        else {
-							Pop ();
-                            Represent = true;
-                            }
-                        break;
-                    case StateCode.Show__Properties: 
-                        if (Token == TokenType.END) {
-                            Pop();
-                            break;
-                            }
-
-						// Parser transition for LIST $$$$$
-
-
-						/// Label
-                        else {
-                            Goedel.Html.Show Current_Cast = (Goedel.Html.Show)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
                             Represent = true;
                             }
@@ -3426,8 +3303,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.List Current_Cast = (Goedel.Html.List)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3464,8 +3339,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Selection Current_Cast = (Goedel.Html.Selection)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3493,8 +3366,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Boolean Current_Cast = (Goedel.Html.Boolean)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3522,8 +3393,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Integer Current_Cast = (Goedel.Html.Integer)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3551,8 +3420,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.DateTime Current_Cast = (Goedel.Html.DateTime)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3580,8 +3447,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.String Current_Cast = (Goedel.Html.String)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3609,8 +3474,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.RichText Current_Cast = (Goedel.Html.RichText)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3638,8 +3501,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.File Current_Cast = (Goedel.Html.File)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3667,8 +3528,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Text Current_Cast = (Goedel.Html.Text)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3696,8 +3555,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Image Current_Cast = (Goedel.Html.Image)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3725,8 +3582,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Icon Current_Cast = (Goedel.Html.Icon)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3754,8 +3609,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Avatar Current_Cast = (Goedel.Html.Avatar)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3783,8 +3636,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Count Current_Cast = (Goedel.Html.Count)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3812,8 +3663,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Choice Current_Cast = (Goedel.Html.Choice)Current;
                             Current_Cast.Choices.Add (NewChoiceEntry ());
@@ -3864,8 +3713,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Choices Current_Cast = (Goedel.Html.Choices)Current;
                             Current_Cast.Items.Add (NewChoiceOption ());
@@ -3915,8 +3762,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Separator Current_Cast = (Goedel.Html.Separator)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -3953,8 +3798,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Return Current_Cast = (Goedel.Html.Return)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -4000,8 +3843,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Button Current_Cast = (Goedel.Html.Button)Current;
                             Current_Cast.Entries.Add (NewButtonProperty ());
@@ -4029,8 +3870,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Chooser Current_Cast = (Goedel.Html.Chooser)Current;
                             Current_Cast.Entries.Add (NewChooserOption ());
@@ -4089,8 +3928,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Presentation Current_Cast = (Goedel.Html.Presentation)Current;
                             Current_Cast.Sections.Add (NewSection ());
@@ -4127,8 +3964,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Form Current_Cast = (Goedel.Html.Form)Current;
                             Current_Cast.Properties.Add (NewFieldProperty ());
@@ -4165,8 +4000,6 @@ namespace Goedel.Html {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Html.Section Current_Cast = (Goedel.Html.Section)Current;
                             Current_Cast.Entries.Add (NewFieldItem ());

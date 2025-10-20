@@ -100,7 +100,7 @@ using Goedel.Utilities;
 //       ClassType
 //       FormatField
 
-#pragma warning disable IDE0022, IDE0066, IDE1006, IDE0059
+#pragma warning disable IDE0022, IDE0066, IDE1006, IDE0059, IDE0161, CS1591, CS8618
 namespace Goedel.Document.Markdown.Tags {
 
 
@@ -143,12 +143,12 @@ namespace Goedel.Document.Markdown.Tags {
     public abstract partial class _Choice {
         abstract public MarkSchemaType _Tag ();
 
-        public _Choice _Parent;
-        public MarkSchema _Base;
+        public _Choice? _Parent;
+        public MarkSchema? _Base;
 
 		public abstract void Serialize (StructureWriter Output, bool tag);
 
-    	public virtual void Init (_Choice parent) {
+    	public virtual void Init (_Choice? parent) {
             _Parent = parent;
             _Base ??= parent?._Base;
 			}
@@ -156,9 +156,9 @@ namespace Goedel.Document.Markdown.Tags {
         
 
 		bool _Initialized = false;
-		public virtual void _InitChildren (_Choice parent) {
+		public virtual void _InitChildren (_Choice? parent) {
 			Init (parent);
-            _Base = parent._Base;
+            _Base = parent?._Base;
 			if (_Initialized) {
 				return;
 				}
@@ -171,12 +171,12 @@ namespace Goedel.Document.Markdown.Tags {
     public partial class Class : _Choice {
         public TOKEN<_Choice>			Namespace;
         public TOKEN<_Choice>			Name;
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Class;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -204,12 +204,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class Meta : _Choice {
         public ID<_Choice>				Id; 
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Meta;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -236,12 +236,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class Layout : _Choice {
         public ID<_Choice>				Id; 
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Layout;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -268,12 +268,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class Block : _Choice {
         public ID<_Choice>				Id; 
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Block;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -300,12 +300,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class Annotation : _Choice {
         public ID<_Choice>				Id; 
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Annotation;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -332,12 +332,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class Item : _Choice {
         public ID<_Choice>				Id; 
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Item;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -370,7 +370,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Markup;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -392,12 +392,12 @@ namespace Goedel.Document.Markdown.Tags {
     public partial class XML : _Choice {
 		public string					Tag;
 		public string					First;
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.XML;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -430,7 +430,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Default;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -454,7 +454,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Stack;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -477,7 +477,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Wrap;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -500,7 +500,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Level;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -518,12 +518,12 @@ namespace Goedel.Document.Markdown.Tags {
 		}
 
     public partial class Remark : _Choice {
-		public List <System.String>			Text = new List <System.String> (); 
+		public List <System.String>			Text = []; 
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Remark;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -543,12 +543,12 @@ namespace Goedel.Document.Markdown.Tags {
 		}
 
     public partial class Start : _Choice {
-		public List <System.String>			Text = new List <System.String> (); 
+		public List <System.String>			Text = []; 
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Start;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -568,12 +568,12 @@ namespace Goedel.Document.Markdown.Tags {
 		}
 
     public partial class End : _Choice {
-		public List <System.String>			Text = new List <System.String> (); 
+		public List <System.String>			Text = []; 
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.End;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -598,7 +598,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.String;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -621,7 +621,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Flag;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -644,7 +644,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Integer;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -663,12 +663,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class Format : _Choice {
         public ID<_Choice>				Id; 
-        public List <_Choice>           Entries = new List<_Choice> ();
+        public List <_Choice>           Entries = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Format;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Entries) {
 				Sub._InitChildren (this);
@@ -695,12 +695,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class Entry : _Choice {
         public TOKEN<_Choice>			Id;
-		public List <System.String>			Strings = new List <System.String> (); 
+		public List <System.String>			Strings = []; 
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.Entry;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -722,12 +722,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class XEmpty : _Choice {
 		public string					Label;
-        public List <TValue>           Attributes = new List<TValue> ();
+        public List <TValue>           Attributes = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.XEmpty;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Attributes) {
 				Sub._InitChildren (this);
@@ -754,12 +754,12 @@ namespace Goedel.Document.Markdown.Tags {
 
     public partial class XStart : _Choice {
 		public string					Label;
-        public List <TValue>           Attributes = new List<TValue> ();
+        public List <TValue>           Attributes = [];
 
         public override MarkSchemaType _Tag () =>MarkSchemaType.XStart;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			foreach (var Sub in Attributes) {
 				Sub._InitChildren (this);
@@ -789,7 +789,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.XClose;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -811,7 +811,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Template;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -835,7 +835,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.TValue;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -859,7 +859,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.XString;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -881,7 +881,7 @@ namespace Goedel.Document.Markdown.Tags {
         public override MarkSchemaType _Tag () =>MarkSchemaType.Any;
 
 
-		public override void _InitChildren (_Choice Parent) {
+		public override void _InitChildren (_Choice? Parent) {
 			Init (Parent);
 			}
 
@@ -898,7 +898,7 @@ namespace Goedel.Document.Markdown.Tags {
 		}
 
     class _Label : _Choice {
-        public REF<_Choice>            Label;
+        public REF<_Choice>?            Label;
 
 		// This method is never called. It exists only to prevent a warning when a
 		// Schema does not contain a ChoiceREF element.
@@ -906,7 +906,7 @@ namespace Goedel.Document.Markdown.Tags {
 
         public override MarkSchemaType _Tag () => MarkSchemaType._Label;
 
-		public override void Serialize (StructureWriter Output, bool tag) =>Output.WriteId ("ID", Label.ToString());
+		public override void Serialize (StructureWriter Output, bool tag) =>Output.WriteId ("ID", Label?.ToString()??"");
         }
 
 
@@ -994,14 +994,12 @@ namespace Goedel.Document.Markdown.Tags {
         }
 
     public partial class MarkSchema : Goedel.Registry.Parser{
-        public List <Goedel.Document.Markdown.Tags._Choice>        Top;
+        public List <Goedel.Document.Markdown.Tags._Choice>        Top = [];
         public Registry	<Goedel.Document.Markdown.Tags._Choice>	Registry;
-
         public bool StartOfEntry {get;  private set;}
-
-        StateCode								State;
+        StateCode								State = StateCode._Start;
         Goedel.Document.Markdown.Tags._Choice				Current;
-        List <_StackItem>						Stack;
+        readonly List <_StackItem>						Stack = [];
 
 
         public static MarkSchema Parse(string File, Goedel.Registry.Dispatch Options) {
@@ -1011,7 +1009,7 @@ namespace Goedel.Document.Markdown.Tags {
 
             using (Stream infile =
                         new FileStream(File, FileMode.Open, FileAccess.Read)) {
-                Lexer Schema = new Lexer(File);
+                Lexer Schema = new (File);
                 Schema.Process(infile, Result);
                 }
             Result.Init ();
@@ -1033,10 +1031,7 @@ namespace Goedel.Document.Markdown.Tags {
 			}
 
         public MarkSchema() {
-            Top = new List<Goedel.Document.Markdown.Tags._Choice> () ;
             Registry = new Registry <Goedel.Document.Markdown.Tags._Choice> ();
-            State = StateCode._Start;
-            Stack = new List <_StackItem> ();
             StartOfEntry = true;
 
 			TYPE__ElementID = Registry.TYPE ("ElementID"); 
@@ -1098,7 +1093,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Class NewClass() {
-            Goedel.Document.Markdown.Tags.Class result = new Goedel.Document.Markdown.Tags.Class();
+            Goedel.Document.Markdown.Tags.Class result = new ();
             Push (result);
             State = StateCode.Class_Start;
             return result;
@@ -1106,7 +1101,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Meta NewMeta() {
-            Goedel.Document.Markdown.Tags.Meta result = new Goedel.Document.Markdown.Tags.Meta();
+            Goedel.Document.Markdown.Tags.Meta result = new ();
             Push (result);
             State = StateCode.Meta_Start;
             return result;
@@ -1114,7 +1109,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Layout NewLayout() {
-            Goedel.Document.Markdown.Tags.Layout result = new Goedel.Document.Markdown.Tags.Layout();
+            Goedel.Document.Markdown.Tags.Layout result = new ();
             Push (result);
             State = StateCode.Layout_Start;
             return result;
@@ -1122,7 +1117,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Block NewBlock() {
-            Goedel.Document.Markdown.Tags.Block result = new Goedel.Document.Markdown.Tags.Block();
+            Goedel.Document.Markdown.Tags.Block result = new ();
             Push (result);
             State = StateCode.Block_Start;
             return result;
@@ -1130,7 +1125,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Annotation NewAnnotation() {
-            Goedel.Document.Markdown.Tags.Annotation result = new Goedel.Document.Markdown.Tags.Annotation();
+            Goedel.Document.Markdown.Tags.Annotation result = new ();
             Push (result);
             State = StateCode.Annotation_Start;
             return result;
@@ -1138,7 +1133,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Item NewItem() {
-            Goedel.Document.Markdown.Tags.Item result = new Goedel.Document.Markdown.Tags.Item();
+            Goedel.Document.Markdown.Tags.Item result = new ();
             Push (result);
             State = StateCode.Item_Start;
             return result;
@@ -1146,7 +1141,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Markup NewMarkup() {
-            Goedel.Document.Markdown.Tags.Markup result = new Goedel.Document.Markdown.Tags.Markup();
+            Goedel.Document.Markdown.Tags.Markup result = new ();
             Push (result);
             State = StateCode.Markup_Start;
             return result;
@@ -1154,7 +1149,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.XML NewXML() {
-            Goedel.Document.Markdown.Tags.XML result = new Goedel.Document.Markdown.Tags.XML();
+            Goedel.Document.Markdown.Tags.XML result = new ();
             Push (result);
             State = StateCode.XML_Start;
             return result;
@@ -1162,7 +1157,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Default NewDefault() {
-            Goedel.Document.Markdown.Tags.Default result = new Goedel.Document.Markdown.Tags.Default();
+            Goedel.Document.Markdown.Tags.Default result = new ();
             Push (result);
             State = StateCode.Default_Start;
             return result;
@@ -1170,7 +1165,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Stack NewStack() {
-            Goedel.Document.Markdown.Tags.Stack result = new Goedel.Document.Markdown.Tags.Stack();
+            Goedel.Document.Markdown.Tags.Stack result = new ();
             Push (result);
             State = StateCode.Stack_Start;
             return result;
@@ -1178,7 +1173,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Wrap NewWrap() {
-            Goedel.Document.Markdown.Tags.Wrap result = new Goedel.Document.Markdown.Tags.Wrap();
+            Goedel.Document.Markdown.Tags.Wrap result = new ();
             Push (result);
             State = StateCode.Wrap_Start;
             return result;
@@ -1186,7 +1181,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Level NewLevel() {
-            Goedel.Document.Markdown.Tags.Level result = new Goedel.Document.Markdown.Tags.Level();
+            Goedel.Document.Markdown.Tags.Level result = new ();
             Push (result);
             State = StateCode.Level_Start;
             return result;
@@ -1194,7 +1189,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Remark NewRemark() {
-            Goedel.Document.Markdown.Tags.Remark result = new Goedel.Document.Markdown.Tags.Remark();
+            Goedel.Document.Markdown.Tags.Remark result = new ();
             Push (result);
             State = StateCode.Remark_Start;
             return result;
@@ -1202,7 +1197,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Start NewStart() {
-            Goedel.Document.Markdown.Tags.Start result = new Goedel.Document.Markdown.Tags.Start();
+            Goedel.Document.Markdown.Tags.Start result = new ();
             Push (result);
             State = StateCode.Start_Start;
             return result;
@@ -1210,7 +1205,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.End NewEnd() {
-            Goedel.Document.Markdown.Tags.End result = new Goedel.Document.Markdown.Tags.End();
+            Goedel.Document.Markdown.Tags.End result = new ();
             Push (result);
             State = StateCode.End_Start;
             return result;
@@ -1218,7 +1213,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.String NewString() {
-            Goedel.Document.Markdown.Tags.String result = new Goedel.Document.Markdown.Tags.String();
+            Goedel.Document.Markdown.Tags.String result = new ();
             Push (result);
             State = StateCode.String_Start;
             return result;
@@ -1226,7 +1221,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Flag NewFlag() {
-            Goedel.Document.Markdown.Tags.Flag result = new Goedel.Document.Markdown.Tags.Flag();
+            Goedel.Document.Markdown.Tags.Flag result = new ();
             Push (result);
             State = StateCode.Flag_Start;
             return result;
@@ -1234,7 +1229,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Integer NewInteger() {
-            Goedel.Document.Markdown.Tags.Integer result = new Goedel.Document.Markdown.Tags.Integer();
+            Goedel.Document.Markdown.Tags.Integer result = new ();
             Push (result);
             State = StateCode.Integer_Start;
             return result;
@@ -1242,7 +1237,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Format NewFormat() {
-            Goedel.Document.Markdown.Tags.Format result = new Goedel.Document.Markdown.Tags.Format();
+            Goedel.Document.Markdown.Tags.Format result = new ();
             Push (result);
             State = StateCode.Format_Start;
             return result;
@@ -1250,7 +1245,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Entry NewEntry() {
-            Goedel.Document.Markdown.Tags.Entry result = new Goedel.Document.Markdown.Tags.Entry();
+            Goedel.Document.Markdown.Tags.Entry result = new ();
             Push (result);
             State = StateCode.Entry_Start;
             return result;
@@ -1258,7 +1253,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.XEmpty NewXEmpty() {
-            Goedel.Document.Markdown.Tags.XEmpty result = new Goedel.Document.Markdown.Tags.XEmpty();
+            Goedel.Document.Markdown.Tags.XEmpty result = new ();
             Push (result);
             State = StateCode.XEmpty_Start;
             return result;
@@ -1266,7 +1261,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.XStart NewXStart() {
-            Goedel.Document.Markdown.Tags.XStart result = new Goedel.Document.Markdown.Tags.XStart();
+            Goedel.Document.Markdown.Tags.XStart result = new ();
             Push (result);
             State = StateCode.XStart_Start;
             return result;
@@ -1274,7 +1269,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.XClose NewXClose() {
-            Goedel.Document.Markdown.Tags.XClose result = new Goedel.Document.Markdown.Tags.XClose();
+            Goedel.Document.Markdown.Tags.XClose result = new ();
             Push (result);
             State = StateCode.XClose_Start;
             return result;
@@ -1282,7 +1277,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Template NewTemplate() {
-            Goedel.Document.Markdown.Tags.Template result = new Goedel.Document.Markdown.Tags.Template();
+            Goedel.Document.Markdown.Tags.Template result = new ();
             Push (result);
             State = StateCode.Template_Start;
             return result;
@@ -1290,7 +1285,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.TValue NewTValue() {
-            Goedel.Document.Markdown.Tags.TValue result = new Goedel.Document.Markdown.Tags.TValue();
+            Goedel.Document.Markdown.Tags.TValue result = new ();
             Push (result);
             State = StateCode.TValue_Start;
             return result;
@@ -1298,7 +1293,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.XString NewXString() {
-            Goedel.Document.Markdown.Tags.XString result = new Goedel.Document.Markdown.Tags.XString();
+            Goedel.Document.Markdown.Tags.XString result = new ();
             Push (result);
             State = StateCode.XString_Start;
             return result;
@@ -1306,7 +1301,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         private Goedel.Document.Markdown.Tags.Any NewAny() {
-            Goedel.Document.Markdown.Tags.Any result = new Goedel.Document.Markdown.Tags.Any();
+            Goedel.Document.Markdown.Tags.Any result = new ();
             Push (result);
             State = StateCode.Any_Start;
             return result;
@@ -1363,7 +1358,7 @@ namespace Goedel.Document.Markdown.Tags {
 
 
         void Push (Goedel.Document.Markdown.Tags._Choice Token) {
-            _StackItem Item = new _StackItem () {
+            _StackItem Item = new  () {
 					State = State,
 					Token = Current
 					};
@@ -1378,7 +1373,7 @@ namespace Goedel.Document.Markdown.Tags {
         void Pop () {
 			Assert.AssertFalse (Stack.Count == 0, InternalError.Throw);
 
-            _StackItem Item = Stack[Stack.Count -1];
+            _StackItem Item = Stack[^1];
             State = Item.State;
             Current = Item.Token;
 
@@ -2083,8 +2078,6 @@ namespace Goedel.Document.Markdown.Tags {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Document.Markdown.Tags.XEmpty Current_Cast = (Goedel.Document.Markdown.Tags.XEmpty)Current;
                             Current_Cast.Attributes.Add (NewTValue ());
@@ -2121,8 +2114,6 @@ namespace Goedel.Document.Markdown.Tags {
 
 						// Parser transition for LIST $$$$$
 
-
-						/// Label
                         else {
                             Goedel.Document.Markdown.Tags.XStart Current_Cast = (Goedel.Document.Markdown.Tags.XStart)Current;
                             Current_Cast.Attributes.Add (NewTValue ());

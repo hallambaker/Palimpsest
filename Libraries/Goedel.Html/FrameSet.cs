@@ -94,11 +94,19 @@ public class FrameBacker {
 
 public class FramePage: FrameBacker, IBacked {
 
+
+    public virtual string PathStem => Id;
+
+    public int PathParameters { get; set; } = 0;
+
+
     public List<Resource> Resources { get; set; } = null;
 
     public List<Resource> EndResources { get; set; } = null;
     public Resource FaviCon { get; set; } = null;
     public string PageTitle { get; set; } = null;
+
+
 
     public FrameSet FrameSet { get; set; }
     public string Title { get; init; }

@@ -233,6 +233,9 @@
             Backing class for Entry
             </summary>
         </member>
+        <member name="P:Frame.Entry.Text">
+            <summary>Entry text.</summary>
+        </member>
         <member name="M:Frame.Entry.#ctor(System.String)">
             <summary>
             Backing class for Entry

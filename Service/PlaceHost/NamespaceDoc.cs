@@ -41,7 +41,7 @@ global using System.IO;
 [assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]
 #endif
 
-namespace Goedel.Palimpsest;
+namespace Goedel.Places;
 /// <summary>
 /// Desctiption of the 
 /// </summary>

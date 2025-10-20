@@ -1,5 +1,5 @@
-
-namespace Frame;
+﻿
+namespace Goedel.Places;
 
 /// <summary>
 /// Annotated backing classes for data driven GUI.
@@ -324,7 +324,7 @@ public partial class HomePage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<HomePage> _binding = new (
+	static readonly Binding<HomePage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -372,7 +372,7 @@ public partial class NotificationsPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<NotificationsPage> _binding = new (
+	static readonly Binding<NotificationsPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -420,7 +420,7 @@ public partial class PlacesPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<PlacesPage> _binding = new (
+	static readonly Binding<PlacesPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -468,7 +468,7 @@ public partial class BookmarkPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<BookmarkPage> _binding = new (
+	static readonly Binding<BookmarkPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -523,7 +523,7 @@ public partial class YourPlacePage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<YourPlacePage> _binding = new (
+	static readonly Binding<YourPlacePage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -577,7 +577,7 @@ public partial class PostPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<PostPage> _binding = new (
+	static readonly Binding<PostPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -618,7 +618,7 @@ public partial class SettingsPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<SettingsPage> _binding = new (
+	static readonly Binding<SettingsPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -658,7 +658,7 @@ public partial class AccountSettings : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<AccountSettings> _binding = new (
+	static readonly Binding<AccountSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -698,7 +698,7 @@ public partial class AppearanceSettings : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<AppearanceSettings> _binding = new (
+	static readonly Binding<AppearanceSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -739,7 +739,7 @@ public partial class AboutSettingsPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<AboutSettingsPage> _binding = new (
+	static readonly Binding<AboutSettingsPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -813,7 +813,7 @@ public partial class SignIn : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<SignIn> _binding = new (
+	static readonly Binding<SignIn> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -856,7 +856,7 @@ public partial class SwitchPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<SwitchPage> _binding = new (
+	static readonly Binding<SwitchPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -908,7 +908,7 @@ public partial class CreatePost : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<CreatePost> _binding = new (
+	static readonly Binding<CreatePost> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -960,7 +960,7 @@ public partial class CreateComment : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<CreateComment> _binding = new (
+	static readonly Binding<CreateComment> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1006,7 +1006,7 @@ public partial class NewPlacePage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<NewPlacePage> _binding = new (
+	static readonly Binding<NewPlacePage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1052,7 +1052,7 @@ public partial class YourPlacePageCreate : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<YourPlacePageCreate> _binding = new (
+	static readonly Binding<YourPlacePageCreate> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1103,7 +1103,7 @@ public partial class Help : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Help> _binding = new (
+	static readonly Binding<Help> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1155,7 +1155,7 @@ public partial class TermsOfService : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<TermsOfService> _binding = new (
+	static readonly Binding<TermsOfService> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1207,7 +1207,7 @@ public partial class PrivacyPolicy : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<PrivacyPolicy> _binding = new (
+	static readonly Binding<PrivacyPolicy> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1259,7 +1259,7 @@ public partial class Contributors : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Contributors> _binding = new (
+	static readonly Binding<Contributors> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1311,7 +1311,7 @@ public partial class Status : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Status> _binding = new (
+	static readonly Binding<Status> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1363,7 +1363,7 @@ public partial class SystemLog : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<SystemLog> _binding = new (
+	static readonly Binding<SystemLog> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1415,7 +1415,7 @@ public partial class Repository : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Repository> _binding = new (
+	static readonly Binding<Repository> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1504,7 +1504,7 @@ public partial class MainNav : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<MainNav> _binding = new (
+	static readonly Binding<MainNav> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1547,7 +1547,7 @@ public partial class TopSettings : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<TopSettings> _binding = new (
+	static readonly Binding<TopSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1593,7 +1593,7 @@ public partial class SettingsMenu : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<SettingsMenu> _binding = new (
+	static readonly Binding<SettingsMenu> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1642,7 +1642,7 @@ public partial class AboutSettings : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<AboutSettings> _binding = new (
+	static readonly Binding<AboutSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1688,7 +1688,7 @@ public partial class SupportMenu : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<SupportMenu> _binding = new (
+	static readonly Binding<SupportMenu> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1742,7 +1742,7 @@ public partial class Handle (string Id="Handle") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Handle> _binding = new (
+	static readonly Binding<Handle> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1825,7 +1825,7 @@ public partial class Provider (string Id="Provider") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Provider> _binding = new (
+	static readonly Binding<Provider> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1933,7 +1933,7 @@ public partial class User (string Id="User") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<User> _binding = new (
+	static readonly Binding<User> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1998,7 +1998,7 @@ public partial class Group (string Id="Group") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Group> _binding = new (
+	static readonly Binding<Group> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2060,7 +2060,7 @@ public partial class Rights (string Id="Rights") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Rights> _binding = new (
+	static readonly Binding<Rights> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2153,7 +2153,7 @@ public partial class Access (string Id="Access") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Access> _binding = new (
+	static readonly Binding<Access> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2225,7 +2225,7 @@ public partial class Privileges (string Id="Privileges") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Privileges> _binding = new (
+	static readonly Binding<Privileges> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2334,7 +2334,7 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Entry> _binding = new (
+	static readonly Binding<Entry> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2570,7 +2570,7 @@ public partial class Place (string Id="Place") : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Place> _binding = new (
+	static readonly Binding<Place> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2646,7 +2646,7 @@ public partial class Topic (string Id="Topic") : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Topic> _binding = new (
+	static readonly Binding<Topic> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2966,7 +2966,7 @@ public partial class Post (string Id="Post") : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Post> _binding = new (
+	static readonly Binding<Post> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3177,7 +3177,7 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Comment> _binding = new (
+	static readonly Binding<Comment> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3268,7 +3268,7 @@ public partial class Resource (string Id="Resource") : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Resource> _binding = new (
+	static readonly Binding<Resource> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3394,7 +3394,7 @@ public partial class Contact (string Id="Contact") : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Contact> _binding = new (
+	static readonly Binding<Contact> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3471,7 +3471,7 @@ public partial class Name (string Id="Name") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Name> _binding = new (
+	static readonly Binding<Name> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3533,7 +3533,7 @@ public partial class TagValue (string Id="TagValue") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<TagValue> _binding = new (
+	static readonly Binding<TagValue> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3583,7 +3583,7 @@ public partial class Organization (string Id="Organization") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Organization> _binding = new (
+	static readonly Binding<Organization> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3660,7 +3660,7 @@ public partial class Pronouns (string Id="Pronouns") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Pronouns> _binding = new (
+	static readonly Binding<Pronouns> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3717,7 +3717,7 @@ public partial class Title (string Id="Title") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Title> _binding = new (
+	static readonly Binding<Title> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3785,7 +3785,7 @@ public partial class RelatedTo (string Id="RelatedTo") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<RelatedTo> _binding = new (
+	static readonly Binding<RelatedTo> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3865,7 +3865,7 @@ public partial class Application (string Id="Application") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Application> _binding = new (
+	static readonly Binding<Application> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3921,7 +3921,7 @@ public partial class Email (string Id="Email") : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Email> _binding = new (
+	static readonly Binding<Email> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3991,7 +3991,7 @@ public partial class Messaging (string Id="Messaging") : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Messaging> _binding = new (
+	static readonly Binding<Messaging> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4051,7 +4051,7 @@ public partial class Phone (string Id="Phone") : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Phone> _binding = new (
+	static readonly Binding<Phone> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4134,7 +4134,7 @@ public partial class Service (string Id="Service") : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Service> _binding = new (
+	static readonly Binding<Service> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4185,7 +4185,7 @@ public partial class Key (string Id="Key") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Key> _binding = new (
+	static readonly Binding<Key> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4266,7 +4266,7 @@ public partial class KeyData (string Id="KeyData") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<KeyData> _binding = new (
+	static readonly Binding<KeyData> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4372,7 +4372,7 @@ public partial class Media (string Id="Media") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Media> _binding = new (
+	static readonly Binding<Media> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4466,7 +4466,7 @@ public partial class Option (string Id="Option") : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<Option> _binding = new (
+	static readonly Binding<Option> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4553,7 +4553,7 @@ public partial class ServiceOption (string Id="ServiceOption") : Option (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly new Binding<ServiceOption> _binding = new (
+	static readonly Binding<ServiceOption> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
