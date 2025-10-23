@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
-	<PropertyGroup>
-		<Product>Goedel.Utilities</Product>
-		<Description>Coding utilities common to all Goedel libraries.</Description>
-		<Copyright>© 2023</Copyright>
-		<Title>Goedel.Utilities</Title>
-	</PropertyGroup>
 
+	<PropertyGroup>
+		<Product>Goedel.Places</Product>
+		<Description>Coding utilities common to all Goedel libraries.</Description>
+		<Copyright>© 2025 Threshold Secrets LLC.</Copyright>
+		<Title>Goedel.Places</Title>
+	</PropertyGroup>
+	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
+	
+	
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\buildtools\SiteBuilder\Goedel.Sitebuilder\Goedel.Sitebuilder.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Contacts\Goedel.Contacts.csproj" />

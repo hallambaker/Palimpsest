@@ -22,6 +22,7 @@
 
 
 using Goedel.Palimpsest;
+using Goedel.Places.MPlace2;
 using Goedel.Sitebuilder;
 
 using System;
@@ -55,6 +56,9 @@ internal sealed class Program {
         Screen.WriteLine("# MPlace2 log");
         Screen.Flush();
 
+        var persistPlace = new PersistPlace();
+
+
         var frameset = new MyClass() {
             Resources = [
                 new Stylesheet("Resources/stylesheet.css", "text/css")],
@@ -74,7 +78,7 @@ internal sealed class Program {
         //];
 
 
-        var annotationService = new AnnotationService(frameset);
+        var annotationService = new AnnotationService(frameset, persistPlace);
         annotationService.Start();
         }
 

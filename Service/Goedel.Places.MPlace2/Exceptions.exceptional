@@ -1,0 +1,12 @@
+﻿
+Namespace Goedel.Places
+
+
+
+	Exception Internal
+        Console "An internal error occurred"
+		Description
+			|An internal assertion check failed.
+
+
+

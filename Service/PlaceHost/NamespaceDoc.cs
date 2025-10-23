@@ -33,7 +33,7 @@ global using Goedel.Sitebuilder;
 global using Goedel.Utilities;
 //global using Goedel.Mesh;
 //global using Goedel.Mesh.Client;
-global using Goedel.Protocol.Web;
+global using Mplace2.Gui;
 global using System.Security.Cryptography;
 global using System.Collections.Generic;
 global using System.Net;

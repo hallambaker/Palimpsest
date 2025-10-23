@@ -1,13 +1,5 @@
-﻿using Goedel.Discovery;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Goedel.Places;
+﻿
+namespace Mplace2.Gui;
 
 
 /// <summary>

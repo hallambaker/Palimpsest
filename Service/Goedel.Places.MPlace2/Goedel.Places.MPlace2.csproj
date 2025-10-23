@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Product>Goedel.Places.MPlace2</Product>
+		<Description>Coding utilities common to all Goedel libraries.</Description>
+		<Copyright>© 2025 Threshold Secrets LLC.</Copyright>
+		<Title>Goedel.Places.MPlace2</Title>
+	</PropertyGroup>
+	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\buildtools\SiteBuilder\Goedel.Sitebuilder\Goedel.Sitebuilder.csproj" />
+	  <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
+	  <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
+	  <ProjectReference Include="..\Goedel.Places\Goedel.Places.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Exceptions.cs">
+	    <DependentUpon>Exceptions.exceptional</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	  <Compile Update="Mplace2Constants.cs">
+		  <DependentUpon>Mplace2Constants.constant</DependentUpon>	  
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Exceptions.exceptional">
+	    <LastGenOutput>Exceptions.cs</LastGenOutput>
+	    <Generator>exceptional</Generator>
+	  </None>
+	  <None Update="Mplace2Constants.constant">
+	    <LastGenOutput>Mplace2Constants.cs</LastGenOutput>
+	    <Generator>Constant</Generator>
+	  </None>
+	</ItemGroup>
+
+</Project>

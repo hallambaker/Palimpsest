@@ -25,6 +25,8 @@ using DocumentFormat.OpenXml.InkML;
 
 namespace Goedel.Places;
 
+
+
 public record ParsedPath : IPageContext {
 
     public HttpListenerContext Context { get; }

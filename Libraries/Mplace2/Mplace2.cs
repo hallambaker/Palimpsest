@@ -1,5 +1,5 @@
 ﻿
-namespace Goedel.Places;
+namespace Mplace2.Gui;
 
 /// <summary>
 /// Annotated backing classes for data driven GUI.
@@ -877,8 +877,8 @@ public partial class CreatePost : FramePage {
 		Container = "EntryPage";
 		}
 
-    /// <summary>Field Form</summary>
-	public Post? Form {get; set;}
+    /// <summary>Field CreatePostAction</summary>
+	public Post? CreatePostAction {get; set;}
 
     /// <summary>Field Crosspost</summary>
 	public List<Provider>? Crosspost {get; set;}
@@ -886,9 +886,9 @@ public partial class CreatePost : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Post> ("Form","Post"){
-			Get = (IBacked data) => (data as CreatePost)?.Form ,
-			Set = (IBacked data, IBacked? value) => {(data as CreatePost)!.Form = value as Post; }},
+		new FrameRefForm<Post> ("CreatePostAction","Post"){
+			Get = (IBacked data) => (data as CreatePost)?.CreatePostAction ,
+			Set = (IBacked data, IBacked? value) => {(data as CreatePost)!.CreatePostAction = value as Post; }},
 		new FrameRefList<Provider> ("Crosspost","Provider"){
 			Get = (IBacked data) => (data as CreatePost)?.Crosspost ,
 			Set = (IBacked data, Object? value) => {(data as CreatePost)!.Crosspost = value as List<Provider>; }}

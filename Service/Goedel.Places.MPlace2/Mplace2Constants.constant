@@ -1,0 +1,54 @@
+﻿Namespace Goedel.Places PalimpsestConstants
+	|Constants specified in hallambaker-mesh-schema
+
+
+
+File PagePrefixes
+	String resources "resources"
+	String ForumTermsConditions "ForumTermsConditions"
+	String ForumPlaceSignIn "ForumPlaceSignIn"
+	String AcceptTerms "AcceptTerms"
+
+
+
+	String SignIn "SignIn"
+	//String SignInPost "SignInPost"
+	String SignInComplete "Complete"
+
+
+	String CreateAccount "CreateAccount"
+	String CreateAccountPost "CreateAccountPost"
+	String SignOut "SignOut"
+
+	String Place "Place"
+	String AddDocument "AddDocument"
+	String AddTopic "AddTopic"
+
+	String Document "Document"
+	String Topic "Topic"
+	String Post "Post"
+	String User "Visitor"
+
+	String CreatePlace "CreatePlace"
+	String CreatePlacePost "CreatePlacePost"
+	String DocumentUpload "DocumentUpload"
+
+	String TopicCreate "TopicCreate"
+	String Actions "Actions"
+	String Comment "Comment"
+	String CommentPost "CommentSubmit"
+
+	String CreatePost "NewPost"
+	String PostPost "NewPostSubmit"
+
+	String CreatePostComment "PostComment"
+	String PostCommentPost "PostCommentSubmit"
+
+	String WellKnown ".well-known"
+	String ClientMetadata "client-metadata.json"
+	String Redirect "Redirect"
+
+	String Terms "Terms"
+
+File ContentTypes
+	String ClientMetadataType "application/json"

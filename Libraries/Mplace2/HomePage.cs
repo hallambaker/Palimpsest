@@ -1,20 +1,21 @@
 ﻿
-namespace Goedel.Places;
+namespace Mplace2.Gui;
 
 
 
 public partial class CreatePost {
 
 
-    static List<Sitebuilder.Resource> resources = [
+    static List<Goedel.Sitebuilder.Resource> resources = [
                 new Stylesheet("Resources/quill.css", "text/css"),
                 new Stylesheet("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css", "text/css")];
-    static List<Sitebuilder.Resource> endResources = [
+    static List<Goedel.Sitebuilder.Resource> endResources = [
                 new Script("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js","text/javascript"),
                 new Script("Resources/quill.js","text/javascript")
                 ];
+
     /// <inheritdoc/>
-    public override FramePage GetPage(IPageContext context) {
+    public override FramePage GetPage(IPersistPlace persistPlace, IPageContext context) {
         var path = context as ParsedPath;
 
         var result = new CreatePost() {
@@ -26,9 +27,21 @@ public partial class CreatePost {
         path.Page = result;
 
         return result;
-
-
         }
+
+    public override FramePage PostPage(
+        IPersistPlace persistPlace,
+        IPageContext context) {
+
+
+
+
+        // Just short out for now.
+        return (FrameSet as MyClass).HomePage.GetPage(persistPlace, context);
+        }
+
+
+
     }
 
 public partial class HomePage {
@@ -59,39 +72,68 @@ public partial class HomePage {
         };
 
 
-    /// <inheritdoc/>
-    public override FramePage GetPage(IPageContext context) {
 
+
+    public override HomePage GetPage(
+            IPersistPlace persistPlace,
+            IPageContext context) {
+
+
+        var persist = persistPlace as PersistPlace;
         var path = context as ParsedPath;
 
-        var basePlace = new Place() {
-            Uid = Udf.Nonce(),
-            DNS = "mplace2.social",
-            Title = "MPlace2",
-            Description = "Making personal places on the Web",
-            Banner = "Mplace2Banner.png",
-            Avatar = "avatar.png"
-            };
 
-        var phbPlace = new Place() {
-            Uid = Udf.Nonce(),
-            DNS = "phill.hallambaker.com",
-            Title = "Phill's Place",
-            Description = "PHB's place on the Web",
-            Banner = "PHBBanner.png",
-            Avatar = "PHBInDalek.png"
-            };
+        var basePlace = persist.GetMainPlace(path);
+        var entries = persist.GetMainEntries(path);
 
         var result = new HomePage() {
             FrameSet = FrameSet,
             MainEntry = basePlace,
-            Entries = [basePlace, phbPlace]
+            Entries = entries
             };
 
         path.Page = result;
 
         return result;
         }
+
+
+
+
+
+    ///// <inheritdoc/>
+    //public override FramePage GetPage(IPersistPlace persistPlace, IPageContext context) {
+
+    //    var path = context as ParsedPath;
+
+    //    var basePlace = new Place() {
+    //        Uid = Udf.Nonce(),
+    //        DNS = "mplace2.social",
+    //        Title = "MPlace2",
+    //        Description = "Making personal places on the Web",
+    //        Banner = "Mplace2Banner.png",
+    //        Avatar = "avatar.png"
+    //        };
+
+    //    var phbPlace = new Place() {
+    //        Uid = Udf.Nonce(),
+    //        DNS = "phill.hallambaker.com",
+    //        Title = "Phill's Place",
+    //        Description = "PHB's place on the Web",
+    //        Banner = "PHBBanner.png",
+    //        Avatar = "PHBInDalek.png"
+    //        };
+
+    //    var result = new HomePage() {
+    //        FrameSet = FrameSet,
+    //        MainEntry = basePlace,
+    //        Entries = [basePlace, phbPlace]
+    //        };
+
+    //    path.Page = result;
+
+    //    return result;
+    //    }
 
 
     }

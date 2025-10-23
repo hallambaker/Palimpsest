@@ -1,5 +1,5 @@
 ﻿
-Namespace Goedel.Places
+Namespace Mplace2.Gui
 
     MainNav Menu
         NotificationCount Integer
@@ -149,7 +149,7 @@ Namespace Goedel.Places
         EntryPage Container
         Navigation Is MainNav
 
-        Form Form Post                 // Post entry form, i.e. Quill
+        CreatePostAction Form Post                 // Post entry form, i.e. Quill
         Crosspost List Provider         // Crossposting targets
 
     CreateComment Page "Create Comment"

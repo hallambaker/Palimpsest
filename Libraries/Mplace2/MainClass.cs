@@ -4,7 +4,7 @@ using Goedel.Protocol;
 
 using Microsoft.Extensions.Options;
 
-namespace Goedel.Places;
+namespace Mplace2.Gui;
 
 
 

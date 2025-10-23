@@ -22,22 +22,32 @@
 
 
 
-
+global using Goedel.Cryptography.Dare;
+global using Goedel.Cryptography.Jose;
+global using Goedel.Cryptography.Oauth;
 global using Goedel.Cryptography;
-
-global using Goedel.Sitebuilder;
-global using Goedel.Utilities;
+global using Goedel.Cryptography.Algorithms;
 global using Goedel.Protocol;
 global using Goedel.Sitebuilder;
-global using Goedel.Places ;
-global using Goedel.Places.MPlace2;
+global using Goedel.Places;
+global using Goedel.Mesh;
+global using Goedel.Utilities;
+//global using Goedel.Mesh;
+//global using Goedel.Mesh.Client;
 
-
+global using System.Security.Cryptography;
+global using System.Collections.Generic;
+global using System.Net;
+global using System.Web;
+global using System.Text.Json;
+global using System.IO;
+global using Goedel.IO;
+global using Goedel.Sitebuilder;
 #if !(_Github_)
 [assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]
 #endif
 
-namespace Mplace2.Gui;
+namespace Goedel.Places.MPlace2;
 /// <summary>
 /// Desctiption of the 
 /// </summary>

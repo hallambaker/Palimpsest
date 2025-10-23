@@ -1,5 +1,4 @@
-﻿namespace Goedel.Places;
-
+﻿namespace Mplace2.Gui;
 
 
 /// <summary>

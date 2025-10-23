@@ -22,6 +22,7 @@
 
 
 using Goedel.Protocol;
+using Goedel.Sitebuilder;
 
 using System.Net;
 using System.Net.Mail;
@@ -70,6 +71,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     ///<summary>The frame defintions being serviced.</summary>
     public FrameSet FrameSet { get; }
 
+    public IPersistPlace PersistPlace { get; }
 
 
 
@@ -153,9 +155,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     /// https://www.misterpki.com/netsh-http-add-sslcert/
     /// </remarks>
     ///<param name="forum">The persistence store.</param>
-    public AnnotationService(FrameSet frameset) {
+    public AnnotationService(FrameSet frameset, IPersistPlace persistPlace) {
 
         FrameSet = frameset;
+        PersistPlace = persistPlace;
 
         HttpListener = new();
         HttpListener.Prefixes.Add(HttpEndpoint);
@@ -180,68 +183,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         //            );
 
 
-        //var clientBoilerplate = new BoilerplateVerbatim() {
-        //    Bytes = OauthClient.ClientMetadataBytes,
-        //    ContentType = PalimpsestConstants.ClientMetadataType
-        //    };
 
-        //Boilerplate = new Dictionary<string, Boilerplate>() {
-        //                { PalimpsestConstants.ClientMetadata, clientBoilerplate },
-        //    };
-
-        //AddBoilerplate(ForumNavigation, true);
-        //AddBoilerplate(ForumAdditional);
-
-        //ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
-        //    // public pages, visible to all users but with possibly reduced functionality
-        //    { "", new (GetHome, false) }, // Home page
-        //    { PalimpsestConstants.resources, new (GetResources,false) },
-        //    { PalimpsestConstants.WellKnown, new (GetWellKnown,false) },
-
-        //    { PalimpsestConstants.SignIn, new (GetSignIn, false) },
-        //    { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
-        //    { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
-        //    { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
-        //    { PalimpsestConstants.Redirect, new (GetRedirect, false) },
-        //    { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
-        //    { PalimpsestConstants.SignOut, new (GetSignOut) },
-
-        //    /// Wet edge here, pages above have been fixed
-
-
-        //    //{ PalimpsestConstants.Terms, new (GetTerms, false) },
-        //    //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
-        //    //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
-        //    //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
-        //    // private pages, requires log in
-
-        //    { PalimpsestConstants.Place, new (GetPlace,false) },
-        //    { PalimpsestConstants.AddDocument, new (GetAddDocument) },
-        //    { PalimpsestConstants.AddTopic, new (GetAddTopic) },
-
-        //    { PalimpsestConstants.Document, new (GetDocument,false) },
-        //    { PalimpsestConstants.Topic, new (GetTopic,false) },
-        //    { PalimpsestConstants.Post, new (GetPost,false) },
-        //    { PalimpsestConstants.User, new (GetVisitor, false) },
-
-        //    { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
-        //    { PalimpsestConstants.CreatePlacePost, new (PostCreatePlace) },
-        //    { PalimpsestConstants.DocumentUpload, new (PostUploadDocument) },
-        //    { PalimpsestConstants.TopicCreate, new (PostCreateTopic) },
-
-        //    { PalimpsestConstants.Actions, new (GetListActions) },
-        //    { PalimpsestConstants.Comment, new (GetCommentForm) },
-        //    { PalimpsestConstants.CommentPost, new (PostComment) },
-
-        //    { PalimpsestConstants.CreatePost, new (GetPostForm) },
-        //    { PalimpsestConstants.PostPost, new (PostPost) },
-
-        //    { PalimpsestConstants.CreatePostComment, new (GetPostCommentForm) },
-        //    { PalimpsestConstants.PostCommentPost, new (PostPostComment) },
-
-        //     { "*", new (Error) }
-
-        //};
         }
 
     //void AddBoilerplate(NavigationItem[] items, bool indexed = false) {
@@ -280,9 +222,19 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         while (true) {
             HttpListenerContext context = HttpListener.GetContext();
-            var task = HandleRequest(context);
 
-            Task.Delay(1000000000);
+
+            switch (context.Request.HttpMethod) {
+                case "GET": {
+                    HandleRequestGet(context);
+                    break;
+                    }
+                case "POST": {
+                    HandleRequestPost(context);
+                    break;
+                    }
+                }
+
 
             
             }
@@ -290,8 +242,29 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     private int transactionCount = 0;
 
+    private async Task HandleRequestOther(HttpListenerContext context) {
+        }
+
+    private async Task HandleRequestPost(HttpListenerContext context) {
+
+
+        var path = new ParsedPath(context);
+        if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
+
+            var page = templatePage.PostPage(PersistPlace, path);
+
+            RenderPage(path, page);
+
+
+            }
+        }
+
+
+    private async Task HandleRequestPut(HttpListenerContext context) {
+        }
+
     ///<summary>Handle request asynchronously.</summary> 
-    private async Task HandleRequest(HttpListenerContext context) {
+    private async Task HandleRequestGet(HttpListenerContext context) {
         var request = context.Request;
         var response = context.Response;
 
@@ -304,7 +277,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         LogFile.Flush();
 
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
-            await Page(path, templatePage);
+            var page = templatePage.GetPage(PersistPlace, path);
+
+            RenderPage(path, page);
             return;
             }
         else {
@@ -366,16 +341,15 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         //    }
         }
 
-    public async Task Page(ParsedPath path, FramePage template) {
-        
-        var page = template.GetPage(path);
-        
+
+    public async Task RenderPage(ParsedPath path, FramePage page) {
+
         using var stream = new MemoryStream();
         using var textwriter = new StreamWriter(stream);
         var writer = new PageWriter(page, textwriter);
         writer.Render();
         textwriter.Flush();
-        var data = stream.ToArray();    
+        var data = stream.ToArray();
 
         var response = path.Context.Response;
         response.StatusCode = (int)HttpStatusCode.OK;
@@ -383,8 +357,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         return;
         }
-
-
 
     public async Task Error(ParsedPath path, string? message, 
                 HttpStatusCode httpStatusCode= HttpStatusCode.NotFound) {
