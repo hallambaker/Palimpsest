@@ -22,7 +22,7 @@
 
 
 using Goedel.Palimpsest;
-using Goedel.Protocol;
+using Goedel.Sitebuilder;
 
 using System;
 using System.Collections.Generic;
@@ -55,7 +55,24 @@ internal sealed class Program {
         Screen.WriteLine("# MPlace2 log");
         Screen.Flush();
 
-        var frameset = new MyClass();
+        var frameset = new MyClass() {
+            Resources = [
+                new Stylesheet("Resources/stylesheet.css", "text/css")],
+            EndResources = [],
+            Directory = directory,
+            ResourceFiles = resources
+            };
+
+        //    frameset.Resources = [
+        //        new Stylesheet("Resources/stylesheet.css", "text/css"),
+        //        new Stylesheet("Resources/quill.css", "text/css"),
+        //        new Stylesheet("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css", "text/css")
+        //        ];
+        //    frameset.EndResources = [
+        //        new Script("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js","text/javascript"),
+        //        new Script("Resources/quill.js","text/javascript")
+        //];
+
 
         var annotationService = new AnnotationService(frameset);
         annotationService.Start();

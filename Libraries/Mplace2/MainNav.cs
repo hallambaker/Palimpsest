@@ -1,6 +1,7 @@
 ﻿namespace Goedel.Places;
 
 
+
 /// <summary>
 /// Sign in states
 /// </summary>
@@ -19,8 +20,7 @@ public enum SignInState {
 
 public partial class MainNav {
 
-    /// <summary>The page the navigation is embedded in.</summary>
-    public FramePage Page => FrameSet.Page;
+
 
     /// <summary>If true, the visitor is an administrator.</summary>
     public bool IsAdmin { get; set; } = true;
@@ -96,6 +96,8 @@ public partial class MainNav {
             }
         return ButtonVisibility.Available;
         }
+
+
 
 
     }

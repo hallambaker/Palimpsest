@@ -25,11 +25,18 @@ using DocumentFormat.OpenXml.InkML;
 
 namespace Goedel.Places;
 
-public record ParsedPath {
+public record ParsedPath : IPageContext {
 
     public HttpListenerContext Context { get; }
 
     public HttpListenerRequest Request => Context.Request;
+
+
+    public PageText PageText {get ; set;} = PageText.English;
+
+    public FramePage Page { get; set; }
+
+
 
 
     public PlaceHandle PlaceHandle { get; }
@@ -92,6 +99,70 @@ public record ParsedPath {
 
     ///<summary>The original IP address of the request (filled by reverse proxy)</summary> 
     public string RealIp { get; }
+
+
+    public ParsedPath(HttpListenerContext context) {
+        Context = context;
+        RealIp = Request.Headers["X-Real-IP"];
+
+
+
+        //ReturnAddress = request.UserHostName + "/" + 
+
+        //forum.TryGetPlace(Request.UserHostName, out var place);
+        //PlaceHandle = place;
+
+        //// If signed in, set the member handle
+        //forum.TryGetVerifiedMemberHandle(Request, out var member);
+        //Member = member;
+
+        Uri = Request.Url;
+        if (LocalPath == null) {
+            Command = null;
+            return;
+            }
+        var split = LocalPath.Split('/');
+        if (split.Length < 2) { // must have at least initial /
+            Command = null;
+            return;
+            }
+
+        if (split[1] == ".well-known") {
+            Command = ".well-known";
+            if (split.Length < 3) {
+                SecondId = null;
+                return;
+                }
+            SecondId = split[2];
+
+            if (split.Length < 4) {
+                SecondId = null;
+                return;
+                }
+            SecondId = split[3];
+            return;
+            }
+
+        var extension = Path.GetExtension(split[1]);
+        if (extension.Length > 0) {
+            Command = "resources";
+            FirstId = split[1];
+            }
+        else {
+            Command = split[1];
+            }
+
+        if (split.Length > 2) {
+            FirstId = split[2];
+            }
+        if (split.Length > 3) {
+            SecondId = split[3];
+            }
+        if (split.Length > 4) {
+            ThirdId = split[4];
+            }
+        }
+
 
 
 

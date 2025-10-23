@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\buildtools\SiteBuilder\Goedel.Sitebuilder\Goedel.Sitebuilder.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Contacts\Goedel.Contacts.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
 		<ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Identifiers\Goedel.Cryptography.Identifiers.csproj" />
@@ -27,7 +28,6 @@
 		<ProjectReference Include="..\..\DocTools\Goedel.Document.Markdown\Goedel.Document.Markdown.csproj" />
 		<ProjectReference Include="..\..\DocTools\Goedel.Document.OpenXML\Goedel.Document.OpenXML.csproj" />
 		<ProjectReference Include="..\..\DocTools\Goedel.Document.RFC\Goedel.Document.RFC.csproj" />
-		<ProjectReference Include="..\..\Libraries\Goedel.Html\Goedel.Html.csproj" />
 	</ItemGroup>
 	
 	

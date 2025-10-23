@@ -25,7 +25,7 @@
 
 global using Goedel.Cryptography;
 
-global using Goedel.Html;
+global using Goedel.Sitebuilder;
 global using Goedel.Utilities;
 global using Goedel.Protocol;
 

@@ -3,7 +3,7 @@
 
     "GenericHost": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\hallam\\Test\\Palimpsest C:\\Users\\hallam\\source\\repos\\Palimpsest\\Resources",
+      "commandLineArgs": "C:\\Users\\hallam\\Test\\Palimpsest C:\\Users\\hallam\\source\\repos\\Palimpsest\\Test",
       "workingDirectory": "C:\\Users\\hallam\\Test\\MPlace"
     }
   }

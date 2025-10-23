@@ -21,9 +21,12 @@
 #endregion
 
 
+using Goedel.Protocol;
+
+using System.Net;
+using System.Net.Mail;
+
 namespace Goedel.Places;
-
-
 
 
 [Flags]
@@ -63,6 +66,13 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     private string HttpEndpoint => "http://+:15099/";
     private string HttpsEndpoint => "https://+:15098/";
+
+    ///<summary>The frame defintions being serviced.</summary>
+    public FrameSet FrameSet { get; }
+
+
+
+
 
     public string HomeUrl => "/";
 
@@ -143,18 +153,13 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     /// https://www.misterpki.com/netsh-http-add-sslcert/
     /// </remarks>
     ///<param name="forum">The persistence store.</param>
-    public AnnotationService(Goedel.Html.FrameSet frameset) {
-        //Forum = forum;
+    public AnnotationService(FrameSet frameset) {
+
+        FrameSet = frameset;
+
         HttpListener = new();
         HttpListener.Prefixes.Add(HttpEndpoint);
         HttpListener.Prefixes.Add(HttpsEndpoint);
-
-
-        foreach (var page in frameset.Pages) {
-            Console.WriteLine($"Page: /{page.PathStem} [{page.PathParameters}]");
-            }
-
-
 
         //// Bind the OAUTH client here
 
@@ -273,14 +278,13 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var logStream = logfile.OpenFileAppendShare();
         LogFile = new StreamWriter(logStream);
 
-
-
-
-
-
         while (true) {
             HttpListenerContext context = HttpListener.GetContext();
             var task = HandleRequest(context);
+
+            Task.Delay(1000000000);
+
+            
             }
         }
 
@@ -288,17 +292,41 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     ///<summary>Handle request asynchronously.</summary> 
     private async Task HandleRequest(HttpListenerContext context) {
-
         var request = context.Request;
         var response = context.Response;
 
-        //// This should never happen.
-        //if (request.Url is null) {
-        //    await Error(context, null);
-        //    return;
-        //    }
+        var path = new ParsedPath(context);
 
-        //var path = new ParsedPath(context, Forum);
+        var transactionId = Interlocked.Increment(ref transactionCount);
+        var start = DateTime.UtcNow;
+        var logEntry = $"{transactionId} {start.ToRFC3339()} {path.RealIp} {path.ExternalUri}";
+        LogFile.WriteLine(logEntry);
+        LogFile.Flush();
+
+        if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
+            await Page(path, templatePage);
+            return;
+            }
+        else {
+            switch (path.Command) {
+                case ".well-known": {
+                    await WellKnown(path);
+                    return;
+                    }
+
+                case "Resources": {
+                    await Resource(path);
+                    return;
+                    }
+                default: {
+                    await Error(path, "");
+                    return;
+                    }
+                }
+            }
+
+
+        //var path = new ParsedPath(context, FrameSet);
 
         //var transactionId = Interlocked.Increment(ref transactionCount);
         //var start = DateTime.UtcNow;
@@ -337,6 +365,89 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         //    //await Error(context, null);
         //    }
         }
+
+    public async Task Page(ParsedPath path, FramePage template) {
+        
+        var page = template.GetPage(path);
+        
+        using var stream = new MemoryStream();
+        using var textwriter = new StreamWriter(stream);
+        var writer = new PageWriter(page, textwriter);
+        writer.Render();
+        textwriter.Flush();
+        var data = stream.ToArray();    
+
+        var response = path.Context.Response;
+        response.StatusCode = (int)HttpStatusCode.OK;
+        response.Close(data, false);
+
+        return;
+        }
+
+
+
+    public async Task Error(ParsedPath path, string? message, 
+                HttpStatusCode httpStatusCode= HttpStatusCode.NotFound) {
+
+        var response = path.Context.Response;
+        response.StatusCode = (int)httpStatusCode;
+        response.Close();
+
+        return;
+        }
+
+    public async Task WellKnown(ParsedPath path) {
+
+
+        await Error(path, "", HttpStatusCode.NotImplemented);
+
+        var filePath = FrameSet.ResourceFiles + path.LocalPath;
+        var response = path.Context.Response;
+        
+        
+        response.StatusCode = (int)HttpStatusCode.OK;
+        response.StatusDescription = "Status OK";
+        response.ContentType = filePath.GetFileType();
+
+        using var file = filePath.OpenFileReadShared();
+        file.CopyTo(response.OutputStream);
+
+        response.OutputStream.Close();
+
+
+        return;
+        }
+
+
+    public async Task Resource(ParsedPath path) {
+        var response = path.Context.Response;
+
+        try {
+            var filePath = FrameSet.ResourceFiles + path.LocalPath;
+            
+            response.StatusCode = (int)HttpStatusCode.OK;
+            response.StatusDescription = "Status OK";
+            response.ContentType = filePath.GetFileType();
+
+            using var file = filePath.OpenFileReadShared();
+            file.CopyTo(response.OutputStream);
+
+            response.OutputStream.Close();
+            }
+        catch (FileNotFoundException) {
+            response.StatusCode = (int)HttpStatusCode.NotFound;
+            response.OutputStream.Close();
+            }
+
+        catch {
+            response.StatusCode = (int)HttpStatusCode.RequestEntityTooLarge;
+            response.OutputStream.Close();
+            }
+
+        return;
+        }
+
+
 
     #endregion
     #region // Header and footer

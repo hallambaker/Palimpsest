@@ -42,6 +42,7 @@ global using System.Web;
 global using System.Text.Json;
 global using System.IO;
 global using Goedel.IO;
+global using Goedel.Sitebuilder;
 #if !(_Github_)
 [assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]
 #endif

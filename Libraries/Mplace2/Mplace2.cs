@@ -1432,6 +1432,19 @@ public partial class Repository : FramePage {
 /// </summary>
 public partial class MainNav : FrameMenu {
 
+	// Implement factory method returning a menu bound to a specific page.
+
+    /// <inheritdoc/>
+    public override FramePage Page { 
+            get => page ?? FrameSet.Page;
+            init { page = value; } }
+    FramePage? page = null;
+
+    /// <inheritdoc/>
+    public override FrameMenu Create(FramePage page) => new MainNav() {
+        Page = page
+        };
+
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
@@ -1448,12 +1461,14 @@ public partial class MainNav : FrameMenu {
 			(IBinding data) => (data as MainNav)?.NotificationCount) {
 				},
 		new FrameButton ("Any", "Sign In", "SignIn") {
-			GetActive = (IBinding data) => (data as MainNav)?.SignInActive
+			GetActive = (IBinding data) => (data as MainNav)?.SignInActive,
+			Description = "Sign in using your @nywhere account"
 			},
 		new FrameButton ("Avatar", "Sign Out", "SwitchPage") {
-			GetActive = (IBinding data) => (data as MainNav)?.SignOutActive
+			GetActive = (IBinding data) => (data as MainNav)?.SignOutActive,
+			Description = "Sign out or switch account"
 			},
-		new FrameButton ("Home", "Home", "HomePage") {
+		new FrameButton ("Home", "Home", "") {
 			GetActive = (IBinding data) => (data as MainNav)?.HomePageActive
 			},
 		new FrameButton ("Notifications", "Notifications", "NotificationsPage") {
@@ -1464,7 +1479,8 @@ public partial class MainNav : FrameMenu {
 			GetActive = (IBinding data) => (data as MainNav)?.PlacesActive
 			},
 		new FrameButton ("Bookmark", "Saved", "BookmarkPage") {
-			GetActive = (IBinding data) => (data as MainNav)?.BookmarksActive
+			GetActive = (IBinding data) => (data as MainNav)?.BookmarksActive,
+			Description = "Your saved places"
 			},
 		new FrameButton ("Place", "Your Place", "YourPlacePage") {
 			GetActive = (IBinding data) => (data as MainNav)?.YourPlaceActive
@@ -1519,6 +1535,19 @@ public partial class MainNav : FrameMenu {
 /// </summary>
 public partial class TopSettings : FrameMenu {
 
+	// Implement factory method returning a menu bound to a specific page.
+
+    /// <inheritdoc/>
+    public override FramePage Page { 
+            get => page ?? FrameSet.Page;
+            init { page = value; } }
+    FramePage? page = null;
+
+    /// <inheritdoc/>
+    public override FrameMenu Create(FramePage page) => new MainNav() {
+        Page = page
+        };
+
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
@@ -1560,6 +1589,19 @@ public partial class TopSettings : FrameMenu {
 /// Backing class for SettingsMenu
 /// </summary>
 public partial class SettingsMenu : FrameMenu {
+
+	// Implement factory method returning a menu bound to a specific page.
+
+    /// <inheritdoc/>
+    public override FramePage Page { 
+            get => page ?? FrameSet.Page;
+            init { page = value; } }
+    FramePage? page = null;
+
+    /// <inheritdoc/>
+    public override FrameMenu Create(FramePage page) => new MainNav() {
+        Page = page
+        };
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -1606,6 +1648,19 @@ public partial class SettingsMenu : FrameMenu {
 /// Backing class for AboutSettings
 /// </summary>
 public partial class AboutSettings : FrameMenu {
+
+	// Implement factory method returning a menu bound to a specific page.
+
+    /// <inheritdoc/>
+    public override FramePage Page { 
+            get => page ?? FrameSet.Page;
+            init { page = value; } }
+    FramePage? page = null;
+
+    /// <inheritdoc/>
+    public override FrameMenu Create(FramePage page) => new MainNav() {
+        Page = page
+        };
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -1655,6 +1710,19 @@ public partial class AboutSettings : FrameMenu {
 /// Backing class for SupportMenu
 /// </summary>
 public partial class SupportMenu : FrameMenu {
+
+	// Implement factory method returning a menu bound to a specific page.
+
+    /// <inheritdoc/>
+    public override FramePage Page { 
+            get => page ?? FrameSet.Page;
+            init { page = value; } }
+    FramePage? page = null;
+
+    /// <inheritdoc/>
+    public override FrameMenu Create(FramePage page) => new MainNav() {
+        Page = page
+        };
 
 	/// <summary>
 	/// Constructor, returns a new instance
@@ -2822,13 +2890,16 @@ public partial class Post (string Id="Post") : Entry (Id) {
             			},
             		new FrameButton ("Like", "Like", "LikeAction") {
             			GetActive = (IBinding data) => (data as Post)?.Liked,
-            			GetInteger = (IBinding data) => (data as Post)?.Likes
+            			GetInteger = (IBinding data) => (data as Post)?.Likes,
+            			ButtonAction = ButtonAction.Method
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (IBinding data) => (data as Post)?.RequestedMore
+            			GetActive = (IBinding data) => (data as Post)?.RequestedMore,
+            			ButtonAction = ButtonAction.Method
             			},
             		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (IBinding data) => (data as Post)?.RequestedLess
+            			GetActive = (IBinding data) => (data as Post)?.RequestedLess,
+            			ButtonAction = ButtonAction.Method
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
@@ -2856,8 +2927,10 @@ public partial class Post (string Id="Post") : Entry (Id) {
                     			},
                     		new FrameSeparator ("S3"),
                     		new FrameButton ("MuteAccount", "Mute user", "MuteAccountAction") {
+                    			ButtonAction = ButtonAction.Method
                     			},
                     		new FrameButton ("BlockAccount", "Block user", "BlockAccountAction") {
+                    			ButtonAction = ButtonAction.Method
                     			},
                     		new FrameButton ("Report", "Report post", "ReportPostAction") {
                     			}
