@@ -158,11 +158,33 @@ Namespace Mplace2.Gui
 
         Target Is Comment               // Comment being responded to
         Form Form Comment               // Comment entry form
+            Title String                // Post Title
+                Prompt "Title"
+            Summary Text                 // Short text
+                Prompt "Summary"
+            Body RichText
+                Prompt "Body"
+
 
     NewPlacePage Page "Create New Place"
         EntryPage Container
         Navigation Is MainNav
         Form Form Place
+            DNS String
+                Prompt "DNS Address"
+                Description "Can be any DNS name that is resolved to the service."
+            Title String
+                Prompt "Name"
+                Description "The title the place will be known by."
+            Description Text 
+                Prompt "Description"
+                Description "Short description of the place."
+            AvatarFile File
+                Prompt "Avatar"
+                Description "Icon representing the place."
+            BannerFile File
+                Prompt "Banner"
+                Description "Background image for the main page."
 
     YourPlacePageCreate Page "Create Your Personal Place"
         FlowPage Container

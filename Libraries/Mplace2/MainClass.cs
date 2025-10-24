@@ -431,7 +431,6 @@ class MainClass {
     }
 public partial class Option {
 
-    public Option() : this(null) {
-        }
+
 
     }

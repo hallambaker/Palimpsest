@@ -1774,10 +1774,16 @@ public partial class SupportMenu : FrameMenu {
 /// <summary>
 /// Backing class for Handle
 /// </summary>
-public partial class Handle (string Id="Handle") : FrameClass (Id) {
+public partial class Handle (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Handle() : this("Handle") { 
+		}
 
 
 
@@ -1823,10 +1829,16 @@ public partial class Handle (string Id="Handle") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Provider
 /// </summary>
-public partial class Provider (string Id="Provider") : FrameClass (Id) {
+public partial class Provider (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Provider() : this("Provider") { 
+		}
 
 
 
@@ -1909,10 +1921,16 @@ public partial class Provider (string Id="Provider") : FrameClass (Id) {
 /// <summary>
 /// Backing class for User
 /// </summary>
-public partial class User (string Id="User") : FrameClass (Id) {
+public partial class User (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public User() : this("User") { 
+		}
 
 
 
@@ -2018,10 +2036,16 @@ public partial class User (string Id="User") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Group
 /// </summary>
-public partial class Group (string Id="Group") : FrameClass (Id) {
+public partial class Group (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Group() : this("Group") { 
+		}
 
 
 
@@ -2080,10 +2104,16 @@ public partial class Group (string Id="Group") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Rights
 /// </summary>
-public partial class Rights (string Id="Rights") : FrameClass (Id) {
+public partial class Rights (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Rights() : this("Rights") { 
+		}
 
 
 
@@ -2141,10 +2171,16 @@ public partial class Rights (string Id="Rights") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Access
 /// </summary>
-public partial class Access (string Id="Access") : FrameClass (Id) {
+public partial class Access (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Access() : this("Access") { 
+		}
 
 
 
@@ -2238,10 +2274,16 @@ public partial class Access (string Id="Access") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Privileges
 /// </summary>
-public partial class Privileges (string Id="Privileges") : FrameClass (Id) {
+public partial class Privileges (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Privileges() : this("Privileges") { 
+		}
 
 
 
@@ -2305,10 +2347,16 @@ public partial class Privileges (string Id="Privileges") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Entry
 /// </summary>
-public partial class Entry (string Id="Entry") : FrameClass (Id) {
+public partial class Entry (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Entry() : this("Entry") { 
+		}
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => Brief;
@@ -2417,10 +2465,16 @@ public partial class Entry (string Id="Entry") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Place
 /// </summary>
-public partial class Place (string Id="Place") : Entry (Id) {
+public partial class Place (string Id) : Entry (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Place() : this("Place") { 
+		}
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => PlaceReference;
@@ -2654,10 +2708,16 @@ public partial class Place (string Id="Place") : Entry (Id) {
 /// <summary>
 /// Backing class for Topic
 /// </summary>
-public partial class Topic (string Id="Topic") : Entry (Id) {
+public partial class Topic (string Id) : Entry (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Topic() : this("Topic") { 
+		}
 
 
 
@@ -2727,10 +2787,16 @@ public partial class Topic (string Id="Topic") : Entry (Id) {
 /// <summary>
 /// Backing class for Post
 /// </summary>
-public partial class Post (string Id="Post") : Entry (Id) {
+public partial class Post (string Id) : Entry (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Post() : this("Post") { 
+		}
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => PostSummary;
@@ -3057,10 +3123,16 @@ public partial class Post (string Id="Post") : Entry (Id) {
 /// <summary>
 /// Backing class for Comment
 /// </summary>
-public partial class Comment (string Id="Comment") : Entry (Id) {
+public partial class Comment (string Id) : Entry (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Comment() : this("Comment") { 
+		}
 
     /// <inheritdoc/>
     public override FramePresentation Presentation => CommentFull;
@@ -3265,10 +3337,16 @@ public partial class Comment (string Id="Comment") : Entry (Id) {
 /// <summary>
 /// Backing class for Resource
 /// </summary>
-public partial class Resource (string Id="Resource") : Entry (Id) {
+public partial class Resource (string Id) : Entry (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Resource() : this("Resource") { 
+		}
 
 
 
@@ -3356,10 +3434,16 @@ public partial class Resource (string Id="Resource") : Entry (Id) {
 /// <summary>
 /// Backing class for Contact
 /// </summary>
-public partial class Contact (string Id="Contact") : Entry (Id) {
+public partial class Contact (string Id) : Entry (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Contact() : this("Contact") { 
+		}
 
 
 
@@ -3480,10 +3564,16 @@ public partial class Contact (string Id="Contact") : Entry (Id) {
 /// <summary>
 /// Backing class for Name
 /// </summary>
-public partial class Name (string Id="Name") : FrameClass (Id) {
+public partial class Name (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Name() : this("Name") { 
+		}
 
 
 
@@ -3559,10 +3649,16 @@ public partial class Name (string Id="Name") : FrameClass (Id) {
 /// <summary>
 /// Backing class for TagValue
 /// </summary>
-public partial class TagValue (string Id="TagValue") : FrameClass (Id) {
+public partial class TagValue (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public TagValue() : this("TagValue") { 
+		}
 
 
 
@@ -3620,10 +3716,16 @@ public partial class TagValue (string Id="TagValue") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Organization
 /// </summary>
-public partial class Organization (string Id="Organization") : FrameClass (Id) {
+public partial class Organization (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Organization() : this("Organization") { 
+		}
 
 
 
@@ -3669,10 +3771,16 @@ public partial class Organization (string Id="Organization") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Pronouns
 /// </summary>
-public partial class Pronouns (string Id="Pronouns") : FrameClass (Id) {
+public partial class Pronouns (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Pronouns() : this("Pronouns") { 
+		}
 
 
 
@@ -3748,10 +3856,16 @@ public partial class Pronouns (string Id="Pronouns") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Title
 /// </summary>
-public partial class Title (string Id="Title") : FrameClass (Id) {
+public partial class Title (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Title() : this("Title") { 
+		}
 
 
 
@@ -3803,10 +3917,16 @@ public partial class Title (string Id="Title") : FrameClass (Id) {
 /// <summary>
 /// Backing class for RelatedTo
 /// </summary>
-public partial class RelatedTo (string Id="RelatedTo") : FrameClass (Id) {
+public partial class RelatedTo (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public RelatedTo() : this("RelatedTo") { 
+		}
 
 
 
@@ -3872,10 +3992,16 @@ public partial class RelatedTo (string Id="RelatedTo") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Application
 /// </summary>
-public partial class Application (string Id="Application") : FrameClass (Id) {
+public partial class Application (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Application() : this("Application") { 
+		}
 
 
 
@@ -3953,10 +4079,16 @@ public partial class Application (string Id="Application") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Email
 /// </summary>
-public partial class Email (string Id="Email") : Application (Id) {
+public partial class Email (string Id) : Application (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Email() : this("Email") { 
+		}
 
 
 
@@ -4006,10 +4138,16 @@ public partial class Email (string Id="Email") : Application (Id) {
 /// <summary>
 /// Backing class for Messaging
 /// </summary>
-public partial class Messaging (string Id="Messaging") : Application (Id) {
+public partial class Messaging (string Id) : Application (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Messaging() : this("Messaging") { 
+		}
 
 
 
@@ -4077,10 +4215,16 @@ public partial class Messaging (string Id="Messaging") : Application (Id) {
 /// <summary>
 /// Backing class for Phone
 /// </summary>
-public partial class Phone (string Id="Phone") : Application (Id) {
+public partial class Phone (string Id) : Application (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Phone() : this("Phone") { 
+		}
 
 
 
@@ -4136,10 +4280,16 @@ public partial class Phone (string Id="Phone") : Application (Id) {
 /// <summary>
 /// Backing class for Service
 /// </summary>
-public partial class Service (string Id="Service") : Application (Id) {
+public partial class Service (string Id) : Application (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Service() : this("Service") { 
+		}
 
 
 
@@ -4221,10 +4371,16 @@ public partial class Service (string Id="Service") : Application (Id) {
 /// <summary>
 /// Backing class for Key
 /// </summary>
-public partial class Key (string Id="Key") : FrameClass (Id) {
+public partial class Key (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Key() : this("Key") { 
+		}
 
 
 
@@ -4270,10 +4426,16 @@ public partial class Key (string Id="Key") : FrameClass (Id) {
 /// <summary>
 /// Backing class for KeyData
 /// </summary>
-public partial class KeyData (string Id="KeyData") : FrameClass (Id) {
+public partial class KeyData (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public KeyData() : this("KeyData") { 
+		}
 
 
 
@@ -4355,10 +4517,16 @@ public partial class KeyData (string Id="KeyData") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Media
 /// </summary>
-public partial class Media (string Id="Media") : FrameClass (Id) {
+public partial class Media (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Media() : this("Media") { 
+		}
 
 
 
@@ -4462,10 +4630,16 @@ public partial class Media (string Id="Media") : FrameClass (Id) {
 /// <summary>
 /// Backing class for Option
 /// </summary>
-public partial class Option (string Id="Option") : FrameClass (Id) {
+public partial class Option (string Id) : FrameClass (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public Option() : this("Option") { 
+		}
 
 
 
@@ -4555,10 +4729,16 @@ public partial class Option (string Id="Option") : FrameClass (Id) {
 /// <summary>
 /// Backing class for ServiceOption
 /// </summary>
-public partial class ServiceOption (string Id="ServiceOption") : Option (Id) {
+public partial class ServiceOption (string Id) : Option (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public ServiceOption() : this("ServiceOption") { 
+		}
 
 
 

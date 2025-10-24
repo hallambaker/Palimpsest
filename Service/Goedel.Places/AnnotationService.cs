@@ -253,6 +253,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
             var page = templatePage.PostPage(PersistPlace, path);
 
+
+
             RenderPage(path, page);
 
 
