@@ -1,7 +1,4 @@
-﻿
-namespace Mplace2.Gui;
-
-
+﻿namespace Mplace2.Gui;
 
 public partial class CreatePost {
 
@@ -27,51 +24,6 @@ public partial class CreatePost {
         path.Page = result;
 
         return result;
-        }
-
-    public override FramePage PostPage(
-        IPersistPlace persistPlace,
-        IPageContext context) {
-        var path = context as ParsedPath;
-
-
-
-        var form = GetForm(Fields, path.Uri.Query[1..]);
-        form.AssertNotNull(NYI.Throw);
-
-        var result = form.Factory();
-        ParsedMultipartFrame.Bind(result, path.Request.InputStream);
-
-
-        // Get the -Form parameter to identify the form on the page
-
-
-
-        // Create the template
-
-        // Bind parameters
-
-
-        // Attempt operation
-
-
-
-
-
-        // Just short out for now.
-        return (FrameSet as MyClass).HomePage.GetPage(persistPlace, context);
-        }
-
-    FrameRefForm? GetForm(List<IFrameField> fields, string tag) {
-        foreach (var field in fields) {
-            if (field.Id == tag) {
-                if (field is FrameRefForm menu) {
-                    return menu;
-                    }
-                }
-            }
-
-        return null;
         }
 
 

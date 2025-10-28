@@ -93,6 +93,9 @@ public partial class MyClass : FrameSet{
 
 
 
+	 ///<summary>HandleInput</summary>
+	 public HandleInput HandleInput {get;} = new();
+
 	 ///<summary>Handle</summary>
 	 public Handle Handle {get;} = new();
 
@@ -226,6 +229,7 @@ public partial class MyClass : FrameSet{
 			];
 
 		Classes = [ 
+			HandleInput,
 			Handle,
 			Provider,
 			User,
@@ -324,12 +328,12 @@ public partial class HomePage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<HomePage> _binding = new (
+	protected static readonly Binding<HomePage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "HomePage",
-		() => new HomePage(), () => [], () => [], null, Generic: false);
+		() => new HomePage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -372,12 +376,12 @@ public partial class NotificationsPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<NotificationsPage> _binding = new (
+	protected static readonly Binding<NotificationsPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "NotificationsPage",
-		() => new NotificationsPage(), () => [], () => [], null, Generic: false);
+		() => new NotificationsPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -420,12 +424,12 @@ public partial class PlacesPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<PlacesPage> _binding = new (
+	protected static readonly Binding<PlacesPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "PlacesPage",
-		() => new PlacesPage(), () => [], () => [], null, Generic: false);
+		() => new PlacesPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -468,12 +472,12 @@ public partial class BookmarkPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<BookmarkPage> _binding = new (
+	protected static readonly Binding<BookmarkPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "BookmarkPage",
-		() => new BookmarkPage(), () => [], () => [], null, Generic: false);
+		() => new BookmarkPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -523,12 +527,12 @@ public partial class YourPlacePage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<YourPlacePage> _binding = new (
+	protected static readonly Binding<YourPlacePage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "YourPlacePage",
-		() => new YourPlacePage(), () => [], () => [], null, Generic: false);
+		() => new YourPlacePage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -577,12 +581,12 @@ public partial class PostPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<PostPage> _binding = new (
+	protected static readonly Binding<PostPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "PostPage",
-		() => new PostPage(), () => [], () => [], null, Generic: false);
+		() => new PostPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -618,12 +622,12 @@ public partial class SettingsPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<SettingsPage> _binding = new (
+	protected static readonly Binding<SettingsPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "SettingsPage",
-		() => new SettingsPage(), () => [], () => [], null, Generic: false);
+		() => new SettingsPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -658,12 +662,12 @@ public partial class AccountSettings : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<AccountSettings> _binding = new (
+	protected static readonly Binding<AccountSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "AccountSettings",
-		() => new AccountSettings(), () => [], () => [], null, Generic: false);
+		() => new AccountSettings(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -698,12 +702,12 @@ public partial class AppearanceSettings : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<AppearanceSettings> _binding = new (
+	protected static readonly Binding<AppearanceSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "AppearanceSettings",
-		() => new AppearanceSettings(), () => [], () => [], null, Generic: false);
+		() => new AppearanceSettings(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -739,12 +743,12 @@ public partial class AboutSettingsPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<AboutSettingsPage> _binding = new (
+	protected static readonly Binding<AboutSettingsPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "AboutSettingsPage",
-		() => new AboutSettingsPage(), () => [], () => [], null, Generic: false);
+		() => new AboutSettingsPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -764,7 +768,7 @@ public partial class SignIn : FramePage {
 	public string? Text {get; set;}
 
     /// <summary>Field Form</summary>
-	public Handle? Form {get; set;}
+	public HandleInput? Form {get; set;}
 
     /// <summary>Field RegisterText</summary>
 	public string? RegisterText {get; set;}
@@ -779,9 +783,16 @@ public partial class SignIn : FramePage {
 			(IBinding data, string? value) => {(data as SignIn)!.Text = value; },
 			(IBinding data) => (data as SignIn)?.Text) {
 				},
-		new FrameRefForm<Handle> ("Form","Handle"){
+		new FrameRefForm<HandleInput> ("Form","HandleInput", [
+		new FrameString ("DNS",
+			(IBinding data, string? value) => {(data as HandleInput)!.DNS = value; },
+			(IBinding data) => (data as HandleInput)?.DNS) {
+				Prompt = "@nywhere handle",
+				Description = "The handle you use to log in to Blue Sky etc."
+				}
+				]){
 			Get = (IBacked data) => (data as SignIn)?.Form ,
-			Set = (IBacked data, IBacked? value) => {(data as SignIn)!.Form = value as Handle; }},
+			Set = (IBacked data, IBacked? value) => {(data as SignIn)!.Form = value as HandleInput; }},
 		new FrameString ("RegisterText",
 			(IBinding data, string? value) => {(data as SignIn)!.RegisterText = value; },
 			(IBinding data) => (data as SignIn)?.RegisterText) {
@@ -813,14 +824,14 @@ public partial class SignIn : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<SignIn> _binding = new (
+	protected static readonly Binding<SignIn> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]},
 			{"RegisterText", _properties[1]}
 			}, "SignIn",
-		() => new SignIn(), () => [], () => [], null, Generic: false);
+		() => new SignIn(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -836,10 +847,23 @@ public partial class SwitchPage : FramePage {
 		Container = "EntryPage";
 		}
 
+    /// <summary>Field Form</summary>
+	public HandleInput? Form {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameButton ("SignOut", "Sign Out", "SignOut") {
-			}
+			},
+		new FrameRefForm<HandleInput> ("Form","HandleInput", [
+		new FrameString ("DNS",
+			(IBinding data, string? value) => {(data as HandleInput)!.DNS = value; },
+			(IBinding data) => (data as HandleInput)?.DNS) {
+				Prompt = "@nywhere handle",
+				Description = "The handle you use to log in to Blue Sky etc."
+				}
+				]){
+			Get = (IBacked data) => (data as SwitchPage)?.Form ,
+			Set = (IBacked data, IBacked? value) => {(data as SwitchPage)!.Form = value as HandleInput; }}
 		];
 
 
@@ -856,12 +880,12 @@ public partial class SwitchPage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<SwitchPage> _binding = new (
+	protected static readonly Binding<SwitchPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "SwitchPage",
-		() => new SwitchPage(), () => [], () => [], null, Generic: false);
+		() => new SwitchPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -886,7 +910,26 @@ public partial class CreatePost : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Post> ("CreatePostAction","Post"){
+		new FrameRefForm<Post> ("CreatePostAction","Post", [
+		new FrameString ("Title",
+			(IBinding data, string? value) => {(data as Post)!.Title = value; },
+			(IBinding data) => (data as Post)?.Title) {
+				Prompt = "Title",
+				Description = "Title, should be short."
+				},
+		new FrameText ("Summary",
+			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
+			(IBinding data) => (data as Post)?.Summary) {
+				Prompt = "Summary",
+				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
+				},
+		new FrameRichText ("Body",
+			(IBinding data, string? value) => {(data as Post)!.Body = value; },
+			(IBinding data) => (data as Post)?.Body) {
+				Prompt = "Body",
+				Description = "What you want to say!"
+				}
+				]){
 			Get = (IBacked data) => (data as CreatePost)?.CreatePostAction ,
 			Set = (IBacked data, IBacked? value) => {(data as CreatePost)!.CreatePostAction = value as Post; }},
 		new FrameRefList<Provider> ("Crosspost","Provider"){
@@ -908,12 +951,12 @@ public partial class CreatePost : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<CreatePost> _binding = new (
+	protected static readonly Binding<CreatePost> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "CreatePost",
-		() => new CreatePost(), () => [], () => [], null, Generic: false);
+		() => new CreatePost(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -941,7 +984,13 @@ public partial class CreateComment : FramePage {
 		new FrameRefClass<Comment> ("Target","Comment"){
 			Get = (IBacked data) => (data as CreateComment)?.Target ,
 			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Target = value as Comment; }},
-		new FrameRefForm<Comment> ("Form","Comment"){
+		new FrameRefForm<Comment> ("Form","Comment", [
+		new FrameText ("Text",
+			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
+			(IBinding data) => (data as Comment)?.Text) {
+				Prompt = "Text"
+				}
+				]){
 			Get = (IBacked data) => (data as CreateComment)?.Form ,
 			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Form = value as Comment; }}
 		];
@@ -960,12 +1009,12 @@ public partial class CreateComment : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<CreateComment> _binding = new (
+	protected static readonly Binding<CreateComment> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "CreateComment",
-		() => new CreateComment(), () => [], () => [], null, Generic: false);
+		() => new CreateComment(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -987,7 +1036,38 @@ public partial class NewPlacePage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Place> ("Form","Place"){
+		new FrameRefForm<Place> ("Form","Place", [
+		new FrameString ("DNS",
+			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
+			(IBinding data) => (data as Place)?.DNS) {
+				Prompt = "DNS Address",
+				Description = "Can be any DNS name that is resolved to the service."
+				},
+		new FrameString ("Title",
+			(IBinding data, string? value) => {(data as Place)!.Title = value; },
+			(IBinding data) => (data as Place)?.Title) {
+				Prompt = "Name",
+				Description = "The title the place will be known by."
+				},
+		new FrameText ("Description",
+			(IBinding data, string? value) => {(data as Place)!.Description = value; },
+			(IBinding data) => (data as Place)?.Description) {
+				Prompt = "Description",
+				Description = "Short description of the place."
+				},
+		new FrameFile ("AvatarFile"){
+			FileType = "ImageFileType",
+			Prompt = "Avatar",
+			Description = "Icon representing the place.",
+			Get = (IBacked data) => (data as Place)?.AvatarFile ,
+			Set = (IBacked data, BackingTypeFile? value) => {(data as Place)!.AvatarFile = value as BackingTypeFile; }},
+		new FrameFile ("BannerFile"){
+			FileType = "ImageFileType",
+			Prompt = "Banner",
+			Description = "Background image for the main page.",
+			Get = (IBacked data) => (data as Place)?.BannerFile ,
+			Set = (IBacked data, BackingTypeFile? value) => {(data as Place)!.BannerFile = value as BackingTypeFile; }}
+				]){
 			Get = (IBacked data) => (data as NewPlacePage)?.Form ,
 			Set = (IBacked data, IBacked? value) => {(data as NewPlacePage)!.Form = value as Place; }}
 		];
@@ -1006,12 +1086,12 @@ public partial class NewPlacePage : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<NewPlacePage> _binding = new (
+	protected static readonly Binding<NewPlacePage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "NewPlacePage",
-		() => new NewPlacePage(), () => [], () => [], null, Generic: false);
+		() => new NewPlacePage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1033,7 +1113,8 @@ public partial class YourPlacePageCreate : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Place> ("Place","Place"){
+		new FrameRefForm<Place> ("Place","Place", [
+				]){
 			Get = (IBacked data) => (data as YourPlacePageCreate)?.Place ,
 			Set = (IBacked data, IBacked? value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
 		];
@@ -1052,12 +1133,12 @@ public partial class YourPlacePageCreate : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<YourPlacePageCreate> _binding = new (
+	protected static readonly Binding<YourPlacePageCreate> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "YourPlacePageCreate",
-		() => new YourPlacePageCreate(), () => [], () => [], null, Generic: false);
+		() => new YourPlacePageCreate(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1103,13 +1184,13 @@ public partial class Help : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Help> _binding = new (
+	protected static readonly Binding<Help> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
 			}, "Help",
-		() => new Help(), () => [], () => [], null, Generic: false);
+		() => new Help(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1155,13 +1236,13 @@ public partial class TermsOfService : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<TermsOfService> _binding = new (
+	protected static readonly Binding<TermsOfService> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
 			}, "TermsOfService",
-		() => new TermsOfService(), () => [], () => [], null, Generic: false);
+		() => new TermsOfService(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1207,13 +1288,13 @@ public partial class PrivacyPolicy : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<PrivacyPolicy> _binding = new (
+	protected static readonly Binding<PrivacyPolicy> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
 			}, "PrivacyPolicy",
-		() => new PrivacyPolicy(), () => [], () => [], null, Generic: false);
+		() => new PrivacyPolicy(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1259,13 +1340,13 @@ public partial class Contributors : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Contributors> _binding = new (
+	protected static readonly Binding<Contributors> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
 			}, "Contributors",
-		() => new Contributors(), () => [], () => [], null, Generic: false);
+		() => new Contributors(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1311,13 +1392,13 @@ public partial class Status : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Status> _binding = new (
+	protected static readonly Binding<Status> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
 			}, "Status",
-		() => new Status(), () => [], () => [], null, Generic: false);
+		() => new Status(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1363,13 +1444,13 @@ public partial class SystemLog : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<SystemLog> _binding = new (
+	protected static readonly Binding<SystemLog> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
 			}, "SystemLog",
-		() => new SystemLog(), () => [], () => [], null, Generic: false);
+		() => new SystemLog(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1415,13 +1496,13 @@ public partial class Repository : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Repository> _binding = new (
+	protected static readonly Binding<Repository> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
 			}, "Repository",
-		() => new Repository(), () => [], () => [], null, Generic: false);
+		() => new Repository(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1520,13 +1601,13 @@ public partial class MainNav : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<MainNav> _binding = new (
+	protected static readonly Binding<MainNav> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"NotificationCount", _properties[0]}
 			}, "MainNav",
-		() => new MainNav(), () => [], () => [], null, Generic: false);
+		() => new MainNav(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1576,12 +1657,12 @@ public partial class TopSettings : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<TopSettings> _binding = new (
+	protected static readonly Binding<TopSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "TopSettings",
-		() => new TopSettings(), () => [], () => [], null, Generic: false);
+		() => new TopSettings(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1635,12 +1716,12 @@ public partial class SettingsMenu : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<SettingsMenu> _binding = new (
+	protected static readonly Binding<SettingsMenu> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "SettingsMenu",
-		() => new SettingsMenu(), () => [], () => [], null, Generic: false);
+		() => new SettingsMenu(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1697,12 +1778,12 @@ public partial class AboutSettings : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<AboutSettings> _binding = new (
+	protected static readonly Binding<AboutSettings> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "AboutSettings",
-		() => new AboutSettings(), () => [], () => [], null, Generic: false);
+		() => new AboutSettings(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1756,12 +1837,12 @@ public partial class SupportMenu : FrameMenu {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<SupportMenu> _binding = new (
+	protected static readonly Binding<SupportMenu> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "SupportMenu",
-		() => new SupportMenu(), () => [], () => [], null, Generic: false);
+		() => new SupportMenu(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1771,6 +1852,53 @@ public partial class SupportMenu : FrameMenu {
 
 
 // Classes 
+/// <summary>
+/// Backing class for HandleInput
+/// </summary>
+public partial class HandleInput (string Id) : Handle (Id) {
+
+    /// <inheritdoc/>
+    public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public HandleInput() : this("HandleInput") { 
+		}
+
+
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("DNS",
+			(IBinding data, string? value) => {(data as Handle)!.DNS = value; },
+			(IBinding data) => (data as Handle)?.DNS) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<HandleInput> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "HandleInput",
+		() => new HandleInput(), () => [], () => [], Parent: Handle._binding, Generic: false);
+
+
+	}
 /// <summary>
 /// Backing class for Handle
 /// </summary>
@@ -1816,13 +1944,13 @@ public partial class Handle (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Handle> _binding = new (
+	protected static readonly Binding<Handle> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"DNS", _properties[0]}
 			}, "Handle",
-		() => new Handle(), () => [], () => [], null, Generic: false);
+		() => new Handle(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1905,7 +2033,7 @@ public partial class Provider (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Provider> _binding = new (
+	protected static readonly Binding<Provider> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -1914,7 +2042,7 @@ public partial class Provider (string Id) : FrameClass (Id) {
 			{"Title", _properties[2]},
 			{"Text", _properties[3]}
 			}, "Provider",
-		() => new Provider(), () => [], () => [], null, Generic: false);
+		() => new Provider(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2019,7 +2147,7 @@ public partial class User (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<User> _binding = new (
+	protected static readonly Binding<User> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2029,7 +2157,7 @@ public partial class User (string Id) : FrameClass (Id) {
 			{"Banned", _properties[3]},
 			{"Suspended", _properties[4]}
 			}, "User",
-		() => new User(), () => [], () => [], null, Generic: false);
+		() => new User(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2090,14 +2218,14 @@ public partial class Group (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Group> _binding = new (
+	protected static readonly Binding<Group> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Uid", _properties[0]},
 			{"Name", _properties[1]}
 			}, "Group",
-		() => new Group(), () => [], () => [], null, Generic: false);
+		() => new Group(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2158,13 +2286,13 @@ public partial class Rights (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Rights> _binding = new (
+	protected static readonly Binding<Rights> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"GroupUid", _properties[0]}
 			}, "Rights",
-		() => new Rights(), () => [], () => [], null, Generic: false);
+		() => new Rights(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2257,7 +2385,7 @@ public partial class Access (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Access> _binding = new (
+	protected static readonly Binding<Access> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2267,7 +2395,7 @@ public partial class Access (string Id) : FrameClass (Id) {
 			{"Delete", _properties[3]},
 			{"Owner", _properties[4]}
 			}, "Access",
-		() => new Access(), () => [], () => [], null, Generic: false);
+		() => new Access(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2335,12 +2463,12 @@ public partial class Privileges (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Privileges> _binding = new (
+	protected static readonly Binding<Privileges> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "Privileges",
-		() => new Privileges(), () => [], () => [], null, Generic: false);
+		() => new Privileges(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2450,7 +2578,7 @@ public partial class Entry (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Entry> _binding = new (
+	protected static readonly Binding<Entry> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2458,7 +2586,7 @@ public partial class Entry (string Id) : FrameClass (Id) {
 			{"Semantic", _properties[1]},
 			{"Created", _properties[2]}
 			}, "Entry",
-		() => new Entry(), () => [], () => [], null, Generic: false);
+		() => new Entry(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2692,7 +2820,7 @@ public partial class Place (string Id) : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Place> _binding = new (
+	protected static readonly Binding<Place> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -2701,7 +2829,7 @@ public partial class Place (string Id) : Entry (Id) {
 			{"Description", _properties[2]},
 			{"Banner", _properties[3]}
 			}, "Place",
-		() => new Place(), () => [], () => [], null, Generic: false);
+		() => new Place(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
 
 	}
@@ -2774,13 +2902,13 @@ public partial class Topic (string Id) : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Topic> _binding = new (
+	protected static readonly Binding<Topic> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Title", _properties[0]}
 			}, "Topic",
-		() => new Topic(), () => [], () => [], null, Generic: false);
+		() => new Topic(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
 
 	}
@@ -3105,7 +3233,7 @@ public partial class Post (string Id) : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Post> _binding = new (
+	protected static readonly Binding<Post> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3116,7 +3244,7 @@ public partial class Post (string Id) : Entry (Id) {
 			{"Comments", _properties[4]},
 			{"Likes", _properties[5]}
 			}, "Post",
-		() => new Post(), () => [], () => [], null, Generic: false);
+		() => new Post(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
 
 	}
@@ -3322,7 +3450,7 @@ public partial class Comment (string Id) : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Comment> _binding = new (
+	protected static readonly Binding<Comment> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3330,7 +3458,7 @@ public partial class Comment (string Id) : Entry (Id) {
 			{"Likes", _properties[1]},
 			{"Replies", _properties[2]}
 			}, "Comment",
-		() => new Comment(), () => [], () => [], null, Generic: false);
+		() => new Comment(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
 
 	}
@@ -3419,7 +3547,7 @@ public partial class Resource (string Id) : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Resource> _binding = new (
+	protected static readonly Binding<Resource> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3427,7 +3555,7 @@ public partial class Resource (string Id) : Entry (Id) {
 			{"Size", _properties[1]},
 			{"Type", _properties[2]}
 			}, "Resource",
-		() => new Resource(), () => [], () => [], null, Generic: false);
+		() => new Resource(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
 
 	}
@@ -3551,13 +3679,13 @@ public partial class Contact (string Id) : Entry (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Contact> _binding = new (
+	protected static readonly Binding<Contact> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Updated", _properties[0]}
 			}, "Contact",
-		() => new Contact(), () => [], () => [], null, Generic: false);
+		() => new Contact(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
 
 	}
@@ -3634,7 +3762,7 @@ public partial class Name (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Name> _binding = new (
+	protected static readonly Binding<Name> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3642,7 +3770,7 @@ public partial class Name (string Id) : FrameClass (Id) {
 			{"PhoneticSystem", _properties[1]},
 			{"PhoneticScript", _properties[2]}
 			}, "Name",
-		() => new Name(), () => [], () => [], null, Generic: false);
+		() => new Name(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -3702,14 +3830,14 @@ public partial class TagValue (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<TagValue> _binding = new (
+	protected static readonly Binding<TagValue> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Tag", _properties[0]},
 			{"Value", _properties[1]}
 			}, "TagValue",
-		() => new TagValue(), () => [], () => [], null, Generic: false);
+		() => new TagValue(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -3758,13 +3886,13 @@ public partial class Organization (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Organization> _binding = new (
+	protected static readonly Binding<Organization> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Name", _properties[0]}
 			}, "Organization",
-		() => new Organization(), () => [], () => [], null, Generic: false);
+		() => new Organization(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -3841,7 +3969,7 @@ public partial class Pronouns (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Pronouns> _binding = new (
+	protected static readonly Binding<Pronouns> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -3849,7 +3977,7 @@ public partial class Pronouns (string Id) : FrameClass (Id) {
 			{"Objective", _properties[1]},
 			{"Posessive", _properties[2]}
 			}, "Pronouns",
-		() => new Pronouns(), () => [], () => [], null, Generic: false);
+		() => new Pronouns(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -3904,13 +4032,13 @@ public partial class Title (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Title> _binding = new (
+	protected static readonly Binding<Title> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Name", _properties[0]}
 			}, "Title",
-		() => new Title(), () => [], () => [], null, Generic: false);
+		() => new Title(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -3978,14 +4106,14 @@ public partial class RelatedTo (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<RelatedTo> _binding = new (
+	protected static readonly Binding<RelatedTo> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Uid", _properties[0]},
 			{"Other", _properties[1]}
 			}, "RelatedTo",
-		() => new RelatedTo(), () => [], () => [], null, Generic: false);
+		() => new RelatedTo(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -4064,7 +4192,7 @@ public partial class Application (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Application> _binding = new (
+	protected static readonly Binding<Application> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4072,7 +4200,7 @@ public partial class Application (string Id) : FrameClass (Id) {
 			{"Address", _properties[1]},
 			{"Preference", _properties[2]}
 			}, "Application",
-		() => new Application(), () => [], () => [], null, Generic: false);
+		() => new Application(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -4126,12 +4254,12 @@ public partial class Email (string Id) : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Email> _binding = new (
+	protected static readonly Binding<Email> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "Email",
-		() => new Email(), () => [], () => [], null, Generic: false);
+		() => new Email(), () => [], () => [], Parent: Application._binding, Generic: false);
 
 
 	}
@@ -4202,13 +4330,13 @@ public partial class Messaging (string Id) : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Messaging> _binding = new (
+	protected static readonly Binding<Messaging> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Other", _properties[0]}
 			}, "Messaging",
-		() => new Messaging(), () => [], () => [], null, Generic: false);
+		() => new Messaging(), () => [], () => [], Parent: Application._binding, Generic: false);
 
 
 	}
@@ -4268,12 +4396,12 @@ public partial class Phone (string Id) : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Phone> _binding = new (
+	protected static readonly Binding<Phone> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "Phone",
-		() => new Phone(), () => [], () => [], null, Generic: false);
+		() => new Phone(), () => [], () => [], Parent: Application._binding, Generic: false);
 
 
 	}
@@ -4357,14 +4485,14 @@ public partial class Service (string Id) : Application (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Service> _binding = new (
+	protected static readonly Binding<Service> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"ServiceName", _properties[0]},
 			{"Protocol", _properties[1]}
 			}, "Service",
-		() => new Service(), () => [], () => [], null, Generic: false);
+		() => new Service(), () => [], () => [], Parent: Application._binding, Generic: false);
 
 
 	}
@@ -4414,12 +4542,12 @@ public partial class Key (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Key> _binding = new (
+	protected static readonly Binding<Key> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			}, "Key",
-		() => new Key(), () => [], () => [], null, Generic: false);
+		() => new Key(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -4451,6 +4579,9 @@ public partial class KeyData (string Id) : FrameClass (Id) {
     /// <summary>Field Value</summary>
 	public string? Value {get; set;}
 
+    /// <summary>Field Upload</summary>
+	public BackingTypeFile? Upload {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("UID",
@@ -4468,7 +4599,13 @@ public partial class KeyData (string Id) : FrameClass (Id) {
 		new FrameString ("Value",
 			(IBinding data, string? value) => {(data as KeyData)!.Value = value; },
 			(IBinding data) => (data as KeyData)?.Value) {
-				}
+				},
+		new FrameFile ("Upload"){
+			FileType = null,
+			Prompt = null,
+			Description = null,
+			Get = (IBacked data) => (data as KeyData)?.Upload ,
+			Set = (IBacked data, BackingTypeFile? value) => {(data as KeyData)!.Upload = value as BackingTypeFile; }}
 		];
 
 
@@ -4495,22 +4632,29 @@ public partial class KeyData (string Id) : FrameClass (Id) {
 		new FrameString ("Value",
 			(IBinding data, string? value) => {(data as KeyData)!.Value = value; },
 			(IBinding data) => (data as KeyData)?.Value) {
-				}		];
+				},
+		new FrameFile ("Upload"){
+			FileType = null,
+			Prompt = null,
+			Description = null,
+			Get = (IBacked data) => (data as KeyData)?.Upload ,
+			Set = (IBacked data, BackingTypeFile? value) => {(data as KeyData)!.Upload = value as BackingTypeFile; }}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<KeyData> _binding = new (
+	protected static readonly Binding<KeyData> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"UID", _properties[0]},
 			{"Encryption", _properties[1]},
 			{"Signature", _properties[2]},
-			{"Value", _properties[3]}
+			{"Value", _properties[3]},
+			{"Upload", _properties[4]}
 			}, "KeyData",
-		() => new KeyData(), () => [], () => [], null, Generic: false);
+		() => new KeyData(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -4530,6 +4674,9 @@ public partial class Media (string Id) : FrameClass (Id) {
 
 
 
+    /// <summary>Field Data</summary>
+	public BackingTypeFile? Data {get; set;}
+
     /// <summary>Field MediaType</summary>
 	public string? MediaType {get; set;}
 
@@ -4547,6 +4694,12 @@ public partial class Media (string Id) : FrameClass (Id) {
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameFile ("Data"){
+			FileType = null,
+			Prompt = null,
+			Description = "The media resource",
+			Get = (IBacked data) => (data as Media)?.Data ,
+			Set = (IBacked data, BackingTypeFile? value) => {(data as Media)!.Data = value as BackingTypeFile; }},
 		new FrameString ("MediaType",
 			(IBinding data, string? value) => {(data as Media)!.MediaType = value; },
 			(IBinding data) => (data as Media)?.MediaType) {
@@ -4583,6 +4736,12 @@ public partial class Media (string Id) : FrameClass (Id) {
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
 
+		new FrameFile ("Data"){
+			FileType = null,
+			Prompt = null,
+			Description = "The media resource",
+			Get = (IBacked data) => (data as Media)?.Data ,
+			Set = (IBacked data, BackingTypeFile? value) => {(data as Media)!.Data = value as BackingTypeFile; }},
 		new FrameString ("MediaType",
 			(IBinding data, string? value) => {(data as Media)!.MediaType = value; },
 			(IBinding data) => (data as Media)?.MediaType) {
@@ -4613,17 +4772,18 @@ public partial class Media (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Media> _binding = new (
+	protected static readonly Binding<Media> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
-			{"MediaType", _properties[0]},
-			{"Width", _properties[1]},
-			{"Height", _properties[2]},
-			{"Length", _properties[3]},
-			{"Bytes", _properties[4]}
+			{"Data", _properties[0]},
+			{"MediaType", _properties[1]},
+			{"Width", _properties[2]},
+			{"Height", _properties[3]},
+			{"Length", _properties[4]},
+			{"Bytes", _properties[5]}
 			}, "Media",
-		() => new Media(), () => [], () => [], null, Generic: false);
+		() => new Media(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -4713,7 +4873,7 @@ public partial class Option (string Id) : FrameClass (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<Option> _binding = new (
+	protected static readonly Binding<Option> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
@@ -4722,7 +4882,7 @@ public partial class Option (string Id) : FrameClass (Id) {
 			{"Icon", _properties[2]},
 			{"Priority", _properties[3]}
 			}, "Option",
-		() => new Option(), () => [], () => [], null, Generic: false);
+		() => new Option(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -4806,14 +4966,14 @@ public partial class ServiceOption (string Id) : Option (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	static readonly Binding<ServiceOption> _binding = new (
+	protected static readonly Binding<ServiceOption> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Uri", _properties[0]},
 			{"Template", _properties[1]}
 			}, "ServiceOption",
-		() => new ServiceOption(), () => [], () => [], null, Generic: false);
+		() => new ServiceOption(), () => [], () => [], Parent: Option._binding, Generic: false);
 
 
 	}

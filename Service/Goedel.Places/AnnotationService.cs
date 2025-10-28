@@ -21,6 +21,8 @@
 #endregion
 
 
+using DocumentFormat.OpenXml.Drawing.Charts;
+
 using Goedel.Protocol;
 using Goedel.Sitebuilder;
 
@@ -246,21 +248,57 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     private async Task HandleRequestPost(HttpListenerContext context) {
-
-
+        
         var path = new ParsedPath(context);
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
+            var form = GetForm(templatePage.Fields, path.Uri.Query[1..]);
+            form.AssertNotNull(NYI.Throw);
 
-            var page = templatePage.PostPage(PersistPlace, path);
+            var result = form.Factory();
+            ParsedMultipartFrame.Bind(result, path.Request.InputStream);
 
+            // Validate the inputs
+            var validate = result.Validate(PersistPlace, out var formReactions);
+            if (formReactions is not null) {
+                // this should cause the form to be reloaded with the specified error messages per field
 
+                var page = templatePage.GetPage(PersistPlace, path);
 
-            RenderPage(path, page);
+                form.Set(page, result);
+                await RenderPage(path, page, formReactions);
+                return;
 
+                }
+            else if (validate != HttpStatusCode.OK) {
+                await Error(path, "bad data", validate);
+                return;
+                }
 
+            // Perform the action
+            var commit = result.Commit(PersistPlace, out var redirect);
+            if (commit != HttpStatusCode.OK) {
+                await Error(path, "bad data", validate);
+                return;
+                }
+
+            var response = path.Context.Response;
+            response.Redirect(redirect ?? "/");
+            response.Close();
             }
         }
 
+
+    FrameRefForm? GetForm(List<IFrameField> fields, string tag) {
+        foreach (var field in fields) {
+            if (field.Id == tag) {
+                if (field is FrameRefForm menu) {
+                    return menu;
+                    }
+                }
+            }
+
+        return null;
+        }
 
     private async Task HandleRequestPut(HttpListenerContext context) {
         }
@@ -344,11 +382,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
 
-    public async Task RenderPage(ParsedPath path, FramePage page) {
+    public async Task RenderPage(ParsedPath path, FramePage page, List<FormReaction>? reactions=null) {
 
         using var stream = new MemoryStream();
         using var textwriter = new StreamWriter(stream);
-        var writer = new PageWriter(page, textwriter);
+        var writer = new PageWriter(page, textwriter) {
+            Reactions = reactions};
         writer.Render();
         textwriter.Flush();
         var data = stream.ToArray();
