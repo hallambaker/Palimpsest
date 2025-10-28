@@ -1,4 +1,6 @@
 ﻿
+using Goedel.Cryptography.Oauth;
+
 using Mplace2.Gui;
 namespace Goedel.Places.MPlace2;
 
@@ -25,6 +27,17 @@ namespace Goedel.Places.MPlace2;
 
 
 public class PersistPlace : IPersistPlace {
+
+    /// <inheritdoc/>
+    public ServerCookieManager ServerCookieManager { get; set; }
+
+
+    /// <inheritdoc/>
+    public OauthClient OauthClient { get; set; }
+
+
+    /// <inheritdoc/>
+    public FrameSet FrameSet { get; set; }
 
     public Place? GetMainPlace (ParsedPath context) => new Place() {
         Uid = Udf.Nonce(),

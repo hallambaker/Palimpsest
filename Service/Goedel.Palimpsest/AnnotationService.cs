@@ -59,7 +59,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     #region // Properties
     ///<summary>The persistent data store</summary> 
-    //public Forum Forum { get; }
+    public Forum Forum { get; }
 
 
 
