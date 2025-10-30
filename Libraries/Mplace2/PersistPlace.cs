@@ -1,28 +1,45 @@
 ﻿
+using DocumentFormat.OpenXml.Spreadsheet;
+
 using Goedel.Cryptography.Oauth;
-
-using Mplace2.Gui;
-namespace Goedel.Places.MPlace2;
+using Goedel.Places;
 
 
+namespace Mplace2.Gui;
 
-//public record RequestContext (
-//            string LanguageCode
-//            ) {
+public static class Extensions {
+
+    public static SignInState GetSignInState(
+            this Goedel.Sitebuilder.FramePage page,
+            out SignInState value) {
+        value = GetSignInState(page);
+        return value;
+        }
+
+    public static SignInState GetSignInState(
+                this Goedel.Sitebuilder.FramePage page) {
+        if (page.Context is not ParsedPath path) {
+            return SignInState.Initial;
+            }
+        path.MemberHandle ??= path.PersistPlace.GetMember(path);
+        var handle = path.MemberHandle;
+
+        if (handle is null) {
+            return SignInState.Initial;
+            }
+
+        var signedIn = SignInState.SignedIn;
+
+        if (handle.LocalName == "phill.hallambaker.com") {
+            signedIn |= SignInState.IsAdministrator ;
+            }
+
+        return signedIn;
+        }
 
 
 
-//    }
-
-//public record RequestContextUser (
-//            string LanguageCode,
-//            string UserId
-//            ) : RequestContext(LanguageCode){
-
-
-
-//    }
-
+    }
 
 
 
@@ -38,6 +55,41 @@ public class PersistPlace : IPersistPlace {
 
     /// <inheritdoc/>
     public FrameSet FrameSet { get; set; }
+
+
+    public Dictionary<string, MemberHandle> Members { get; } = [];
+
+    /// <inheritdoc/>
+    public MemberHandle GetOrCreateMember(string handle, string did) {
+        var member = new CatalogedForumMember() {
+            Did = did,
+            LocalName = handle
+            };
+        var result = new MemberHandle(member);
+
+        Members.Add(did, result);
+        return result;
+        }
+
+    /// <inheritdoc/>
+    public MemberHandle? GetMember(ParsedPath path) {
+        if (!ServerCookieManager.TryGetCookie(
+            path.Context.Request, PalimpsestConstants.CookieTypeSessionTag, out var did)) {
+            return null;
+            }
+        if (did is null) {
+            return null;
+            }
+
+        if (Members.TryGetValue(did, out var member)) {
+            path.MemberHandle = member;
+            return member;
+            }
+        return null;
+        }
+
+
+
 
     public Place? GetMainPlace (ParsedPath context) => new Place() {
         Uid = Udf.Nonce(),

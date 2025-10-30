@@ -1,5 +1,13 @@
 ﻿
+#pragma warning disable IDE0028 // Simplify collection initialization
 namespace Mplace2.Gui;
+
+public partial class FramePage : Goedel.Sitebuilder.FramePage {
+
+    public FramePage(string id, string title, List<IFrameField> fields) : base(id, title, fields) {
+        }
+
+    }
 
 /// <summary>
 /// Annotated backing classes for data driven GUI.
@@ -14,6 +22,9 @@ public partial class MyClass : FrameSet{
 
 	///<summary>PlacesPage</summary>
 	public PlacesPage PlacesPage {get;} = new();
+
+	///<summary>PostsPage</summary>
+	public PostsPage PostsPage {get;} = new();
 
 	///<summary>BookmarkPage</summary>
 	public BookmarkPage BookmarkPage {get;} = new();
@@ -95,6 +106,9 @@ public partial class MyClass : FrameSet{
 
 	 ///<summary>HandleInput</summary>
 	 public HandleInput HandleInput {get;} = new();
+
+	 ///<summary>FormPlace</summary>
+	 public FormPlace FormPlace {get;} = new();
 
 	 ///<summary>Handle</summary>
 	 public Handle Handle {get;} = new();
@@ -195,6 +209,7 @@ public partial class MyClass : FrameSet{
 			HomePage,
 			NotificationsPage,
 			PlacesPage,
+			PostsPage,
 			BookmarkPage,
 			YourPlacePage,
 			PostPage,
@@ -230,6 +245,7 @@ public partial class MyClass : FrameSet{
 
 		Classes = [ 
 			HandleInput,
+			FormPlace,
 			Handle,
 			Provider,
 			User,
@@ -306,12 +322,12 @@ public partial class HomePage : FramePage {
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefClass<Place> ("MainEntry","Place"){
 			Presentation = FullPresentation,
-			Get = (IBacked data) => (data as HomePage)?.MainEntry ,
-			Set = (IBacked data, IBacked? value) => {(data as HomePage)!.MainEntry = value as Place; }},
+			Get = (data) => (data as HomePage)?.MainEntry ,
+			Set = (data, value) => {(data as HomePage)!.MainEntry = value as Place; }},
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
-			Get = (IBacked data) => (data as HomePage)?.Entries ,
-			Set = (IBacked data, Object? value) => {(data as HomePage)!.Entries = value as List<Entry>; }}
+			Get = (data) => (data as HomePage)?.Entries ,
+			Set = (data, value) => {(data as HomePage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -358,8 +374,8 @@ public partial class NotificationsPage : FramePage {
 		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
-			Get = (IBacked data) => (data as NotificationsPage)?.Entries ,
-			Set = (IBacked data, Object? value) => {(data as NotificationsPage)!.Entries = value as List<Entry>; }}
+			Get = (data) => (data as NotificationsPage)?.Entries ,
+			Set = (data, value) => {(data as NotificationsPage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -406,8 +422,8 @@ public partial class PlacesPage : FramePage {
 		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
-			Get = (IBacked data) => (data as PlacesPage)?.Entries ,
-			Set = (IBacked data, Object? value) => {(data as PlacesPage)!.Entries = value as List<Entry>; }}
+			Get = (data) => (data as PlacesPage)?.Entries ,
+			Set = (data, value) => {(data as PlacesPage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -434,6 +450,54 @@ public partial class PlacesPage : FramePage {
 
 	}
 /// <summary>
+/// Backing class for PostsPage
+/// </summary>
+public partial class PostsPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public PostsPage () : base ("PostsPage", "Places", _Fields) {
+		Container = "FlowPage";
+		}
+
+    /// <summary>Field Entries</summary>
+	public List<Entry>? Entries {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRefList<Entry> ("Entries","Entry"){
+			Presentation = SummaryPresentation,
+			Get = (data) => (data as PostsPage)?.Entries ,
+			Set = (data, value) => {(data as PostsPage)!.Entries = value as List<Entry>; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<PostsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "PostsPage",
+		() => new PostsPage(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
 /// Backing class for BookmarkPage
 /// </summary>
 public partial class BookmarkPage : FramePage {
@@ -454,8 +518,8 @@ public partial class BookmarkPage : FramePage {
 		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
-			Get = (IBacked data) => (data as BookmarkPage)?.Entries ,
-			Set = (IBacked data, Object? value) => {(data as BookmarkPage)!.Entries = value as List<Entry>; }}
+			Get = (data) => (data as BookmarkPage)?.Entries ,
+			Set = (data, value) => {(data as BookmarkPage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -505,12 +569,12 @@ public partial class YourPlacePage : FramePage {
 		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefClass<Place> ("MainEntry","Place"){
 			Presentation = FullPresentation,
-			Get = (IBacked data) => (data as YourPlacePage)?.MainEntry ,
-			Set = (IBacked data, IBacked? value) => {(data as YourPlacePage)!.MainEntry = value as Place; }},
+			Get = (data) => (data as YourPlacePage)?.MainEntry ,
+			Set = (data, value) => {(data as YourPlacePage)!.MainEntry = value as Place; }},
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
-			Get = (IBacked data) => (data as YourPlacePage)?.Entries ,
-			Set = (IBacked data, Object? value) => {(data as YourPlacePage)!.Entries = value as List<Entry>; }}
+			Get = (data) => (data as YourPlacePage)?.Entries ,
+			Set = (data, value) => {(data as YourPlacePage)!.Entries = value as List<Entry>; }}
 		];
 
 
@@ -559,12 +623,12 @@ public partial class PostPage : FramePage {
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefClass<Post> ("MainEntry","Post"){
 			Presentation = PostPresentation,
-			Get = (IBacked data) => (data as PostPage)?.MainEntry ,
-			Set = (IBacked data, IBacked? value) => {(data as PostPage)!.MainEntry = value as Post; }},
+			Get = (data) => (data as PostPage)?.MainEntry ,
+			Set = (data, value) => {(data as PostPage)!.MainEntry = value as Post; }},
 		new FrameRefList<Comment> ("Entries","Comment"){
 			Presentation = CommentPresentation,
-			Get = (IBacked data) => (data as PostPage)?.Entries ,
-			Set = (IBacked data, Object? value) => {(data as PostPage)!.Entries = value as List<Comment>; }}
+			Get = (data) => (data as PostPage)?.Entries ,
+			Set = (data, value) => {(data as PostPage)!.Entries = value as List<Comment>; }}
 		];
 
 
@@ -780,26 +844,26 @@ public partial class SignIn : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as SignIn)!.Text = value; },
-			(IBinding data) => (data as SignIn)?.Text) {
+			(data, value) => {(data as SignIn)!.Text = value; },
+			(data) => (data as SignIn)?.Text) {
 				},
 		new FrameRefForm<HandleInput> ("Form","HandleInput", [
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as HandleInput)!.DNS = value; },
-			(IBinding data) => (data as HandleInput)?.DNS) {
+			(data, value) => {(data as HandleInput)!.DNS = value; },
+			(data) => (data as HandleInput)?.DNS) {
 				Prompt = "@nywhere handle",
 				Description = "The handle you use to log in to Blue Sky etc."
 				}
 				]){
-			Get = (IBacked data) => (data as SignIn)?.Form ,
-			Set = (IBacked data, IBacked? value) => {(data as SignIn)!.Form = value as HandleInput; }},
+			Get = (data) => (data as SignIn)?.Form ,
+			Set = (data, value) => {(data as SignIn)!.Form = value as HandleInput; }},
 		new FrameString ("RegisterText",
-			(IBinding data, string? value) => {(data as SignIn)!.RegisterText = value; },
-			(IBinding data) => (data as SignIn)?.RegisterText) {
+			(data, value) => {(data as SignIn)!.RegisterText = value; },
+			(data) => (data as SignIn)?.RegisterText) {
 				},
 		new FrameRefList<Provider> ("Providers","Provider"){
-			Get = (IBacked data) => (data as SignIn)?.Providers ,
-			Set = (IBacked data, Object? value) => {(data as SignIn)!.Providers = value as List<Provider>; }}
+			Get = (data) => (data as SignIn)?.Providers ,
+			Set = (data, value) => {(data as SignIn)!.Providers = value as List<Provider>; }}
 		];
 
 
@@ -812,12 +876,12 @@ public partial class SignIn : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as SignIn)!.Text = value; },
-			(IBinding data) => (data as SignIn)?.Text) {
+			(data, value) => {(data as SignIn)!.Text = value; },
+			(data) => (data as SignIn)?.Text) {
 				},
 		new FrameString ("RegisterText",
-			(IBinding data, string? value) => {(data as SignIn)!.RegisterText = value; },
-			(IBinding data) => (data as SignIn)?.RegisterText) {
+			(data, value) => {(data as SignIn)!.RegisterText = value; },
+			(data) => (data as SignIn)?.RegisterText) {
 				}		];
 
     /// <inheritdoc/>
@@ -856,14 +920,14 @@ public partial class SwitchPage : FramePage {
 			},
 		new FrameRefForm<HandleInput> ("Form","HandleInput", [
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as HandleInput)!.DNS = value; },
-			(IBinding data) => (data as HandleInput)?.DNS) {
+			(data, value) => {(data as HandleInput)!.DNS = value; },
+			(data) => (data as HandleInput)?.DNS) {
 				Prompt = "@nywhere handle",
 				Description = "The handle you use to log in to Blue Sky etc."
 				}
 				]){
-			Get = (IBacked data) => (data as SwitchPage)?.Form ,
-			Set = (IBacked data, IBacked? value) => {(data as SwitchPage)!.Form = value as HandleInput; }}
+			Get = (data) => (data as SwitchPage)?.Form ,
+			Set = (data, value) => {(data as SwitchPage)!.Form = value as HandleInput; }}
 		];
 
 
@@ -912,29 +976,29 @@ public partial class CreatePost : FramePage {
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefForm<Post> ("CreatePostAction","Post", [
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-			(IBinding data) => (data as Post)?.Title) {
+			(data, value) => {(data as Post)!.Title = value; },
+			(data) => (data as Post)?.Title) {
 				Prompt = "Title",
 				Description = "Title, should be short."
 				},
 		new FrameText ("Summary",
-			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
-			(IBinding data) => (data as Post)?.Summary) {
+			(data, value) => {(data as Post)!.Summary = value; },
+			(data) => (data as Post)?.Summary) {
 				Prompt = "Summary",
 				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
 				},
 		new FrameRichText ("Body",
-			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-			(IBinding data) => (data as Post)?.Body) {
+			(data, value) => {(data as Post)!.Body = value; },
+			(data) => (data as Post)?.Body) {
 				Prompt = "Body",
 				Description = "What you want to say!"
 				}
 				]){
-			Get = (IBacked data) => (data as CreatePost)?.CreatePostAction ,
-			Set = (IBacked data, IBacked? value) => {(data as CreatePost)!.CreatePostAction = value as Post; }},
+			Get = (data) => (data as CreatePost)?.CreatePostAction ,
+			Set = (data, value) => {(data as CreatePost)!.CreatePostAction = value as Post; }},
 		new FrameRefList<Provider> ("Crosspost","Provider"){
-			Get = (IBacked data) => (data as CreatePost)?.Crosspost ,
-			Set = (IBacked data, Object? value) => {(data as CreatePost)!.Crosspost = value as List<Provider>; }}
+			Get = (data) => (data as CreatePost)?.Crosspost ,
+			Set = (data, value) => {(data as CreatePost)!.Crosspost = value as List<Provider>; }}
 		];
 
 
@@ -982,17 +1046,17 @@ public partial class CreateComment : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefClass<Comment> ("Target","Comment"){
-			Get = (IBacked data) => (data as CreateComment)?.Target ,
-			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Target = value as Comment; }},
+			Get = (data) => (data as CreateComment)?.Target ,
+			Set = (data, value) => {(data as CreateComment)!.Target = value as Comment; }},
 		new FrameRefForm<Comment> ("Form","Comment", [
 		new FrameText ("Text",
-			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
-			(IBinding data) => (data as Comment)?.Text) {
+			(data, value) => {(data as Comment)!.Text = value; },
+			(data) => (data as Comment)?.Text) {
 				Prompt = "Text"
 				}
 				]){
-			Get = (IBacked data) => (data as CreateComment)?.Form ,
-			Set = (IBacked data, IBacked? value) => {(data as CreateComment)!.Form = value as Comment; }}
+			Get = (data) => (data as CreateComment)?.Form ,
+			Set = (data, value) => {(data as CreateComment)!.Form = value as Comment; }}
 		];
 
 
@@ -1031,27 +1095,27 @@ public partial class NewPlacePage : FramePage {
 		}
 
     /// <summary>Field Form</summary>
-	public Place? Form {get; set;}
+	public FormPlace? Form {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Place> ("Form","Place", [
+		new FrameRefForm<FormPlace> ("Form","FormPlace", [
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-			(IBinding data) => (data as Place)?.DNS) {
+			(data, value) => {(data as FormPlace)!.DNS = value; },
+			(data) => (data as FormPlace)?.DNS) {
 				Prompt = "DNS Address",
 				Description = "Can be any DNS name that is resolved to the service."
 				},
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-			(IBinding data) => (data as Place)?.Title) {
+			(data, value) => {(data as FormPlace)!.Title = value; },
+			(data) => (data as FormPlace)?.Title) {
 				Prompt = "Name",
 				Description = "The title the place will be known by."
 				},
 		new FrameText ("Description",
-			(IBinding data, string? value) => {(data as Place)!.Description = value; },
-			(IBinding data) => (data as Place)?.Description) {
+			(data, value) => {(data as FormPlace)!.Description = value; },
+			(data) => (data as FormPlace)?.Description) {
 				Prompt = "Description",
 				Description = "Short description of the place."
 				},
@@ -1059,17 +1123,17 @@ public partial class NewPlacePage : FramePage {
 			FileType = "ImageFileType",
 			Prompt = "Avatar",
 			Description = "Icon representing the place.",
-			Get = (IBacked data) => (data as Place)?.AvatarFile ,
-			Set = (IBacked data, BackingTypeFile? value) => {(data as Place)!.AvatarFile = value as BackingTypeFile; }},
+			Get = (data) => (data as FormPlace)?.AvatarFile ,
+			Set = (data, value) => {(data as FormPlace)!.AvatarFile = value as BackingTypeFile; }},
 		new FrameFile ("BannerFile"){
 			FileType = "ImageFileType",
 			Prompt = "Banner",
 			Description = "Background image for the main page.",
-			Get = (IBacked data) => (data as Place)?.BannerFile ,
-			Set = (IBacked data, BackingTypeFile? value) => {(data as Place)!.BannerFile = value as BackingTypeFile; }}
+			Get = (data) => (data as FormPlace)?.BannerFile ,
+			Set = (data, value) => {(data as FormPlace)!.BannerFile = value as BackingTypeFile; }}
 				]){
-			Get = (IBacked data) => (data as NewPlacePage)?.Form ,
-			Set = (IBacked data, IBacked? value) => {(data as NewPlacePage)!.Form = value as Place; }}
+			Get = (data) => (data as NewPlacePage)?.Form ,
+			Set = (data, value) => {(data as NewPlacePage)!.Form = value as FormPlace; }}
 		];
 
 
@@ -1115,8 +1179,8 @@ public partial class YourPlacePageCreate : FramePage {
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefForm<Place> ("Place","Place", [
 				]){
-			Get = (IBacked data) => (data as YourPlacePageCreate)?.Place ,
-			Set = (IBacked data, IBacked? value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
+			Get = (data) => (data as YourPlacePageCreate)?.Place ,
+			Set = (data, value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
 		];
 
 
@@ -1161,8 +1225,8 @@ public partial class Help : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Help)!.Text = value; },
-			(IBinding data) => (data as Help)?.Text) {
+			(data, value) => {(data as Help)!.Text = value; },
+			(data) => (data as Help)?.Text) {
 				}
 		];
 
@@ -1176,8 +1240,8 @@ public partial class Help : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Help)!.Text = value; },
-			(IBinding data) => (data as Help)?.Text) {
+			(data, value) => {(data as Help)!.Text = value; },
+			(data) => (data as Help)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -1213,8 +1277,8 @@ public partial class TermsOfService : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as TermsOfService)!.Text = value; },
-			(IBinding data) => (data as TermsOfService)?.Text) {
+			(data, value) => {(data as TermsOfService)!.Text = value; },
+			(data) => (data as TermsOfService)?.Text) {
 				}
 		];
 
@@ -1228,8 +1292,8 @@ public partial class TermsOfService : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as TermsOfService)!.Text = value; },
-			(IBinding data) => (data as TermsOfService)?.Text) {
+			(data, value) => {(data as TermsOfService)!.Text = value; },
+			(data) => (data as TermsOfService)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -1265,8 +1329,8 @@ public partial class PrivacyPolicy : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as PrivacyPolicy)!.Text = value; },
-			(IBinding data) => (data as PrivacyPolicy)?.Text) {
+			(data, value) => {(data as PrivacyPolicy)!.Text = value; },
+			(data) => (data as PrivacyPolicy)?.Text) {
 				}
 		];
 
@@ -1280,8 +1344,8 @@ public partial class PrivacyPolicy : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as PrivacyPolicy)!.Text = value; },
-			(IBinding data) => (data as PrivacyPolicy)?.Text) {
+			(data, value) => {(data as PrivacyPolicy)!.Text = value; },
+			(data) => (data as PrivacyPolicy)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -1317,8 +1381,8 @@ public partial class Contributors : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Contributors)!.Text = value; },
-			(IBinding data) => (data as Contributors)?.Text) {
+			(data, value) => {(data as Contributors)!.Text = value; },
+			(data) => (data as Contributors)?.Text) {
 				}
 		];
 
@@ -1332,8 +1396,8 @@ public partial class Contributors : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Contributors)!.Text = value; },
-			(IBinding data) => (data as Contributors)?.Text) {
+			(data, value) => {(data as Contributors)!.Text = value; },
+			(data) => (data as Contributors)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -1369,8 +1433,8 @@ public partial class Status : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Status)!.Text = value; },
-			(IBinding data) => (data as Status)?.Text) {
+			(data, value) => {(data as Status)!.Text = value; },
+			(data) => (data as Status)?.Text) {
 				}
 		];
 
@@ -1384,8 +1448,8 @@ public partial class Status : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Status)!.Text = value; },
-			(IBinding data) => (data as Status)?.Text) {
+			(data, value) => {(data as Status)!.Text = value; },
+			(data) => (data as Status)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -1421,8 +1485,8 @@ public partial class SystemLog : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as SystemLog)!.Text = value; },
-			(IBinding data) => (data as SystemLog)?.Text) {
+			(data, value) => {(data as SystemLog)!.Text = value; },
+			(data) => (data as SystemLog)?.Text) {
 				}
 		];
 
@@ -1436,8 +1500,8 @@ public partial class SystemLog : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as SystemLog)!.Text = value; },
-			(IBinding data) => (data as SystemLog)?.Text) {
+			(data, value) => {(data as SystemLog)!.Text = value; },
+			(data) => (data as SystemLog)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -1473,8 +1537,8 @@ public partial class Repository : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Repository)!.Text = value; },
-			(IBinding data) => (data as Repository)?.Text) {
+			(data, value) => {(data as Repository)!.Text = value; },
+			(data) => (data as Repository)?.Text) {
 				}
 		];
 
@@ -1488,8 +1552,8 @@ public partial class Repository : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameRichText ("Text",
-			(IBinding data, string? value) => {(data as Repository)!.Text = value; },
-			(IBinding data) => (data as Repository)?.Text) {
+			(data, value) => {(data as Repository)!.Text = value; },
+			(data) => (data as Repository)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -1516,13 +1580,13 @@ public partial class MainNav : FrameMenu {
 	// Implement factory method returning a menu bound to a specific page.
 
     /// <inheritdoc/>
-    public override FramePage Page { 
+    public override Goedel.Sitebuilder.FramePage Page { 
             get => page ?? FrameSet.Page;
             init { page = value; } }
-    FramePage? page = null;
+    Goedel.Sitebuilder.FramePage? page = null;
 
     /// <inheritdoc/>
-    public override FrameMenu Create(FramePage page) => new MainNav() {
+    public override MainNav Create(Goedel.Sitebuilder.FramePage page) => new MainNav() {
         Page = page
         };
 
@@ -1538,48 +1602,47 @@ public partial class MainNav : FrameMenu {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameInteger ("NotificationCount",
-			(IBinding data, int? value) => {(data as MainNav)!.NotificationCount = value; },
-			(IBinding data) => (data as MainNav)?.NotificationCount) {
+			(data, value) => {(data as MainNav)!.NotificationCount = value; },
+			(data) => (data as MainNav)?.NotificationCount) {
 				},
 		new FrameButton ("Any", "Sign In", "SignIn") {
-			GetActive = (IBinding data) => (data as MainNav)?.SignInActive,
+			GetActive = (data) => (data as MainNav)?.SignInActive,
 			Description = "Sign in using your @nywhere account"
 			},
 		new FrameButton ("Avatar", "Sign Out", "SwitchPage") {
-			GetActive = (IBinding data) => (data as MainNav)?.SignOutActive,
+			GetActive = (data) => (data as MainNav)?.SignOutActive,
 			Description = "Sign out or switch account"
 			},
 		new FrameButton ("Home", "Home", "") {
-			GetActive = (IBinding data) => (data as MainNav)?.HomePageActive
+			GetActive = (data) => (data as MainNav)?.HomePageActive
 			},
 		new FrameButton ("Notifications", "Notifications", "NotificationsPage") {
-			GetActive = (IBinding data) => (data as MainNav)?.NotificationsActive,
-			GetInteger = (IBinding data) => (data as MainNav)?.NotificationCount
+			GetActive = (data) => (data as MainNav)?.NotificationsActive,
+			GetInteger = (data) => (data as MainNav)?.NotificationCount
 			},
 		new FrameButton ("Places", "Places", "PlacesPage") {
-			GetActive = (IBinding data) => (data as MainNav)?.PlacesActive
+			GetActive = (data) => (data as MainNav)?.PlacesActive
+			},
+		new FrameButton ("Posts", "Places", "PostsPage") {
+			GetActive = (data) => (data as MainNav)?.PlacesActive
 			},
 		new FrameButton ("Bookmark", "Saved", "BookmarkPage") {
-			GetActive = (IBinding data) => (data as MainNav)?.BookmarksActive,
+			GetActive = (data) => (data as MainNav)?.BookmarksActive,
 			Description = "Your saved places"
 			},
 		new FrameButton ("Place", "Your Place", "YourPlacePage") {
-			GetActive = (IBinding data) => (data as MainNav)?.YourPlaceActive
+			GetActive = (data) => (data as MainNav)?.YourPlaceActive
 			},
 		new FrameButton ("CreateYour", "Your Place", "YourPlacePageCreate") {
-			GetActive = (IBinding data) => (data as MainNav)?.CreateYourPlaceActive
+			GetActive = (data) => (data as MainNav)?.CreateYourPlaceActive
 			},
 		new FrameButton ("Settings", "Settings", "SettingsPage") {
-			GetActive = (IBinding data) => (data as MainNav)?.SettingsActive
+			GetActive = (data) => (data as MainNav)?.SettingsActive
 			},
 		new FrameButton ("NewPlace", "New Place", "NewPlacePage") {
-			GetActive = (IBinding data) => (data as MainNav)?.CreatePlaceActive
+			GetActive = (data) => (data as MainNav)?.CreatePlaceActive
 			},
 		new FrameButton ("CreatePost", "Create Post", "CreatePost") {
-			},
-		new FrameButton ("CreateComment", "Add Comment", "CreateComment") {
-			},
-		new FrameButton ("Post", "Test Post", "PostPage") {
 			}
 		];
 
@@ -1593,8 +1656,8 @@ public partial class MainNav : FrameMenu {
 		// Only inclue the serialized items here
 
 		new FrameInteger ("NotificationCount",
-			(IBinding data, int? value) => {(data as MainNav)!.NotificationCount = value; },
-			(IBinding data) => (data as MainNav)?.NotificationCount) {
+			(data, value) => {(data as MainNav)!.NotificationCount = value; },
+			(data) => (data as MainNav)?.NotificationCount) {
 				}		];
 
     /// <inheritdoc/>
@@ -1619,13 +1682,13 @@ public partial class TopSettings : FrameMenu {
 	// Implement factory method returning a menu bound to a specific page.
 
     /// <inheritdoc/>
-    public override FramePage Page { 
+    public override Goedel.Sitebuilder.FramePage Page { 
             get => page ?? FrameSet.Page;
             init { page = value; } }
-    FramePage? page = null;
+    Goedel.Sitebuilder.FramePage? page = null;
 
     /// <inheritdoc/>
-    public override FrameMenu Create(FramePage page) => new MainNav() {
+    public override TopSettings Create(Goedel.Sitebuilder.FramePage page) => new TopSettings() {
         Page = page
         };
 
@@ -1674,13 +1737,13 @@ public partial class SettingsMenu : FrameMenu {
 	// Implement factory method returning a menu bound to a specific page.
 
     /// <inheritdoc/>
-    public override FramePage Page { 
+    public override Goedel.Sitebuilder.FramePage Page { 
             get => page ?? FrameSet.Page;
             init { page = value; } }
-    FramePage? page = null;
+    Goedel.Sitebuilder.FramePage? page = null;
 
     /// <inheritdoc/>
-    public override FrameMenu Create(FramePage page) => new MainNav() {
+    public override SettingsMenu Create(Goedel.Sitebuilder.FramePage page) => new SettingsMenu() {
         Page = page
         };
 
@@ -1733,13 +1796,13 @@ public partial class AboutSettings : FrameMenu {
 	// Implement factory method returning a menu bound to a specific page.
 
     /// <inheritdoc/>
-    public override FramePage Page { 
+    public override Goedel.Sitebuilder.FramePage Page { 
             get => page ?? FrameSet.Page;
             init { page = value; } }
-    FramePage? page = null;
+    Goedel.Sitebuilder.FramePage? page = null;
 
     /// <inheritdoc/>
-    public override FrameMenu Create(FramePage page) => new MainNav() {
+    public override AboutSettings Create(Goedel.Sitebuilder.FramePage page) => new AboutSettings() {
         Page = page
         };
 
@@ -1795,13 +1858,13 @@ public partial class SupportMenu : FrameMenu {
 	// Implement factory method returning a menu bound to a specific page.
 
     /// <inheritdoc/>
-    public override FramePage Page { 
+    public override Goedel.Sitebuilder.FramePage Page { 
             get => page ?? FrameSet.Page;
             init { page = value; } }
-    FramePage? page = null;
+    Goedel.Sitebuilder.FramePage? page = null;
 
     /// <inheritdoc/>
-    public override FrameMenu Create(FramePage page) => new MainNav() {
+    public override SupportMenu Create(Goedel.Sitebuilder.FramePage page) => new SupportMenu() {
         Page = page
         };
 
@@ -1871,8 +1934,8 @@ public partial class HandleInput (string Id) : Handle (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Handle)!.DNS = value; },
-			(IBinding data) => (data as Handle)?.DNS) {
+			(data, value) => {(data as Handle)!.DNS = value; },
+			(data) => (data as Handle)?.DNS) {
 				}
 		];
 
@@ -1900,6 +1963,119 @@ public partial class HandleInput (string Id) : Handle (Id) {
 
 	}
 /// <summary>
+/// Backing class for FormPlace
+/// </summary>
+public partial class FormPlace (string Id) : Place (Id) {
+
+    /// <inheritdoc/>
+    public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public FormPlace() : this("FormPlace") { 
+		}
+
+
+
+    /// <summary>Field AvatarFile</summary>
+	public BackingTypeFile? AvatarFile {get; set;}
+
+    /// <summary>Field BannerFile</summary>
+	public BackingTypeFile? BannerFile {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("DNS",
+			(data, value) => {(data as Place)!.DNS = value; },
+			(data) => (data as Place)?.DNS) {
+				Prompt = "DNS Address",
+				Description = "Can be any DNS name that is resolved to the service."
+				},
+		new FrameString ("Title",
+			(data, value) => {(data as Place)!.Title = value; },
+			(data) => (data as Place)?.Title) {
+				Prompt = "Name"
+				},
+		new FrameText ("Description",
+			(data, value) => {(data as Place)!.Description = value; },
+			(data) => (data as Place)?.Description) {
+				Prompt = "Description"
+				},
+		new FrameAvatar ("Avatar"){
+			Prompt = "Avatar Image",
+			Get = (data) => (data as Place)?.Avatar },
+		new FrameImage ("Banner",
+			(data, value) => {(data as Place)!.Banner = value; },
+			(data) => (data as Place)?.Banner) {
+				Prompt = "Banner Image"
+				},
+		new FrameRefList<Rights> ("RightsTopics","Rights"){
+			Get = (data) => (data as Place)?.RightsTopics ,
+			Set = (data, value) => {(data as Place)!.RightsTopics = value as List<Rights>; }},
+		new FrameRefList<Rights> ("RightsThreads","Rights"){
+			Get = (data) => (data as Place)?.RightsThreads ,
+			Set = (data, value) => {(data as Place)!.RightsThreads = value as List<Rights>; }},
+		new FrameRefList<Rights> ("RightsComments","Rights"){
+			Get = (data) => (data as Place)?.RightsComments ,
+			Set = (data, value) => {(data as Place)!.RightsComments = value as List<Rights>; }},
+		new FrameRefList<Topic> ("Topics","Topic"){
+			Get = (data) => (data as Place)?.Topics ,
+			Set = (data, value) => {(data as Place)!.Topics = value as List<Topic>; }},
+		PlaceReference,
+		PlaceBanner,
+		new FrameFile ("AvatarFile"){
+			FileType = "ImageFileType",
+			Prompt = "Avatar",
+			Description = "Icon representing the place.",
+			Get = (data) => (data as FormPlace)?.AvatarFile ,
+			Set = (data, value) => {(data as FormPlace)!.AvatarFile = value as BackingTypeFile; }},
+		new FrameFile ("BannerFile"){
+			FileType = "ImageFileType",
+			Prompt = "Banner",
+			Description = "Background image for the main page.",
+			Get = (data) => (data as FormPlace)?.BannerFile ,
+			Set = (data, value) => {(data as FormPlace)!.BannerFile = value as BackingTypeFile; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameFile ("AvatarFile"){
+			FileType = "ImageFileType",
+			Prompt = "Avatar",
+			Description = "Icon representing the place.",
+			Get = (data) => (data as FormPlace)?.AvatarFile ,
+			Set = (data, value) => {(data as FormPlace)!.AvatarFile = value as BackingTypeFile; }},
+		new FrameFile ("BannerFile"){
+			FileType = "ImageFileType",
+			Prompt = "Banner",
+			Description = "Background image for the main page.",
+			Get = (data) => (data as FormPlace)?.BannerFile ,
+			Set = (data, value) => {(data as FormPlace)!.BannerFile = value as BackingTypeFile; }}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<FormPlace> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"AvatarFile", _properties[0]},
+			{"BannerFile", _properties[1]}
+			}, "FormPlace",
+		() => new FormPlace(), () => [], () => [], Parent: Place._binding, Generic: false);
+
+
+	}
+/// <summary>
 /// Backing class for Handle
 /// </summary>
 public partial class Handle (string Id) : FrameClass (Id) {
@@ -1921,8 +2097,8 @@ public partial class Handle (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Handle)!.DNS = value; },
-			(IBinding data) => (data as Handle)?.DNS) {
+			(data, value) => {(data as Handle)!.DNS = value; },
+			(data) => (data as Handle)?.DNS) {
 				}
 		];
 
@@ -1936,8 +2112,8 @@ public partial class Handle (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Handle)!.DNS = value; },
-			(IBinding data) => (data as Handle)?.DNS) {
+			(data, value) => {(data as Handle)!.DNS = value; },
+			(data) => (data as Handle)?.DNS) {
 				}		];
 
     /// <inheritdoc/>
@@ -1985,20 +2161,20 @@ public partial class Provider (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameText ("Signup",
-			(IBinding data, string? value) => {(data as Provider)!.Signup = value; },
-			(IBinding data) => (data as Provider)?.Signup) {
+			(data, value) => {(data as Provider)!.Signup = value; },
+			(data) => (data as Provider)?.Signup) {
 				},
 		new FrameText ("Crosspost",
-			(IBinding data, string? value) => {(data as Provider)!.Crosspost = value; },
-			(IBinding data) => (data as Provider)?.Crosspost) {
+			(data, value) => {(data as Provider)!.Crosspost = value; },
+			(data) => (data as Provider)?.Crosspost) {
 				},
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Provider)!.Title = value; },
-			(IBinding data) => (data as Provider)?.Title) {
+			(data, value) => {(data as Provider)!.Title = value; },
+			(data) => (data as Provider)?.Title) {
 				},
 		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as Provider)!.Text = value; },
-			(IBinding data) => (data as Provider)?.Text) {
+			(data, value) => {(data as Provider)!.Text = value; },
+			(data) => (data as Provider)?.Text) {
 				},
 		new FrameIcon ("Logo")
 		];
@@ -2013,20 +2189,20 @@ public partial class Provider (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameText ("Signup",
-			(IBinding data, string? value) => {(data as Provider)!.Signup = value; },
-			(IBinding data) => (data as Provider)?.Signup) {
+			(data, value) => {(data as Provider)!.Signup = value; },
+			(data) => (data as Provider)?.Signup) {
 				},
 		new FrameText ("Crosspost",
-			(IBinding data, string? value) => {(data as Provider)!.Crosspost = value; },
-			(IBinding data) => (data as Provider)?.Crosspost) {
+			(data, value) => {(data as Provider)!.Crosspost = value; },
+			(data) => (data as Provider)?.Crosspost) {
 				},
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Provider)!.Title = value; },
-			(IBinding data) => (data as Provider)?.Title) {
+			(data, value) => {(data as Provider)!.Title = value; },
+			(data) => (data as Provider)?.Title) {
 				},
 		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as Provider)!.Text = value; },
-			(IBinding data) => (data as Provider)?.Text) {
+			(data, value) => {(data as Provider)!.Text = value; },
+			(data) => (data as Provider)?.Text) {
 				}		];
 
     /// <inheritdoc/>
@@ -2086,31 +2262,31 @@ public partial class User (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as User)!.Uid = value; },
-			(IBinding data) => (data as User)?.Uid) {
+			(data, value) => {(data as User)!.Uid = value; },
+			(data) => (data as User)?.Uid) {
 				},
 		new FrameAvatar ("Avatar"){
 			Prompt = null,
-			Get = (IBinding data) => (data as User)?.Avatar },
+			Get = (data) => (data as User)?.Avatar },
 		new FrameString ("DisplayName",
-			(IBinding data, string? value) => {(data as User)!.DisplayName = value; },
-			(IBinding data) => (data as User)?.DisplayName) {
+			(data, value) => {(data as User)!.DisplayName = value; },
+			(data) => (data as User)?.DisplayName) {
 				},
 		new FrameString ("DisplayHandle",
-			(IBinding data, string? value) => {(data as User)!.DisplayHandle = value; },
-			(IBinding data) => (data as User)?.DisplayHandle) {
+			(data, value) => {(data as User)!.DisplayHandle = value; },
+			(data) => (data as User)?.DisplayHandle) {
 				},
 		new FrameBoolean ("Banned",
-			(IBinding data, bool? value) => {(data as User)!.Banned = value; },
-			(IBinding data) => (data as User)?.Banned) {
+			(data, value) => {(data as User)!.Banned = value; },
+			(data) => (data as User)?.Banned) {
 				},
 		new FrameDateTime ("Suspended",
-			(IBinding data, System.DateTime? value) => {(data as User)!.Suspended = value; },
-			(IBinding data) => (data as User)?.Suspended) {
+			(data, value) => {(data as User)!.Suspended = value; },
+			(data) => (data as User)?.Suspended) {
 				},
 		new FrameRefList<Group> ("Groups","Group"){
-			Get = (IBacked data) => (data as User)?.Groups ,
-			Set = (IBacked data, Object? value) => {(data as User)!.Groups = value as List<Group>; }}
+			Get = (data) => (data as User)?.Groups ,
+			Set = (data, value) => {(data as User)!.Groups = value as List<Group>; }}
 		];
 
 
@@ -2123,24 +2299,24 @@ public partial class User (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as User)!.Uid = value; },
-			(IBinding data) => (data as User)?.Uid) {
+			(data, value) => {(data as User)!.Uid = value; },
+			(data) => (data as User)?.Uid) {
 				},
 		new FrameString ("DisplayName",
-			(IBinding data, string? value) => {(data as User)!.DisplayName = value; },
-			(IBinding data) => (data as User)?.DisplayName) {
+			(data, value) => {(data as User)!.DisplayName = value; },
+			(data) => (data as User)?.DisplayName) {
 				},
 		new FrameString ("DisplayHandle",
-			(IBinding data, string? value) => {(data as User)!.DisplayHandle = value; },
-			(IBinding data) => (data as User)?.DisplayHandle) {
+			(data, value) => {(data as User)!.DisplayHandle = value; },
+			(data) => (data as User)?.DisplayHandle) {
 				},
 		new FrameBoolean ("Banned",
-			(IBinding data, bool? value) => {(data as User)!.Banned = value; },
-			(IBinding data) => (data as User)?.Banned) {
+			(data, value) => {(data as User)!.Banned = value; },
+			(data) => (data as User)?.Banned) {
 				},
 		new FrameDateTime ("Suspended",
-			(IBinding data, System.DateTime? value) => {(data as User)!.Suspended = value; },
-			(IBinding data) => (data as User)?.Suspended) {
+			(data, value) => {(data as User)!.Suspended = value; },
+			(data) => (data as User)?.Suspended) {
 				}		];
 
     /// <inheritdoc/>
@@ -2186,12 +2362,12 @@ public partial class Group (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Group)!.Uid = value; },
-			(IBinding data) => (data as Group)?.Uid) {
+			(data, value) => {(data as Group)!.Uid = value; },
+			(data) => (data as Group)?.Uid) {
 				},
 		new FrameString ("Name",
-			(IBinding data, string? value) => {(data as Group)!.Name = value; },
-			(IBinding data) => (data as Group)?.Name) {
+			(data, value) => {(data as Group)!.Name = value; },
+			(data) => (data as Group)?.Name) {
 				},
 		new FrameIcon ("Icon")
 		];
@@ -2206,12 +2382,12 @@ public partial class Group (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Group)!.Uid = value; },
-			(IBinding data) => (data as Group)?.Uid) {
+			(data, value) => {(data as Group)!.Uid = value; },
+			(data) => (data as Group)?.Uid) {
 				},
 		new FrameString ("Name",
-			(IBinding data, string? value) => {(data as Group)!.Name = value; },
-			(IBinding data) => (data as Group)?.Name) {
+			(data, value) => {(data as Group)!.Name = value; },
+			(data) => (data as Group)?.Name) {
 				}		];
 
     /// <inheritdoc/>
@@ -2257,15 +2433,15 @@ public partial class Rights (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("GroupUid",
-			(IBinding data, string? value) => {(data as Rights)!.GroupUid = value; },
-			(IBinding data) => (data as Rights)?.GroupUid) {
+			(data, value) => {(data as Rights)!.GroupUid = value; },
+			(data) => (data as Rights)?.GroupUid) {
 				},
 		new FrameRefClass<Privileges> ("Grant","Privileges"){
-			Get = (IBacked data) => (data as Rights)?.Grant ,
-			Set = (IBacked data, IBacked? value) => {(data as Rights)!.Grant = value as Privileges; }},
+			Get = (data) => (data as Rights)?.Grant ,
+			Set = (data, value) => {(data as Rights)!.Grant = value as Privileges; }},
 		new FrameRefClass<Privileges> ("Deny","Privileges"){
-			Get = (IBacked data) => (data as Rights)?.Deny ,
-			Set = (IBacked data, IBacked? value) => {(data as Rights)!.Deny = value as Privileges; }}
+			Get = (data) => (data as Rights)?.Deny ,
+			Set = (data, value) => {(data as Rights)!.Deny = value as Privileges; }}
 		];
 
 
@@ -2278,8 +2454,8 @@ public partial class Rights (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("GroupUid",
-			(IBinding data, string? value) => {(data as Rights)!.GroupUid = value; },
-			(IBinding data) => (data as Rights)?.GroupUid) {
+			(data, value) => {(data as Rights)!.GroupUid = value; },
+			(data) => (data as Rights)?.GroupUid) {
 				}		];
 
     /// <inheritdoc/>
@@ -2330,24 +2506,24 @@ public partial class Access (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameBoolean ("Create",
-			(IBinding data, bool? value) => {(data as Access)!.Create = value; },
-			(IBinding data) => (data as Access)?.Create) {
+			(data, value) => {(data as Access)!.Create = value; },
+			(data) => (data as Access)?.Create) {
 				},
 		new FrameBoolean ("Read",
-			(IBinding data, bool? value) => {(data as Access)!.Read = value; },
-			(IBinding data) => (data as Access)?.Read) {
+			(data, value) => {(data as Access)!.Read = value; },
+			(data) => (data as Access)?.Read) {
 				},
 		new FrameBoolean ("Edit",
-			(IBinding data, bool? value) => {(data as Access)!.Edit = value; },
-			(IBinding data) => (data as Access)?.Edit) {
+			(data, value) => {(data as Access)!.Edit = value; },
+			(data) => (data as Access)?.Edit) {
 				},
 		new FrameBoolean ("Delete",
-			(IBinding data, bool? value) => {(data as Access)!.Delete = value; },
-			(IBinding data) => (data as Access)?.Delete) {
+			(data, value) => {(data as Access)!.Delete = value; },
+			(data) => (data as Access)?.Delete) {
 				},
 		new FrameBoolean ("Owner",
-			(IBinding data, bool? value) => {(data as Access)!.Owner = value; },
-			(IBinding data) => (data as Access)?.Owner) {
+			(data, value) => {(data as Access)!.Owner = value; },
+			(data) => (data as Access)?.Owner) {
 				}
 		];
 
@@ -2361,24 +2537,24 @@ public partial class Access (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameBoolean ("Create",
-			(IBinding data, bool? value) => {(data as Access)!.Create = value; },
-			(IBinding data) => (data as Access)?.Create) {
+			(data, value) => {(data as Access)!.Create = value; },
+			(data) => (data as Access)?.Create) {
 				},
 		new FrameBoolean ("Read",
-			(IBinding data, bool? value) => {(data as Access)!.Read = value; },
-			(IBinding data) => (data as Access)?.Read) {
+			(data, value) => {(data as Access)!.Read = value; },
+			(data) => (data as Access)?.Read) {
 				},
 		new FrameBoolean ("Edit",
-			(IBinding data, bool? value) => {(data as Access)!.Edit = value; },
-			(IBinding data) => (data as Access)?.Edit) {
+			(data, value) => {(data as Access)!.Edit = value; },
+			(data) => (data as Access)?.Edit) {
 				},
 		new FrameBoolean ("Delete",
-			(IBinding data, bool? value) => {(data as Access)!.Delete = value; },
-			(IBinding data) => (data as Access)?.Delete) {
+			(data, value) => {(data as Access)!.Delete = value; },
+			(data) => (data as Access)?.Delete) {
 				},
 		new FrameBoolean ("Owner",
-			(IBinding data, bool? value) => {(data as Access)!.Owner = value; },
-			(IBinding data) => (data as Access)?.Owner) {
+			(data, value) => {(data as Access)!.Owner = value; },
+			(data) => (data as Access)?.Owner) {
 				}		];
 
     /// <inheritdoc/>
@@ -2433,20 +2609,20 @@ public partial class Privileges (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefClass<Access> ("Places","Access"){
-			Get = (IBacked data) => (data as Privileges)?.Places ,
-			Set = (IBacked data, IBacked? value) => {(data as Privileges)!.Places = value as Access; }},
+			Get = (data) => (data as Privileges)?.Places ,
+			Set = (data, value) => {(data as Privileges)!.Places = value as Access; }},
 		new FrameRefClass<Access> ("Topics","Access"){
-			Get = (IBacked data) => (data as Privileges)?.Topics ,
-			Set = (IBacked data, IBacked? value) => {(data as Privileges)!.Topics = value as Access; }},
+			Get = (data) => (data as Privileges)?.Topics ,
+			Set = (data, value) => {(data as Privileges)!.Topics = value as Access; }},
 		new FrameRefClass<Access> ("Threads","Access"){
-			Get = (IBacked data) => (data as Privileges)?.Threads ,
-			Set = (IBacked data, IBacked? value) => {(data as Privileges)!.Threads = value as Access; }},
+			Get = (data) => (data as Privileges)?.Threads ,
+			Set = (data, value) => {(data as Privileges)!.Threads = value as Access; }},
 		new FrameRefClass<Access> ("Others","Access"){
-			Get = (IBacked data) => (data as Privileges)?.Others ,
-			Set = (IBacked data, IBacked? value) => {(data as Privileges)!.Others = value as Access; }},
+			Get = (data) => (data as Privileges)?.Others ,
+			Set = (data, value) => {(data as Privileges)!.Others = value as Access; }},
 		new FrameRefClass<Access> ("Self","Access"){
-			Get = (IBacked data) => (data as Privileges)?.Self ,
-			Set = (IBacked data, IBacked? value) => {(data as Privileges)!.Self = value as Access; }}
+			Get = (data) => (data as Privileges)?.Self ,
+			Set = (data, value) => {(data as Privileges)!.Self = value as Access; }}
 		];
 
 
@@ -2507,21 +2683,21 @@ public partial class Entry (string Id) : FrameClass (Id) {
 	/// Presentation style Brief
 	/// </summary>
 	public static FramePresentation Brief => brief ?? new FramePresentation ("Brief") {
-		GetUid = (IBacked data) => (data as Entry)?.Uid,
+		GetUid = (data) => (data as Entry)?.Uid,
 		Sections = [
 			new FrameSection ("Title") {
 				Fields = [
             		new FrameDateTime ("Created",
-            			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-            			(IBinding data) => (data as Entry)?.Created) {
+            			(data, value) => {(data as Entry)!.Created = value; },
+            			(data) => (data as Entry)?.Created) {
             				}
 					]
 				},
 			new FrameSection ("Body") {
 				Fields = [
             		new FrameText ("Text",
-            			(IBinding data, string? value) => {(data as Entry)!.Text = value; },
-            			(IBinding data) => (data as Entry)?.Text) {
+            			(data, value) => {(data as Entry)!.Text = value; },
+            			(data) => (data as Entry)?.Text) {
             				}
 					]
 				}
@@ -2531,21 +2707,21 @@ public partial class Entry (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameRefList<Rights> ("Rights","Rights"){
-			Get = (IBacked data) => (data as Entry)?.Rights ,
-			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+			Get = (data) => (data as Entry)?.Rights ,
+			Set = (data, value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				},
 		Brief
 		];
@@ -2560,18 +2736,18 @@ public partial class Entry (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				}		];
 
     /// <inheritdoc/>
@@ -2640,17 +2816,17 @@ public partial class Place (string Id) : Entry (Id) {
 	/// Presentation style PlaceReference
 	/// </summary>
 	public static FramePresentation PlaceReference => placereference ?? new FramePresentation ("PlaceReference") {
-		GetUid = (IBacked data) => (data as Place)?.Uid,
+		GetUid = (data) => (data as Place)?.Uid,
 		Sections = [
 			new FrameSection ("Title") {
 				Fields = [
             		new FrameString ("Title",
-            			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-            			(IBinding data) => (data as Place)?.Title) {
+            			(data, value) => {(data as Place)!.Title = value; },
+            			(data) => (data as Place)?.Title) {
             				},
             		new FrameString ("DNS",
-            			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-            			(IBinding data) => (data as Place)?.DNS) {
+            			(data, value) => {(data as Place)!.DNS = value; },
+            			(data) => (data as Place)?.DNS) {
             				}
 					]
 				},
@@ -2658,22 +2834,22 @@ public partial class Place (string Id) : Entry (Id) {
 				Fields = [
             		new FrameAvatar ("Avatar"){
             			Prompt = null,
-            			Get = (IBinding data) => (data as Place)?.Avatar }
+            			Get = (data) => (data as Place)?.Avatar }
 					]
 				},
 			new FrameSection ("Banner") {
 				Fields = [
             		new FrameImage ("Banner",
-            			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-            			(IBinding data) => (data as Place)?.Banner) {
+            			(data, value) => {(data as Place)!.Banner = value; },
+            			(data) => (data as Place)?.Banner) {
             				}
 					]
 				},
 			new FrameSection ("Body") {
 				Fields = [
             		new FrameText ("Description",
-            			(IBinding data, string? value) => {(data as Place)!.Description = value; },
-            			(IBinding data) => (data as Place)?.Description) {
+            			(data, value) => {(data as Place)!.Description = value; },
+            			(data) => (data as Place)?.Description) {
             				}
 					]
 				}
@@ -2685,17 +2861,17 @@ public partial class Place (string Id) : Entry (Id) {
 	/// Presentation style PlaceBanner
 	/// </summary>
 	public static FramePresentation PlaceBanner => placebanner ?? new FramePresentation ("PlaceBanner") {
-		GetUid = (IBacked data) => (data as Place)?.Uid,
+		GetUid = (data) => (data as Place)?.Uid,
 		Sections = [
 			new FrameSection ("Title") {
 				Fields = [
             		new FrameAnchor ("TitleLink",
-            			(IBinding data, BackingTypeLink? value) => {(data as Place)!.TitleLink = value; },
-            			(IBinding data) => (data as Place)?.TitleLink) {
+            			(data, value) => {(data as Place)!.TitleLink = value; },
+            			(data) => (data as Place)?.TitleLink) {
             				},
             		new FrameAnchor ("HandleLink",
-            			(IBinding data, BackingTypeLink? value) => {(data as Place)!.HandleLink = value; },
-            			(IBinding data) => (data as Place)?.HandleLink) {
+            			(data, value) => {(data as Place)!.HandleLink = value; },
+            			(data) => (data as Place)?.HandleLink) {
             				}
 					]
 				},
@@ -2703,22 +2879,22 @@ public partial class Place (string Id) : Entry (Id) {
 				Fields = [
             		new FrameAvatar ("Avatar"){
             			Prompt = null,
-            			Get = (IBinding data) => (data as Place)?.Avatar }
+            			Get = (data) => (data as Place)?.Avatar }
 					]
 				},
 			new FrameSection ("Banner") {
 				Fields = [
             		new FrameImage ("Banner",
-            			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-            			(IBinding data) => (data as Place)?.Banner) {
+            			(data, value) => {(data as Place)!.Banner = value; },
+            			(data) => (data as Place)?.Banner) {
             				}
 					]
 				},
 			new FrameSection ("Body") {
 				Fields = [
             		new FrameText ("Description",
-            			(IBinding data, string? value) => {(data as Place)!.Description = value; },
-            			(IBinding data) => (data as Place)?.Description) {
+            			(data, value) => {(data as Place)!.Description = value; },
+            			(data) => (data as Place)?.Description) {
             				}
 					]
 				}
@@ -2728,59 +2904,59 @@ public partial class Place (string Id) : Entry (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameRefList<Rights> ("Rights","Rights"){
-			Get = (IBacked data) => (data as Entry)?.Rights ,
-			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+			Get = (data) => (data as Entry)?.Rights ,
+			Set = (data, value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-			(IBinding data) => (data as Place)?.DNS) {
+			(data, value) => {(data as Place)!.DNS = value; },
+			(data) => (data as Place)?.DNS) {
 				Prompt = "DNS Address",
 				Description = "Can be any DNS name that is resolved to the service."
 				},
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-			(IBinding data) => (data as Place)?.Title) {
+			(data, value) => {(data as Place)!.Title = value; },
+			(data) => (data as Place)?.Title) {
 				Prompt = "Name"
 				},
 		new FrameText ("Description",
-			(IBinding data, string? value) => {(data as Place)!.Description = value; },
-			(IBinding data) => (data as Place)?.Description) {
+			(data, value) => {(data as Place)!.Description = value; },
+			(data) => (data as Place)?.Description) {
 				Prompt = "Description"
 				},
 		new FrameAvatar ("Avatar"){
 			Prompt = "Avatar Image",
-			Get = (IBinding data) => (data as Place)?.Avatar },
+			Get = (data) => (data as Place)?.Avatar },
 		new FrameImage ("Banner",
-			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-			(IBinding data) => (data as Place)?.Banner) {
+			(data, value) => {(data as Place)!.Banner = value; },
+			(data) => (data as Place)?.Banner) {
 				Prompt = "Banner Image"
 				},
 		new FrameRefList<Rights> ("RightsTopics","Rights"){
-			Get = (IBacked data) => (data as Place)?.RightsTopics ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.RightsTopics = value as List<Rights>; }},
+			Get = (data) => (data as Place)?.RightsTopics ,
+			Set = (data, value) => {(data as Place)!.RightsTopics = value as List<Rights>; }},
 		new FrameRefList<Rights> ("RightsThreads","Rights"){
-			Get = (IBacked data) => (data as Place)?.RightsThreads ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.RightsThreads = value as List<Rights>; }},
+			Get = (data) => (data as Place)?.RightsThreads ,
+			Set = (data, value) => {(data as Place)!.RightsThreads = value as List<Rights>; }},
 		new FrameRefList<Rights> ("RightsComments","Rights"){
-			Get = (IBacked data) => (data as Place)?.RightsComments ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.RightsComments = value as List<Rights>; }},
+			Get = (data) => (data as Place)?.RightsComments ,
+			Set = (data, value) => {(data as Place)!.RightsComments = value as List<Rights>; }},
 		new FrameRefList<Topic> ("Topics","Topic"){
-			Get = (IBacked data) => (data as Place)?.Topics ,
-			Set = (IBacked data, Object? value) => {(data as Place)!.Topics = value as List<Topic>; }},
+			Get = (data) => (data as Place)?.Topics ,
+			Set = (data, value) => {(data as Place)!.Topics = value as List<Topic>; }},
 		PlaceReference,
 		PlaceBanner
 		];
@@ -2795,24 +2971,24 @@ public partial class Place (string Id) : Entry (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("DNS",
-			(IBinding data, string? value) => {(data as Place)!.DNS = value; },
-			(IBinding data) => (data as Place)?.DNS) {
+			(data, value) => {(data as Place)!.DNS = value; },
+			(data) => (data as Place)?.DNS) {
 				Prompt = "DNS Address",
 				Description = "Can be any DNS name that is resolved to the service."
 				},
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Place)!.Title = value; },
-			(IBinding data) => (data as Place)?.Title) {
+			(data, value) => {(data as Place)!.Title = value; },
+			(data) => (data as Place)?.Title) {
 				Prompt = "Name"
 				},
 		new FrameText ("Description",
-			(IBinding data, string? value) => {(data as Place)!.Description = value; },
-			(IBinding data) => (data as Place)?.Description) {
+			(data, value) => {(data as Place)!.Description = value; },
+			(data) => (data as Place)?.Description) {
 				Prompt = "Description"
 				},
 		new FrameImage ("Banner",
-			(IBinding data, string? value) => {(data as Place)!.Banner = value; },
-			(IBinding data) => (data as Place)?.Banner) {
+			(data, value) => {(data as Place)!.Banner = value; },
+			(data) => (data as Place)?.Banner) {
 				Prompt = "Banner Image"
 				}		];
 
@@ -2858,30 +3034,30 @@ public partial class Topic (string Id) : Entry (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameRefList<Rights> ("Rights","Rights"){
-			Get = (IBacked data) => (data as Entry)?.Rights ,
-			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+			Get = (data) => (data as Entry)?.Rights ,
+			Set = (data, value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Topic)!.Title = value; },
-			(IBinding data) => (data as Topic)?.Title) {
+			(data, value) => {(data as Topic)!.Title = value; },
+			(data) => (data as Topic)?.Title) {
 				},
 		new FrameRefList<Post> ("Posts","Post"){
-			Get = (IBacked data) => (data as Topic)?.Posts ,
-			Set = (IBacked data, Object? value) => {(data as Topic)!.Posts = value as List<Post>; }}
+			Get = (data) => (data as Topic)?.Posts ,
+			Set = (data, value) => {(data as Topic)!.Posts = value as List<Post>; }}
 		];
 
 
@@ -2894,8 +3070,8 @@ public partial class Topic (string Id) : Entry (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Topic)!.Title = value; },
-			(IBinding data) => (data as Topic)?.Title) {
+			(data, value) => {(data as Topic)!.Title = value; },
+			(data) => (data as Topic)?.Title) {
 				}		];
 
     /// <inheritdoc/>
@@ -2959,28 +3135,28 @@ public partial class Post (string Id) : Entry (Id) {
 	/// Presentation style PostSummary
 	/// </summary>
 	public static FramePresentation PostSummary => postsummary ?? new FramePresentation ("PostSummary") {
-		GetUid = (IBacked data) => (data as Post)?.Uid,
+		GetUid = (data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
             			Prompt = null,
-            			Get = (IBinding data) => (data as Post)?.User?.Avatar }
+            			Get = (data) => (data as Post)?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
             		new FrameString ("User.DisplayName",
-            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayName = value; },
-            			(IBinding data) => (data as Post)?.User?.DisplayName) {
+            			(data, value) => {(data as Post)!.User!.DisplayName = value; },
+            			(data) => (data as Post)?.User?.DisplayName) {
             				},
             		new FrameString ("User.DisplayHandle",
-            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayHandle = value; },
-            			(IBinding data) => (data as Post)?.User?.DisplayHandle) {
+            			(data, value) => {(data as Post)!.User!.DisplayHandle = value; },
+            			(data) => (data as Post)?.User?.DisplayHandle) {
             				},
             		new FrameDateTime ("Created",
-            			(IBinding data, System.DateTime? value) => {(data as Post)!.Created = value; },
-            			(IBinding data) => (data as Post)?.Created) {
+            			(data, value) => {(data as Post)!.Created = value; },
+            			(data) => (data as Post)?.Created) {
             				}
 					]
 				},
@@ -2991,12 +3167,12 @@ public partial class Post (string Id) : Entry (Id) {
 			new FrameSection ("Body") {
 				Fields = [
             		new FrameString ("Title",
-            			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-            			(IBinding data) => (data as Post)?.Title) {
+            			(data, value) => {(data as Post)!.Title = value; },
+            			(data) => (data as Post)?.Title) {
             				},
             		new FrameText ("Summary",
-            			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
-            			(IBinding data) => (data as Post)?.Summary) {
+            			(data, value) => {(data as Post)!.Summary = value; },
+            			(data) => (data as Post)?.Summary) {
             				}
 					]
 				}
@@ -3008,28 +3184,28 @@ public partial class Post (string Id) : Entry (Id) {
 	/// Presentation style PostFull
 	/// </summary>
 	public static FramePresentation PostFull => postfull ?? new FramePresentation ("PostFull") {
-		GetUid = (IBacked data) => (data as Post)?.Uid,
+		GetUid = (data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
             			Prompt = null,
-            			Get = (IBinding data) => (data as Post)?.User?.Avatar }
+            			Get = (data) => (data as Post)?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
             		new FrameString ("User.DisplayName",
-            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayName = value; },
-            			(IBinding data) => (data as Post)?.User?.DisplayName) {
+            			(data, value) => {(data as Post)!.User!.DisplayName = value; },
+            			(data) => (data as Post)?.User?.DisplayName) {
             				},
             		new FrameString ("User.DisplayHandle",
-            			(IBinding data, string? value) => {(data as Post)!.User!.DisplayHandle = value; },
-            			(IBinding data) => (data as Post)?.User?.DisplayHandle) {
+            			(data, value) => {(data as Post)!.User!.DisplayHandle = value; },
+            			(data) => (data as Post)?.User?.DisplayHandle) {
             				},
             		new FrameDateTime ("Created",
-            			(IBinding data, System.DateTime? value) => {(data as Post)!.Created = value; },
-            			(IBinding data) => (data as Post)?.Created) {
+            			(data, value) => {(data as Post)!.Created = value; },
+            			(data) => (data as Post)?.Created) {
             				}
 					]
 				},
@@ -3040,39 +3216,39 @@ public partial class Post (string Id) : Entry (Id) {
 			new FrameSection ("Summary") {
 				Fields = [
             		new FrameString ("Title",
-            			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-            			(IBinding data) => (data as Post)?.Title) {
+            			(data, value) => {(data as Post)!.Title = value; },
+            			(data) => (data as Post)?.Title) {
             				},
             		new FrameText ("Summary",
-            			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
-            			(IBinding data) => (data as Post)?.Summary) {
+            			(data, value) => {(data as Post)!.Summary = value; },
+            			(data) => (data as Post)?.Summary) {
             				}
 					]
 				},
 			new FrameSection ("Body") {
 				Fields = [
             		new FrameRichText ("Body",
-            			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-            			(IBinding data) => (data as Post)?.Body) {
+            			(data, value) => {(data as Post)!.Body = value; },
+            			(data) => (data as Post)?.Body) {
             				}
 					]
 				},
 			new FrameSection ("Detail") {
 				Fields = [
             		new FrameDateTime ("Created",
-            			(IBinding data, System.DateTime? value) => {(data as Post)!.Created = value; },
-            			(IBinding data) => (data as Post)?.Created) {
+            			(data, value) => {(data as Post)!.Created = value; },
+            			(data) => (data as Post)?.Created) {
             				},
             		new FrameString ("Replies",
-            			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
-            			(IBinding data) => (data as Post)?.Replies) {
+            			(data, value) => {(data as Post)!.Replies = value; },
+            			(data) => (data as Post)?.Replies) {
             				}
 					]
 				},
 			new FrameSection ("Responses") {
 				Fields = [
             		new FrameButton ("Comment", "Comment", "CommentAction") {
-            			GetInteger = (IBinding data) => (data as Post)?.Comments
+            			GetInteger = (data) => (data as Post)?.Comments
             			},
             		new FrameSubmenu ("Repost", "Repost") {
             			Fields = [
@@ -3083,23 +3259,21 @@ public partial class Post (string Id) : Entry (Id) {
             				]
             			},
             		new FrameButton ("Like", "Like", "LikeAction") {
-            			GetActive = (IBinding data) => (data as Post)?.Liked,
-            			GetInteger = (IBinding data) => (data as Post)?.Likes,
+            			GetActive = (data) => (data as Post)?.Liked,
+            			GetInteger = (data) => (data as Post)?.Likes,
             			ButtonAction = ButtonAction.Method
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (IBinding data) => (data as Post)?.RequestedMore,
+            			GetActive = (data) => (data as Post)?.RequestedMore,
             			ButtonAction = ButtonAction.Method
             			},
             		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (IBinding data) => (data as Post)?.RequestedLess,
+            			GetActive = (data) => (data as Post)?.RequestedLess,
             			ButtonAction = ButtonAction.Method
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
                     		new FrameButton ("LinkCopy", "Copy link to post", "HomePage") {
-                    			},
-                    		new FrameButton ("SendByDM", "Send via direct message", "HomePage") {
                     			},
                     		new FrameButton ("Embed", "Embed post", "HomePage") {
                     			}
@@ -3138,55 +3312,55 @@ public partial class Post (string Id) : Entry (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameRefList<Rights> ("Rights","Rights"){
-			Get = (IBacked data) => (data as Entry)?.Rights ,
-			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+			Get = (data) => (data as Entry)?.Rights ,
+			Set = (data, value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
 		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Post)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Post)!.User = value as User; }},
+			Get = (data) => (data as Post)?.User ,
+			Set = (data, value) => {(data as Post)!.User = value as User; }},
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-			(IBinding data) => (data as Post)?.Title) {
+			(data, value) => {(data as Post)!.Title = value; },
+			(data) => (data as Post)?.Title) {
 				Prompt = "Title"
 				},
 		new FrameText ("Summary",
-			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
-			(IBinding data) => (data as Post)?.Summary) {
+			(data, value) => {(data as Post)!.Summary = value; },
+			(data) => (data as Post)?.Summary) {
 				Prompt = "Summary"
 				},
 		new FrameRichText ("Body",
-			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-			(IBinding data) => (data as Post)?.Body) {
+			(data, value) => {(data as Post)!.Body = value; },
+			(data) => (data as Post)?.Body) {
 				Prompt = "Body"
 				},
 		new FrameRefList<Resource> ("Resources","Resource"){
-			Get = (IBacked data) => (data as Post)?.Resources ,
-			Set = (IBacked data, Object? value) => {(data as Post)!.Resources = value as List<Resource>; }},
+			Get = (data) => (data as Post)?.Resources ,
+			Set = (data, value) => {(data as Post)!.Resources = value as List<Resource>; }},
 		new FrameString ("Replies",
-			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
-			(IBinding data) => (data as Post)?.Replies) {
+			(data, value) => {(data as Post)!.Replies = value; },
+			(data) => (data as Post)?.Replies) {
 				},
 		new FrameInteger ("Comments",
-			(IBinding data, int? value) => {(data as Post)!.Comments = value; },
-			(IBinding data) => (data as Post)?.Comments) {
+			(data, value) => {(data as Post)!.Comments = value; },
+			(data) => (data as Post)?.Comments) {
 				},
 		new FrameInteger ("Likes",
-			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
-			(IBinding data) => (data as Post)?.Likes) {
+			(data, value) => {(data as Post)!.Likes = value; },
+			(data) => (data as Post)?.Likes) {
 				},
 		PostSummary,
 		PostFull
@@ -3202,31 +3376,31 @@ public partial class Post (string Id) : Entry (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Post)!.Title = value; },
-			(IBinding data) => (data as Post)?.Title) {
+			(data, value) => {(data as Post)!.Title = value; },
+			(data) => (data as Post)?.Title) {
 				Prompt = "Title"
 				},
 		new FrameText ("Summary",
-			(IBinding data, string? value) => {(data as Post)!.Summary = value; },
-			(IBinding data) => (data as Post)?.Summary) {
+			(data, value) => {(data as Post)!.Summary = value; },
+			(data) => (data as Post)?.Summary) {
 				Prompt = "Summary"
 				},
 		new FrameRichText ("Body",
-			(IBinding data, string? value) => {(data as Post)!.Body = value; },
-			(IBinding data) => (data as Post)?.Body) {
+			(data, value) => {(data as Post)!.Body = value; },
+			(data) => (data as Post)?.Body) {
 				Prompt = "Body"
 				},
 		new FrameString ("Replies",
-			(IBinding data, string? value) => {(data as Post)!.Replies = value; },
-			(IBinding data) => (data as Post)?.Replies) {
+			(data, value) => {(data as Post)!.Replies = value; },
+			(data) => (data as Post)?.Replies) {
 				},
 		new FrameInteger ("Comments",
-			(IBinding data, int? value) => {(data as Post)!.Comments = value; },
-			(IBinding data) => (data as Post)?.Comments) {
+			(data, value) => {(data as Post)!.Comments = value; },
+			(data) => (data as Post)?.Comments) {
 				},
 		new FrameInteger ("Likes",
-			(IBinding data, int? value) => {(data as Post)!.Likes = value; },
-			(IBinding data) => (data as Post)?.Likes) {
+			(data, value) => {(data as Post)!.Likes = value; },
+			(data) => (data as Post)?.Likes) {
 				}		];
 
     /// <inheritdoc/>
@@ -3286,28 +3460,28 @@ public partial class Comment (string Id) : Entry (Id) {
 	/// Presentation style CommentFull
 	/// </summary>
 	public static FramePresentation CommentFull => commentfull ?? new FramePresentation ("CommentFull") {
-		GetUid = (IBacked data) => (data as Comment)?.Uid,
+		GetUid = (data) => (data as Comment)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
             			Prompt = null,
-            			Get = (IBinding data) => (data as Comment)?.User?.Avatar }
+            			Get = (data) => (data as Comment)?.User?.Avatar }
 					]
 				},
 			new FrameSection ("Author") {
 				Fields = [
             		new FrameString ("User.DisplayName",
-            			(IBinding data, string? value) => {(data as Comment)!.User!.DisplayName = value; },
-            			(IBinding data) => (data as Comment)?.User?.DisplayName) {
+            			(data, value) => {(data as Comment)!.User!.DisplayName = value; },
+            			(data) => (data as Comment)?.User?.DisplayName) {
             				},
             		new FrameString ("User.DisplayHandle",
-            			(IBinding data, string? value) => {(data as Comment)!.User!.DisplayHandle = value; },
-            			(IBinding data) => (data as Comment)?.User?.DisplayHandle) {
+            			(data, value) => {(data as Comment)!.User!.DisplayHandle = value; },
+            			(data) => (data as Comment)?.User?.DisplayHandle) {
             				},
             		new FrameDateTime ("Created",
-            			(IBinding data, System.DateTime? value) => {(data as Comment)!.Created = value; },
-            			(IBinding data) => (data as Comment)?.Created) {
+            			(data, value) => {(data as Comment)!.Created = value; },
+            			(data) => (data as Comment)?.Created) {
             				}
 					]
 				},
@@ -3318,8 +3492,8 @@ public partial class Comment (string Id) : Entry (Id) {
 			new FrameSection ("Body") {
 				Fields = [
             		new FrameText ("Text",
-            			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
-            			(IBinding data) => (data as Comment)?.Text) {
+            			(data, value) => {(data as Comment)!.Text = value; },
+            			(data) => (data as Comment)?.Text) {
             				}
 					]
 				},
@@ -3336,14 +3510,14 @@ public partial class Comment (string Id) : Entry (Id) {
             				]
             			},
             		new FrameButton ("Like", "Like", "LikeAction") {
-            			GetActive = (IBinding data) => (data as Comment)?.Liked,
-            			GetInteger = (IBinding data) => (data as Comment)?.Likes
+            			GetActive = (data) => (data as Comment)?.Liked,
+            			GetInteger = (data) => (data as Comment)?.Likes
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (IBinding data) => (data as Comment)?.RequestedMore
+            			GetActive = (data) => (data as Comment)?.RequestedMore
             			},
             		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (IBinding data) => (data as Comment)?.RequestedLess
+            			GetActive = (data) => (data as Comment)?.RequestedLess
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
@@ -3386,40 +3560,40 @@ public partial class Comment (string Id) : Entry (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameRefList<Rights> ("Rights","Rights"){
-			Get = (IBacked data) => (data as Entry)?.Rights ,
-			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+			Get = (data) => (data as Entry)?.Rights ,
+			Set = (data, value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
 		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Comment)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Comment)!.User = value as User; }},
+			Get = (data) => (data as Comment)?.User ,
+			Set = (data, value) => {(data as Comment)!.User = value as User; }},
 		new FrameText ("Text",
-			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
-			(IBinding data) => (data as Comment)?.Text) {
+			(data, value) => {(data as Comment)!.Text = value; },
+			(data) => (data as Comment)?.Text) {
 				},
 		new FrameRefClass<Resource> ("Resources","Resource"){
-			Get = (IBacked data) => (data as Comment)?.Resources ,
-			Set = (IBacked data, IBacked? value) => {(data as Comment)!.Resources = value as Resource; }},
+			Get = (data) => (data as Comment)?.Resources ,
+			Set = (data, value) => {(data as Comment)!.Resources = value as Resource; }},
 		new FrameInteger ("Likes",
-			(IBinding data, int? value) => {(data as Comment)!.Likes = value; },
-			(IBinding data) => (data as Comment)?.Likes) {
+			(data, value) => {(data as Comment)!.Likes = value; },
+			(data) => (data as Comment)?.Likes) {
 				},
 		new FrameString ("Replies",
-			(IBinding data, string? value) => {(data as Comment)!.Replies = value; },
-			(IBinding data) => (data as Comment)?.Replies) {
+			(data, value) => {(data as Comment)!.Replies = value; },
+			(data) => (data as Comment)?.Replies) {
 				},
 		CommentFull
 		];
@@ -3434,16 +3608,16 @@ public partial class Comment (string Id) : Entry (Id) {
 		// Only inclue the serialized items here
 
 		new FrameText ("Text",
-			(IBinding data, string? value) => {(data as Comment)!.Text = value; },
-			(IBinding data) => (data as Comment)?.Text) {
+			(data, value) => {(data as Comment)!.Text = value; },
+			(data) => (data as Comment)?.Text) {
 				},
 		new FrameInteger ("Likes",
-			(IBinding data, int? value) => {(data as Comment)!.Likes = value; },
-			(IBinding data) => (data as Comment)?.Likes) {
+			(data, value) => {(data as Comment)!.Likes = value; },
+			(data) => (data as Comment)?.Likes) {
 				},
 		new FrameString ("Replies",
-			(IBinding data, string? value) => {(data as Comment)!.Replies = value; },
-			(IBinding data) => (data as Comment)?.Replies) {
+			(data, value) => {(data as Comment)!.Replies = value; },
+			(data) => (data as Comment)?.Replies) {
 				}		];
 
     /// <inheritdoc/>
@@ -3490,34 +3664,34 @@ public partial class Resource (string Id) : Entry (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameRefList<Rights> ("Rights","Rights"){
-			Get = (IBacked data) => (data as Entry)?.Rights ,
-			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+			Get = (data) => (data as Entry)?.Rights ,
+			Set = (data, value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Resource)!.Title = value; },
-			(IBinding data) => (data as Resource)?.Title) {
+			(data, value) => {(data as Resource)!.Title = value; },
+			(data) => (data as Resource)?.Title) {
 				},
 		new FrameInteger ("Size",
-			(IBinding data, int? value) => {(data as Resource)!.Size = value; },
-			(IBinding data) => (data as Resource)?.Size) {
+			(data, value) => {(data as Resource)!.Size = value; },
+			(data) => (data as Resource)?.Size) {
 				},
 		new FrameString ("Type",
-			(IBinding data, string? value) => {(data as Resource)!.Type = value; },
-			(IBinding data) => (data as Resource)?.Type) {
+			(data, value) => {(data as Resource)!.Type = value; },
+			(data) => (data as Resource)?.Type) {
 				}
 		];
 
@@ -3531,16 +3705,16 @@ public partial class Resource (string Id) : Entry (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Title",
-			(IBinding data, string? value) => {(data as Resource)!.Title = value; },
-			(IBinding data) => (data as Resource)?.Title) {
+			(data, value) => {(data as Resource)!.Title = value; },
+			(data) => (data as Resource)?.Title) {
 				},
 		new FrameInteger ("Size",
-			(IBinding data, int? value) => {(data as Resource)!.Size = value; },
-			(IBinding data) => (data as Resource)?.Size) {
+			(data, value) => {(data as Resource)!.Size = value; },
+			(data) => (data as Resource)?.Size) {
 				},
 		new FrameString ("Type",
-			(IBinding data, string? value) => {(data as Resource)!.Type = value; },
-			(IBinding data) => (data as Resource)?.Type) {
+			(data, value) => {(data as Resource)!.Type = value; },
+			(data) => (data as Resource)?.Type) {
 				}		];
 
     /// <inheritdoc/>
@@ -3608,56 +3782,56 @@ public partial class Contact (string Id) : Entry (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as Entry)!.Uid = value; },
-			(IBinding data) => (data as Entry)?.Uid) {
+			(data, value) => {(data as Entry)!.Uid = value; },
+			(data) => (data as Entry)?.Uid) {
 				Hidden = true
 				},
 		new FrameString ("Semantic",
-			(IBinding data, string? value) => {(data as Entry)!.Semantic = value; },
-			(IBinding data) => (data as Entry)?.Semantic) {
+			(data, value) => {(data as Entry)!.Semantic = value; },
+			(data) => (data as Entry)?.Semantic) {
 				Hidden = true
 				},
 		new FrameRefList<Rights> ("Rights","Rights"){
-			Get = (IBacked data) => (data as Entry)?.Rights ,
-			Set = (IBacked data, Object? value) => {(data as Entry)!.Rights = value as List<Rights>; }},
+			Get = (data) => (data as Entry)?.Rights ,
+			Set = (data, value) => {(data as Entry)!.Rights = value as List<Rights>; }},
 		new FrameDateTime ("Created",
-			(IBinding data, System.DateTime? value) => {(data as Entry)!.Created = value; },
-			(IBinding data) => (data as Entry)?.Created) {
+			(data, value) => {(data as Entry)!.Created = value; },
+			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
 		new FrameDateTime ("Updated",
-			(IBinding data, System.DateTime? value) => {(data as Contact)!.Updated = value; },
-			(IBinding data) => (data as Contact)?.Updated) {
+			(data, value) => {(data as Contact)!.Updated = value; },
+			(data) => (data as Contact)?.Updated) {
 				Description = "Time of last contact update"
 				},
 		new FrameRefClass<User> ("User","User"){
-			Get = (IBacked data) => (data as Contact)?.User ,
-			Set = (IBacked data, IBacked? value) => {(data as Contact)!.User = value as User; }},
+			Get = (data) => (data as Contact)?.User ,
+			Set = (data, value) => {(data as Contact)!.User = value as User; }},
 		new FrameRefClass<Name> ("Name","Name"){
-			Get = (IBacked data) => (data as Contact)?.Name ,
-			Set = (IBacked data, IBacked? value) => {(data as Contact)!.Name = value as Name; }},
+			Get = (data) => (data as Contact)?.Name ,
+			Set = (data, value) => {(data as Contact)!.Name = value as Name; }},
 		new FrameRefList<Name> ("AltNames","Name"){
-			Get = (IBacked data) => (data as Contact)?.AltNames ,
-			Set = (IBacked data, Object? value) => {(data as Contact)!.AltNames = value as List<Name>; }},
+			Get = (data) => (data as Contact)?.AltNames ,
+			Set = (data, value) => {(data as Contact)!.AltNames = value as List<Name>; }},
 		new FrameRefList<Name> ("NickNames","Name"){
-			Get = (IBacked data) => (data as Contact)?.NickNames ,
-			Set = (IBacked data, Object? value) => {(data as Contact)!.NickNames = value as List<Name>; }},
+			Get = (data) => (data as Contact)?.NickNames ,
+			Set = (data, value) => {(data as Contact)!.NickNames = value as List<Name>; }},
 		new FrameRefList<Organization> ("Organization","Organization"){
-			Get = (IBacked data) => (data as Contact)?.Organization ,
-			Set = (IBacked data, Object? value) => {(data as Contact)!.Organization = value as List<Organization>; }},
+			Get = (data) => (data as Contact)?.Organization ,
+			Set = (data, value) => {(data as Contact)!.Organization = value as List<Organization>; }},
 		new FrameRefClass<Pronouns> ("Pronouns","Pronouns"){
-			Get = (IBacked data) => (data as Contact)?.Pronouns ,
-			Set = (IBacked data, IBacked? value) => {(data as Contact)!.Pronouns = value as Pronouns; }},
+			Get = (data) => (data as Contact)?.Pronouns ,
+			Set = (data, value) => {(data as Contact)!.Pronouns = value as Pronouns; }},
 		new FrameRefClass<RelatedTo> ("RelatedTo","RelatedTo"){
-			Get = (IBacked data) => (data as Contact)?.RelatedTo ,
-			Set = (IBacked data, IBacked? value) => {(data as Contact)!.RelatedTo = value as RelatedTo; }},
+			Get = (data) => (data as Contact)?.RelatedTo ,
+			Set = (data, value) => {(data as Contact)!.RelatedTo = value as RelatedTo; }},
 		new FrameRef ("Addresses"),
 		new FrameRefList<Application> ("Applications","Application"){
-			Get = (IBacked data) => (data as Contact)?.Applications ,
-			Set = (IBacked data, Object? value) => {(data as Contact)!.Applications = value as List<Application>; }},
+			Get = (data) => (data as Contact)?.Applications ,
+			Set = (data, value) => {(data as Contact)!.Applications = value as List<Application>; }},
 		new FrameRefList<Media> ("Media","Media"){
-			Get = (IBacked data) => (data as Contact)?.Media ,
-			Set = (IBacked data, Object? value) => {(data as Contact)!.Media = value as List<Media>; }}
+			Get = (data) => (data as Contact)?.Media ,
+			Set = (data, value) => {(data as Contact)!.Media = value as List<Media>; }}
 		];
 
 
@@ -3670,8 +3844,8 @@ public partial class Contact (string Id) : Entry (Id) {
 		// Only inclue the serialized items here
 
 		new FrameDateTime ("Updated",
-			(IBinding data, System.DateTime? value) => {(data as Contact)!.Updated = value; },
-			(IBinding data) => (data as Contact)?.Updated) {
+			(data, value) => {(data as Contact)!.Updated = value; },
+			(data) => (data as Contact)?.Updated) {
 				Description = "Time of last contact update"
 				}		];
 
@@ -3720,19 +3894,19 @@ public partial class Name (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Full",
-			(IBinding data, string? value) => {(data as Name)!.Full = value; },
-			(IBinding data) => (data as Name)?.Full) {
+			(data, value) => {(data as Name)!.Full = value; },
+			(data) => (data as Name)?.Full) {
 				},
 		new FrameRefList<TagValue> ("Components","TagValue"){
-			Get = (IBacked data) => (data as Name)?.Components ,
-			Set = (IBacked data, Object? value) => {(data as Name)!.Components = value as List<TagValue>; }},
+			Get = (data) => (data as Name)?.Components ,
+			Set = (data, value) => {(data as Name)!.Components = value as List<TagValue>; }},
 		new FrameString ("PhoneticSystem",
-			(IBinding data, string? value) => {(data as Name)!.PhoneticSystem = value; },
-			(IBinding data) => (data as Name)?.PhoneticSystem) {
+			(data, value) => {(data as Name)!.PhoneticSystem = value; },
+			(data) => (data as Name)?.PhoneticSystem) {
 				},
 		new FrameString ("PhoneticScript",
-			(IBinding data, string? value) => {(data as Name)!.PhoneticScript = value; },
-			(IBinding data) => (data as Name)?.PhoneticScript) {
+			(data, value) => {(data as Name)!.PhoneticScript = value; },
+			(data) => (data as Name)?.PhoneticScript) {
 				}
 		];
 
@@ -3746,16 +3920,16 @@ public partial class Name (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Full",
-			(IBinding data, string? value) => {(data as Name)!.Full = value; },
-			(IBinding data) => (data as Name)?.Full) {
+			(data, value) => {(data as Name)!.Full = value; },
+			(data) => (data as Name)?.Full) {
 				},
 		new FrameString ("PhoneticSystem",
-			(IBinding data, string? value) => {(data as Name)!.PhoneticSystem = value; },
-			(IBinding data) => (data as Name)?.PhoneticSystem) {
+			(data, value) => {(data as Name)!.PhoneticSystem = value; },
+			(data) => (data as Name)?.PhoneticSystem) {
 				},
 		new FrameString ("PhoneticScript",
-			(IBinding data, string? value) => {(data as Name)!.PhoneticScript = value; },
-			(IBinding data) => (data as Name)?.PhoneticScript) {
+			(data, value) => {(data as Name)!.PhoneticScript = value; },
+			(data) => (data as Name)?.PhoneticScript) {
 				}		];
 
     /// <inheritdoc/>
@@ -3799,12 +3973,12 @@ public partial class TagValue (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Tag",
-			(IBinding data, string? value) => {(data as TagValue)!.Tag = value; },
-			(IBinding data) => (data as TagValue)?.Tag) {
+			(data, value) => {(data as TagValue)!.Tag = value; },
+			(data) => (data as TagValue)?.Tag) {
 				},
 		new FrameString ("Value",
-			(IBinding data, string? value) => {(data as TagValue)!.Value = value; },
-			(IBinding data) => (data as TagValue)?.Value) {
+			(data, value) => {(data as TagValue)!.Value = value; },
+			(data) => (data as TagValue)?.Value) {
 				}
 		];
 
@@ -3818,12 +3992,12 @@ public partial class TagValue (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Tag",
-			(IBinding data, string? value) => {(data as TagValue)!.Tag = value; },
-			(IBinding data) => (data as TagValue)?.Tag) {
+			(data, value) => {(data as TagValue)!.Tag = value; },
+			(data) => (data as TagValue)?.Tag) {
 				},
 		new FrameString ("Value",
-			(IBinding data, string? value) => {(data as TagValue)!.Value = value; },
-			(IBinding data) => (data as TagValue)?.Value) {
+			(data, value) => {(data as TagValue)!.Value = value; },
+			(data) => (data as TagValue)?.Value) {
 				}		];
 
     /// <inheritdoc/>
@@ -3863,8 +4037,8 @@ public partial class Organization (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Name",
-			(IBinding data, string? value) => {(data as Organization)!.Name = value; },
-			(IBinding data) => (data as Organization)?.Name) {
+			(data, value) => {(data as Organization)!.Name = value; },
+			(data) => (data as Organization)?.Name) {
 				}
 		];
 
@@ -3878,8 +4052,8 @@ public partial class Organization (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Name",
-			(IBinding data, string? value) => {(data as Organization)!.Name = value; },
-			(IBinding data) => (data as Organization)?.Name) {
+			(data, value) => {(data as Organization)!.Name = value; },
+			(data) => (data as Organization)?.Name) {
 				}		];
 
     /// <inheritdoc/>
@@ -3927,19 +4101,19 @@ public partial class Pronouns (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefList<Option> ("GramaticalGender","Option"){
-			Get = (IBacked data) => (data as Pronouns)?.GramaticalGender ,
-			Set = (IBacked data, Object? value) => {(data as Pronouns)!.GramaticalGender = value as List<Option>; }},
+			Get = (data) => (data as Pronouns)?.GramaticalGender ,
+			Set = (data, value) => {(data as Pronouns)!.GramaticalGender = value as List<Option>; }},
 		new FrameString ("Subjective",
-			(IBinding data, string? value) => {(data as Pronouns)!.Subjective = value; },
-			(IBinding data) => (data as Pronouns)?.Subjective) {
+			(data, value) => {(data as Pronouns)!.Subjective = value; },
+			(data) => (data as Pronouns)?.Subjective) {
 				},
 		new FrameString ("Objective",
-			(IBinding data, string? value) => {(data as Pronouns)!.Objective = value; },
-			(IBinding data) => (data as Pronouns)?.Objective) {
+			(data, value) => {(data as Pronouns)!.Objective = value; },
+			(data) => (data as Pronouns)?.Objective) {
 				},
 		new FrameString ("Posessive",
-			(IBinding data, string? value) => {(data as Pronouns)!.Posessive = value; },
-			(IBinding data) => (data as Pronouns)?.Posessive) {
+			(data, value) => {(data as Pronouns)!.Posessive = value; },
+			(data) => (data as Pronouns)?.Posessive) {
 				}
 		];
 
@@ -3953,16 +4127,16 @@ public partial class Pronouns (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Subjective",
-			(IBinding data, string? value) => {(data as Pronouns)!.Subjective = value; },
-			(IBinding data) => (data as Pronouns)?.Subjective) {
+			(data, value) => {(data as Pronouns)!.Subjective = value; },
+			(data) => (data as Pronouns)?.Subjective) {
 				},
 		new FrameString ("Objective",
-			(IBinding data, string? value) => {(data as Pronouns)!.Objective = value; },
-			(IBinding data) => (data as Pronouns)?.Objective) {
+			(data, value) => {(data as Pronouns)!.Objective = value; },
+			(data) => (data as Pronouns)?.Objective) {
 				},
 		new FrameString ("Posessive",
-			(IBinding data, string? value) => {(data as Pronouns)!.Posessive = value; },
-			(IBinding data) => (data as Pronouns)?.Posessive) {
+			(data, value) => {(data as Pronouns)!.Posessive = value; },
+			(data) => (data as Pronouns)?.Posessive) {
 				}		];
 
     /// <inheritdoc/>
@@ -4006,12 +4180,12 @@ public partial class Title (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Name",
-			(IBinding data, string? value) => {(data as Title)!.Name = value; },
-			(IBinding data) => (data as Title)?.Name) {
+			(data, value) => {(data as Title)!.Name = value; },
+			(data) => (data as Title)?.Name) {
 				},
 		new FrameRefClass<Organization> ("Organization","Organization"){
-			Get = (IBacked data) => (data as Title)?.Organization ,
-			Set = (IBacked data, IBacked? value) => {(data as Title)!.Organization = value as Organization; }}
+			Get = (data) => (data as Title)?.Organization ,
+			Set = (data, value) => {(data as Title)!.Organization = value as Organization; }}
 		];
 
 
@@ -4024,8 +4198,8 @@ public partial class Title (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Name",
-			(IBinding data, string? value) => {(data as Title)!.Name = value; },
-			(IBinding data) => (data as Title)?.Name) {
+			(data, value) => {(data as Title)!.Name = value; },
+			(data) => (data as Title)?.Name) {
 				}		];
 
     /// <inheritdoc/>
@@ -4070,16 +4244,16 @@ public partial class RelatedTo (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as RelatedTo)!.Uid = value; },
-			(IBinding data) => (data as RelatedTo)?.Uid) {
+			(data, value) => {(data as RelatedTo)!.Uid = value; },
+			(data) => (data as RelatedTo)?.Uid) {
 				Description = "URI of the related party"
 				},
 		new FrameRefList<Option> ("Relation","Option"){
-			Get = (IBacked data) => (data as RelatedTo)?.Relation ,
-			Set = (IBacked data, Object? value) => {(data as RelatedTo)!.Relation = value as List<Option>; }},
+			Get = (data) => (data as RelatedTo)?.Relation ,
+			Set = (data, value) => {(data as RelatedTo)!.Relation = value as List<Option>; }},
 		new FrameString ("Other",
-			(IBinding data, string? value) => {(data as RelatedTo)!.Other = value; },
-			(IBinding data) => (data as RelatedTo)?.Other) {
+			(data, value) => {(data as RelatedTo)!.Other = value; },
+			(data) => (data as RelatedTo)?.Other) {
 				}
 		];
 
@@ -4093,13 +4267,13 @@ public partial class RelatedTo (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Uid",
-			(IBinding data, string? value) => {(data as RelatedTo)!.Uid = value; },
-			(IBinding data) => (data as RelatedTo)?.Uid) {
+			(data, value) => {(data as RelatedTo)!.Uid = value; },
+			(data) => (data as RelatedTo)?.Uid) {
 				Description = "URI of the related party"
 				},
 		new FrameString ("Other",
-			(IBinding data, string? value) => {(data as RelatedTo)!.Other = value; },
-			(IBinding data) => (data as RelatedTo)?.Other) {
+			(data, value) => {(data as RelatedTo)!.Other = value; },
+			(data) => (data as RelatedTo)?.Other) {
 				}		];
 
     /// <inheritdoc/>
@@ -4148,20 +4322,20 @@ public partial class Application (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
-			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName) {
+			(data, value) => {(data as Application)!.ApplicationName = value; },
+			(data) => (data as Application)?.ApplicationName) {
 				},
 		new FrameString ("Address",
-			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address) {
+			(data, value) => {(data as Application)!.Address = value; },
+			(data) => (data as Application)?.Address) {
 				Description = "The user identifier at the service"
 				},
 		new FrameRefList<Key> ("Keys","Key"){
-			Get = (IBacked data) => (data as Application)?.Keys ,
-			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
+			Get = (data) => (data as Application)?.Keys ,
+			Set = (data, value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
-			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference) {
+			(data, value) => {(data as Application)!.Preference = value; },
+			(data) => (data as Application)?.Preference) {
 				}
 		];
 
@@ -4175,17 +4349,17 @@ public partial class Application (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("ApplicationName",
-			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName) {
+			(data, value) => {(data as Application)!.ApplicationName = value; },
+			(data) => (data as Application)?.ApplicationName) {
 				},
 		new FrameString ("Address",
-			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address) {
+			(data, value) => {(data as Application)!.Address = value; },
+			(data) => (data as Application)?.Address) {
 				Description = "The user identifier at the service"
 				},
 		new FrameInteger ("Preference",
-			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference) {
+			(data, value) => {(data as Application)!.Preference = value; },
+			(data) => (data as Application)?.Preference) {
 				}		];
 
     /// <inheritdoc/>
@@ -4223,20 +4397,20 @@ public partial class Email (string Id) : Application (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
-			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName) {
+			(data, value) => {(data as Application)!.ApplicationName = value; },
+			(data) => (data as Application)?.ApplicationName) {
 				},
 		new FrameString ("Address",
-			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address) {
+			(data, value) => {(data as Application)!.Address = value; },
+			(data) => (data as Application)?.Address) {
 				Description = "The user identifier at the service"
 				},
 		new FrameRefList<Key> ("Keys","Key"){
-			Get = (IBacked data) => (data as Application)?.Keys ,
-			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
+			Get = (data) => (data as Application)?.Keys ,
+			Set = (data, value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
-			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference) {
+			(data, value) => {(data as Application)!.Preference = value; },
+			(data) => (data as Application)?.Preference) {
 				}
 		];
 
@@ -4288,27 +4462,27 @@ public partial class Messaging (string Id) : Application (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
-			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName) {
+			(data, value) => {(data as Application)!.ApplicationName = value; },
+			(data) => (data as Application)?.ApplicationName) {
 				},
 		new FrameString ("Address",
-			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address) {
+			(data, value) => {(data as Application)!.Address = value; },
+			(data) => (data as Application)?.Address) {
 				Description = "The user identifier at the service"
 				},
 		new FrameRefList<Key> ("Keys","Key"){
-			Get = (IBacked data) => (data as Application)?.Keys ,
-			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
+			Get = (data) => (data as Application)?.Keys ,
+			Set = (data, value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
-			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference) {
+			(data, value) => {(data as Application)!.Preference = value; },
+			(data) => (data as Application)?.Preference) {
 				},
 		new FrameRefClass<ServiceOption> ("Service","ServiceOption"){
-			Get = (IBacked data) => (data as Messaging)?.Service ,
-			Set = (IBacked data, IBacked? value) => {(data as Messaging)!.Service = value as ServiceOption; }},
+			Get = (data) => (data as Messaging)?.Service ,
+			Set = (data, value) => {(data as Messaging)!.Service = value as ServiceOption; }},
 		new FrameString ("Other",
-			(IBinding data, string? value) => {(data as Messaging)!.Other = value; },
-			(IBinding data) => (data as Messaging)?.Other) {
+			(data, value) => {(data as Messaging)!.Other = value; },
+			(data) => (data as Messaging)?.Other) {
 				}
 		];
 
@@ -4322,8 +4496,8 @@ public partial class Messaging (string Id) : Application (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Other",
-			(IBinding data, string? value) => {(data as Messaging)!.Other = value; },
-			(IBinding data) => (data as Messaging)?.Other) {
+			(data, value) => {(data as Messaging)!.Other = value; },
+			(data) => (data as Messaging)?.Other) {
 				}		];
 
     /// <inheritdoc/>
@@ -4362,24 +4536,24 @@ public partial class Phone (string Id) : Application (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
-			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName) {
+			(data, value) => {(data as Application)!.ApplicationName = value; },
+			(data) => (data as Application)?.ApplicationName) {
 				},
 		new FrameString ("Address",
-			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address) {
+			(data, value) => {(data as Application)!.Address = value; },
+			(data) => (data as Application)?.Address) {
 				Description = "The user identifier at the service"
 				},
 		new FrameRefList<Key> ("Keys","Key"){
-			Get = (IBacked data) => (data as Application)?.Keys ,
-			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
+			Get = (data) => (data as Application)?.Keys ,
+			Set = (data, value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
-			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference) {
+			(data, value) => {(data as Application)!.Preference = value; },
+			(data) => (data as Application)?.Preference) {
 				},
 		new FrameRefList<Option> ("Features","Option"){
-			Get = (IBacked data) => (data as Phone)?.Features ,
-			Set = (IBacked data, Object? value) => {(data as Phone)!.Features = value as List<Option>; }}
+			Get = (data) => (data as Phone)?.Features ,
+			Set = (data, value) => {(data as Phone)!.Features = value as List<Option>; }}
 		];
 
 
@@ -4433,33 +4607,33 @@ public partial class Service (string Id) : Application (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("ApplicationName",
-			(IBinding data, string? value) => {(data as Application)!.ApplicationName = value; },
-			(IBinding data) => (data as Application)?.ApplicationName) {
+			(data, value) => {(data as Application)!.ApplicationName = value; },
+			(data) => (data as Application)?.ApplicationName) {
 				},
 		new FrameString ("Address",
-			(IBinding data, string? value) => {(data as Application)!.Address = value; },
-			(IBinding data) => (data as Application)?.Address) {
+			(data, value) => {(data as Application)!.Address = value; },
+			(data) => (data as Application)?.Address) {
 				Description = "The user identifier at the service"
 				},
 		new FrameRefList<Key> ("Keys","Key"){
-			Get = (IBacked data) => (data as Application)?.Keys ,
-			Set = (IBacked data, Object? value) => {(data as Application)!.Keys = value as List<Key>; }},
+			Get = (data) => (data as Application)?.Keys ,
+			Set = (data, value) => {(data as Application)!.Keys = value as List<Key>; }},
 		new FrameInteger ("Preference",
-			(IBinding data, int? value) => {(data as Application)!.Preference = value; },
-			(IBinding data) => (data as Application)?.Preference) {
+			(data, value) => {(data as Application)!.Preference = value; },
+			(data) => (data as Application)?.Preference) {
 				},
 		new FrameString ("ServiceName",
-			(IBinding data, string? value) => {(data as Service)!.ServiceName = value; },
-			(IBinding data) => (data as Service)?.ServiceName) {
+			(data, value) => {(data as Service)!.ServiceName = value; },
+			(data) => (data as Service)?.ServiceName) {
 				Description = "The service address"
 				},
 		new FrameString ("Protocol",
-			(IBinding data, string? value) => {(data as Service)!.Protocol = value; },
-			(IBinding data) => (data as Service)?.Protocol) {
+			(data, value) => {(data as Service)!.Protocol = value; },
+			(data) => (data as Service)?.Protocol) {
 				},
 		new FrameRefClass<Option> ("Type","Option"){
-			Get = (IBacked data) => (data as Service)?.Type ,
-			Set = (IBacked data, IBacked? value) => {(data as Service)!.Type = value as Option; }}
+			Get = (data) => (data as Service)?.Type ,
+			Set = (data, value) => {(data as Service)!.Type = value as Option; }}
 		];
 
 
@@ -4472,13 +4646,13 @@ public partial class Service (string Id) : Application (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("ServiceName",
-			(IBinding data, string? value) => {(data as Service)!.ServiceName = value; },
-			(IBinding data) => (data as Service)?.ServiceName) {
+			(data, value) => {(data as Service)!.ServiceName = value; },
+			(data) => (data as Service)?.ServiceName) {
 				Description = "The service address"
 				},
 		new FrameString ("Protocol",
-			(IBinding data, string? value) => {(data as Service)!.Protocol = value; },
-			(IBinding data) => (data as Service)?.Protocol) {
+			(data, value) => {(data as Service)!.Protocol = value; },
+			(data) => (data as Service)?.Protocol) {
 				}		];
 
     /// <inheritdoc/>
@@ -4521,11 +4695,11 @@ public partial class Key (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefClass<KeyData> ("KeyData","KeyData"){
-			Get = (IBacked data) => (data as Key)?.KeyData ,
-			Set = (IBacked data, IBacked? value) => {(data as Key)!.KeyData = value as KeyData; }},
+			Get = (data) => (data as Key)?.KeyData ,
+			Set = (data, value) => {(data as Key)!.KeyData = value as KeyData; }},
 		new FrameRefClass<ServiceOption> ("Protocol","ServiceOption"){
-			Get = (IBacked data) => (data as Key)?.Protocol ,
-			Set = (IBacked data, IBacked? value) => {(data as Key)!.Protocol = value as ServiceOption; }}
+			Get = (data) => (data as Key)?.Protocol ,
+			Set = (data, value) => {(data as Key)!.Protocol = value as ServiceOption; }}
 		];
 
 
@@ -4585,27 +4759,27 @@ public partial class KeyData (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("UID",
-			(IBinding data, string? value) => {(data as KeyData)!.UID = value; },
-			(IBinding data) => (data as KeyData)?.UID) {
+			(data, value) => {(data as KeyData)!.UID = value; },
+			(data) => (data as KeyData)?.UID) {
 				},
 		new FrameBoolean ("Encryption",
-			(IBinding data, bool? value) => {(data as KeyData)!.Encryption = value; },
-			(IBinding data) => (data as KeyData)?.Encryption) {
+			(data, value) => {(data as KeyData)!.Encryption = value; },
+			(data) => (data as KeyData)?.Encryption) {
 				},
 		new FrameBoolean ("Signature",
-			(IBinding data, bool? value) => {(data as KeyData)!.Signature = value; },
-			(IBinding data) => (data as KeyData)?.Signature) {
+			(data, value) => {(data as KeyData)!.Signature = value; },
+			(data) => (data as KeyData)?.Signature) {
 				},
 		new FrameString ("Value",
-			(IBinding data, string? value) => {(data as KeyData)!.Value = value; },
-			(IBinding data) => (data as KeyData)?.Value) {
+			(data, value) => {(data as KeyData)!.Value = value; },
+			(data) => (data as KeyData)?.Value) {
 				},
 		new FrameFile ("Upload"){
 			FileType = null,
 			Prompt = null,
 			Description = null,
-			Get = (IBacked data) => (data as KeyData)?.Upload ,
-			Set = (IBacked data, BackingTypeFile? value) => {(data as KeyData)!.Upload = value as BackingTypeFile; }}
+			Get = (data) => (data as KeyData)?.Upload ,
+			Set = (data, value) => {(data as KeyData)!.Upload = value as BackingTypeFile; }}
 		];
 
 
@@ -4618,27 +4792,27 @@ public partial class KeyData (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("UID",
-			(IBinding data, string? value) => {(data as KeyData)!.UID = value; },
-			(IBinding data) => (data as KeyData)?.UID) {
+			(data, value) => {(data as KeyData)!.UID = value; },
+			(data) => (data as KeyData)?.UID) {
 				},
 		new FrameBoolean ("Encryption",
-			(IBinding data, bool? value) => {(data as KeyData)!.Encryption = value; },
-			(IBinding data) => (data as KeyData)?.Encryption) {
+			(data, value) => {(data as KeyData)!.Encryption = value; },
+			(data) => (data as KeyData)?.Encryption) {
 				},
 		new FrameBoolean ("Signature",
-			(IBinding data, bool? value) => {(data as KeyData)!.Signature = value; },
-			(IBinding data) => (data as KeyData)?.Signature) {
+			(data, value) => {(data as KeyData)!.Signature = value; },
+			(data) => (data as KeyData)?.Signature) {
 				},
 		new FrameString ("Value",
-			(IBinding data, string? value) => {(data as KeyData)!.Value = value; },
-			(IBinding data) => (data as KeyData)?.Value) {
+			(data, value) => {(data as KeyData)!.Value = value; },
+			(data) => (data as KeyData)?.Value) {
 				},
 		new FrameFile ("Upload"){
 			FileType = null,
 			Prompt = null,
 			Description = null,
-			Get = (IBacked data) => (data as KeyData)?.Upload ,
-			Set = (IBacked data, BackingTypeFile? value) => {(data as KeyData)!.Upload = value as BackingTypeFile; }}		];
+			Get = (data) => (data as KeyData)?.Upload ,
+			Set = (data, value) => {(data as KeyData)!.Upload = value as BackingTypeFile; }}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -4698,31 +4872,31 @@ public partial class Media (string Id) : FrameClass (Id) {
 			FileType = null,
 			Prompt = null,
 			Description = "The media resource",
-			Get = (IBacked data) => (data as Media)?.Data ,
-			Set = (IBacked data, BackingTypeFile? value) => {(data as Media)!.Data = value as BackingTypeFile; }},
+			Get = (data) => (data as Media)?.Data ,
+			Set = (data, value) => {(data as Media)!.Data = value as BackingTypeFile; }},
 		new FrameString ("MediaType",
-			(IBinding data, string? value) => {(data as Media)!.MediaType = value; },
-			(IBinding data) => (data as Media)?.MediaType) {
+			(data, value) => {(data as Media)!.MediaType = value; },
+			(data) => (data as Media)?.MediaType) {
 				Description = "The IANA Media Type"
 				},
 		new FrameInteger ("Width",
-			(IBinding data, int? value) => {(data as Media)!.Width = value; },
-			(IBinding data) => (data as Media)?.Width) {
+			(data, value) => {(data as Media)!.Width = value; },
+			(data) => (data as Media)?.Width) {
 				Description = "Width of image/video media in pixels"
 				},
 		new FrameInteger ("Height",
-			(IBinding data, int? value) => {(data as Media)!.Height = value; },
-			(IBinding data) => (data as Media)?.Height) {
+			(data, value) => {(data as Media)!.Height = value; },
+			(data) => (data as Media)?.Height) {
 				Description = "Height of image/video media in pixels"
 				},
 		new FrameInteger ("Length",
-			(IBinding data, int? value) => {(data as Media)!.Length = value; },
-			(IBinding data) => (data as Media)?.Length) {
+			(data, value) => {(data as Media)!.Length = value; },
+			(data) => (data as Media)?.Length) {
 				Description = "Length of audio/video media in seconds"
 				},
 		new FrameInteger ("Bytes",
-			(IBinding data, int? value) => {(data as Media)!.Bytes = value; },
-			(IBinding data) => (data as Media)?.Bytes) {
+			(data, value) => {(data as Media)!.Bytes = value; },
+			(data) => (data as Media)?.Bytes) {
 				Description = "Size of the resource in bytes"
 				}
 		];
@@ -4740,31 +4914,31 @@ public partial class Media (string Id) : FrameClass (Id) {
 			FileType = null,
 			Prompt = null,
 			Description = "The media resource",
-			Get = (IBacked data) => (data as Media)?.Data ,
-			Set = (IBacked data, BackingTypeFile? value) => {(data as Media)!.Data = value as BackingTypeFile; }},
+			Get = (data) => (data as Media)?.Data ,
+			Set = (data, value) => {(data as Media)!.Data = value as BackingTypeFile; }},
 		new FrameString ("MediaType",
-			(IBinding data, string? value) => {(data as Media)!.MediaType = value; },
-			(IBinding data) => (data as Media)?.MediaType) {
+			(data, value) => {(data as Media)!.MediaType = value; },
+			(data) => (data as Media)?.MediaType) {
 				Description = "The IANA Media Type"
 				},
 		new FrameInteger ("Width",
-			(IBinding data, int? value) => {(data as Media)!.Width = value; },
-			(IBinding data) => (data as Media)?.Width) {
+			(data, value) => {(data as Media)!.Width = value; },
+			(data) => (data as Media)?.Width) {
 				Description = "Width of image/video media in pixels"
 				},
 		new FrameInteger ("Height",
-			(IBinding data, int? value) => {(data as Media)!.Height = value; },
-			(IBinding data) => (data as Media)?.Height) {
+			(data, value) => {(data as Media)!.Height = value; },
+			(data) => (data as Media)?.Height) {
 				Description = "Height of image/video media in pixels"
 				},
 		new FrameInteger ("Length",
-			(IBinding data, int? value) => {(data as Media)!.Length = value; },
-			(IBinding data) => (data as Media)?.Length) {
+			(data, value) => {(data as Media)!.Length = value; },
+			(data) => (data as Media)?.Length) {
 				Description = "Length of audio/video media in seconds"
 				},
 		new FrameInteger ("Bytes",
-			(IBinding data, int? value) => {(data as Media)!.Bytes = value; },
-			(IBinding data) => (data as Media)?.Bytes) {
+			(data, value) => {(data as Media)!.Bytes = value; },
+			(data) => (data as Media)?.Bytes) {
 				Description = "Size of the resource in bytes"
 				}		];
 
@@ -4818,24 +4992,24 @@ public partial class Option (string Id) : FrameClass (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Id",
-			(IBinding data, string? value) => {(data as Option)!.Id = value; },
-			(IBinding data) => (data as Option)?.Id) {
+			(data, value) => {(data as Option)!.Id = value; },
+			(data) => (data as Option)?.Id) {
 				Hidden = true,
 				Description = "Unique identifier"
 				},
 		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as Option)!.Text = value; },
-			(IBinding data) => (data as Option)?.Text) {
+			(data, value) => {(data as Option)!.Text = value; },
+			(data) => (data as Option)?.Text) {
 				Description = "Text prompt for the option"
 				},
 		new FrameString ("Icon",
-			(IBinding data, string? value) => {(data as Option)!.Icon = value; },
-			(IBinding data) => (data as Option)?.Icon) {
+			(data, value) => {(data as Option)!.Icon = value; },
+			(data) => (data as Option)?.Icon) {
 				Description = "Icon prompt for the option"
 				},
 		new FrameInteger ("Priority",
-			(IBinding data, int? value) => {(data as Option)!.Priority = value; },
-			(IBinding data) => (data as Option)?.Priority) {
+			(data, value) => {(data as Option)!.Priority = value; },
+			(data) => (data as Option)?.Priority) {
 				}
 		];
 
@@ -4849,24 +5023,24 @@ public partial class Option (string Id) : FrameClass (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Id",
-			(IBinding data, string? value) => {(data as Option)!.Id = value; },
-			(IBinding data) => (data as Option)?.Id) {
+			(data, value) => {(data as Option)!.Id = value; },
+			(data) => (data as Option)?.Id) {
 				Hidden = true,
 				Description = "Unique identifier"
 				},
 		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as Option)!.Text = value; },
-			(IBinding data) => (data as Option)?.Text) {
+			(data, value) => {(data as Option)!.Text = value; },
+			(data) => (data as Option)?.Text) {
 				Description = "Text prompt for the option"
 				},
 		new FrameString ("Icon",
-			(IBinding data, string? value) => {(data as Option)!.Icon = value; },
-			(IBinding data) => (data as Option)?.Icon) {
+			(data, value) => {(data as Option)!.Icon = value; },
+			(data) => (data as Option)?.Icon) {
 				Description = "Icon prompt for the option"
 				},
 		new FrameInteger ("Priority",
-			(IBinding data, int? value) => {(data as Option)!.Priority = value; },
-			(IBinding data) => (data as Option)?.Priority) {
+			(data, value) => {(data as Option)!.Priority = value; },
+			(data) => (data as Option)?.Priority) {
 				}		];
 
     /// <inheritdoc/>
@@ -4911,33 +5085,33 @@ public partial class ServiceOption (string Id) : Option (Id) {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Id",
-			(IBinding data, string? value) => {(data as Option)!.Id = value; },
-			(IBinding data) => (data as Option)?.Id) {
+			(data, value) => {(data as Option)!.Id = value; },
+			(data) => (data as Option)?.Id) {
 				Hidden = true,
 				Description = "Unique identifier"
 				},
 		new FrameString ("Text",
-			(IBinding data, string? value) => {(data as Option)!.Text = value; },
-			(IBinding data) => (data as Option)?.Text) {
+			(data, value) => {(data as Option)!.Text = value; },
+			(data) => (data as Option)?.Text) {
 				Description = "Text prompt for the option"
 				},
 		new FrameString ("Icon",
-			(IBinding data, string? value) => {(data as Option)!.Icon = value; },
-			(IBinding data) => (data as Option)?.Icon) {
+			(data, value) => {(data as Option)!.Icon = value; },
+			(data) => (data as Option)?.Icon) {
 				Description = "Icon prompt for the option"
 				},
 		new FrameInteger ("Priority",
-			(IBinding data, int? value) => {(data as Option)!.Priority = value; },
-			(IBinding data) => (data as Option)?.Priority) {
+			(data, value) => {(data as Option)!.Priority = value; },
+			(data) => (data as Option)?.Priority) {
 				},
 		new FrameString ("Uri",
-			(IBinding data, string? value) => {(data as ServiceOption)!.Uri = value; },
-			(IBinding data) => (data as ServiceOption)?.Uri) {
+			(data, value) => {(data as ServiceOption)!.Uri = value; },
+			(data) => (data as ServiceOption)?.Uri) {
 				Description = "The service address"
 				},
 		new FrameString ("Template",
-			(IBinding data, string? value) => {(data as ServiceOption)!.Template = value; },
-			(IBinding data) => (data as ServiceOption)?.Template) {
+			(data, value) => {(data as ServiceOption)!.Template = value; },
+			(data) => (data as ServiceOption)?.Template) {
 				Description = "Template that converts the user address to a URI"
 				}
 		];
@@ -4952,13 +5126,13 @@ public partial class ServiceOption (string Id) : Option (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Uri",
-			(IBinding data, string? value) => {(data as ServiceOption)!.Uri = value; },
-			(IBinding data) => (data as ServiceOption)?.Uri) {
+			(data, value) => {(data as ServiceOption)!.Uri = value; },
+			(data) => (data as ServiceOption)?.Uri) {
 				Description = "The service address"
 				},
 		new FrameString ("Template",
-			(IBinding data, string? value) => {(data as ServiceOption)!.Template = value; },
-			(IBinding data) => (data as ServiceOption)?.Template) {
+			(data, value) => {(data as ServiceOption)!.Template = value; },
+			(data) => (data as ServiceOption)?.Template) {
 				Description = "Template that converts the user address to a URI"
 				}		];
 
@@ -4977,5 +5151,4 @@ public partial class ServiceOption (string Id) : Option (Id) {
 
 
 	}
-
 

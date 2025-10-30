@@ -33,9 +33,9 @@ public record ServerCookieManager {
     int Lifetime { get; } = 24;
 
 
-    int nonceLength = 96/8;
+    const int nonceLength = 96/8;
 
-    int tagLength = 128/8;
+    const int tagLength = 128/8;
 
 
     int prefixLength => 1 + nonceLength + tagLength;

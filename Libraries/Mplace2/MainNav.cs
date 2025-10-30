@@ -4,13 +4,25 @@
 /// <summary>
 /// Sign in states
 /// </summary>
+/// [Flags]
 public enum SignInState {
+    
+
     ///<summary>The initial state, visitor is not signed in.</summary>
     Initial = 0,
-    ///<summary>Visitor has signed in but has not created a personal place.</summary>
-    NoPersonalPlace = 1,
-    ///<summary>Visitor has signed in and has created a personal place.</summary>
-    HasPersonalPlace = 2
+    ///<summary>Visitor has signed in.</summary>
+    SignedIn = 1,
+    ///<summary>Visitor has  a personal place.</summary>
+    HasPersonalPlace = 2,
+
+    ///<summary>Visitor is administrator.</summary>
+    IsModerator= 4,
+
+    ///<summary>Visitor is administrator.</summary>
+    IsAdministrator = 8,
+
+    ///<summary>Sign in state is not known</summary>
+    Unknown = -1
     }
 
 
@@ -19,19 +31,22 @@ public enum SignInState {
 
 public partial class MainNav {
 
-
-
-    /// <summary>If true, the visitor is an administrator.</summary>
-    public bool IsAdmin { get; set; } = true;
-
     /// <summary>The sign in state.</summary>
-    public SignInState SignInState { get; set; }
+    public SignInState SignInState => signInState != SignInState.Unknown ?
+        signInState : Page.GetSignInState(out signInState);
+    SignInState signInState = SignInState.Unknown;
 
     /// <summary>True if the user has signed in.</summary>
-    public bool SignedIn => SignInState > SignInState.Initial;
+    public bool SignedIn => SignInState.HasFlag(SignInState.SignedIn);
 
     /// <summary>True if the user has a personal page.</summary>
-    public bool HasPersonal => SignInState == SignInState.HasPersonalPlace;
+    public bool HasPersonal => SignInState.HasFlag(SignInState.HasPersonalPlace);
+
+    /// <summary>If true, the visitor is an administrator.</summary>
+    public bool IsAdmin => SignInState.HasFlag(SignInState.IsAdministrator);
+
+    /// <summary>If true, the visitor is a moderator.</summary>
+    public bool IsModerator => SignInState.HasFlag(SignInState.IsModerator);
 
 
     /// <summary>State of the sign in button, only visible when signed out, active 
@@ -77,7 +92,7 @@ public partial class MainNav {
 
     /// <summary>State of the settings button, active on the new plage page, only visible if
     /// the visitor is logged in as an administrator..</summary>
-    public ButtonVisibility? CreatePlaceActive => GetVisibility(Page is NewPlacePage, !IsAdmin);
+    public ButtonVisibility? CreatePlaceActive => GetVisibility(Page is NewPlacePage, hide:!IsAdmin);
 
 
     ButtonVisibility GetVisibility(

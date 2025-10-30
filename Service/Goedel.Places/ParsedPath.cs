@@ -34,24 +34,18 @@ public record ParsedPath : IPageContext {
     public HttpListenerRequest Request => Context.Request;
 
 
-    public PageText PageText {get ; set;} = PageText.English;
+    public PageText PageText { get; set; } = PageText.English;
 
     public FramePage Page { get; set; }
 
+    public IPersistPlace PersistPlace { get; }
 
 
-
+    public MemberHandle MemberHandle { get; set; }
     public PlaceHandle PlaceHandle { get; }
 
     public string Placename => PlaceHandle?.LocalName;
 
-
-    //public MemberHandle? Member { get; set; }
-
-    //public string MemberId => Member.CatalogedMember._PrimaryKey;
-
-
-    //public bool SignedIn => Member!= null;
 
     public string Command { get; }
 
@@ -61,62 +55,38 @@ public record ParsedPath : IPageContext {
     public string ExternalUriQuery => "https://" + Uri.Host + Uri.PathAndQuery;
     public string LocalPath => Uri?.LocalPath;
 
-
-
-
-
-
-
-
     ///<summary>Holds the project ID or the static resource name</summary> 
     public string FirstId { get; }
-
-
-    public string VisitorId => FirstId;
-
-    /////<summary>The project Id is always the first in the path</summary> 
-    //public string ProjectId => FirstId;
 
 
     ///<summary>Holds the document ID.</summary> 
     public string SecondId { get; }
 
-
-    ///<summary>The topic Id is always the first in the path</summary> 
-    public string TopicId => FirstId;
-
-
-    ///<summary>The resource Id is always the first in the path</summary> 
-    public string ResourceId => FirstId;
-
-
     ///<summary>Holds the fragment ID.</summary> 
     public string ThirdId { get; } 
-
-    ///<summary>The post Id is always the second in the path</summary> 
-    public string PostId => SecondId;
-
-    ///<summary>The fragment Id is always the second in the path</summary> 
-    public string FragmentId => SecondId;
 
     ///<summary>The original IP address of the request (filled by reverse proxy)</summary> 
     public string RealIp { get; }
 
 
-    public ParsedPath(HttpListenerContext context) {
+    public string? UserId { get; set; } = null;
+
+    /// <summary>
+    /// Constructor, return a parsed path for the listener context <paramref name="context"/>
+    /// with backing store <paramref name="persistPlace"/>.
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="persistPlace"></param>
+    public ParsedPath(HttpListenerContext context, IPersistPlace persistPlace) {
         Context = context;
+        PersistPlace = persistPlace;
+
         RealIp = Request.Headers["X-Real-IP"];
 
-
-
-        //ReturnAddress = request.UserHostName + "/" + 
-
-        //forum.TryGetPlace(Request.UserHostName, out var place);
-        //PlaceHandle = place;
-
-        //// If signed in, set the member handle
-        //forum.TryGetVerifiedMemberHandle(Request, out var member);
-        //Member = member;
+        if (persistPlace.ServerCookieManager.TryGetCookie(
+            Request, PalimpsestConstants.CookieTypeSessionTag, out var userId)) {
+            UserId = userId;
+            }
 
         Uri = Request.Url;
         if (LocalPath == null) {
@@ -145,15 +115,7 @@ public record ParsedPath : IPageContext {
             return;
             }
 
-        var extension = Path.GetExtension(split[1]);
-        if (extension.Length > 0) {
-            Command = "resources";
-            FirstId = split[1];
-            }
-        else {
-            Command = split[1];
-            }
-
+        Command = split[1];
         if (split.Length > 2) {
             FirstId = split[2];
             }
@@ -164,98 +126,5 @@ public record ParsedPath : IPageContext {
             ThirdId = split[4];
             }
         }
-
-
-
-
-    //public ParsedPath(HttpListenerContext context, Forum forum) {
-    //    Context = context;
-
-    //    RealIp = Request.Headers["X-Real-IP"];
-    //    //ReturnAddress = request.UserHostName + "/" + 
-
-    //    forum.TryGetPlace(Request.UserHostName, out var place);
-    //    PlaceHandle = place;
-
-    //    // If signed in, set the member handle
-    //    forum.TryGetVerifiedMemberHandle(Request, out var member);
-    //    Member = member;
-
-    //    Uri = Request.Url;
-    //    if (LocalPath == null) {
-    //        Command = null;
-    //        return;
-    //        }
-    //    var split = LocalPath.Split('/');
-    //    if (split.Length < 2) { // must have at least initial /
-    //        Command = null;
-    //        return;
-    //        }
-
-    //    if (split[1] == ".well-known") {
-    //        Command = ".well-known";
-    //        if (split.Length < 3) {
-    //            SecondId = null;
-    //            return;
-    //            }
-    //        SecondId = split[2];
-
-    //        if (split.Length < 4) {
-    //            SecondId = null;
-    //            return;
-    //            }
-    //        SecondId = split[3];
-    //        return;
-    //        }
-
-
-
-    //    var extension = Path.GetExtension(split[1]);
-    //    if (extension.Length > 0) {
-    //        Command = "resources";
-    //        FirstId = split[1];
-    //        }
-    //    else {
-    //        Command = split[1];
-    //        }
-
-
-    //    if (split.Length > 2) {
-    //        FirstId = split[2];
-    //        }
-    //    if (split.Length > 3) {
-    //        SecondId = split[3];
-    //        }
-    //    if (split.Length > 4) {
-    //        ThirdId = split[4];
-    //        }
-    //    }
-
-    //public string GetPostTarget() =>
-    //$"/{PalimpsestConstants.PostPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
-
-    //public string GetMainCommentTarget() =>
-    //$"/{PalimpsestConstants.CommentPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
-
-    //public string GetCommentTarget() =>
-    //    $"/{PalimpsestConstants.PostCommentPost}/{FirstId}/{SecondId}" + (ThirdId is null ? "" : $"/{ThirdId}");
-
-
-    //public bool TryGetResource(
-    //      out ResourceHandle resource) => PlaceHandle.TryGetForum(ResourceId, out resource);
-
-    //public bool TryGetTopic(
-    //      out TopicHandle resource) => PlaceHandle.TryGetForum(TopicId, out resource);
-
-    //public bool TryGetPost(
-    //        out TopicHandle topicHandle,
-    //        out PostHandle postHandle) {
-    //    if (!TryGetTopic(out topicHandle)) {
-    //        postHandle = null;
-    //        return false;
-    //        }
-    //    return topicHandle.TryGetPost(SecondId, out postHandle);
-
-    //    }
 
     }

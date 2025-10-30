@@ -1,4 +1,25 @@
-﻿namespace Mplace2.Gui;
+﻿using Goedel.Mesh;
+
+using System.Net;
+
+namespace Mplace2.Gui;
+
+
+public partial class FormPlace {
+
+    public override async Task<CallbackResult> Callback(
+            IPersistSite persistPlace) {
+        List<FormReaction> reactions = [];
+
+        return new(HttpStatusCode.OK, null, "");
+        }
+
+
+    }
+
+
+
+
 public partial class Place {
 
     public BackingTypeFile? AvatarFile { get; set; } = null;

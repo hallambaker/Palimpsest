@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 10/28/2025 6:38:54 PM
+//  This file was automatically generated at 10/30/2025 2:55:38 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -22,11 +22,95 @@ using Goedel.Utilities;
 namespace Goedel.Places ;
 
 
+///<summary>Cookie labels</summary>
+public enum CookieType {
+    ///<summary>Undefined type</summary>
+    Unknown = -1,
+    ///<summary>Authentication session cookie</summary>
+    Session,
+    ///<summary>Temporary authentication session cookie</summary>
+    Temporary    }
+
+///<summary>Store labels</summary>
+public enum StoreType {
+    ///<summary>Undefined type</summary>
+    Unknown = -1,
+    ///<summary>Places catalog</summary>
+    Places,
+    ///<summary>Members catalog</summary>
+    Members    }
+
 
 ///<summary>
 ///Constants specified in hallambaker-mesh-schema
 ///</summary>
 public static partial class PalimpsestConstants {
+
+    // File: CatalogLabels
+
+
+    ///<summary>Jose enumeration tag for CookieType.Session</summary>
+    public const string  CookieTypeSessionTag = "Session";
+    ///<summary>Jose enumeration tag for CookieType.Temporary</summary>
+    public const string  CookieTypeTemporaryTag = "Temporary";
+
+    /// <summary>
+    /// Convert the string <paramref name="text"/> to the corresponding enumeration
+    /// value.
+    /// </summary>
+    /// <param name="text">The string to convert.</param>
+    /// <returns>The enumeration value.</returns>
+    public static CookieType ToCookieType (this string text) =>
+        text switch {
+            CookieTypeSessionTag => CookieType.Session,
+            CookieTypeTemporaryTag => CookieType.Temporary,
+            _ => CookieType.Unknown
+            };
+
+    /// <summary>
+    /// Convert the enumerated value <paramref name="data"/> to the corresponding string
+    /// value.
+    /// </summary>
+    /// <param name="data">The enumerated value.</param>
+    /// <returns>The text value.</returns>
+    public static string ToLabel (this CookieType data) =>
+        data switch {
+            CookieType.Session => CookieTypeSessionTag,
+            CookieType.Temporary => CookieTypeTemporaryTag,
+            _ => null
+            };
+
+
+    ///<summary>Jose enumeration tag for StoreType.Places</summary>
+    public const string  StoreTypePlacesTag = "Places";
+    ///<summary>Jose enumeration tag for StoreType.Members</summary>
+    public const string  StoreTypeMembersTag = "Members";
+
+    /// <summary>
+    /// Convert the string <paramref name="text"/> to the corresponding enumeration
+    /// value.
+    /// </summary>
+    /// <param name="text">The string to convert.</param>
+    /// <returns>The enumeration value.</returns>
+    public static StoreType ToStoreType (this string text) =>
+        text switch {
+            StoreTypePlacesTag => StoreType.Places,
+            StoreTypeMembersTag => StoreType.Members,
+            _ => StoreType.Unknown
+            };
+
+    /// <summary>
+    /// Convert the enumerated value <paramref name="data"/> to the corresponding string
+    /// value.
+    /// </summary>
+    /// <param name="data">The enumerated value.</param>
+    /// <returns>The text value.</returns>
+    public static string ToLabel (this StoreType data) =>
+        data switch {
+            StoreType.Places => StoreTypePlacesTag,
+            StoreType.Members => StoreTypeMembersTag,
+            _ => null
+            };
 
     // File: PagePrefixes
 

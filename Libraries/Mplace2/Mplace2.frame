@@ -23,6 +23,9 @@ Namespace Mplace2.Gui
         Places Button PlacesPage "Places"
             PlacesActive Boolean
 
+        Posts Button PostsPage "Places"
+            PlacesActive Boolean
+
         Bookmark Button BookmarkPage "Saved"
             BookmarksActive Boolean
             Hover Description "Your saved places"
@@ -38,9 +41,9 @@ Namespace Mplace2.Gui
 
         NewPlace Button NewPlacePage "New Place"
             CreatePlaceActive Boolean
+
         CreatePost Button CreatePost "Create Post"
-        CreateComment Button CreateComment "Add Comment"
-        Post Button PostPage "Test Post"
+
 
     TopSettings Menu
         Menu Button SettingsPage "Menu"
@@ -62,8 +65,15 @@ Namespace Mplace2.Gui
         Entries List Entry
             Display SummaryPresentation
 
-
     PlacesPage Page "Places"
+        FlowPage Container
+        Navigation Is MainNav
+        TopSettings Is TopSettings
+        Entries List Entry
+            Display SummaryPresentation
+
+
+    PostsPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
         TopSettings Is TopSettings
@@ -184,7 +194,7 @@ Namespace Mplace2.Gui
     NewPlacePage Page "Create New Place"
         EntryPage Container
         Navigation Is MainNav
-        Form Form Place
+        Form Form FormPlace
             DNS String
                 Prompt "DNS Address"
                 Description "Can be any DNS name that is resolved to the service."
@@ -203,6 +213,16 @@ Namespace Mplace2.Gui
                 Description "Background image for the main page."
                 FileType ImageFileType
 
+    FormPlace SubClass Place
+        Fields
+            AvatarFile File
+                Prompt "Avatar"
+                Description "Icon representing the place."
+                FileType ImageFileType
+            BannerFile File
+                Prompt "Banner"
+                Description "Background image for the main page."
+                FileType ImageFileType
 
 
     YourPlacePageCreate Page "Create Your Personal Place"
@@ -447,7 +467,6 @@ Namespace Mplace2.Gui
                         RequestedLess Boolean
                     Share SubMenu "Share"
                         LinkCopy Button HomePage "Copy link to post"
-                        SendByDM Button HomePage "Send via direct message"
                         Embed Button HomePage "Embed post"
                     Ellipsis SubMenu "More"
                         Translate Button TranslateAction "Translate"

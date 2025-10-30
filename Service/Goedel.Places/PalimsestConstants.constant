@@ -1,6 +1,29 @@
 ﻿Namespace Goedel.Places PalimpsestConstants
 	|Constants specified in hallambaker-mesh-schema
 
+File CatalogLabels
+	Enum CookieType "Cookie labels"
+		Code Session "Authentication session cookie"
+			Description
+				|Authentication session cookie
+		Code Temporary "Temporary authentication session cookie"
+			Description
+				|Temporary authentication session cookie
+
+
+	Enum StoreType "Store labels"
+
+		Code Places "Places catalog"
+			Description
+				|One catalog per forum, index for everything
+			Description
+				|Filename: Place.dcat
+
+		Code Members "Members catalog"
+			Description
+				|One catalog per forum, maps external users to a forum identifier
+			Description
+				|Filename: Member.dcat
 
 
 File PagePrefixes

@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 10/28/2025 6:38:53 PM
+//  This file was automatically generated at 10/30/2025 2:55:37 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -77,7 +77,9 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	static Dictionary<System.Type, Binding> _bindingDictionary = 
 			new () {
 
-	    {typeof(CatalogedForumEntry), CatalogedForumEntry._binding}
+	    {typeof(CatalogedForumEntry), CatalogedForumEntry._binding},
+	    {typeof(CatalogedPlace), CatalogedPlace._binding},
+	    {typeof(CatalogedForumMember), CatalogedForumMember._binding}
 		};
 
 	///<summary>Variable used to force static initialization</summary> 
@@ -148,6 +150,183 @@ public partial class CatalogedForumEntry : CatalogedEntry {
     /// </summary>
     /// <returns>Object of this type</returns>
 	public static new JsonObject _Factory () => new CatalogedForumEntry();
+
+	}
+
+
+	/// <summary>
+	///
+	/// A cataloged project.
+	/// </summary>
+public partial class CatalogedPlace : CatalogedForumEntry {
+    /// <summary>
+    ///The forum to which the place belongs.
+    /// </summary>
+
+	[JsonPropertyName("ParentForum")]
+	public virtual string?					ParentForum  {get; set;} //
+
+    /// <summary>
+    /// </summary>
+
+	[JsonPropertyName("Aliases")]
+	public virtual List<string>?					Aliases  {get; set;}
+    /// <summary>
+    ///The members owwning the peoject
+    /// </summary>
+
+	[JsonPropertyName("Owners")]
+	public virtual List<string>?					Owners  {get; set;}
+
+    ///<summary>Implement IBinding</summary> 
+	public override Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Property[] _properties = [
+		new PropertyString ("ParentForum", 
+					(data, value) => {(data as CatalogedPlace).ParentForum = value;}, 
+					data => (data as CatalogedPlace).ParentForum ),
+		new PropertyListString ("Aliases", 
+					(data, value) => {(data as CatalogedPlace).Aliases = value;}, 
+					data => (data as CatalogedPlace).Aliases ),
+		new PropertyListString ("Owners", 
+					(data, value) => {(data as CatalogedPlace).Owners = value;}, 
+					data => (data as CatalogedPlace).Owners )
+		];
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	public static readonly new Binding<CatalogedPlace> _binding = new (
+			new() {
+			{ "ParentForum", _properties [0]},
+			{ "Aliases", _properties [1]},
+			{ "Owners", _properties [2]}}, __Tag,
+		() => new CatalogedPlace(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedPlace";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedPlace();
+
+	}
+
+
+	/// <summary>
+	///
+	/// 
+	/// </summary>
+public partial class CatalogedForumMember : CatalogedForumEntry {
+    /// <summary>
+    ///The user's Did (if used).
+    /// </summary>
+
+	[JsonPropertyName("Did")]
+	public virtual string?					Did  {get; set;} //
+
+    /// <summary>
+    ///The user's handle.
+    /// </summary>
+
+	[JsonPropertyName("Handle")]
+	public virtual string?					Handle  {get; set;} //
+
+    /// <summary>
+    ///Resource link to the user's avatar image
+    /// </summary>
+
+	[JsonPropertyName("Avatar")]
+	public virtual string?					Avatar  {get; set;} //
+
+    /// <summary>
+    ///Resource link to the user's banner image
+    /// </summary>
+
+	[JsonPropertyName("Banner")]
+	public virtual string?					Banner  {get; set;} //
+
+    /// <summary>
+    ///The member's status: Active / Inactive / Blocked
+    /// </summary>
+
+	[JsonPropertyName("Status")]
+	public virtual string?					Status  {get; set;} //
+
+    /// <summary>
+    ///Assigned privileges (Admin / Moderator)
+    /// </summary>
+
+	[JsonPropertyName("Privileges")]
+	public virtual List<string>?					Privileges  {get; set;}
+
+    ///<summary>Implement IBinding</summary> 
+	public override Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Property[] _properties = [
+		new PropertyString ("Did", 
+					(data, value) => {(data as CatalogedForumMember).Did = value;}, 
+					data => (data as CatalogedForumMember).Did ),
+		new PropertyString ("Handle", 
+					(data, value) => {(data as CatalogedForumMember).Handle = value;}, 
+					data => (data as CatalogedForumMember).Handle ),
+		new PropertyString ("Avatar", 
+					(data, value) => {(data as CatalogedForumMember).Avatar = value;}, 
+					data => (data as CatalogedForumMember).Avatar ),
+		new PropertyString ("Banner", 
+					(data, value) => {(data as CatalogedForumMember).Banner = value;}, 
+					data => (data as CatalogedForumMember).Banner ),
+		new PropertyString ("Status", 
+					(data, value) => {(data as CatalogedForumMember).Status = value;}, 
+					data => (data as CatalogedForumMember).Status ),
+		new PropertyListString ("Privileges", 
+					(data, value) => {(data as CatalogedForumMember).Privileges = value;}, 
+					data => (data as CatalogedForumMember).Privileges )
+		];
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	public static readonly new Binding<CatalogedForumMember> _binding = new (
+			new() {
+			{ "Did", _properties [0]},
+			{ "Handle", _properties [1]},
+			{ "Avatar", _properties [2]},
+			{ "Banner", _properties [3]},
+			{ "Status", _properties [4]},
+			{ "Privileges", _properties [5]}}, __Tag,
+		() => new CatalogedForumMember(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedForumMember";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedForumMember();
 
 	}
 

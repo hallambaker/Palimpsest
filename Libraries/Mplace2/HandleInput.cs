@@ -13,14 +13,17 @@ namespace Mplace2.Gui;
 
 public partial class HandleInput {
 
+
+
+
     public override async Task<CallbackResult> Callback(
-                IPersistPlace persistPlace) {
-                List<FormReaction> reactions = [];
+                IPersistSite persistPlace) {
+        List<FormReaction> reactions = [];
 
 
         if (DNS is null || DNS?.Length == 0) {
             reactions.Add(new("DNS", "Must not be null"));
-            return new (HttpStatusCode.BadRequest, reactions, null);
+            return new(HttpStatusCode.BadRequest, reactions, null);
             }
 
         else if (!DNS.TryParseServiceAddress(out var address)) {
@@ -39,8 +42,11 @@ public partial class HandleInput {
 
         // We will at some point want to be able to throw a 'must sign in' page at the user
         // and return them to the place they were prompted for input.
-        var redirect = "/";
 
+
+
+        var nonceDns = new NonceDns(Udf.Nonce(), "/", DNS);
+        var redirect = nonceDns.Uri(nonceDns.Place, "/");
 
         // Perform OAUTH Push
         var preRequest = await persistPlace.OauthClient.PreRequest(DNS, redirect);
@@ -53,7 +59,7 @@ public partial class HandleInput {
 
 
 
-        return new (HttpStatusCode.OK, null, success.RedirectUri);
+        return new(HttpStatusCode.OK, null, success.RedirectUri);
         }
 
 

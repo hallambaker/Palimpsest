@@ -30,7 +30,6 @@ global using Goedel.Utilities;
 global using Goedel.Protocol;
 global using Goedel.Sitebuilder;
 global using Goedel.Places ;
-global using Goedel.Places.MPlace2;
 
 
 #if !(_Github_)
@@ -44,4 +43,107 @@ namespace Mplace2.Gui;
 
 [System.Runtime.CompilerServices.CompilerGenerated]
 class NamespaceDoc {
+
+
+    // *** Account signin/out
+
+    // ToDo: Save DNS for future logins to cookie
+    // ToDo: Fill DNS from cookie
+    // ToDo: Sign Out
+    // ToDo: Switch account
+    // ToDo: Change avatar when signed in
+
+
+    // *** Basic functionality
+
+    // ToDo: Implement Create Post
+    // ToDo: Implement Add Comment to Post
+    // ToDo: Implement edit post?
+    // ToDo: Save Banner and Avatar to backing store
+    // ToDo: Create your place
+
+
+    // *** User convenience
+
+    // ToDo: Compile notifications
+    // ToDo: Save Bookmarks (places)
+
+
+    // *** Post interactions
+
+    // ToDo: Implement settings change 
+    // ToDo: Implement more/less
+    // ToDo: Implement Quote Post  
+    // ToDo: Implement translate
+    // ToDo: Implement submit brief to Facebook
+    // ToDo: Implement submit brief  to Blue Sky
+    // ToDo: Copy link
+    // ToDo: Embed link
+    // ToDo: Send via DM
+    // ToDo: Translate
+    // ToDo: Copy to clipboard
+
+
+    // *** Moderation and blocking 
+
+    // ToDo: Mute thread
+    // ToDo: Mute Words
+    // ToDo: Hide post
+    // ToDo: Mute user
+    // ToDo: Block user
+    // ToDo: Report post / user
+
+
+    // *** Resources
+
+    // ToDo: Limit size of comments / posts / images
+    // ToDo: Track total visitor content production
+    // ToDo: Track resource consumption by IP address block
+
+
+    // *** Settings
+
+    // ToDo: Appearance Light/Dark
+    // ToDo: Status page
+    // ToDo: System Log
+
+
+    // *** Boilerplate
+
+    // ToDo: Help
+    // ToDo: Contributors
+    // ToDo: Privacy policy
+    // ToDo: Terms of Service
+
+
+    // *** Telemetry
+
+    // ToDo: Server log file
+    // ToDo: Visitor log file
+
+
+    // *** Future
+
+    // ToDo: Charge for premium account (more storage, badge, more places)
+    // ToDo: Advertising injection?
+    // ToDo: Restricted places
+    // ToDo: Encrypted places
+    // ToDo: DNS Handle Provider
+
+
+    // *** @nyone
+
+    // ToDo: Implement contact form fill in.
+    // ToDo: Multiple contacts per account
+    // ToDo: Include PGP key
+    // ToDo: Include S/MIME key
+    // ToDo: Include SSH key
+    // ToDo: Include code signing key
+    // ToDo: Include Signal/etc.
+    // ToDo: Include Web sites.
+    // ToDo: Publish contact
+    // ToDo: QR Code output
+    // ToDo: Handle output
+    // ToDo: Multiple contacts per account
+
     }

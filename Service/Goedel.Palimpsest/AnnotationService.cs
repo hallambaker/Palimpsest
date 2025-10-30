@@ -187,56 +187,56 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         //AddBoilerplate(ForumNavigation, true);
         //AddBoilerplate(ForumAdditional);
 
-        //ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
-        //    // public pages, visible to all users but with possibly reduced functionality
-        //    { "", new (GetHome, false) }, // Home page
-        //    { PalimpsestConstants.resources, new (GetResources,false) },
-        //    { PalimpsestConstants.WellKnown, new (GetWellKnown,false) },
+        ResourceMap = new Dictionary<string, WebResource<ParsedPath>>{
+            // public pages, visible to all users but with possibly reduced functionality
+            { "", new (GetHome, false) }, // Home page
+            { PalimpsestConstants.resources, new (GetResources,false) },
+            { PalimpsestConstants.WellKnown, new (GetWellKnown,false) },
 
-        //    { PalimpsestConstants.SignIn, new (GetSignIn, false) },
-        //    { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
-        //    { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
-        //    { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
-        //    { PalimpsestConstants.Redirect, new (GetRedirect, false) },
-        //    { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
-        //    { PalimpsestConstants.SignOut, new (GetSignOut) },
+            { PalimpsestConstants.SignIn, new (GetSignIn, false) },
+            { PalimpsestConstants.ForumTermsConditions, new (ForumTermsConditions, false) },
+            { PalimpsestConstants.ForumPlaceSignIn, new (ForumPlaceSignIn, false) },
+            { PalimpsestConstants.SignInComplete, new (CompleteSignIn, false) },
+            { PalimpsestConstants.Redirect, new (GetRedirect, false) },
+            { PalimpsestConstants.AcceptTerms, new (PostAcceptTerms, false) },
+            { PalimpsestConstants.SignOut, new (GetSignOut) },
 
-        //    /// Wet edge here, pages above have been fixed
+            /// Wet edge here, pages above have been fixed
 
 
-        //    //{ PalimpsestConstants.Terms, new (GetTerms, false) },
-        //    //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
-        //    //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
-        //    //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
-        //    // private pages, requires log in
+            //{ PalimpsestConstants.Terms, new (GetTerms, false) },
+            //{ PalimpsestConstants.CreateAccount, new (GetCreateAccount, false) },
+            //{ PalimpsestConstants.CreateAccountPost, new (PostCreateAccount, false) },
+            //{ PalimpsestConstants.SignInPost, new (PostSignIn, false) },
+            // private pages, requires log in
 
-        //    { PalimpsestConstants.Place, new (GetPlace,false) },
-        //    { PalimpsestConstants.AddDocument, new (GetAddDocument) },
-        //    { PalimpsestConstants.AddTopic, new (GetAddTopic) },
+            { PalimpsestConstants.Place, new (GetPlace,false) },
+            { PalimpsestConstants.AddDocument, new (GetAddDocument) },
+            { PalimpsestConstants.AddTopic, new (GetAddTopic) },
 
-        //    { PalimpsestConstants.Document, new (GetDocument,false) },
-        //    { PalimpsestConstants.Topic, new (GetTopic,false) },
-        //    { PalimpsestConstants.Post, new (GetPost,false) },
-        //    { PalimpsestConstants.User, new (GetVisitor, false) },
+            { PalimpsestConstants.Document, new (GetDocument,false) },
+            { PalimpsestConstants.Topic, new (GetTopic,false) },
+            { PalimpsestConstants.Post, new (GetPost,false) },
+            { PalimpsestConstants.User, new (GetVisitor, false) },
 
-        //    { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
-        //    { PalimpsestConstants.CreatePlacePost, new (PostCreatePlace) },
-        //    { PalimpsestConstants.DocumentUpload, new (PostUploadDocument) },
-        //    { PalimpsestConstants.TopicCreate, new (PostCreateTopic) },
+            { PalimpsestConstants.CreatePlace, new (GetCreatePlace) },
+            { PalimpsestConstants.CreatePlacePost, new (PostCreatePlace) },
+            { PalimpsestConstants.DocumentUpload, new (PostUploadDocument) },
+            { PalimpsestConstants.TopicCreate, new (PostCreateTopic) },
 
-        //    { PalimpsestConstants.Actions, new (GetListActions) },
-        //    { PalimpsestConstants.Comment, new (GetCommentForm) },
-        //    { PalimpsestConstants.CommentPost, new (PostComment) },
+            { PalimpsestConstants.Actions, new (GetListActions) },
+            { PalimpsestConstants.Comment, new (GetCommentForm) },
+            { PalimpsestConstants.CommentPost, new (PostComment) },
 
-        //    { PalimpsestConstants.CreatePost, new (GetPostForm) },
-        //    { PalimpsestConstants.PostPost, new (PostPost) },
+            { PalimpsestConstants.CreatePost, new (GetPostForm) },
+            { PalimpsestConstants.PostPost, new (PostPost) },
 
-        //    { PalimpsestConstants.CreatePostComment, new (GetPostCommentForm) },
-        //    { PalimpsestConstants.PostCommentPost, new (PostPostComment) },
+            { PalimpsestConstants.CreatePostComment, new (GetPostCommentForm) },
+            { PalimpsestConstants.PostCommentPost, new (PostPostComment) },
 
-        //     { "*", new (Error) }
+             { "*", new (Error) }
 
-            //};
+            };
         }
 
     void AddBoilerplate(NavigationItem[] items, bool indexed = false) {

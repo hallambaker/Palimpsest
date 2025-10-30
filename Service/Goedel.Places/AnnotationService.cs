@@ -24,6 +24,7 @@
 using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Drawing.Diagrams;
 
+using Goedel.Mesh;
 using Goedel.Protocol;
 using Goedel.Sitebuilder;
 
@@ -55,7 +56,26 @@ public enum CommentMode {
 
     }
 
+public interface IPersistPlace : IPersistSite {
 
+    /// <summary>
+    /// Return the member record with DID <paramref name="did"/> if it exists,
+    /// otherwise create a new record for the member/handle and return it.
+    /// </summary>
+    /// <param name="handle">The members handle.</param>
+    /// <param name="did">The member's permanent identifier.</param>
+    /// <returns>The record.</returns>
+    MemberHandle GetOrCreateMember(string handle, string did);
+
+
+    /// <summary>
+    /// Return the member record with DID <paramref name="did"/> if it exists.
+    /// </summary>
+    /// <param name="path">The parsed request.</param>
+    /// <returns>The record if found, otherise null.</returns>
+    MemberHandle? GetMember(ParsedPath path);
+
+        }
 
 public partial class AnnotationService : IWebService<ParsedPath> {
 
@@ -228,7 +248,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     ///<param name="context">The listener context.</param>
     private async Task HandleRequestPost(HttpListenerContext context) {
         
-        var path = new ParsedPath(context);
+        var path = new ParsedPath(context, PersistPlace);
         var response = path.Context.Response;
 
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
@@ -247,6 +267,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
                 }
             else if (validate.Reactions is not null) { // Input validation failure
                 var page = templatePage.GetPage(PersistPlace, path);
+                page.Context = path;
                 form.Set(page, result);
                 await RenderPage(path, page, validate.Reactions);
                 return;
@@ -282,7 +303,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var request = context.Request;
         var response = context.Response;
 
-        var path = new ParsedPath(context);
+        var path = new ParsedPath(context, PersistPlace);
 
         var transactionId = Interlocked.Increment(ref transactionCount);
         var start = DateTime.UtcNow;
@@ -292,6 +313,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
             var page = templatePage.GetPage(PersistPlace, path);
+            page.Context = path;
             RenderPage(path, page);
             }
         else if (Callbacks.TryGetValue(path.Command, out var callback)) {
@@ -333,19 +355,19 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     public async Task WellKnown(ParsedPath path) {
-        await Error(path, "", HttpStatusCode.NotImplemented);
+        await Error(path, "", HttpStatusCode.NotFound);
 
-        var filePath = FrameSet.ResourceFiles + path.LocalPath;
-        var response = path.Context.Response;
+        //var filePath = FrameSet.ResourceFiles + path.LocalPath;
+        //var response = path.Context.Response;
         
-        response.StatusCode = (int)HttpStatusCode.OK;
-        response.StatusDescription = "Status OK";
-        response.ContentType = filePath.GetFileType();
+        //response.StatusCode = (int)HttpStatusCode.OK;
+        //response.StatusDescription = "Status OK";
+        //response.ContentType = filePath.GetFileType();
 
-        using var file = filePath.OpenFileReadShared();
-        file.CopyTo(response.OutputStream);
+        //using var file = filePath.OpenFileReadShared();
+        //file.CopyTo(response.OutputStream);
 
-        response.OutputStream.Close();
+        //response.OutputStream.Close();
 
 
         return;
@@ -381,15 +403,48 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         }
 
     public async Task Redirect(ParsedPath path) {
+
+        var context = path.Context;
+
+        // Parse redirect data
+        var result = OauthClient.ParseResponse(path.Uri);
+
+        // If success redirect to preserve state
+        if (result is OauthClientResultFail fail) {
+            // throw error here
+            throw new NYI();
+            }
+
+        // report error
+        var success = result as OauthClientResultAuthRequest;
+        var nonceDns = NonceDns.Parse(success.RedirectUri);
+        if (success.Handle != nonceDns.Handle) {
+            // throw error here, user authenticated but TO THE WRONG HANDLE!
+            throw new NYI();
+            }
+
+        Console.WriteLine($"Stuff cookies into {context.Request.UserHostName}");
+
+        var member = PersistPlace.GetOrCreateMember(success.Handle, success.DID);
+        // have authenticated against a DID and a handle. We are going to keep both.
+        var cookie = PersistPlace.ServerCookieManager.GetCookie(
+            PalimpsestConstants.CookieTypeSessionTag, member.PrimaryKey);
+        context.Response.Cookies.Add(cookie);
+
+
+
+
         var response = path.Context.Response;
-        response.StatusCode = (int)HttpStatusCode.NotFound;
-        response.OutputStream.Close();
+        response.Redirect ("/");
+        response.Close();
         }
 
     public async Task ClientMetadata(ParsedPath path) {
         var response = path.Context.Response;
-        response.StatusCode = (int)HttpStatusCode.NotFound;
-        response.OutputStream.Close();
+
+        response.ContentType = "application/json";
+        response.StatusCode = (int)HttpStatusCode.OK;
+        response.Close(OauthClient.ClientMetadataBytes, false);
         }
 
     #endregion

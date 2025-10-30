@@ -22,7 +22,6 @@
 
 
 using Goedel.Palimpsest;
-using Goedel.Places.MPlace2;
 using Goedel.Sitebuilder;
 
 using System;
