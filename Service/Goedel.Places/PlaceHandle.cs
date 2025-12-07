@@ -32,10 +32,10 @@ namespace Goedel.Places;
 /// Cached handle for a project
 /// </summary>
 /// <param name="project">The project catalog entry</param>
-public class PlaceHandle : CachedHandle<CatalogedEntry> {
+public class PlaceHandle : CachedHandle<CatalogedPlace> {
 
 
-    //CachedPlaces CachedProjects { get; }
+    CachedPlaces CachedProjects { get; }
 
     /////<summary>If true, this is a forum through which other places are created. Harcoded for now.</summary> 
     //public bool IsForum => CatalogedPlace.LocalName == "mplace2.social";
@@ -53,13 +53,13 @@ public class PlaceHandle : CachedHandle<CatalogedEntry> {
 
     //public IEnumerable<CatalogedForum> Resources =>  CatalogForums?.GetResourceEnumerator();
 
-    //public PlaceHandle(
-    //        CachedPlaces cachedProjects,
-    //        CatalogedPlace project) : base(project) {
-    //    CachedProjects = cachedProjects;
+    public PlaceHandle(
+            CachedPlaces cachedProjects,
+            CatalogedPlace project) : base(project) {
+        CachedProjects = cachedProjects;
 
-    //    Console.WriteLine($"Create Project handle");
-    //    }
+        Console.WriteLine($"Create Project handle");
+        }
 
 
     //public bool TryGetForum<T>(string id,
@@ -109,7 +109,7 @@ public class PlaceHandle : CachedHandle<CatalogedEntry> {
     //    var handle = CatalogForums.Create(resource) as TopicHandle;
     //    return handle;
     //    }
-    public PlaceHandle(CatalogedEntry catalogedEntry) : base(catalogedEntry) {
+    public PlaceHandle(CatalogedPlace catalogedEntry) : base(catalogedEntry) {
         }
     }
 

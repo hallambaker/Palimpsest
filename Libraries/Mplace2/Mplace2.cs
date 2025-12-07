@@ -107,6 +107,9 @@ public partial class MyClass : FrameSet{
 	 ///<summary>HandleInput</summary>
 	 public HandleInput HandleInput {get;} = new();
 
+	 ///<summary>SignOut</summary>
+	 public SignOut SignOut {get;} = new();
+
 	 ///<summary>FormPlace</summary>
 	 public FormPlace FormPlace {get;} = new();
 
@@ -245,6 +248,7 @@ public partial class MyClass : FrameSet{
 
 		Classes = [ 
 			HandleInput,
+			SignOut,
 			FormPlace,
 			Handle,
 			Provider,
@@ -911,19 +915,30 @@ public partial class SwitchPage : FramePage {
 		Container = "EntryPage";
 		}
 
+    /// <summary>Field SignOut</summary>
+	public SignOut? SignOut {get; set;}
+
     /// <summary>Field Form</summary>
 	public HandleInput? Form {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
-		new FrameButton ("SignOut", "Sign Out", "SignOut") {
-			},
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefForm<SignOut> ("SignOut","SignOut", [
+				]){
+			Get = (data) => (data as SwitchPage)?.SignOut ,
+			Set = (data, value) => {(data as SwitchPage)!.SignOut = value as SignOut; }},
 		new FrameRefForm<HandleInput> ("Form","HandleInput", [
 		new FrameString ("DNS",
 			(data, value) => {(data as HandleInput)!.DNS = value; },
 			(data) => (data as HandleInput)?.DNS) {
 				Prompt = "@nywhere handle",
 				Description = "The handle you use to log in to Blue Sky etc."
+				},
+		new FrameBoolean ("RememberAccount",
+			(data, value) => {(data as HandleInput)!.RememberAccount = value; },
+			(data) => (data as HandleInput)?.RememberAccount) {
+				Prompt = "Remember this account"
 				}
 				]){
 			Get = (data) => (data as SwitchPage)?.Form ,
@@ -1623,7 +1638,7 @@ public partial class MainNav : FrameMenu {
 		new FrameButton ("Places", "Places", "PlacesPage") {
 			GetActive = (data) => (data as MainNav)?.PlacesActive
 			},
-		new FrameButton ("Posts", "Places", "PostsPage") {
+		new FrameButton ("Posts", "Posts", "PostsPage") {
 			GetActive = (data) => (data as MainNav)?.PlacesActive
 			},
 		new FrameButton ("Bookmark", "Saved", "BookmarkPage") {
@@ -1931,12 +1946,67 @@ public partial class HandleInput (string Id) : Handle (Id) {
 
 
 
+    /// <summary>Field RememberAccount</summary>
+	public bool? RememberAccount {get; set;}
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("DNS",
 			(data, value) => {(data as Handle)!.DNS = value; },
 			(data) => (data as Handle)?.DNS) {
+				},
+		new FrameBoolean ("RememberAccount",
+			(data, value) => {(data as HandleInput)!.RememberAccount = value; },
+			(data) => (data as HandleInput)?.RememberAccount) {
 				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameBoolean ("RememberAccount",
+			(data, value) => {(data as HandleInput)!.RememberAccount = value; },
+			(data) => (data as HandleInput)?.RememberAccount) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<HandleInput> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"RememberAccount", _properties[0]}
+			}, "HandleInput",
+		() => new HandleInput(), () => [], () => [], Parent: Handle._binding, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for SignOut
+/// </summary>
+public partial class SignOut (string Id) : FrameClass (Id) {
+
+    /// <inheritdoc/>
+    public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public SignOut() : this("SignOut") { 
+		}
+
+
+
+
+	static readonly List<IFrameField> _Fields = [
 		];
 
 
@@ -1953,12 +2023,12 @@ public partial class HandleInput (string Id) : Handle (Id) {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	protected static readonly Binding<HandleInput> _binding = new (
+	protected static readonly Binding<SignOut> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
-			}, "HandleInput",
-		() => new HandleInput(), () => [], () => [], Parent: Handle._binding, Generic: false);
+			}, "SignOut",
+		() => new SignOut(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}

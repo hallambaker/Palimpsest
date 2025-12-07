@@ -73,5 +73,20 @@ File PagePrefixes
 
 	String Terms "Terms"
 
+
+File Directories
+	String ContentRepository "Repository"
+
+
 File ContentTypes
+	String ImagePng "image/png"
+	String ImageGif "image/gif"
+	String ImageJpeg "image/jpeg"
+
+	String ExtensionPng "png"
+	String ExtensionGif "gif"
+	String ExtensionJpeg "jpeg"
+
 	String ClientMetadataType "application/json"
+	String DefaultBanner "Mplace2Banner.png"
+	String DefaultAvatar "avatar.png"

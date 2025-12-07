@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 10/30/2025 2:55:38 PM
+//  This file was automatically generated at 12/7/2025 1:05:55 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -9,7 +9,7 @@
 //  
 //      Copyright : © 2015-2021
 //  
-//  Build Platform: Win32NT 10.0.26100.0
+//  Build Platform: Win32NT 10.0.26200.0
 //  
 //  
 using System;
@@ -238,11 +238,49 @@ public static partial class PalimpsestConstants {
     ///</summary>
     public const string Terms = "Terms";
 
+    // File: Directories
+
+    ///<summary>
+    ///</summary>
+    public const string ContentRepository = "Repository";
+
     // File: ContentTypes
 
     ///<summary>
     ///</summary>
+    public const string ImagePng = "image/png";
+
+    ///<summary>
+    ///</summary>
+    public const string ImageGif = "image/gif";
+
+    ///<summary>
+    ///</summary>
+    public const string ImageJpeg = "image/jpeg";
+
+    ///<summary>
+    ///</summary>
+    public const string ExtensionPng = "png";
+
+    ///<summary>
+    ///</summary>
+    public const string ExtensionGif = "gif";
+
+    ///<summary>
+    ///</summary>
+    public const string ExtensionJpeg = "jpeg";
+
+    ///<summary>
+    ///</summary>
     public const string ClientMetadataType = "application/json";
+
+    ///<summary>
+    ///</summary>
+    public const string DefaultBanner = "Mplace2Banner.png";
+
+    ///<summary>
+    ///</summary>
+    public const string DefaultAvatar = "avatar.png";
 
     }
 

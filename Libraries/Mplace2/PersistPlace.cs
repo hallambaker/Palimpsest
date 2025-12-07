@@ -1,49 +1,29 @@
 ﻿
+using System.IO;
+using System.Net;
+
 using DocumentFormat.OpenXml.Spreadsheet;
 
+using Goedel.Contacts;
 using Goedel.Cryptography.Oauth;
-using Goedel.Places;
+using Goedel.IO;
 
 
 namespace Mplace2.Gui;
 
-public static class Extensions {
-
-    public static SignInState GetSignInState(
-            this Goedel.Sitebuilder.FramePage page,
-            out SignInState value) {
-        value = GetSignInState(page);
-        return value;
-        }
-
-    public static SignInState GetSignInState(
-                this Goedel.Sitebuilder.FramePage page) {
-        if (page.Context is not ParsedPath path) {
-            return SignInState.Initial;
-            }
-        path.MemberHandle ??= path.PersistPlace.GetMember(path);
-        var handle = path.MemberHandle;
-
-        if (handle is null) {
-            return SignInState.Initial;
-            }
-
-        var signedIn = SignInState.SignedIn;
-
-        if (handle.LocalName == "phill.hallambaker.com") {
-            signedIn |= SignInState.IsAdministrator ;
-            }
-
-        return signedIn;
-        }
-
-
-
-    }
-
-
-
 public class PersistPlace : IPersistPlace {
+
+
+
+    public CachedPlaces CachedPlaces { get; }
+
+
+    public Place? HomePlace { get; set; } = null;
+
+    public List<Entry> RecentPlaces { get; set; } = new();
+
+
+    public int MaxRecentPlaces { get; set; } = 10;
 
     /// <inheritdoc/>
     public ServerCookieManager ServerCookieManager { get; set; }
@@ -57,7 +37,29 @@ public class PersistPlace : IPersistPlace {
     public FrameSet FrameSet { get; set; }
 
 
+    string PlaceDirectory { get; }
+    string ContentDirectory { get;  }
+
+   
+
+
     public Dictionary<string, MemberHandle> Members { get; } = [];
+
+
+
+    public PersistPlace(FrameSet frameSet) {
+        FrameSet = frameSet;
+        PlaceDirectory = FrameSet.Directory;
+        ContentDirectory = FrameSet.RepositoryFiles;
+
+        Directory.CreateDirectory(PlaceDirectory);
+        Directory.CreateDirectory(ContentDirectory);
+
+        // Create the places file.
+        //CachedPlaces = new(this, PlaceDirectory, true);
+
+
+        }
 
     /// <inheritdoc/>
     public MemberHandle GetOrCreateMember(string handle, string did) {
@@ -89,36 +91,92 @@ public class PersistPlace : IPersistPlace {
         }
 
 
+    public Cookie SignOut() =>
+
+        ServerCookieManager.ClearCookie(PalimpsestConstants.CookieTypeSessionTag);
 
 
-    public Place? GetMainPlace (ParsedPath context) => new Place() {
-        Uid = Udf.Nonce(),
-        DNS = "mplace2.social",
-        Title = "MPlace2",
-        Description = "Making personal places on the Web",
-        Banner = "Mplace2Banner.png",
-        Avatar = "avatar.png"
-        };
+
+    public bool ValidateImage(BackingTypeFile? file) {
+        // check size is in bounds
 
 
-    public List<Entry>? GetMainEntries(ParsedPath context) => [
-        new Place() {
-            Uid = Udf.Nonce(),
-            DNS = "mplace2.social",
-            Title = "MPlace2",
-            Description = "Making personal places on the Web",
-            Banner = "Mplace2Banner.png",
-            Avatar = "avatar.png"
-            },
-        new Place() {
-            Uid = Udf.Nonce(),
-            DNS = "phill.hallambaker.com",
-            Title = "Phill's Place",
-            Description = "PHB's place on the Web",
-            Banner = "PHBBanner.png",
-            Avatar = "PHBInDalek.png"
+        // check type
+        return file.ContentType switch {
+            PalimpsestConstants.ImagePng or
+            PalimpsestConstants.ImageGif or
+            PalimpsestConstants.ImageJpeg => true,
+            _ => false
+            };
+
+
+        }
+
+    static string LockRepoFile = "";
+    public string AddImage(BackingTypeFile file) {
+
+        var id = Udf.ContentDigestOfDataString(file.Data, file.ContentType);
+        var extension = file.ContentType.GetFileExtension();
+        id = Path.ChangeExtension(id, extension);
+
+        var filePath = Path.Combine(ContentDirectory, id);
+
+        lock (LockRepoFile) {
+            if (!File.Exists(filePath)) {
+                filePath.WriteFileNew(file.Data);
+                }
             }
-        ];
 
+        return id;
+        }
+
+
+    /// <summary></summary>
+    /// <param name="catalogedPlace"></param>
+    /// <remarks>Update is locked to ensure threat safety. If two places are added at 
+    /// the same time, the list updates are performed sequentially.</remarks>
+    public void AddPlace(CatalogedPlace catalogedPlace) {
+        catalogedPlace.Uid = Udf.Nonce();
+
+        // Now: add place to repo
+
+        // Update to the cached values for presentation.
+        var place = new Place(catalogedPlace);
+
+        if (HomePlace is null) {
+            HomePlace = place;
+            }
+        else {
+            var newPlaces = new List<Entry> { place };
+            lock (RecentPlaces) {
+                foreach (var entry in RecentPlaces) {
+                    if (newPlaces.Count < MaxRecentPlaces) {
+                        newPlaces.Add(entry);
+                        }
+                    }
+                }
+            RecentPlaces = newPlaces;
+            }
+        }
+
+
+    /// <summary>Return the main entry for the place.</summary>
+    /// <param name="context">The place to return the main entry for.</param>
+    /// <returns>The main entry.</returns>
+    /// <remarks>This is a thread safe operation because C# guarantees that reads and 
+    /// writes of word sized memory locations are atomic.</remarks>
+    public Place? GetMainEntry(ParsedPath context) {
+        return HomePlace;
+        }
+
+
+    /// <summary>Return the list of main entries for the place.</summary>
+    /// <param name="context">The place to return the entries for.</param>
+    /// <returns>The list of entries.</returns>
+    /// <remarks>This is a thread safe operation because C# guarantees that reads and 
+    /// writes of word sized memory locations are atomic.</remarks>
+    public List<Entry>? GetMainEntries(ParsedPath context) {
+        return RecentPlaces;
+        }
 
     }

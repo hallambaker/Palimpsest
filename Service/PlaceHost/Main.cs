@@ -55,7 +55,7 @@ internal sealed class Program {
         Screen.WriteLine("# MPlace2 log");
         Screen.Flush();
 
-        var persistPlace = new PersistPlace();
+
 
 
         var frameset = new MyClass() {
@@ -63,8 +63,11 @@ internal sealed class Program {
                 new Stylesheet("Resources/stylesheet.css", "text/css")],
             EndResources = [],
             Directory = directory,
+            RepositoryFiles = Path.Combine(directory, PalimpsestConstants.ContentRepository),
             ResourceFiles = resources
             };
+
+        var persistPlace = new PersistPlace(frameset);
 
         //    frameset.Resources = [
         //        new Stylesheet("Resources/stylesheet.css", "text/css"),

@@ -29,7 +29,6 @@ LinkFiles = \
     Goedel.Protocol.Service.dll\
     Goedel.Protocol.Web.dll\
     Goedel.Registry.dll\
-    Goedel.Serialization.dll\
     Goedel.Utilities.dll\
     Goedel.Protocol.dll\
     Goedel.Mesh.Core.dll\

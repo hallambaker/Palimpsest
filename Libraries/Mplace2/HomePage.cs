@@ -10,7 +10,6 @@ public partial class HomePage  {
 
 
 
-
     public override HomePage GetPage(
             IPersistSite persistPlace,
             IPageContext context) {
@@ -19,7 +18,7 @@ public partial class HomePage  {
         var path = context as ParsedPath;
 
 
-        var basePlace = persist.GetMainPlace(path);
+        var basePlace = persist.GetMainEntry(path);
         var entries = persist.GetMainEntries(path);
 
         var result = new HomePage() {

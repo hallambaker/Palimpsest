@@ -1,16 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35312.102
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11206.111 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{F19A3147-E61E-4BAC-AC0D-50A873F80D3B}"
-	ProjectSection(SolutionItems) = preProject
-		Resources\Frame.html = Resources\Frame.html
-		Resources\IconsSheet.html = Resources\IconsSheet.html
-		Resources\PostsList.html = Resources\PostsList.html
-		Resources\Profile.html = Resources\Profile.html
-		Resources\stylesheet.css = Resources\stylesheet.css
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}"
 EndProject

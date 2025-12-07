@@ -23,7 +23,7 @@ Namespace Mplace2.Gui
         Places Button PlacesPage "Places"
             PlacesActive Boolean
 
-        Posts Button PostsPage "Places"
+        Posts Button PostsPage "Posts"
             PlacesActive Boolean
 
         Bookmark Button BookmarkPage "Saved"
@@ -141,6 +141,10 @@ Namespace Mplace2.Gui
 
     // SignIn / Sign Out
     HandleInput SubClass Handle
+        Fields
+            RememberAccount Boolean
+
+    SignOut Class
 
     SignIn Page "Sign In"
         EntryPage Container
@@ -156,12 +160,16 @@ Namespace Mplace2.Gui
 
     SwitchPage Page "Switch Account"
         EntryPage Container
-        SignOut Button SignOut "Sign Out"   // Sign out
+        Navigation Is MainNav
+
+        SignOut Form SignOut
+
         Form Form HandleInput
             DNS String
                 Prompt "@nywhere handle"
                 Description "The handle you use to log in to Blue Sky etc."
-
+            RememberAccount Boolean
+                Prompt "Remember this account"
 
     // The data entry pages
     CreatePost Page "Create New Post"

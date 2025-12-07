@@ -22,6 +22,10 @@
 
 namespace Goedel.Places;
 
+
+
+
+
 /// <summary>
 /// Root class for all cachable forum items.
 /// </summary>

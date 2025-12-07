@@ -18,6 +18,7 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
+    Goedel.Sitebuilder.dll\
     Goedel.Cryptography.Dare.dll\
     Goedel.Cryptography.Identifiers.dll\
     Goedel.Cryptography.Jose.dll\
@@ -28,7 +29,7 @@ LinkFiles = \
     Goedel.Utilities.dll\
     Goedel.Protocol.dll\
     Goedel.Mesh.dll\
-    Goedel.Html.exe
+    Goedel.Places.dll
 
 ToolTargets = 
 
@@ -46,5 +47,5 @@ postbuild : postbuildRecurse
 
 
 postbuildwindows : 
-	powershell publishtarget MakeGui.exe $(LinkFiles) 
+	powershell publishtarget Mplace2.dll
 

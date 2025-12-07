@@ -29,6 +29,14 @@ namespace Goedel.Places;
 public static partial class Extensions {
 
 
+    public static string GetFileExtension(this string content) => content switch {
+        PalimpsestConstants.ImagePng => PalimpsestConstants.ExtensionPng,
+        PalimpsestConstants.ImageGif => PalimpsestConstants.ExtensionGif,
+        PalimpsestConstants.ImageJpeg => PalimpsestConstants.ExtensionJpeg,
+        _ => null
+        };
+
+
     public static string GetFileType(this string file) {
         var extension = Path.GetExtension(file).ToLower();
 

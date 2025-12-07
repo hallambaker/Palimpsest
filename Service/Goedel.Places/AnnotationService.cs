@@ -75,7 +75,12 @@ public interface IPersistPlace : IPersistSite {
     /// <returns>The record if found, otherise null.</returns>
     MemberHandle? GetMember(ParsedPath path);
 
-        }
+    /// <summary>
+    /// Sign out of the current account.
+    /// </summary>
+    Cookie SignOut();
+
+    }
 
 public partial class AnnotationService : IWebService<ParsedPath> {
 
@@ -174,7 +179,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         HttpListener = new();
         HttpListener.Prefixes.Add(HttpEndpoint);
-        HttpListener.Prefixes.Add(HttpsEndpoint);
+        //HttpListener.Prefixes.Add(HttpsEndpoint);
 
         //// Bind the OAUTH client here
 
@@ -197,6 +202,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         Callbacks = new() {
             {".well-known", WellKnown},
             {"Resources", Resource},
+            {"Repo", Repository},
             {PalimpsestConstants.Redirect,Redirect},
             {PalimpsestConstants.ClientMetadata, ClientMetadata}
             };
@@ -251,16 +257,25 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var path = new ParsedPath(context, PersistPlace);
         var response = path.Context.Response;
 
+        path.UserId = "did:plc:k647x4n6h3jm347u3t5cm6ki";
+
+
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
             var form = GetForm(templatePage.Fields, path.Uri.Query[1..]);
             form.AssertNotNull(NYI.Throw);
 
             var result = form.Factory();
+
             ParsedMultipartFrame.Bind(result, path.Request.InputStream);
 
             // Validate the inputs
-            var validate = await result.Callback(PersistPlace);
+            var validate = await result.Callback(path);
             if (validate.Code == HttpStatusCode.OK) { // Success, redirect to the updated page
+                if (validate.Cookies is not null) {
+                    foreach (var cookie in validate.Cookies) {
+                        response.Cookies.Add(cookie);
+                        }
+                    }
                 response.Redirect(validate.Redirect ?? "/");
                 response.Close();
                 return;
@@ -373,6 +388,36 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         return;
         }
 
+
+    public async Task Repository(ParsedPath path) {
+        var response = path.Context.Response;
+
+        try {
+            var filePath = Path.Combine(FrameSet.RepositoryFiles, path.FirstId);
+
+            response.StatusCode = (int)HttpStatusCode.OK;
+            response.StatusDescription = "Status OK";
+            response.ContentType = filePath.GetFileType();
+
+            using var file = filePath.OpenFileReadShared();
+            file.CopyTo(response.OutputStream);
+
+            response.OutputStream.Close();
+            }
+        catch (FileNotFoundException) {
+            response.StatusCode = (int)HttpStatusCode.NotFound;
+            response.OutputStream.Close();
+            }
+
+        catch {
+            response.StatusCode = (int)HttpStatusCode.RequestEntityTooLarge;
+            response.OutputStream.Close();
+            }
+
+        return;
+
+
+        }
 
     public async Task Resource(ParsedPath path) {
         var response = path.Context.Response;

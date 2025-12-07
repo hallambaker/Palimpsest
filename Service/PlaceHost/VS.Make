@@ -18,6 +18,7 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
+    Goedel.Sitebuilder.dll\
     Goedel.Cryptography.Dare.dll\
     Goedel.Cryptography.Identifiers.dll\
     Goedel.Cryptography.Jose.dll\
@@ -28,7 +29,8 @@ LinkFiles = \
     Goedel.Utilities.dll\
     Goedel.Protocol.dll\
     Goedel.Mesh.dll\
-    Goedel.Palimpsest.dll
+    Mplace2.dll\
+    Goedel.Places.dll
 
 ToolTargets = \
 	Exceptions.cs

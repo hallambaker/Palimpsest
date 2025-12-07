@@ -293,11 +293,8 @@ namespace Goedel.Document.OpenXML {
                 PopStack(Lexer, "sup");
                 }
 
-            //if (Changed) {
-            //    Lexer.MakeSegment();
-            //    }
 
-            // Now open any new ones
+            // Open any new ones
             if (Bold.Open) {
                 PushStack(Lexer, "b");
                 }
