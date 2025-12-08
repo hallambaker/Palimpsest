@@ -40,7 +40,7 @@ public class PersistPlace : IPersistPlace {
     string PlaceDirectory { get; }
     string ContentDirectory { get;  }
 
-   
+
 
 
     public Dictionary<string, MemberHandle> Members { get; } = [];
@@ -55,8 +55,10 @@ public class PersistPlace : IPersistPlace {
         Directory.CreateDirectory(PlaceDirectory);
         Directory.CreateDirectory(ContentDirectory);
 
+        AnnotationService.Initialized.AssertTrue(NYI.Throw);
+
         // Create the places file.
-        //CachedPlaces = new(this, PlaceDirectory, true);
+        CachedPlaces = new(this, PlaceDirectory, true);
 
 
         }

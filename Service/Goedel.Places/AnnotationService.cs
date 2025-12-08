@@ -155,10 +155,22 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     #endregion
     #region // Constructor
 
+    public static bool Initialized => true;
+
 
     static AnnotationService() {
         JmapBaseSchema._Initialized.AssertTrue(NYI.Throw);
+
+        var dictionary = JsonObject.BindingDictionary;
+        Dare._Initialized.AssertTrue(NYI.Throw);
+        SequenceData._Initialized.AssertTrue(NYI.Throw);
+
+        dictionary = JsonObject.BindingDictionary;
+
+
         Goedel.Contacts.Contacts._Initialized.AssertTrue(NYI.Throw);
+        Goedel.Cryptography.Dare.Initialization.Initialized.AssertTrue(NYI.Throw);
+        Console.WriteLine("Annoitation service init");
         }
 
 
