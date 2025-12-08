@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 12/8/2025 12:16:54 PM
+//  This file was automatically generated at 12/8/2025 4:59:57 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -161,13 +161,6 @@ public partial class CatalogedForumEntry : CatalogedEntry {
 	/// </summary>
 public partial class CatalogedPlace : CatalogedForumEntry {
     /// <summary>
-    ///The canonical DNS name for the place
-    /// </summary>
-
-	[JsonPropertyName("DNS")]
-	public virtual string?					DNS  {get; set;} //
-
-    /// <summary>
     ///The title of the place
     /// </summary>
 
@@ -180,13 +173,6 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 
 	[JsonPropertyName("Aliases")]
 	public virtual List<string>?					Aliases  {get; set;}
-    /// <summary>
-    ///Description of the place.
-    /// </summary>
-
-	[JsonPropertyName("Description")]
-	public virtual string?					Description  {get; set;} //
-
     /// <summary>
     ///Avatar representing the place
     /// </summary>
@@ -214,18 +200,12 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
-		new PropertyString ("DNS", 
-					(data, value) => {(data as CatalogedPlace).DNS = value;}, 
-					data => (data as CatalogedPlace).DNS ),
 		new PropertyString ("Title", 
 					(data, value) => {(data as CatalogedPlace).Title = value;}, 
 					data => (data as CatalogedPlace).Title ),
 		new PropertyListString ("Aliases", 
 					(data, value) => {(data as CatalogedPlace).Aliases = value;}, 
 					data => (data as CatalogedPlace).Aliases ),
-		new PropertyString ("Description", 
-					(data, value) => {(data as CatalogedPlace).Description = value;}, 
-					data => (data as CatalogedPlace).Description ),
 		new PropertyString ("Avatar", 
 					(data, value) => {(data as CatalogedPlace).Avatar = value;}, 
 					data => (data as CatalogedPlace).Avatar ),
@@ -243,13 +223,11 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 	///<summary>Binding</summary> 
 	public static readonly new Binding<CatalogedPlace> _binding = new (
 			new() {
-			{ "DNS", _properties [0]},
-			{ "Title", _properties [1]},
-			{ "Aliases", _properties [2]},
-			{ "Description", _properties [3]},
-			{ "Avatar", _properties [4]},
-			{ "Banner", _properties [5]},
-			{ "Owner", _properties [6]}}, __Tag,
+			{ "Title", _properties [0]},
+			{ "Aliases", _properties [1]},
+			{ "Avatar", _properties [2]},
+			{ "Banner", _properties [3]},
+			{ "Owner", _properties [4]}}, __Tag,
 		() => new CatalogedPlace(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
 
 

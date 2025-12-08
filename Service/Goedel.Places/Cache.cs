@@ -20,6 +20,7 @@
 //  THE SOFTWARE.
 #endregion
 
+
 namespace Goedel.Places;
 
 /// <summary>
@@ -44,6 +45,16 @@ public abstract class Cache<H, T> : Disposable
                     string label,
                     bool create = false) : base(directory, label, create: create) {
             }
+
+
+
+        public override void Intern(SequenceIndexEntry indexEntry) {
+
+            Console.WriteLine("Intern");
+            base.Intern(indexEntry);
+            }
+
+
         }
 
 
@@ -86,6 +97,7 @@ public abstract class Cache<H, T> : Disposable
         if (Catalog.PersistenceStore.ObjectIndex.TryGetValue(entry.Uid, out _)) {
             return false;
             }
+
         if (Catalog.DictionaryByLocalName.TryGetValue(entry.LocalName, out _)) {
             return false;
             }

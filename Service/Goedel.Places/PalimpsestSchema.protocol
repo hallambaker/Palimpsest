@@ -19,9 +19,6 @@
 		Inherits CatalogedForumEntry
 		Description
 			|A cataloged project.
-		String DNS
-			Description
-				|The canonical DNS name for the place
 		String Title
 			Description
 				|The title of the place
@@ -29,9 +26,6 @@
 			Multiple
 			Description
 				|Alternative DNS names
-		String Description
-			Description
-				|Description of the place.
 		String Avatar
 			Description
 				|Avatar representing the place

@@ -53,7 +53,7 @@ public partial class FormPlace {
             Avatar = avatar,
             Banner = banner,
             Added = DateTime.Now,
-            DNS = DNS,
+            LocalName = DNS,
             Description = Description,
             Owner = null,
             Title = Title ?? DNS
@@ -67,7 +67,6 @@ public partial class FormPlace {
 
 
     }
-
 
 
 
@@ -85,13 +84,13 @@ public partial class Place {
 
 
 
-    public Place(CatalogedPlace place) : this () {
-        Uid = place.Uid;
-        Avatar = place.Avatar;
-        Banner = place.Banner;
-        DNS = place.DNS;
-        Title = place.Title;
-        Description = place.Description;
+    public Place(CatalogedPlace catalogedPlace) : this () {
+        Uid = catalogedPlace.Uid;
+        Avatar = catalogedPlace.Avatar;
+        Banner = catalogedPlace.Banner;
+        DNS = catalogedPlace.LocalName;
+        Title = catalogedPlace.Title;
+        Description = catalogedPlace.Description;
 
 
         }

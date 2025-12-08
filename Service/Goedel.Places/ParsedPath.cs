@@ -42,9 +42,9 @@ public record ParsedPath : IPageContext {
 
 
     public MemberHandle MemberHandle { get; set; }
-    public PlaceHandle PlaceHandle { get; }
+    //public PlaceHandle PlaceHandle { get; }
 
-    public string Placename => PlaceHandle?.LocalName;
+    //public string Placename => PlaceHandle?.LocalName;
 
 
     public string Command { get; }

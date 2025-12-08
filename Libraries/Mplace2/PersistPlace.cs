@@ -46,6 +46,12 @@ public class PersistPlace : IPersistPlace {
     public Dictionary<string, MemberHandle> Members { get; } = [];
 
 
+    public Place DefaultPlace = new() {
+        Description = "You haven't created a place yet!",
+        Title = "Placeholder place"
+        };
+
+
 
     public PersistPlace(FrameSet frameSet) {
         FrameSet = frameSet;
@@ -59,7 +65,7 @@ public class PersistPlace : IPersistPlace {
 
         // Create the places file.
         CachedPlaces = new(this, PlaceDirectory, true);
-
+        HomePlace = CachedPlaces.PrimaryHandle?.Place;
 
         }
 
@@ -140,11 +146,18 @@ public class PersistPlace : IPersistPlace {
     public void AddPlace(CatalogedPlace catalogedPlace) {
         catalogedPlace.Uid = Udf.Nonce();
 
-        // Now: add place to repo
+        // Add place to repo
+        //var handle = new PlaceHandle(CachedPlaces, catalogedPlace);
+        //var place = handle.Place;
 
-        // Update to the cached values for presentation.
-        var place = new Place(catalogedPlace);
+        //CachedPlaces.Add(handle);
 
+
+        var handle = CachedPlaces.Create(catalogedPlace);
+        var place = handle.Place;
+
+
+        // Upodate the catalog
         if (HomePlace is null) {
             HomePlace = place;
             }
@@ -168,7 +181,7 @@ public class PersistPlace : IPersistPlace {
     /// <remarks>This is a thread safe operation because C# guarantees that reads and 
     /// writes of word sized memory locations are atomic.</remarks>
     public Place? GetMainEntry(ParsedPath context) {
-        return HomePlace;
+        return HomePlace ?? DefaultPlace;
         }
 
 

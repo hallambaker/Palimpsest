@@ -29,7 +29,7 @@ namespace Goedel.Places;
 /// <summary>
 /// Root class for all cachable forum items.
 /// </summary>
-public abstract class CachedHandle<T> : IComparable where T : CatalogedEntry{
+public abstract class CachedHandle<T> : IComparable where T : CatalogedEntry {
 
 
     public T CatalogedEntry { get; }
@@ -60,7 +60,7 @@ public abstract class CachedHandle<T> : IComparable where T : CatalogedEntry{
     /// Release resources associated with the resource allowing them to
     /// be reused.
     /// </summary>
-    public void Release () { 
+    public void Release() {
         }
 
     }
