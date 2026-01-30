@@ -1,34 +1,6 @@
-﻿using Goedel.Cryptography.Dare;
+﻿namespace Mplace2.Gui;
 
-namespace Mplace2.Gui;
-
-
-/// <summary>
-/// Cached persistence store for places. Note that all ancilliary services
-/// are managed by the PersistPlace 
-/// </summary>
-public class CachedPlaces : CachedCatalog<CatalogedPlace> {
-    public const string FileName = "Places.darc";
-
-    public CachedPlaces(
-                CatalogCache catalogCache,
-                EarlStream stream) : base(catalogCache, stream) {
-        }
-
-    public static CachedPlaces Open(CatalogCache catalogCache, string directory) {
-
-        var fileName = Path.Combine(directory, FileName);
-        var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
-        var result = new CachedPlaces(catalogCache, stream);
-
-        result.Initialize();
-
-        return result;
-        }
-
-
-
-
+public class CatalogCache {
     }
 
 

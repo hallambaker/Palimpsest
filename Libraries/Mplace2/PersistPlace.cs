@@ -16,7 +16,7 @@ public class PersistPlace : IPersistPlace {
 
 
     public CachedPlaces CachedPlaces { get; }
-
+    public CatalogCache CatalogCache { get; }
 
     public Place? HomePlace { get; set; } = null;
 
@@ -57,6 +57,7 @@ public class PersistPlace : IPersistPlace {
         FrameSet = frameSet;
         PlaceDirectory = FrameSet.Directory;
         ContentDirectory = FrameSet.RepositoryFiles;
+        CatalogCache = new();
 
         Directory.CreateDirectory(PlaceDirectory);
         Directory.CreateDirectory(ContentDirectory);
@@ -64,8 +65,8 @@ public class PersistPlace : IPersistPlace {
         AnnotationService.Initialized.AssertTrue(NYI.Throw);
 
         // Create the places file.
-        CachedPlaces = new(this, PlaceDirectory, true);
-        HomePlace = CachedPlaces.PrimaryHandle?.Place;
+        CachedPlaces = CachedPlaces.Open(CatalogCache, PlaceDirectory);
+        //HomePlace = CachedPlaces.PrimaryHandle?.Place;
 
         }
 
@@ -145,17 +146,10 @@ public class PersistPlace : IPersistPlace {
     /// the same time, the list updates are performed sequentially.</remarks>
     public void AddPlace(CatalogedPlace catalogedPlace) {
         catalogedPlace.Uid = Udf.Nonce();
+        CachedPlaces.Add(catalogedPlace);
 
-        // Add place to repo
-        //var handle = new PlaceHandle(CachedPlaces, catalogedPlace);
-        //var place = handle.Place;
-
-        //CachedPlaces.Add(handle);
-
-
-        var handle = CachedPlaces.Create(catalogedPlace);
-        var place = handle.Place;
-
+        var handle = CachedPlaces.Add(catalogedPlace);
+        var place = new Place(catalogedPlace);
 
         // Upodate the catalog
         if (HomePlace is null) {

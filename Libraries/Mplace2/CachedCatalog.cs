@@ -2,32 +2,33 @@
 
 namespace Mplace2.Gui;
 
+public class CachedCatalog<T> : EarlCatalog<T> where T : JsonObject, new() {
 
-/// <summary>
-/// Cached persistence store for places. Note that all ancilliary services
-/// are managed by the PersistPlace 
-/// </summary>
-public class CachedPlaces : CachedCatalog<CatalogedPlace> {
-    public const string FileName = "Places.darc";
-
-    public CachedPlaces(
-                CatalogCache catalogCache,
-                EarlStream stream) : base(catalogCache, stream) {
+    CatalogCache CatalogCache;
+    public CachedCatalog(
+        CatalogCache catalogCache,
+            EarlStream stream) : base(stream) {
+        CatalogCache = catalogCache;
         }
 
-    public static CachedPlaces Open(CatalogCache catalogCache, string directory) {
-
-        var fileName = Path.Combine(directory, FileName);
-        var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
-        var result = new CachedPlaces(catalogCache, stream);
-
-        result.Initialize();
-
-        return result;
+    public override EarlEntryIndex<T> Add(T item) {
+        return base.Add(item);
         }
 
 
+    public override EarlEntryIndex<T> Update(T item) {
+        return base.Update(item);
+        }
 
+
+    public override EarlEntryIndex<T> Delete(string id) {
+        return base.Delete(id);
+        }
+    protected override ContentMeta GetContentMeta() => new ContentMeta() {
+        UniqueId = Udf.Nonce(),
+        Created = DateTime.UtcNow,
+        MessageType = ContentType
+        };
 
     }
 

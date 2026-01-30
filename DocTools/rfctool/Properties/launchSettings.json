@@ -1,6 +1,11 @@
 {
 
   "profiles": {
+    "anyone": {
+      "commandName": "Project",
+      "commandLineArgs": "..\\Word\\hallambaker-jscontact.docx   /cache=bib.xml  /auto",
+      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\mmm\\Outputs\\Documents\\Publish"
+    },
     "any": {
       "commandName": "Project",
       "commandLineArgs": "..\\Word\\hallambaker-any.docx   /cache=bib.xml  /auto",

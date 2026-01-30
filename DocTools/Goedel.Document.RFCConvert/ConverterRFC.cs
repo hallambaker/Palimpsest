@@ -6,6 +6,7 @@ using Goedel.Document.RFC;
 using GM = Goedel.Document.Markdown;
 using Goedel.Registry;
 using Goedel.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace MakeRFC {
     public class ConverterRFC {
@@ -44,12 +45,25 @@ namespace MakeRFC {
             target.Ipr = source.MetaDataGetString("ipr", null);
             target.Area = source.MetaDataGetStrings("area", null);
             target.Workgroup = source.MetaDataGetStrings("workgroup", null);
+            if (target.Workgroup is not null && target.Workgroup.Count > 0) {
+                string combined = null;
+                foreach (var item in target.Workgroup) {
+                    combined = combined == null ? item : combined + " " + item;
+                    }
+                target.WorkgroupCombined = combined;
+                }
+            else {
+                target.WorkgroupCombined = "";
+                }
+
 
             target.Number = source.MetaDataGetString("number", null);
             target.Category = source.MetaDataGetString("category", null);
             target.Updates = source.MetaDataGetString("updates", null);
             target.Obsoletes = source.MetaDataGetString("obsoletes", null);
             target.SeriesNumber = source.MetaDataGetString("seriesnumber", null);
+
+            target.Consensus = source.MetaDataGetString("consensus", null);
 
             target.Also = source.MetaDataGetString("also", null);
 

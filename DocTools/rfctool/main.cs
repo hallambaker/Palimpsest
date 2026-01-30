@@ -1,5 +1,5 @@
 ﻿
-//  This file was automatically generated at 10/30/2025 1:06:22 PM
+//  This file was automatically generated at 1/15/2026 2:20:01 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -9,7 +9,7 @@
 //  
 //      Copyright : © 2015-2021
 //  
-//  Build Platform: Win32NT 10.0.26100.0
+//  Build Platform: Win32NT 10.0.26200.0
 //  
 //  
 using System;

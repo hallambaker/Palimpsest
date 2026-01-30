@@ -57,6 +57,7 @@ public class Rfc7991Parse {
         Document.SubmissionType = rfc.submissionType.ToString();
         Document.Docname = rfc.docName;
 
+
         Document.Version = null; // is part of the Docname in rfc2629 format
 
         if (rfc.front != null) {
@@ -73,6 +74,9 @@ public class Rfc7991Parse {
             Document.Year = rfc.front.date.year;
             Document.Area = MakeString(front.area);
             Document.Workgroup = MakeString(front.workgroup);
+
+
+
             Document.Keywords = MakeKeywords(front.keyword);
 
             Document.Abstract = MakeTextBlocks(front.@abstract.Items, front.@abstract.ItemsElementName);

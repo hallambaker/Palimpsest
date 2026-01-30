@@ -56,32 +56,6 @@ public enum CommentMode {
 
     }
 
-public interface IPersistPlace : IPersistSite {
-
-    /// <summary>
-    /// Return the member record with DID <paramref name="did"/> if it exists,
-    /// otherwise create a new record for the member/handle and return it.
-    /// </summary>
-    /// <param name="handle">The members handle.</param>
-    /// <param name="did">The member's permanent identifier.</param>
-    /// <returns>The record.</returns>
-    MemberHandle GetOrCreateMember(string handle, string did);
-
-
-    /// <summary>
-    /// Return the member record with DID <paramref name="did"/> if it exists.
-    /// </summary>
-    /// <param name="path">The parsed request.</param>
-    /// <returns>The record if found, otherise null.</returns>
-    MemberHandle? GetMember(ParsedPath path);
-
-    /// <summary>
-    /// Sign out of the current account.
-    /// </summary>
-    Cookie SignOut();
-
-    }
-
 public partial class AnnotationService : IWebService<ParsedPath> {
 
     #region // Properties
