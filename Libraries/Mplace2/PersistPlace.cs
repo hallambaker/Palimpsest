@@ -18,6 +18,7 @@ public class PersistPlace : IPersistPlace {
     public CachedPlaces CachedPlaces { get; }
     public CatalogCache CatalogCache { get; }
 
+    CatalogedPlace HomeCatalogedPlace { get; set; } = null;
     public Place? HomePlace { get; set; } = null;
 
     public List<Entry> RecentPlaces { get; set; } = new();
@@ -66,9 +67,29 @@ public class PersistPlace : IPersistPlace {
 
         // Create the places file.
         CachedPlaces = CachedPlaces.Open(CatalogCache, PlaceDirectory);
-        //HomePlace = CachedPlaces.PrimaryHandle?.Place;
+        InitializePlaces();
+        }
+
+
+    private void InitializePlaces() {
+        foreach (var place in CachedPlaces.EntriesForward()) {
+            HomeCatalogedPlace = place.Object;
+            HomePlace ??= new (HomeCatalogedPlace);
+            //break;
+            }
+
+        foreach (var place in CachedPlaces.EntriesReverse()) {
+            if (RecentPlaces.Count >= MaxRecentPlaces) {
+                break;
+                }
+            var recent = new Place(place.Object);
+            RecentPlaces.Add(recent);
+            }
 
         }
+
+
+
 
     /// <inheritdoc/>
     public MemberHandle GetOrCreateMember(string handle, string did) {
@@ -142,7 +163,7 @@ public class PersistPlace : IPersistPlace {
 
     /// <summary></summary>
     /// <param name="catalogedPlace"></param>
-    /// <remarks>Update is locked to ensure threat safety. If two places are added at 
+    /// <remarks>Update is locked to ensure thread safety. If two places are added at 
     /// the same time, the list updates are performed sequentially.</remarks>
     public void AddPlace(CatalogedPlace catalogedPlace) {
         catalogedPlace.Uid = Udf.Nonce();

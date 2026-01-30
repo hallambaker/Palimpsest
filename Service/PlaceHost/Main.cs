@@ -69,17 +69,6 @@ internal sealed class Program {
 
         var persistPlace = new PersistPlace(frameset);
 
-        //    frameset.Resources = [
-        //        new Stylesheet("Resources/stylesheet.css", "text/css"),
-        //        new Stylesheet("Resources/quill.css", "text/css"),
-        //        new Stylesheet("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css", "text/css")
-        //        ];
-        //    frameset.EndResources = [
-        //        new Script("https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js","text/javascript"),
-        //        new Script("Resources/quill.js","text/javascript")
-        //];
-
-
         var annotationService = new AnnotationService(frameset, persistPlace);
         annotationService.Start();
         }

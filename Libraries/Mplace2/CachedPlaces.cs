@@ -10,6 +10,9 @@ namespace Mplace2.Gui;
 public class CachedPlaces : CachedCatalog<CatalogedPlace> {
     public const string FileName = "Places.darc";
 
+
+    public CatalogedPlace? HomePlace { get; set; }
+
     public CachedPlaces(
                 CatalogCache catalogCache,
                 EarlStream stream) : base(catalogCache, stream) {
