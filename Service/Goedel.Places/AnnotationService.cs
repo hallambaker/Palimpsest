@@ -243,7 +243,14 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var path = new ParsedPath(context, PersistPlace);
         var response = path.Context.Response;
 
+        // STUPID
+        // STUPID
+        // STUPID
+        Console.WriteLine("Really stupid thing here!");
         path.UserId = "did:plc:k647x4n6h3jm347u3t5cm6ki";
+        // STUPID
+        // STUPID
+        // STUPID
 
 
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
