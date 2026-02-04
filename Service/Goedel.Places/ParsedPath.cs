@@ -68,7 +68,7 @@ public record ParsedPath : IPageContext {
     ///<summary>The original IP address of the request (filled by reverse proxy)</summary> 
     public string RealIp { get; }
 
-
+    public string ForwardedFor { get; }
     public string? UserId { get; set; } = null;
 
     /// <summary>
@@ -82,7 +82,7 @@ public record ParsedPath : IPageContext {
         PersistPlace = persistPlace;
 
         RealIp = Request.Headers["X-Real-IP"];
-
+        ForwardedFor = Request.Headers["X-Forwarded-For"];
         if (persistPlace.ServerCookieManager.TryGetCookie(
             Request, PalimpsestConstants.CookieTypeSessionTag, out var userId)) {
             UserId = userId;
@@ -126,5 +126,9 @@ public record ParsedPath : IPageContext {
             ThirdId = split[4];
             }
         }
+
+
+
+
 
     }

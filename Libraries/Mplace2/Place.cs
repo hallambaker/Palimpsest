@@ -20,8 +20,6 @@ public partial class FormPlace {
 
         List<FormReaction> reactions = [];
 
-
-
         if (DNS is null || DNS?.Length == 0) {
             reactions.Add(new("DNS", "Must not be null"));
             }
@@ -55,10 +53,10 @@ public partial class FormPlace {
             Added = DateTime.Now,
             LocalName = DNS,
             Description = Description,
-            Owner = null,
+            Owners = null,
             Title = Title ?? DNS
             };
-        persistPlace.AddPlace(catalogedPlace);
+        persistPlace.Add(catalogedPlace);
 
 
 

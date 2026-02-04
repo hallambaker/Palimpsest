@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 1/30/2026 5:50:06 PM
+//  This file was automatically generated at 2/3/2026 1:22:31 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -78,9 +78,13 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 			new () {
 
 	    {typeof(CatalogedForumEntry), CatalogedForumEntry._binding},
+	    {typeof(CatalogedForumOwned), CatalogedForumOwned._binding},
 	    {typeof(CatalogedPlace), CatalogedPlace._binding},
-	    {typeof(Visitor), Visitor._binding},
-	    {typeof(CatalogedForumMember), CatalogedForumMember._binding}
+	    {typeof(CatalogedForumVisitor), CatalogedForumVisitor._binding},
+	    {typeof(CatalogedFeed), CatalogedFeed._binding},
+	    {typeof(CatalogedPost), CatalogedPost._binding},
+	    {typeof(CatalogedComment), CatalogedComment._binding},
+	    {typeof(CatalogedResource), CatalogedResource._binding}
 		};
 
 	///<summary>Variable used to force static initialization</summary> 
@@ -110,6 +114,7 @@ public abstract partial class ForumItem : global::Goedel.Protocol.JsonObject {
 	/// </summary>
 public partial class CatalogedForumEntry : CatalogedEntry {
     /// <summary>
+    ///Time the entry was added
     /// </summary>
 
 	[JsonPropertyName("Added")]
@@ -156,10 +161,8 @@ public partial class CatalogedForumEntry : CatalogedEntry {
 
 
 	/// <summary>
-	///
-	/// A cataloged project.
 	/// </summary>
-public partial class CatalogedPlace : CatalogedForumEntry {
+public partial class CatalogedForumOwned : CatalogedForumEntry {
     /// <summary>
     ///The title of the place
     /// </summary>
@@ -168,18 +171,77 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 	public virtual string?					Title  {get; set;} //
 
     /// <summary>
-    ///Alternative DNS names
-    /// </summary>
-
-	[JsonPropertyName("Aliases")]
-	public virtual List<string>?					Aliases  {get; set;}
-    /// <summary>
-    ///Avatar representing the place
+    ///Avatar representing the entry
     /// </summary>
 
 	[JsonPropertyName("Avatar")]
 	public virtual string?					Avatar  {get; set;} //
 
+    /// <summary>
+    ///Designated owner(s) DIDs
+    /// </summary>
+
+	[JsonPropertyName("Owners")]
+	public virtual List<string>?					Owners  {get; set;}
+
+    ///<summary>Implement IBinding</summary> 
+	public override Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Property[] _properties = [
+		new PropertyString ("Title", 
+					(data, value) => {(data as CatalogedForumOwned).Title = value;}, 
+					data => (data as CatalogedForumOwned).Title ),
+		new PropertyString ("Avatar", 
+					(data, value) => {(data as CatalogedForumOwned).Avatar = value;}, 
+					data => (data as CatalogedForumOwned).Avatar ),
+		new PropertyListString ("Owners", 
+					(data, value) => {(data as CatalogedForumOwned).Owners = value;}, 
+					data => (data as CatalogedForumOwned).Owners )
+		];
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	public static readonly new Binding<CatalogedForumOwned> _binding = new (
+			new() {
+			{ "Title", _properties [0]},
+			{ "Avatar", _properties [1]},
+			{ "Owners", _properties [2]}}, __Tag,
+		() => new CatalogedForumOwned(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedForumOwned";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedForumOwned();
+
+	}
+
+
+	/// <summary>
+	///
+	/// A cataloged project.
+	/// </summary>
+public partial class CatalogedPlace : CatalogedForumOwned {
+    /// <summary>
+    ///Alternative DNS names
+    /// </summary>
+
+	[JsonPropertyName("Aliases")]
+	public virtual List<string>?					Aliases  {get; set;}
     /// <summary>
     ///Splash screen for the place
     /// </summary>
@@ -188,33 +250,27 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 	public virtual string?					Banner  {get; set;} //
 
     /// <summary>
-    ///Designated owner
+    ///The conversation streams
     /// </summary>
 
-	[JsonPropertyName("Owner")]
-	public virtual string?					Owner  {get; set;} //
-
+	[JsonPropertyName("Stream")]
+	public virtual List<CatalogedFeed>?					Stream  {get; set;}
 
     ///<summary>Implement IBinding</summary> 
 	public override Property[] _Properties => _properties;
 
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
-		new PropertyString ("Title", 
-					(data, value) => {(data as CatalogedPlace).Title = value;}, 
-					data => (data as CatalogedPlace).Title ),
 		new PropertyListString ("Aliases", 
 					(data, value) => {(data as CatalogedPlace).Aliases = value;}, 
 					data => (data as CatalogedPlace).Aliases ),
-		new PropertyString ("Avatar", 
-					(data, value) => {(data as CatalogedPlace).Avatar = value;}, 
-					data => (data as CatalogedPlace).Avatar ),
 		new PropertyString ("Banner", 
 					(data, value) => {(data as CatalogedPlace).Banner = value;}, 
 					data => (data as CatalogedPlace).Banner ),
-		new PropertyString ("Owner", 
-					(data, value) => {(data as CatalogedPlace).Owner = value;}, 
-					data => (data as CatalogedPlace).Owner )
+		new PropertyListStruct ("Stream", typeof (CatalogedFeed),
+					(data, value) => {(data as CatalogedPlace).Stream = value as List<CatalogedFeed>;}, 
+					data => (data as CatalogedPlace).Stream,
+					false, ()=>new  List<CatalogedFeed>(), ()=>new CatalogedFeed())
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -223,12 +279,10 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 	///<summary>Binding</summary> 
 	public static readonly new Binding<CatalogedPlace> _binding = new (
 			new() {
-			{ "Title", _properties [0]},
-			{ "Aliases", _properties [1]},
-			{ "Avatar", _properties [2]},
-			{ "Banner", _properties [3]},
-			{ "Owner", _properties [4]}}, __Tag,
-		() => new CatalogedPlace(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
+			{ "Aliases", _properties [0]},
+			{ "Banner", _properties [1]},
+			{ "Stream", _properties [2]}}, __Tag,
+		() => new CatalogedPlace(), () => [], () => [], CatalogedForumOwned._binding, Generic: false);
 
 
 	/// <summary>
@@ -251,103 +305,10 @@ public partial class CatalogedPlace : CatalogedForumEntry {
 
 
 	/// <summary>
-	/// </summary>
-public partial class Visitor : CatalogedForumEntry {
-    /// <summary>
-    ///Visitor's unique DID		
-    /// </summary>
-
-	[JsonPropertyName("DID")]
-	public virtual string?					DID  {get; set;} //
-
-    /// <summary>
-    ///Visitor's handle
-    /// </summary>
-
-	[JsonPropertyName("Handle")]
-	public virtual string?					Handle  {get; set;} //
-
-    /// <summary>
-    ///Avatar representing the visitor
-    /// </summary>
-
-	[JsonPropertyName("Avatar")]
-	public virtual string?					Avatar  {get; set;} //
-
-    /// <summary>
-    ///Splash screen for the visitor's 	
-    /// </summary>
-
-	[JsonPropertyName("Banner")]
-	public virtual string?					Banner  {get; set;} //
-
-    /// <summary>
-    ///Places the visitor has created on this site
-    /// </summary>
-
-	[JsonPropertyName("Places")]
-	public virtual List<string>?					Places  {get; set;}
-
-    ///<summary>Implement IBinding</summary> 
-	public override Property[] _Properties => _properties;
-
-	///<summary>Binding</summary> 
-	static readonly Property[] _properties = [
-		new PropertyString ("DID", 
-					(data, value) => {(data as Visitor).DID = value;}, 
-					data => (data as Visitor).DID ),
-		new PropertyString ("Handle", 
-					(data, value) => {(data as Visitor).Handle = value;}, 
-					data => (data as Visitor).Handle ),
-		new PropertyString ("Avatar", 
-					(data, value) => {(data as Visitor).Avatar = value;}, 
-					data => (data as Visitor).Avatar ),
-		new PropertyString ("Banner", 
-					(data, value) => {(data as Visitor).Banner = value;}, 
-					data => (data as Visitor).Banner ),
-		new PropertyListString ("Places", 
-					(data, value) => {(data as Visitor).Places = value;}, 
-					data => (data as Visitor).Places )
-		];
-
-    ///<summary>Implement IBinding</summary> 
-	public override Binding _Binding => _binding;
-
-	///<summary>Binding</summary> 
-	public static readonly new Binding<Visitor> _binding = new (
-			new() {
-			{ "DID", _properties [0]},
-			{ "Handle", _properties [1]},
-			{ "Avatar", _properties [2]},
-			{ "Banner", _properties [3]},
-			{ "Places", _properties [4]}}, __Tag,
-		() => new Visitor(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
-
-
-	/// <summary>
-    /// Tag identifying this class
-    /// </summary>
-	public override string _Tag => __Tag;
-
-	/// <summary>
-    /// Tag identifying this class
-    /// </summary>
-	public new const string __Tag = "Visitor";
-
-	/// <summary>
-    /// Factory method
-    /// </summary>
-    /// <returns>Object of this type</returns>
-	public static new JsonObject _Factory () => new Visitor();
-
-	}
-
-
-	/// <summary>
 	///
 	/// 
 	/// </summary>
-public partial class CatalogedForumMember : CatalogedForumEntry {
+public partial class CatalogedForumVisitor : CatalogedForumEntry {
     /// <summary>
     ///The user's Did (if used).
     /// </summary>
@@ -356,7 +317,7 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 	public virtual string?					Did  {get; set;} //
 
     /// <summary>
-    ///The user's handle.
+    ///The user's DNS handle.
     /// </summary>
 
 	[JsonPropertyName("Handle")]
@@ -389,6 +350,12 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 
 	[JsonPropertyName("Privileges")]
 	public virtual List<string>?					Privileges  {get; set;}
+    /// <summary>
+    ///Places the visitor has created on this site
+    /// </summary>
+
+	[JsonPropertyName("Places")]
+	public virtual List<string>?					Places  {get; set;}
 
     ///<summary>Implement IBinding</summary> 
 	public override Property[] _Properties => _properties;
@@ -396,38 +363,42 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
 		new PropertyString ("Did", 
-					(data, value) => {(data as CatalogedForumMember).Did = value;}, 
-					data => (data as CatalogedForumMember).Did ),
+					(data, value) => {(data as CatalogedForumVisitor).Did = value;}, 
+					data => (data as CatalogedForumVisitor).Did ),
 		new PropertyString ("Handle", 
-					(data, value) => {(data as CatalogedForumMember).Handle = value;}, 
-					data => (data as CatalogedForumMember).Handle ),
+					(data, value) => {(data as CatalogedForumVisitor).Handle = value;}, 
+					data => (data as CatalogedForumVisitor).Handle ),
 		new PropertyString ("Avatar", 
-					(data, value) => {(data as CatalogedForumMember).Avatar = value;}, 
-					data => (data as CatalogedForumMember).Avatar ),
+					(data, value) => {(data as CatalogedForumVisitor).Avatar = value;}, 
+					data => (data as CatalogedForumVisitor).Avatar ),
 		new PropertyString ("Banner", 
-					(data, value) => {(data as CatalogedForumMember).Banner = value;}, 
-					data => (data as CatalogedForumMember).Banner ),
+					(data, value) => {(data as CatalogedForumVisitor).Banner = value;}, 
+					data => (data as CatalogedForumVisitor).Banner ),
 		new PropertyString ("Status", 
-					(data, value) => {(data as CatalogedForumMember).Status = value;}, 
-					data => (data as CatalogedForumMember).Status ),
+					(data, value) => {(data as CatalogedForumVisitor).Status = value;}, 
+					data => (data as CatalogedForumVisitor).Status ),
 		new PropertyListString ("Privileges", 
-					(data, value) => {(data as CatalogedForumMember).Privileges = value;}, 
-					data => (data as CatalogedForumMember).Privileges )
+					(data, value) => {(data as CatalogedForumVisitor).Privileges = value;}, 
+					data => (data as CatalogedForumVisitor).Privileges ),
+		new PropertyListString ("Places", 
+					(data, value) => {(data as CatalogedForumVisitor).Places = value;}, 
+					data => (data as CatalogedForumVisitor).Places )
 		];
 
     ///<summary>Implement IBinding</summary> 
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	public static readonly new Binding<CatalogedForumMember> _binding = new (
+	public static readonly new Binding<CatalogedForumVisitor> _binding = new (
 			new() {
 			{ "Did", _properties [0]},
 			{ "Handle", _properties [1]},
 			{ "Avatar", _properties [2]},
 			{ "Banner", _properties [3]},
 			{ "Status", _properties [4]},
-			{ "Privileges", _properties [5]}}, __Tag,
-		() => new CatalogedForumMember(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
+			{ "Privileges", _properties [5]},
+			{ "Places", _properties [6]}}, __Tag,
+		() => new CatalogedForumVisitor(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
 
 
 	/// <summary>
@@ -438,13 +409,276 @@ public partial class CatalogedForumMember : CatalogedForumEntry {
 	/// <summary>
     /// Tag identifying this class
     /// </summary>
-	public new const string __Tag = "CatalogedForumMember";
+	public new const string __Tag = "CatalogedForumVisitor";
 
 	/// <summary>
     /// Factory method
     /// </summary>
     /// <returns>Object of this type</returns>
-	public static new JsonObject _Factory () => new CatalogedForumMember();
+	public static new JsonObject _Factory () => new CatalogedForumVisitor();
+
+	}
+
+
+	/// <summary>
+	///
+	/// 
+	/// </summary>
+public partial class CatalogedFeed : CatalogedForumOwned {
+    /// <summary>
+    ///Posts to the stream
+    /// </summary>
+
+	[JsonPropertyName("Posts")]
+	public virtual List<CatalogedPost>?					Posts  {get; set;}
+
+    ///<summary>Implement IBinding</summary> 
+	public override Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Property[] _properties = [
+		new PropertyListStruct ("Posts", typeof (CatalogedPost),
+					(data, value) => {(data as CatalogedFeed).Posts = value as List<CatalogedPost>;}, 
+					data => (data as CatalogedFeed).Posts,
+					false, ()=>new  List<CatalogedPost>(), ()=>new CatalogedPost())
+		];
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	public static readonly new Binding<CatalogedFeed> _binding = new (
+			new() {
+			{ "Posts", _properties [0]}}, __Tag,
+		() => new CatalogedFeed(), () => [], () => [], CatalogedForumOwned._binding, Generic: false);
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedStream";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedFeed();
+
+	}
+
+
+	/// <summary>
+	///
+	/// 
+	/// </summary>
+public partial class CatalogedPost : CatalogedForumOwned {
+    /// <summary>
+    ///The post title in UTF8
+    /// </summary>
+
+	[JsonPropertyName("Title")]
+	public virtual string?					Title  {get; set;} //
+
+    /// <summary>
+    ///The post summary in UTF8 format.
+    /// </summary>
+
+	[JsonPropertyName("Summary")]
+	public virtual string?					Summary  {get; set;} //
+
+    /// <summary>
+    ///The post body in XML format.
+    /// </summary>
+
+	[JsonPropertyName("Body")]
+	public virtual string?					Body  {get; set;} //
+
+    /// <summary>
+    ///The associated resources
+    /// </summary>
+
+	[JsonPropertyName("Resources")]
+	public virtual List<CatalogedResource>?					Resources  {get; set;}
+
+    ///<summary>Implement IBinding</summary> 
+	public override Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Property[] _properties = [
+		new PropertyString ("Title", 
+					(data, value) => {(data as CatalogedPost).Title = value;}, 
+					data => (data as CatalogedPost).Title ),
+		new PropertyString ("Summary", 
+					(data, value) => {(data as CatalogedPost).Summary = value;}, 
+					data => (data as CatalogedPost).Summary ),
+		new PropertyString ("Body", 
+					(data, value) => {(data as CatalogedPost).Body = value;}, 
+					data => (data as CatalogedPost).Body ),
+		new PropertyListStruct ("Resources", typeof (CatalogedResource),
+					(data, value) => {(data as CatalogedPost).Resources = value as List<CatalogedResource>;}, 
+					data => (data as CatalogedPost).Resources,
+					false, ()=>new  List<CatalogedResource>(), ()=>new CatalogedResource())
+		];
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	public static readonly new Binding<CatalogedPost> _binding = new (
+			new() {
+			{ "Title", _properties [0]},
+			{ "Summary", _properties [1]},
+			{ "Body", _properties [2]},
+			{ "Resources", _properties [3]}}, __Tag,
+		() => new CatalogedPost(), () => [], () => [], CatalogedForumOwned._binding, Generic: false);
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedPost";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedPost();
+
+	}
+
+
+	/// <summary>
+	///
+	/// 
+	/// </summary>
+public partial class CatalogedComment : CatalogedForumEntry {
+    /// <summary>
+    ///The comment text in UTF8 format.
+    /// </summary>
+
+	[JsonPropertyName("Text")]
+	public virtual string?					Text  {get; set;} //
+
+
+    ///<summary>Implement IBinding</summary> 
+	public override Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Property[] _properties = [
+		new PropertyString ("Text", 
+					(data, value) => {(data as CatalogedComment).Text = value;}, 
+					data => (data as CatalogedComment).Text )
+		];
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	public static readonly new Binding<CatalogedComment> _binding = new (
+			new() {
+			{ "Text", _properties [0]}}, __Tag,
+		() => new CatalogedComment(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedComment";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedComment();
+
+	}
+
+
+	/// <summary>
+	///
+	/// 
+	/// </summary>
+public partial class CatalogedResource : CatalogedForumEntry {
+    /// <summary>
+    ///Unique identifier.
+    /// </summary>
+
+	[JsonPropertyName("Id")]
+	public virtual string?					Id  {get; set;} //
+
+    /// <summary>
+    ///The post title in UTF8
+    /// </summary>
+
+	[JsonPropertyName("Title")]
+	public virtual string?					Title  {get; set;} //
+
+    /// <summary>
+    ///The post summary in UTF8 format.
+    /// </summary>
+
+	[JsonPropertyName("Summary")]
+	public virtual string?					Summary  {get; set;} //
+
+
+    ///<summary>Implement IBinding</summary> 
+	public override Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Property[] _properties = [
+		new PropertyString ("Id", 
+					(data, value) => {(data as CatalogedResource).Id = value;}, 
+					data => (data as CatalogedResource).Id ),
+		new PropertyString ("Title", 
+					(data, value) => {(data as CatalogedResource).Title = value;}, 
+					data => (data as CatalogedResource).Title ),
+		new PropertyString ("Summary", 
+					(data, value) => {(data as CatalogedResource).Summary = value;}, 
+					data => (data as CatalogedResource).Summary )
+		];
+
+    ///<summary>Implement IBinding</summary> 
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	public static readonly new Binding<CatalogedResource> _binding = new (
+			new() {
+			{ "Id", _properties [0]},
+			{ "Title", _properties [1]},
+			{ "Summary", _properties [2]}}, __Tag,
+		() => new CatalogedResource(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
+
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public override string _Tag => __Tag;
+
+	/// <summary>
+    /// Tag identifying this class
+    /// </summary>
+	public new const string __Tag = "CatalogedResource";
+
+	/// <summary>
+    /// Factory method
+    /// </summary>
+    /// <returns>Object of this type</returns>
+	public static new JsonObject _Factory () => new CatalogedResource();
 
 	}
 

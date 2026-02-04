@@ -246,7 +246,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         // STUPID
         // STUPID
         // STUPID
-        Console.WriteLine("Really stupid thing here!");
+        Console.WriteLine($"Really stupid thing here! {path.UserId}");
         path.UserId = "did:plc:k647x4n6h3jm347u3t5cm6ki";
         // STUPID
         // STUPID

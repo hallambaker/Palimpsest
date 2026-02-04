@@ -22,7 +22,7 @@
 
 
 namespace Goedel.Places;
-public partial class CatalogedForumMember {
+public partial class CatalogedForumVisitor {
 
     public override string _PrimaryKey => Did;
 

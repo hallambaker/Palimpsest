@@ -28,11 +28,11 @@ namespace Goedel.Places;
 /// Cached handle for a forum member
 /// </summary>
 /// <param name="member">The member catalog entry</param>
-public class MemberHandle : CachedHandle<CatalogedForumMember> {
+public class MemberHandle : CachedHandle<CatalogedForumVisitor> {
 
     public string PrimaryKey => CatalogedMember._PrimaryKey;
 
-    public CatalogedForumMember CatalogedMember => CatalogedEntry;
+    public CatalogedForumVisitor CatalogedMember => CatalogedEntry;
 
 
     public ForumPermissions Permissions { get; set; }
@@ -52,7 +52,7 @@ public class MemberHandle : CachedHandle<CatalogedForumMember> {
 
 
     public MemberHandle(
-            CatalogedForumMember member) : base(member) {
+            CatalogedForumVisitor member) : base(member) {
 
         if (member.LocalName == "phill.hallambaker.com") {
             Permissions = ForumPermissions.System;

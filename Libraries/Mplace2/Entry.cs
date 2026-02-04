@@ -12,4 +12,24 @@ public partial class Entry {
     ///<summary>Entry text.</summary>
     public virtual string? Text { get; set; } = "TBS";
 
+
+
+    public CatalogedPlace? GetPlace(IPageContext context) {
+
+        var parsedPath = context as ParsedPath;
+        var persistPlace = parsedPath.PersistPlace as PersistPlace;
+
+
+
+        var dns = parsedPath.Uri.Host;
+        if (persistPlace.CachedPlaces.TryGetBySecondaryId(dns, out var place)) {
+            return place;
+            }
+
+
+
+        return null;
+
+        }
+
     }

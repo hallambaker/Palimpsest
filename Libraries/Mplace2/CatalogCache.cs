@@ -1,6 +1,117 @@
-﻿namespace Mplace2.Gui;
+﻿using Goedel.Cryptography.Dare;
 
-public class CatalogCache {
+namespace Mplace2.Gui;
+
+
+public class CacheHandle<T> : Disposable where T : EarlCatalog {
+
+
+    public T Value;
+
+    public CacheHandle(T value) {
+        Value = value;
+        }
+
+    protected override void Disposing() {
+        Value.CloseStream();
+        }
+
+    }
+
+
+
+public class CatalogCache (string PlaceDirectory) {
+
+    #region // Feeds
+
+    CacheHandle<T> Intern<T> (T value) where T:EarlCatalog => new (value);
+
+
+
+    /// <summary>Return the feeds associated with a place</summary>
+    /// <param name="place">The place uid</param>
+    /// <returns>The cached feeds for the place</returns>
+    public CacheHandle<CachedFeeds> CreatePlaceFeeds(
+                string place) {
+        // Initialize [PlaceDirectory]/[place]/Feeds.darc
+        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
+        Directory.CreateDirectory(directory);
+        return GetPlaceFeeds(place);
+        }
+
+
+    /// <summary>Return the feeds associated with a place</summary>
+    /// <param name="place">The place uid</param>
+    /// <returns>The cached feeds for the place</returns>
+    public CacheHandle<CachedFeeds> GetPlaceFeeds(
+                string place) {
+
+        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
+        var catalog = CachedFeeds.Open(this, PlaceDirectory, place);
+        return Intern(catalog);
+        }
+
+    public void Release(CachedFeeds feeds) {
+        feeds.Dispose();
+        }
+
+
+    #endregion
+
+    /// <summary>Return the feeds associated with a place</summary>
+    /// <param name="place">The place uid</param>
+    /// <returns>The cached feeds for the place</returns>
+    public CacheHandle<CachedPosts> CreateFeedPosts(
+                string place,
+                string feed) {
+        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
+        Directory.CreateDirectory(directory);
+        return GetFeedPosts(place, feed);
+        }
+
+    /// <summary>Return the feeds associated with a place</summary>
+    /// <param name="place">The place uid</param>
+    /// <param name="feed">The feed uid</param>
+    /// <returns>The cached feeds for the place</returns>
+    public CacheHandle<CachedPosts> GetFeedPosts(
+                string place,
+                string feed) {
+
+        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
+        var catalog = CachedPosts.Open(this, PlaceDirectory, place, feed);
+        return Intern(catalog);
+        }
+
+
+
+    /// <summary>Return the feeds associated with a place</summary>
+    /// <param name="place">The place uid</param>
+    /// <returns>The cached feeds for the place</returns>
+    public CacheHandle<CachedComments> CreatePostComments(
+                string place,
+                string feed,
+                string post) {
+        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
+        Directory.CreateDirectory(directory);
+        return GetPostComments(place,feed,post);
+        }
+
+    /// <summary>Return the feeds associated with a place</summary>
+    /// <param name="place">The place uid</param>
+    /// <param name="feed">The feed uid</param>
+    /// <param name="post">The post uid</param>
+    /// <returns>The cached feeds for the place</returns>
+    public CacheHandle<CachedComments> GetPostComments(
+                string place,
+                string feed,
+                string post) {
+
+        var catalog = CachedComments.Open(this, PlaceDirectory, place, feed, post);
+        return Intern(catalog);
+        }
+
+
+
     }
 
 

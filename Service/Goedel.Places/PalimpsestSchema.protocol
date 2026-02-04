@@ -13,57 +13,41 @@
 		Description
 			|
 		DateTime Added
+			Description
+				|Time the entry was added
 
-
-	Structure CatalogedPlace
+	Structure CatalogedForumOwned
 		Inherits CatalogedForumEntry
-		Description
-			|A cataloged project.
 		String Title
 			Description
 				|The title of the place
+		String Avatar
+			Description
+				|Avatar representing the entry
+		String Owners
+			Multiple
+			Description
+				|Designated owner(s) DIDs
+
+
+	Structure CatalogedPlace
+		Inherits CatalogedForumOwned
+		Description
+			|A cataloged project.
 		String Aliases
 			Multiple
 			Description
 				|Alternative DNS names
-		String Avatar
-			Description
-				|Avatar representing the place
 		String Banner
 			Description
 				|Splash screen for the place
-		String Owner
-			Description
-				|Designated owner
-
-		// To do - add hooks for administrators, the type of place, etc.
-
-
-	Structure Visitor
-		Inherits CatalogedForumEntry				
-		String DID
-			Description
-				|Visitor's unique DID		
-		String Handle
-			Description
-				|Visitor's handle
-		String Avatar
-			Description
-				|Avatar representing the visitor
-		String Banner
-			Description
-				|Splash screen for the visitor's 	
-				
-		String Places
+		Struct CatalogedStream Stream
 			Multiple
 			Description
-				|Places the visitor has created on this site
+				|The conversation streams
 
 
-
-
-
-	Structure CatalogedForumMember
+	Structure CatalogedForumVisitor
 		Inherits CatalogedForumEntry
 		Description
 			|
@@ -72,7 +56,7 @@
 				|The user's Did (if used).
 		String Handle
 			Description
-				|The user's handle.
+				|The user's DNS handle.
 		String Avatar
 			Description
 				|Resource link to the user's avatar image
@@ -86,4 +70,58 @@
 			Multiple
 			Description
 				|Assigned privileges (Admin / Moderator)
+		String Places
+			Multiple
+			Description
+				|Places the visitor has created on this site
 
+
+	Structure CatalogedFeed
+		Inherits CatalogedForumOwned
+		Description
+			|
+		Struct CatalogedPost Posts
+			Multiple
+			Description
+				|Posts to the stream
+
+
+	Structure CatalogedPost
+		Inherits CatalogedForumOwned
+		Description
+			|
+		String Title
+			Description
+				|The post title in UTF8
+		String Summary
+			Description
+				|The post summary in UTF8 format.
+		String Body
+			Description
+				|The post body in XML format.
+		Struct CatalogedResource Resources
+			Multiple
+			Description
+				|The associated resources
+
+	Structure CatalogedComment
+		Inherits CatalogedForumEntry
+		Description
+			|
+		String Text
+			Description
+				|The comment text in UTF8 format.
+
+	Structure CatalogedResource
+		Inherits CatalogedForumEntry
+		Description
+			|
+		String Id
+			Description
+				|Unique identifier.
+		String Title
+			Description
+				|The post title in UTF8
+		String Summary
+			Description
+				|The post summary in UTF8 format.
