@@ -85,8 +85,10 @@ public class PersistPlace : IPersistPlace {
             if (RecentPlaces.Count >= MaxRecentPlaces) {
                 break;
                 }
-            var recent = CachedPlaces.GetValue(place); ;
-            RecentPlaces.Add(new Place(recent));
+            var recent = CachedPlaces.GetValue(place);
+            if (recent.Uid != HomeCatalogedPlace.Uid) {
+                RecentPlaces.Add(new Place(recent));
+                }
             }
 
         }
