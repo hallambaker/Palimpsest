@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 2/3/2026 1:22:31 PM
+//  This file was automatically generated at 2/6/2026 1:03:17 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -171,13 +171,6 @@ public partial class CatalogedForumOwned : CatalogedForumEntry {
 	public virtual string?					Title  {get; set;} //
 
     /// <summary>
-    ///Avatar representing the entry
-    /// </summary>
-
-	[JsonPropertyName("Avatar")]
-	public virtual string?					Avatar  {get; set;} //
-
-    /// <summary>
     ///Designated owner(s) DIDs
     /// </summary>
 
@@ -192,9 +185,6 @@ public partial class CatalogedForumOwned : CatalogedForumEntry {
 		new PropertyString ("Title", 
 					(data, value) => {(data as CatalogedForumOwned).Title = value;}, 
 					data => (data as CatalogedForumOwned).Title ),
-		new PropertyString ("Avatar", 
-					(data, value) => {(data as CatalogedForumOwned).Avatar = value;}, 
-					data => (data as CatalogedForumOwned).Avatar ),
 		new PropertyListString ("Owners", 
 					(data, value) => {(data as CatalogedForumOwned).Owners = value;}, 
 					data => (data as CatalogedForumOwned).Owners )
@@ -207,8 +197,7 @@ public partial class CatalogedForumOwned : CatalogedForumEntry {
 	public static readonly new Binding<CatalogedForumOwned> _binding = new (
 			new() {
 			{ "Title", _properties [0]},
-			{ "Avatar", _properties [1]},
-			{ "Owners", _properties [2]}}, __Tag,
+			{ "Owners", _properties [1]}}, __Tag,
 		() => new CatalogedForumOwned(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
 
 
@@ -243,6 +232,13 @@ public partial class CatalogedPlace : CatalogedForumOwned {
 	[JsonPropertyName("Aliases")]
 	public virtual List<string>?					Aliases  {get; set;}
     /// <summary>
+    ///Avatar representing the entry
+    /// </summary>
+
+	[JsonPropertyName("Avatar")]
+	public virtual string?					Avatar  {get; set;} //
+
+    /// <summary>
     ///Splash screen for the place
     /// </summary>
 
@@ -264,6 +260,9 @@ public partial class CatalogedPlace : CatalogedForumOwned {
 		new PropertyListString ("Aliases", 
 					(data, value) => {(data as CatalogedPlace).Aliases = value;}, 
 					data => (data as CatalogedPlace).Aliases ),
+		new PropertyString ("Avatar", 
+					(data, value) => {(data as CatalogedPlace).Avatar = value;}, 
+					data => (data as CatalogedPlace).Avatar ),
 		new PropertyString ("Banner", 
 					(data, value) => {(data as CatalogedPlace).Banner = value;}, 
 					data => (data as CatalogedPlace).Banner ),
@@ -280,8 +279,9 @@ public partial class CatalogedPlace : CatalogedForumOwned {
 	public static readonly new Binding<CatalogedPlace> _binding = new (
 			new() {
 			{ "Aliases", _properties [0]},
-			{ "Banner", _properties [1]},
-			{ "Stream", _properties [2]}}, __Tag,
+			{ "Avatar", _properties [1]},
+			{ "Banner", _properties [2]},
+			{ "Stream", _properties [3]}}, __Tag,
 		() => new CatalogedPlace(), () => [], () => [], CatalogedForumOwned._binding, Generic: false);
 
 
@@ -426,6 +426,13 @@ public partial class CatalogedForumVisitor : CatalogedForumEntry {
 	/// </summary>
 public partial class CatalogedFeed : CatalogedForumOwned {
     /// <summary>
+    ///Avatar representing the entry
+    /// </summary>
+
+	[JsonPropertyName("Avatar")]
+	public virtual string?					Avatar  {get; set;} //
+
+    /// <summary>
     ///Posts to the stream
     /// </summary>
 
@@ -437,6 +444,9 @@ public partial class CatalogedFeed : CatalogedForumOwned {
 
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
+		new PropertyString ("Avatar", 
+					(data, value) => {(data as CatalogedFeed).Avatar = value;}, 
+					data => (data as CatalogedFeed).Avatar ),
 		new PropertyListStruct ("Posts", typeof (CatalogedPost),
 					(data, value) => {(data as CatalogedFeed).Posts = value as List<CatalogedPost>;}, 
 					data => (data as CatalogedFeed).Posts,
@@ -449,7 +459,8 @@ public partial class CatalogedFeed : CatalogedForumOwned {
 	///<summary>Binding</summary> 
 	public static readonly new Binding<CatalogedFeed> _binding = new (
 			new() {
-			{ "Posts", _properties [0]}}, __Tag,
+			{ "Avatar", _properties [0]},
+			{ "Posts", _properties [1]}}, __Tag,
 		() => new CatalogedFeed(), () => [], () => [], CatalogedForumOwned._binding, Generic: false);
 
 
@@ -461,7 +472,7 @@ public partial class CatalogedFeed : CatalogedForumOwned {
 	/// <summary>
     /// Tag identifying this class
     /// </summary>
-	public new const string __Tag = "CatalogedStream";
+	public new const string __Tag = "CatalogedFeed";
 
 	/// <summary>
     /// Factory method
@@ -478,11 +489,11 @@ public partial class CatalogedFeed : CatalogedForumOwned {
 	/// </summary>
 public partial class CatalogedPost : CatalogedForumOwned {
     /// <summary>
-    ///The post title in UTF8
+    ///
     /// </summary>
 
-	[JsonPropertyName("Title")]
-	public virtual string?					Title  {get; set;} //
+	[JsonPropertyName("Author")]
+	public virtual string?					Author  {get; set;} //
 
     /// <summary>
     ///The post summary in UTF8 format.
@@ -510,9 +521,9 @@ public partial class CatalogedPost : CatalogedForumOwned {
 
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
-		new PropertyString ("Title", 
-					(data, value) => {(data as CatalogedPost).Title = value;}, 
-					data => (data as CatalogedPost).Title ),
+		new PropertyString ("Author", 
+					(data, value) => {(data as CatalogedPost).Author = value;}, 
+					data => (data as CatalogedPost).Author ),
 		new PropertyString ("Summary", 
 					(data, value) => {(data as CatalogedPost).Summary = value;}, 
 					data => (data as CatalogedPost).Summary ),
@@ -531,7 +542,7 @@ public partial class CatalogedPost : CatalogedForumOwned {
 	///<summary>Binding</summary> 
 	public static readonly new Binding<CatalogedPost> _binding = new (
 			new() {
-			{ "Title", _properties [0]},
+			{ "Author", _properties [0]},
 			{ "Summary", _properties [1]},
 			{ "Body", _properties [2]},
 			{ "Resources", _properties [3]}}, __Tag,
@@ -563,6 +574,13 @@ public partial class CatalogedPost : CatalogedForumOwned {
 	/// </summary>
 public partial class CatalogedComment : CatalogedForumEntry {
     /// <summary>
+    ///
+    /// </summary>
+
+	[JsonPropertyName("Author")]
+	public virtual string?					Author  {get; set;} //
+
+    /// <summary>
     ///The comment text in UTF8 format.
     /// </summary>
 
@@ -575,6 +593,9 @@ public partial class CatalogedComment : CatalogedForumEntry {
 
 	///<summary>Binding</summary> 
 	static readonly Property[] _properties = [
+		new PropertyString ("Author", 
+					(data, value) => {(data as CatalogedComment).Author = value;}, 
+					data => (data as CatalogedComment).Author ),
 		new PropertyString ("Text", 
 					(data, value) => {(data as CatalogedComment).Text = value;}, 
 					data => (data as CatalogedComment).Text )
@@ -586,7 +607,8 @@ public partial class CatalogedComment : CatalogedForumEntry {
 	///<summary>Binding</summary> 
 	public static readonly new Binding<CatalogedComment> _binding = new (
 			new() {
-			{ "Text", _properties [0]}}, __Tag,
+			{ "Author", _properties [0]},
+			{ "Text", _properties [1]}}, __Tag,
 		() => new CatalogedComment(), () => [], () => [], CatalogedForumEntry._binding, Generic: false);
 
 

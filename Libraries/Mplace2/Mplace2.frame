@@ -1,4 +1,4 @@
-﻿
+﻿// Built using the SiteBuilder tool in Buildtools
 Namespace Mplace2.Gui
 
     MainNav Menu
@@ -23,8 +23,11 @@ Namespace Mplace2.Gui
         Places Button PlacesPage "Places"
             PlacesActive Boolean
 
+        Feeds Button FeedsPage "Feeds"
+            FeedsActive Boolean
+
         Posts Button PostsPage "Posts"
-            PlacesActive Boolean
+            PostsActive Boolean
 
         Bookmark Button BookmarkPage "Saved"
             BookmarksActive Boolean
@@ -39,11 +42,14 @@ Namespace Mplace2.Gui
         Settings Button SettingsPage "Settings"
             SettingsActive Boolean
 
-        NewPlace Button NewPlacePage "New Place"
+        NewPlace Button NewPlacePage "Create Place"
             CreatePlaceActive Boolean
 
-        CreatePost Button CreatePost "Create Post"
+        CreateFeed Button CreateFeedActive "Create Feed"
+            PlacesActive Boolean
 
+        CreatePost Button CreatePostActive "Create Post"
+            PlacesActive Boolean
 
     TopSettings Menu
         Menu Button SettingsPage "Menu"
@@ -72,6 +78,12 @@ Namespace Mplace2.Gui
         Entries List Entry
             Display SummaryPresentation
 
+    FeedsPage Page "Places"
+        FlowPage Container
+        Navigation Is MainNav
+        TopSettings Is TopSettings
+        Entries List Entry
+            Display SummaryPresentation
 
     PostsPage Page "Places"
         FlowPage Container
@@ -172,11 +184,24 @@ Namespace Mplace2.Gui
                 Prompt "Remember this account"
 
     // The data entry pages
+
+    CreateFeed Page "Create New Post"
+        EntryPage Container
+        Navigation Is MainNav
+
+        CreateFeedAction Form Post                 
+            Title String                // Post Title
+                Prompt "Title"
+                Description "Title, should be short."
+            Summary Text                 // Short text
+                Prompt "Summary"
+                Description "Short summary of the post to be used in lists of posts or to crosspost to other media"
+
     CreatePost Page "Create New Post"
         EntryPage Container
         Navigation Is MainNav
 
-        CreatePostAction Form Post                 // Post entry form, i.e. Quill
+        CreatePostAction Form Post      // Post entry form, i.e. Quill
             Title String                // Post Title
                 Prompt "Title"
                 Description "Title, should be short."

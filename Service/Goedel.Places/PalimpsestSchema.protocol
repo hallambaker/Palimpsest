@@ -21,9 +21,6 @@
 		String Title
 			Description
 				|The title of the place
-		String Avatar
-			Description
-				|Avatar representing the entry
 		String Owners
 			Multiple
 			Description
@@ -38,10 +35,13 @@
 			Multiple
 			Description
 				|Alternative DNS names
+		String Avatar
+			Description
+				|Avatar representing the entry
 		String Banner
 			Description
 				|Splash screen for the place
-		Struct CatalogedStream Stream
+		Struct CatalogedFeed Stream
 			Multiple
 			Description
 				|The conversation streams
@@ -80,6 +80,9 @@
 		Inherits CatalogedForumOwned
 		Description
 			|
+		String Avatar
+			Description
+				|Avatar representing the entry
 		Struct CatalogedPost Posts
 			Multiple
 			Description
@@ -90,9 +93,10 @@
 		Inherits CatalogedForumOwned
 		Description
 			|
-		String Title
+			
+		String Author
 			Description
-				|The post title in UTF8
+				|
 		String Summary
 			Description
 				|The post summary in UTF8 format.
@@ -108,6 +112,9 @@
 		Inherits CatalogedForumEntry
 		Description
 			|
+		String Author
+			Description
+				|
 		String Text
 			Description
 				|The comment text in UTF8 format.

@@ -23,6 +23,9 @@ public partial class MyClass : FrameSet{
 	///<summary>PlacesPage</summary>
 	public PlacesPage PlacesPage {get;} = new();
 
+	///<summary>FeedsPage</summary>
+	public FeedsPage FeedsPage {get;} = new();
+
 	///<summary>PostsPage</summary>
 	public PostsPage PostsPage {get;} = new();
 
@@ -52,6 +55,9 @@ public partial class MyClass : FrameSet{
 
 	///<summary>SwitchPage</summary>
 	public SwitchPage SwitchPage {get;} = new();
+
+	///<summary>CreateFeed</summary>
+	public CreateFeed CreateFeed {get;} = new();
 
 	///<summary>CreatePost</summary>
 	public CreatePost CreatePost {get;} = new();
@@ -212,6 +218,7 @@ public partial class MyClass : FrameSet{
 			HomePage,
 			NotificationsPage,
 			PlacesPage,
+			FeedsPage,
 			PostsPage,
 			BookmarkPage,
 			YourPlacePage,
@@ -222,6 +229,7 @@ public partial class MyClass : FrameSet{
 			AboutSettingsPage,
 			SignIn,
 			SwitchPage,
+			CreateFeed,
 			CreatePost,
 			CreateComment,
 			NewPlacePage,
@@ -450,6 +458,54 @@ public partial class PlacesPage : FramePage {
 			// Only inclue the serialized items here
 			}, "PlacesPage",
 		() => new PlacesPage(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for FeedsPage
+/// </summary>
+public partial class FeedsPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public FeedsPage () : base ("FeedsPage", "Places", _Fields) {
+		Container = "FlowPage";
+		}
+
+    /// <summary>Field Entries</summary>
+	public List<Entry>? Entries {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefMenu ("TopSettings","TopSettings"),
+		new FrameRefList<Entry> ("Entries","Entry"){
+			Presentation = SummaryPresentation,
+			Get = (data) => (data as FeedsPage)?.Entries ,
+			Set = (data, value) => {(data as FeedsPage)!.Entries = value as List<Entry>; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<FeedsPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "FeedsPage",
+		() => new FeedsPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -965,6 +1021,65 @@ public partial class SwitchPage : FramePage {
 			// Only inclue the serialized items here
 			}, "SwitchPage",
 		() => new SwitchPage(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for CreateFeed
+/// </summary>
+public partial class CreateFeed : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public CreateFeed () : base ("CreateFeed", "Create New Post", _Fields) {
+		Container = "EntryPage";
+		}
+
+    /// <summary>Field CreateFeedAction</summary>
+	public Post? CreateFeedAction {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefForm<Post> ("CreateFeedAction","Post", [
+		new FrameString ("Title",
+			(data, value) => {(data as Post)!.Title = value; },
+			(data) => (data as Post)?.Title) {
+				Prompt = "Title",
+				Description = "Title, should be short."
+				},
+		new FrameText ("Summary",
+			(data, value) => {(data as Post)!.Summary = value; },
+			(data) => (data as Post)?.Summary) {
+				Prompt = "Summary",
+				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
+				}
+				]){
+			Get = (data) => (data as CreateFeed)?.CreateFeedAction ,
+			Set = (data, value) => {(data as CreateFeed)!.CreateFeedAction = value as Post; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<CreateFeed> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "CreateFeed",
+		() => new CreateFeed(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1638,6 +1753,9 @@ public partial class MainNav : FrameMenu {
 		new FrameButton ("Places", "Places", "PlacesPage") {
 			GetActive = (data) => (data as MainNav)?.PlacesActive
 			},
+		new FrameButton ("Feeds", "Feeds", "FeedsPage") {
+			GetActive = (data) => (data as MainNav)?.PlacesActive
+			},
 		new FrameButton ("Posts", "Posts", "PostsPage") {
 			GetActive = (data) => (data as MainNav)?.PlacesActive
 			},
@@ -1654,10 +1772,14 @@ public partial class MainNav : FrameMenu {
 		new FrameButton ("Settings", "Settings", "SettingsPage") {
 			GetActive = (data) => (data as MainNav)?.SettingsActive
 			},
-		new FrameButton ("NewPlace", "New Place", "NewPlacePage") {
+		new FrameButton ("NewPlace", "Create Place", "NewPlacePage") {
 			GetActive = (data) => (data as MainNav)?.CreatePlaceActive
 			},
+		new FrameButton ("CreateFeed", "Create Feed", "CreateFeed") {
+			GetActive = (data) => (data as MainNav)?.PlacesActive
+			},
 		new FrameButton ("CreatePost", "Create Post", "CreatePost") {
+			GetActive = (data) => (data as MainNav)?.PlacesActive
 			}
 		];
 

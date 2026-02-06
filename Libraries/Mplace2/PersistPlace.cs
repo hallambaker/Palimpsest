@@ -58,7 +58,7 @@ public class PersistPlace : IPersistPlace {
         FrameSet = frameSet;
         PlaceDirectory = FrameSet.Directory;
         ContentDirectory = FrameSet.RepositoryFiles;
-        CatalogCache = new();
+        CatalogCache = new(PlaceDirectory);
 
         Directory.CreateDirectory(PlaceDirectory);
         Directory.CreateDirectory(ContentDirectory);

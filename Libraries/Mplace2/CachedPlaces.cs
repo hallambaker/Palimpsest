@@ -41,7 +41,7 @@ public class CachedFeeds : CachedCatalog<CatalogedFeed> {
 
     public static string GetDirectory(
                 string directory,
-                string place) => Path.Combine(directory, place, FileName);
+                string place) => Path.Combine(directory, place);
 
     public static string GetFile(
                 string directory,
@@ -125,7 +125,7 @@ public class CachedComments : CachedCatalog<CatalogedComment> {
                 string post) {
         var fileName = GetFile(directory, place, feed, post);
         var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
-        var result = new CachedPosts(catalogCache, stream);
+        var result = new CachedComments(catalogCache, stream);
 
         return result;
         }

@@ -31,5 +31,10 @@ public static class Extensions {
         }
 
 
+    public static PersistPlace GetContext(this IPageContext context) =>
+    (context as ParsedPath)?.PersistPlace as PersistPlace;
+
+    public static PersistPlace GetPersist(this IPageContext context) =>
+        (context as ParsedPath)?.PersistPlace as PersistPlace;
 
     }

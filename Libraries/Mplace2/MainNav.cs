@@ -70,6 +70,16 @@ public partial class MainNav {
     public ButtonVisibility? PlacesActive => GetVisibility(Page is PlacesPage,
         disable: !SignedIn);
 
+    /// <summary>State of the create feed button, active on the places page, disabled
+    /// if not signed in.</summary>
+    public ButtonVisibility? FeedsActive => GetVisibility(Page is FeedsPage,
+        disable: !SignedIn);
+
+    /// <summary>State of the create feed button, active on the places page, disabled
+    /// if not signed in.</summary>
+    public ButtonVisibility? PostsActive => GetVisibility(Page is PostsPage,
+        disable: !SignedIn);
+
     /// <summary>State of the bookmarks button, active on the bookmarks page, disabled
     /// if not signed in.</summary>
     public ButtonVisibility? BookmarksActive => GetVisibility(Page is BookmarkPage,
@@ -93,6 +103,17 @@ public partial class MainNav {
     /// <summary>State of the settings button, active on the new plage page, only visible if
     /// the visitor is logged in as an administrator..</summary>
     public ButtonVisibility? CreatePlaceActive => GetVisibility(Page is NewPlacePage, hide:!IsAdmin);
+
+
+    /// <summary>State of the create feed button, active on the places page, disabled
+    /// if not signed in.</summary>
+    public ButtonVisibility? CreateFeedActive => GetVisibility(Page is CreateFeed,
+        disable: !SignedIn);
+
+    /// <summary>State of the create feed button, active on the places page, disabled
+    /// if not signed in.</summary>
+    public ButtonVisibility? CreatePostActive => GetVisibility(Page is CreatePost,
+        disable: !SignedIn);
 
 
     ButtonVisibility GetVisibility(

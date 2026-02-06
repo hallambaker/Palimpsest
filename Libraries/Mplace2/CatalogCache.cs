@@ -46,7 +46,6 @@ public class CatalogCache (string PlaceDirectory) {
     public CacheHandle<CachedFeeds> GetPlaceFeeds(
                 string place) {
 
-        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
         var catalog = CachedFeeds.Open(this, PlaceDirectory, place);
         return Intern(catalog);
         }
@@ -64,7 +63,7 @@ public class CatalogCache (string PlaceDirectory) {
     public CacheHandle<CachedPosts> CreateFeedPosts(
                 string place,
                 string feed) {
-        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
+        var directory = CachedPosts.GetDirectory(PlaceDirectory, place, feed);
         Directory.CreateDirectory(directory);
         return GetFeedPosts(place, feed);
         }
@@ -77,7 +76,6 @@ public class CatalogCache (string PlaceDirectory) {
                 string place,
                 string feed) {
 
-        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
         var catalog = CachedPosts.Open(this, PlaceDirectory, place, feed);
         return Intern(catalog);
         }
