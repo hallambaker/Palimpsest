@@ -90,3 +90,37 @@ File ContentTypes
 	String ClientMetadataType "application/json"
 	String DefaultBanner "Mplace2Banner.png"
 	String DefaultAvatar "avatar.png"
+
+
+File Configuration
+	Enum Limit "Limits"
+		Flag RequestSize	1 "Request size in bytes"
+		Flag PostsPerHour	2 "Posts per hour"
+		Flag PostSize		3 "Post size in bytes"
+		Flag CommentSize	4 "Comment size in characters"
+		Flag UserStorage	5 "User storage in bytes"
+
+	Enum Privilege "Privileges"
+		Flag CreatePlace		 1 "Create new places"
+		Flag CreateFeed			 2 "Create new feed"
+		Flag CreatePost			 3 "Create post"
+		Flag CreateComment		 4 "Create comment"
+
+		Flag ReadPlace			 5 "Create new places"
+		Flag ReedFeed			 6 "Create new feed"
+		Flag ReadPost			 7 "Create post"
+		Flag ReadComment		 8 "Create comment"
+
+		Flag DeletePlace		 9 "Delete feed"
+		Flag DeleteFeed			10 "Delete feed"
+		Flag DeletePost			11 "Delete post"
+		Flag DeleteComment		12 "Delete comment"
+
+		Flag GrantAdministrator	16 "Create new places"
+		Flag GrantModerator		17 "Create new places"
+		Flag GrantAuthor		18 "Create new places"
+		Flag GrantCommentator	19 "Create new places"
+
+		Flag Suspend			20 "Suspend member"
+		Flag Ban				21 "Ban member"
+		Flag Status				22 "Set member status"

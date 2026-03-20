@@ -4,70 +4,43 @@ Resolve DNS _atproto.phill.hallambaker.com
 Resolve Web https://phill.hallambaker.com/.well-known/atproto-did
 DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
 Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
-# DidDocument
-{
-  "@context": ["https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/multikey/v1",
-    "https://w3id.org/security/suites/secp256k1-2019/v1"],
-  "id": "did:plc:k647x4n6h3jm347u3t5cm6ki",
-  "alsoKnownAs": ["at://phill.hallambaker.com"],
-  "verificationMethod": [{
-      "id": "did:plc:k647x4n6h3jm347u3t5cm6ki#atproto",
-      "type": "Multikey",
-      "controller": "did:plc:k647x4n6h3jm347u3t5cm6ki",
-      "publicKeyMultibase": "zQ3shanZDJGBsZsXAina7k9SH5MZyjyCKGECmQUQcd2r8nZqG"}],
-  "service": [{
-      "id": "#atproto_pds",
-      "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://shimeji.us-east.host.bsky.network"}]}
-# ResourceServerMetadata
-{
-  "resource": "https://shimeji.us-east.host.bsky.network",
-  "authorization_servers": ["https://bsky.social"],
-  "scopes_supported": [],
-  "bearer_methods_supported": ["header"],
-  "resource_documentation": "https://atproto.com"}
-# AuthorizationServerMetadata
-{
-  "issuer": "https://bsky.social",
-  "scopes_supported": ["atproto",
-    "transition:generic",
-    "transition:chat.bsky"],
-  "subject_types_supported": ["public"],
-  "response_types_supported": ["code"],
-  "response_modes_supported": ["query",
-    "fragment",
-    "form_post"],
-  "grant_types_supported": ["authorization_code",
-    "refresh_token"],
-  "code_challenge_methods_supported": ["S256"],
-  "ui_locales_supported": ["en-US"],
-  "display_values_supported": ["page",
-    "popup",
-    "touch"],
-  "authorization_response_iss_parameter_supported": true,
-  "request_object_signing_alg_values_supported": ["RS256",
-    "RS384",
-    "RS512",
-    "PS256",
-    "PS384",
-    "PS512",
-    "ES256",
-    "ES256K",
-    "ES384",
-    "ES512",
-    "none"],
-  "request_object_encryption_alg_values_supported": [],
-  "request_object_encryption_enc_values_supported": [],
-  "request_parameter_supported": true,
-  "request_uri_parameter_supported": true,
-  "require_request_uri_registration": true,
-  "jwks_uri": "https://bsky.social/oauth/jwks",
-  "authorization_endpoint": "https://bsky.social/oauth/authorize",
-  "token_endpoint": "https://bsky.social/oauth/token",
-  "token_endpoint_auth_methods_supported": ["none",
-    "private_key_jwt"],
-  "token_endpoint_auth_signing_alg_values_supported": ["RS256",
+## Begin Pre-Request
+Pre Authorization Request
+Pre Authorization Response
+Redirect Uri
+# Redirect URI
+iss= https://bsky.social
+state= MxjSBBrjrq6-bQyhVy47GByHN-3ugaDD01tmNDCD2QcRLKrCFki7a9ErmrUaFJTwDp4qXCsStSArCLEibuLxYFdoGwJaU2EXcV6tQRBLSnCcSFzrRZDaArtot20__q_bxAlljPRW7VNabxwd9vJ1Hbhk3bHS5k8cgqJ-VHshSqrvef5YJGYxigS7dhvkHkGBHBLkNZWSmxKvjndRmBNg5-aCdQ77cdr0FgUPd2bWP0Kl6Rw_40hPeqmaM7dByzTXwJna8A
+code= cod-7dfbd56da1e2ec5351c253652c588e2584d2e40ca4fe23041a203997206a55c4
+QHmNZKQyohTwXveW_Nlp9g1XwnuM-4hX-sqyQBvy4GhP1U2NI-BCkwntaEwQM84osqjU7Ey_Ap2lKCXZCKnFvvwPBlAO-Z8Ghm8Ys3vGkwfd8Xe2NSkE1UfCAfvyDBqMYwsnGZ46HLWTJQuWbu2pLzgf6so9NlZvj_VzQFjR_7l7GhtCMWoBd7G68AwCCtldJHyW8OgUbIBUDfdc6I_kEeWWAMUgza2ZoKGivxxUMZEv03YYLvQ
+code= cod-478f87fb37efad31fe42cb38426ab68088e36e6b6f6d623d2f81a952a8b44d61
+## Resolve Handle
+Resolve DNS _atproto.phill.hallambaker.com
+Resolve Web https://phill.hallambaker.com/.well-known/atproto-did
+DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
+Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
+## Begin Pre-Request
+Pre Authorization Request
+Pre Authorization Response
+Redirect Uri
+# Redirect URI
+iss= https://bsky.social
+state= yKaYxCFHpJdkjIfFcDOfkoAq3xY3lAs-cFBpKf6TsehkLqL_58uUFlVtSMenLY3tKGJkdyRvlq2Fzk8Qd6kK79PTLbQcBZHBopJasAPrWahuo3-Txt8ktG1kkuHuYPpl1iAMzGdn78aTrRK0H31st-wgV1f8bem_vi09KfTc7RrZG39XB4ld3sfGFSFlUeXZApiZEW7twvv-2jY-WHHDEJPzBdeeV9MeT7CUJLA5h7Hc90ZqMcFbdH1rb2LVgThoCJv0-Q
+code= cod-23191e999ae7c4f24e7258a2bfe16f5d0a84186d67e8de24bb85807fc6485113
+## Resolve Handle
+Resolve DNS _atproto.phill.hallambaker.com
+Resolve Web https://phill.hallambaker.com/.well-known/atproto-did
+DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
+Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
+## Begin Pre-Request
+Pre Authorization Request
+Pre Authorization Response
+Redirect Uri
+# Redirect URI
+iss= https://bsky.social
+state= QIXJtaZIJU87LDFQXsgq-XEFKPk3CqoXWST04nejXXrfZELCRtGMZSp0gubRxUfjHG51aUh2PhlyqRTi8Ud120It-WlSNlGAqmo6O4RK0L2UfiK9BIpBSJ8oDKTrxAnXknoGmZ3miy3klR3kNuqQPuUIBOqd9sU3DHYEC9Dp4N582u-g60hWjk54T6ekrM4I7J910uZmzHXyZUWnhaYDEjR0BSzHDCWLPFnMZ3cnybvB2oLuo8CNuH8xK1KJTG1On474IA
+code= cod-049eb1102c682f189db0495cf772a3008779786ff1696426951e4bfabd261076
+["RS256",
     "RS384",
     "RS512",
     "PS256",

@@ -31,7 +31,11 @@ LinkFiles = \
     Goedel.Mesh.dll\
     Goedel.Places.dll
 
-ToolTargets = 
+ToolTargets = \
+	Exceptions.cs
+Exceptions.cs : Exceptions.exceptional 
+	exceptional Exceptions.exceptional  /cs  Exceptions.cs
+
 
 
 prebuildRecurse : 

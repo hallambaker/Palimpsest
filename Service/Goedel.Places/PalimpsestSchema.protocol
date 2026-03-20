@@ -8,6 +8,43 @@
 
 	Section 2 "Catalog Entries"
 
+	Structure PlaceConfiguration
+		Description
+			|Service configuration file
+
+		String DefaultSite
+			Description
+				|Canonical DNS name of the default site.
+		String Administrators
+			Multiple
+			Description
+				|DNS handle of site administrators
+		Integer Limits
+			Dictionary
+			Description
+				|Specify default limits on resource use
+
+		String Site
+			Description
+				|Directory in which the site  catalogs are kept.
+		String Members
+			Description
+				|Directory in which the per member catalogs are kept.
+		String Logs
+			Description
+				|Directory to write logs to
+		String Repository
+			Description
+				|Directory to write created content to
+		String Resources
+			Description
+				|Directory to fetch resources (style sheets, icons) from
+				
+		String TestSeed
+			Description
+				|Seed used for cookie validation TEST USE ONLY
+
+
 	Structure CatalogedForumEntry
 		Inherits CatalogedEntry // Uid, LocalName, Path, Description
 		Description
@@ -26,11 +63,17 @@
 			Description
 				|Designated owner(s) DIDs
 
+	Structure CatalogedSite
+		Struct AccessControl AccessControl
+		String DefaultPlace
 
 	Structure CatalogedPlace
 		Inherits CatalogedForumOwned
 		Description
 			|A cataloged project.
+		Boolean Default
+			Description
+				|If true, this overrides the previous default place definition in the feed.
 		String Aliases
 			Multiple
 			Description
@@ -41,22 +84,26 @@
 		String Banner
 			Description
 				|Splash screen for the place
-		Struct CatalogedFeed Stream
-			Multiple
+		String DefaultFeed
 			Description
-				|The conversation streams
+				|The default feed id.
+		Struct AccessControl AccessControl
 
 
-	Structure CatalogedForumVisitor
+	Structure CatalogedMember
 		Inherits CatalogedForumEntry
 		Description
 			|
+
 		String Did
 			Description
 				|The user's Did (if used).
 		String Handle
 			Description
 				|The user's DNS handle.
+		String DisplayName
+			Description
+				|The user's display name
 		String Avatar
 			Description
 				|Resource link to the user's avatar image
@@ -66,10 +113,6 @@
 		String Status
 			Description
 				|The member's status: Active / Inactive / Blocked
-		String Privileges
-			Multiple
-			Description
-				|Assigned privileges (Admin / Moderator)
 		String Places
 			Multiple
 			Description
@@ -87,6 +130,7 @@
 			Multiple
 			Description
 				|Posts to the stream
+		Struct AccessControl AccessControl
 
 
 	Structure CatalogedPost
@@ -118,6 +162,10 @@
 		String Text
 			Description
 				|The comment text in UTF8 format.
+		String ReplyId
+			Description
+				|Comment this is a reply to
+
 
 	Structure CatalogedResource
 		Inherits CatalogedForumEntry
@@ -132,3 +180,28 @@
 		String Summary
 			Description
 				|The post summary in UTF8 format.
+
+				
+	Structure AccessControl
+		String Administrators
+			Multiple
+			Description
+				|User identifiers of administrators
+		String Moderators
+			Description
+				|User identifiers of 
+		String Authors
+			Description
+				|User identifiers of 
+		Integer ModeratorPrivileges
+			Description
+				|Bit string assigning privileges to moderators.
+		Integer AuthorPrivileges
+			Description
+				|it string assigning privileges to authors
+		Integer VisitorPrivileges
+			Description
+				|it string assigning privileges to visitors
+
+
+

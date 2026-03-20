@@ -21,71 +21,36 @@
 #endregion
 
 
+using System.ComponentModel;
+
 namespace Goedel.Places;
-public partial class CatalogedForumVisitor {
+public partial class CatalogedMember {
 
-    public override string _PrimaryKey => Did;
-
-
-
-
-
-    //public string Anchor => $"/{PalimpsestConstants.User}/{LocalName}";
+    //public string DidRaw { 
+    //    get => Did.Replace('_', ':'); 
+    //    set=> Did = value.Replace(':', '_'); }
 
 
-
-    //public string MeshAddress => LocalName switch
-    //    {
-    //        "phill.hallambaker.com" => "mesh:MAYF-D7LJ-5IMP-EUCG-HSGH-7LSR-AAPZ@example.com",
-    //        _ => null};
-
-    //public string MeshAnchor => MeshAddress == null ? "" :
-    //    $"<a href=\"{MeshAddress}\">{MeshAddress}</a>";
-
-    ///<inheritdoc/>
-
-    //public void SetPasswordDigest(
-    //            string password,
-    //            string username,
-    //            string realm) {
-
-    //    PasswordDigest = GetPasswordDigest(password, username, realm);
+    public static string DidToPrimaryKey(string did) => Udf.ContentDigestOfUDF(did, 120);
 
 
-    //    }
+   // Hack: Should store the actual userId not recalculate it each time from the DID.
+
+    public override string _PrimaryKey => DidToPrimaryKey(Did);
+
+    /// <inheritdoc/>
+    public override List<string>? _SecondaryKeys => new List<string>() { LocalName };
 
 
-    //public bool VerifyPassword(
-    //            string password,
-    //            string username,
-    //            string realm) {
+    public bool IsAdministrator { get; set; } = false;
 
-    //    var digest = GetPasswordDigest(password, username, realm);
 
-    //    return digest.IsEqualTo(PasswordDigest);
-    //    }
+    public bool HasPersonal => false;
 
-    //public static byte[] GetPasswordDigest(
-    //        string password,
-    //        string username,
-    //        string realm) {
 
-    //    var writer = new MemoryStream();
-    //    Write(password);
-    //    Write(username);
-    //    Write(realm);
-    //    var buffer = writer.GetBuffer();
+    public string Display => DisplayName ?? "Not specified";
 
-    //    return SHA256.HashData(buffer);
-
-    //    // write a chunk of data to the stream
-    //    void Write (string text) {
-    //        var bytes = text.ToBytes();
-    //        writer.WriteByte ((byte)bytes.Length);
-    //        writer.Write(bytes);
-    //        }
-    //    }
-
+    public string DisplayHandle => LocalName ?? "Not.Specified";
 
 
     }

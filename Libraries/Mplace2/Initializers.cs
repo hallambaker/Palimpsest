@@ -18,7 +18,7 @@ public partial class User {
 
     // This is how we will be overriding the avatar when we get to it...
     /// <inheritdoc/>
-    public override string? GetAvatar => DefaultAvatar;
+    //public override string? GetAvatar => DefaultAvatar;
 
     //public override string? GetAvatar => $"/Avatar/{DID}";
 

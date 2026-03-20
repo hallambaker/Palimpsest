@@ -21,6 +21,9 @@ public enum SignInState {
     ///<summary>Visitor is administrator.</summary>
     IsAdministrator = 8,
 
+    ///<summary>Visitor is administrator.</summary>
+    NoPlaceExists = 16,
+
     ///<summary>Sign in state is not known</summary>
     Unknown = -1
     }
@@ -31,23 +34,26 @@ public enum SignInState {
 
 public partial class MainNav {
 
-    /// <summary>The sign in state.</summary>
-    public SignInState SignInState => signInState != SignInState.Unknown ?
-        signInState : Page.GetSignInState(out signInState);
-    SignInState signInState = SignInState.Unknown;
+    PersistPlace PersistPlace => ParsedPath.PersistPlace as PersistPlace;
+
+    ParsedPath ParsedPath => Page.Context as ParsedPath;
+    CatalogedMember MemberHandle => ParsedPath?.MemberHandle;
+
 
     /// <summary>True if the user has signed in.</summary>
-    public bool SignedIn => SignInState.HasFlag(SignInState.SignedIn);
+    public bool NoPlaceExists => !PersistPlace.PlaceExists;
 
-    /// <summary>True if the user has a personal page.</summary>
-    public bool HasPersonal => SignInState.HasFlag(SignInState.HasPersonalPlace);
+    /// <summary>True if the user has signed in.</summary>
+    public bool HasFeeds => false;
+
+    /// <summary>True if the user has signed in.</summary>
+    public bool SignedIn => MemberHandle is not null;
 
     /// <summary>If true, the visitor is an administrator.</summary>
-    public bool IsAdmin => SignInState.HasFlag(SignInState.IsAdministrator);
+    public bool IsAdmin => MemberHandle?.IsAdministrator == true;
 
-    /// <summary>If true, the visitor is a moderator.</summary>
-    public bool IsModerator => SignInState.HasFlag(SignInState.IsModerator);
-
+    /// <summary>True if the user has a personal page.</summary>
+    public bool HasPersonal => MemberHandle?.HasPersonal == true;
 
     /// <summary>State of the sign in button, only visible when signed out, active 
     /// on sign in page</summary>
@@ -73,17 +79,17 @@ public partial class MainNav {
     /// <summary>State of the create feed button, active on the places page, disabled
     /// if not signed in.</summary>
     public ButtonVisibility? FeedsActive => GetVisibility(Page is FeedsPage,
-        disable: !SignedIn);
+        hide: !HasFeeds, disable: !SignedIn);
 
     /// <summary>State of the create feed button, active on the places page, disabled
     /// if not signed in.</summary>
     public ButtonVisibility? PostsActive => GetVisibility(Page is PostsPage,
-        disable: !SignedIn);
+        disable: NoPlaceExists);
 
     /// <summary>State of the bookmarks button, active on the bookmarks page, disabled
     /// if not signed in.</summary>
     public ButtonVisibility? BookmarksActive => GetVisibility(Page is BookmarkPage,
-        disable: !SignedIn);
+        disable: NoPlaceExists | !SignedIn);
 
 
     /// <summary>State of the your place button, active on the bookmarks page, only
@@ -108,12 +114,19 @@ public partial class MainNav {
     /// <summary>State of the create feed button, active on the places page, disabled
     /// if not signed in.</summary>
     public ButtonVisibility? CreateFeedActive => GetVisibility(Page is CreateFeed,
-        disable: !SignedIn);
+        hide: NoPlaceExists | !SignedIn| !HasFeeds);
 
     /// <summary>State of the create feed button, active on the places page, disabled
     /// if not signed in.</summary>
     public ButtonVisibility? CreatePostActive => GetVisibility(Page is CreatePost,
-        disable: !SignedIn);
+        hide: NoPlaceExists | !SignedIn);
+
+
+    /// <summary>True if the user has signed in.</summary>
+    public string GetUserAvatar(ButtonVisibility visibility) => 
+        PersistPlace.GetAvatarPath(ParsedPath.MemberHandle);
+
+
 
 
     ButtonVisibility GetVisibility(

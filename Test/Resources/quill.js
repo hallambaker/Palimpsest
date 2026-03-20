@@ -5,7 +5,9 @@ const quill = new Quill('#richtext', {
             [{ 'header': 1 }, { 'header': 2 }, { 'header': 3 }],  
             ['bold', 'italic'],
             [{ 'script': 'sub' }, { 'script': 'super' }], 
-            ['link', 'blockquote', 'code-block', 'image'],
+            ['link', 'blockquote', 'code-block'  //, 'image'
+			// remove image for now.
+			],
             [{ list: 'ordered' }, { list: 'bullet' }],
         ],
     },

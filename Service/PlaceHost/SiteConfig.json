@@ -1,0 +1,17 @@
+{
+  "DefaultSite": "mplace2.social",
+  "Administrators": [ "phill.hallambaker.com" ],
+  "Limits": {
+    "RequestSize": 100000,
+    "PostsPerHour": 100,
+    "PostSize": 10000,
+    "CommentSize": 300,
+    "UserStorage": 10000000
+  },
+  "Logs": "C:\\Users\\hallam\\Test\\MPlace",
+  "Site": "C:\\Users\\hallam\\Test\\Palimpsest",
+  "Members": "C:\\Users\\hallam\\Test\\Palimpsest\\Members",
+  "Repository": "C:\\Users\\hallam\\Test\\Palimpsest\\Repository",
+  "Resources": "C:\\Users\\hallam\\source\\repos\\Palimpsest\\Test",
+  "TestSeed": "This is a testy test so there!"
+}

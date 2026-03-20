@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Goedel.Places": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    }
+  }
+}

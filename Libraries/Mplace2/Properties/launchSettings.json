@@ -2,7 +2,8 @@
   "profiles": {
     "MakeGui": {
       "commandName": "Project",
-      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\Palimpsest"
+      "workingDirectory": "C:\\Users\\hallam\\source\\repos\\Palimpsest",
+      "hotReloadEnabled": false
     }
   }
 }

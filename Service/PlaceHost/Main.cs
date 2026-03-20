@@ -21,9 +21,6 @@
 #endregion
 
 
-using Goedel.Palimpsest;
-using Goedel.Sitebuilder;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +30,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Goedel.Palimpsest;
+using Goedel.Protocol.Service;
+using Goedel.Sitebuilder;
 //using Windows.ApplicationModel.DataTransfer;
 
 using static System.Net.Mime.MediaTypeNames;
@@ -56,18 +56,27 @@ internal sealed class Program {
         Screen.Flush();
 
 
+        var configFile = "SiteConfig.json";
+        var serviceConfig = configFile.ReadFileJson<PlaceConfiguration>();
+
 
 
         var frameset = new MyClass() {
             Resources = [
-                new Stylesheet("Resources/stylesheet.css", "text/css")],
+                new Stylesheet("/Resources/stylesheet.css", "text/css")],
             EndResources = [],
-            Directory = directory,
-            RepositoryFiles = Path.Combine(directory, PalimpsestConstants.ContentRepository),
-            ResourceFiles = resources
+            Directory = serviceConfig.Site,
+            Members = serviceConfig.Members,
+            Logs = serviceConfig.Logs,
+            RepositoryFiles = serviceConfig.Repository,
+            ResourceFiles = serviceConfig.Resources,
+            RandomSeed = serviceConfig.TestSeed
             };
 
-        var persistPlace = new PersistPlace(frameset);
+        frameset.SetLimits(serviceConfig.Limits);
+
+
+        var persistPlace = new PersistPlace(frameset, serviceConfig);
 
         var annotationService = new AnnotationService(frameset, persistPlace);
         annotationService.Start();

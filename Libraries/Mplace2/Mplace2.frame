@@ -8,7 +8,8 @@ Namespace Mplace2.Gui
             SignInActive Boolean
             Hover Description "Sign in using your @nywhere account"
 
-        Avatar Button SwitchPage "Sign Out"
+        Avatar Button SwitchPage "Account"
+            GetUserAvatar Customized 
             SignOutActive Boolean
             Hover Description "Sign out or switch account"
 
@@ -45,11 +46,11 @@ Namespace Mplace2.Gui
         NewPlace Button NewPlacePage "Create Place"
             CreatePlaceActive Boolean
 
-        CreateFeed Button CreateFeedActive "Create Feed"
-            PlacesActive Boolean
+        CreateFeed Button CreateFeed "Create Feed"
+            CreateFeedActive Boolean
 
-        CreatePost Button CreatePostActive "Create Post"
-            PlacesActive Boolean
+        CreatePost Button CreatePost "Create Post"
+            CreatePostActive Boolean
 
     TopSettings Menu
         Menu Button SettingsPage "Menu"
@@ -202,6 +203,8 @@ Namespace Mplace2.Gui
         Navigation Is MainNav
 
         CreatePostAction Form Post      // Post entry form, i.e. Quill
+            FeedId String
+                Hidden
             Title String                // Post Title
                 Prompt "Title"
                 Description "Title, should be short."
@@ -220,6 +223,12 @@ Namespace Mplace2.Gui
 
         Target Is Comment               // Comment being responded to
         Form Form Comment               // Comment entry form
+            FeedId String
+                Hidden
+            PostId String
+                Hidden
+            CommentId String
+                Hidden
             Text Text
                 Prompt "Text"
 
@@ -423,7 +432,7 @@ Namespace Mplace2.Gui
             PlaceBanner Presentation Uid
                 Title
                     TitleLink Anchor
-                    HandleLink Anchor
+                    //HandleLink Anchor
                 Avatar
                     Avatar Avatar
                 Banner
@@ -442,6 +451,8 @@ Namespace Mplace2.Gui
     Post SubClass Entry
         Description "A collection of comments"
         Fields
+            FeedId String
+                Hidden
             User Is User                // The owner of the entry, typically the user who created/added the entry
             Title String                // Post Title
                 Prompt "Title"
@@ -456,18 +467,21 @@ Namespace Mplace2.Gui
 
             PostSummary Presentation Uid
                 Avatar
+                    AuthorLink Anchor
                     User.Avatar Avatar
                 Author
+                    AuthorLink Anchor
                     User.DisplayName String
                     User.DisplayHandle String
                     Created DateTime
                 Rule
                 Body
+                    PostLink Anchor
                     Title String 
                     Summary Text 
 
             PostFull Presentation Uid
-                Avatar
+                Avatar 
                     User.Avatar Avatar
                 Author
                     User.DisplayName String
@@ -483,7 +497,8 @@ Namespace Mplace2.Gui
                     Created DateTime
                     Replies String             
                 Responses
-                    Comment Button CommentAction "Comment"
+                    Comment Button CreateComment "Comment"
+                        PostPath Anchor
                         Comments Integer               
                     Repost SubMenu "Repost"
                         Repost Button RepostAction "Repost"
@@ -521,6 +536,13 @@ Namespace Mplace2.Gui
     Comment SubClass Entry
         Description "A comment on a post"
         Fields
+            FeedId String
+                Hidden
+            PostId String
+                Hidden
+            CommentId String
+                Hidden
+
             User Is User                // The owner of the entry, typically the user who created/added the entry
             Text Text                   // Short text
             Resources Is Resource       // An associated resource
@@ -530,8 +552,10 @@ Namespace Mplace2.Gui
 
             CommentFull Presentation Uid
                 Avatar
+                    AuthorLink Anchor
                     User.Avatar Avatar
                 Author
+                    AuthorLink Anchor
                     User.DisplayName String
                     User.DisplayHandle String
                     Created DateTime
@@ -539,32 +563,52 @@ Namespace Mplace2.Gui
                 Body
                     Text Text
                 Responses
-                    Comment Button CommentAction "Comment"                    Repost SubMenu "Repost"
+                    Comment Button CreateComment "Comment"
+                        PostPath Anchor
+                    Repost SubMenu "Repost"
                         Repost Button RepostAction "Repost"
+                            PostPath Anchor
                         QuotePost Button QuotePostAction "Quote Post"
+                            PostPath Anchor
+
                     Like Button LikeAction "Like"
+                        PostPath Anchor
+
                         Liked Boolean
                         Likes Integer
                     SeeMore Button MoreAction "More"
+                        PostPath Anchor
                         RequestedMore Boolean
                     SeeLess Button LessAction "Less"
+                        PostPath Anchor
                         RequestedLess Boolean
                     Share SubMenu "Share"
                         LinkCopy Button HomePage "Copy link to post"
+                            PostPath Anchor
                         SendByDM Button HomePage "Send via direct message"
+                            PostPath Anchor
                         Embed Button HomePage "Embed post"
+                            PostPath Anchor
                     Ellipsis SubMenu "More"
                         Translate Button TranslateAction "Translate"
+                            PostPath Anchor
                         CopyToClipboard Button CopyPostAction "Copy post text"
+                            PostPath Anchor
                         S1 Separator 
                         MuteThread Button MuteThreadAction "Mute thread"
+                            PostPath Anchor
                         MuteWords Button MuteWordsAction "Mute words & tags"
+                            PostPath Anchor
                         S2 Separator
                         HidePost Button HidePostAction "Hide post for me"
+                            PostPath Anchor
                         S3 Separator
                         MuteAccount Button MuteAccountAction "Mute user"
+                            AuthorLink Anchor
                         BlockAccount Button BlockAccountAction "Block user"
+                            AuthorLink Anchor
                         Report Button ReportPostAction "Report post"
+                            AuthorLink Anchor
 
 
     Resource SubClass Entry

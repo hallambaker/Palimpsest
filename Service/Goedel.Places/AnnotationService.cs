@@ -81,7 +81,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
     ///<summary>State management interface to keep us logged in.</summary>
-    public ServerCookieManager ServerCookieManager { get; } = new();
+    public ServerCookieManager ServerCookieManager { get; } 
 
     ///<summary>DNS Client</summary>
     public DnsClient DnsClient { get; }
@@ -163,6 +163,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         FrameSet = frameset;
         PersistPlace = persistPlace;
 
+        ServerCookieManager = new(FrameSet.RandomSeed);
+
         HttpListener = new();
         HttpListener.Prefixes.Add(HttpEndpoint);
         //HttpListener.Prefixes.Add(HttpsEndpoint);
@@ -188,6 +190,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         Callbacks = new() {
             {".well-known", WellKnown},
             {"Resources", Resource},
+            {"Avatar", GetAvatar},
             {"Repo", Repository},
             {PalimpsestConstants.Redirect,Redirect},
             {PalimpsestConstants.ClientMetadata, ClientMetadata}
@@ -242,16 +245,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         
         var path = new ParsedPath(context, PersistPlace);
         var response = path.Context.Response;
-
-        // STUPID
-        // STUPID
-        // STUPID
-        Console.WriteLine($"Really stupid thing here! {path.UserId}");
-        path.UserId = "did:plc:k647x4n6h3jm347u3t5cm6ki";
-        // STUPID
-        // STUPID
-        // STUPID
-
 
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
             var form = GetForm(templatePage.Fields, path.Uri.Query[1..]);
@@ -365,17 +358,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task WellKnown(ParsedPath path) {
         await Error(path, "", HttpStatusCode.NotFound);
 
-        //var filePath = FrameSet.ResourceFiles + path.LocalPath;
-        //var response = path.Context.Response;
-        
-        //response.StatusCode = (int)HttpStatusCode.OK;
-        //response.StatusDescription = "Status OK";
-        //response.ContentType = filePath.GetFileType();
-
-        //using var file = filePath.OpenFileReadShared();
-        //file.CopyTo(response.OutputStream);
-
-        //response.OutputStream.Close();
 
 
         return;
@@ -386,7 +368,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var response = path.Context.Response;
 
         try {
-            var filePath = Path.Combine(FrameSet.RepositoryFiles, path.FirstId);
+            var filePath = Path.Combine(FrameSet.RepositoryFiles, path.ResourceId);
 
             response.StatusCode = (int)HttpStatusCode.OK;
             response.StatusDescription = "Status OK";
@@ -411,13 +393,31 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
 
         }
+
+    public async Task GetAvatar(ParsedPath path) {
+
+            var filePath = FrameSet.ResourceFiles +"\\Resources\\Icons\\Avatar.svg";
+
+            await GetResource(path, filePath);
+            return;
+
+        }
+
+
 
     public async Task Resource(ParsedPath path) {
-        var response = path.Context.Response;
+        var filePath = FrameSet.ResourceFiles + path.LocalPath;
 
+        await GetResource(path, filePath);
+        return;
+        }
+
+
+    public async Task GetResource(ParsedPath path, string filePath) {
+
+        var response = path.Context.Response;
         try {
-            var filePath = FrameSet.ResourceFiles + path.LocalPath;
-            
+
             response.StatusCode = (int)HttpStatusCode.OK;
             response.StatusDescription = "Status OK";
             response.ContentType = filePath.GetFileType();
@@ -439,6 +439,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         return;
         }
+
+
 
     public async Task Redirect(ParsedPath path) {
 
@@ -466,7 +468,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var member = PersistPlace.GetOrCreateMember(success.Handle, success.DID);
         // have authenticated against a DID and a handle. We are going to keep both.
         var cookie = PersistPlace.ServerCookieManager.GetCookie(
-            PalimpsestConstants.CookieTypeSessionTag, member.PrimaryKey);
+            PalimpsestConstants.CookieTypeSessionTag, member?._PrimaryKey);
         context.Response.Cookies.Add(cookie);
 
 

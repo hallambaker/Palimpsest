@@ -9,6 +9,7 @@
 		<Configurations>Debug;Release;Sandcastle;Github</Configurations>
 		<DocumentationFile>xml\Documentation.xml</DocumentationFile>
 		<DefineConstants>_Github_</DefineConstants>
+		<Nullable>annotations</Nullable>	
 	</PropertyGroup>
 
 

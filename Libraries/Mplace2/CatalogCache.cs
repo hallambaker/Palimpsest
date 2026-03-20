@@ -9,16 +9,29 @@ public class CacheHandle<T> : Disposable where T : EarlCatalog {
     public T Value;
 
     public CacheHandle(T value) {
+        Console.WriteLine($"Open file {value?.Stream?.Filename}");
         Value = value;
         }
 
     protected override void Disposing() {
-        Value.CloseStream();
+        Console.WriteLine($"Close file {Value?.Stream?.Filename}");
+        Value?.CloseStream();
         }
 
     }
 
 
+
+
+//public class CacheHandlePostComments : CacheHandle<CachedComments> {
+
+
+
+
+//    public CacheHandlePostComments(CachedComments value) : base (value) { 
+//        } 
+
+//    }
 
 public class CatalogCache (string PlaceDirectory) {
 
@@ -50,10 +63,6 @@ public class CatalogCache (string PlaceDirectory) {
         return Intern(catalog);
         }
 
-    public void Release(CachedFeeds feeds) {
-        feeds.Dispose();
-        }
-
 
     #endregion
 
@@ -82,89 +91,52 @@ public class CatalogCache (string PlaceDirectory) {
 
 
 
-    /// <summary>Return the feeds associated with a place</summary>
-    /// <param name="place">The place uid</param>
-    /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedComments> CreatePostComments(
-                string place,
-                string feed,
-                string post) {
-        var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
-        Directory.CreateDirectory(directory);
-        return GetPostComments(place,feed,post);
-        }
+    ///// <summary>Return the feeds associated with a place</summary>
+    ///// <param name="place">The place uid</param>
+    ///// <returns>The cached feeds for the place</returns>
+    //public CacheHandle<CachedComments> CreatePostComments(
+    //            string place,
+    //            string feed,
+    //            string post) {
+    //    var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
+    //    Directory.CreateDirectory(directory);
+    //    return GetPostComments(place,feed,post);
+    //    }
 
     /// <summary>Return the feeds associated with a place</summary>
     /// <param name="place">The place uid</param>
     /// <param name="feed">The feed uid</param>
     /// <param name="post">The post uid</param>
     /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedComments> GetPostComments(
-                string place,
-                string feed,
-                string post) {
+    public CacheHandle<CachedComments> GetPostAndComments(
+                string placeId,
+                string feedId,
+                string postId) {
 
-        var catalog = CachedComments.Open(this, PlaceDirectory, place, feed, post);
+        CatalogedPost catalogedPost;
+
+        // We only need the catalog handle long enough to be able to acquire the CatalogedPost
+        using (var postsHandle = GetFeedPosts(placeId, feedId)) {
+            var posts = postsHandle.Value;
+            posts.AssertNotNull(FeedNotFound.Throw, feedId);
+            posts.TryGetById(postId, out catalogedPost).AssertTrue(PostNotFound.Throw, postId);
+            }
+
+        // open the catalog, and return a handle to it.
+        var catalog = CachedComments.Open(this, PlaceDirectory, placeId, feedId, postId);
+        catalog.CatalogedPost = catalogedPost;
         return Intern(catalog);
         }
 
+    public CacheHandle<CachedComments> GetComments(
+            string placeId,
+            string feedId,
+            string postId) {
 
+        // open the catalog, and return a handle to it.
+        var catalog = CachedComments.Open(this, PlaceDirectory, placeId, feedId, postId);
+        return Intern(catalog);
+        }
 
     }
 
-
-
-///// <summary>
-///// Cached catalog of projects.
-///// </summary>
-//public class CachedPlaces1 : Cache<PlaceHandle, CatalogedPlace> {
-
-
-//    public PlaceHandle PrimaryHandle { get; set; } = null;
-
-//    public IPersistPlace Place { get; }
-
-//    /// <summary>
-//    /// Constructor, return an instance of the projects catalog writing persistent
-//    /// data to <paramref name="directory"/>.
-//    /// </summary>
-//    /// <param name="directory">The directory of the peristence store.</param>
-//    public CachedPlaces1(
-//                IPersistPlace place,
-//                string directory,
-//                bool create = false) : base(
-//                    directory, PalimpsestConstants.StoreTypePlacesTag, create) {
-//        Place = place;
-//        CreateHandle = Factory;
-
-//        Console.WriteLine($"Create Catalog Projects");
-
-//        }
-
-//    private PlaceHandle Factory(CatalogedPlace catalogedEntry)
-//            => new(this, catalogedEntry);
-
-
-
-//    public IEnumerable<CatalogedPlace> GetProjectEnumerator() {
-//        var projects = new List<CatalogedPlace>();
-
-//        foreach (var project in Catalog) {
-//            projects.Add(project);
-//            }
-
-
-//        return projects;
-//        }
-
-//    /// <inheritdoc/>
-//    public override void Add(PlaceHandle handle) {
-//        base.Add(handle);
-
-//        Console.WriteLine($"Add place {handle.Place.DNS}");
-//        PrimaryHandle ??= handle;
-//        }
-
-
-
-//    }

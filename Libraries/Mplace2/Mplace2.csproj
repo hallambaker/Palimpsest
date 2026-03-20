@@ -23,8 +23,20 @@
 		<ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
 		<ProjectReference Include="..\..\Service\Goedel.Places\Goedel.Places.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Exceptions.cs">
+			<DependentUpon>Exceptions.exceptional</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+	</ItemGroup>
 	
 	<ItemGroup>
+	  <None Update="Exceptions.exceptional">
+	    <LastGenOutput>Exceptions.cs</LastGenOutput>
+	    <Generator>exceptional</Generator>
+	  </None>
 	  <None Update="Mplace2.frame">
 	    <Generator>Frame</Generator>
 	  </None>
@@ -33,5 +45,7 @@
 	<ItemGroup>
 	  <Folder Include="Resources\Icons\" />
 	</ItemGroup>
+	
+
 	
 </Project>

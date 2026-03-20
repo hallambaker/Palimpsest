@@ -1,9 +1,9 @@
 
-//  This file was automatically generated at 2/5/2026 6:36:10 PM
+//  This file was automatically generated at 3/17/2026 2:48:07 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
-//  Generator:  constant version 3.0.0.1170
+//  Generator:  constant version 3.0.0.1173
 //      Goedel Script Version : 0.1   Generated 
 //      Goedel Schema Version : 0.1   Generated
 //  
@@ -29,7 +29,8 @@ public enum CookieType {
     ///<summary>Authentication session cookie</summary>
     Session,
     ///<summary>Temporary authentication session cookie</summary>
-    Temporary    }
+    Temporary
+    }
 
 ///<summary>Store labels</summary>
 public enum StoreType {
@@ -42,7 +43,8 @@ public enum StoreType {
     ///<summary>Resources catalog</summary>
     Resources,
     ///<summary>Reaction catalog</summary>
-    Reaction    }
+    Reaction
+    }
 
 
 ///<summary>

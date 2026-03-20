@@ -1,12 +1,16 @@
 ﻿
 using System.IO;
 using System.Net;
+using System.Runtime.CompilerServices;
 
 using DocumentFormat.OpenXml.Spreadsheet;
 
 using Goedel.Contacts;
+using Goedel.Cryptography.Jose;
 using Goedel.Cryptography.Oauth;
+using Goedel.Discovery;
 using Goedel.IO;
+using Goedel.Protocol.Service;
 
 
 namespace Mplace2.Gui;
@@ -15,10 +19,15 @@ public class PersistPlace : IPersistPlace {
 
 
 
+    public PlaceConfiguration PlaceConfiguration { get; }
+
+    public CachedMembers CachedMembers { get; }
     public CachedPlaces CachedPlaces { get; }
     public CatalogCache CatalogCache { get; }
 
-    CatalogedPlace HomeCatalogedPlace { get; set; } = null;
+    public bool PlaceExists => HomePlace != null;
+
+    public CatalogedPlace HomeCatalogedPlace { get; set; } = null;
     public Place? HomePlace { get; set; } = null;
 
     public List<Entry> RecentPlaces { get; set; } = new();
@@ -28,7 +37,7 @@ public class PersistPlace : IPersistPlace {
 
     /// <inheritdoc/>
     public ServerCookieManager ServerCookieManager { get; set; }
-
+    public ResoourceLimits ResourceLimits { get; } = new();
 
     /// <inheritdoc/>
     public OauthClient OauthClient { get; set; }
@@ -42,9 +51,8 @@ public class PersistPlace : IPersistPlace {
     string ContentDirectory { get;  }
 
 
+    public int IdLength { get; set; } = 40;
 
-
-    public Dictionary<string, MemberHandle> Members { get; } = [];
 
 
     public Place DefaultPlace = new() {
@@ -54,7 +62,8 @@ public class PersistPlace : IPersistPlace {
 
 
 
-    public PersistPlace(FrameSet frameSet) {
+    public PersistPlace(FrameSet frameSet, PlaceConfiguration placeConfiguration) {
+        PlaceConfiguration = placeConfiguration;
         FrameSet = frameSet;
         PlaceDirectory = FrameSet.Directory;
         ContentDirectory = FrameSet.RepositoryFiles;
@@ -67,18 +76,34 @@ public class PersistPlace : IPersistPlace {
 
         // Create the places file.
         CachedPlaces = CachedPlaces.Open(CatalogCache, PlaceDirectory);
+        CachedMembers = CachedMembers.Open(CatalogCache, PlaceDirectory);
         InitializePlaces();
+        SetResoourceLimits();
+        PlaceConfiguration = placeConfiguration;
+        }
+
+    private void SetResoourceLimits() {
+        ResourceLimits.RequestSize = SetLimit(PalimpsestConstants.LimitRequestSizeTag, ResourceLimits.RequestSize);
+        ResourceLimits.PostsPerHour = SetLimit(PalimpsestConstants.LimitPostsPerHourTag, ResourceLimits.PostsPerHour);
+        ResourceLimits.PostSize = SetLimit(PalimpsestConstants.LimitPostSizeTag, ResourceLimits.PostSize);
+        ResourceLimits.CommentSize = SetLimit(PalimpsestConstants.LimitCommentSizeTag, ResourceLimits.CommentSize);
+        ResourceLimits.UserStorage = SetLimit(PalimpsestConstants.LimitUserStorageTag, ResourceLimits.UserStorage);
+        }
+
+    private int SetLimit(string tag, int value) {
+        PlaceConfiguration.Limits?.TryGetValue(tag, out value);
+        return value;
         }
 
 
     private void InitializePlaces() {
-        CachedPlaces.FillIndex();
 
-        // Hack:  change  this to  read  first frame.
-        foreach (var place in CachedPlaces.EntriesForward()) {
-            HomeCatalogedPlace = CachedPlaces.GetValue(place);
-            HomePlace = new(HomeCatalogedPlace);
-            break;
+        if (PlaceConfiguration.DefaultSite != null) {
+            if (CachedPlaces.TryGetBySecondaryId(PlaceConfiguration.DefaultSite,
+                    out var catalogedPlace)) {
+                HomeCatalogedPlace = catalogedPlace;
+                HomePlace = new(HomeCatalogedPlace, this);
+                }
             }
 
         foreach (var place in CachedPlaces.EntriesReverse()) {
@@ -87,43 +112,80 @@ public class PersistPlace : IPersistPlace {
                 }
             var recent = CachedPlaces.GetValue(place);
             if (recent.Uid != HomeCatalogedPlace.Uid) {
-                RecentPlaces.Add(new Place(recent));
+                RecentPlaces.Add(new Place(recent, this));
                 }
             }
 
+
+        // Set the site administrator flag for accounts in the 
+        foreach (var admin in PlaceConfiguration.Administrators.IfEnumerable()) {
+            if (CachedMembers.TryGetByHandle(admin,
+                    out var catalogedMember)) {
+                catalogedMember.IsAdministrator = true;
+                }
+            }
+
+
         }
 
-
-
+    /// <inheritdoc/>
+    public bool TryGetPlaceByDns(Uri uri, out CatalogedPlace? catalogedPlace) =>
+        CachedPlaces.TryGetBySecondaryId(uri.Host, out catalogedPlace);
 
     /// <inheritdoc/>
-    public MemberHandle GetOrCreateMember(string handle, string did) {
-        var member = new CatalogedForumVisitor() {
+    public CatalogedMember GetOrCreateMember(string handle, string did) {
+
+        if (CachedMembers.TryGetByDid(did, out var member)) {
+            return member;
+            }
+
+        var result = new CatalogedMember() {
             Did = did,
             LocalName = handle
             };
-        var result = new MemberHandle(member);
 
-        Members.Add(did, result);
+        foreach (var admin in PlaceConfiguration.Administrators.IfEnumerable()) {
+            if (admin == handle) {
+                result.IsAdministrator = true;
+                }
+            }
+
+        CachedMembers.Add(result);
         return result;
         }
 
+
+
+
+
     /// <inheritdoc/>
-    public MemberHandle? GetMember(ParsedPath path) {
-        if (!ServerCookieManager.TryGetCookie(
-            path.Context.Request, PalimpsestConstants.CookieTypeSessionTag, out var did)) {
-            return null;
-            }
-        if (did is null) {
-            return null;
+    public bool GetMember(ParsedPath path, out CatalogedMember? member) =>
+        (CachedMembers.TryGetById(path.UserId, out member));
+
+
+    public User GetUser(string userId) {
+        if (CachedMembers.TryGetById(userId, out var member)) {
+
+
+            return new User() {
+                Avatar = GetMemberAvatar(member._PrimaryKey),
+                DisplayName = member.Display,
+                DisplayHandle = member.DisplayHandle,
+                Banned = false
+                };
+
             }
 
-        if (Members.TryGetValue(did, out var member)) {
-            path.MemberHandle = member;
-            return member;
-            }
-        return null;
+        return new User() {
+            Avatar = FrameSet.IconPath( "AvatarDefault.svg"),
+            DisplayName = "Anonymous",
+            DisplayHandle = "not.here",
+            Banned = false
+            
+            };
+
         }
+
 
 
     public Cookie SignOut() =>
@@ -171,11 +233,10 @@ public class PersistPlace : IPersistPlace {
     /// <remarks>Update is locked to ensure thread safety. If two places are added at 
     /// the same time, the list updates are performed sequentially.</remarks>
     public void Add(CatalogedPlace catalogedPlace) {
-
+        catalogedPlace.Uid ??= CreatePlaceId();
         // create the identifier for the place and the default feed
-        var placeId = Udf.Nonce();
+        var placeId = catalogedPlace.Uid;
         var feedId = placeId;
-        catalogedPlace.Uid = placeId;
 
         // initialize the default feed.
         using var placeFeeds = CatalogCache.CreatePlaceFeeds(placeId);
@@ -188,8 +249,9 @@ public class PersistPlace : IPersistPlace {
         CachedPlaces.Add(catalogedPlace);
 
         // Upodate the presentation information for the site home screen.
-        var place = new Place(catalogedPlace);
+        var place = new Place(catalogedPlace, this);
         if (HomePlace is null) {
+            HomeCatalogedPlace = catalogedPlace;
             HomePlace = place;
             }
         else {
@@ -220,7 +282,7 @@ public class PersistPlace : IPersistPlace {
     /// <param name="place">The place identifier</param>
     /// <param name="entry">The entry to add.</param>
     public void Add(string place, CatalogedFeed entry) {    
-        entry.Uid ??= Udf.Nonce();
+        entry.Uid ??= CreateFeedId();
         using var feeds = CatalogCache.GetPlaceFeeds(place);
         Add(feeds.Value, place, entry);
         }
@@ -242,8 +304,8 @@ public class PersistPlace : IPersistPlace {
         }
 
     public void Add(string place, string feed, CatalogedPost entry) {
-        entry.Uid ??= Udf.Nonce();
-        using var posts = CatalogCache.GetFeedPosts(place, feed);
+        entry.Uid ??= CreatePostId();
+        using var posts = CatalogCache.GetFeedPosts(place, feed??place);
         posts.Value.Add(entry);
 
         using var comments = CatalogCache.CreateFeedPosts(place, entry.Uid);
@@ -257,8 +319,8 @@ public class PersistPlace : IPersistPlace {
         }
 
     public void Add(string place, string feed, string post, CatalogedComment entry) {
-        entry.Uid ??= Udf.Nonce();
-        using var comments = CatalogCache.GetPostComments(place, feed, post);
+        entry.Uid ??= CreateCommentId();
+        using var comments = CatalogCache.GetComments(place, feed, post);
         comments.Value.Add(entry);
         }
 
@@ -293,9 +355,57 @@ public class PersistPlace : IPersistPlace {
         }
 
 
+    public static string GetMemberAvatar(
+        string memberId) => $"/Avatar/{memberId}";
 
 
+    public string GetPostPath(
+        string placeId,
+        string feedId,
+        string postId) => $"/{feedId}/{postId}";
+
+    public string GetCommentPath(
+        string placeId,
+        string feedId,
+        string postId, 
+        string commentId) => $"/{feedId}/{postId}/{commentId}";
+
+    public string GetPostLink(
+            string placeId,
+            string feedId,
+            string postId) => $"/PostPage{GetPostPath(placeId, feedId, postId)}";
+
+    public string GetAuthorLink(
+        string memberId) => $"/MemberPage/{memberId}";
 
 
+    public string GetPlaceUri(CatalogedPlace place) => $"https://{place.LocalName}";
+
+    /// <summary>Return the resource URI for the object <paramref name="id"/> at 
+    /// place <paramref name="placeId"/>.</summary>
+    /// <param name="placeId"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public virtual string GetResourceUri(string placeId, string id) => SitebuilderConstants.Repository + id;
+
+    public virtual string CreatePlaceId() => Udf.Nonce(IdLength);
+    public virtual string CreateFeedId() => Udf.Nonce(IdLength);
+    public virtual string CreatePostId() => Udf.Nonce(IdLength);
+
+
+    public virtual string CreateCommentId() => Udf.Nonce(IdLength);
+
+
+    public string GetAvatarPath(CatalogedMember member) {
+
+        if (member is null) {
+            return FrameSet.IconPath("Any");
+            }
+
+
+        return GetMemberAvatar(member._PrimaryKey);
+
+
+        }
 
     }

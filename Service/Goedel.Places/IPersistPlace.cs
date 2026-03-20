@@ -32,20 +32,33 @@ public interface IPersistPlace : IPersistSite {
     /// <param name="handle">The members handle.</param>
     /// <param name="did">The member's permanent identifier.</param>
     /// <returns>The record.</returns>
-    MemberHandle GetOrCreateMember(string handle, string did);
+    CatalogedMember GetOrCreateMember(string handle, string did);
 
 
     /// <summary>
-    /// Return the member record with DID <paramref name="did"/> if it exists.
+    /// Return the member record for the path <paramref name="path"/> in
+    /// <paramref name="member"/>.
     /// </summary>
     /// <param name="path">The parsed request.</param>
+    /// <param name="member">The member record.</param>
     /// <returns>The record if found, otherise null.</returns>
-    MemberHandle? GetMember(ParsedPath path);
+    bool GetMember(ParsedPath path, out CatalogedMember? member);
 
     /// <summary>
     /// Sign out of the current account.
     /// </summary>
     Cookie SignOut();
+
+
+
+
+    /// <summary>Attempt to resolve place by DNS name.</summary>
+    /// <param name="uri"></param>
+    /// <param name="catalogedPlace"></param>
+    /// <returns></returns>
+    public bool TryGetPlaceByDns(Uri uri, out CatalogedPlace? catalogedPlace);
+
+
 
     }
 

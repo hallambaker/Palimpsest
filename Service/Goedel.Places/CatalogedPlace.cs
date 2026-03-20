@@ -7,7 +7,9 @@ public partial class CatalogedPlace {
 
 
     /// <inheritdoc/>
-    public override IEnumerable<string>? _SecondaryKeys => new List<string>() { LocalName};
+    public override List<string>? _SecondaryKeys => new List<string>() { LocalName};
+
+    //public override bool _default => Default == true;
 
 
     }
@@ -18,7 +20,9 @@ public partial class CatalogedFeed {
     /// <inheritdoc/>
     public override string _PrimaryKey => Uid;
 
+    public bool IsModerator (CatalogedMember member) => true;
 
+    public bool CanPost(CatalogedMember member) => true;
 
     }
 

@@ -24,47 +24,47 @@
 namespace Goedel.Places;
 
 
-/// <summary>
-/// Cached handle for a forum member
-/// </summary>
-/// <param name="member">The member catalog entry</param>
-public class MemberHandle : CachedHandle<CatalogedForumVisitor> {
+///// <summary>
+///// Cached handle for a forum member
+///// </summary>
+///// <param name="member">The member catalog entry</param>
+//public class MemberHandle : CachedHandle<CatalogedMember> {
 
-    public string PrimaryKey => CatalogedMember._PrimaryKey;
+//    public string PrimaryKey => CatalogedMember._PrimaryKey;
 
-    public CatalogedForumVisitor CatalogedMember => CatalogedEntry;
-
-
-    public ForumPermissions Permissions { get; set; }
+//    public CatalogedMember CatalogedMember => CatalogedEntry;
 
 
-
-
-    public string PermissionLabel =>
-        Permissions switch {
-            ForumPermissions.User => "User",
-            ForumPermissions.Moderator => "Moderator",
-            ForumPermissions.Administrator => "Administrator",
-            ForumPermissions.System => "System",
-            ForumPermissions.Blocked => "Blocked",
-            _ => Permissions.ToString()
-            };
-
-
-    public MemberHandle(
-            CatalogedForumVisitor member) : base(member) {
-
-        if (member.LocalName == "phill.hallambaker.com") {
-            Permissions = ForumPermissions.System;
-            }
-        else {
-            Permissions = ForumPermissions.User;
-            }
-        }
+//    public ForumPermissions Permissions { get; set; }
 
 
 
 
+//    public string PermissionLabel =>
+//        Permissions switch {
+//            ForumPermissions.User => "User",
+//            ForumPermissions.Moderator => "Moderator",
+//            ForumPermissions.Administrator => "Administrator",
+//            ForumPermissions.System => "System",
+//            ForumPermissions.Blocked => "Blocked",
+//            _ => Permissions.ToString()
+//            };
 
-    }
+
+//    public MemberHandle(
+//            CatalogedMember member) : base(member) {
+
+//        if (member.LocalName == "phill.hallambaker.com") {
+//            Permissions = ForumPermissions.System;
+//            }
+//        else {
+//            Permissions = ForumPermissions.User;
+//            }
+//        }
+
+
+
+
+
+//    }
 

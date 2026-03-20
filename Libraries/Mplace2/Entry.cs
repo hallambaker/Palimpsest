@@ -1,4 +1,6 @@
-﻿namespace Mplace2.Gui;
+﻿using DocumentFormat.OpenXml.Bibliography;
+
+namespace Mplace2.Gui;
 
 
 
@@ -11,6 +13,8 @@ public partial class Entry {
 
     ///<summary>Entry text.</summary>
     public virtual string? Text { get; set; } = "TBS";
+
+
 
 
 
@@ -28,8 +32,13 @@ public partial class Entry {
 
 
 
-        return null;
+        return persistPlace.HomeCatalogedPlace;
 
         }
 
+  
+
+
+
     }
+

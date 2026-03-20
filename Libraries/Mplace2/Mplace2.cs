@@ -1105,6 +1105,11 @@ public partial class CreatePost : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefForm<Post> ("CreatePostAction","Post", [
+		new FrameString ("FeedId",
+			(data, value) => {(data as Post)!.FeedId = value; },
+			(data) => (data as Post)?.FeedId) {
+				Hidden = true
+				},
 		new FrameString ("Title",
 			(data, value) => {(data as Post)!.Title = value; },
 			(data) => (data as Post)?.Title) {
@@ -1179,6 +1184,21 @@ public partial class CreateComment : FramePage {
 			Get = (data) => (data as CreateComment)?.Target ,
 			Set = (data, value) => {(data as CreateComment)!.Target = value as Comment; }},
 		new FrameRefForm<Comment> ("Form","Comment", [
+		new FrameString ("FeedId",
+			(data, value) => {(data as Comment)!.FeedId = value; },
+			(data) => (data as Comment)?.FeedId) {
+				Hidden = true
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as Comment)!.PostId = value; },
+			(data) => (data as Comment)?.PostId) {
+				Hidden = true
+				},
+		new FrameString ("CommentId",
+			(data, value) => {(data as Comment)!.CommentId = value; },
+			(data) => (data as Comment)?.CommentId) {
+				Hidden = true
+				},
 		new FrameText ("Text",
 			(data, value) => {(data as Comment)!.Text = value; },
 			(data) => (data as Comment)?.Text) {
@@ -1739,8 +1759,9 @@ public partial class MainNav : FrameMenu {
 			GetActive = (data) => (data as MainNav)?.SignInActive,
 			Description = "Sign in using your @nywhere account"
 			},
-		new FrameButton ("Avatar", "Sign Out", "SwitchPage") {
+		new FrameButton ("Avatar", "Account", "SwitchPage") {
 			GetActive = (data) => (data as MainNav)?.SignOutActive,
+			GetCustomized = (data, visibility) => (data as MainNav)?.GetUserAvatar(visibility),
 			Description = "Sign out or switch account"
 			},
 		new FrameButton ("Home", "Home", "") {
@@ -1754,10 +1775,10 @@ public partial class MainNav : FrameMenu {
 			GetActive = (data) => (data as MainNav)?.PlacesActive
 			},
 		new FrameButton ("Feeds", "Feeds", "FeedsPage") {
-			GetActive = (data) => (data as MainNav)?.PlacesActive
+			GetActive = (data) => (data as MainNav)?.FeedsActive
 			},
 		new FrameButton ("Posts", "Posts", "PostsPage") {
-			GetActive = (data) => (data as MainNav)?.PlacesActive
+			GetActive = (data) => (data as MainNav)?.PostsActive
 			},
 		new FrameButton ("Bookmark", "Saved", "BookmarkPage") {
 			GetActive = (data) => (data as MainNav)?.BookmarksActive,
@@ -1776,10 +1797,10 @@ public partial class MainNav : FrameMenu {
 			GetActive = (data) => (data as MainNav)?.CreatePlaceActive
 			},
 		new FrameButton ("CreateFeed", "Create Feed", "CreateFeed") {
-			GetActive = (data) => (data as MainNav)?.PlacesActive
+			GetActive = (data) => (data as MainNav)?.CreateFeedActive
 			},
 		new FrameButton ("CreatePost", "Create Post", "CreatePost") {
-			GetActive = (data) => (data as MainNav)?.PlacesActive
+			GetActive = (data) => (data as MainNav)?.CreatePostActive
 			}
 		];
 
@@ -3056,15 +3077,8 @@ public partial class Place (string Id) : Entry (Id) {
 		GetUid = (data) => (data as Place)?.Uid,
 		Sections = [
 			new FrameSection ("Title") {
+				GetAnchor = (data) => (data as Place)?.TitleLink,
 				Fields = [
-            		new FrameAnchor ("TitleLink",
-            			(data, value) => {(data as Place)!.TitleLink = value; },
-            			(data) => (data as Place)?.TitleLink) {
-            				},
-            		new FrameAnchor ("HandleLink",
-            			(data, value) => {(data as Place)!.HandleLink = value; },
-            			(data) => (data as Place)?.HandleLink) {
-            				}
 					]
 				},
 			new FrameSection ("Avatar") {
@@ -3298,6 +3312,9 @@ public partial class Post (string Id) : Entry (Id) {
     public override FramePresentation Presentation => PostSummary;
 
 
+    /// <summary>Field FeedId</summary>
+	public string? FeedId {get; set;}
+
     /// <summary>Field User</summary>
 	public User? User {get; set;}
 
@@ -3330,6 +3347,7 @@ public partial class Post (string Id) : Entry (Id) {
 		GetUid = (data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
+				GetAnchor = (data) => (data as Post)?.AuthorLink,
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
             			Prompt = null,
@@ -3337,6 +3355,7 @@ public partial class Post (string Id) : Entry (Id) {
 					]
 				},
 			new FrameSection ("Author") {
+				GetAnchor = (data) => (data as Post)?.AuthorLink,
 				Fields = [
             		new FrameString ("User.DisplayName",
             			(data, value) => {(data as Post)!.User!.DisplayName = value; },
@@ -3357,6 +3376,7 @@ public partial class Post (string Id) : Entry (Id) {
 					]
 				},
 			new FrameSection ("Body") {
+				GetAnchor = (data) => (data as Post)?.PostLink,
 				Fields = [
             		new FrameString ("Title",
             			(data, value) => {(data as Post)!.Title = value; },
@@ -3439,7 +3459,8 @@ public partial class Post (string Id) : Entry (Id) {
 				},
 			new FrameSection ("Responses") {
 				Fields = [
-            		new FrameButton ("Comment", "Comment", "CommentAction") {
+            		new FrameButton ("Comment", "Comment", "CreateComment") {
+            			GetAnchor = (data) => (data as Post)?.PostPath,
             			GetInteger = (data) => (data as Post)?.Comments
             			},
             		new FrameSubmenu ("Repost", "Repost") {
@@ -3521,6 +3542,11 @@ public partial class Post (string Id) : Entry (Id) {
 			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
+		new FrameString ("FeedId",
+			(data, value) => {(data as Post)!.FeedId = value; },
+			(data) => (data as Post)?.FeedId) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("User","User"){
 			Get = (data) => (data as Post)?.User ,
 			Set = (data, value) => {(data as Post)!.User = value as User; }},
@@ -3567,6 +3593,11 @@ public partial class Post (string Id) : Entry (Id) {
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
 
+		new FrameString ("FeedId",
+			(data, value) => {(data as Post)!.FeedId = value; },
+			(data) => (data as Post)?.FeedId) {
+				Hidden = true
+				},
 		new FrameString ("Title",
 			(data, value) => {(data as Post)!.Title = value; },
 			(data) => (data as Post)?.Title) {
@@ -3603,12 +3634,13 @@ public partial class Post (string Id) : Entry (Id) {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Title", _properties[0]},
-			{"Summary", _properties[1]},
-			{"Body", _properties[2]},
-			{"Replies", _properties[3]},
-			{"Comments", _properties[4]},
-			{"Likes", _properties[5]}
+			{"FeedId", _properties[0]},
+			{"Title", _properties[1]},
+			{"Summary", _properties[2]},
+			{"Body", _properties[3]},
+			{"Replies", _properties[4]},
+			{"Comments", _properties[5]},
+			{"Likes", _properties[6]}
 			}, "Post",
 		() => new Post(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
@@ -3631,6 +3663,15 @@ public partial class Comment (string Id) : Entry (Id) {
     /// <inheritdoc/>
     public override FramePresentation Presentation => CommentFull;
 
+
+    /// <summary>Field FeedId</summary>
+	public string? FeedId {get; set;}
+
+    /// <summary>Field PostId</summary>
+	public string? PostId {get; set;}
+
+    /// <summary>Field CommentId</summary>
+	public string? CommentId {get; set;}
 
     /// <summary>Field User</summary>
 	public User? User {get; set;}
@@ -3655,6 +3696,7 @@ public partial class Comment (string Id) : Entry (Id) {
 		GetUid = (data) => (data as Comment)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
+				GetAnchor = (data) => (data as Comment)?.AuthorLink,
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
             			Prompt = null,
@@ -3662,6 +3704,7 @@ public partial class Comment (string Id) : Entry (Id) {
 					]
 				},
 			new FrameSection ("Author") {
+				GetAnchor = (data) => (data as Comment)?.AuthorLink,
 				Fields = [
             		new FrameString ("User.DisplayName",
             			(data, value) => {(data as Comment)!.User!.DisplayName = value; },
@@ -3691,56 +3734,73 @@ public partial class Comment (string Id) : Entry (Id) {
 				},
 			new FrameSection ("Responses") {
 				Fields = [
-            		new FrameButton ("Comment", "Comment", "CommentAction") {
+            		new FrameButton ("Comment", "Comment", "CreateComment") {
+            			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
             		new FrameSubmenu ("Repost", "Repost") {
             			Fields = [
                     		new FrameButton ("Repost", "Repost", "RepostAction") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameButton ("QuotePost", "Quote Post", "QuotePostAction") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			}
             				]
             			},
             		new FrameButton ("Like", "Like", "LikeAction") {
             			GetActive = (data) => (data as Comment)?.Liked,
+            			GetAnchor = (data) => (data as Comment)?.PostPath,
             			GetInteger = (data) => (data as Comment)?.Likes
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (data) => (data as Comment)?.RequestedMore
+            			GetActive = (data) => (data as Comment)?.RequestedMore,
+            			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
             		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (data) => (data as Comment)?.RequestedLess
+            			GetActive = (data) => (data as Comment)?.RequestedLess,
+            			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
                     		new FrameButton ("LinkCopy", "Copy link to post", "HomePage") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameButton ("SendByDM", "Send via direct message", "HomePage") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameButton ("Embed", "Embed post", "HomePage") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			}
             				]
             			},
             		new FrameSubmenu ("Ellipsis", "More") {
             			Fields = [
                     		new FrameButton ("Translate", "Translate", "TranslateAction") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameButton ("CopyToClipboard", "Copy post text", "CopyPostAction") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameSeparator ("S1"),
                     		new FrameButton ("MuteThread", "Mute thread", "MuteThreadAction") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameButton ("MuteWords", "Mute words & tags", "MuteWordsAction") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameSeparator ("S2"),
                     		new FrameButton ("HidePost", "Hide post for me", "HidePostAction") {
+                    			GetAnchor = (data) => (data as Comment)?.PostPath
                     			},
                     		new FrameSeparator ("S3"),
                     		new FrameButton ("MuteAccount", "Mute user", "MuteAccountAction") {
+                    			GetAnchor = (data) => (data as Comment)?.AuthorLink
                     			},
                     		new FrameButton ("BlockAccount", "Block user", "BlockAccountAction") {
+                    			GetAnchor = (data) => (data as Comment)?.AuthorLink
                     			},
                     		new FrameButton ("Report", "Report post", "ReportPostAction") {
+                    			GetAnchor = (data) => (data as Comment)?.AuthorLink
                     			}
             				]
             			}
@@ -3769,6 +3829,21 @@ public partial class Comment (string Id) : Entry (Id) {
 			(data) => (data as Entry)?.Created) {
 				},
 		Brief,
+		new FrameString ("FeedId",
+			(data, value) => {(data as Comment)!.FeedId = value; },
+			(data) => (data as Comment)?.FeedId) {
+				Hidden = true
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as Comment)!.PostId = value; },
+			(data) => (data as Comment)?.PostId) {
+				Hidden = true
+				},
+		new FrameString ("CommentId",
+			(data, value) => {(data as Comment)!.CommentId = value; },
+			(data) => (data as Comment)?.CommentId) {
+				Hidden = true
+				},
 		new FrameRefClass<User> ("User","User"){
 			Get = (data) => (data as Comment)?.User ,
 			Set = (data, value) => {(data as Comment)!.User = value as User; }},
@@ -3799,6 +3874,21 @@ public partial class Comment (string Id) : Entry (Id) {
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
 
+		new FrameString ("FeedId",
+			(data, value) => {(data as Comment)!.FeedId = value; },
+			(data) => (data as Comment)?.FeedId) {
+				Hidden = true
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as Comment)!.PostId = value; },
+			(data) => (data as Comment)?.PostId) {
+				Hidden = true
+				},
+		new FrameString ("CommentId",
+			(data, value) => {(data as Comment)!.CommentId = value; },
+			(data) => (data as Comment)?.CommentId) {
+				Hidden = true
+				},
 		new FrameText ("Text",
 			(data, value) => {(data as Comment)!.Text = value; },
 			(data) => (data as Comment)?.Text) {
@@ -3820,9 +3910,12 @@ public partial class Comment (string Id) : Entry (Id) {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]},
-			{"Likes", _properties[1]},
-			{"Replies", _properties[2]}
+			{"FeedId", _properties[0]},
+			{"PostId", _properties[1]},
+			{"CommentId", _properties[2]},
+			{"Text", _properties[3]},
+			{"Likes", _properties[4]},
+			{"Replies", _properties[5]}
 			}, "Comment",
 		() => new Comment(), () => [], () => [], Parent: Entry._binding, Generic: false);
 

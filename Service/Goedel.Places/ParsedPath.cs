@@ -22,6 +22,7 @@
 
 
 using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Goedel.Places;
 
@@ -40,8 +41,7 @@ public record ParsedPath : IPageContext {
 
     public IPersistPlace PersistPlace { get; }
 
-
-    public MemberHandle MemberHandle { get; set; }
+    public CatalogedMember? MemberHandle { get; set; }
     //public PlaceHandle PlaceHandle { get; }
 
     //public string Placename => PlaceHandle?.LocalName;
@@ -56,20 +56,66 @@ public record ParsedPath : IPageContext {
     public string LocalPath => Uri?.LocalPath;
 
     ///<summary>Holds the project ID or the static resource name</summary> 
-    public string FirstId { get; }
+    string FirstId { get; }
 
 
     ///<summary>Holds the document ID.</summary> 
-    public string SecondId { get; }
+    string SecondId { get; }
 
     ///<summary>Holds the fragment ID.</summary> 
-    public string ThirdId { get; } 
+    string ThirdId { get; } 
 
     ///<summary>The original IP address of the request (filled by reverse proxy)</summary> 
     public string RealIp { get; }
 
     public string ForwardedFor { get; }
     public string? UserId { get; set; } = null;
+
+    CatalogedPlace? CatalogedPlace;
+    CatalogedFeed? CatalogedFeed;
+    CatalogedPost? CatalogedPost;
+    CatalogedComment? CatalogedComment;
+
+    public string AuthorId => MemberHandle?._PrimaryKey;
+    public string PlaceId => CatalogedPlace?.Uid;
+    public string FeedId => FirstId ?? CatalogedPlace?.DefaultFeed ?? PlaceId;
+    public string PostId => SecondId;
+    public string CommentId => ThirdId;
+
+    public string ResourceId => FirstId;
+
+    /// <summary>Check to see if the current user has the authorization 
+    /// <paramref name="privilege"/> to access the objects specified in the 
+    /// parameters and parsed URL.</summary>
+    /// <param name="privilege">The privilege to check.</param>
+    /// <param name="feedId"></param>
+    /// <param name="postId"></param>
+    /// <param name="commentId"></param>
+    /// <returns>True if the user is authorized, otherwise false.</returns>
+    public bool CheckAuthorization(
+                Privilege privilege,
+                string feedId = null,
+                string postId = null,
+                string commentId = null) {
+
+        feedId ??= FeedId;
+        postId ??= PostId;
+        commentId ??= CommentId;
+
+        if (MemberHandle?.IsAdministrator == true) {
+            return true;
+            }
+
+        return false;
+        }
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Constructor, return a parsed path for the listener context <paramref name="context"/>
@@ -86,9 +132,18 @@ public record ParsedPath : IPageContext {
         if (persistPlace.ServerCookieManager.TryGetCookie(
             Request, PalimpsestConstants.CookieTypeSessionTag, out var userId)) {
             UserId = userId;
+            PersistPlace.GetMember(this, out var member);
+            MemberHandle = member;
             }
 
+        else {
+            //UserId = "did:plc:k647x4n6h3jm347u3t5cm6ki";
+            }
+
+
         Uri = Request.Url;
+        PersistPlace.TryGetPlaceByDns(Request.Url, out CatalogedPlace);
+
         if (LocalPath == null) {
             Command = null;
             return;
@@ -126,7 +181,6 @@ public record ParsedPath : IPageContext {
             ThirdId = split[4];
             }
         }
-
 
 
 
