@@ -355,31 +355,64 @@ public class PersistPlace : IPersistPlace {
         }
 
 
-    public static string GetMemberAvatar(
-        string memberId) => $"/Avatar/{memberId}";
+    public string SitePath => HomePlace?.DNS is null ? "/" : $"https://{HomePlace?.DNS}/";
+
+
+    /// <summary>Return the path to the member avatar. This is canonically on the
+    /// site DNS name.</summary>
+    /// <param name="memberId">Member identifier.</param>
+    /// <returns>The fully expanded HTTPS path.</returns>
+    public string GetMemberAvatar(
+        string memberId) => $"{SitePath}Avatar/{memberId}";
+
+    /// <summary>Return the path to the member account page. This is canonically on the
+    /// site DNS name.</summary>
+    /// <param name="memberId">Member identifier.</param>
+    /// <returns>The fully expanded HTTPS path.</returns>
+    public string GetAuthorLink(
+    string memberId) => $"{SitePath}MemberPage/{memberId}";
+
+
+
+    public string GetFeedPath(
+    string feedId) => $"/{feedId}";
 
 
     public string GetPostPath(
-        string placeId,
         string feedId,
         string postId) => $"/{feedId}/{postId}";
 
     public string GetCommentPath(
-        string placeId,
         string feedId,
-        string postId, 
+        string postId,
         string commentId) => $"/{feedId}/{postId}/{commentId}";
 
+
+    //public string GetFeedLink(
+    //    string feedId) => $"/Posts{GetFeedPath(feedId)}";
+
     public string GetPostLink(
-            string placeId,
             string feedId,
-            string postId) => $"/PostPage{GetPostPath(placeId, feedId, postId)}";
-
-    public string GetAuthorLink(
-        string memberId) => $"/MemberPage/{memberId}";
+            string postId) => $"/PostPage{GetPostPath(feedId, postId)}";
 
 
-    public string GetPlaceUri(CatalogedPlace place) => $"https://{place.LocalName}";
+    // Links for referalls etc.
+    public string GetPlaceLink(
+        ParsedPath path) => $"https://{path.PlaceName}/";
+
+    public string GetFeedLink(
+        ParsedPath path) => $"https://{path.PlaceName}{GetFeedPath(path.FeedId)}";
+
+    public string GetPostLink(
+        ParsedPath path) => $"https://{path.PlaceName}/PostPage{GetPostPath(path.FeedId, path.PostId)}";
+
+    public string GetCommentLink(
+        ParsedPath path) => $"https://{path.PlaceName}/Posts{GetCommentPath(path.FeedId, path.PostId, path.CommentId)}";
+
+    public string GetMemberLink(
+        ParsedPath path) => $"https://{HomePlace}/MemberPage{GetAuthorLink(path.AuthorId)}";
+
+    public string GetPlaceUri(CatalogedPlace place) => $"https://{place.LocalName}/";
 
     /// <summary>Return the resource URI for the object <paramref name="id"/> at 
     /// place <paramref name="placeId"/>.</summary>

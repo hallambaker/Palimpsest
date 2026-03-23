@@ -1,5 +1,11 @@
 ﻿namespace Mplace2.Gui;
 
+public partial class DeletePost {
+
+    }
+
+
+
 public partial class PostPage {
 
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {

@@ -65,11 +65,13 @@ public partial class Comment {
             };
         persist.Add(pageContext.PlaceId, pageContext.FeedId, pageContext.PostId, catalogedPost);
 
-        return base.Callback(context);
+
+        var returnPage = persist.GetPostLink(pageContext);
+        return Task.FromResult(CallbackResult.CreatedRedirect(returnPage));
         }
 
     private void SetLinks(PersistPlace persist, string placeId, string feedId, string postId, CatalogedComment comment) {
-        PostPath = persist.GetCommentPath(placeId, feedId, postId, comment._PrimaryKey);
+        PostPath = persist.GetCommentPath(feedId, postId, comment._PrimaryKey);
         AuthorLink = persist.GetAuthorLink(comment.Author);
         }
     }

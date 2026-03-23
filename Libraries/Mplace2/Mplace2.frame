@@ -17,9 +17,9 @@ Namespace Mplace2.Gui
             HomePageActive Boolean
             Link Link ""
 
-        Notifications Button NotificationsPage "Notifications"
-            NotificationsActive Boolean
-            NotificationCount Integer
+        //Notifications Button NotificationsPage "Notifications"
+        //    NotificationsActive Boolean
+        //    NotificationCount Integer
 
         Places Button PlacesPage "Places"
             PlacesActive Boolean
@@ -30,9 +30,9 @@ Namespace Mplace2.Gui
         Posts Button PostsPage "Posts"
             PostsActive Boolean
 
-        Bookmark Button BookmarkPage "Saved"
-            BookmarksActive Boolean
-            Hover Description "Your saved places"
+        //Bookmark Button BookmarkPage "Saved"
+        //    BookmarksActive Boolean
+        //    Hover Description "Your saved places"
 
         Place Button YourPlacePage "Your Place"
             YourPlaceActive Boolean
@@ -68,42 +68,42 @@ Namespace Mplace2.Gui
     NotificationsPage Page "Notifications"
         FlowPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+        //TopSettings Is TopSettings
         Entries List Entry
             Display SummaryPresentation
 
     PlacesPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+        //TopSettings Is TopSettings
         Entries List Entry
             Display SummaryPresentation
 
     FeedsPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+        //TopSettings Is TopSettings
         Entries List Entry
             Display SummaryPresentation
 
     PostsPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+        //TopSettings Is TopSettings
         Entries List Entry
             Display SummaryPresentation
 
     BookmarkPage Page "Saved"
         FlowPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+        //TopSettings Is TopSettings
         Entries List Entry
             Display SummaryPresentation
 
     YourPlacePage Page "Your Place"
         FlowPage Container
         Navigation Is MainNav
-        TopSettings Is TopSettings
+        //TopSettings Is TopSettings
         MainEntry Is Place
             Display FullPresentation
         Entries List Entry
@@ -190,13 +190,27 @@ Namespace Mplace2.Gui
         EntryPage Container
         Navigation Is MainNav
 
-        CreateFeedAction Form Post                 
+        CreateFeedAction Form Feed                 
             Title String                // Post Title
                 Prompt "Title"
                 Description "Title, should be short."
-            Summary Text                 // Short text
-                Prompt "Summary"
-                Description "Short summary of the post to be used in lists of posts or to crosspost to other media"
+            Description Text                 // Short text
+                Prompt "Description"
+                Description "Feed description"
+            AllowPosts Boolean
+                Prompt "Allow text posts"
+                Description "Allow text posts in the feed."
+            AllowImages Boolean
+                Prompt "Allow images"
+                Description "Allow images in the feed."
+            AllowShort Boolean
+                Prompt "Allow short videos"
+                Description "Allow short videos in the feed."
+            AllowVideo Boolean
+                Prompt "Allow video"
+                Description "Allow longer videos in the feed."
+
+    DeleteFeed Page "Delete Feed"
 
     CreatePost Page "Create New Post"
         EntryPage Container
@@ -216,7 +230,9 @@ Namespace Mplace2.Gui
                 Description "What you want to say!"
 
         Crosspost List Provider         // Crossposting targets
-
+    
+    DeletePost Page "Delete Post"
+    
     CreateComment Page "Create Comment"
         EntryPage Container
         Navigation Is MainNav
@@ -231,7 +247,7 @@ Namespace Mplace2.Gui
                 Hidden
             Text Text
                 Prompt "Text"
-
+    DeleteComment Page "Delete Comment"
 
     NewPlacePage Page "Create New Place"
         EntryPage Container
@@ -254,6 +270,7 @@ Namespace Mplace2.Gui
                 Prompt "Banner"
                 Description "Background image for the main page."
                 FileType ImageFileType
+    DeletePlace Page "Delete Place"
 
     FormPlace SubClass Place
         Fields
@@ -441,12 +458,29 @@ Namespace Mplace2.Gui
                     Description Text
 
 
-
-    Topic SubClass Entry 
-        Description "A collection of posts"
+    Feed SubClass Entry                      // 
+        Description "A feed with grouped entries"
         Fields
-            Title String                // Resource name
-            Posts List Post             // List of posts
+            Title String                // The title of the place
+                Prompt "Name"
+            Description Text                 // Short description
+                Prompt "Description"
+            Avatar Avatar        // Avatar to represent the place in collections
+                Prompt "Avatar Image"
+            Banner Image                // Banner image for use as a masthead
+                Prompt "Banner Image"
+            AllowPosts Boolean
+                Prompt "Allow text posts"
+                Description "Allow text posts in the feed."
+            AllowImages Boolean
+                Prompt "Allow images"
+                Description "Allow images in the feed."
+            AllowShort Boolean
+                Prompt "Allow short videos"
+                Description "Allow short videos in the feed."
+            AllowVideo Boolean
+                Prompt "Allow video"
+                Description "Allow longer videos in the feed."
          
     Post SubClass Entry
         Description "A collection of comments"
@@ -481,6 +515,36 @@ Namespace Mplace2.Gui
                     Summary Text 
 
             PostFull Presentation Uid
+                Avatar 
+                    User.Avatar Avatar
+                Author
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Summary
+                    Title String 
+                    Summary Text
+                Body
+                    Body RichText
+                Detail
+                    Created DateTime
+                    Replies String             
+                Responses
+                    Comment Button CreateComment "Comment"
+                        PostPath Anchor
+                        Comments Integer               
+                    SeeMore Button MoreAction "More"
+                        SeeMore Action 
+                        RequestedMore Boolean
+                    SeeLess Button LessAction "Less"
+                        SeeLess Action 
+                        RequestedLess Boolean
+                    Delete Button DeletePost "Delete"
+                        PostPath Anchor
+
+            // The features we have stashed here.
+            PostFullSaved Presentation Uid
                 Avatar 
                     User.Avatar Avatar
                 Author
@@ -551,6 +615,30 @@ Namespace Mplace2.Gui
 
 
             CommentFull Presentation Uid
+                Avatar
+                    AuthorLink Anchor
+                    User.Avatar Avatar
+                Author
+                    AuthorLink Anchor
+                    User.DisplayName String
+                    User.DisplayHandle String
+                    Created DateTime
+                Rule
+                Body
+                    Text Text
+                Responses
+                    Comment Button CreateComment "Comment"
+                        PostPath Anchor
+                    SeeMore Button MoreAction "More"
+                        PostPath Anchor
+                        RequestedMore Boolean
+                    SeeLess Button LessAction "Less"
+                        PostPath Anchor
+                        RequestedLess Boolean
+                    Delete Button DeleteComment "Delete"
+                        PostPath Anchor
+
+            CommentFullSaved Presentation Uid
                 Avatar
                     AuthorLink Anchor
                     User.Avatar Avatar

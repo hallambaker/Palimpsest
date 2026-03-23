@@ -77,6 +77,9 @@ public record ParsedPath : IPageContext {
     CatalogedComment? CatalogedComment;
 
     public string AuthorId => MemberHandle?._PrimaryKey;
+
+
+    public string PlaceName => CatalogedPlace?.LocalName;
     public string PlaceId => CatalogedPlace?.Uid;
     public string FeedId => FirstId ?? CatalogedPlace?.DefaultFeed ?? PlaceId;
     public string PostId => SecondId;

@@ -48,9 +48,9 @@ public partial class CatalogedMember {
     public bool HasPersonal => false;
 
 
-    public string Display => DisplayName ?? "Not specified";
+    public string Display => DisplayName;
 
-    public string DisplayHandle => LocalName ?? "Not.Specified";
+    public string DisplayHandle => LocalName ?? "Anonymous";
 
 
     }

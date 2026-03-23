@@ -19,7 +19,11 @@ public partial class Post {
 
 
 
-    public Post(PersistPlace persist, string placeId, string feedId, CatalogedPost catalogedPost) : this(catalogedPost.Uid) {
+    public Post(
+                    PersistPlace persist, 
+                    string placeId, 
+                    string feedId, 
+                    CatalogedPost catalogedPost) : this(catalogedPost.Uid) {
         Body = catalogedPost.Body;
         Summary = catalogedPost.Summary;
         Title = catalogedPost.Title;
@@ -38,9 +42,7 @@ public partial class Post {
 
 
         if (Body != null) {
-
             var valid = RichtextValidator.Validate(Body);
-
             if (valid != RichetextResult.Valid) {
                 Body = null;
                 }
@@ -58,14 +60,18 @@ public partial class Post {
         persist.Add(pageContext.PlaceId, FeedId, catalogedPost);
         SetLinks(persist, pageContext.PlaceId, FeedId, catalogedPost);
 
-        return base.Callback(context);
+
+
+        var returnPage = persist.GetFeedLink(pageContext);
+        return Task.FromResult(CallbackResult.CreatedRedirect(returnPage));
+
         }
 
 
 
     private void SetLinks(PersistPlace persist, string placeId, string feedId, CatalogedPost post) {
-        PostLink = persist.GetPostLink(placeId, feedId, post._PrimaryKey);
-        PostPath = persist.GetPostPath(placeId, feedId, post._PrimaryKey);
+        PostLink = persist.GetPostLink(feedId, post._PrimaryKey);
+        PostPath = persist.GetPostPath(feedId, post._PrimaryKey);
         AuthorLink = persist.GetAuthorLink(post.Author);
         //AuthorAvatar = persist.GetMemberAvatar(post.Author);
         }

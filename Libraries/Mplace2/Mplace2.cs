@@ -59,14 +59,26 @@ public partial class MyClass : FrameSet{
 	///<summary>CreateFeed</summary>
 	public CreateFeed CreateFeed {get;} = new();
 
+	///<summary>DeleteFeed</summary>
+	public DeleteFeed DeleteFeed {get;} = new();
+
 	///<summary>CreatePost</summary>
 	public CreatePost CreatePost {get;} = new();
+
+	///<summary>DeletePost</summary>
+	public DeletePost DeletePost {get;} = new();
 
 	///<summary>CreateComment</summary>
 	public CreateComment CreateComment {get;} = new();
 
+	///<summary>DeleteComment</summary>
+	public DeleteComment DeleteComment {get;} = new();
+
 	///<summary>NewPlacePage</summary>
 	public NewPlacePage NewPlacePage {get;} = new();
+
+	///<summary>DeletePlace</summary>
+	public DeletePlace DeletePlace {get;} = new();
 
 	///<summary>YourPlacePageCreate</summary>
 	public YourPlacePageCreate YourPlacePageCreate {get;} = new();
@@ -146,8 +158,8 @@ public partial class MyClass : FrameSet{
 	 ///<summary>Place</summary>
 	 public Place Place {get;} = new();
 
-	 ///<summary>Topic</summary>
-	 public Topic Topic {get;} = new();
+	 ///<summary>Feed</summary>
+	 public Feed Feed {get;} = new();
 
 	 ///<summary>Post</summary>
 	 public Post Post {get;} = new();
@@ -230,9 +242,13 @@ public partial class MyClass : FrameSet{
 			SignIn,
 			SwitchPage,
 			CreateFeed,
+			DeleteFeed,
 			CreatePost,
+			DeletePost,
 			CreateComment,
+			DeleteComment,
 			NewPlacePage,
+			DeletePlace,
 			YourPlacePageCreate,
 			Help,
 			TermsOfService,
@@ -267,7 +283,7 @@ public partial class MyClass : FrameSet{
 			Privileges,
 			Entry,
 			Place,
-			Topic,
+			Feed,
 			Post,
 			Comment,
 			Resource,
@@ -383,7 +399,6 @@ public partial class NotificationsPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
 			Get = (data) => (data as NotificationsPage)?.Entries ,
@@ -431,7 +446,6 @@ public partial class PlacesPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
 			Get = (data) => (data as PlacesPage)?.Entries ,
@@ -479,7 +493,6 @@ public partial class FeedsPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
 			Get = (data) => (data as FeedsPage)?.Entries ,
@@ -527,7 +540,6 @@ public partial class PostsPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
 			Get = (data) => (data as PostsPage)?.Entries ,
@@ -575,7 +587,6 @@ public partial class BookmarkPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefList<Entry> ("Entries","Entry"){
 			Presentation = SummaryPresentation,
 			Get = (data) => (data as BookmarkPage)?.Entries ,
@@ -626,7 +637,6 @@ public partial class YourPlacePage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("TopSettings","TopSettings"),
 		new FrameRefClass<Place> ("MainEntry","Place"){
 			Presentation = FullPresentation,
 			Get = (data) => (data as YourPlacePage)?.MainEntry ,
@@ -1037,27 +1047,51 @@ public partial class CreateFeed : FramePage {
 		}
 
     /// <summary>Field CreateFeedAction</summary>
-	public Post? CreateFeedAction {get; set;}
+	public Feed? CreateFeedAction {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Post> ("CreateFeedAction","Post", [
+		new FrameRefForm<Feed> ("CreateFeedAction","Feed", [
 		new FrameString ("Title",
-			(data, value) => {(data as Post)!.Title = value; },
-			(data) => (data as Post)?.Title) {
+			(data, value) => {(data as Feed)!.Title = value; },
+			(data) => (data as Feed)?.Title) {
 				Prompt = "Title",
 				Description = "Title, should be short."
 				},
-		new FrameText ("Summary",
-			(data, value) => {(data as Post)!.Summary = value; },
-			(data) => (data as Post)?.Summary) {
-				Prompt = "Summary",
-				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
+		new FrameText ("Description",
+			(data, value) => {(data as Feed)!.Description = value; },
+			(data) => (data as Feed)?.Description) {
+				Prompt = "Description",
+				Description = "Feed description"
+				},
+		new FrameBoolean ("AllowPosts",
+			(data, value) => {(data as Feed)!.AllowPosts = value; },
+			(data) => (data as Feed)?.AllowPosts) {
+				Prompt = "Allow text posts",
+				Description = "Allow text posts in the feed."
+				},
+		new FrameBoolean ("AllowImages",
+			(data, value) => {(data as Feed)!.AllowImages = value; },
+			(data) => (data as Feed)?.AllowImages) {
+				Prompt = "Allow images",
+				Description = "Allow images in the feed."
+				},
+		new FrameBoolean ("AllowShort",
+			(data, value) => {(data as Feed)!.AllowShort = value; },
+			(data) => (data as Feed)?.AllowShort) {
+				Prompt = "Allow short videos",
+				Description = "Allow short videos in the feed."
+				},
+		new FrameBoolean ("AllowVideo",
+			(data, value) => {(data as Feed)!.AllowVideo = value; },
+			(data) => (data as Feed)?.AllowVideo) {
+				Prompt = "Allow video",
+				Description = "Allow longer videos in the feed."
 				}
 				]){
 			Get = (data) => (data as CreateFeed)?.CreateFeedAction ,
-			Set = (data, value) => {(data as CreateFeed)!.CreateFeedAction = value as Post; }}
+			Set = (data, value) => {(data as CreateFeed)!.CreateFeedAction = value as Feed; }}
 		];
 
 
@@ -1080,6 +1114,45 @@ public partial class CreateFeed : FramePage {
 			// Only inclue the serialized items here
 			}, "CreateFeed",
 		() => new CreateFeed(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for DeleteFeed
+/// </summary>
+public partial class DeleteFeed : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public DeleteFeed () : base ("DeleteFeed", "Delete Feed", _Fields) {
+		Container = null;
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<DeleteFeed> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "DeleteFeed",
+		() => new DeleteFeed(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1160,6 +1233,45 @@ public partial class CreatePost : FramePage {
 
 	}
 /// <summary>
+/// Backing class for DeletePost
+/// </summary>
+public partial class DeletePost : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public DeletePost () : base ("DeletePost", "Delete Post", _Fields) {
+		Container = null;
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<DeletePost> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "DeletePost",
+		() => new DeletePost(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
 /// Backing class for CreateComment
 /// </summary>
 public partial class CreateComment : FramePage {
@@ -1229,6 +1341,45 @@ public partial class CreateComment : FramePage {
 			// Only inclue the serialized items here
 			}, "CreateComment",
 		() => new CreateComment(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for DeleteComment
+/// </summary>
+public partial class DeleteComment : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public DeleteComment () : base ("DeleteComment", "Delete Comment", _Fields) {
+		Container = null;
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<DeleteComment> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "DeleteComment",
+		() => new DeleteComment(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1306,6 +1457,45 @@ public partial class NewPlacePage : FramePage {
 			// Only inclue the serialized items here
 			}, "NewPlacePage",
 		() => new NewPlacePage(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for DeletePlace
+/// </summary>
+public partial class DeletePlace : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public DeletePlace () : base ("DeletePlace", "Delete Place", _Fields) {
+		Container = null;
+		}
+
+
+	static readonly List<IFrameField> _Fields = [
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<DeletePlace> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "DeletePlace",
+		() => new DeletePlace(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1767,10 +1957,6 @@ public partial class MainNav : FrameMenu {
 		new FrameButton ("Home", "Home", "") {
 			GetActive = (data) => (data as MainNav)?.HomePageActive
 			},
-		new FrameButton ("Notifications", "Notifications", "NotificationsPage") {
-			GetActive = (data) => (data as MainNav)?.NotificationsActive,
-			GetInteger = (data) => (data as MainNav)?.NotificationCount
-			},
 		new FrameButton ("Places", "Places", "PlacesPage") {
 			GetActive = (data) => (data as MainNav)?.PlacesActive
 			},
@@ -1779,10 +1965,6 @@ public partial class MainNav : FrameMenu {
 			},
 		new FrameButton ("Posts", "Posts", "PostsPage") {
 			GetActive = (data) => (data as MainNav)?.PostsActive
-			},
-		new FrameButton ("Bookmark", "Saved", "BookmarkPage") {
-			GetActive = (data) => (data as MainNav)?.BookmarksActive,
-			Description = "Your saved places"
 			},
 		new FrameButton ("Place", "Your Place", "YourPlacePage") {
 			GetActive = (data) => (data as MainNav)?.YourPlaceActive
@@ -2232,9 +2414,7 @@ public partial class FormPlace (string Id) : Place (Id) {
 		new FrameRefList<Rights> ("RightsComments","Rights"){
 			Get = (data) => (data as Place)?.RightsComments ,
 			Set = (data, value) => {(data as Place)!.RightsComments = value as List<Rights>; }},
-		new FrameRefList<Topic> ("Topics","Topic"){
-			Get = (data) => (data as Place)?.Topics ,
-			Set = (data, value) => {(data as Place)!.Topics = value as List<Topic>; }},
+		new FrameRef ("Topics"),
 		PlaceReference,
 		PlaceBanner,
 		new FrameFile ("AvatarFile"){
@@ -3021,9 +3201,6 @@ public partial class Place (string Id) : Entry (Id) {
     /// <summary>Field RightsComments</summary>
 	public List<Rights>? RightsComments {get; set;}
 
-    /// <summary>Field Topics</summary>
-	public List<Topic>? Topics {get; set;}
-
 
 	/// <summary>
 	/// Presentation style PlaceReference
@@ -3160,9 +3337,7 @@ public partial class Place (string Id) : Entry (Id) {
 		new FrameRefList<Rights> ("RightsComments","Rights"){
 			Get = (data) => (data as Place)?.RightsComments ,
 			Set = (data, value) => {(data as Place)!.RightsComments = value as List<Rights>; }},
-		new FrameRefList<Topic> ("Topics","Topic"){
-			Get = (data) => (data as Place)?.Topics ,
-			Set = (data, value) => {(data as Place)!.Topics = value as List<Topic>; }},
+		new FrameRef ("Topics"),
 		PlaceReference,
 		PlaceBanner
 		];
@@ -3216,9 +3391,9 @@ public partial class Place (string Id) : Entry (Id) {
 
 	}
 /// <summary>
-/// Backing class for Topic
+/// Backing class for Feed
 /// </summary>
-public partial class Topic (string Id) : Entry (Id) {
+public partial class Feed (string Id) : Entry (Id) {
 
     /// <inheritdoc/>
     public override List<IFrameField> Fields { get; set; } = _Fields;
@@ -3226,7 +3401,7 @@ public partial class Topic (string Id) : Entry (Id) {
 	/// <summary>
 	/// Paramaterless constructor enabling use of new().
 	/// </summary>
-	public Topic() : this("Topic") { 
+	public Feed() : this("Feed") { 
 		}
 
 
@@ -3234,8 +3409,26 @@ public partial class Topic (string Id) : Entry (Id) {
     /// <summary>Field Title</summary>
 	public string? Title {get; set;}
 
-    /// <summary>Field Posts</summary>
-	public List<Post>? Posts {get; set;}
+    /// <summary>Field Description</summary>
+	public string? Description {get; set;}
+
+	///<summary>Avatar Avatar</summary>
+	public string? Avatar {get; set;}
+
+    /// <summary>Field Banner</summary>
+	public string? Banner {get; set;}
+
+    /// <summary>Field AllowPosts</summary>
+	public bool? AllowPosts {get; set;}
+
+    /// <summary>Field AllowImages</summary>
+	public bool? AllowImages {get; set;}
+
+    /// <summary>Field AllowShort</summary>
+	public bool? AllowShort {get; set;}
+
+    /// <summary>Field AllowVideo</summary>
+	public bool? AllowVideo {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
@@ -3258,12 +3451,47 @@ public partial class Topic (string Id) : Entry (Id) {
 				},
 		Brief,
 		new FrameString ("Title",
-			(data, value) => {(data as Topic)!.Title = value; },
-			(data) => (data as Topic)?.Title) {
+			(data, value) => {(data as Feed)!.Title = value; },
+			(data) => (data as Feed)?.Title) {
+				Prompt = "Name"
 				},
-		new FrameRefList<Post> ("Posts","Post"){
-			Get = (data) => (data as Topic)?.Posts ,
-			Set = (data, value) => {(data as Topic)!.Posts = value as List<Post>; }}
+		new FrameText ("Description",
+			(data, value) => {(data as Feed)!.Description = value; },
+			(data) => (data as Feed)?.Description) {
+				Prompt = "Description"
+				},
+		new FrameAvatar ("Avatar"){
+			Prompt = "Avatar Image",
+			Get = (data) => (data as Feed)?.Avatar },
+		new FrameImage ("Banner",
+			(data, value) => {(data as Feed)!.Banner = value; },
+			(data) => (data as Feed)?.Banner) {
+				Prompt = "Banner Image"
+				},
+		new FrameBoolean ("AllowPosts",
+			(data, value) => {(data as Feed)!.AllowPosts = value; },
+			(data) => (data as Feed)?.AllowPosts) {
+				Prompt = "Allow text posts",
+				Description = "Allow text posts in the feed."
+				},
+		new FrameBoolean ("AllowImages",
+			(data, value) => {(data as Feed)!.AllowImages = value; },
+			(data) => (data as Feed)?.AllowImages) {
+				Prompt = "Allow images",
+				Description = "Allow images in the feed."
+				},
+		new FrameBoolean ("AllowShort",
+			(data, value) => {(data as Feed)!.AllowShort = value; },
+			(data) => (data as Feed)?.AllowShort) {
+				Prompt = "Allow short videos",
+				Description = "Allow short videos in the feed."
+				},
+		new FrameBoolean ("AllowVideo",
+			(data, value) => {(data as Feed)!.AllowVideo = value; },
+			(data) => (data as Feed)?.AllowVideo) {
+				Prompt = "Allow video",
+				Description = "Allow longer videos in the feed."
+				}
 		];
 
 
@@ -3276,21 +3504,62 @@ public partial class Topic (string Id) : Entry (Id) {
 		// Only inclue the serialized items here
 
 		new FrameString ("Title",
-			(data, value) => {(data as Topic)!.Title = value; },
-			(data) => (data as Topic)?.Title) {
+			(data, value) => {(data as Feed)!.Title = value; },
+			(data) => (data as Feed)?.Title) {
+				Prompt = "Name"
+				},
+		new FrameText ("Description",
+			(data, value) => {(data as Feed)!.Description = value; },
+			(data) => (data as Feed)?.Description) {
+				Prompt = "Description"
+				},
+		new FrameImage ("Banner",
+			(data, value) => {(data as Feed)!.Banner = value; },
+			(data) => (data as Feed)?.Banner) {
+				Prompt = "Banner Image"
+				},
+		new FrameBoolean ("AllowPosts",
+			(data, value) => {(data as Feed)!.AllowPosts = value; },
+			(data) => (data as Feed)?.AllowPosts) {
+				Prompt = "Allow text posts",
+				Description = "Allow text posts in the feed."
+				},
+		new FrameBoolean ("AllowImages",
+			(data, value) => {(data as Feed)!.AllowImages = value; },
+			(data) => (data as Feed)?.AllowImages) {
+				Prompt = "Allow images",
+				Description = "Allow images in the feed."
+				},
+		new FrameBoolean ("AllowShort",
+			(data, value) => {(data as Feed)!.AllowShort = value; },
+			(data) => (data as Feed)?.AllowShort) {
+				Prompt = "Allow short videos",
+				Description = "Allow short videos in the feed."
+				},
+		new FrameBoolean ("AllowVideo",
+			(data, value) => {(data as Feed)!.AllowVideo = value; },
+			(data) => (data as Feed)?.AllowVideo) {
+				Prompt = "Allow video",
+				Description = "Allow longer videos in the feed."
 				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	protected static readonly Binding<Topic> _binding = new (
+	protected static readonly Binding<Feed> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
-			{"Title", _properties[0]}
-			}, "Topic",
-		() => new Topic(), () => [], () => [], Parent: Entry._binding, Generic: false);
+			{"Title", _properties[0]},
+			{"Description", _properties[1]},
+			{"Banner", _properties[2]},
+			{"AllowPosts", _properties[3]},
+			{"AllowImages", _properties[4]},
+			{"AllowShort", _properties[5]},
+			{"AllowVideo", _properties[6]}
+			}, "Feed",
+		() => new Feed(), () => [], () => [], Parent: Entry._binding, Generic: false);
 
 
 	}
@@ -3463,6 +3732,94 @@ public partial class Post (string Id) : Entry (Id) {
             			GetAnchor = (data) => (data as Post)?.PostPath,
             			GetInteger = (data) => (data as Post)?.Comments
             			},
+            		new FrameButton ("SeeMore", "More", "MoreAction") {
+            			GetActive = (data) => (data as Post)?.RequestedMore,
+            			ButtonAction = ButtonAction.Method
+            			},
+            		new FrameButton ("SeeLess", "Less", "LessAction") {
+            			GetActive = (data) => (data as Post)?.RequestedLess,
+            			ButtonAction = ButtonAction.Method
+            			},
+            		new FrameButton ("Delete", "Delete", "DeletePost") {
+            			GetAnchor = (data) => (data as Post)?.PostPath
+            			}
+					]
+				}
+			]
+		}.CacheValue(out postfull)!;
+	static FramePresentation? postfull;
+
+	/// <summary>
+	/// Presentation style PostFullSaved
+	/// </summary>
+	public static FramePresentation PostFullSaved => postfullsaved ?? new FramePresentation ("PostFullSaved") {
+		GetUid = (data) => (data as Post)?.Uid,
+		Sections = [
+			new FrameSection ("Avatar") {
+				Fields = [
+            		new FrameAvatar ("User.Avatar"){
+            			Prompt = null,
+            			Get = (data) => (data as Post)?.User?.Avatar }
+					]
+				},
+			new FrameSection ("Author") {
+				Fields = [
+            		new FrameString ("User.DisplayName",
+            			(data, value) => {(data as Post)!.User!.DisplayName = value; },
+            			(data) => (data as Post)?.User?.DisplayName) {
+            				},
+            		new FrameString ("User.DisplayHandle",
+            			(data, value) => {(data as Post)!.User!.DisplayHandle = value; },
+            			(data) => (data as Post)?.User?.DisplayHandle) {
+            				},
+            		new FrameDateTime ("Created",
+            			(data, value) => {(data as Post)!.Created = value; },
+            			(data) => (data as Post)?.Created) {
+            				}
+					]
+				},
+			new FrameSection ("Rule") {
+				Fields = [
+					]
+				},
+			new FrameSection ("Summary") {
+				Fields = [
+            		new FrameString ("Title",
+            			(data, value) => {(data as Post)!.Title = value; },
+            			(data) => (data as Post)?.Title) {
+            				},
+            		new FrameText ("Summary",
+            			(data, value) => {(data as Post)!.Summary = value; },
+            			(data) => (data as Post)?.Summary) {
+            				}
+					]
+				},
+			new FrameSection ("Body") {
+				Fields = [
+            		new FrameRichText ("Body",
+            			(data, value) => {(data as Post)!.Body = value; },
+            			(data) => (data as Post)?.Body) {
+            				}
+					]
+				},
+			new FrameSection ("Detail") {
+				Fields = [
+            		new FrameDateTime ("Created",
+            			(data, value) => {(data as Post)!.Created = value; },
+            			(data) => (data as Post)?.Created) {
+            				},
+            		new FrameString ("Replies",
+            			(data, value) => {(data as Post)!.Replies = value; },
+            			(data) => (data as Post)?.Replies) {
+            				}
+					]
+				},
+			new FrameSection ("Responses") {
+				Fields = [
+            		new FrameButton ("Comment", "Comment", "CreateComment") {
+            			GetAnchor = (data) => (data as Post)?.PostPath,
+            			GetInteger = (data) => (data as Post)?.Comments
+            			},
             		new FrameSubmenu ("Repost", "Repost") {
             			Fields = [
                     		new FrameButton ("Repost", "Repost", "RepostAction") {
@@ -3520,8 +3877,8 @@ public partial class Post (string Id) : Entry (Id) {
 					]
 				}
 			]
-		}.CacheValue(out postfull)!;
-	static FramePresentation? postfull;
+		}.CacheValue(out postfullsaved)!;
+	static FramePresentation? postfullsaved;
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
@@ -3581,7 +3938,8 @@ public partial class Post (string Id) : Entry (Id) {
 			(data) => (data as Post)?.Likes) {
 				},
 		PostSummary,
-		PostFull
+		PostFull,
+		PostFullSaved
 		];
 
 
@@ -3737,6 +4095,71 @@ public partial class Comment (string Id) : Entry (Id) {
             		new FrameButton ("Comment", "Comment", "CreateComment") {
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
+            		new FrameButton ("SeeMore", "More", "MoreAction") {
+            			GetActive = (data) => (data as Comment)?.RequestedMore,
+            			GetAnchor = (data) => (data as Comment)?.PostPath
+            			},
+            		new FrameButton ("SeeLess", "Less", "LessAction") {
+            			GetActive = (data) => (data as Comment)?.RequestedLess,
+            			GetAnchor = (data) => (data as Comment)?.PostPath
+            			},
+            		new FrameButton ("Delete", "Delete", "DeleteComment") {
+            			GetAnchor = (data) => (data as Comment)?.PostPath
+            			}
+					]
+				}
+			]
+		}.CacheValue(out commentfull)!;
+	static FramePresentation? commentfull;
+
+	/// <summary>
+	/// Presentation style CommentFullSaved
+	/// </summary>
+	public static FramePresentation CommentFullSaved => commentfullsaved ?? new FramePresentation ("CommentFullSaved") {
+		GetUid = (data) => (data as Comment)?.Uid,
+		Sections = [
+			new FrameSection ("Avatar") {
+				GetAnchor = (data) => (data as Comment)?.AuthorLink,
+				Fields = [
+            		new FrameAvatar ("User.Avatar"){
+            			Prompt = null,
+            			Get = (data) => (data as Comment)?.User?.Avatar }
+					]
+				},
+			new FrameSection ("Author") {
+				GetAnchor = (data) => (data as Comment)?.AuthorLink,
+				Fields = [
+            		new FrameString ("User.DisplayName",
+            			(data, value) => {(data as Comment)!.User!.DisplayName = value; },
+            			(data) => (data as Comment)?.User?.DisplayName) {
+            				},
+            		new FrameString ("User.DisplayHandle",
+            			(data, value) => {(data as Comment)!.User!.DisplayHandle = value; },
+            			(data) => (data as Comment)?.User?.DisplayHandle) {
+            				},
+            		new FrameDateTime ("Created",
+            			(data, value) => {(data as Comment)!.Created = value; },
+            			(data) => (data as Comment)?.Created) {
+            				}
+					]
+				},
+			new FrameSection ("Rule") {
+				Fields = [
+					]
+				},
+			new FrameSection ("Body") {
+				Fields = [
+            		new FrameText ("Text",
+            			(data, value) => {(data as Comment)!.Text = value; },
+            			(data) => (data as Comment)?.Text) {
+            				}
+					]
+				},
+			new FrameSection ("Responses") {
+				Fields = [
+            		new FrameButton ("Comment", "Comment", "CreateComment") {
+            			GetAnchor = (data) => (data as Comment)?.PostPath
+            			},
             		new FrameSubmenu ("Repost", "Repost") {
             			Fields = [
                     		new FrameButton ("Repost", "Repost", "RepostAction") {
@@ -3807,8 +4230,8 @@ public partial class Comment (string Id) : Entry (Id) {
 					]
 				}
 			]
-		}.CacheValue(out commentfull)!;
-	static FramePresentation? commentfull;
+		}.CacheValue(out commentfullsaved)!;
+	static FramePresentation? commentfullsaved;
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
@@ -3862,7 +4285,8 @@ public partial class Comment (string Id) : Entry (Id) {
 			(data, value) => {(data as Comment)!.Replies = value; },
 			(data) => (data as Comment)?.Replies) {
 				},
-		CommentFull
+		CommentFull,
+		CommentFullSaved
 		];
 
 
