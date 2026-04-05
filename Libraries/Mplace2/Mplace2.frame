@@ -118,6 +118,15 @@ Namespace Mplace2.Gui
             Display CommentPresentation
 
 
+    MemberPage Page "MemberPage"
+        FlowPage Container
+        Navigation Is MainNav
+        MainEntry Is User
+            Display PostPresentation
+
+
+
+
     // Settings Menu pages with nested navigation
     SettingsPage Page "Settings"
         EntryPage Container

@@ -1,6 +1,36 @@
 ﻿namespace Mplace2.Gui;
 
 
+public partial class MemberPage {
+
+    public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
+
+        var path = context as ParsedPath;
+        path.CheckAuthorization(Privilege.ReadPost);
+
+
+        var persist = path.PersistPlace as PersistPlace;
+
+
+
+        var page = new MemberPage() {
+            FrameSet = FrameSet,
+
+            };
+
+
+
+        return page;
+
+        }
+
+    }
+
+
+
+
+
+
 #region // Post Page Presentation Class
 
 public partial class PostPage {

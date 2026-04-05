@@ -115,6 +115,9 @@ public partial class DeleteComment {
             CommentId = pageContext.CommentId
             };
 
+
+        // should pull the comment here so we can show it 
+
         var result = new DeleteComment() {
             FrameSet = FrameSet,
             Text="FOAD",

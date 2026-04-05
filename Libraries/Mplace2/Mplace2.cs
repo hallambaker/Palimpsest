@@ -38,6 +38,9 @@ public partial class MyClass : FrameSet{
 	///<summary>PostPage</summary>
 	public PostPage PostPage {get;} = new();
 
+	///<summary>MemberPage</summary>
+	public MemberPage MemberPage {get;} = new();
+
 	///<summary>SettingsPage</summary>
 	public SettingsPage SettingsPage {get;} = new();
 
@@ -235,6 +238,7 @@ public partial class MyClass : FrameSet{
 			BookmarkPage,
 			YourPlacePage,
 			PostPage,
+			MemberPage,
 			SettingsPage,
 			AccountSettings,
 			AppearanceSettings,
@@ -721,6 +725,53 @@ public partial class PostPage : FramePage {
 			// Only inclue the serialized items here
 			}, "PostPage",
 		() => new PostPage(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for MemberPage
+/// </summary>
+public partial class MemberPage : FramePage {
+
+	/// <summary>
+	/// Constructor, returns a new instance
+	/// </summary>
+	public MemberPage () : base ("MemberPage", "MemberPage", _Fields) {
+		Container = "FlowPage";
+		}
+
+    /// <summary>Field MainEntry</summary>
+	public User? MainEntry {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameRefClass<User> ("MainEntry","User"){
+			Presentation = PostPresentation,
+			Get = (data) => (data as MemberPage)?.MainEntry ,
+			Set = (data, value) => {(data as MemberPage)!.MainEntry = value as User; }}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<MemberPage> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			}, "MemberPage",
+		() => new MemberPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
