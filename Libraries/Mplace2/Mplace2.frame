@@ -232,6 +232,8 @@ Namespace Mplace2.Gui
         Crosspost List Provider         // Crossposting targets
     
     DeletePost Page "Delete Post"
+
+
     
     CreateComment Page "Create Comment"
         EntryPage Container
@@ -247,7 +249,22 @@ Namespace Mplace2.Gui
                 Hidden
             Text Text
                 Prompt "Text"
+
     DeleteComment Page "Delete Comment"
+
+        EntryPage Container
+        Navigation Is MainNav
+        Text Text
+            Prompt "Text"
+
+        Form Form Comment               // Comment entry form
+            FeedId String
+                Hidden
+            PostId String
+                Hidden
+            CommentId String
+                Hidden
+
 
     NewPlacePage Page "Create New Place"
         EntryPage Container

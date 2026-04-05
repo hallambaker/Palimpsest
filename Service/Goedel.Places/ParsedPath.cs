@@ -81,9 +81,12 @@ public record ParsedPath : IPageContext {
 
     public string PlaceName => CatalogedPlace?.LocalName;
     public string PlaceId => CatalogedPlace?.Uid;
-    public string FeedId => FirstId ?? CatalogedPlace?.DefaultFeed ?? PlaceId;
-    public string PostId => SecondId;
-    public string CommentId => ThirdId;
+
+
+    public string FeedId {get; private set;}
+
+    public string PostId { get; private set; }
+    public string CommentId { get; private set; }
 
     public string ResourceId => FirstId;
 
@@ -101,9 +104,10 @@ public record ParsedPath : IPageContext {
                 string postId = null,
                 string commentId = null) {
 
-        feedId ??= FeedId;
-        postId ??= PostId;
-        commentId ??= CommentId;
+        FeedId = feedId ?? FirstId ?? CatalogedPlace?.DefaultFeed ?? PlaceId;
+        PostId = postId ?? SecondId;
+        CommentId = commentId ?? ThirdId;
+        //ResourceId = FirstId;
 
         if (MemberHandle?.IsAdministrator == true) {
             return true;

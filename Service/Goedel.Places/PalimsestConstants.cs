@@ -75,7 +75,7 @@ public enum Privilege {
     ///<summary>Create new places</summary>
     ReadPlace = 0x0010,
     ///<summary>Create new feed</summary>
-    ReedFeed = 0x0020,
+    ReadFeed = 0x0020,
     ///<summary>Create post</summary>
     ReadPost = 0x0040,
     ///<summary>Create comment</summary>
@@ -100,8 +100,15 @@ public enum Privilege {
     Suspend = 0x80000,
     ///<summary>Ban member</summary>
     Ban = 0x100000,
+    ///<summary>Read User page</summary>
+    ReadSite = 0x200000,
+    ///<summary>Read User page</summary>
+    ReadUser = 0x400000,
+    ///<summary>Read User page</summary>
+    EditUser = 0x800000,
+
     ///<summary>Set member status</summary>
-    Status = 0x200000
+    Status = 0x40000000
     }
 
 
@@ -445,7 +452,7 @@ public static partial class PalimpsestConstants {
             PrivilegeCreatePostTag => Privilege.CreatePost,
             PrivilegeCreateCommentTag => Privilege.CreateComment,
             PrivilegeReadPlaceTag => Privilege.ReadPlace,
-            PrivilegeReedFeedTag => Privilege.ReedFeed,
+            PrivilegeReedFeedTag => Privilege.ReadFeed,
             PrivilegeReadPostTag => Privilege.ReadPost,
             PrivilegeReadCommentTag => Privilege.ReadComment,
             PrivilegeDeletePlaceTag => Privilege.DeletePlace,
@@ -475,7 +482,7 @@ public static partial class PalimpsestConstants {
             Privilege.CreatePost => PrivilegeCreatePostTag,
             Privilege.CreateComment => PrivilegeCreateCommentTag,
             Privilege.ReadPlace => PrivilegeReadPlaceTag,
-            Privilege.ReedFeed => PrivilegeReedFeedTag,
+            Privilege.ReadFeed => PrivilegeReedFeedTag,
             Privilege.ReadPost => PrivilegeReadPostTag,
             Privilege.ReadComment => PrivilegeReadCommentTag,
             Privilege.DeletePlace => PrivilegeDeletePlaceTag,

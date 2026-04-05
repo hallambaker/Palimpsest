@@ -327,8 +327,9 @@ public class PersistPlace : IPersistPlace {
     public void Update(string place, string feed, string post, CatalogedComment entry) {
         }
 
-    public void Delete(string place, string feed, string post, CatalogedComment entry) {
-        // NYI
+    public void Delete(string place, string feed, string post, string entry) {
+        using var comments = CatalogCache.GetComments(place, feed, post);
+        comments.Value.Delete(entry);
         }
 
 
@@ -401,7 +402,7 @@ public class PersistPlace : IPersistPlace {
         ParsedPath path) => $"https://{path.PlaceName}/";
 
     public string GetFeedLink(
-        ParsedPath path) => $"https://{path.PlaceName}{GetFeedPath(path.FeedId)}";
+        ParsedPath path) => $"https://{path.PlaceName}/PostsPage{GetFeedPath(path.FeedId)}";
 
     public string GetPostLink(
         ParsedPath path) => $"https://{path.PlaceName}/PostPage{GetPostPath(path.FeedId, path.PostId)}";

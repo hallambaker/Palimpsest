@@ -4,20 +4,15 @@ using Goedel.Mesh.Client;
 
 namespace Mplace2.Gui;
 
-public partial class PlacesPage {
-
-    public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
-        return base.GetPage(persistPlace, context);
-        }
-
-    }
-
 
 public partial class PostsPage {
 
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
 
         var path = context as ParsedPath;
+        path.CheckAuthorization(Privilege.ReadFeed);
+
+
         var persist = path.PersistPlace as PersistPlace;
         var place = path.PlaceId;
 

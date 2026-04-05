@@ -256,12 +256,13 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
             // Validate the inputs
             var validate = await result.Callback(path);
-            if (validate.Code == HttpStatusCode.OK) { // Success, redirect to the updated page
+            if (validate.Code == HttpStatusCode.OK | validate.Redirect is not null) { // Success, redirect to the updated page
                 if (validate.Cookies is not null) {
                     foreach (var cookie in validate.Cookies) {
                         response.Cookies.Add(cookie);
                         }
                     }
+                response.StatusCode = (int) validate.Code;
                 response.Redirect(validate.Redirect ?? "/");
                 response.Close();
                 return;

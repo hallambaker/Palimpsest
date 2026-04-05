@@ -1353,11 +1353,42 @@ public partial class DeleteComment : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public DeleteComment () : base ("DeleteComment", "Delete Comment", _Fields) {
-		Container = null;
+		Container = "EntryPage";
 		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+    /// <summary>Field Form</summary>
+	public Comment? Form {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameText ("Text",
+			(data, value) => {(data as DeleteComment)!.Text = value; },
+			(data) => (data as DeleteComment)?.Text) {
+				Prompt = "Text"
+				},
+		new FrameRefForm<Comment> ("Form","Comment", [
+		new FrameString ("FeedId",
+			(data, value) => {(data as Comment)!.FeedId = value; },
+			(data) => (data as Comment)?.FeedId) {
+				Hidden = true
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as Comment)!.PostId = value; },
+			(data) => (data as Comment)?.PostId) {
+				Hidden = true
+				},
+		new FrameString ("CommentId",
+			(data, value) => {(data as Comment)!.CommentId = value; },
+			(data) => (data as Comment)?.CommentId) {
+				Hidden = true
+				}
+				]){
+			Get = (data) => (data as DeleteComment)?.Form ,
+			Set = (data, value) => {(data as DeleteComment)!.Form = value as Comment; }}
 		];
 
 
@@ -1368,7 +1399,12 @@ public partial class DeleteComment : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-		];
+
+		new FrameText ("Text",
+			(data, value) => {(data as DeleteComment)!.Text = value; },
+			(data) => (data as DeleteComment)?.Text) {
+				Prompt = "Text"
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1378,6 +1414,7 @@ public partial class DeleteComment : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
+			{"Text", _properties[0]}
 			}, "DeleteComment",
 		() => new DeleteComment(), () => [], () => [], Parent: null, Generic: false);
 

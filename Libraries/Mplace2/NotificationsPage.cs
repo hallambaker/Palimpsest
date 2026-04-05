@@ -14,6 +14,8 @@ public partial class NotificationsPage {
         var persist = persistPlace as PersistPlace;
         var path = context as ParsedPath;
 
+        path.CheckAuthorization(Privilege.ReadUser);
+
         var result = new NotificationsPage() {
             FrameSet = FrameSet
             };
