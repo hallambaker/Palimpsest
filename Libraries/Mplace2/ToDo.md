@@ -1,22 +1,33 @@
 ﻿# To Do list
 
 
+
+# Errors
+
+* Delete Post/Comment not working
+ Is dying in     protected virtual void DeleteKeys(EarlEntryIndex<T> index) of EarlCatalog
+
+* Check redirect working on delete post / comment
+
+* Show the post/comment being deleted
+
+* Post page, decorate avatar usert wit link to member page
+
+* Comments don't show user
+
+* Disable comment/delete if not authorized
+
+
+
+
+
+
 # Release blocking
 
-##	Delete/edit posts / comments
-Need to add feature to delete posts
-
-## Redirects
-Go back to feed after create post. Go back to Post after create comment.
 
 ## Member Page
 Allow user to upload an avatar and banner, set name.
 
-## Formatting flubs
-Fix stylesheet issues.
-
-## Purge GUI definition
-Remove the unused stuff from the UI
 
 ##	Separate production/development systems
 Kind of not good doing live edits on the public site.

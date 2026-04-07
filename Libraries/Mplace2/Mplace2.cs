@@ -62,20 +62,20 @@ public partial class MyClass : FrameSet{
 	///<summary>CreateFeed</summary>
 	public CreateFeed CreateFeed {get;} = new();
 
-	///<summary>DeleteFeed</summary>
-	public DeleteFeed DeleteFeed {get;} = new();
+	///<summary>DeleteFeedPage</summary>
+	public DeleteFeedPage DeleteFeedPage {get;} = new();
 
 	///<summary>CreatePost</summary>
 	public CreatePost CreatePost {get;} = new();
 
-	///<summary>DeletePost</summary>
-	public DeletePost DeletePost {get;} = new();
+	///<summary>DeletePostPage</summary>
+	public DeletePostPage DeletePostPage {get;} = new();
 
 	///<summary>CreateComment</summary>
 	public CreateComment CreateComment {get;} = new();
 
-	///<summary>DeleteComment</summary>
-	public DeleteComment DeleteComment {get;} = new();
+	///<summary>DeleteCommentPage</summary>
+	public DeleteCommentPage DeleteCommentPage {get;} = new();
 
 	///<summary>NewPlacePage</summary>
 	public NewPlacePage NewPlacePage {get;} = new();
@@ -161,11 +161,20 @@ public partial class MyClass : FrameSet{
 	 ///<summary>Place</summary>
 	 public Place Place {get;} = new();
 
+	 ///<summary>DeleteFeed</summary>
+	 public DeleteFeed DeleteFeed {get;} = new();
+
 	 ///<summary>Feed</summary>
 	 public Feed Feed {get;} = new();
 
+	 ///<summary>DeletePost</summary>
+	 public DeletePost DeletePost {get;} = new();
+
 	 ///<summary>Post</summary>
 	 public Post Post {get;} = new();
+
+	 ///<summary>DeleteComment</summary>
+	 public DeleteComment DeleteComment {get;} = new();
 
 	 ///<summary>Comment</summary>
 	 public Comment Comment {get;} = new();
@@ -246,11 +255,11 @@ public partial class MyClass : FrameSet{
 			SignIn,
 			SwitchPage,
 			CreateFeed,
-			DeleteFeed,
+			DeleteFeedPage,
 			CreatePost,
-			DeletePost,
+			DeletePostPage,
 			CreateComment,
-			DeleteComment,
+			DeleteCommentPage,
 			NewPlacePage,
 			DeletePlace,
 			YourPlacePageCreate,
@@ -287,8 +296,11 @@ public partial class MyClass : FrameSet{
 			Privileges,
 			Entry,
 			Place,
+			DeleteFeed,
 			Feed,
+			DeletePost,
 			Post,
+			DeleteComment,
 			Comment,
 			Resource,
 			Contact,
@@ -534,7 +546,7 @@ public partial class PostsPage : FramePage {
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public PostsPage () : base ("PostsPage", "Places", _Fields) {
+	public PostsPage () : base ("PostsPage", "Posts", _Fields) {
 		Container = "FlowPage";
 		}
 
@@ -747,7 +759,7 @@ public partial class MemberPage : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefClass<User> ("MainEntry","User"){
-			Presentation = PostPresentation,
+			Presentation = MemberPresentation,
 			Get = (data) => (data as MemberPage)?.MainEntry ,
 			Set = (data, value) => {(data as MemberPage)!.MainEntry = value as User; }}
 		];
@@ -1169,14 +1181,14 @@ public partial class CreateFeed : FramePage {
 
 	}
 /// <summary>
-/// Backing class for DeleteFeed
+/// Backing class for DeleteFeedPage
 /// </summary>
-public partial class DeleteFeed : FramePage {
+public partial class DeleteFeedPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public DeleteFeed () : base ("DeleteFeed", "Delete Feed", _Fields) {
+	public DeleteFeedPage () : base ("DeleteFeedPage", "Delete Feed", _Fields) {
 		Container = null;
 		}
 
@@ -1198,12 +1210,12 @@ public partial class DeleteFeed : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	protected static readonly Binding<DeleteFeed> _binding = new (
+	protected static readonly Binding<DeleteFeedPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
-			}, "DeleteFeed",
-		() => new DeleteFeed(), () => [], () => [], Parent: null, Generic: false);
+			}, "DeleteFeedPage",
+		() => new DeleteFeedPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1284,19 +1296,45 @@ public partial class CreatePost : FramePage {
 
 	}
 /// <summary>
-/// Backing class for DeletePost
+/// Backing class for DeletePostPage
 /// </summary>
-public partial class DeletePost : FramePage {
+public partial class DeletePostPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public DeletePost () : base ("DeletePost", "Delete Post", _Fields) {
-		Container = null;
+	public DeletePostPage () : base ("DeletePostPage", "Delete Post", _Fields) {
+		Container = "EntryPage";
 		}
+
+    /// <summary>Field Text</summary>
+	public string? Text {get; set;}
+
+    /// <summary>Field Form</summary>
+	public DeletePost? Form {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameText ("Text",
+			(data, value) => {(data as DeletePostPage)!.Text = value; },
+			(data) => (data as DeletePostPage)?.Text) {
+				Prompt = "Text"
+				},
+		new FrameRefForm<DeletePost> ("Form","DeletePost", [
+		new FrameString ("FeedId",
+			(data, value) => {(data as DeletePost)!.FeedId = value; },
+			(data) => (data as DeletePost)?.FeedId) {
+				Hidden = true
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as DeletePost)!.PostId = value; },
+			(data) => (data as DeletePost)?.PostId) {
+				Hidden = true
+				}
+				]){
+			Get = (data) => (data as DeletePostPage)?.Form ,
+			Set = (data, value) => {(data as DeletePostPage)!.Form = value as DeletePost; }}
 		];
 
 
@@ -1307,18 +1345,24 @@ public partial class DeletePost : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-		];
+
+		new FrameText ("Text",
+			(data, value) => {(data as DeletePostPage)!.Text = value; },
+			(data) => (data as DeletePostPage)?.Text) {
+				Prompt = "Text"
+				}		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	protected static readonly Binding<DeletePost> _binding = new (
+	protected static readonly Binding<DeletePostPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
-			}, "DeletePost",
-		() => new DeletePost(), () => [], () => [], Parent: null, Generic: false);
+			{"Text", _properties[0]}
+			}, "DeletePostPage",
+		() => new DeletePostPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -1396,14 +1440,14 @@ public partial class CreateComment : FramePage {
 
 	}
 /// <summary>
-/// Backing class for DeleteComment
+/// Backing class for DeleteCommentPage
 /// </summary>
-public partial class DeleteComment : FramePage {
+public partial class DeleteCommentPage : FramePage {
 
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public DeleteComment () : base ("DeleteComment", "Delete Comment", _Fields) {
+	public DeleteCommentPage () : base ("DeleteCommentPage", "Delete Comment", _Fields) {
 		Container = "EntryPage";
 		}
 
@@ -1411,35 +1455,35 @@ public partial class DeleteComment : FramePage {
 	public string? Text {get; set;}
 
     /// <summary>Field Form</summary>
-	public Comment? Form {get; set;}
+	public DeleteComment? Form {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameText ("Text",
-			(data, value) => {(data as DeleteComment)!.Text = value; },
-			(data) => (data as DeleteComment)?.Text) {
+			(data, value) => {(data as DeleteCommentPage)!.Text = value; },
+			(data) => (data as DeleteCommentPage)?.Text) {
 				Prompt = "Text"
 				},
-		new FrameRefForm<Comment> ("Form","Comment", [
+		new FrameRefForm<DeleteComment> ("Form","DeleteComment", [
 		new FrameString ("FeedId",
-			(data, value) => {(data as Comment)!.FeedId = value; },
-			(data) => (data as Comment)?.FeedId) {
+			(data, value) => {(data as DeleteComment)!.FeedId = value; },
+			(data) => (data as DeleteComment)?.FeedId) {
 				Hidden = true
 				},
 		new FrameString ("PostId",
-			(data, value) => {(data as Comment)!.PostId = value; },
-			(data) => (data as Comment)?.PostId) {
+			(data, value) => {(data as DeleteComment)!.PostId = value; },
+			(data) => (data as DeleteComment)?.PostId) {
 				Hidden = true
 				},
 		new FrameString ("CommentId",
-			(data, value) => {(data as Comment)!.CommentId = value; },
-			(data) => (data as Comment)?.CommentId) {
+			(data, value) => {(data as DeleteComment)!.CommentId = value; },
+			(data) => (data as DeleteComment)?.CommentId) {
 				Hidden = true
 				}
 				]){
-			Get = (data) => (data as DeleteComment)?.Form ,
-			Set = (data, value) => {(data as DeleteComment)!.Form = value as Comment; }}
+			Get = (data) => (data as DeleteCommentPage)?.Form ,
+			Set = (data, value) => {(data as DeleteCommentPage)!.Form = value as DeleteComment; }}
 		];
 
 
@@ -1452,8 +1496,8 @@ public partial class DeleteComment : FramePage {
 		// Only inclue the serialized items here
 
 		new FrameText ("Text",
-			(data, value) => {(data as DeleteComment)!.Text = value; },
-			(data) => (data as DeleteComment)?.Text) {
+			(data, value) => {(data as DeleteCommentPage)!.Text = value; },
+			(data) => (data as DeleteCommentPage)?.Text) {
 				Prompt = "Text"
 				}		];
 
@@ -1461,13 +1505,13 @@ public partial class DeleteComment : FramePage {
 	public override Binding _Binding => _binding;
 
 	///<summary>Binding</summary> 
-	protected static readonly Binding<DeleteComment> _binding = new (
+	protected static readonly Binding<DeleteCommentPage> _binding = new (
 			new() {
 
 			// Only inclue the serialized items here
 			{"Text", _properties[0]}
-			}, "DeleteComment",
-		() => new DeleteComment(), () => [], () => [], Parent: null, Generic: false);
+			}, "DeleteCommentPage",
+		() => new DeleteCommentPage(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -2717,6 +2761,8 @@ public partial class User (string Id) : FrameClass (Id) {
 	public User() : this("User") { 
 		}
 
+    /// <inheritdoc/>
+    public override FramePresentation Presentation => MemberSummary;
 
 
     /// <summary>Field Uid</summary>
@@ -2740,6 +2786,76 @@ public partial class User (string Id) : FrameClass (Id) {
     /// <summary>Field Groups</summary>
 	public List<Group>? Groups {get; set;}
 
+
+	/// <summary>
+	/// Presentation style MemberSummary
+	/// </summary>
+	public static FramePresentation MemberSummary => membersummary ?? new FramePresentation ("MemberSummary") {
+		GetUid = (data) => (data as User)?.Uid,
+		Sections = [
+			new FrameSection ("ImageArea") {
+				Fields = [
+            		new FrameAvatar ("Avatar"){
+            			Prompt = null,
+            			Get = (data) => (data as User)?.Avatar }
+					]
+				},
+			new FrameSection ("NameArea") {
+				Fields = [
+            		new FrameString ("DisplayName",
+            			(data, value) => {(data as User)!.DisplayName = value; },
+            			(data) => (data as User)?.DisplayName) {
+            				},
+            		new FrameString ("DisplayHandle",
+            			(data, value) => {(data as User)!.DisplayHandle = value; },
+            			(data) => (data as User)?.DisplayHandle) {
+            				}
+					]
+				}
+			]
+		}.CacheValue(out membersummary)!;
+	static FramePresentation? membersummary;
+
+	/// <summary>
+	/// Presentation style MemberDetail
+	/// </summary>
+	public static FramePresentation MemberDetail => memberdetail ?? new FramePresentation ("MemberDetail") {
+		GetUid = (data) => (data as User)?.Uid,
+		Sections = [
+			new FrameSection ("ImageArea") {
+				Fields = [
+            		new FrameAvatar ("Avatar"){
+            			Prompt = null,
+            			Get = (data) => (data as User)?.Avatar }
+					]
+				},
+			new FrameSection ("NameArea") {
+				Fields = [
+            		new FrameString ("DisplayName",
+            			(data, value) => {(data as User)!.DisplayName = value; },
+            			(data) => (data as User)?.DisplayName) {
+            				},
+            		new FrameString ("DisplayHandle",
+            			(data, value) => {(data as User)!.DisplayHandle = value; },
+            			(data) => (data as User)?.DisplayHandle) {
+            				}
+					]
+				},
+			new FrameSection ("Moderation") {
+				Fields = [
+            		new FrameBoolean ("Banned",
+            			(data, value) => {(data as User)!.Banned = value; },
+            			(data) => (data as User)?.Banned) {
+            				},
+            		new FrameDateTime ("Suspended",
+            			(data, value) => {(data as User)!.Suspended = value; },
+            			(data) => (data as User)?.Suspended) {
+            				}
+					]
+				}
+			]
+		}.CacheValue(out memberdetail)!;
+	static FramePresentation? memberdetail;
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameString ("Uid",
@@ -2767,7 +2883,9 @@ public partial class User (string Id) : FrameClass (Id) {
 				},
 		new FrameRefList<Group> ("Groups","Group"){
 			Get = (data) => (data as User)?.Groups ,
-			Set = (data, value) => {(data as User)!.Groups = value as List<Group>; }}
+			Set = (data, value) => {(data as User)!.Groups = value as List<Group>; }},
+		MemberSummary,
+		MemberDetail
 		];
 
 
@@ -3479,6 +3597,61 @@ public partial class Place (string Id) : Entry (Id) {
 
 	}
 /// <summary>
+/// Backing class for DeleteFeed
+/// </summary>
+public partial class DeleteFeed (string Id) : FrameClass (Id) {
+
+    /// <inheritdoc/>
+    public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public DeleteFeed() : this("DeleteFeed") { 
+		}
+
+
+
+    /// <summary>Field FeedId</summary>
+	public string? FeedId {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("FeedId",
+			(data, value) => {(data as DeleteFeed)!.FeedId = value; },
+			(data) => (data as DeleteFeed)?.FeedId) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameString ("FeedId",
+			(data, value) => {(data as DeleteFeed)!.FeedId = value; },
+			(data) => (data as DeleteFeed)?.FeedId) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<DeleteFeed> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"FeedId", _properties[0]}
+			}, "DeleteFeed",
+		() => new DeleteFeed(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
 /// Backing class for Feed
 /// </summary>
 public partial class Feed (string Id) : Entry (Id) {
@@ -3648,6 +3821,73 @@ public partial class Feed (string Id) : Entry (Id) {
 			{"AllowVideo", _properties[6]}
 			}, "Feed",
 		() => new Feed(), () => [], () => [], Parent: Entry._binding, Generic: false);
+
+
+	}
+/// <summary>
+/// Backing class for DeletePost
+/// </summary>
+public partial class DeletePost (string Id) : FrameClass (Id) {
+
+    /// <inheritdoc/>
+    public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public DeletePost() : this("DeletePost") { 
+		}
+
+
+
+    /// <summary>Field FeedId</summary>
+	public string? FeedId {get; set;}
+
+    /// <summary>Field PostId</summary>
+	public string? PostId {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("FeedId",
+			(data, value) => {(data as DeletePost)!.FeedId = value; },
+			(data) => (data as DeletePost)?.FeedId) {
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as DeletePost)!.PostId = value; },
+			(data) => (data as DeletePost)?.PostId) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameString ("FeedId",
+			(data, value) => {(data as DeletePost)!.FeedId = value; },
+			(data) => (data as DeletePost)?.FeedId) {
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as DeletePost)!.PostId = value; },
+			(data) => (data as DeletePost)?.PostId) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<DeletePost> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"FeedId", _properties[0]},
+			{"PostId", _properties[1]}
+			}, "DeletePost",
+		() => new DeletePost(), () => [], () => [], Parent: null, Generic: false);
 
 
 	}
@@ -3828,7 +4068,7 @@ public partial class Post (string Id) : Entry (Id) {
             			GetActive = (data) => (data as Post)?.RequestedLess,
             			ButtonAction = ButtonAction.Method
             			},
-            		new FrameButton ("Delete", "Delete", "DeletePost") {
+            		new FrameButton ("Delete", "Delete", "DeletePostPage") {
             			GetAnchor = (data) => (data as Post)?.PostPath
             			}
 					]
@@ -4093,6 +4333,85 @@ public partial class Post (string Id) : Entry (Id) {
 
 	}
 /// <summary>
+/// Backing class for DeleteComment
+/// </summary>
+public partial class DeleteComment (string Id) : FrameClass (Id) {
+
+    /// <inheritdoc/>
+    public override List<IFrameField> Fields { get; set; } = _Fields;
+
+	/// <summary>
+	/// Paramaterless constructor enabling use of new().
+	/// </summary>
+	public DeleteComment() : this("DeleteComment") { 
+		}
+
+
+
+    /// <summary>Field FeedId</summary>
+	public string? FeedId {get; set;}
+
+    /// <summary>Field PostId</summary>
+	public string? PostId {get; set;}
+
+    /// <summary>Field CommentId</summary>
+	public string? CommentId {get; set;}
+
+
+	static readonly List<IFrameField> _Fields = [
+		new FrameString ("FeedId",
+			(data, value) => {(data as DeleteComment)!.FeedId = value; },
+			(data) => (data as DeleteComment)?.FeedId) {
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as DeleteComment)!.PostId = value; },
+			(data) => (data as DeleteComment)?.PostId) {
+				},
+		new FrameString ("CommentId",
+			(data, value) => {(data as DeleteComment)!.CommentId = value; },
+			(data) => (data as DeleteComment)?.CommentId) {
+				}
+		];
+
+
+
+    /// <inheritdoc/>
+	public override Goedel.Protocol.Property[] _Properties => _properties;
+
+	///<summary>Binding</summary> 
+	static readonly Goedel.Protocol.Property[] _properties = [
+		// Only inclue the serialized items here
+
+		new FrameString ("FeedId",
+			(data, value) => {(data as DeleteComment)!.FeedId = value; },
+			(data) => (data as DeleteComment)?.FeedId) {
+				},
+		new FrameString ("PostId",
+			(data, value) => {(data as DeleteComment)!.PostId = value; },
+			(data) => (data as DeleteComment)?.PostId) {
+				},
+		new FrameString ("CommentId",
+			(data, value) => {(data as DeleteComment)!.CommentId = value; },
+			(data) => (data as DeleteComment)?.CommentId) {
+				}		];
+
+    /// <inheritdoc/>
+	public override Binding _Binding => _binding;
+
+	///<summary>Binding</summary> 
+	protected static readonly Binding<DeleteComment> _binding = new (
+			new() {
+
+			// Only inclue the serialized items here
+			{"FeedId", _properties[0]},
+			{"PostId", _properties[1]},
+			{"CommentId", _properties[2]}
+			}, "DeleteComment",
+		() => new DeleteComment(), () => [], () => [], Parent: null, Generic: false);
+
+
+	}
+/// <summary>
 /// Backing class for Comment
 /// </summary>
 public partial class Comment (string Id) : Entry (Id) {
@@ -4191,7 +4510,7 @@ public partial class Comment (string Id) : Entry (Id) {
             			GetActive = (data) => (data as Comment)?.RequestedLess,
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
-            		new FrameButton ("Delete", "Delete", "DeleteComment") {
+            		new FrameButton ("Delete", "Delete", "DeleteCommentPage") {
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			}
 					]

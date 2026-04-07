@@ -38,5 +38,16 @@ public partial class FramePage : Goedel.Sitebuilder.FramePage {
         _ => null
         };
 
+
+    public static FramePresentation? MemberPresentation(IBinding data) => data switch {
+        User => User.MemberSummary,
+        _ => null
+        };
+
+    public static FramePresentation? MemberModeratorPresentation(IBinding data) => data switch {
+        User => User.MemberDetail,
+        _ => null
+        };
+
     }
 

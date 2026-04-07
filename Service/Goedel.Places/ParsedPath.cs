@@ -88,6 +88,9 @@ public record ParsedPath : IPageContext {
     public string PostId { get; private set; }
     public string CommentId { get; private set; }
 
+
+    public string MemberId { get; private set; }
+
     public string ResourceId => FirstId;
 
     /// <summary>Check to see if the current user has the authorization 
@@ -102,11 +105,14 @@ public record ParsedPath : IPageContext {
                 Privilege privilege,
                 string feedId = null,
                 string postId = null,
-                string commentId = null) {
+                string commentId = null,
+                string memberId=null) {
 
         FeedId = feedId ?? FirstId ?? CatalogedPlace?.DefaultFeed ?? PlaceId;
         PostId = postId ?? SecondId;
         CommentId = commentId ?? ThirdId;
+
+        MemberId = memberId ?? FirstId;
         //ResourceId = FirstId;
 
         if (MemberHandle?.IsAdministrator == true) {

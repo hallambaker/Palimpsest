@@ -1,4 +1,6 @@
-﻿namespace Mplace2.Gui;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+
+namespace Mplace2.Gui;
 
 public partial class PlacesPage {
 
@@ -7,7 +9,20 @@ public partial class PlacesPage {
         var path = context as ParsedPath;
         path.CheckAuthorization(Privilege.ReadSite);
 
-        return base.GetPage(persistPlace, context);
+        var persist = path.PersistPlace as PersistPlace;
+
+        var page = new PlacesPage() {
+            FrameSet = FrameSet,
+            Entries = []
+            };
+
+        foreach (var placeindex  in persist.CachedPlaces.EntriesForward()) {
+            var place = persist.CachedPlaces.GetValue(placeindex);
+            page.Entries.Add(new Place(place, persist));
+            }
+
+
+        return page;
         }
 
     }

@@ -1,37 +1,12 @@
 ﻿namespace Mplace2.Gui;
 
 
-public partial class MemberPage {
-
-    public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
-
-        var path = context as ParsedPath;
-        path.CheckAuthorization(Privilege.ReadPost);
-
-
-        var persist = path.PersistPlace as PersistPlace;
-
-
-
-        var page = new MemberPage() {
-            FrameSet = FrameSet,
-
-            };
-
-
-
-        return page;
-
-        }
-
-    }
-
-
 
 
 
 
 #region // Post Page Presentation Class
+
 
 public partial class PostPage {
 
@@ -43,8 +18,6 @@ public partial class PostPage {
 
         var persist = path.PersistPlace as PersistPlace;
         var place = path.PlaceId;
-
-        // if no feed is specified, use the first ID.
         var feedId = path.FeedId;
         var postId = path.PostId;
 
@@ -183,13 +156,52 @@ public partial class CreatePost {
 #endregion
 #region -- Delete Post Form
 
+
 public partial class DeletePost {
+    public override async Task<CallbackResult> Callback(IPageContext context) {
+        var pageContext = context as ParsedPath;
+
+        pageContext.CheckAuthorization(Privilege.DeleteComment, FeedId, PostId);
+        var persist = pageContext.PersistPlace as PersistPlace;
+
+        persist.DeletePost(pageContext.PlaceId, pageContext.FeedId, pageContext.PostId);
+
+
+        var returnPage = persist.GetFeedLink(pageContext);
+        return CallbackResult.CreatedRedirect(returnPage);
+        }
+    }
+
+// Need to refactor this so that the template is of type 'Deletepost' with just the identifiers.
+// Same for comment
+
+public partial class DeletePostPage {
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
 
-        var path = context as ParsedPath;
-        path.CheckAuthorization(Privilege.ReadPost);
 
-        return null;
+        var pageContext = context as ParsedPath;
+        var persist = pageContext.PersistPlace as PersistPlace;
+        pageContext.CheckAuthorization(Privilege.DeletePost);
+
+        var template = new DeletePost() {
+            FeedId = pageContext.FeedId,
+            PostId = pageContext.PostId
+            };
+
+
+        // should pull the comment here so we can show it 
+
+        var result = new DeletePostPage() {
+            FrameSet = FrameSet,
+            Text = "FOAD",
+            Form = template
+            };
+
+        pageContext.Page = result;
+
+        return result;
+
+
         }
     }
 

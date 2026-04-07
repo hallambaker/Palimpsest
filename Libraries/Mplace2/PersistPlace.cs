@@ -12,6 +12,8 @@ using Goedel.Discovery;
 using Goedel.IO;
 using Goedel.Protocol.Service;
 
+using Microsoft.Extensions.Hosting;
+
 
 namespace Mplace2.Gui;
 
@@ -314,7 +316,9 @@ public class PersistPlace : IPersistPlace {
     public void Update(string place, string feed, CatalogedPost entry) {
         }
 
-    public void Delete(string place, string feed, CatalogedPost entry) {
+    public void DeletePost(string place, string feedId, string entryId) {
+        using var feed = CatalogCache.GetFeedPosts(place, feedId);
+        feed.Value.Delete(entryId);
         // NYI
         }
 
@@ -327,9 +331,9 @@ public class PersistPlace : IPersistPlace {
     public void Update(string place, string feed, string post, CatalogedComment entry) {
         }
 
-    public void Delete(string place, string feed, string post, string entry) {
-        using var comments = CatalogCache.GetComments(place, feed, post);
-        comments.Value.Delete(entry);
+    public void DeleteComment(string place, string feed, string post, string entry) {
+        using var comment = CatalogCache.GetComments(place, feed, post);
+        comment.Value.Delete(entry);
         }
 
 

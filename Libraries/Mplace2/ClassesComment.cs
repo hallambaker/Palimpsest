@@ -32,16 +32,6 @@ public partial class Comment {
     public override async Task<CallbackResult> Callback(IPageContext context) {
         var pageContext = context as ParsedPath;
 
-        return pageContext.Command switch {
-            "CreateComment" => await CreateComment (pageContext),
-            "DeleteComment" => await DeleteComment(pageContext),
-            _ => throw new NYI()
-            };
-
-        }
-
-
-    Task<CallbackResult> CreateComment(ParsedPath pageContext) {
         pageContext.CheckAuthorization(Privilege.CreateComment, FeedId, PostId);
         var persist = pageContext.PersistPlace as PersistPlace;
 
@@ -54,19 +44,10 @@ public partial class Comment {
         persist.Add(pageContext.PlaceId, pageContext.FeedId, pageContext.PostId, item);
 
         var returnPage = persist.GetPostLink(pageContext);
-        return Task.FromResult(CallbackResult.CreatedRedirect(returnPage));
+        return CallbackResult.CreatedRedirect(returnPage);
         }
 
-    Task<CallbackResult> DeleteComment(ParsedPath pageContext) {
-        pageContext.CheckAuthorization(Privilege.CreateComment, FeedId, PostId);
-        var persist = pageContext.PersistPlace as PersistPlace;
 
-        persist.Delete(pageContext.PlaceId, pageContext.FeedId, pageContext.PostId, pageContext.CommentId);
-
-
-        var returnPage = persist.GetPostLink(pageContext);
-        return Task.FromResult(CallbackResult.CreatedRedirect(returnPage));
-        }
 
     private void SetLinks(PersistPlace persist, string placeId, string feedId, string postId, CatalogedComment comment) {
         PostPath = persist.GetCommentPath(feedId, postId, comment._PrimaryKey);
@@ -74,7 +55,21 @@ public partial class Comment {
         }
     }
 
+public partial class DeleteComment {
 
+    public override async Task<CallbackResult> Callback(IPageContext context) {
+        var pageContext = context as ParsedPath;
+
+        pageContext.CheckAuthorization(Privilege.DeleteComment, FeedId, PostId, CommentId);
+        var persist = pageContext.PersistPlace as PersistPlace;
+
+        persist.DeleteComment(pageContext.PlaceId, pageContext.FeedId, pageContext.PostId, pageContext.CommentId);
+
+
+        var returnPage = persist.GetPostLink(pageContext);
+        return CallbackResult.CreatedRedirect(returnPage);
+        }
+    }
 
 public partial class CreateComment {
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
@@ -102,14 +97,14 @@ public partial class CreateComment {
 
 
 
-public partial class DeleteComment {
+public partial class DeleteCommentPage {
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
 
         var pageContext = context as ParsedPath;
         var persist = pageContext.PersistPlace as PersistPlace;
         pageContext.CheckAuthorization(Privilege.DeleteComment);
 
-        var template = new Comment() {
+        var template = new DeleteComment() {
             FeedId = pageContext.FeedId,
             PostId = pageContext.PostId,
             CommentId = pageContext.CommentId
@@ -118,7 +113,7 @@ public partial class DeleteComment {
 
         // should pull the comment here so we can show it 
 
-        var result = new DeleteComment() {
+        var result = new DeleteCommentPage() {
             FrameSet = FrameSet,
             Text="FOAD",
             Form = template

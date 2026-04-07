@@ -86,7 +86,7 @@ Namespace Mplace2.Gui
         Entries List Entry
             Display SummaryPresentation
 
-    PostsPage Page "Places"
+    PostsPage Page "Posts"
         FlowPage Container
         Navigation Is MainNav
         //TopSettings Is TopSettings
@@ -122,7 +122,7 @@ Namespace Mplace2.Gui
         FlowPage Container
         Navigation Is MainNav
         MainEntry Is User
-            Display PostPresentation
+            Display MemberPresentation
 
 
 
@@ -219,7 +219,7 @@ Namespace Mplace2.Gui
                 Prompt "Allow video"
                 Description "Allow longer videos in the feed."
 
-    DeleteFeed Page "Delete Feed"
+    DeleteFeedPage Page "Delete Feed"
 
     CreatePost Page "Create New Post"
         EntryPage Container
@@ -240,7 +240,17 @@ Namespace Mplace2.Gui
 
         Crosspost List Provider         // Crossposting targets
     
-    DeletePost Page "Delete Post"
+    DeletePostPage Page "Delete Post"
+        EntryPage Container
+        Navigation Is MainNav
+        Text Text
+            Prompt "Text"
+
+        Form Form DeletePost              // Comment entry form
+            FeedId String
+                Hidden
+            PostId String
+                Hidden
 
 
     
@@ -259,14 +269,14 @@ Namespace Mplace2.Gui
             Text Text
                 Prompt "Text"
 
-    DeleteComment Page "Delete Comment"
+    DeleteCommentPage Page "Delete Comment"
 
         EntryPage Container
         Navigation Is MainNav
         Text Text
             Prompt "Text"
 
-        Form Form Comment               // Comment entry form
+        Form Form DeleteComment              // Comment entry form
             FeedId String
                 Hidden
             PostId String
@@ -388,6 +398,23 @@ Namespace Mplace2.Gui
             Suspended DateTime          // If specified, the user is suspended until the specified date/time
             Groups List Group           // Groups the user is a member of, highest priority last.
 
+            MemberSummary Presentation Uid
+                ImageArea
+                    Avatar Avatar
+                NameArea
+                    DisplayName String  
+                    DisplayHandle String
+
+            MemberDetail Presentation Uid
+                ImageArea
+                    Avatar Avatar
+                NameArea
+                    DisplayName String  
+                    DisplayHandle String
+                Moderation
+                    Banned Boolean
+                    Suspended DateTime
+
     Group Class                     // 
         Description "Groups users with shared privileges"
         Fields
@@ -483,6 +510,11 @@ Namespace Mplace2.Gui
                 Body
                     Description Text
 
+    DeleteFeed Class
+        Description "A collection of comments"
+        Fields
+            FeedId String
+
 
     Feed SubClass Entry                      // 
         Description "A feed with grouped entries"
@@ -507,7 +539,15 @@ Namespace Mplace2.Gui
             AllowVideo Boolean
                 Prompt "Allow video"
                 Description "Allow longer videos in the feed."
-         
+
+
+    DeletePost Class
+        Description "A collection of comments"
+        Fields
+            FeedId String
+            PostId String
+              
+
     Post SubClass Entry
         Description "A collection of comments"
         Fields
@@ -566,7 +606,7 @@ Namespace Mplace2.Gui
                     SeeLess Button LessAction "Less"
                         SeeLess Action 
                         RequestedLess Boolean
-                    Delete Button DeletePost "Delete"
+                    Delete Button DeletePostPage "Delete"
                         PostPath Anchor
 
             // The features we have stashed here.
@@ -621,7 +661,12 @@ Namespace Mplace2.Gui
                             BlockAccount Action 
                         Report Button ReportPostAction "Report post"
 
-
+    DeleteComment Class
+        Description "A collection of comments"
+        Fields
+            FeedId String
+            PostId String
+            CommentId String
 
     Comment SubClass Entry
         Description "A comment on a post"
@@ -661,7 +706,7 @@ Namespace Mplace2.Gui
                     SeeLess Button LessAction "Less"
                         PostPath Anchor
                         RequestedLess Boolean
-                    Delete Button DeleteComment "Delete"
+                    Delete Button DeleteCommentPage "Delete"
                         PostPath Anchor
 
             CommentFullSaved Presentation Uid
