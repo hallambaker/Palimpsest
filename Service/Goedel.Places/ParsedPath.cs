@@ -124,9 +124,21 @@ public record ParsedPath : IPageContext {
 
 
 
+    public Privilege GetAuthorization(CatalogedPost entry) {
+        if (MemberHandle?.IsAdministrator == true) {
+            return Privilege.ReadPost | Privilege.DeletePost | Privilege.CreateComment;
+            }
+        return Privilege.None;
+        }
+
+    public Privilege GetAuthorization(CatalogedComment entry) {
 
 
-
+        if (MemberHandle?.IsAdministrator == true) {
+            return Privilege.ReadComment | Privilege.DeleteComment | Privilege.CreateComment;
+            }
+        return Privilege.None;
+        }
 
 
 

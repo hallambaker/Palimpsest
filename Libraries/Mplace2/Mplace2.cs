@@ -3996,6 +3996,7 @@ public partial class Post (string Id) : Entry (Id) {
 		GetUid = (data) => (data as Post)?.Uid,
 		Sections = [
 			new FrameSection ("Avatar") {
+				GetAnchor = (data) => (data as Post)?.AuthorLink,
 				Fields = [
             		new FrameAvatar ("User.Avatar"){
             			Prompt = null,
@@ -4003,6 +4004,7 @@ public partial class Post (string Id) : Entry (Id) {
 					]
 				},
 			new FrameSection ("Author") {
+				GetAnchor = (data) => (data as Post)?.AuthorLink,
 				Fields = [
             		new FrameString ("User.DisplayName",
             			(data, value) => {(data as Post)!.User!.DisplayName = value; },
@@ -4057,6 +4059,7 @@ public partial class Post (string Id) : Entry (Id) {
 			new FrameSection ("Responses") {
 				Fields = [
             		new FrameButton ("Comment", "Comment", "CreateComment") {
+            			GetActive = (data) => (data as Post)?.PermissionRespond,
             			GetAnchor = (data) => (data as Post)?.PostPath,
             			GetInteger = (data) => (data as Post)?.Comments
             			},
@@ -4069,6 +4072,7 @@ public partial class Post (string Id) : Entry (Id) {
             			ButtonAction = ButtonAction.Method
             			},
             		new FrameButton ("Delete", "Delete", "DeletePostPage") {
+            			GetActive = (data) => (data as Post)?.PermissionDelete,
             			GetAnchor = (data) => (data as Post)?.PostPath
             			}
 					]
@@ -4155,11 +4159,6 @@ public partial class Post (string Id) : Entry (Id) {
                     		new FrameButton ("QuotePost", "Quote Post", "QuotePostAction") {
                     			}
             				]
-            			},
-            		new FrameButton ("Like", "Like", "LikeAction") {
-            			GetActive = (data) => (data as Post)?.Liked,
-            			GetInteger = (data) => (data as Post)?.Likes,
-            			ButtonAction = ButtonAction.Method
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
             			GetActive = (data) => (data as Post)?.RequestedMore,
@@ -4500,17 +4499,19 @@ public partial class Comment (string Id) : Entry (Id) {
 			new FrameSection ("Responses") {
 				Fields = [
             		new FrameButton ("Comment", "Comment", "CreateComment") {
+            			GetActive = (data) => (data as Comment)?.PermissionRespond,
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (data) => (data as Comment)?.RequestedMore,
+            			GetActive = (data) => (data as Comment)?.PermissionRespond,
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
             		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (data) => (data as Comment)?.RequestedLess,
+            			GetActive = (data) => (data as Comment)?.PermissionRespond,
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
             		new FrameButton ("Delete", "Delete", "DeleteCommentPage") {
+            			GetActive = (data) => (data as Comment)?.PermissionDelete,
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			}
 					]
@@ -4576,11 +4577,6 @@ public partial class Comment (string Id) : Entry (Id) {
                     			GetAnchor = (data) => (data as Comment)?.PostPath
                     			}
             				]
-            			},
-            		new FrameButton ("Like", "Like", "LikeAction") {
-            			GetActive = (data) => (data as Comment)?.Liked,
-            			GetAnchor = (data) => (data as Comment)?.PostPath,
-            			GetInteger = (data) => (data as Comment)?.Likes
             			},
             		new FrameButton ("SeeMore", "More", "MoreAction") {
             			GetActive = (data) => (data as Comment)?.RequestedMore,

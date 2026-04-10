@@ -9,15 +9,15 @@ public partial class PostsPage {
 
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
 
-        var path = context as ParsedPath;
-        path.CheckAuthorization(Privilege.ReadFeed);
+        var pageContext = context as ParsedPath;
+        pageContext.CheckAuthorization(Privilege.ReadFeed);
 
 
-        var persist = path.PersistPlace as PersistPlace;
-        var place = path.PlaceId;
+        var persist = pageContext.PersistPlace as PersistPlace;
+        var place = pageContext.PlaceId;
 
         // if no feed is specified, use the first ID.
-        var feed = path.FeedId;
+        var feed = pageContext.FeedId;
 
         using var postsHandle = persist.CatalogCache.GetFeedPosts(place, feed) ;
         var posts = postsHandle.Value;
@@ -29,7 +29,7 @@ public partial class PostsPage {
         var entries = new List<Entry>();
         foreach (var postIndex in posts.EntriesReverse()) {
             var post = posts.GetValue(postIndex);
-            entries.Add(new Post(persist, place, feed, post));
+            entries.Add(new Post(pageContext, place, feed, post));
             }
 
         var page = new PostsPage() {

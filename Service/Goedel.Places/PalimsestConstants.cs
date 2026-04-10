@@ -63,7 +63,10 @@ public enum Limit {
 [Flags]
 public enum Privilege {
     ///<summary>Undefined type</summary>
-    Unknown = -1,
+    Unknown = 0x40000000,
+
+    ///<summary>No Privileges</summary>
+    None = 0,
     ///<summary>Create new places</summary>
     CreatePlace = 0x0001,
     ///<summary>Create new feed</summary>
@@ -108,7 +111,7 @@ public enum Privilege {
     EditUser = 0x800000,
 
     ///<summary>Set member status</summary>
-    Status = 0x40000000
+    Status = 0x20000000
     }
 
 

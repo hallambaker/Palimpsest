@@ -582,8 +582,10 @@ Namespace Mplace2.Gui
 
             PostFull Presentation Uid
                 Avatar 
+                    AuthorLink Anchor
                     User.Avatar Avatar
                 Author
+                    AuthorLink Anchor
                     User.DisplayName String
                     User.DisplayHandle String
                     Created DateTime
@@ -598,6 +600,7 @@ Namespace Mplace2.Gui
                     Replies String             
                 Responses
                     Comment Button CreateComment "Comment"
+                        PermissionRespond Boolean
                         PostPath Anchor
                         Comments Integer               
                     SeeMore Button MoreAction "More"
@@ -607,6 +610,7 @@ Namespace Mplace2.Gui
                         SeeLess Action 
                         RequestedLess Boolean
                     Delete Button DeletePostPage "Delete"
+                        PermissionDelete Boolean
                         PostPath Anchor
 
             // The features we have stashed here.
@@ -633,10 +637,10 @@ Namespace Mplace2.Gui
                     Repost SubMenu "Repost"
                         Repost Button RepostAction "Repost"
                         QuotePost Button QuotePostAction "Quote Post"
-                    Like Button LikeAction "Like"
-                        ActionLike Action
-                        Liked Boolean
-                        Likes Integer
+                    //Like Button LikeAction "Like"
+                    //    //ActionLike Action
+                    //    //Liked Boolean
+                    //    Likes Integer
                     SeeMore Button MoreAction "More"
                         SeeMore Action 
                         RequestedMore Boolean
@@ -699,14 +703,18 @@ Namespace Mplace2.Gui
                     Text Text
                 Responses
                     Comment Button CreateComment "Comment"
+                        PermissionRespond Boolean
                         PostPath Anchor
                     SeeMore Button MoreAction "More"
+                        PermissionRespond Boolean
                         PostPath Anchor
-                        RequestedMore Boolean
+                        //RequestedMore Boolean
                     SeeLess Button LessAction "Less"
+                        PermissionRespond Boolean
                         PostPath Anchor
-                        RequestedLess Boolean
+                        //RequestedLess Boolean
                     Delete Button DeleteCommentPage "Delete"
+                        PermissionDelete Boolean
                         PostPath Anchor
 
             CommentFullSaved Presentation Uid
@@ -730,11 +738,10 @@ Namespace Mplace2.Gui
                         QuotePost Button QuotePostAction "Quote Post"
                             PostPath Anchor
 
-                    Like Button LikeAction "Like"
-                        PostPath Anchor
-
-                        Liked Boolean
-                        Likes Integer
+                    //Like Button LikeAction "Like"
+                    //    PostPath Anchor
+                    //    Liked Boolean
+                    //    Likes Integer
                     SeeMore Button MoreAction "More"
                         PostPath Anchor
                         RequestedMore Boolean

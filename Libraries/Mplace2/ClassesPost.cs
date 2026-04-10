@@ -12,21 +12,21 @@ public partial class PostPage {
 
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
 
-        var path = context as ParsedPath;
-        path.CheckAuthorization(Privilege.ReadPost);
+        var pageContext = context as ParsedPath;
+        pageContext.CheckAuthorization(Privilege.ReadPost);
 
 
-        var persist = path.PersistPlace as PersistPlace;
-        var place = path.PlaceId;
-        var feedId = path.FeedId;
-        var postId = path.PostId;
+        var persist = pageContext.PersistPlace as PersistPlace;
+        var place = pageContext.PlaceId;
+        var feedId = pageContext.FeedId;
+        var postId = pageContext.PostId;
 
 
         using var postHandle = persist.CatalogCache.GetPostAndComments(place, feedId, postId);
         var comments = postHandle.Value;
         var catalogedPost = comments.CatalogedPost;
 
-        var main = new Post(persist, place, feedId, catalogedPost);
+        var main = new Post(pageContext, place, feedId, catalogedPost);
 
         var page = new PostPage() {
             FrameSet = FrameSet,
@@ -37,7 +37,7 @@ public partial class PostPage {
 
         foreach (var commentIndex in comments.EntriesForward()) {
             var catalogedComment = comments.GetValue(commentIndex);
-            var comment = new Comment(persist, place, feedId, postId, catalogedComment);
+            var comment = new Comment(pageContext, place, feedId, postId, catalogedComment);
             page.Entries.Add(comment);
             }
 
@@ -51,26 +51,52 @@ public partial class PostPage {
 #region -- Create Post Action
 public partial class Post {
 
-    public ButtonVisibility? Liked { get; set; }
-    public ButtonVisibility? RequestedMore { get; set; }
-    public ButtonVisibility? RequestedLess { get; set; }
+    /// <summary>-1, 1 or 0 according to whether the member has disliked, liked or not
+    /// reacted.</summary>
+    public int Liked { get; set; } = 0;
+
+    /// <summary>Button visibility for request more, <see cref="ButtonVisibility.Checked"/>,
+    /// <see cref="ButtonVisibility.Available"/> or <see cref="ButtonVisibility.Disabled"/>.</summary>
+    public ButtonVisibility? RequestedMore =>
+        Privilege.ButtonCheckedAvailableDisabled(Privilege.CreateComment, Liked > 0);
+
+    /// <summary>Button visibility for request less, <see cref="ButtonVisibility.Checked"/>,
+    /// <see cref="ButtonVisibility.Available"/> or <see cref="ButtonVisibility.Disabled"/>.</summary>
+    public ButtonVisibility? RequestedLess =>
+        Privilege.ButtonCheckedAvailableDisabled(Privilege.CreateComment, Liked < 0);
+
+    /// <summary>Button visibility for permission to respond,
+    /// <see cref="ButtonVisibility.Available"/> or <see cref="ButtonVisibility.Disabled"/>.</summary>
+    public ButtonVisibility? PermissionRespond =>
+        Privilege.ButtonAvailableDisabled(Privilege.CreateComment);
+
+    /// <summary>Button visibility for permission to respond,
+    /// <see cref="ButtonVisibility.Available"/> or <see cref="ButtonVisibility.None"/>.</summary>
+    public ButtonVisibility? PermissionDelete =>
+        Privilege.ButtonAvailableNone(Privilege.DeletePost);
 
     public string PostLink { get; set; }
     public string AuthorLink { get; set; }
     public string PostPath { get; set; }
 
+    public Privilege Privilege { get; private set; }
+
     public Post(
-                    PersistPlace persist,
+                    //PersistPlace persist,
+                    ParsedPath pageContext,
                     string placeId,
                     string feedId,
                     CatalogedPost catalogedPost) : this(catalogedPost.Uid) {
+        var persist = pageContext.PersistPlace as PersistPlace;
+
+
         Body = catalogedPost.Body;
         Summary = catalogedPost.Summary;
         Title = catalogedPost.Title;
         User = persist.GetUser(catalogedPost.Author);
         //User = post.Author;
 
-        SetLinks(persist, placeId, feedId, catalogedPost);
+        SetLinks(pageContext, persist, placeId, feedId, catalogedPost);
         }
 
 
@@ -80,14 +106,12 @@ public partial class Post {
 
         pageContext.CheckAuthorization(Privilege.CreatePost, FeedId).AssertTrue(NYI.Throw);
 
-
         if (Body != null) {
             var valid = RichtextValidator.Validate(Body);
             if (valid != RichetextResult.Valid) {
                 Body = null;
                 }
             }
-
 
         var catalogedPost = new CatalogedPost() {
             Uid = persist.CreatePostId(),
@@ -98,20 +122,26 @@ public partial class Post {
             };
 
         persist.Add(pageContext.PlaceId, FeedId, catalogedPost);
-        SetLinks(persist, pageContext.PlaceId, FeedId, catalogedPost);
-
-
+        SetLinks(pageContext, persist, pageContext.PlaceId, FeedId, catalogedPost);
 
         var returnPage = persist.GetFeedLink(pageContext);
         return Task.FromResult(CallbackResult.CreatedRedirect(returnPage));
-
         }
 
-    private void SetLinks(PersistPlace persist, string placeId, string feedId, CatalogedPost post) {
+    private void SetLinks(
+                ParsedPath pageContext, 
+                PersistPlace persist, 
+                string placeId, 
+                string feedId, 
+                CatalogedPost post) {
         PostLink = persist.GetPostLink(feedId, post._PrimaryKey);
         PostPath = persist.GetPostPath(feedId, post._PrimaryKey);
         AuthorLink = persist.GetAuthorLink(post.Author);
-        //AuthorAvatar = persist.GetMemberAvatar(post.Author);
+
+        Privilege = pageContext.GetAuthorization(post);
+
+        //PermissionRespond = ButtonVisibility.Disabled;
+        //PermissionDelete = ButtonVisibility.None;
         }
 
     }

@@ -4,23 +4,11 @@
 
 # Errors
 
-* Delete Post/Comment not working
- Is dying in     protected virtual void DeleteKeys(EarlEntryIndex<T> index) of EarlCatalog
-
-* Check redirect working on delete post / comment
-
 * Show the post/comment being deleted
 
-* Post page, decorate avatar usert wit link to member page
+* Set privileges according to site policy, post authorship, etc.
 
-* Comments don't show user
-
-* Disable comment/delete if not authorized
-
-
-
-
-
+* Fix Sign Out
 
 # Release blocking
 

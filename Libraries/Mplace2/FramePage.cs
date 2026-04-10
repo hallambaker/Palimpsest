@@ -29,6 +29,7 @@ public partial class FramePage : Goedel.Sitebuilder.FramePage {
 
     public static FramePresentation? PostPresentation(IBinding data) => data switch {
         Post => Post.PostFull,
+        Comment => Comment.CommentFull,
         _ => null
         };
 
