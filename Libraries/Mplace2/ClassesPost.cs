@@ -219,11 +219,13 @@ public partial class DeletePostPage {
             };
 
 
+        var post = persist.CatalogCache.GetPost(pageContext.PlaceId, pageContext.FeedId, pageContext.PostId);
         // should pull the comment here so we can show it 
 
         var result = new DeletePostPage() {
             FrameSet = FrameSet,
-            Text = "FOAD",
+            Title = post.Title,
+            Summary = post.Summary,
             Form = template
             };
 

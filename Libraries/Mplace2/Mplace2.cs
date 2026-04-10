@@ -1307,8 +1307,11 @@ public partial class DeletePostPage : FramePage {
 		Container = "EntryPage";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
+    /// <summary>Field Title</summary>
+	public string? Title {get; set;}
+
+    /// <summary>Field Summary</summary>
+	public string? Summary {get; set;}
 
     /// <summary>Field Form</summary>
 	public DeletePost? Form {get; set;}
@@ -1316,10 +1319,17 @@ public partial class DeletePostPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameText ("Text",
-			(data, value) => {(data as DeletePostPage)!.Text = value; },
-			(data) => (data as DeletePostPage)?.Text) {
-				Prompt = "Text"
+		new FrameString ("Title",
+			(data, value) => {(data as DeletePostPage)!.Title = value; },
+			(data) => (data as DeletePostPage)?.Title) {
+				Prompt = "Title",
+				Description = "Title, should be short."
+				},
+		new FrameText ("Summary",
+			(data, value) => {(data as DeletePostPage)!.Summary = value; },
+			(data) => (data as DeletePostPage)?.Summary) {
+				Prompt = "Summary",
+				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
 				},
 		new FrameRefForm<DeletePost> ("Form","DeletePost", [
 		new FrameString ("FeedId",
@@ -1346,10 +1356,17 @@ public partial class DeletePostPage : FramePage {
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
 
-		new FrameText ("Text",
-			(data, value) => {(data as DeletePostPage)!.Text = value; },
-			(data) => (data as DeletePostPage)?.Text) {
-				Prompt = "Text"
+		new FrameString ("Title",
+			(data, value) => {(data as DeletePostPage)!.Title = value; },
+			(data) => (data as DeletePostPage)?.Title) {
+				Prompt = "Title",
+				Description = "Title, should be short."
+				},
+		new FrameText ("Summary",
+			(data, value) => {(data as DeletePostPage)!.Summary = value; },
+			(data) => (data as DeletePostPage)?.Summary) {
+				Prompt = "Summary",
+				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
 				}		];
 
     /// <inheritdoc/>
@@ -1360,7 +1377,8 @@ public partial class DeletePostPage : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
+			{"Title", _properties[0]},
+			{"Summary", _properties[1]}
 			}, "DeletePostPage",
 		() => new DeletePostPage(), () => [], () => [], Parent: null, Generic: false);
 

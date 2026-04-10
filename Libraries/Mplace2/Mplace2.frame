@@ -243,8 +243,12 @@ Namespace Mplace2.Gui
     DeletePostPage Page "Delete Post"
         EntryPage Container
         Navigation Is MainNav
-        Text Text
-            Prompt "Text"
+        Title String                // Post Title
+            Prompt "Title"
+            Description "Title, should be short."
+        Summary Text                 // Short text
+            Prompt "Summary"
+            Description "Short summary of the post to be used in lists of posts or to crosspost to other media"
 
         Form Form DeletePost              // Comment entry form
             FeedId String

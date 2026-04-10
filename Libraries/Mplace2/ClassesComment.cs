@@ -152,10 +152,13 @@ public partial class DeleteCommentPage {
 
 
         // should pull the comment here so we can show it 
+        var comment = persist.CatalogCache.GetComment(
+            pageContext.PlaceId, pageContext.FeedId, pageContext.PostId, pageContext.CommentId);
+
 
         var result = new DeleteCommentPage() {
             FrameSet = FrameSet,
-            Text="FOAD",
+            Text= comment.Text,
             Form = template
             };
 
