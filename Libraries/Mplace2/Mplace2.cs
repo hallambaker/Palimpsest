@@ -695,7 +695,7 @@ public partial class PostPage : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public PostPage () : base ("PostPage", "Post", _Fields) {
-		Container = "FlowPage";
+		Container = "PostPage";
 		}
 
     /// <summary>Field MainEntry</summary>
@@ -1304,7 +1304,7 @@ public partial class DeletePostPage : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public DeletePostPage () : base ("DeletePostPage", "Delete Post", _Fields) {
-		Container = "EntryPage";
+		Container = "DeletePostPage";
 		}
 
     /// <summary>Field Title</summary>
@@ -1466,7 +1466,7 @@ public partial class DeleteCommentPage : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public DeleteCommentPage () : base ("DeleteCommentPage", "Delete Comment", _Fields) {
-		Container = "EntryPage";
+		Container = "DeleteCommentPage";
 		}
 
     /// <summary>Field Text</summary>
@@ -4081,14 +4081,6 @@ public partial class Post (string Id) : Entry (Id) {
             			GetAnchor = (data) => (data as Post)?.PostPath,
             			GetInteger = (data) => (data as Post)?.Comments
             			},
-            		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (data) => (data as Post)?.RequestedMore,
-            			ButtonAction = ButtonAction.Method
-            			},
-            		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (data) => (data as Post)?.RequestedLess,
-            			ButtonAction = ButtonAction.Method
-            			},
             		new FrameButton ("Delete", "Delete", "DeletePostPage") {
             			GetActive = (data) => (data as Post)?.PermissionDelete,
             			GetAnchor = (data) => (data as Post)?.PostPath
@@ -4177,14 +4169,6 @@ public partial class Post (string Id) : Entry (Id) {
                     		new FrameButton ("QuotePost", "Quote Post", "QuotePostAction") {
                     			}
             				]
-            			},
-            		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (data) => (data as Post)?.RequestedMore,
-            			ButtonAction = ButtonAction.Method
-            			},
-            		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (data) => (data as Post)?.RequestedLess,
-            			ButtonAction = ButtonAction.Method
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [
@@ -4520,14 +4504,6 @@ public partial class Comment (string Id) : Entry (Id) {
             			GetActive = (data) => (data as Comment)?.PermissionRespond,
             			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
-            		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (data) => (data as Comment)?.PermissionRespond,
-            			GetAnchor = (data) => (data as Comment)?.PostPath
-            			},
-            		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (data) => (data as Comment)?.PermissionRespond,
-            			GetAnchor = (data) => (data as Comment)?.PostPath
-            			},
             		new FrameButton ("Delete", "Delete", "DeleteCommentPage") {
             			GetActive = (data) => (data as Comment)?.PermissionDelete,
             			GetAnchor = (data) => (data as Comment)?.PostPath
@@ -4595,14 +4571,6 @@ public partial class Comment (string Id) : Entry (Id) {
                     			GetAnchor = (data) => (data as Comment)?.PostPath
                     			}
             				]
-            			},
-            		new FrameButton ("SeeMore", "More", "MoreAction") {
-            			GetActive = (data) => (data as Comment)?.RequestedMore,
-            			GetAnchor = (data) => (data as Comment)?.PostPath
-            			},
-            		new FrameButton ("SeeLess", "Less", "LessAction") {
-            			GetActive = (data) => (data as Comment)?.RequestedLess,
-            			GetAnchor = (data) => (data as Comment)?.PostPath
             			},
             		new FrameSubmenu ("Share", "Share") {
             			Fields = [

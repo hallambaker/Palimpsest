@@ -1,17 +1,21 @@
 ﻿
+using System.Net;
+
+using DocumentFormat.OpenXml.InkML;
+
 using Goedel.Cryptography.Oauth;
 using Goedel.Discovery;
 using Goedel.Mesh;
-
-using System.Net;
 
 namespace Mplace2.Gui;
 
 
 public partial class SignOut {
     public override async Task<CallbackResult> Callback(
-            IPageContext ipersistPlace) {
-        var persistPlace = ipersistPlace as PersistPlace;
+                IPageContext context) {
+        var path = context as ParsedPath;
+        var persistPlace = path.PersistPlace;
+
         var cookie = persistPlace.SignOut();
 
         return new(HttpStatusCode.OK, null, "/", [cookie]);

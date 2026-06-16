@@ -158,7 +158,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     /// https://www.misterpki.com/netsh-http-add-sslcert/
     /// </remarks>
     ///<param name="forum">The persistence store.</param>
-    public AnnotationService(FrameSet frameset, IPersistPlace persistPlace) {
+    public AnnotationService(
+                    FrameSet frameset, 
+                    IPersistPlace persistPlace) {
 
         FrameSet = frameset;
         PersistPlace = persistPlace;
@@ -171,20 +173,20 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         //// Bind the OAUTH client here
 
-        // These should all belong to Oauth client
-        OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
-        OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
+        //// These should all belong to Oauth client
+        //OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
+        //OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
 
-        JWKS = new JWKS {
-            Keys = [JWK.Factory(OauthClientSignature)
-                , JWK.Factory(OauthClientEncryption)
-                ]
-            };
+        //JWKS = new JWKS {
+        //    Keys = [JWK.Factory(OauthClientSignature)
+        //        , JWK.Factory(OauthClientEncryption)
+        //        ]
+        //    };
 
         OauthClient = new OauthClient(
                     ClientMetadataLocation,
                     RedirectLocation,
-                    JWKS
+                    frameset.PrivateKeys
                     );
 
         Callbacks = new() {
@@ -223,7 +225,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         while (true) {
             HttpListenerContext context = HttpListener.GetContext();
-
+            Console.WriteLine("Wait on HTTP");
             switch (context.Request.HttpMethod) {
                 case "GET": {
                     HandleRequestGet(context);
@@ -234,6 +236,8 @@ public partial class AnnotationService : IWebService<ParsedPath> {
                     break;
                     }
                 }
+            Console.WriteLine("Dispatched");
+
             }
         }
 
@@ -246,6 +250,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var path = new ParsedPath(context, PersistPlace);
         var response = path.Context.Response;
 
+        Console.WriteLine($"$$$$ POST:{path.ExternalUri}");
+
+
+
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
             var form = GetForm(templatePage.Fields, path.Uri.Query[1..]);
             form.AssertNotNull(NYI.Throw);
@@ -253,6 +261,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             var result = form.Factory();
 
             ParsedMultipartFrame.Bind(result, path.Request.InputStream);
+
+
+            
 
             // Validate the inputs
             var validate = await result.Callback(path);
@@ -306,6 +317,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var response = context.Response;
 
         var path = new ParsedPath(context, PersistPlace);
+
+
+        Console.WriteLine($"$$$$ GET:{path.ExternalUri}");
 
         var transactionId = Interlocked.Increment(ref transactionCount);
         var start = DateTime.UtcNow;

@@ -233,7 +233,7 @@ button.dropdown-subbutton {
     justify-content: center;
 }
 
-    .HomePage > div.Title {
+    .HomePage > div.Heading {
         display: none;
     }
 
@@ -279,7 +279,6 @@ button.dropdown-subbutton {
     display: grid;
     grid-template-areas:
         "Nav Title"
-        "Nav First"
         "Nav Items"
         "Nav Blank";
     grid-template-columns: 180px 420px;
@@ -290,7 +289,7 @@ button.dropdown-subbutton {
     border: 0px;
     justify-content: center;
 }
-    .FlowPage > div.Title {
+    .FlowPage > div.Heading {
         grid-area: Title;
         display: block;
         align-self: start;
@@ -310,9 +309,17 @@ button.dropdown-subbutton {
         top: 0;
         left: 0;
         position: sticky;
-        align-self: start;
         padding: 10px;
     }
+
+    .FlowPage > div.Content {
+        grid-area: First;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+        align-self: start;
+    }
+
 
     .FlowPage > div.MainEntry {
         grid-area: First;
@@ -341,6 +348,189 @@ button.dropdown-subbutton {
         border-right: 1px solid black;
     }
 
+
+.PostPage {
+    display: grid;
+    grid-template-areas:
+        "Nav Title"
+        "Nav First"
+        "Nav Items"
+        "Nav Blank";
+    grid-template-columns: 180px 420px;
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+    justify-content: center;
+}
+
+    .PostPage > div.Heading {
+        grid-area: Title;
+        display: block;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        align-self: start;
+        padding: 10px;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+
+    .PostPage > div.Navigation {
+        grid-area: Nav;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+    }
+
+    .PostPage > div.MainEntry {
+        grid-area: First;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+        align-self: start;
+    }
+
+    .PostPage > div.Entries {
+        grid-area: Items;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+        align-self: start;
+    }
+
+    .PostPage > div.TopSettings {
+        grid-area: Top;
+        top: 0;
+        padding: 0px;
+        position: sticky;
+        text-align: right;
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+
+.DeletePostPage {
+    display: grid;
+    grid-template-areas:
+        "NavMenu Title"
+        "NavMenu PostTitle"
+        "NavMenu Summary"
+        "NavMenu SubMenu"
+        "NavMenu Blank";
+    grid-template-columns: 180px 420px;
+    align-content: flex-start;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+    grid-auto-rows: max-content;
+    justify-content: center;
+}
+
+    .DeletePostPage > div.Heading {
+        grid-area: Title;
+        flex-wrap: wrap;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+    }
+
+
+    .DeletePostPage > div.Navigation {
+        grid-area: NavMenu;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+    }
+
+    .DeletePostPage > div.Title {
+        grid-area: PostTitle;
+        top: 0;
+        left: 0;
+        align-self: start;
+        padding: 10px;
+    }
+
+    .DeletePostPage > div.Summary {
+        grid-area: Summary;
+        top: 0;
+        left: 0;
+        align-self: start;
+        padding: 10px;
+    }
+
+
+    .DeletePostPage > form.Form {
+        grid-area: SubMenu;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        height: 100%
+    }
+
+
+.DeleteCommentPage {
+    display: grid;
+    grid-template-areas:
+        "NavMenu Title"
+        "NavMenu Text"
+        "NavMenu SubMenu"
+        "NavMenu Blank";
+    grid-template-columns: 180px 420px;
+    align-content: flex-start;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+    grid-auto-rows: max-content;
+    justify-content: center;
+}
+
+    .DeleteCommentPage > div.Heading {
+        grid-area: Title;
+        flex-wrap: wrap;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+    }
+
+
+    .DeleteCommentPage > div.Navigation {
+        grid-area: NavMenu;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+    }
+
+    .DeleteCommentPage > div.Text {
+        grid-area: Text;
+        top: 0;
+        left: 0;
+        align-self: start;
+        padding: 10px;
+    }
+
+
+    .DeleteCommentPage > form.Form {
+        grid-area: SubMenu;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        height: 100%
+    }
+
+
+
+
 .EntryPage {
     display: grid;
     grid-template-areas:
@@ -355,7 +545,7 @@ button.dropdown-subbutton {
     grid-auto-rows: max-content;
     justify-content: center;
 }
-    .EntryPage > div.Title {
+    .EntryPage > div.Heading {
         grid-area: Title;
         flex-wrap: wrap;
         top: 0;
@@ -411,7 +601,7 @@ button.dropdown-subbutton {
     }
 
 
-    .PlaceReference div.Title {
+    .PlaceReference div.Heading {
         display: inline;
         font-weight: bold;
     }
@@ -471,7 +661,7 @@ button.dropdown-subbutton {
         display: inline;
         font-weight: bold;
     }
-    .PostSummary div.Title {
+    .PostSummary div.Heading {
         display: inline;
         font-weight: bold;
     }
@@ -507,7 +697,7 @@ button.dropdown-subbutton {
         align-self: start;
     }
 
-    .PostFull div.Title {
+    .PostFull div.Heading {
         display: inline;
         font-weight: bold;
         align-self: start;
@@ -559,7 +749,7 @@ button.dropdown-subbutton {
         font-weight: bold;
     }
 
-    .CommentFull div.Title {
+    .CommentFull div.Heading {
         display: inline;
         font-weight: bold;
     }

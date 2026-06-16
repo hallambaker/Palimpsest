@@ -4,18 +4,15 @@
 
 # Errors
 
-* Show the post/comment being deleted
-
-* Set privileges according to site policy, post authorship, etc.
-
 * Fix Sign Out
+* Test privileges according to site policy, post authorship, etc.
+
 
 # Release blocking
 
 
 ## Member Page
 Allow user to upload an avatar and banner, set name.
-
 
 ##	Separate production/development systems
 Kind of not good doing live edits on the public site.

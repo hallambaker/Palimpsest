@@ -110,7 +110,7 @@ Namespace Mplace2.Gui
             Display SummaryPresentation
 
     PostPage Page "Post"
-        FlowPage Container
+        PostPage Container
         Navigation Is MainNav
         MainEntry Is Post
             Display PostPresentation
@@ -241,7 +241,7 @@ Namespace Mplace2.Gui
         Crosspost List Provider         // Crossposting targets
     
     DeletePostPage Page "Delete Post"
-        EntryPage Container
+        DeletePostPage Container
         Navigation Is MainNav
         Title String                // Post Title
             Prompt "Title"
@@ -275,7 +275,7 @@ Namespace Mplace2.Gui
 
     DeleteCommentPage Page "Delete Comment"
 
-        EntryPage Container
+        DeleteCommentPage Container
         Navigation Is MainNav
         Text Text
             Prompt "Text"
@@ -607,12 +607,12 @@ Namespace Mplace2.Gui
                         PermissionRespond Boolean
                         PostPath Anchor
                         Comments Integer               
-                    SeeMore Button MoreAction "More"
-                        SeeMore Action 
-                        RequestedMore Boolean
-                    SeeLess Button LessAction "Less"
-                        SeeLess Action 
-                        RequestedLess Boolean
+                    //SeeMore Button MoreAction "More"
+                    //    SeeMore Action 
+                    //    RequestedMore Boolean
+                    //SeeLess Button LessAction "Less"
+                    //    SeeLess Action 
+                    //    RequestedLess Boolean
                     Delete Button DeletePostPage "Delete"
                         PermissionDelete Boolean
                         PostPath Anchor
@@ -645,12 +645,12 @@ Namespace Mplace2.Gui
                     //    //ActionLike Action
                     //    //Liked Boolean
                     //    Likes Integer
-                    SeeMore Button MoreAction "More"
-                        SeeMore Action 
-                        RequestedMore Boolean
-                    SeeLess Button LessAction "Less"
-                        SeeLess Action 
-                        RequestedLess Boolean
+                    //SeeMore Button MoreAction "More"
+                    //    SeeMore Action 
+                    //    RequestedMore Boolean
+                    //SeeLess Button LessAction "Less"
+                    //    SeeLess Action 
+                    //    RequestedLess Boolean
                     Share SubMenu "Share"
                         LinkCopy Button HomePage "Copy link to post"
                         Embed Button HomePage "Embed post"
@@ -709,14 +709,14 @@ Namespace Mplace2.Gui
                     Comment Button CreateComment "Comment"
                         PermissionRespond Boolean
                         PostPath Anchor
-                    SeeMore Button MoreAction "More"
-                        PermissionRespond Boolean
-                        PostPath Anchor
-                        //RequestedMore Boolean
-                    SeeLess Button LessAction "Less"
-                        PermissionRespond Boolean
-                        PostPath Anchor
-                        //RequestedLess Boolean
+                    //SeeMore Button MoreAction "More"
+                    //    PermissionRespond Boolean
+                    //    PostPath Anchor
+                    //    RequestedMore Boolean
+                    //SeeLess Button LessAction "Less"
+                    //    PermissionRespond Boolean
+                    //    PostPath Anchor
+                    //    RequestedLess Boolean
                     Delete Button DeleteCommentPage "Delete"
                         PermissionDelete Boolean
                         PostPath Anchor
@@ -746,12 +746,12 @@ Namespace Mplace2.Gui
                     //    PostPath Anchor
                     //    Liked Boolean
                     //    Likes Integer
-                    SeeMore Button MoreAction "More"
-                        PostPath Anchor
-                        RequestedMore Boolean
-                    SeeLess Button LessAction "Less"
-                        PostPath Anchor
-                        RequestedLess Boolean
+                    //SeeMore Button MoreAction "More"
+                    //    PostPath Anchor
+                    //    RequestedMore Boolean
+                    //SeeLess Button LessAction "Less"
+                    //    PostPath Anchor
+                    //    RequestedLess Boolean
                     Share SubMenu "Share"
                         LinkCopy Button HomePage "Copy link to post"
                             PostPath Anchor

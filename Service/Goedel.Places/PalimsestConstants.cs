@@ -61,57 +61,59 @@ public enum Limit {
 
 ///<summary>Privileges</summary>
 [Flags]
-public enum Privilege {
-    ///<summary>Undefined type</summary>
-    Unknown = 0x40000000,
+public enum Privilege : uint {
+    ///<summary>Create new places</summary>
+    CreatePlace = 1<<0,
+    ///<summary>Create new feed</summary>
+    CreateFeed = 1<<1,
+    ///<summary>Create post</summary>
+    CreatePost = 1<<2,
+    ///<summary>Create comment</summary>
+    CreateComment = 1<<3,
+    ///<summary>Create new places</summary>
+    ReadPlace = 1<<4,
+    ///<summary>Create new feed</summary>
+    ReadFeed = 1<<5,
+    ///<summary>Create post</summary>
+    ReadPost = 1<<6,
+    ///<summary>Create comment</summary>
+    ReadComment = 1<<7,
+    ///<summary>Delete feed</summary>
+    DeletePlace = 1<<8,
+    ///<summary>Delete feed</summary>
+    DeleteFeed = 1<<9,
+    ///<summary>Delete post</summary>
+    DeletePost =1<<10,
+    ///<summary>Delete comment</summary>
+    DeleteComment = 1<<11,
+    ///<summary>Create new places</summary>
+    GrantAdministrator = 1<<12,
+    ///<summary>Create new places</summary>
+    GrantModerator = 1<<13,
+    ///<summary>Create new places</summary>
+    GrantAuthor = 1<<14,
+    ///<summary>Create new places</summary>
+    GrantCommentator = 1<<15,
+    ///<summary>Suspend member</summary>
+    Suspend = 1<<16,
+    ///<summary>Ban member</summary>
+    Ban = 1<<17,
+    ///<summary>Read User page</summary>
+    ReadSite = 1<<18,
+    ///<summary>Read User page</summary>
+    ReadUser = 1<<19,
+    ///<summary>Read User page</summary>
+    EditUser = 1<<20,
+    ///<summary>Get site status</summary>
+    Status = 1<<30,
 
     ///<summary>No Privileges</summary>
     None = 0,
-    ///<summary>Create new places</summary>
-    CreatePlace = 0x0001,
-    ///<summary>Create new feed</summary>
-    CreateFeed = 0x0002,
-    ///<summary>Create post</summary>
-    CreatePost = 0x0004,
-    ///<summary>Create comment</summary>
-    CreateComment = 0x0008,
-    ///<summary>Create new places</summary>
-    ReadPlace = 0x0010,
-    ///<summary>Create new feed</summary>
-    ReadFeed = 0x0020,
-    ///<summary>Create post</summary>
-    ReadPost = 0x0040,
-    ///<summary>Create comment</summary>
-    ReadComment = 0x0080,
-    ///<summary>Delete feed</summary>
-    DeletePlace = 0x0100,
-    ///<summary>Delete feed</summary>
-    DeleteFeed = 0x0200,
-    ///<summary>Delete post</summary>
-    DeletePost = 0x0400,
-    ///<summary>Delete comment</summary>
-    DeleteComment = 0x0800,
-    ///<summary>Create new places</summary>
-    GrantAdministrator = 0x8000,
-    ///<summary>Create new places</summary>
-    GrantModerator = 0x10000,
-    ///<summary>Create new places</summary>
-    GrantAuthor = 0x20000,
-    ///<summary>Create new places</summary>
-    GrantCommentator = 0x40000,
-    ///<summary>Suspend member</summary>
-    Suspend = 0x80000,
-    ///<summary>Ban member</summary>
-    Ban = 0x100000,
-    ///<summary>Read User page</summary>
-    ReadSite = 0x200000,
-    ///<summary>Read User page</summary>
-    ReadUser = 0x400000,
-    ///<summary>Read User page</summary>
-    EditUser = 0x800000,
+    ///<summary>No Privileges</summary>
+    All = 0xffffffff,
+    ///<summary>Undefined type</summary>
+    Unknown = (uint)1 << 31
 
-    ///<summary>Set member status</summary>
-    Status = 0x20000000
     }
 
 

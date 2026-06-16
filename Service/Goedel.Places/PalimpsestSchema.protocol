@@ -43,6 +43,9 @@
 		String TestSeed
 			Description
 				|Seed used for cookie validation TEST USE ONLY
+		String PrivateKeys
+			Description
+				|Directory in which the private keys are kept.
 
 
 	Structure CatalogedForumEntry

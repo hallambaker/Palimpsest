@@ -123,22 +123,57 @@ public record ParsedPath : IPageContext {
         }
 
 
+    /// <summary>Return the user's privileges for the post <paramref name="entry"/>.</summary>
+    /// <param name="entry">The post to return privileges for.</param>
+    /// <returns>The privilege mask.</returns>
+    public Privilege GetAuthorization(CatalogedPost entry) =>
+        GetAuthorization(Privilege.ReadPost,
+            Privilege.ReadPost | Privilege.CreateComment,
+            Privilege.ReadPost | Privilege.CreateComment | Privilege.DeletePost,
+            Privilege.ReadPost | Privilege.CreateComment | Privilege.DeletePost,
+            entry.Author);
 
-    public Privilege GetAuthorization(CatalogedPost entry) {
-        if (MemberHandle?.IsAdministrator == true) {
-            return Privilege.ReadPost | Privilege.DeletePost | Privilege.CreateComment;
+
+    public Privilege GetAuthorization(CatalogedComment entry) =>
+        GetAuthorization(Privilege.ReadComment,
+            Privilege.ReadComment | Privilege.CreateComment,
+            Privilege.ReadComment | Privilege.CreateComment | Privilege.DeleteComment,
+            Privilege.ReadComment | Privilege.CreateComment | Privilege.DeleteComment,
+            entry.Author);
+
+
+    public Privilege GetAuthorization(
+                Privilege signedOut,
+                Privilege signedIn,
+                Privilege author,
+                Privilege parent,
+                string itemAuthor,
+                string parentAuthor = null) {
+        // User who is not logged in only has default permissions.
+        if (MemberHandle is null) {
+            return signedOut;
             }
-        return Privilege.None;
+
+        // Administrator always has full permissions.
+        if (MemberHandle?.IsAdministrator == true) {
+            return Privilege.All;
+            }
+
+        // If user is author
+        if (MemberHandle._PrimaryKey == itemAuthor) {
+            return author;
+            }
+        
+        // If user is author of the parent
+        if (MemberHandle._PrimaryKey == parentAuthor) {
+            return parent;
+            }
+
+        // User who is merely logged in
+        return signedIn;
         }
 
-    public Privilege GetAuthorization(CatalogedComment entry) {
 
-
-        if (MemberHandle?.IsAdministrator == true) {
-            return Privilege.ReadComment | Privilege.DeleteComment | Privilege.CreateComment;
-            }
-        return Privilege.None;
-        }
 
 
 

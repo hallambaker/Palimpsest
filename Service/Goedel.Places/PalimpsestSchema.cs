@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 3/18/2026 4:00:12 PM
+//  This file was automatically generated at 6/9/2026 12:12:01 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -178,6 +178,13 @@ public partial class PlaceConfiguration : ForumItem {
 	[JsonPropertyName("TestSeed")]
 	public virtual string?					TestSeed  {get; set;} //
 
+    /// <summary>
+    ///Directory in which the private keys are kept.
+    /// </summary>
+
+	[JsonPropertyName("PrivateKeys")]
+	public virtual string?					PrivateKeys  {get; set;} //
+
 
     ///<summary>Implement IBinding</summary> 
 	public override Property[] _Properties => _properties;
@@ -210,7 +217,10 @@ public partial class PlaceConfiguration : ForumItem {
 					data => (data as PlaceConfiguration).Resources ),
 		new PropertyString ("TestSeed", 
 					(data, value) => {(data as PlaceConfiguration).TestSeed = value;}, 
-					data => (data as PlaceConfiguration).TestSeed )
+					data => (data as PlaceConfiguration).TestSeed ),
+		new PropertyString ("PrivateKeys", 
+					(data, value) => {(data as PlaceConfiguration).PrivateKeys = value;}, 
+					data => (data as PlaceConfiguration).PrivateKeys )
 		];
 
     ///<summary>Implement IBinding</summary> 
@@ -227,7 +237,8 @@ public partial class PlaceConfiguration : ForumItem {
 			{ "Logs", _properties [5]},
 			{ "Repository", _properties [6]},
 			{ "Resources", _properties [7]},
-			{ "TestSeed", _properties [8]}}, __Tag,
+			{ "TestSeed", _properties [8]},
+			{ "PrivateKeys", _properties [9]}}, __Tag,
 		() => new PlaceConfiguration(), () => [], () => [], null, Generic: false);
 
 

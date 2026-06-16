@@ -70,7 +70,8 @@ internal sealed class Program {
             Logs = serviceConfig.Logs,
             RepositoryFiles = serviceConfig.Repository,
             ResourceFiles = serviceConfig.Resources,
-            RandomSeed = serviceConfig.TestSeed
+            RandomSeed = serviceConfig.TestSeed,
+            PrivateKeys = serviceConfig.PrivateKeys
             };
 
         frameset.SetLimits(serviceConfig.Limits);
