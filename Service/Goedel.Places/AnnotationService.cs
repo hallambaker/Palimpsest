@@ -230,7 +230,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         Console.WriteLine($"Listening {HttpEndpoint}");
 
         var now = System.DateTime.UtcNow.ToFileSpec();
-        var logfile = $"Log{now}.log";
+        var logfile = Path.Combine (FrameSet.Logs, $"Log{now}.log");
 
         var logStream = logfile.OpenFileAppendShare();
         LogFile = new StreamWriter(logStream);
