@@ -528,6 +528,55 @@ button.dropdown-subbutton {
         height: 100%
     }
 
+.MemberFlow {
+    display: grid;
+    grid-template-areas:
+        "Nav Title"
+        "Nav First"
+        "Nav Blank";
+    grid-template-columns: 180px 420px;
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+    justify-content: center;
+}
+
+    .MemberFlow > div.Heading {
+        grid-area: Title;
+        display: block;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        align-self: start;
+        padding: 10px;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+    .MemberFlow > div.Navigation {
+        grid-area: Nav;
+        align-self: start;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+    }
+
+    .MemberFlow > div.MainEntry {
+        grid-area: First;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        padding: 15px;
+        align-self: start;
+    }
+
+
+
+
+
 
 
 

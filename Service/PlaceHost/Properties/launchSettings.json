@@ -2,7 +2,7 @@
   "profiles": {
     "GenericHost": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\hallam\\Test\\Palimpsest C:\\Users\\hallam\\source\\repos\\Palimpsest\\Test",
+      "commandLineArgs": "",
       "workingDirectory": "C:\\Users\\hallam\\Code\\Palimpsest\\Service\\PlaceHost",
       "hotReloadEnabled": false
     }

@@ -119,7 +119,7 @@ Namespace Mplace2.Gui
 
 
     MemberPage Page "MemberPage"
-        FlowPage Container
+        MemberFlow Container
         Navigation Is MainNav
         MainEntry Is User
             Display MemberPresentation

@@ -121,6 +121,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public JWKS JWKS { get; set; }
 
 
+    public string IconsPath { get;  }
+
+    public string WellKnownPath { get; }
 
     public Dictionary<string, WebResource<ParsedPath>> ResourceMap { get; }
 
@@ -144,6 +147,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         Goedel.Contacts.Contacts._Initialized.AssertTrue(NYI.Throw);
         Goedel.Cryptography.Dare.Initialization.Initialized.AssertTrue(NYI.Throw);
+
+
+
         Console.WriteLine("Annoitation service init");
         }
 
@@ -169,6 +175,12 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         HttpListener = new();
         HttpListener.Prefixes.Add(HttpEndpoint);
+
+        IconsPath = FrameSet.IconFiles;
+
+
+
+
         //HttpListener.Prefixes.Add(HttpsEndpoint);
 
         //// Bind the OAUTH client here
@@ -373,8 +385,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task WellKnown(ParsedPath path) {
         await Error(path, "", HttpStatusCode.NotFound);
 
-
-
         return;
         }
 
@@ -411,7 +421,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     public async Task GetAvatar(ParsedPath path) {
 
-            var filePath = FrameSet.ResourceFiles +"\\Resources\\Icons\\Avatar.svg";
+            var filePath = Path.Combine (IconsPath, "Avatar.svg");
 
             await GetResource(path, filePath);
             return;

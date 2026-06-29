@@ -749,7 +749,7 @@ public partial class MemberPage : FramePage {
 	/// Constructor, returns a new instance
 	/// </summary>
 	public MemberPage () : base ("MemberPage", "MemberPage", _Fields) {
-		Container = "FlowPage";
+		Container = "MemberFlow";
 		}
 
     /// <summary>Field MainEntry</summary>

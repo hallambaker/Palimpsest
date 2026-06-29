@@ -46,8 +46,8 @@ internal sealed class Program {
 
         //Goedel.Palimpsest.Initialization.Initialized.AssertTrue(NYI.Throw);
 
-        var directory = args[0];
-        var resources = args[1];
+        //var directory = args[0];
+        //var resources = args[1];
 
         //var forum = Forum.Create(directory, resources, "MPlace2");
 
@@ -56,7 +56,7 @@ internal sealed class Program {
         Screen.Flush();
 
 
-        var configFile = "SiteConfig.json";
+        var configFile = args.Length > 0 ? args[0] : "SiteConfig.json";
         var serviceConfig = configFile.ReadFileJson<PlaceConfiguration>();
 
 
