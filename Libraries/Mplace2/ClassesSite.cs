@@ -7,7 +7,7 @@ public partial class PlacesPage {
     public override Goedel.Sitebuilder.FramePage GetPage(IPersistSite persistPlace, IPageContext context) {
 
         var path = context as ParsedPath;
-        path.CheckAuthorization(Privilege.ReadSite);
+        path.CheckAuthorization(Privilege.ReadPlace);
 
         var persist = path.PersistPlace as PersistPlace;
 

@@ -1,5 +1,5 @@
 
-//  This file was automatically generated at 3/18/2026 4:00:12 PM
+//  This file was automatically generated at 7/6/2026 5:03:37 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -61,59 +61,49 @@ public enum Limit {
 
 ///<summary>Privileges</summary>
 [Flags]
-public enum Privilege : uint {
-    ///<summary>Create new places</summary>
-    CreatePlace = 1<<0,
-    ///<summary>Create new feed</summary>
-    CreateFeed = 1<<1,
-    ///<summary>Create post</summary>
-    CreatePost = 1<<2,
-    ///<summary>Create comment</summary>
-    CreateComment = 1<<3,
-    ///<summary>Create new places</summary>
-    ReadPlace = 1<<4,
-    ///<summary>Create new feed</summary>
-    ReadFeed = 1<<5,
-    ///<summary>Create post</summary>
-    ReadPost = 1<<6,
-    ///<summary>Create comment</summary>
-    ReadComment = 1<<7,
-    ///<summary>Delete feed</summary>
-    DeletePlace = 1<<8,
-    ///<summary>Delete feed</summary>
-    DeleteFeed = 1<<9,
-    ///<summary>Delete post</summary>
-    DeletePost =1<<10,
-    ///<summary>Delete comment</summary>
-    DeleteComment = 1<<11,
-    ///<summary>Create new places</summary>
-    GrantAdministrator = 1<<12,
-    ///<summary>Create new places</summary>
-    GrantModerator = 1<<13,
-    ///<summary>Create new places</summary>
-    GrantAuthor = 1<<14,
-    ///<summary>Create new places</summary>
-    GrantCommentator = 1<<15,
-    ///<summary>Suspend member</summary>
-    Suspend = 1<<16,
-    ///<summary>Ban member</summary>
-    Ban = 1<<17,
-    ///<summary>Read User page</summary>
-    ReadSite = 1<<18,
-    ///<summary>Read User page</summary>
-    ReadUser = 1<<19,
-    ///<summary>Read User page</summary>
-    EditUser = 1<<20,
-    ///<summary>Get site status</summary>
-    Status = 1<<30,
-
-    ///<summary>No Privileges</summary>
-    None = 0,
-    ///<summary>No Privileges</summary>
-    All = 0xffffffff,
+public enum Privilege {
     ///<summary>Undefined type</summary>
-    Unknown = (uint)1 << 31
-
+    Unknown = -1,
+    ///<summary>Create new places</summary>
+    CreatePlace = 0x0001,
+    ///<summary>Create new feed</summary>
+    CreateFeed = 0x0002,
+    ///<summary>Create post</summary>
+    CreatePost = 0x0004,
+    ///<summary>Create comment</summary>
+    CreateComment = 0x0008,
+    ///<summary>Create new places</summary>
+    ReadPlace = 0x0010,
+    ///<summary>Create new feed</summary>
+    ReadFeed = 0x0020,
+    ///<summary>Create post</summary>
+    ReadPost = 0x0040,
+    ///<summary>Create comment</summary>
+    ReadComment = 0x0080,
+    ///<summary>Delete feed</summary>
+    DeletePlace = 0x0100,
+    ///<summary>Delete feed</summary>
+    DeleteFeed = 0x0200,
+    ///<summary>Delete post</summary>
+    DeletePost = 0x0400,
+    ///<summary>Delete comment</summary>
+    DeleteComment = 0x0800,
+    ///<summary>Create new places</summary>
+    GrantAdministrator = 0x8000,
+    ///<summary>Create new places</summary>
+    GrantModerator = 0x10000,
+    ///<summary>Create new places</summary>
+    GrantAuthor = 0x20000,
+    ///<summary>Create new places</summary>
+    GrantCommentator = 0x40000,
+    ///<summary>Read user profile</summary>
+    ReadUser = 0x80000,
+    ///<summary>Suspend member</summary>
+    Suspend = 0x100000,
+    ///<summary>Ban member</summary>
+    Ban = 0x200000,
+    ///<summary>Set member status</summary>
+    Status = 0x400000
     }
 
 
@@ -415,8 +405,8 @@ public static partial class PalimpsestConstants {
     public const string  PrivilegeCreateCommentTag = "CreateComment";
     ///<summary>Jose enumeration tag for Privilege.ReadPlace</summary>
     public const string  PrivilegeReadPlaceTag = "ReadPlace";
-    ///<summary>Jose enumeration tag for Privilege.ReedFeed</summary>
-    public const string  PrivilegeReedFeedTag = "ReedFeed";
+    ///<summary>Jose enumeration tag for Privilege.ReadFeed</summary>
+    public const string  PrivilegeReadFeedTag = "ReadFeed";
     ///<summary>Jose enumeration tag for Privilege.ReadPost</summary>
     public const string  PrivilegeReadPostTag = "ReadPost";
     ///<summary>Jose enumeration tag for Privilege.ReadComment</summary>
@@ -437,6 +427,8 @@ public static partial class PalimpsestConstants {
     public const string  PrivilegeGrantAuthorTag = "GrantAuthor";
     ///<summary>Jose enumeration tag for Privilege.GrantCommentator</summary>
     public const string  PrivilegeGrantCommentatorTag = "GrantCommentator";
+    ///<summary>Jose enumeration tag for Privilege.ReadUser</summary>
+    public const string  PrivilegeReadUserTag = "ReadUser";
     ///<summary>Jose enumeration tag for Privilege.Suspend</summary>
     public const string  PrivilegeSuspendTag = "Suspend";
     ///<summary>Jose enumeration tag for Privilege.Ban</summary>
@@ -457,7 +449,7 @@ public static partial class PalimpsestConstants {
             PrivilegeCreatePostTag => Privilege.CreatePost,
             PrivilegeCreateCommentTag => Privilege.CreateComment,
             PrivilegeReadPlaceTag => Privilege.ReadPlace,
-            PrivilegeReedFeedTag => Privilege.ReadFeed,
+            PrivilegeReadFeedTag => Privilege.ReadFeed,
             PrivilegeReadPostTag => Privilege.ReadPost,
             PrivilegeReadCommentTag => Privilege.ReadComment,
             PrivilegeDeletePlaceTag => Privilege.DeletePlace,
@@ -468,6 +460,7 @@ public static partial class PalimpsestConstants {
             PrivilegeGrantModeratorTag => Privilege.GrantModerator,
             PrivilegeGrantAuthorTag => Privilege.GrantAuthor,
             PrivilegeGrantCommentatorTag => Privilege.GrantCommentator,
+            PrivilegeReadUserTag => Privilege.ReadUser,
             PrivilegeSuspendTag => Privilege.Suspend,
             PrivilegeBanTag => Privilege.Ban,
             PrivilegeStatusTag => Privilege.Status,
@@ -487,7 +480,7 @@ public static partial class PalimpsestConstants {
             Privilege.CreatePost => PrivilegeCreatePostTag,
             Privilege.CreateComment => PrivilegeCreateCommentTag,
             Privilege.ReadPlace => PrivilegeReadPlaceTag,
-            Privilege.ReadFeed => PrivilegeReedFeedTag,
+            Privilege.ReadFeed => PrivilegeReadFeedTag,
             Privilege.ReadPost => PrivilegeReadPostTag,
             Privilege.ReadComment => PrivilegeReadCommentTag,
             Privilege.DeletePlace => PrivilegeDeletePlaceTag,
@@ -498,6 +491,7 @@ public static partial class PalimpsestConstants {
             Privilege.GrantModerator => PrivilegeGrantModeratorTag,
             Privilege.GrantAuthor => PrivilegeGrantAuthorTag,
             Privilege.GrantCommentator => PrivilegeGrantCommentatorTag,
+            Privilege.ReadUser => PrivilegeReadUserTag,
             Privilege.Suspend => PrivilegeSuspendTag,
             Privilege.Ban => PrivilegeBanTag,
             Privilege.Status => PrivilegeStatusTag,

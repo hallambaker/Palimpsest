@@ -156,7 +156,7 @@ public record ParsedPath : IPageContext {
 
         // Administrator always has full permissions.
         if (MemberHandle?.IsAdministrator == true) {
-            return Privilege.All;
+            return (Privilege) 0xffff;
             }
 
         // If user is author

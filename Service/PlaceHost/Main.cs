@@ -23,9 +23,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,34 +46,40 @@ internal sealed class Program {
     // We can decorate this with stuff later.
     static void Main(string[] args) {
 
-        //Goedel.Palimpsest.Initialization.Initialized.AssertTrue(NYI.Throw);
+        //  https://learn.microsoft.com/en-us/dotnet/core/compatibility/core-libraries/10.0/sigterm-signal-handler
 
-        //var directory = args[0];
-        //var resources = args[1];
+        // Terminate service on receiving SIGTERM
+        using var termSignalRegistration =
+            PosixSignalRegistration.Create(
+                PosixSignal.SIGTERM,
+                (_) => Environment.Exit(0));
 
-        //var forum = Forum.Create(directory, resources, "MPlace2");
+        // Hack: Terminate service on receiving SIGHUP
+        // ToDo: Implement code to terminate the 
+        using var sigHupSignalRegistration =
+            PosixSignalRegistration.Create(
+                PosixSignal.SIGHUP,
+                (_) => Environment.Exit(0));
+
 
         Screen.ToFile("servicelog.md");
         Screen.WriteLine("# MPlace2 log");
         Screen.Flush();
 
-
         var configFile = args.Length > 0 ? args[0] : "SiteConfig.json";
-        var serviceConfig = configFile.ReadFileJson<PlaceConfiguration>();
-
-
+        var serviceConfig = configFile.ReadFileJson<PlaceConfiguration>() ?? throw new NYI();
 
         var frameset = new MyClass() {
             Resources = [
                 new Stylesheet("/Resources/stylesheet.css", "text/css")],
             EndResources = [],
-            Directory = serviceConfig.Site,
-            Members = serviceConfig.Members,
-            Logs = serviceConfig.Logs,
-            RepositoryFiles = serviceConfig.Repository,
-            ResourceFiles = serviceConfig.Resources,
-            RandomSeed = serviceConfig.TestSeed,
-            PrivateKeys = serviceConfig.PrivateKeys
+            Directory = serviceConfig?.Site,
+            Members = serviceConfig?.Members,
+            Logs = serviceConfig?.Logs,
+            RepositoryFiles = serviceConfig?.Repository,
+            ResourceFiles = serviceConfig?.Resources,
+            RandomSeed = serviceConfig?.TestSeed,
+            PrivateKeys = serviceConfig?.PrivateKeys
             };
 
         frameset.SetLimits(serviceConfig.Limits);
@@ -82,6 +90,7 @@ internal sealed class Program {
         var annotationService = new AnnotationService(frameset, persistPlace);
         annotationService.Start();
         }
+
 
     }
 

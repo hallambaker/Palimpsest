@@ -265,7 +265,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public void Start() {
         HttpListener.Start();
         Console.WriteLine($"Listening {HttpEndpoint}");
-        DateTime? freed;
 
         var now = DateTime.UtcNow.ToFileSpec();
         var logfile = $"Log{now}.log";

@@ -178,23 +178,6 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         IconsPath = FrameSet.IconFiles;
 
-
-
-
-        //HttpListener.Prefixes.Add(HttpsEndpoint);
-
-        //// Bind the OAUTH client here
-
-        //// These should all belong to Oauth client
-        //OauthClientSignature = OauthClient.GenKey(KeyUses.Sign);
-        //OauthClientEncryption = OauthClient.GenKey(KeyUses.Encrypt);
-
-        //JWKS = new JWKS {
-        //    Keys = [JWK.Factory(OauthClientSignature)
-        //        , JWK.Factory(OauthClientEncryption)
-        //        ]
-        //    };
-
         OauthClient = new OauthClient(
                     ClientMetadataLocation,
                     RedirectLocation,
@@ -227,7 +210,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     /// </summary>
     public void Start() {
         HttpListener.Start();
-        Console.WriteLine($"Listening {HttpEndpoint}");
+
 
         var now = System.DateTime.UtcNow.ToFileSpec();
         var logfile = Path.Combine (FrameSet.Logs, $"Log{now}.log");
@@ -235,16 +218,18 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var logStream = logfile.OpenFileAppendShare();
         LogFile = new StreamWriter(logStream);
 
+        Console.WriteLine($"Listening {HttpEndpoint} log {logfile}");
+
         while (true) {
             HttpListenerContext context = HttpListener.GetContext();
             Console.WriteLine("Wait on HTTP");
             switch (context.Request.HttpMethod) {
                 case "GET": {
-                    HandleRequestGet(context);
+                    _ = HandleRequestGet(context);
                     break;
                     }
                 case "POST": {
-                    HandleRequestPost(context);
+                    _ = HandleRequestPost(context);
                     break;
                     }
                 }
@@ -342,7 +327,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
             var page = templatePage.GetPage(PersistPlace, path);
             page.Context = path;
-            RenderPage(path, page);
+            await RenderPage(path, page);
             }
         else if (Callbacks.TryGetValue(path.Command, out var callback)) {
             await callback(path);
@@ -441,6 +426,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task GetResource(ParsedPath path, string filePath) {
 
         var response = path.Context.Response;
+        Console.WriteLine($"File: {filePath}");
         try {
 
             response.StatusCode = (int)HttpStatusCode.OK;
@@ -453,6 +439,9 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             response.OutputStream.Close();
             }
         catch (FileNotFoundException) {
+
+            Console.WriteLine($"Not Found: {filePath}");
+
             response.StatusCode = (int)HttpStatusCode.NotFound;
             response.OutputStream.Close();
             }

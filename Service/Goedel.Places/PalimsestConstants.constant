@@ -107,7 +107,7 @@ File Configuration
 		Flag CreateComment		 4 "Create comment"
 
 		Flag ReadPlace			 5 "Create new places"
-		Flag ReedFeed			 6 "Create new feed"
+		Flag ReadFeed			 6 "Create new feed"
 		Flag ReadPost			 7 "Create post"
 		Flag ReadComment		 8 "Create comment"
 
@@ -121,6 +121,7 @@ File Configuration
 		Flag GrantAuthor		18 "Create new places"
 		Flag GrantCommentator	19 "Create new places"
 
-		Flag Suspend			20 "Suspend member"
-		Flag Ban				21 "Ban member"
-		Flag Status				22 "Set member status"
+		Flag ReadUser			20 "Read user profile"
+		Flag Suspend			21 "Suspend member"
+		Flag Ban				22 "Ban member"
+		Flag Status				23 "Set member status"

@@ -21,7 +21,7 @@ public class CachedPlaces : CachedCatalog<CatalogedPlace> {
 
     public CachedPlaces(
                 CatalogCache catalogCache,
-                EarlStream stream) : base(catalogCache, stream) {
+                VDareStream stream) : base(catalogCache, stream) {
 
 
         }
@@ -29,7 +29,7 @@ public class CachedPlaces : CachedCatalog<CatalogedPlace> {
     public static CachedPlaces Open(CatalogCache catalogCache, string directory) {
 
         var fileName = GetFile(directory);
-        var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
+        var stream = VDareStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
         var result = new CachedPlaces(catalogCache, stream);
 
 
@@ -56,13 +56,13 @@ public class CachedMembers : CachedCatalog<CatalogedMember> {
 
     public CachedMembers(
                 CatalogCache catalogCache,
-                EarlStream stream) : base(catalogCache, stream) {
+                VDareStream stream) : base(catalogCache, stream) {
         }
 
     public static CachedMembers Open(CatalogCache catalogCache, string directory) {
 
         var fileName = GetFile(directory);
-        var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
+        var stream = VDareStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
         var result = new CachedMembers(catalogCache, stream);
 
 
@@ -95,7 +95,7 @@ public class CachedFeeds : CachedCatalog<CatalogedFeed> {
 
     public CachedFeeds(
             CatalogCache catalogCache,
-            EarlStream stream) : base(catalogCache, stream) {
+            VDareStream stream) : base(catalogCache, stream) {
         }
 
     public static CachedFeeds Open(
@@ -103,7 +103,7 @@ public class CachedFeeds : CachedCatalog<CatalogedFeed> {
                 string directory, 
                 string place) {
         var fileName = GetFile(directory, place);
-        var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
+        var stream = VDareStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
         var result = new CachedFeeds(catalogCache, stream);
 
         return result;
@@ -127,7 +127,7 @@ public class CachedPosts : CachedCatalog<CatalogedPost> {
 
     public CachedPosts(
             CatalogCache catalogCache,
-            EarlStream stream) : base(catalogCache, stream) {
+            VDareStream stream) : base(catalogCache, stream) {
         }
 
     public static CachedPosts Open(
@@ -136,7 +136,7 @@ public class CachedPosts : CachedCatalog<CatalogedPost> {
                 string place, 
                 string feed) {
         var fileName = GetFile(directory, place, feed);
-        var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
+        var stream = VDareStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
         var result = new CachedPosts(catalogCache, stream);
 
         return result;
@@ -163,7 +163,7 @@ public class CachedComments : CachedCatalog<CatalogedComment> {
 
     public CachedComments(
             CatalogCache catalogCache,
-            EarlStream stream) : base(catalogCache, stream) {
+            VDareStream stream) : base(catalogCache, stream) {
         }
 
     public static CachedComments Open(
@@ -173,7 +173,7 @@ public class CachedComments : CachedCatalog<CatalogedComment> {
                 string feed,
                 string post) {
         var fileName = GetFile(directory, place, feed, post);
-        var stream = EarlStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
+        var stream = VDareStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
         var result = new CachedComments(catalogCache, stream);
 
         return result;

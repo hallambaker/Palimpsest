@@ -198,9 +198,7 @@ public record AnalyzedEntryService : AnalyzedEntry {
 
 public record AnalyzedEntryServiceWeb : AnalyzedEntryService {
 
-    public OnlineService OnlineService { get; }
     public AnalyzedEntryServiceWeb(JsContact contact, OnlineService service) : base (contact,service){
-        OnlineService = service;
         }
 
     }

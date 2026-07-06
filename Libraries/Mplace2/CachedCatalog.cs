@@ -12,7 +12,7 @@ public class CachedCatalog<T> : EarlCatalog<T> where T : JsonObject, new() {
     /// <param name="stream"></param>
     public CachedCatalog(
             CatalogCache catalogCache,
-            EarlStream stream) : base(stream) {
+            VDareStream stream) : base(stream) {
         CatalogCache = catalogCache;
 
         Initialize();
@@ -20,17 +20,17 @@ public class CachedCatalog<T> : EarlCatalog<T> where T : JsonObject, new() {
         }
 
     /// <inheritdoc/>
-    public override EarlEntryIndex<T> Add(T item) {
+    public override VDareEntryIndex<T> Add(T item) {
         return base.Add(item);
         }
 
     /// <inheritdoc/>
-    public override EarlEntryIndex<T> Update(T item) {
+    public override VDareEntryIndex<T> Update(T item) {
         return base.Update(item);
         }
 
     /// <inheritdoc/>
-    public override EarlEntryIndex<T> Delete(string id) {
+    public override VDareEntryIndex<T> Delete(string id) {
         return base.Delete(id);
         }
 

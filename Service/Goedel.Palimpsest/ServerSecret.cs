@@ -78,7 +78,7 @@ public record ServerCookieManager {
         writer.Write(idArray, 0, idArray.Length);
 
         var buffer = writer.ToArray ();
-        var nonce = SHAKE128.Process(buffer, 96);
+        var nonce = Shake128.HashData(buffer, 12);
 
 
         // get the current secret, we need to acquire the lock for this
