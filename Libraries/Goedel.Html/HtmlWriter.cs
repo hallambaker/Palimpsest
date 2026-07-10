@@ -12,22 +12,33 @@ namespace Goedel.Html;
 
 
 /// <summary>
-/// 
+/// Resource entry on page.
 /// </summary>
 /// <param name="Uri">The resource locator.</param>
-/// <param name="Type">The icon type</param>
+/// <param name="Type">The resource type</param>
+/// <param name="Integrity">Optional integrity specifier.</param>
 public record Resource(
             string Uri,
             string Type,
             string? Integrity = null) {
     }
 
+/// <summary>Script entry on page.</summary>
+/// <param name="Uri">URI to load the script from</param>
+/// <param name="Type">The resource type</param>
+/// <param name="Integrity">Optional integrity specifier.</param>
 public record Script(
             string Uri,
             string Type,
             string? Integrity = null) : Resource(Uri, Type, Integrity) {
     }
 
+/// <summary>
+/// Resource entry on page.
+/// </summary>
+/// <param name="Uri">The resource locator.</param>
+/// <param name="Type">The resource type</param>
+/// <param name="Integrity">Optional integrity specifier.</param>
 public record Stylesheet(
             string Uri,
             string Type,
@@ -39,7 +50,10 @@ public record Element(string Tag, string ClassAttribute=null) {
     }
 
 
+/// <summary>The document types</summary>
 public enum DocumentType {
+
+    /// <summary>XHTML Document.</summary>
     XHTML=0
     }
 

@@ -72,9 +72,9 @@ public record ParsedPath : IPageContext {
     public string? UserId { get; set; } = null;
 
     CatalogedPlace? CatalogedPlace;
-    CatalogedFeed? CatalogedFeed;
-    CatalogedPost? CatalogedPost;
-    CatalogedComment? CatalogedComment;
+    //CatalogedFeed? CatalogedFeed;
+    //CatalogedPost? CatalogedPost;
+    //CatalogedComment? CatalogedComment;
 
     public string AuthorId => MemberHandle?._PrimaryKey;
 

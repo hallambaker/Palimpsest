@@ -2,7 +2,7 @@
 
 	<Import Project="$(SolutionDir)Settings/CommonSettings.xml" />
 	<PropertyGroup>
-		<Product>Goedel.Html</Product>
+		<Product>MPlace2</Product>
 		<Description>Build MPlace2 Chrome</Description>
 		<Copyright>© 2025</Copyright>
 		<Title>Goedel.Mplace2</Title>

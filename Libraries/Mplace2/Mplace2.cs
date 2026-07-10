@@ -2,7 +2,7 @@
 #pragma warning disable IDE0028 // Simplify collection initialization
 namespace Mplace2.Gui;
 
-public partial class FramePage : Goedel.Sitebuilder.FramePage {
+public abstract partial class FramePage : Goedel.Sitebuilder.FramePage {
 
     public FramePage(string id, string title, List<IFrameField> fields) : base(id, title, fields) {
         }
@@ -2808,7 +2808,7 @@ public partial class User (string Id) : FrameClass (Id) {
 	/// <summary>
 	/// Presentation style MemberSummary
 	/// </summary>
-	public static FramePresentation MemberSummary => membersummary ?? new FramePresentation ("MemberSummary") {
+	public static FramePresentation MemberSummary => field ?? new FramePresentation ("MemberSummary") {
 		GetUid = (data) => (data as User)?.Uid,
 		Sections = [
 			new FrameSection ("ImageArea") {
@@ -2831,13 +2831,12 @@ public partial class User (string Id) : FrameClass (Id) {
 					]
 				}
 			]
-		}.CacheValue(out membersummary)!;
-	static FramePresentation? membersummary;
+		}.CacheValue(out field)!;
 
-	/// <summary>
-	/// Presentation style MemberDetail
-	/// </summary>
-	public static FramePresentation MemberDetail => memberdetail ?? new FramePresentation ("MemberDetail") {
+    /// <summary>
+    /// Presentation style MemberDetail
+    /// </summary>
+    public static FramePresentation MemberDetail => memberdetail ?? new FramePresentation ("MemberDetail") {
 		GetUid = (data) => (data as User)?.Uid,
 		Sections = [
 			new FrameSection ("ImageArea") {

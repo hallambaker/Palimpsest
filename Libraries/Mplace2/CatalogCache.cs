@@ -3,12 +3,14 @@
 namespace Mplace2.Gui;
 
 
-public class CacheHandle<T> : Disposable where T : EarlCatalog {
+public class CacheHandle<C, T> : Disposable 
+            where C : VDareCatalog<T>
+            where T : JsonObject, new() {
 
 
-    public T Value;
+    public C Value;
 
-    public CacheHandle(T value) {
+    public CacheHandle(C value) {
         Console.WriteLine($"Open file {value?.Stream?.Filename}");
         Value = value;
         }
@@ -23,28 +25,21 @@ public class CacheHandle<T> : Disposable where T : EarlCatalog {
 
 
 
-//public class CacheHandlePostComments : CacheHandle<CachedComments> {
-
-
-
-
-//    public CacheHandlePostComments(CachedComments value) : base (value) { 
-//        } 
-
-//    }
-
 public class CatalogCache (string PlaceDirectory) {
 
     #region // Feeds
 
-    CacheHandle<T> Intern<T> (T value) where T:EarlCatalog => new (value);
+
+    // Hack: This does not cache the handles allowing them to be released later.
+    CacheHandle<C, T> Intern<C, T> (C value) where C : VDareCatalog<T>
+            where T : JsonObject, new() => new (value);
 
 
 
     /// <summary>Return the feeds associated with a place</summary>
     /// <param name="place">The place uid</param>
     /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedFeeds> CreatePlaceFeeds(
+    public CacheHandle<CachedFeeds, CatalogedFeed> CreatePlaceFeeds(
                 string place) {
         // Initialize [PlaceDirectory]/[place]/Feeds.darc
         var directory = CachedFeeds.GetDirectory(PlaceDirectory, place);
@@ -56,11 +51,11 @@ public class CatalogCache (string PlaceDirectory) {
     /// <summary>Return the feeds associated with a place</summary>
     /// <param name="place">The place uid</param>
     /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedFeeds> GetPlaceFeeds(
+    public CacheHandle<CachedFeeds, CatalogedFeed> GetPlaceFeeds(
                 string place) {
 
         var catalog = CachedFeeds.Open(this, PlaceDirectory, place);
-        return Intern(catalog);
+        return Intern<CachedFeeds, CatalogedFeed>(catalog);
         }
 
 
@@ -69,7 +64,7 @@ public class CatalogCache (string PlaceDirectory) {
     /// <summary>Return the feeds associated with a place</summary>
     /// <param name="place">The place uid</param>
     /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedPosts> CreateFeedPosts(
+    public CacheHandle<CachedPosts, CatalogedPost> CreateFeedPosts(
                 string place,
                 string feed) {
         var directory = CachedPosts.GetDirectory(PlaceDirectory, place, feed);
@@ -81,19 +76,19 @@ public class CatalogCache (string PlaceDirectory) {
     /// <param name="place">The place uid</param>
     /// <param name="feed">The feed uid</param>
     /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedPosts> GetFeedPosts(
+    public CacheHandle<CachedPosts, CatalogedPost> GetFeedPosts(
                 string place,
                 string feed) {
 
         var catalog = CachedPosts.Open(this, PlaceDirectory, place, feed);
-        return Intern(catalog);
+        return Intern<CachedPosts, CatalogedPost>(catalog);
         }
 
     /// <summary>Return the feeds associated with a place</summary>
     /// <param name="place">The place uid</param>
     /// <param name="feed">The feed uid</param>
     /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedComments> GetPostComments(
+    public CacheHandle<CachedComments, CatalogedComment> GetPostComments(
                 string place,
                 string feed,
                 string postId,
@@ -101,7 +96,7 @@ public class CatalogCache (string PlaceDirectory) {
 
         var catalog = CachedComments.Open(this, PlaceDirectory, place, feed, postId);
         catalog.CatalogedPost = cataloged;
-        return Intern(catalog);
+        return Intern<CachedComments, CatalogedComment>(catalog);
         }
 
 
@@ -111,7 +106,7 @@ public class CatalogCache (string PlaceDirectory) {
     /// <param name="feed">The feed uid</param>
     /// <param name="post">The post uid</param>
     /// <returns>The cached feeds for the place</returns>
-    public CacheHandle<CachedComments> GetPostAndComments(
+    public CacheHandle<CachedComments, CatalogedComment> GetPostAndComments(
                 string placeId,
                 string feedId,
                 string postId) {
@@ -170,14 +165,14 @@ public class CatalogCache (string PlaceDirectory) {
         }
 
 
-    public CacheHandle<CachedComments> GetComments(
+    public CacheHandle<CachedComments, CatalogedComment> GetComments(
             string placeId,
             string feedId,
             string postId) {
 
         // open the catalog, and return a handle to it.
         var catalog = CachedComments.Open(this, PlaceDirectory, placeId, feedId, postId);
-        return Intern(catalog);
+        return Intern<CachedComments, CatalogedComment> (catalog);
         }
 
     }

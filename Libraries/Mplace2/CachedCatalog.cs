@@ -2,7 +2,7 @@
 
 namespace Mplace2.Gui;
 
-public class CachedCatalog<T> : EarlCatalog<T> where T : JsonObject, new() {
+public class CachedCatalog<T> : VDareCatalog<T> where T : JsonObject, new() {
 
     CatalogCache CatalogCache;
 
@@ -15,7 +15,10 @@ public class CachedCatalog<T> : EarlCatalog<T> where T : JsonObject, new() {
             VDareStream stream) : base(stream) {
         CatalogCache = catalogCache;
 
-        Initialize();
+
+
+        //throw new NYI();
+        ////Initialize();
 
         }
 
