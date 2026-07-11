@@ -20,28 +20,23 @@
 //  THE SOFTWARE.
 #endregion
 
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Net;
-using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-using Goedel.Palimpsest;
-using Goedel.Protocol.Service;
-using Goedel.Sitebuilder;
-//using Windows.ApplicationModel.DataTransfer;
 
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Goedel.Places;
 
 internal sealed class Program {
+
+
+    static readonly Dictionary<string, int> DefaultLimits = new() {
+        {  "RequestSize", 100000 },
+        {"PostsPerHour", 100},
+        { "PostSize", 10000},
+        { "CommentSize", 300},
+        { "UserStorage", 10000000}
+        };
 
     // We can decorate this with stuff later.
     static void Main(string[] args) {
@@ -69,23 +64,26 @@ internal sealed class Program {
         var configFile = args.Length > 0 ? args[0] : "SiteConfig.json";
         var serviceConfig = configFile.ReadFileJson<PlaceConfiguration>() ?? throw new NYI();
 
+        var siteDirectory = serviceConfig?.Site ?? ".";
+
+
         var frameset = new MyClass() {
             Resources = [
                 new Stylesheet("/Resources/stylesheet.css", "text/css")],
             EndResources = [],
-            Directory = serviceConfig?.Site,
-            Members = serviceConfig?.Members,
-            Logs = serviceConfig?.Logs,
-            RepositoryFiles = serviceConfig?.Repository,
-            ResourceFiles = serviceConfig?.Resources,
-            RandomSeed = serviceConfig?.TestSeed,
-            PrivateKeys = serviceConfig?.PrivateKeys
+            Directory = siteDirectory,
+            Members = serviceConfig?.Members ?? Path.Combine(siteDirectory, "Members"),
+            Logs = serviceConfig?.Logs ?? Path.Combine(siteDirectory, "Logs"),
+            RepositoryFiles = serviceConfig?.Repository ?? Path.Combine(siteDirectory, "Repository"),
+            ResourceFiles = serviceConfig?.Resources ?? Path.Combine(siteDirectory, "Resource"),
+            RandomSeed = serviceConfig?.TestSeed ?? "",
+            PrivateKeys = serviceConfig?.PrivateKeys ?? Path.Combine(siteDirectory, "Private"),
             };
 
-        frameset.SetLimits(serviceConfig.Limits);
+        frameset.SetLimits(serviceConfig?.Limits?? DefaultLimits);
 
 
-        var persistPlace = new PersistPlace(frameset, serviceConfig);
+        var persistPlace = new PersistPlace(frameset, serviceConfig!);
 
         var annotationService = new AnnotationService(frameset, persistPlace);
         annotationService.Start();

@@ -228,7 +228,7 @@ Namespace Mplace2.Gui
         CreatePostAction Form Post      // Post entry form, i.e. Quill
             FeedId String
                 Hidden
-            Title String                // Post Title
+            PostTitle String                // Post Title
                 Prompt "Title"
                 Description "Title, should be short."
             Summary Text                 // Short text
@@ -243,7 +243,7 @@ Namespace Mplace2.Gui
     DeletePostPage Page "Delete Post"
         DeletePostPage Container
         Navigation Is MainNav
-        Title String                // Post Title
+        PostTitle String                // Post Title
             Prompt "Title"
             Description "Title, should be short."
         Summary Text                 // Short text
@@ -558,7 +558,7 @@ Namespace Mplace2.Gui
             FeedId String
                 Hidden
             User Is User                // The owner of the entry, typically the user who created/added the entry
-            Title String                // Post Title
+            PostTitle String                // Post Title
                 Prompt "Title"
             Summary Text                 // Short text
                 Prompt "Summary"
@@ -581,7 +581,7 @@ Namespace Mplace2.Gui
                 Rule
                 Body
                     PostLink Anchor
-                    Title String 
+                    PostTitle String 
                     Summary Text 
 
             PostFull Presentation Uid
@@ -595,7 +595,7 @@ Namespace Mplace2.Gui
                     Created DateTime
                 Rule
                 Summary
-                    Title String 
+                    PostTitle String 
                     Summary Text
                 Body
                     Body RichText
@@ -627,7 +627,7 @@ Namespace Mplace2.Gui
                     Created DateTime
                 Rule
                 Summary
-                    Title String 
+                    PostTitle String 
                     Summary Text
                 Body
                     Body RichText
@@ -687,7 +687,7 @@ Namespace Mplace2.Gui
                 Hidden
 
             User Is User                // The owner of the entry, typically the user who created/added the entry
-            Text Text                   // Short text
+            CommentText Text                   // Short text
             Resources Is Resource       // An associated resource
             Likes Integer
             Replies String
@@ -786,7 +786,7 @@ Namespace Mplace2.Gui
         Fields
             Title String                // Resource name
             Size Integer                // Size of the reource in bytes
-            Type String                 // IANA media type
+            MediaType String                 // IANA media type
 
     Contact SubClass Entry             // Contact presentation class
         Description "Contact information describing a user"
@@ -821,7 +821,7 @@ Namespace Mplace2.Gui
 
     TagValue Class
         Fields
-            Tag String 
+            FieldTag String 
             Value String 
 
     Organization Class
@@ -891,7 +891,7 @@ Namespace Mplace2.Gui
             ServiceName String
                 Description "The service address"
             Protocol String 
-            Type Is Option 
+            ServiceType Is Option 
                 Description "The service type"
 
     Key Class
@@ -947,7 +947,7 @@ Namespace Mplace2.Gui
 
     Option Class
         Fields
-            Id String        
+            OptionId String        
                 Description "Unique identifier"
                 Hidden
             Text String

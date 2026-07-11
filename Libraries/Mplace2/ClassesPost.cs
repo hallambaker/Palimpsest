@@ -92,7 +92,7 @@ public partial class Post {
 
         Body = catalogedPost.Body;
         Summary = catalogedPost.Summary;
-        Title = catalogedPost.Title;
+        PostTitle = catalogedPost.Title;
         User = persist.GetUser(catalogedPost.Author);
         //User = post.Author;
 
@@ -115,7 +115,7 @@ public partial class Post {
 
         var catalogedPost = new CatalogedPost() {
             Uid = persist.CreatePostId(),
-            Title = Title,
+            Title = PostTitle,
             Author = pageContext.AuthorId,
             Summary = Summary,
             Body = Body
@@ -224,7 +224,7 @@ public partial class DeletePostPage {
 
         var result = new DeletePostPage() {
             FrameSet = FrameSet,
-            Title = post.Title,
+            PostTitle = post.Title,
             Summary = post.Summary,
             Form = template
             };

@@ -1,8 +1,11 @@
 ﻿
-#pragma warning disable IDE0028 // Simplify collection initialization
+
 namespace Mplace2.Gui;
 
-public partial class FramePage : Goedel.Sitebuilder.FramePage {
+public partial class FramePage(
+            string id,
+            string title,
+            List<IFrameField> fields) : Goedel.Sitebuilder.FramePage(id, title, fields) {
 
 
     /// <summary>

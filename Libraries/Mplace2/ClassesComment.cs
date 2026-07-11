@@ -47,7 +47,7 @@ public partial class Comment {
                 CatalogedComment catalogedComment) : this(catalogedComment.Uid) {
         var persist = pageContext.PersistPlace as PersistPlace;
 
-        Text = catalogedComment.Text;
+        CommentText = catalogedComment.Text;
         CommentId = catalogedComment.ReplyId;
         User = persist.GetUser(catalogedComment.Author);
 
@@ -64,7 +64,7 @@ public partial class Comment {
 
         var item = new CatalogedComment() {
             Author = pageContext.AuthorId,
-            Text = Text,
+            Text = CommentText,
             ReplyId = CommentId
             };
         persist.Add(pageContext.PlaceId, pageContext.FeedId, pageContext.PostId, item);
