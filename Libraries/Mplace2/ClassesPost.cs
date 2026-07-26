@@ -106,19 +106,23 @@ public partial class Post {
 
         pageContext.CheckAuthorization(Privilege.CreatePost, FeedId).AssertTrue(NYI.Throw);
 
-        if (Body != null) {
-            var valid = RichtextValidator.Validate(Body);
-            if (valid != RichetextResult.Valid) {
-                Body = null;
-                }
-            }
+        RichtextValidator.Validate(Body, out var validated);
+
+        Console.WriteLine(validated?? "bad");
+
+        //if (Body != null) {
+        //    var valid = RichtextValidator.Validate(Body);
+        //    if (valid != RichetextResult.Valid) {
+        //        Body = null;
+        //        }
+        //    }
 
         var catalogedPost = new CatalogedPost() {
             Uid = persist.CreatePostId(),
             Title = PostTitle,
             Author = pageContext.AuthorId,
             Summary = Summary,
-            Body = Body
+            Body = validated
             };
 
         persist.Add(pageContext.PlaceId, FeedId, catalogedPost);

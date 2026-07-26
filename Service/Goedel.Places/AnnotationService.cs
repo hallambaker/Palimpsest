@@ -90,7 +90,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public EarlClient EarlClient { get; }
 
     ///<summary>Domain (will be replaced)</summary>
-    public string Domain => "mplace2.social";
+    public string Domain => FrameSet.DefaultSite;
 
     ///<summary>The Client endpoint.</summary>
     public string ClientEndpoint => $"https://{Domain}/";

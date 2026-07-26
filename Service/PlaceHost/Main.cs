@@ -78,6 +78,7 @@ internal sealed class Program {
             ResourceFiles = serviceConfig?.Resources ?? Path.Combine(siteDirectory, "Resource"),
             RandomSeed = serviceConfig?.TestSeed ?? "",
             PrivateKeys = serviceConfig?.PrivateKeys ?? Path.Combine(siteDirectory, "Private"),
+            DefaultSite = serviceConfig?.DefaultSite ?? "example.com"
             };
 
         frameset.SetLimits(serviceConfig?.Limits?? DefaultLimits);

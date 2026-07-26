@@ -1,5 +1,5 @@
 {
-  "DefaultSite": "mplace2.social",
+  "DefaultSite": "cryptomesh.org",
   "Administrators": [ "phill.hallambaker.com" ],
   "Limits": {
     "RequestSize": 100000,
