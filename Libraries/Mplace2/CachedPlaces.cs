@@ -28,10 +28,12 @@ public class CachedPlaces : CachedCatalog<CatalogedPlace> {
 
     public static CachedPlaces Open(CatalogCache catalogCache, string directory) {
 
-        var fileName = GetFile(directory);
-        var stream = VDareStream.Open(fileName, DareConstants.TypeIdentifierDareSequence);
-        var result = new CachedPlaces(catalogCache, stream);
+        var typeIdentifier = DareConstants.TypeIdentifierDareSequence;
 
+        var fileName = GetFile(directory);
+        var stream = VDareStream.Open(fileName, typeIdentifier);
+
+        var result = new CachedPlaces(catalogCache, stream);
 
 
         return result;

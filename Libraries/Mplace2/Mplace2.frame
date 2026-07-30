@@ -146,6 +146,12 @@ Namespace Mplace2.Gui
     AppearanceSettings Page "Appearance Settings" 
         EntryPage Container
         Navigation Is MainNav
+        Description Div
+            P1 P
+                |Here (eventually) provide a form to allow the user to control their settings.
+            P2 P
+                |This should allow the user to choose a light or a dark theme, 
+                |Select a larger or smaller font size and possibly a choice of font.
 
     AboutSettingsPage Page "About - MPlace2" 
         EntryPage Container
@@ -171,11 +177,31 @@ Namespace Mplace2.Gui
     SignIn Page "Sign In"
         EntryPage Container
         Navigation Is MainNav
-        Text String                     // Short explanation
+
+        Explanation Div
+            P1 P
+                |Sign in using your BlueSky, Eurosky, BlackSky or other @nywhere account.
+            P2 P
+                |If you do not have an @nywhere account, you can create one at any of the
+                |following sites which will allow you to interact with any ATmosphere site.
+
+            BlueSky LI
+                |<a href="https://bsky.app/">BlueSky</a>
+            
+            BlackSky LI
+                |<a href="https://blacksky.community/">BlackSky</a>
+            EuroSky LI
+                |<a href="https://portal.eurosky.tech/create-account">EuroSky</a>
+
+
         Form Form HandleInput
             DNS String
                 Prompt "@nywhere handle"
                 Description "The handle you use to log in to Blue Sky etc."
+
+
+
+
 
         RegisterText String             // Short explanation
         Providers List Provider         // Providers where you can signup
@@ -185,8 +211,12 @@ Namespace Mplace2.Gui
         Navigation Is MainNav
 
         SignOut Form SignOut
+            P1 P
+                |Sign out this account.
 
         Form Form HandleInput
+            P1 P
+                |Switch to a different @nywhere account
             DNS String
                 Prompt "@nywhere handle"
                 Description "The handle you use to log in to Blue Sky etc."
@@ -327,7 +357,24 @@ Namespace Mplace2.Gui
     YourPlacePageCreate Page "Create Your Personal Place"
         FlowPage Container
         Navigation Is MainNav
-        Place Form Place
+        Explanation Div
+            P1 P
+                |Comming soon
+            P2 P
+                |The goal of Places is to provide people with a place they can create
+                |a personal feed posting longer articles than will fit into the 300 
+                |characters allowed in BlueSky Skeet.
+            P3 P
+                |Since I am entirely self-funded, I won't be able to support an unlimited 
+                |number of unlimited free accounts but I can support at least a million
+                |free limited accounts with the current setup. Rather than take advertising,
+                |I plan to adopt a freemium model to support build out of the platform if
+                |that becomes necessary. Limited accounts should be available for free.
+            P4 P
+                |Alternatively, if you have the necessary technical know how to set up
+                |an Internet service, you can run your own places server. I will be making
+                |How to tutorials in due course.
+
 
 
 
@@ -341,39 +388,115 @@ Namespace Mplace2.Gui
     Help Page "Help"
         Support Container
         SupportNav Is SupportMenu
-        Text RichText 
+        Explanation Div
+            P1 P
+                |Should probably add some help information at some point.
 
     TermsOfService Page "Terms of Service"
         Support Container
         SupportNav Is SupportMenu
-        Text RichText 
+        Explanation Div
+            P1 P
+                |Places is an anti-censorhip platform but it is my anti-censorship platform
+                |and content posted must be in accordance with the following rules.
+            P2 H1
+                |Rule 0: Do not make us create any new rules.
+            P3 H1
+                |Rule 1: No illegal content.
+            P4 P
+                |If you post illegal content of any type and it is reported, I will forward 
+                |it to the police without hesitation. 
+            P5 H1
+                |Rule 2: No despicable content
+            P6 P
+                |I reserve the right to delete any material I find to be despicable including
+                |material that is racist, homophobic, transphobic antisemitic or bigoted in
+                |any way. I am proud to be woke and I am paying to support this platform.
+            P7 H1
+                |Rule 3: No comment spam
+            P8 P
+                |You are entitled to your opinions, you are entitled to publish them. You are
+                |not entitled to force anyone else to read them.
+            P7 H1
+                |Rule 4: No bullying or harrassment
+            P8 P
+                |Other people are entitled to their opinions and to comment provided that they
+                |don't breach the rules above. You are not entitled to suppress their views
+                |with threatening or derrogatory language.
+            P7 H1
+                |Rule 5: Copyright
+            P8 P
+                |You agree that you will only post/upload content which you are entitled
+                |to publish here and that the site may publish it and make such uses of the
+                |content as is usual for social media sites including testing.
+            P9 P
+                |Site agrees that its use of the content published will be limited to those
+                |uses normal for social media. But you acknowledge that the site has no control
+                |over the use of any published material by third parties.
+            P7 H1
+                |Rule 6: Indemnity
+            P8 P
+                |By using this site, you acknowledge that it is experimental and that no
+                |warranty of fitness for any purpose is given or impled. Content may disappear
+                |at any time, as may the entire service. 
+
+
+
+
 
     PrivacyPolicy Page "Privacy Policy"
         Support Container
         SupportNav Is SupportMenu
-        Text RichText 
+        Explanation Div
+            P1 P
+                |Places is built on the Mathematical Mesh, a cryptograpghic infrastructure
+                |designed to protect privacy to the maximum extent possible using open
+                |technology. It is however an experimental system and most of the protections
+                |afforded by the platform are not yet supported in the production system.
+
 
     Contributors Page "Contributors"
         Support Container
         SupportNav Is SupportMenu
-        Text RichText 
+        Explanation Div
+            P1 P
+                |Places was designed and implemented by Phillip Hallam-Baker
+            P2 P
+                |The platform and support libraries were developed using Visual Studio Community and
+                |DotNet 11.0. Domain Specific Languages implemented using the Goedel 
+                |metasynthesis tool were used to convert specifications to code and
+                |documentation. The principal target language is C# 14. The source code
+                |is hosted on <a href="https://github.com/hallambaker/Palimpsest">GitHub</a>.
+            P3 P
+                |Icons from the free collection of <a href="https://fontawesome.com/">Font Awesome</a>.
 
     Status Page "System Status"
         Support Container
         SupportNav Is SupportMenu
-        Text RichText 
+        Explanation Div
+            P1 P
+                |System status panel, TBS.
 
     SystemLog Page "System Log"
         Support Container
         SupportNav Is SupportMenu
-        Text RichText 
+        Explanation Div
+            P1 P
+                |Record of major system changes TBS
 
     Repository Page "Source Code Repository"
         Support Container
         SupportNav Is SupportMenu
-        Text RichText 
-
-
+        Explanation Div
+            P1 P
+                |The source code for the Places server is hosted on 
+                |<a href="https://github.com/hallambaker/Palimpsest">GitHub Palimpsest</a>.
+            P2 P
+                |The support libraries used by Places are part of the 
+                |Mathematical Mesh hosted at <a href="https://github.com/hallambaker/Mathematical-Mesh">GitHub Mathematical Mesh</a>.
+            P3 P
+                |The domain specific languages used in Places and the Mesh are
+                |hosted at <a href="https://github.com/hallambaker/Mathematical-Mesh">GitHub Build Tools</a>.
 
     Handle Class
         Fields

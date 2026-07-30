@@ -215,6 +215,10 @@ public partial class AnnotationService : IWebService<ParsedPath> {
         var now = System.DateTime.UtcNow.ToFileSpec();
         var logfile = Path.Combine (FrameSet.Logs, $"Log{now}.log");
 
+
+
+
+
         var logStream = logfile.OpenFileAppendShare();
         LogFile = new StreamWriter(logStream);
 

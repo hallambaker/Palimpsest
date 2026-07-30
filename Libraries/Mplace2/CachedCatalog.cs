@@ -16,6 +16,13 @@ public class CachedCatalog<T> : VDareCatalog<T> where T : JsonObject, new() {
         CatalogCache = catalogCache;
 
 
+        if (stream.Length == 0) {
+            stream.WriteTypeIdentifier(DareConstants.TypeIdentifierDareSequence);
+            WriteInitial();
+            }
+        else {
+            ReadInitial();
+            }
 
         //throw new NYI();
         ////Initialize();

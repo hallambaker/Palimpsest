@@ -208,6 +208,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goedel.Places", "Service\Go
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Goedel.Sitebuilder", "..\buildtools\SiteBuilder\Goedel.Sitebuilder\Goedel.Sitebuilder.csproj", "{36FFB6C4-E77F-0300-538F-B4A686E38CA9}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Test", "..\..\source\repos\Palimpsest\Test\", "{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_65376"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\source\repos\Palimpsest\Test\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65376\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_65376"
+		Release.AspNetCompiler.PhysicalPath = "..\..\source\repos\Palimpsest\Test\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65376\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "65376"
+		SlnRelativePath = "..\..\source\repos\Palimpsest\Test\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -747,6 +768,16 @@ Global
 		{36FFB6C4-E77F-0300-538F-B4A686E38CA9}.Sandcastle|Any CPU.Build.0 = Sandcastle|Any CPU
 		{36FFB6C4-E77F-0300-538F-B4A686E38CA9}.Yaschema|Any CPU.ActiveCfg = Release|Any CPU
 		{36FFB6C4-E77F-0300-538F-B4A686E38CA9}.Yaschema|Any CPU.Build.0 = Release|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Github|Any CPU.ActiveCfg = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Github|Any CPU.Build.0 = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Sandcastle|Any CPU.ActiveCfg = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Sandcastle|Any CPU.Build.0 = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -811,6 +842,7 @@ Global
 		{79277521-DB6F-4462-004F-40924D19D47D} = {F19A3147-E61E-4BAC-AC0D-50A873F80D3B}
 		{E598DF88-8586-E424-35E2-E2DB8ED7CC4C} = {F19A3147-E61E-4BAC-AC0D-50A873F80D3B}
 		{36FFB6C4-E77F-0300-538F-B4A686E38CA9} = {E42F446F-1A2A-4CA3-BBF2-D0F872D2EAE5}
+		{822CAAAA-9FC7-BD41-3DDB-D6E8221ECE3D} = {F19A3147-E61E-4BAC-AC0D-50A873F80D3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58A69F60-0C27-4168-B66B-C2B910D8A295}

@@ -876,7 +876,16 @@ public partial class AppearanceSettings : FramePage {
 
 
 	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav")
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameDiv ("Description") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Here (eventually) provide a form to allow the user to control their settings."		    ]},
+        		new FrameBlock ("P2") {Tag = "p", Text=[
+        			"This should allow the user to choose a light or a dark theme, ",
+        			"Select a larger or smaller font size and possibly a choice of font."		    ]}
+				]
+			}
 		];
 
 
@@ -955,9 +964,6 @@ public partial class SignIn : FramePage {
 		Container = "EntryPage";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
     /// <summary>Field Form</summary>
 	public HandleInput? Form {get; set;}
 
@@ -970,10 +976,21 @@ public partial class SignIn : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameString ("Text",
-			(data, value) => {(data as SignIn)!.Text = value; },
-			(data) => (data as SignIn)?.Text) {
-				},
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Sign in using your BlueSky, Eurosky, BlackSky or other @nywhere account."		    ]},
+        		new FrameBlock ("P2") {Tag = "p", Text=[
+        			"If you do not have an @nywhere account, you can create one at any of the",
+        			"following sites which will allow you to interact with any ATmosphere site."		    ]},
+        		new FrameBlock ("BlueSky") {Tag = "li", Text=[
+        			"<a href=\"https://bsky.app/\">BlueSky</a>"		    ]},
+        		new FrameBlock ("BlackSky") {Tag = "li", Text=[
+        			"<a href=\"https://blacksky.community/\">BlackSky</a>"		    ]},
+        		new FrameBlock ("EuroSky") {Tag = "li", Text=[
+        			"<a href=\"https://portal.eurosky.tech/create-account\">EuroSky</a>"		    ]}
+				]
+			},
 		new FrameRefForm<HandleInput> ("Form","HandleInput", [
 		new FrameString ("DNS",
 			(data, value) => {(data as HandleInput)!.DNS = value; },
@@ -1002,10 +1019,6 @@ public partial class SignIn : FramePage {
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
 
-		new FrameString ("Text",
-			(data, value) => {(data as SignIn)!.Text = value; },
-			(data) => (data as SignIn)?.Text) {
-				},
 		new FrameString ("RegisterText",
 			(data, value) => {(data as SignIn)!.RegisterText = value; },
 			(data) => (data as SignIn)?.RegisterText) {
@@ -1019,8 +1032,7 @@ public partial class SignIn : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]},
-			{"RegisterText", _properties[1]}
+			{"RegisterText", _properties[0]}
 			}, "SignIn",
 		() => new SignIn(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1048,10 +1060,14 @@ public partial class SwitchPage : FramePage {
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameRefForm<SignOut> ("SignOut","SignOut", [
+		new FrameBlock ("P1") {Tag = "p", Text=[
+			"Sign out this account."		    ]}
 				]){
 			Get = (data) => (data as SwitchPage)?.SignOut ,
 			Set = (data, value) => {(data as SwitchPage)!.SignOut = value as SignOut; }},
 		new FrameRefForm<HandleInput> ("Form","HandleInput", [
+		new FrameBlock ("P1") {Tag = "p", Text=[
+			"Switch to a different @nywhere account"		    ]},
 		new FrameString ("DNS",
 			(data, value) => {(data as HandleInput)!.DNS = value; },
 			(data) => (data as HandleInput)?.DNS) {
@@ -1655,16 +1671,29 @@ public partial class YourPlacePageCreate : FramePage {
 		Container = "FlowPage";
 		}
 
-    /// <summary>Field Place</summary>
-	public Place? Place {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Place> ("Place","Place", [
-				]){
-			Get = (data) => (data as YourPlacePageCreate)?.Place ,
-			Set = (data, value) => {(data as YourPlacePageCreate)!.Place = value as Place; }}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Comming soon"		    ]},
+        		new FrameBlock ("P2") {Tag = "p", Text=[
+        			"The goal of Places is to provide people with a place they can create",
+        			"a personal feed posting longer articles than will fit into the 300 ",
+        			"characters allowed in BlueSky Skeet."		    ]},
+        		new FrameBlock ("P3") {Tag = "p", Text=[
+        			"Since I am entirely self-funded, I won\'t be able to support an unlimited ",
+        			"number of unlimited free accounts but I can support at least a million",
+        			"free limited accounts with the current setup. Rather than take advertising,",
+        			"I plan to adopt a freemium model to support build out of the platform if",
+        			"that becomes necessary. Limited accounts should be available for free."		    ]},
+        		new FrameBlock ("P4") {Tag = "p", Text=[
+        			"Alternatively, if you have the necessary technical know how to set up",
+        			"an Internet service, you can run your own places server. I will be making",
+        			"How to tutorials in due course."		    ]}
+				]
+			}
 		];
 
 
@@ -1702,16 +1731,15 @@ public partial class Help : FramePage {
 		Container = "Support";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameRichText ("Text",
-			(data, value) => {(data as Help)!.Text = value; },
-			(data) => (data as Help)?.Text) {
-				}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Should probably add some help information at some point."		    ]}
+				]
+			}
 		];
 
 
@@ -1722,11 +1750,7 @@ public partial class Help : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameRichText ("Text",
-			(data, value) => {(data as Help)!.Text = value; },
-			(data) => (data as Help)?.Text) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1736,7 +1760,6 @@ public partial class Help : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "Help",
 		() => new Help(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1754,16 +1777,56 @@ public partial class TermsOfService : FramePage {
 		Container = "Support";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameRichText ("Text",
-			(data, value) => {(data as TermsOfService)!.Text = value; },
-			(data) => (data as TermsOfService)?.Text) {
-				}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Places is an anti-censorhip platform but it is my anti-censorship platform",
+        			"and content posted must be in accordance with the following rules."		    ]},
+        		new FrameBlock ("P2") {Tag = "h1", Text=[
+        			"Rule 0: Do not make us create any new rules."		    ]},
+        		new FrameBlock ("P3") {Tag = "h1", Text=[
+        			"Rule 1: No illegal content."		    ]},
+        		new FrameBlock ("P4") {Tag = "p", Text=[
+        			"If you post illegal content of any type and it is reported, I will forward ",
+        			"it to the police without hesitation. "		    ]},
+        		new FrameBlock ("P5") {Tag = "h1", Text=[
+        			"Rule 2: No despicable content"		    ]},
+        		new FrameBlock ("P6") {Tag = "p", Text=[
+        			"I reserve the right to delete any material I find to be despicable including",
+        			"material that is racist, homophobic, transphobic antisemitic or bigoted in",
+        			"any way. I am proud to be woke and I am paying to support this platform."		    ]},
+        		new FrameBlock ("P7") {Tag = "h1", Text=[
+        			"Rule 3: No comment spam"		    ]},
+        		new FrameBlock ("P8") {Tag = "p", Text=[
+        			"You are entitled to your opinions, you are entitled to publish them. You are",
+        			"not entitled to force anyone else to read them."		    ]},
+        		new FrameBlock ("P7") {Tag = "h1", Text=[
+        			"Rule 4: No bullying or harrassment"		    ]},
+        		new FrameBlock ("P8") {Tag = "p", Text=[
+        			"Other people are entitled to their opinions and to comment provided that they",
+        			"don\'t breach the rules above. You are not entitled to suppress their views",
+        			"with threatening or derrogatory language."		    ]},
+        		new FrameBlock ("P7") {Tag = "h1", Text=[
+        			"Rule 5: Copyright"		    ]},
+        		new FrameBlock ("P8") {Tag = "p", Text=[
+        			"You agree that you will only post/upload content which you are entitled",
+        			"to publish here and that the site may publish it and make such uses of the",
+        			"content as is usual for social media sites including testing."		    ]},
+        		new FrameBlock ("P9") {Tag = "p", Text=[
+        			"Site agrees that its use of the content published will be limited to those",
+        			"uses normal for social media. But you acknowledge that the site has no control",
+        			"over the use of any published material by third parties."		    ]},
+        		new FrameBlock ("P7") {Tag = "h1", Text=[
+        			"Rule 6: Indemnity"		    ]},
+        		new FrameBlock ("P8") {Tag = "p", Text=[
+        			"By using this site, you acknowledge that it is experimental and that no",
+        			"warranty of fitness for any purpose is given or impled. Content may disappear",
+        			"at any time, as may the entire service. "		    ]}
+				]
+			}
 		];
 
 
@@ -1774,11 +1837,7 @@ public partial class TermsOfService : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameRichText ("Text",
-			(data, value) => {(data as TermsOfService)!.Text = value; },
-			(data) => (data as TermsOfService)?.Text) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1788,7 +1847,6 @@ public partial class TermsOfService : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "TermsOfService",
 		() => new TermsOfService(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1806,16 +1864,18 @@ public partial class PrivacyPolicy : FramePage {
 		Container = "Support";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameRichText ("Text",
-			(data, value) => {(data as PrivacyPolicy)!.Text = value; },
-			(data) => (data as PrivacyPolicy)?.Text) {
-				}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Places is built on the Mathematical Mesh, a cryptograpghic infrastructure",
+        			"designed to protect privacy to the maximum extent possible using open",
+        			"technology. It is however an experimental system and most of the protections",
+        			"afforded by the platform are not yet supported in the production system."		    ]}
+				]
+			}
 		];
 
 
@@ -1826,11 +1886,7 @@ public partial class PrivacyPolicy : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameRichText ("Text",
-			(data, value) => {(data as PrivacyPolicy)!.Text = value; },
-			(data) => (data as PrivacyPolicy)?.Text) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1840,7 +1896,6 @@ public partial class PrivacyPolicy : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "PrivacyPolicy",
 		() => new PrivacyPolicy(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1858,16 +1913,23 @@ public partial class Contributors : FramePage {
 		Container = "Support";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameRichText ("Text",
-			(data, value) => {(data as Contributors)!.Text = value; },
-			(data) => (data as Contributors)?.Text) {
-				}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Places was designed and implemented by Phillip Hallam-Baker"		    ]},
+        		new FrameBlock ("P2") {Tag = "p", Text=[
+        			"The platform and support libraries were developed using Visual Studio Community and",
+        			"DotNet 11.0. Domain Specific Languages implemented using the Goedel ",
+        			"metasynthesis tool were used to convert specifications to code and",
+        			"documentation. The principal target language is C# 14. The source code",
+        			"is hosted on <a href=\"https://github.com/hallambaker/Palimpsest\">GitHub</a>."		    ]},
+        		new FrameBlock ("P3") {Tag = "p", Text=[
+        			"Icons from the free collection of <a href=\"https://fontawesome.com/\">Font Awesome</a>."		    ]}
+				]
+			}
 		];
 
 
@@ -1878,11 +1940,7 @@ public partial class Contributors : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameRichText ("Text",
-			(data, value) => {(data as Contributors)!.Text = value; },
-			(data) => (data as Contributors)?.Text) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1892,7 +1950,6 @@ public partial class Contributors : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "Contributors",
 		() => new Contributors(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1910,16 +1967,15 @@ public partial class Status : FramePage {
 		Container = "Support";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameRichText ("Text",
-			(data, value) => {(data as Status)!.Text = value; },
-			(data) => (data as Status)?.Text) {
-				}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"System status panel, TBS."		    ]}
+				]
+			}
 		];
 
 
@@ -1930,11 +1986,7 @@ public partial class Status : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameRichText ("Text",
-			(data, value) => {(data as Status)!.Text = value; },
-			(data) => (data as Status)?.Text) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1944,7 +1996,6 @@ public partial class Status : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "Status",
 		() => new Status(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1962,16 +2013,15 @@ public partial class SystemLog : FramePage {
 		Container = "Support";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameRichText ("Text",
-			(data, value) => {(data as SystemLog)!.Text = value; },
-			(data) => (data as SystemLog)?.Text) {
-				}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"Record of major system changes TBS"		    ]}
+				]
+			}
 		];
 
 
@@ -1982,11 +2032,7 @@ public partial class SystemLog : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameRichText ("Text",
-			(data, value) => {(data as SystemLog)!.Text = value; },
-			(data) => (data as SystemLog)?.Text) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1996,7 +2042,6 @@ public partial class SystemLog : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "SystemLog",
 		() => new SystemLog(), () => [], () => [], Parent: null, Generic: false);
 
@@ -2014,16 +2059,22 @@ public partial class Repository : FramePage {
 		Container = "Support";
 		}
 
-    /// <summary>Field Text</summary>
-	public string? Text {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameRichText ("Text",
-			(data, value) => {(data as Repository)!.Text = value; },
-			(data) => (data as Repository)?.Text) {
-				}
+		new FrameDiv ("Explanation") { Fields = [
+
+        		new FrameBlock ("P1") {Tag = "p", Text=[
+        			"The source code for the Places server is hosted on ",
+        			"<a href=\"https://github.com/hallambaker/Palimpsest\">GitHub Palimpsest</a>."		    ]},
+        		new FrameBlock ("P2") {Tag = "p", Text=[
+        			"The support libraries used by Places are part of the ",
+        			"Mathematical Mesh hosted at <a href=\"https://github.com/hallambaker/Mathematical-Mesh\">GitHub Mathematical Mesh</a>."		    ]},
+        		new FrameBlock ("P3") {Tag = "p", Text=[
+        			"The domain specific languages used in Places and the Mesh are",
+        			"hosted at <a href=\"https://github.com/hallambaker/Mathematical-Mesh\">GitHub Build Tools</a>."		    ]}
+				]
+			}
 		];
 
 
@@ -2034,11 +2085,7 @@ public partial class Repository : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameRichText ("Text",
-			(data, value) => {(data as Repository)!.Text = value; },
-			(data) => (data as Repository)?.Text) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -2048,7 +2095,6 @@ public partial class Repository : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "Repository",
 		() => new Repository(), () => [], () => [], Parent: null, Generic: false);
 

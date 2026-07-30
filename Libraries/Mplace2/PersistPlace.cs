@@ -49,8 +49,8 @@ public class PersistPlace : IPersistPlace {
     public FrameSet FrameSet { get; set; }
 
 
-    string PlaceDirectory { get; }
-    string ContentDirectory { get;  }
+    string PlaceDirectory => FrameSet.Directory;
+    string ContentDirectory => FrameSet.RepositoryFiles;
 
 
     public int IdLength { get; set; } = 40;
@@ -67,12 +67,16 @@ public class PersistPlace : IPersistPlace {
     public PersistPlace(FrameSet frameSet, PlaceConfiguration placeConfiguration) {
         PlaceConfiguration = placeConfiguration;
         FrameSet = frameSet;
-        PlaceDirectory = FrameSet.Directory;
-        ContentDirectory = FrameSet.RepositoryFiles;
         CatalogCache = new(PlaceDirectory);
 
         Directory.CreateDirectory(PlaceDirectory);
         Directory.CreateDirectory(ContentDirectory);
+
+        Directory.CreateDirectory(FrameSet.Members);
+        Directory.CreateDirectory(FrameSet.Logs);
+        Directory.CreateDirectory(FrameSet.ResourceFiles);
+        Directory.CreateDirectory(FrameSet.PrivateKeys);
+
 
         AnnotationService.Initialized.AssertTrue(NYI.Throw);
 
