@@ -300,6 +300,10 @@ button.dropdown-subbutton {
         padding: 10px;
         border-left: 1px solid black;
         border-right: 1px solid black;
+
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
     }
 
 
@@ -739,6 +743,10 @@ button.dropdown-subbutton {
 
     .PlaceReference > section.Title {
         grid-area: Title;
+        font-size: 18px;
+        font-weight: bold;
+        padding-top: 10px;
+        padding-bottom: 5px;
     }
 
 
@@ -791,6 +799,8 @@ button.dropdown-subbutton {
     grid-auto-rows: max-content;
     grid-template-columns: 48px;
     border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
     .PostSummary > section.Avatar {
@@ -810,6 +820,18 @@ button.dropdown-subbutton {
         grid-area: Body;
     }
 
+.sectionLink {
+    text-decoration: none;
+
+}
+
+.PostTitle {
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 5px;
+
+}
 
 .PostFull {
     display: grid;
