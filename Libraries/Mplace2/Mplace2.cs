@@ -977,11 +977,9 @@ public partial class SignIn : FramePage {
         		new FrameBlock ("P2") {Tag = "p", Text=[
         			"If you do not have an @nywhere account, you can create one at any of the",
         			"following sites which will allow you to interact with any ATmosphere site."		    ]},
-        		new FrameBlock ("BlueSky") {Tag = "li", Text=[
-        			"<a href=\"https://bsky.app/\">BlueSky</a>"		    ]},
-        		new FrameBlock ("BlackSky") {Tag = "li", Text=[
-        			"<a href=\"https://blacksky.community/\">BlackSky</a>"		    ]},
-        		new FrameBlock ("EuroSky") {Tag = "li", Text=[
+        		new FrameBlock ("Options") {Tag = "p", Text=[
+        			"<a href=\"https://bsky.app/\">BlueSky</a>",
+        			"<a href=\"https://blacksky.community/\">BlackSky</a>",
         			"<a href=\"https://portal.eurosky.tech/create-account\">EuroSky</a>"		    ]}
 				]
 			},
@@ -1043,7 +1041,7 @@ public partial class SwitchPage : FramePage {
 		new FrameRefMenu ("Navigation","MainNav"),
 		new FrameDiv ("SignOutDiv") { Fields = [
 
-        		new FrameBlock ("SignOutTitle") {Tag = "h1", Text=[
+        		new FrameBlock ("SignOutTitle") {Tag = "h2", Text=[
         			"Sign out this account."		    ]}
 				]
 			},
@@ -1053,7 +1051,7 @@ public partial class SwitchPage : FramePage {
 			Set = (data, value) => {(data as SwitchPage)!.SignOut = value as SignOut; }},
 		new FrameDiv ("SwitchDiv") { Fields = [
 
-        		new FrameBlock ("SwitchTitle") {Tag = "h1", Text=[
+        		new FrameBlock ("SwitchTitle") {Tag = "h2", Text=[
         			"Switch to a different @nywhere account"		    ]}
 				]
 			},
@@ -3455,6 +3453,7 @@ public partial class Place (string Id) : Entry (Id) {
 		GetUid = (data) => (data as Place)?.Uid,
 		Sections = [
 			new FrameSection ("Title") {
+				GetAnchor = (data) => (data as Place)?.PlaceLink,
 				Fields = [
             		new FrameString ("Title",
             			(data, value) => {(data as Place)!.Title = value; },
@@ -3482,6 +3481,7 @@ public partial class Place (string Id) : Entry (Id) {
 					]
 				},
 			new FrameSection ("Body") {
+				GetAnchor = (data) => (data as Place)?.PlaceLink,
 				Fields = [
             		new FrameText ("Description",
             			(data, value) => {(data as Place)!.Description = value; },
@@ -3499,7 +3499,7 @@ public partial class Place (string Id) : Entry (Id) {
 		GetUid = (data) => (data as Place)?.Uid,
 		Sections = [
 			new FrameSection ("Title") {
-				GetAnchor = (data) => (data as Place)?.TitleLink,
+				GetAnchor = (data) => (data as Place)?.PlaceLink,
 				Fields = [
 					]
 				},
@@ -3519,6 +3519,7 @@ public partial class Place (string Id) : Entry (Id) {
 					]
 				},
 			new FrameSection ("Body") {
+				GetAnchor = (data) => (data as Place)?.PlaceLink,
 				Fields = [
             		new FrameText ("Description",
             			(data, value) => {(data as Place)!.Description = value; },

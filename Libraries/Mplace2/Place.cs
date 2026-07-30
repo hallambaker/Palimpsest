@@ -84,7 +84,7 @@ public partial class Place {
     //public BackingTypeFile? AvatarFile { get; set; } = null;
     //public BackingTypeFile? BannerFile { get; set; } = null;
 
-    public string? TitleLink => "fred";
+    public string? PlaceLink => DNS;
        
 
     public BackingTypeLink? HandleLink {

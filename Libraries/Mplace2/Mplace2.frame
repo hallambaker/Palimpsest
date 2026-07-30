@@ -610,6 +610,7 @@ Namespace Mplace2.Gui
 
             PlaceReference Presentation Uid
                 Title
+                    PlaceLink Anchor
                     Title String
                     DNS String
                 Avatar
@@ -617,17 +618,19 @@ Namespace Mplace2.Gui
                 Banner
                     Banner Image
                 Body
+                    PlaceLink Anchor
                     Description Text
 
             PlaceBanner Presentation Uid
                 Title
-                    TitleLink Anchor
+                    PlaceLink Anchor
                     //HandleLink Anchor
                 Avatar
                     Avatar Avatar
                 Banner
                     Banner Image
                 Body
+                    PlaceLink Anchor
                     Description Text
 
     DeleteFeed Class
