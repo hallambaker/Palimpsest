@@ -967,12 +967,6 @@ public partial class SignIn : FramePage {
     /// <summary>Field Form</summary>
 	public HandleInput? Form {get; set;}
 
-    /// <summary>Field RegisterText</summary>
-	public string? RegisterText {get; set;}
-
-    /// <summary>Field Providers</summary>
-	public List<Provider>? Providers {get; set;}
-
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
@@ -1000,14 +994,7 @@ public partial class SignIn : FramePage {
 				}
 				]){
 			Get = (data) => (data as SignIn)?.Form ,
-			Set = (data, value) => {(data as SignIn)!.Form = value as HandleInput; }},
-		new FrameString ("RegisterText",
-			(data, value) => {(data as SignIn)!.RegisterText = value; },
-			(data) => (data as SignIn)?.RegisterText) {
-				},
-		new FrameRefList<Provider> ("Providers","Provider"){
-			Get = (data) => (data as SignIn)?.Providers ,
-			Set = (data, value) => {(data as SignIn)!.Providers = value as List<Provider>; }}
+			Set = (data, value) => {(data as SignIn)!.Form = value as HandleInput; }}
 		];
 
 
@@ -1018,11 +1005,7 @@ public partial class SignIn : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameString ("RegisterText",
-			(data, value) => {(data as SignIn)!.RegisterText = value; },
-			(data) => (data as SignIn)?.RegisterText) {
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1032,7 +1015,6 @@ public partial class SignIn : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"RegisterText", _properties[0]}
 			}, "SignIn",
 		() => new SignIn(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1046,8 +1028,8 @@ public partial class SwitchPage : FramePage {
 	/// <summary>
 	/// Constructor, returns a new instance
 	/// </summary>
-	public SwitchPage () : base ("SwitchPage", "Switch Account", _Fields) {
-		Container = "EntryPage";
+	public SwitchPage () : base ("SwitchPage", "Change Account", _Fields) {
+		Container = "SwitchPage";
 		}
 
     /// <summary>Field SignOut</summary>
@@ -1059,25 +1041,28 @@ public partial class SwitchPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameDiv ("SignOutDiv") { Fields = [
+
+        		new FrameBlock ("SignOutTitle") {Tag = "h1", Text=[
+        			"Sign out this account."		    ]}
+				]
+			},
 		new FrameRefForm<SignOut> ("SignOut","SignOut", [
-		new FrameBlock ("P1") {Tag = "p", Text=[
-			"Sign out this account."		    ]}
 				]){
 			Get = (data) => (data as SwitchPage)?.SignOut ,
 			Set = (data, value) => {(data as SwitchPage)!.SignOut = value as SignOut; }},
+		new FrameDiv ("SwitchDiv") { Fields = [
+
+        		new FrameBlock ("SwitchTitle") {Tag = "h1", Text=[
+        			"Switch to a different @nywhere account"		    ]}
+				]
+			},
 		new FrameRefForm<HandleInput> ("Form","HandleInput", [
-		new FrameBlock ("P1") {Tag = "p", Text=[
-			"Switch to a different @nywhere account"		    ]},
 		new FrameString ("DNS",
 			(data, value) => {(data as HandleInput)!.DNS = value; },
 			(data) => (data as HandleInput)?.DNS) {
 				Prompt = "@nywhere handle",
 				Description = "The handle you use to log in to Blue Sky etc."
-				},
-		new FrameBoolean ("RememberAccount",
-			(data, value) => {(data as HandleInput)!.RememberAccount = value; },
-			(data) => (data as HandleInput)?.RememberAccount) {
-				Prompt = "Remember this account"
 				}
 				]){
 			Get = (data) => (data as SwitchPage)?.Form ,
@@ -1677,7 +1662,7 @@ public partial class YourPlacePageCreate : FramePage {
 		new FrameDiv ("Explanation") { Fields = [
 
         		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Comming soon"		    ]},
+        			"Coming soon"		    ]},
         		new FrameBlock ("P2") {Tag = "p", Text=[
         			"The goal of Places is to provide people with a place they can create",
         			"a personal feed posting longer articles than will fit into the 300 ",
@@ -1823,7 +1808,7 @@ public partial class TermsOfService : FramePage {
         			"Rule 6: Indemnity"		    ]},
         		new FrameBlock ("P8") {Tag = "p", Text=[
         			"By using this site, you acknowledge that it is experimental and that no",
-        			"warranty of fitness for any purpose is given or impled. Content may disappear",
+        			"warranty of fitness for any purpose is given or implied. Content may disappear",
         			"at any time, as may the entire service. "		    ]}
 				]
 			}
@@ -2406,7 +2391,7 @@ public partial class SupportMenu : FrameMenu {
 
 
 	static readonly List<IFrameField> _Fields = [
-		new FrameButton ("Home", "Home", "HomePage") {
+		new FrameButton ("Home", "Home", "") {
 			},
 		new FrameButton ("TermsOfService", "Terms of Service", "TermsOfService") {
 			},

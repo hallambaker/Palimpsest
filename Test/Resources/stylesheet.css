@@ -584,6 +584,7 @@ button.dropdown-subbutton {
     display: grid;
     grid-template-areas:
         "NavMenu Title"
+        "NavMenu Explanation"
         "NavMenu SubMenu"
         "NavMenu Empty";
     grid-template-columns: 180px 420px;
@@ -601,6 +602,9 @@ button.dropdown-subbutton {
         left: 0;
         position: sticky;
         padding: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
     }
 
 
@@ -611,6 +615,15 @@ button.dropdown-subbutton {
         position: sticky;
         padding: 10px;
     }
+
+    .EntryPage > div.Explanation {
+        grid-area: Explanation;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        height: 100%
+    }
+
 
     .EntryPage > div.SetingsCategory {
         grid-area: SubMenu;
@@ -629,6 +642,85 @@ button.dropdown-subbutton {
         padding: 10px;
         height: 100%
     }
+
+
+
+.SwitchPage {
+    display: grid;
+    grid-template-areas:
+        "NavMenu Title"
+        "NavMenu SignOutTitle"
+        "NavMenu SignOut"
+        "NavMenu SwitchTitle"
+        "NavMenu SwitchForm"
+        "NavMenu Empty";
+    grid-template-columns: 180px 420px;
+    align-content: flex-start;
+    gap: 1px;
+    margin: 0px;
+    border: 0px;
+    grid-auto-rows: max-content;
+    justify-content: center;
+}
+
+    .SwitchPage > div.Heading {
+        grid-area: Title;
+        flex-wrap: wrap;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    .SwitchPage > div.Navigation {
+        grid-area: NavMenu;
+        top: 0;
+        left: 0;
+        position: sticky;
+        padding: 10px;
+    }
+
+    .SwitchPage > div.SignOutDiv {
+        grid-area: SignOutTitle;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        height: 100%
+    }
+
+    .SwitchPage > div.SignOut {
+        grid-area: SignOut;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        height: 100%
+    }
+
+
+    .SwitchPage > div.SwitchDiv {
+        grid-area: SwitchTitle;
+        top: 0;
+        left: 0;
+        align-self: start;
+        padding: 10px;
+    }
+
+    .SwitchPage > form.Form {
+        grid-area: SwitchForm;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        height: 100%
+    }
+
+
+
+
+
 
 
 /* Grid to display a Place entry */
@@ -878,11 +970,14 @@ input,
 .Support {
     display: grid;
     grid-template-areas:
-        "Menu" "Text";
-
+        "Menu"
+        "Heading"
+        "Text";
     gap: 1px;
     margin: 0px;
     border: 0px;
+    grid-template-columns: 640px;
+    justify-content: center;
 }
 
 
@@ -894,7 +989,14 @@ input,
         text-align: right;
     }
 
-    .Support > div.Text {
+    .Support > div.Heading {
+        grid-area: Heading;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .Support > div.Explanation {
         grid-area: Text;
     }
 

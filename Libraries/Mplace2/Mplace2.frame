@@ -200,28 +200,23 @@ Namespace Mplace2.Gui
                 Description "The handle you use to log in to Blue Sky etc."
 
 
-
-
-
-        RegisterText String             // Short explanation
-        Providers List Provider         // Providers where you can signup
-
-    SwitchPage Page "Switch Account"
-        EntryPage Container
+    SwitchPage Page "Change Account"
+        SwitchPage Container
         Navigation Is MainNav
 
-        SignOut Form SignOut
-            P1 P
+        SignOutDiv Div
+            SignOutTitle H2
                 |Sign out this account.
+        SignOut Form SignOut
 
-        Form Form HandleInput
-            P1 P
+        SwitchDiv Div
+            SwitchTitle H2
                 |Switch to a different @nywhere account
+        Form Form HandleInput
             DNS String
                 Prompt "@nywhere handle"
                 Description "The handle you use to log in to Blue Sky etc."
-            RememberAccount Boolean
-                Prompt "Remember this account"
+
 
     // The data entry pages
 
@@ -359,7 +354,7 @@ Namespace Mplace2.Gui
         Navigation Is MainNav
         Explanation Div
             P1 P
-                |Comming soon
+                |Coming soon
             P2 P
                 |The goal of Places is to provide people with a place they can create
                 |a personal feed posting longer articles than will fit into the 300 
@@ -381,6 +376,7 @@ Namespace Mplace2.Gui
     // The support pages, use a different format
     SupportMenu Menu
         Home Button HomePage "Home"
+            Link Link ""
         TermsOfService  Button TermsOfService     "Terms of Service"
         Contributors    Button Contributors     "Contributors"       
         Repository      Button Repository           "Source"   
@@ -437,7 +433,7 @@ Namespace Mplace2.Gui
                 |Rule 6: Indemnity
             P8 P
                 |By using this site, you acknowledge that it is experimental and that no
-                |warranty of fitness for any purpose is given or impled. Content may disappear
+                |warranty of fitness for any purpose is given or implied. Content may disappear
                 |at any time, as may the entire service. 
 
 
