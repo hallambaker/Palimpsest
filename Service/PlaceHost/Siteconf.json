@@ -13,6 +13,5 @@
   "Members": "/var/places/members",
   "Repository": "/var/places/repository",
   "Resources": "/var/places/resources",
-  "TestSeed": "This is a testy test so there!",
   "PrivateKeys": "/var/places/private"
 }

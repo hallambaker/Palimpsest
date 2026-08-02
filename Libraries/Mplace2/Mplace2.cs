@@ -1417,9 +1417,9 @@ public partial class CreateComment : FramePage {
 			(data) => (data as Comment)?.CommentId) {
 				Hidden = true
 				},
-		new FrameText ("Text",
-			(data, value) => {(data as Comment)!.Text = value; },
-			(data) => (data as Comment)?.Text) {
+		new FrameText ("CommentText",
+			(data, value) => {(data as Comment)!.CommentText = value; },
+			(data) => (data as Comment)?.CommentText) {
 				Prompt = "Text"
 				}
 				]){

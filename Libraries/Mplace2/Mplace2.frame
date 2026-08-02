@@ -292,7 +292,7 @@ Namespace Mplace2.Gui
                 Hidden
             CommentId String
                 Hidden
-            Text Text
+            CommentText Text
                 Prompt "Text"
 
     DeleteCommentPage Page "Delete Comment"

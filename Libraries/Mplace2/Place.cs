@@ -74,7 +74,6 @@ public partial class FormPlace {
         return new(HttpStatusCode.OK, null, returUri);
         }
 
-
     }
 
 
@@ -84,7 +83,7 @@ public partial class Place {
     //public BackingTypeFile? AvatarFile { get; set; } = null;
     //public BackingTypeFile? BannerFile { get; set; } = null;
 
-    public string? PlaceLink => DNS;
+    public string? PlaceLink => HandleLink.Link;
        
 
     public BackingTypeLink? HandleLink {

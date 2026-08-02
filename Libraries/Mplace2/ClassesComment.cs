@@ -169,4 +169,9 @@ public partial class DeleteCommentPage {
 
     }
 
+public partial class Comment {
 
+    /// <inheritdoc/>
+    public override string? Text { get => CommentText; set => CommentText = value; }
+
+    }

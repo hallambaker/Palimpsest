@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        :root {
+            --main-color: black;
+            --font-size: 100%;
+
+            --adjusted-width: 800;
+        }
+
+
+        html {
+            font-size: 100%; /* 16px default */
+        }
+
+        body {
+            color: var(--main-color);
+            font-size: var(--font-size);
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        #side-menu {
+            position: fixed;
+            top: 0;
+            left: -200px;
+            width: 200px;
+            height: 100%;
+            background-color: #333;
+            transition: left 0.3s ease;
+            z-index: 99;
+        }
+
+            #side-menu.show {
+                display: block;
+            }
+
+            #side-menu ul {
+                list-style: none;
+                padding: 0;
+                margin: 50px 0 0 0;
+            }
+
+                #side-menu ul li {
+                    padding: 10px;
+                }
+
+                    #side-menu ul li a {
+                        color: white;
+                        text-decoration: none;
+                    }
+
+            #side-menu.show {
+                left: 0;
+            }
+    </style>
+
+
+</head>
+<body onresize="myFunction()">
+
+    <!--<button id="menu-button">Open Menu</button>
+    <div id="side-menu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>-->
+
+    <h2>Get the size of the current screen/window</h2>
+    <p>The example displays the browser window's height and width: (NOT including toolbars/scrollbars)
+
+    <p id="demo"></p>
+    <p id="mobile"></p>
+
+
+
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const sideMenu = document.getElementById('side-menu');
+
+        //const menuButton = document.getElementById('menu-button');
+        //const sideMenu = document.getElementById('side-menu');
+
+        //menuButton.addEventListener('click', function () {
+        //    sideMenu.classList.toggle('show');
+        //});
+
+
+        function myFunction() {
+            let w = window.outerWidth;
+            let h = window.outerHeight;
+
+            let p = window.devicePixelRatio;
+            let aw = w / p;
+
+
+            let txt = "Window size: width=" + w + ", height=" + h + ", pixel=" + p + ", adjust=" + aw;
+            document.getElementById("demo").innerHTML = txt;
+
+
+            let h1 = (10 * p) + "px";
+            document.documentElement.style.setProperty('--font-size', h1);
+            document.documentElement.style.setProperty('--adjusted-width', '400 px');
+
+
+            // document.documentElement.style.setProperty('--main-color', '#e74c3c');
+        }
+
+        const isMobile = () => {
+            // Check if the new API is supported
+            if (navigator.userAgentData) {
+                return navigator.userAgentData.mobile;
+            }
+
+            // Fallback for Safari/Firefox (see Solution 3)
+            return /Mobi|Android/i.test(navigator.userAgent);
+        };
+
+
+
+        myFunction();
+        if (isMobile()) {
+            document.getElementById("mobile").innerHTML = "Mobile";
+        }
+        else {
+            document.getElementById("mobile").innerHTML = "Desktop";
+        }
+
+
+
+    </script>
+
+</body>
+</html>

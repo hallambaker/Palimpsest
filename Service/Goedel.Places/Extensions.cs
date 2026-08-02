@@ -41,11 +41,11 @@ public static partial class Extensions {
         var extension = Path.GetExtension(file).ToLower();
 
         return extension switch {
-            ".htm" or "html" => "text/html",
+            ".htm" or ".html" => "text/html",
             ".txt" => "text/plain",
             ".css" => "text/css",
             ".script" => "text/javascript",
-            ".jpg" or "jpeg" => "image/jpeg",
+            ".jpg" or ".jpeg" => "image/jpeg",
             ".gif" => "image/gif",
             ".png" => "image/png",
             ".svg" => "image/svg+xml",

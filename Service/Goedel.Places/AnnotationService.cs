@@ -422,6 +422,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
     public async Task Resource(ParsedPath path) {
         var filePath = FrameSet.ResourceFiles + path.LocalPath;
 
+
         await GetResource(path, filePath);
         return;
         }
