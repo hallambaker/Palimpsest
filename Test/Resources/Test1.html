@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        :root {
+            --main-color: black;
+            --font-size: 100%;
+            --adjusted-width: 800;
+            --pt8: 8px;
+            --pt10: 10px;
+            --pt12: 12px;
+            --pt14: 14px;
+            --pt16: 16px;
+            --pt18: 18px;
+            --pt20: 20px;
+            --pt24: 24px;
+            --pt28: 28px;
+            --pt32: 32px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+    <p id="demo"></p>
+
+    <p style="font-size: var(--pt8)">8 pt</p>
+    <p style="font-size: var(--pt10)">10 pt</p>
+    <p style="font-size: var(--pt12)">12 pt</p>
+    <p style="font-size: var(--pt14)">14 pt</p>
+    <p style="font-size: var(--pt16)">16 pt</p>
+    <p style="font-size: var(--pt18)">18 pt</p>
+    <p style="font-size: var(--pt20)">20 pt</p>
+    <p style="font-size: var(--pt24)">24 pt</p>
+    <p style="font-size: var(--pt28)">28 pt</p>
+    <p style="font-size: var(--pt32)">32 pt</p>
+
+
+    <ul>
+        <li>Web body text: 16px (14–18px acceptable depending on context)</li>
+        <li>Print body text: 10–12pt</li>
+        <li>Headings: 18–36pt (print), 24–36px (web)</li>
+        <li>Captions: 8–10pt (print), 11–14px (web)</li>
+        <li>
+            Presentations: 24pt+ for body, 36pt+ for headings
+        </li>
+    </ul>
+
+    <script>
+        let p = window.devicePixelRatio;
+        document.documentElement.style.setProperty('--pt8', (8 * p) + "pt");
+        document.documentElement.style.setProperty('--pt10', (10 * p) + "pt");
+        document.documentElement.style.setProperty('--pt12', (12 * p) + "pt");
+        document.documentElement.style.setProperty('--pt14', (14 * p) + "pt");
+        document.documentElement.style.setProperty('--pt16', (16 * p) + "pt");
+        document.documentElement.style.setProperty('--pt18', (18 * p) + "pt");
+        document.documentElement.style.setProperty('--pt20', (20 * p) + "pt");
+        document.documentElement.style.setProperty('--pt24', (24 * p) + "pt");
+        document.documentElement.style.setProperty('--pt28', (28 * p) + "pt");
+        document.documentElement.style.setProperty('--pt32', (32 * p) + "pt");
+    </script>
+
+</body>
+</html >

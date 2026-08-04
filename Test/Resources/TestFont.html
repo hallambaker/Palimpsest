@@ -88,15 +88,8 @@
 
 
     <script>
-        const menuButton = document.getElementById('menu-button');
-        const sideMenu = document.getElementById('side-menu');
+        let page = isMobile() ? 'mobile' :'wide';
 
-        //const menuButton = document.getElementById('menu-button');
-        //const sideMenu = document.getElementById('side-menu');
-
-        //menuButton.addEventListener('click', function () {
-        //    sideMenu.classList.toggle('show');
-        //});
 
 
         function myFunction() {
@@ -116,7 +109,7 @@
             document.documentElement.style.setProperty('--adjusted-width', '400 px');
 
 
-            // document.documentElement.style.setProperty('--main-color', '#e74c3c');
+            document.documentElement.style.setProperty('--main-color', '#e74c3c');
         }
 
         const isMobile = () => {
@@ -131,7 +124,7 @@
 
 
 
-        myFunction();
+        //myFunction();
         if (isMobile()) {
             document.getElementById("mobile").innerHTML = "Mobile";
         }

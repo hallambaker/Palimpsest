@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        :root {
+            --main-color: black;
+            --font-size: 100%;
+            --adjusted-width: 800;
+            --size-icon: 8px;
+            --size-h1: 20pt;
+            --size-h2: 16t;
+            --size-h3: 12pt;
+            --size-p: 10pt;
+            --size-c: 8pt;
+            --pt8: 8px;
+            --pt10: 10px;
+            --pt12: 12px;
+            --pt14: 14px;
+            --pt16: 16px;
+            --pt18: 18px;
+            --pt20: 20px;
+            --pt24: 24px;
+            font-size: var(--size-p:);
+        }
+
+        body {
+            color: var(--color-text);
+            background: var(--color-background);
+            color: var(--color-text);
+        }
+
+
+        .ButtonIcon {
+            width: var(--pt14);
+        }
+
+        .ButtonText {
+            display: var(--button-display);
+            font-size: var(--size-h3);
+        }
+
+        .ButtonClose {
+            font-size: var(--size-h1);
+            float: right;
+        }
+
+        .Desktop .ButtonClose {
+            display: none;
+        }
+        .ButtonAnchor {
+            display: flex;
+            align-items: center;
+            height: var(--pt14);
+            width: 100%;
+            text-decoration: none;
+        }
+
+            .ButtonAnchor:visited {
+                text-decoration: none;
+            }
+
+            .ButtonAnchor:link {
+                text-decoration: none;
+            }
+
+        .ButtonDummyAnchor {
+            display: flex;
+            align-items: center;
+            height: var(--pt14);
+            width: 100%;
+            text-decoration: none;
+            color: var(--color-text);
+        }
+
+        .Mobile > div.Heading {
+            display: block;
+            padding: 20px;
+        }
+
+
+        .Mobile #Navigation {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: white;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+
+
+
+        .Desktop {
+            display: grid;
+            grid-template-areas:
+                "Nav First"
+                "Nav Items"
+                "Nav Blank";
+            grid-template-columns: 180px 420px;
+            align-content: flex-start;
+            grid-auto-rows: max-content;
+            gap: 1px;
+            margin: 0px;
+            border: 0px;
+            justify-content: center;
+        }
+
+
+
+            .Desktop > div.Heading {
+                display: none;
+                padding: 20px;
+            }
+
+            .Desktop > div.Navigation {
+                grid-area: Nav;
+                display: block;
+                /*background-color: #2196F3;*/
+                padding: 20px;
+                position: sticky;
+            }
+
+            .Desktop > div.MainEntry {
+                grid-area: First;
+                display: block;
+                align-self: start;
+                /*background-color: #f1f1f1;*/
+                /*padding: 20px;*/
+            }
+
+            .Desktop > div.Entries {
+                grid-area: Items;
+                display: block;
+                align-self: start;
+                /*background-color: #04AA6D;*/
+                /*padding: 20px;*/
+            }
+    </style>
+
+
+</head>
+<body onresize="resizeWindow()">
+    <div id="root" class="HomePage">
+
+        <div class="Heading">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Places</span>
+        </div>
+
+        <div id="Navigation" class="Navigation">
+            <div class="Button Avatar ">
+                <a href="javascript:void(0)" class="ButtonClose" onclick="closeNav()">&times;</a>
+            </div>
+            <div class="Button Avatar">
+                <a class="ButtonAnchor" href="/SwitchPage" title="Sign out or switch account">
+                    <img class="Navigation ButtonIcon" src="https://cryptomesh.org/Avatar/MBF5-C4TA-VNND-Y5WI-3X63-Z4MG" alt="Account" />
+                    <div class="Navigation ButtonText">Account</div>
+                </a>
+            </div>
+            <div class="ButtonDummy Home">
+                <div class="ButtonDummyAnchor">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/HomeActive.svg" alt="Home" />
+                    <div class="Navigation ButtonText">Home</div>
+                </div>
+            </div>
+            <div class="Button Places">
+                <a class="ButtonAnchor" href="/PlacesPage">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/Places.svg" alt="Places" />
+                    <div class="Navigation ButtonText">Places</div>
+                </a>
+            </div>
+            <div class="Button Posts">
+                <a class="ButtonAnchor" href="/PostsPage">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/Posts.svg" alt="Posts" />
+                    <div class="Navigation ButtonText">Posts</div>
+                </a>
+            </div>
+            <div class="Button CreateYour">
+                <a class="ButtonAnchor" href="/YourPlacePageCreate">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/CreateYour.svg" alt="Your Place" />
+                    <div class="Navigation ButtonText">Your Place</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="MainEntry">
+            Top
+        </div>
+
+        <div class="Entries">
+            <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+                <li>Four</li>
+            </ul>
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+        var pt8, pt10, pt12, pt14, pt16, pt20, pt24, wnav, wmain;
+
+        function resizeWindow() {
+            let w = window.outerWidth;
+            let h = window.outerHeight;
+            let p = window.devicePixelRatio;
+            let aw = w / p;
+
+            setFonts();
+
+            if (isMobile()) {
+            }
+            else if (aw > 500) {
+                setFullMode();
+            }
+            else if (aw > 400) {
+                setWideMode();
+            }
+            else {
+                setNarrowMode();
+            }
+        }
+
+        function setFullMode() {
+            document.documentElement.style.setProperty('--color-text', 'red');
+            document.documentElement.style.setProperty('--button-display', 'block');
+        }
+
+        function setWideMode() {
+            document.documentElement.style.setProperty('--color-text', 'green');
+            document.documentElement.style.setProperty('--button-display', 'none');
+        }
+
+        function setNarrowMode() {
+            document.documentElement.style.setProperty('--color-text', 'blue');
+            document.documentElement.style.setProperty('--button-display', 'none');
+        }
+
+        function initializeDisplay() {
+            let p = window.devicePixelRatio;
+
+            let pt8 = (8 * p) + "px";
+            let pt10 = (10 * p) + "px";
+            let pt12 = (12 * p) + "px";
+            let pt14 = (14 * p) + "px";
+            let pt16 = (16 * p) + "px";
+            let pt20 = (20 * p) + "px";
+            let pt24 = (24 * p) + "px";
+
+
+            let wnav = (120 * p) + "px";
+            let wmain = (360 * p) + "px";
+
+
+            document.documentElement.style.setProperty('--pt8', pt8);
+            document.documentElement.style.setProperty('--pt10', pt10);
+            document.documentElement.style.setProperty('--pt12', pt12);
+            document.documentElement.style.setProperty('--pt14', pt14);
+            document.documentElement.style.setProperty('--pt16', pt16);
+            document.documentElement.style.setProperty('--pt20', pt20);
+            document.documentElement.style.setProperty('--pt24', pt24);
+
+            document.documentElement.style.setProperty('--size-h1', pt20);
+            document.documentElement.style.setProperty('--size-h2', pt16);
+            document.documentElement.style.setProperty('--size-h3', pt12);
+            document.documentElement.style.setProperty('--size-icon', pt8);
+            document.documentElement.style.setProperty('--size-p', pt10);
+            document.documentElement.style.setProperty('--size-c', pt8);
+
+        }
+        const isMobile = () => {
+            // Check if the new API is supported
+            if (navigator.userAgentData) {
+                return navigator.userAgentData.mobile;
+            }
+
+            // Fallback for Safari/Firefox (see Solution 3)
+            return /Mobi|Android/i.test(navigator.userAgent);
+        };
+
+        function openNav() {
+            document.getElementById("Navigation").style.width = "240px";
+        }
+
+        function closeNav() {
+            document.getElementById("Navigation").style.width = "0";
+        }
+
+
+
+
+
+        if (isMobile()) {
+            const element = document.getElementById('root');
+            element.classList.add('Mobile');
+
+
+            // document.getElementById("mobile").innerHTML = "Mobile";
+        }
+        else {
+            const element = document.getElementById('root');
+            element.classList.add('Desktop');
+
+            // document.getElementById("mobile").innerHTML = "Desktop";
+        }
+
+
+
+        initializeDisplay();
+        resizeWindow();
+    </script>
+
+</body>
+</html>

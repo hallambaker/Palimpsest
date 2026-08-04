@@ -1,147 +1,137 @@
-﻿<!DOCTYPE html>
-<html>
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-
-        :root {
-            --main-color: black;
-            --font-size: 100%;
-
-            --adjusted-width: 800;
-        }
+    <!--<script type='text/javascript' src='https://cryptomesh.org/3EswVRD7Xnn_tXkwzJCexoNwR-U8RdXYtgbVB3wOY3iNZYpItGYtbZwd0ES1YNjTb6RKlMyAmvffqq-e4Pt7LeYGkbQnGq49vI_Vn6SsIkp0ZHE5zyJdaZnZ-fv0lsk5Vn2a-M5RrCJ-ZoJ_3JgJzuyc8PaafqTCm2mCUmto2U7L8XS3aFsInFHb2HVZwBc68yGeebb-zkpUSrg4p68R12Qz0K6QJsgwKa4DyFlNnCLmy4Wu7U1JBU9OWEwgqqH9P7OUAGTnP_9e-fqTEdL6kSNxTR01NE3fYlgbsrjPloWe2zcfWrEY9T1kXmiaDOL-t97zTYUsI500PI5EptTlyy4BnFL2A7i7vql3LumrC_PETNYERT0v7iq-0j2YVxUcCbDLCHQNVTd7tMWk_iE0ekkD2piiT-PBjnfvUU2Nma1Xg6uhrNK5MM4Juuda34W2TQQQX30'></script>-->
 
 
-        html {
-            font-size: 100%; /* 16px default */
-        }
+    <meta charset="utf-8" />
+    <title>MPlace2 - Welcome! Everything is fine.</title>
+    <link rel="stylesheet" type="text/css" href="/Resources/stylesheet2.css" />
 
-        body {
-            color: var(--main-color);
-            font-size: var(--font-size);
-            margin: 0;
-            padding: 0;
-        }
-
-        #menu-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        #side-menu {
-            position: fixed;
-            top: 0;
-            left: -200px;
-            width: 200px;
-            height: 100%;
-            background-color: #333;
-            transition: left 0.3s ease;
-            z-index: 99;
-        }
-
-            #side-menu.show {
-                display: block;
-            }
-
-            #side-menu ul {
-                list-style: none;
-                padding: 0;
-                margin: 50px 0 0 0;
-            }
-
-                #side-menu ul li {
-                    padding: 10px;
-                }
-
-                    #side-menu ul li a {
-                        color: white;
-                        text-decoration: none;
-                    }
-
-            #side-menu.show {
-                left: 0;
-            }
-    </style>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
-<body onresize="myFunction()">
+<body onresize="resizeWindow()">
+    <div id="root" class="HomePage">
 
-    <!--<button id="menu-button">Open Menu</button>
-    <div id="side-menu">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>-->
+        <div class="Heading">
+            <span style="cursor:pointer" onclick="openNav()">&#9776; Places</span>
+        </div>
 
-    <h2>Get the size of the current screen/window</h2>
-    <p>The example displays the browser window's height and width: (NOT including toolbars/scrollbars)
+        <div class="Navigation" id="Navigation">
+            <div class="Button Avatar ">
+                <a href="javascript:void(0)" class="ButtonClose" onclick="closeNav()">&times;</a>
+            </div>
+            <div class="Button Avatar">
+                <a class="ButtonAnchor" href="/SwitchPage" title="Sign out or switch account">
+                    <img class="Navigation ButtonIcon" src="https://cryptomesh.org/Avatar/MBF5-C4TA-VNND-Y5WI-3X63-Z4MG" alt="Account" />
+                    <div class="Navigation ButtonText">Account</div>
+                </a>
+            </div>
+            <div class="ButtonDummy Home">
+                <div class="ButtonDummyAnchor">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/HomeActive.svg" alt="Home" />
+                    <div class="Navigation ButtonText">Home</div>
+                </div>
+            </div>
+            <div class="Button Places">
+                <a class="ButtonAnchor" href="/PlacesPage">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/Places.svg" alt="Places" />
+                    <div class="Navigation ButtonText">Places</div>
+                </a>
+            </div>
+            <div class="Button Posts">
+                <a class="ButtonAnchor" href="/PostsPage">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/Posts.svg" alt="Posts" />
+                    <div class="Navigation ButtonText">Posts</div>
+                </a>
+            </div>
+            <div class="Button CreateYour">
+                <a class="ButtonAnchor" href="/YourPlacePageCreate">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/CreateYour.svg" alt="Your Place" />
+                    <div class="Navigation ButtonText">Your Place</div>
+                </a>
+            </div>
+            <div class="Button Settings">
+                <a class="ButtonAnchor" href="/SettingsPage">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/Settings.svg" alt="Settings" />
+                    <div class="Navigation ButtonText">Settings</div>
+                </a>
+            </div>
+            <div class="Button NewPlace">
+                <a class="ButtonAnchor" href="/NewPlacePage">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/NewPlace.svg" alt="Create Place" />
+                    <div class="Navigation ButtonText">Create Place</div>
+                </a>
+            </div>
+            <div class="Button CreatePost">
+                <a class="ButtonAnchor" href="/CreatePost">
+                    <img class="Navigation ButtonIcon" src="/Resources/Icons/CreatePost.svg" alt="Create Post" />
+                    <div class="Navigation ButtonText">Create Post</div>
+                </a>
+            </div>
+        </div>
 
-    <p id="demo"></p>
-    <p id="mobile"></p>
+        <div class="Main" id="Main">
+            <div class="MainEntry">
+                <section class="PlaceReference">
+                    <section class="Title">
+                        <a class="sectionLink" href="https://cryptomesh.org">
+                            <div class="Title">
+                                Test Place
+                            </div>
+                            <div class="DNS">
+                                cryptomesh.org
+                            </div>
+                        </a>
+                    </section>
+                    <section class="Avatar">
+                        <img class="Avatar" src="/Repo/MDHB-FGE3-4ULR-QGHL-23KY-XPN7-R6AU.png" alt="" />
+                    </section>
+                    <section class="Banner">
+                        <img class="Banner" src="/Repo/MC4K-T2K4-QEVY-DFTF-ANVF-JZFO-KY4A.jpeg" alt="" />
+                    </section>
+                    <section class="Body">
+                        <a class="sectionLink" href="https://cryptomesh.org">
+                            <div class="Description">
+                                A test place for testing the site, formatting, etc. etc.
+                            </div>
+                        </a>
+                    </section>
+                </section>
+            </div>
+            <div class="Entries">
+                <section class="PlaceReference">
+                    <section class="Title">
+                        <a class="sectionLink" href="https://Test1.cryptomesh.org">
+                            <div class="Title">
+                                The other place
+                            </div>
+                            <div class="DNS">
+                                Test1.cryptomesh.org
+                            </div>
+                        </a>
+                    </section>
+                    <section class="Avatar">
+                        <img class="Avatar" src="/Repo/MDNJ-VJUX-M6BQ-BNXM-3QUS-FDVW-P7AQ" alt="" />
+                    </section>
+                    <section class="Banner">
+                        <img class="Banner" src="/Repo/MAFZ-3DIV-WOCV-BITP-ZPWB-5H33-KBSM.png" alt="" />
+                    </section>
+                    <section class="Body">
+                        <a class="sectionLink" href="https://Test1.cryptomesh.org">
+                            <div class="Description">
+                                A second test site.
+                            </div>
+                        </a>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='/Resources/script.js'></script>
 
-
-
-    <script>
-        const menuButton = document.getElementById('menu-button');
-        const sideMenu = document.getElementById('side-menu');
-
-        //const menuButton = document.getElementById('menu-button');
-        //const sideMenu = document.getElementById('side-menu');
-
-        //menuButton.addEventListener('click', function () {
-        //    sideMenu.classList.toggle('show');
-        //});
-
-
-        function myFunction() {
-            let w = window.outerWidth;
-            let h = window.outerHeight;
-
-            let p = window.devicePixelRatio;
-            let aw = w / p;
-
-
-            let txt = "Window size: width=" + w + ", height=" + h + ", pixel=" + p + ", adjust=" + aw;
-            document.getElementById("demo").innerHTML = txt;
-
-
-            let h1 = (10 * p) + "px";
-            document.documentElement.style.setProperty('--font-size', h1);
-            document.documentElement.style.setProperty('--adjusted-width', '400 px');
-
-
-            // document.documentElement.style.setProperty('--main-color', '#e74c3c');
-        }
-
-        const isMobile = () => {
-            // Check if the new API is supported
-            if (navigator.userAgentData) {
-                return navigator.userAgentData.mobile;
-            }
-
-            // Fallback for Safari/Firefox (see Solution 3)
-            return /Mobi|Android/i.test(navigator.userAgent);
-        };
-
-
-
-        myFunction();
-        if (isMobile()) {
-            document.getElementById("mobile").innerHTML = "Mobile";
-        }
-        else {
-            document.getElementById("mobile").innerHTML = "Desktop";
-        }
-
-
-
-    </script>
-
+    </div>
 </body>
 </html>
+

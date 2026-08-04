@@ -11,12 +11,6 @@
     --button-background: white;
 }
 
-/*:root {
-    --color-text: white;
-    --color-background: black;
-    --color-hover: grey;
-}
-*/
 
 /*
     Need to work out how to change the color of the inline icons.
@@ -44,14 +38,7 @@ Body {
     background-color: var(--color-background);
 }
 
-/* Styling for Navigation buttons, also the default styling, eg for the button 'Any'
-        <div class="Navigation Button Any">
-            <a href="SignIn.html" class="Navigation ButtonAnchor Any">
-              <img class="Navigation Any ButtonIcon" src="Resources/Icons/Any.svg" alt="Sign In"/>
-              <div class="Navigation ButtonText">Sign In</div>
-            </a>
-        </div>
-*/
+/* Styling for Navigation buttons */
 
 
 
