@@ -69,8 +69,9 @@ internal sealed class Program {
 
         var frameset = new MyClass() {
             Resources = [
-                new Stylesheet("/Resources/stylesheet.css", "text/css")],
-            EndResources = [],
+                new Stylesheet("/Resources/stylesheet3.css", "text/css")],
+            EndResources = [
+                new Script("/Resources/script.js", "text/javascript")],
             Directory = siteDirectory,
             Members = serviceConfig?.Members ?? Path.Combine(siteDirectory, "Members"),
             Logs = serviceConfig?.Logs ?? Path.Combine(siteDirectory, "Logs"),

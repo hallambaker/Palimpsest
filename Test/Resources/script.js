@@ -1,25 +1,69 @@
-﻿var pt8, pt10, pt12, pt14, pt16, pt20, pt24, wnav, wnav0, wmain, hpos;
+﻿var pt8, pt10, pt12, pt14, pt16, pt20, pt24, wnav, wnav0, hpos;
+
+const mainFlow = 420;
+const wideNav = 180;
+const narrowNav = 80;
+const pad = 10;
+const pad2 = pad * 2;
+
+var leftOffset, leftWide, rightOffset, rightWide, ppad, ppad2;
 
 function resizeWindow() {
-    let w = window.outerWidth;
-    let h = window.outerHeight;
+
+    // document.documentElement.style.setProperty('--color-text', '#e74c3c');
+    const element = document.getElementsByTagName('body')[0];
+
+    console.log(element);
+
+    let w = element.clientWidth;
+    // let h = element.outerHeight;
     let p = window.devicePixelRatio;
     let aw = w / p;
 
+
+    leftWide = wideNav * p;
+    rightWide = mainFlow * p;
+
+
+    leftOffset = (w - leftWide - rightWide) / 2;
+
     if (isMobile()) {
     }
-    else if (aw > 500) {
-        setFullMode();
+    else if (leftOffset > 0) {
+
+
+
+        document.documentElement.style.setProperty('--width-navigation', wnav);
+        document.documentElement.style.setProperty('--button-display', 'block');
+
     }
-    else if (aw > 400) {
-        setWideMode();
-    }
+    // else if (aw > 400) {
+    //     // setWideMode();
+    // }
     else {
-        setNarrowMode();
+        leftWide = narrowNav * p;
+        leftOffset = (w - leftWide - rightWide) / 2;
+        document.documentElement.style.setProperty('--button-display', 'none');
     }
+
+    rightOffset = leftOffset + leftWide;
+
+    console.log('Wide ' + w + ' ' + p)
+    console.log ('Left '+leftOffset + ' ' + leftWide)
+    console.log('Right ' + rightOffset + ' ' + rightWide)
+
+    document.documentElement.style.setProperty('--left-offset', leftOffset + 'px');
+    document.documentElement.style.setProperty('--left-wide', (leftWide - ppad2) + 'px');
+    document.documentElement.style.setProperty('--right-offset', rightOffset + 'px');
+    document.documentElement.style.setProperty('--right-wide', (rightWide - ppad2) + 'px');
 }
 
 function setFullMode() {
+
+    let w = window.outerWidth;
+
+
+
     document.documentElement.style.setProperty('--width-navigation', wnav);
     document.documentElement.style.setProperty('--button-display', 'block');
 }
@@ -34,8 +78,11 @@ function setNarrowMode() {
     document.documentElement.style.setProperty('--button-display', 'none');
 }
 
+// document.documentElement.style.setProperty('--color-text', '#e74c3c');
 function initializeDisplay() {
     p = window.devicePixelRatio;
+    ppad = pad * p;
+    ppad2 = pad2 * p;
 
     pt8 = (8 * p) + "px";
     pt10 = (10 * p) + "px";
@@ -46,9 +93,9 @@ function initializeDisplay() {
     pt24 = (24 * p) + "px";
 
 
-    wnav = (120 * p) + "px";
-    wnav0 = (20 * p) + "px";
-    wmain = (360 * p) + "px";
+    wnav = (wideNav * p - ppad) + "px";
+    wnav0 = (20 * p - ppad) + "px";
+
 
     hpos = '-' + pt24;
 
@@ -68,12 +115,14 @@ function initializeDisplay() {
     document.documentElement.style.setProperty('--size-c', pt8);
 
     document.documentElement.style.setProperty('--width-navigation', wnav0);
-    document.documentElement.style.setProperty('--header-height', pt20);
+    document.documentElement.style.setProperty('--header-height', (18*p + ppad) + "px");
+
+    document.documentElement.style.setProperty('--main-pad', ppad + "px");
 }
 
 const isMobile = () => {
     // For testing, allow testing of the mobile interaction with destop tools
-    return true;
+    // return true;
 
     // Check if the new API is supported
     if (navigator.userAgentData) {
@@ -108,16 +157,22 @@ function scrollHeader() {
 
 }
 
+console.log('Hello world');
 
+
+const element = document.getElementsByTagName('body')[0];
+// console.log(element);
+
+element.onresize = resizeWindow;
 if (isMobile()) {
-    const element = document.getElementById('root');
+    // const element = document.getElementById('root');
     element.classList.add('Mobile');
-
     window.onscroll = scrollHeader;
     // document.getElementById("mobile").innerHTML = "Mobile";
 }
 else {
-    const element = document.getElementById('root');
+    // document.documentElement.style.setProperty('--color-text', '#e74c3c');
+    // const element = document.getElementById('root');
     element.classList.add('Desktop');
 
     // document.getElementById("mobile").innerHTML = "Desktop";

@@ -1,2 +1,417 @@
-﻿body {
+﻿
+:root {
+    --main-color: black;
+    --color-text: black;
+    --color-background: white;
+    --color-hover: lightgrey;
+    --button-background: white;
+    --font-size: 100%;
+    --adjusted-width: 800;
+    --size-icon: 8px;
+    --size-h1: 20pt;
+    --size-h2: 16t;
+    --size-h3: 12pt;
+    --size-p: 10pt;
+    --size-c: 8pt;
+    --pt8: 8px;
+    --pt10: 10px;
+    --pt12: 12px;
+    --pt14: 14px;
+    --pt16: 16px;
+    --pt18: 18px;
+    --pt20: 20px;
+    --pt24: 24px;
+    --width-navigation: 180px;
+    --width-main: 180px;
+    --width-icon: 180px;
+    --border: 1px solid LightGray;
+    --header-height: 30px;
+    --header-position: 0px;
+    --left-offset: 0px;
+    --right-offset: 0px;
+    --left-wide: 0px;
+    --right-wide: 0px;
+    --main-pad: 20px;
 }
+
+/* Font, decoration, etc. */
+
+
+body {
+    height: 100%;
+    margin: 0;
+    color: var(--color-text);
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--size-p);
+}
+
+/* Styling for Navigation buttons */
+
+.Button {
+    justify-content: left;
+    display: flex;
+    background-color: var(--button-background);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    align-items: center;
+    height: 30px;
+    margin: 5px;
+}
+
+    .Button:hover {
+        background-color: var(--color-hover);
+    }
+
+.ButtonDummy {
+    justify-content: left;
+    display: flex;
+    background-color: var(--button-background);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    align-items: center;
+    height: 30px;
+    margin: 5px;
+}
+
+.ButtonIcon {
+    width: var(--pt14);
+}
+
+.ButtonText {
+    display: var(--button-display);
+    font-size: var(--size-h3);
+}
+
+.ButtonClose {
+    font-size: var(--size-h1);
+    float: right;
+}
+
+.Desktop .ButtonClose {
+    display: none;
+}
+
+.ButtonAnchor {
+    display: flex;
+    align-items: center;
+    height: var(--pt14);
+    width: 100%;
+    text-decoration: none;
+}
+
+    .ButtonAnchor:visited {
+        text-decoration: none;
+    }
+
+    .ButtonAnchor:link {
+        text-decoration: none;
+    }
+
+.ButtonDummyAnchor {
+    display: flex;
+    align-items: center;
+    height: var(--pt14);
+    width: 100%;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.Mobile div.Heading {
+    display: block;
+    position: fixed;
+    top: var(--header-position);
+    width: 100%;
+    display: block;
+    transition: top 0.3s;
+    background-color: white;
+    cursor: pointer;
+    font-size: var(--size-h2);
+    /*z-index: 1;*/
+    /*opacity: 1;*/
+}
+
+
+
+.Mobile #Navigation {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.Mobile div.Main {
+    margin-top: var(--header-height);
+    background-color: white;
+    /*z-index: 0;*/
+    /*opacity: 1;*/
+}
+
+.Main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+
+
+.Desktop #Navigation {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    /*left: 0;*/
+    left: var(--left-offset);
+    width: var(--left-wide);
+    background-color: lightblue;
+    overflow-x: hidden;
+    border-right: var(--border);
+    /*display: none;*/
+    padding: var(--main-pad);
+    position: sticky;
+}
+
+.Desktop #Heading {
+    /*display: none;*/
+    position:fixed;
+    padding: var(--main-pad);
+    background-color: lightcoral;
+    left: var(--right-offset);
+    width: var(--right-wide);
+    align-content:center;
+}
+
+/*.Heading {
+    display: none;
+    padding: 20px;
+    background-color: lightcoral;
+}*/
+
+
+.Desktop #Main {
+    /*grid-area: First;*/
+    position: fixed;
+    margin-left: var(--right-offset);
+    width: var(--right-wide);
+    background-color: lightgreen;
+    padding: var(--main-pad);
+    top: var(--header-height);
+}
+
+
+img.Avatar {
+    height: var(--size-icon);
+    width: var(--size-icon);
+}
+
+/* Grid to display a Place entry */
+
+.PlaceReference {
+    display: grid;
+    grid-template-areas:
+        "Avatar Banner"
+        "Blank Title"
+        "Blank Body";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+
+    .PlaceReference > section.Title {
+        grid-area: Title;
+        font-size: var(--size-h3);
+        font-weight: bold;
+        padding-top: 10px;
+        padding-bottom: 5px;
+    }
+
+
+    .PlaceReference div.Heading {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .PlaceReference div.DNS {
+        display: none;
+    }
+
+
+    .PlaceReference > section.Avatar {
+        grid-area: Avatar;
+        width: var(--size-icon);
+    }
+
+
+    .PlaceReference > section.Banner {
+        grid-area: Banner;
+        height: 200px;
+        max-width: 100%;
+    }
+
+
+    .PlaceReference img.Banner {
+        height: 200px;
+        max-width: 100%;
+    }
+
+
+    .PlaceReference > section.Body {
+        grid-area: Body;
+    }
+
+
+
+.PostSummary {
+    display: grid;
+    grid-template-areas:
+        "Avatar Author"
+        "Avatar Title"
+        "Blank Body";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+    .PostSummary > section.Avatar {
+        grid-area: Avatar;
+    }
+
+    .PostSummary div.Author {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .PostSummary div.Heading {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .PostSummary > section.Body {
+        grid-area: Body;
+    }
+
+.sectionLink {
+    text-decoration: none;
+}
+
+.PostTitle {
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.PostFull {
+    display: grid;
+    grid-template-areas:
+        "Avatar Author"
+        "Avatar Title"
+        "Blank Summary"
+        "Blank Body"
+        "Blank Responses";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+    border-bottom: 1px solid black;
+}
+
+    .PostFull > section.Avatar {
+        grid-area: Avatar;
+        align-self: start;
+    }
+
+    .PostFull div.Author {
+        display: inline;
+        font-weight: bold;
+        align-self: start;
+    }
+
+    .PostFull div.Heading {
+        display: inline;
+        font-weight: bold;
+        align-self: start;
+    }
+
+    .PostFull > section.Summary {
+        grid-area: Summary;
+        align-self: start;
+    }
+
+    .PostFull > section.Body {
+        grid-area: Body;
+        align-self: start;
+    }
+
+    .PostFull > section.Responses {
+        grid-area: Responses;
+        align-self: start;
+        display: flex;
+        width: 100%;
+    }
+
+    .PostFull div.ButtonText {
+        display: none;
+    }
+
+.CommentFull {
+    display: grid;
+    grid-template-areas:
+        "Avatar Author"
+        "Avatar Title"
+        "Blank Body"
+        "Blank Responses";
+    align-content: flex-start;
+    grid-auto-rows: max-content;
+    grid-template-columns: 48px;
+    border-bottom: 1px solid black;
+}
+
+    .CommentFull > section.Avatar {
+        grid-area: Avatar;
+    }
+
+    .CommentFull div.Author {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .CommentFull div.Heading {
+        display: inline;
+        font-weight: bold;
+    }
+
+    .CommentFull > section.Body {
+        grid-area: Body;
+    }
+
+    .CommentFull > section.Responses {
+        grid-area: Responses;
+        align-self: start;
+        display: flex;
+        width: 100%;
+    }
+
+    .CommentFull div.ButtonText {
+        display: none;
+    }

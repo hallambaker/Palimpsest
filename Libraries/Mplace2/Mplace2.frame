@@ -59,10 +59,11 @@ Namespace Mplace2.Gui
     // The main navigation chrome
     HomePage Page "MPlace2 - Welcome! Everything is fine." 
         Navigation Is MainNav
-        MainEntry Is Place
-            Display FullPresentation
-        Entries List Entry
-            Display SummaryPresentation
+        Main Div
+            MainEntry Is Place
+                Display FullPresentation
+            Entries List Entry
+                Display SummaryPresentation
 
 
     NotificationsPage Page "Notifications"
@@ -416,19 +417,19 @@ Namespace Mplace2.Gui
                 |Other people are entitled to their opinions and to comment provided that they
                 |don't breach the rules above. You are not entitled to suppress their views
                 |with threatening or derrogatory language.
-            P7 H1
+            P9 H1
                 |Rule 5: Copyright
-            P8 P
+            P10 P
                 |You agree that you will only post/upload content which you are entitled
                 |to publish here and that the site may publish it and make such uses of the
                 |content as is usual for social media sites including testing.
-            P9 P
+            P11 P
                 |Site agrees that its use of the content published will be limited to those
                 |uses normal for social media. But you acknowledge that the site has no control
                 |over the use of any published material by third parties.
-            P7 H1
+            P12 H1
                 |Rule 6: Indemnity
-            P8 P
+            P13 P
                 |By using this site, you acknowledge that it is experimental and that no
                 |warranty of fitness for any purpose is given or implied. Content may disappear
                 |at any time, as may the entire service. 

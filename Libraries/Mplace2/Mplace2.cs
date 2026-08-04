@@ -349,6 +349,8 @@ public partial class HomePage : FramePage {
 		Container = null;
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field MainEntry</summary>
 	public Place? MainEntry {get; set;}
 
@@ -358,14 +360,18 @@ public partial class HomePage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefClass<Place> ("MainEntry","Place"){
-			Presentation = FullPresentation,
-			Get = (data) => (data as HomePage)?.MainEntry ,
-			Set = (data, value) => {(data as HomePage)!.MainEntry = value as Place; }},
-		new FrameRefList<Entry> ("Entries","Entry"){
-			Presentation = SummaryPresentation,
-			Get = (data) => (data as HomePage)?.Entries ,
-			Set = (data, value) => {(data as HomePage)!.Entries = value as List<Entry>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefClass<Place> ("MainEntry","Place"){
+        			Presentation = FullPresentation,
+        			Get = (data) => (data as HomePage)?.MainEntry ,
+        			Set = (data, value) => {(data as HomePage)!.MainEntry = value as Place; }},
+        		new FrameRefList<Entry> ("Entries","Entry"){
+        			Presentation = SummaryPresentation,
+        			Get = (data) => (data as HomePage)?.Entries ,
+        			Set = (data, value) => {(data as HomePage)!.Entries = value as List<Entry>; }}
+				]
+			}
 		];
 
 
@@ -874,6 +880,8 @@ public partial class AppearanceSettings : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
@@ -964,6 +972,8 @@ public partial class SignIn : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Form</summary>
 	public HandleInput? Form {get; set;}
 
@@ -1030,8 +1040,12 @@ public partial class SwitchPage : FramePage {
 		Container = "SwitchPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field SignOut</summary>
 	public SignOut? SignOut {get; set;}
+
+    // make the recursive declarations
 
     /// <summary>Field Form</summary>
 	public HandleInput? Form {get; set;}
@@ -1654,6 +1668,8 @@ public partial class YourPlacePageCreate : FramePage {
 		Container = "FlowPage";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
@@ -1714,6 +1730,8 @@ public partial class Help : FramePage {
 		Container = "Support";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
@@ -1760,6 +1778,8 @@ public partial class TermsOfService : FramePage {
 		Container = "Support";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
@@ -1792,19 +1812,19 @@ public partial class TermsOfService : FramePage {
         			"Other people are entitled to their opinions and to comment provided that they",
         			"don\'t breach the rules above. You are not entitled to suppress their views",
         			"with threatening or derrogatory language."		    ]},
-        		new FrameBlock ("P7") {Tag = "h1", Text=[
+        		new FrameBlock ("P9") {Tag = "h1", Text=[
         			"Rule 5: Copyright"		    ]},
-        		new FrameBlock ("P8") {Tag = "p", Text=[
+        		new FrameBlock ("P10") {Tag = "p", Text=[
         			"You agree that you will only post/upload content which you are entitled",
         			"to publish here and that the site may publish it and make such uses of the",
         			"content as is usual for social media sites including testing."		    ]},
-        		new FrameBlock ("P9") {Tag = "p", Text=[
+        		new FrameBlock ("P11") {Tag = "p", Text=[
         			"Site agrees that its use of the content published will be limited to those",
         			"uses normal for social media. But you acknowledge that the site has no control",
         			"over the use of any published material by third parties."		    ]},
-        		new FrameBlock ("P7") {Tag = "h1", Text=[
+        		new FrameBlock ("P12") {Tag = "h1", Text=[
         			"Rule 6: Indemnity"		    ]},
-        		new FrameBlock ("P8") {Tag = "p", Text=[
+        		new FrameBlock ("P13") {Tag = "p", Text=[
         			"By using this site, you acknowledge that it is experimental and that no",
         			"warranty of fitness for any purpose is given or implied. Content may disappear",
         			"at any time, as may the entire service. "		    ]}
@@ -1846,6 +1866,8 @@ public partial class PrivacyPolicy : FramePage {
 	public PrivacyPolicy () : base ("PrivacyPolicy", "Privacy Policy", _Fields) {
 		Container = "Support";
 		}
+
+    // make the recursive declarations
 
 
 	static readonly List<IFrameField> _Fields = [
@@ -1895,6 +1917,8 @@ public partial class Contributors : FramePage {
 	public Contributors () : base ("Contributors", "Contributors", _Fields) {
 		Container = "Support";
 		}
+
+    // make the recursive declarations
 
 
 	static readonly List<IFrameField> _Fields = [
@@ -1950,6 +1974,8 @@ public partial class Status : FramePage {
 		Container = "Support";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
@@ -1996,6 +2022,8 @@ public partial class SystemLog : FramePage {
 		Container = "Support";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
@@ -2041,6 +2069,8 @@ public partial class Repository : FramePage {
 	public Repository () : base ("Repository", "Source Code Repository", _Fields) {
 		Container = "Support";
 		}
+
+    // make the recursive declarations
 
 
 	static readonly List<IFrameField> _Fields = [
