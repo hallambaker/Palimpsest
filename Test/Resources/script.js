@@ -1,10 +1,11 @@
 ﻿var pt8, pt10, pt12, pt14, pt16, pt20, pt24, wnav, wnav0, hpos;
 
 const mainFlow = 420;
-const wideNav = 180;
-const narrowNav = 80;
+const wideNav = 120;
 const pad = 10;
 const pad2 = pad * 2;
+const narrowNav = 20 + pad2;
+
 
 var leftOffset, leftWide, rightOffset, rightWide, ppad, ppad2;
 
@@ -20,37 +21,41 @@ function resizeWindow() {
     let p = window.devicePixelRatio;
     let aw = w / p;
 
-
-    leftWide = wideNav * p;
+    pwideNav = wideNav * p;
+    pnarrowNav = narrowNav * p;
     rightWide = mainFlow * p;
 
 
-    leftOffset = (w - leftWide - rightWide) / 2;
-
     if (isMobile()) {
+        // Display width is fixed so will not need to resize.
     }
-    else if (leftOffset > 0) {
-
-
-
-        document.documentElement.style.setProperty('--width-navigation', wnav);
+    else if (w > pwideNav + rightWide) {
         document.documentElement.style.setProperty('--button-display', 'block');
-
+        document.documentElement.style.setProperty('--navigation-display', 'block');
+        leftWide = pwideNav;
+        leftOffset = (w - leftWide - rightWide) / 2;
     }
-    // else if (aw > 400) {
-    //     // setWideMode();
-    // }
-    else {
+
+    else if (w > pnarrowNav + rightWide) {
         leftWide = narrowNav * p;
         leftOffset = (w - leftWide - rightWide) / 2;
         document.documentElement.style.setProperty('--button-display', 'none');
+        document.documentElement.style.setProperty('--navigation-display', 'block');
+        // document.documentElement.style.setProperty('--width-navigation', wnav0);
+    }
+    else {
+        leftWide = 0;
+        leftOffset = 0;
+        rightWide = w;
+        document.documentElement.style.setProperty('--navigation-display', 'none');
+
     }
 
     rightOffset = leftOffset + leftWide;
 
-    console.log('Wide ' + w + ' ' + p)
-    console.log ('Left '+leftOffset + ' ' + leftWide)
-    console.log('Right ' + rightOffset + ' ' + rightWide)
+    // console.log('Wide ' + w + ' ' + p)
+    // console.log ('Left '+leftOffset + ' ' + leftWide)
+    // console.log('Right ' + rightOffset + ' ' + rightWide)
 
     document.documentElement.style.setProperty('--left-offset', leftOffset + 'px');
     document.documentElement.style.setProperty('--left-wide', (leftWide - ppad2) + 'px');
@@ -95,7 +100,7 @@ function initializeDisplay() {
 
     wnav = (wideNav * p - ppad) + "px";
     wnav0 = (20 * p - ppad) + "px";
-
+    var hheight = 24 * p ;
 
     hpos = '-' + pt24;
 
@@ -115,9 +120,14 @@ function initializeDisplay() {
     document.documentElement.style.setProperty('--size-c', pt8);
 
     document.documentElement.style.setProperty('--width-navigation', wnav0);
-    document.documentElement.style.setProperty('--header-height', (18*p + ppad) + "px");
+    document.documentElement.style.setProperty('--header-height', hheight + "px");
+    // document.documentElement.style.setProperty('--header-height-pad', (hheight + ppad2) + "px");
+
 
     document.documentElement.style.setProperty('--main-pad', ppad + "px");
+
+
+    console.log('High ' + hheight);
 }
 
 const isMobile = () => {

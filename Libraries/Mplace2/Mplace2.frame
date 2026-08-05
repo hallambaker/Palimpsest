@@ -69,61 +69,63 @@ Namespace Mplace2.Gui
     NotificationsPage Page "Notifications"
         FlowPage Container
         Navigation Is MainNav
-        //TopSettings Is TopSettings
-        Entries List Entry
-            Display SummaryPresentation
+        Main Div
+            Entries List Entry
+                Display SummaryPresentation
 
     PlacesPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
-        //TopSettings Is TopSettings
-        Entries List Entry
-            Display SummaryPresentation
+        Main Div
+            Entries List Entry
+                Display SummaryPresentation
 
     FeedsPage Page "Places"
         FlowPage Container
         Navigation Is MainNav
-        //TopSettings Is TopSettings
-        Entries List Entry
-            Display SummaryPresentation
+        Main Div
+            Entries List Entry
+                Display SummaryPresentation
 
     PostsPage Page "Posts"
         FlowPage Container
         Navigation Is MainNav
-        //TopSettings Is TopSettings
-        Entries List Entry
-            Display SummaryPresentation
+        Main Div
+            Entries List Entry
+                Display SummaryPresentation
 
     BookmarkPage Page "Saved"
         FlowPage Container
         Navigation Is MainNav
-        //TopSettings Is TopSettings
-        Entries List Entry
-            Display SummaryPresentation
+        Main Div
+            Entries List Entry
+                Display SummaryPresentation
 
     YourPlacePage Page "Your Place"
         FlowPage Container
         Navigation Is MainNav
-        //TopSettings Is TopSettings
-        MainEntry Is Place
-            Display FullPresentation
-        Entries List Entry
-            Display SummaryPresentation
+        Main Div
+            MainEntry Is Place
+                Display FullPresentation
+            Entries List Entry
+                Display SummaryPresentation
 
     PostPage Page "Post"
         PostPage Container
         Navigation Is MainNav
-        MainEntry Is Post
-            Display PostPresentation
-        Entries List Comment
-            Display CommentPresentation
+        Main Div
+            MainEntry Is Post
+                Display PostPresentation
+            Entries List Comment
+                Display CommentPresentation
 
 
     MemberPage Page "MemberPage"
         MemberFlow Container
         Navigation Is MainNav
-        MainEntry Is User
-            Display MemberPresentation
+        Main Div
+            MainEntry Is User
+                Display MemberPresentation
 
 
 
@@ -132,7 +134,8 @@ Namespace Mplace2.Gui
     SettingsPage Page "Settings"
         EntryPage Container
         Navigation Is MainNav
-        SetingsCategory Is SettingsMenu
+        Main Div
+            SetingsCategory Is SettingsMenu 
 
     SettingsMenu Menu
         Account Button AccountSettings "Account"
@@ -143,16 +146,18 @@ Namespace Mplace2.Gui
     AccountSettings Page "Account Settings" 
         EntryPage Container
         Navigation Is MainNav
+        Main Div
 
     AppearanceSettings Page "Appearance Settings" 
         EntryPage Container
         Navigation Is MainNav
-        Description Div
-            P1 P
-                |Here (eventually) provide a form to allow the user to control their settings.
-            P2 P
-                |This should allow the user to choose a light or a dark theme, 
-                |Select a larger or smaller font size and possibly a choice of font.
+        Main Div
+            Description Div
+                P1 P
+                    |Here (eventually) provide a form to allow the user to control their settings.
+                P2 P
+                    |This should allow the user to choose a light or a dark theme, 
+                    |Select a larger or smaller font size and possibly a choice of font.
 
     AboutSettingsPage Page "About - MPlace2" 
         EntryPage Container

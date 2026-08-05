@@ -5,6 +5,8 @@
     --color-background: white;
     --color-hover: lightgrey;
     --button-background: white;
+    --button-display: block;
+    --navigation-display: block;
     --font-size: 100%;
     --adjusted-width: 800;
     --size-icon: 8px;
@@ -24,8 +26,9 @@
     --width-navigation: 180px;
     --width-main: 180px;
     --width-icon: 180px;
-    --border: 1px solid LightGray;
+    --border: 2px solid LightGray;
     --header-height: 30px;
+    --header-height-pad: 40px;
     --header-position: 0px;
     --left-offset: 0px;
     --right-offset: 0px;
@@ -134,8 +137,6 @@ body {
     background-color: white;
     cursor: pointer;
     font-size: var(--size-h2);
-    /*z-index: 1;*/
-    /*opacity: 1;*/
 }
 
 
@@ -155,8 +156,6 @@ body {
 .Mobile div.Main {
     margin-top: var(--header-height);
     background-color: white;
-    /*z-index: 0;*/
-    /*opacity: 1;*/
 }
 
 .Main {
@@ -171,46 +170,46 @@ body {
 
 
 .Desktop #Navigation {
+    display: var(--navigation-display);
     height: 100%;
     position: fixed;
     z-index: 1;
     top: 0;
-    /*left: 0;*/
     left: var(--left-offset);
     width: var(--left-wide);
     background-color: lightblue;
     overflow-x: hidden;
     border-right: var(--border);
-    /*display: none;*/
     padding: var(--main-pad);
     position: sticky;
 }
 
 .Desktop #Heading {
-    /*display: none;*/
-    position:fixed;
+    font-weight: bold;
+    position: fixed;
     padding: var(--main-pad);
-    background-color: lightcoral;
+    /*background-color: lightcoral;*/
     left: var(--right-offset);
     width: var(--right-wide);
-    align-content:center;
+    text-align: center;
+    align-content: center;
+    font-size: var(--size-h2);
+    height: var(--header-height);
+    border-bottom: var(--border);
+    padding-top: 0;
+    padding-bottom: 0;
 }
-
-/*.Heading {
-    display: none;
-    padding: 20px;
-    background-color: lightcoral;
-}*/
 
 
 .Desktop #Main {
-    /*grid-area: First;*/
     position: fixed;
     margin-left: var(--right-offset);
     width: var(--right-wide);
-    background-color: lightgreen;
+    /*background-color: lightgreen;*/
     padding: var(--main-pad);
     top: var(--header-height);
+
+    padding: var(--main-pad);
 }
 
 

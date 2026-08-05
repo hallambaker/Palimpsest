@@ -409,16 +409,22 @@ public partial class NotificationsPage : FramePage {
 		Container = "FlowPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Entries</summary>
 	public List<Entry>? Entries {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefList<Entry> ("Entries","Entry"){
-			Presentation = SummaryPresentation,
-			Get = (data) => (data as NotificationsPage)?.Entries ,
-			Set = (data, value) => {(data as NotificationsPage)!.Entries = value as List<Entry>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefList<Entry> ("Entries","Entry"){
+        			Presentation = SummaryPresentation,
+        			Get = (data) => (data as NotificationsPage)?.Entries ,
+        			Set = (data, value) => {(data as NotificationsPage)!.Entries = value as List<Entry>; }}
+				]
+			}
 		];
 
 
@@ -456,16 +462,22 @@ public partial class PlacesPage : FramePage {
 		Container = "FlowPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Entries</summary>
 	public List<Entry>? Entries {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefList<Entry> ("Entries","Entry"){
-			Presentation = SummaryPresentation,
-			Get = (data) => (data as PlacesPage)?.Entries ,
-			Set = (data, value) => {(data as PlacesPage)!.Entries = value as List<Entry>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefList<Entry> ("Entries","Entry"){
+        			Presentation = SummaryPresentation,
+        			Get = (data) => (data as PlacesPage)?.Entries ,
+        			Set = (data, value) => {(data as PlacesPage)!.Entries = value as List<Entry>; }}
+				]
+			}
 		];
 
 
@@ -503,16 +515,22 @@ public partial class FeedsPage : FramePage {
 		Container = "FlowPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Entries</summary>
 	public List<Entry>? Entries {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefList<Entry> ("Entries","Entry"){
-			Presentation = SummaryPresentation,
-			Get = (data) => (data as FeedsPage)?.Entries ,
-			Set = (data, value) => {(data as FeedsPage)!.Entries = value as List<Entry>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefList<Entry> ("Entries","Entry"){
+        			Presentation = SummaryPresentation,
+        			Get = (data) => (data as FeedsPage)?.Entries ,
+        			Set = (data, value) => {(data as FeedsPage)!.Entries = value as List<Entry>; }}
+				]
+			}
 		];
 
 
@@ -550,16 +568,22 @@ public partial class PostsPage : FramePage {
 		Container = "FlowPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Entries</summary>
 	public List<Entry>? Entries {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefList<Entry> ("Entries","Entry"){
-			Presentation = SummaryPresentation,
-			Get = (data) => (data as PostsPage)?.Entries ,
-			Set = (data, value) => {(data as PostsPage)!.Entries = value as List<Entry>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefList<Entry> ("Entries","Entry"){
+        			Presentation = SummaryPresentation,
+        			Get = (data) => (data as PostsPage)?.Entries ,
+        			Set = (data, value) => {(data as PostsPage)!.Entries = value as List<Entry>; }}
+				]
+			}
 		];
 
 
@@ -597,16 +621,22 @@ public partial class BookmarkPage : FramePage {
 		Container = "FlowPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Entries</summary>
 	public List<Entry>? Entries {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefList<Entry> ("Entries","Entry"){
-			Presentation = SummaryPresentation,
-			Get = (data) => (data as BookmarkPage)?.Entries ,
-			Set = (data, value) => {(data as BookmarkPage)!.Entries = value as List<Entry>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefList<Entry> ("Entries","Entry"){
+        			Presentation = SummaryPresentation,
+        			Get = (data) => (data as BookmarkPage)?.Entries ,
+        			Set = (data, value) => {(data as BookmarkPage)!.Entries = value as List<Entry>; }}
+				]
+			}
 		];
 
 
@@ -644,6 +674,8 @@ public partial class YourPlacePage : FramePage {
 		Container = "FlowPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field MainEntry</summary>
 	public Place? MainEntry {get; set;}
 
@@ -653,14 +685,18 @@ public partial class YourPlacePage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefClass<Place> ("MainEntry","Place"){
-			Presentation = FullPresentation,
-			Get = (data) => (data as YourPlacePage)?.MainEntry ,
-			Set = (data, value) => {(data as YourPlacePage)!.MainEntry = value as Place; }},
-		new FrameRefList<Entry> ("Entries","Entry"){
-			Presentation = SummaryPresentation,
-			Get = (data) => (data as YourPlacePage)?.Entries ,
-			Set = (data, value) => {(data as YourPlacePage)!.Entries = value as List<Entry>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefClass<Place> ("MainEntry","Place"){
+        			Presentation = FullPresentation,
+        			Get = (data) => (data as YourPlacePage)?.MainEntry ,
+        			Set = (data, value) => {(data as YourPlacePage)!.MainEntry = value as Place; }},
+        		new FrameRefList<Entry> ("Entries","Entry"){
+        			Presentation = SummaryPresentation,
+        			Get = (data) => (data as YourPlacePage)?.Entries ,
+        			Set = (data, value) => {(data as YourPlacePage)!.Entries = value as List<Entry>; }}
+				]
+			}
 		];
 
 
@@ -698,6 +734,8 @@ public partial class PostPage : FramePage {
 		Container = "PostPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field MainEntry</summary>
 	public Post? MainEntry {get; set;}
 
@@ -707,14 +745,18 @@ public partial class PostPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefClass<Post> ("MainEntry","Post"){
-			Presentation = PostPresentation,
-			Get = (data) => (data as PostPage)?.MainEntry ,
-			Set = (data, value) => {(data as PostPage)!.MainEntry = value as Post; }},
-		new FrameRefList<Comment> ("Entries","Comment"){
-			Presentation = CommentPresentation,
-			Get = (data) => (data as PostPage)?.Entries ,
-			Set = (data, value) => {(data as PostPage)!.Entries = value as List<Comment>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefClass<Post> ("MainEntry","Post"){
+        			Presentation = PostPresentation,
+        			Get = (data) => (data as PostPage)?.MainEntry ,
+        			Set = (data, value) => {(data as PostPage)!.MainEntry = value as Post; }},
+        		new FrameRefList<Comment> ("Entries","Comment"){
+        			Presentation = CommentPresentation,
+        			Get = (data) => (data as PostPage)?.Entries ,
+        			Set = (data, value) => {(data as PostPage)!.Entries = value as List<Comment>; }}
+				]
+			}
 		];
 
 
@@ -752,16 +794,22 @@ public partial class MemberPage : FramePage {
 		Container = "MemberFlow";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field MainEntry</summary>
 	public User? MainEntry {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefClass<User> ("MainEntry","User"){
-			Presentation = MemberPresentation,
-			Get = (data) => (data as MemberPage)?.MainEntry ,
-			Set = (data, value) => {(data as MemberPage)!.MainEntry = value as User; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefClass<User> ("MainEntry","User"){
+        			Presentation = MemberPresentation,
+        			Get = (data) => (data as MemberPage)?.MainEntry ,
+        			Set = (data, value) => {(data as MemberPage)!.MainEntry = value as User; }}
+				]
+			}
 		];
 
 
@@ -799,10 +847,16 @@ public partial class SettingsPage : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefMenu ("SetingsCategory","SettingsMenu")
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefMenu ("SetingsCategory","SettingsMenu")
+				]
+			}
 		];
 
 
@@ -840,9 +894,15 @@ public partial class AccountSettings : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
-		new FrameRefMenu ("Navigation","MainNav")
+		new FrameRefMenu ("Navigation","MainNav"),
+		new FrameDiv ("Main") { Fields = [
+
+				]
+			}
 		];
 
 
@@ -882,16 +942,22 @@ public partial class AppearanceSettings : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameDiv ("Description") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Here (eventually) provide a form to allow the user to control their settings."		    ]},
-        		new FrameBlock ("P2") {Tag = "p", Text=[
-        			"This should allow the user to choose a light or a dark theme, ",
-        			"Select a larger or smaller font size and possibly a choice of font."		    ]}
+        		new FrameDiv ("Description") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Here (eventually) provide a form to allow the user to control their settings."		    ]},
+                		new FrameBlock ("P2") {Tag = "p", Text=[
+                			"This should allow the user to choose a light or a dark theme, ",
+                			"Select a larger or smaller font size and possibly a choice of font."		    ]}
+        				]
+        			}
 				]
 			}
 		];
