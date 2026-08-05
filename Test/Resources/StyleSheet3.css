@@ -36,6 +36,9 @@
     --right-wide: 0px;
     --main-pad: 20px;
     --window-height: 30px;
+    --form-labels: 100%;
+    --form-input: 100%;
+    --hamburger-display: inline;
 }
 
 /* Font, decoration, etc. */
@@ -51,8 +54,14 @@ body {
     font-size: var(--size-p);
 }
 
-/* Styling for Navigation buttons */
 
+
+#OpenNav {
+    float: left;
+    display: var(--hamburger-display);
+}
+
+/* Styling for Navigation buttons */
 .Button {
     justify-content: left;
     display: flex;
@@ -456,3 +465,32 @@ img.Avatar {
     .CommentFull div.ButtonText {
         display: none;
     }
+
+form {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    text-align: left;
+    align-content:end;
+/*    align-items: flex-start;*/
+    overflow-y: auto;
+}
+
+/*.CreatePostAction {
+    display: inline;
+}*/
+
+.InputLabel {
+    display: inline-block;
+    width: var(--form-labels);
+}
+
+.InputForm {
+
+
+    display: inline-block;
+    width: var(--form-input);
+}
+
+#richtext {
+    width: 100%;
+}

@@ -5,7 +5,7 @@ const wideNav = 140;
 const pad = 10;
 const pad2 = pad * 2;
 const narrowNav = 20 + pad2;
-
+const formLabels = 100;
 
 var leftOffset, leftWide, rightOffset, rightWide, ppad, ppad2;
 var navigation;
@@ -30,29 +30,50 @@ function resizeWindow() {
     rightWide = mainFlow * p;
 
 
+
+    // hamburger.setAttribute.style.display = 'none';
+
     if (isMobile()) {
         // Display width is fixed so will not need to resize.
     }
     else if (w > pwideNav + rightWide) {
+        
+        // let labels = formLabels * p;
+        // let form = rightWide - labels- 50;
+        // // form = 435;
+        // document.documentElement.style.setProperty('--form-labels', labels + 'px');
+        // document.documentElement.style.setProperty('--form-input', form+'px');
+
         document.documentElement.style.setProperty('--button-display', 'block');
-        document.documentElement.style.setProperty('--navigation-display', 'block');
+        document.documentElement.style.setProperty('--hamburger-display', 'none');
         leftWide = pwideNav;
         leftOffset = (w - leftWide - rightWide) / 2;
     }
 
     else if (w > pnarrowNav + rightWide) {
+
+        // hamburger.setProperty('display', 'none');
+
         leftWide = narrowNav * p;
         leftOffset = (w - leftWide - rightWide) / 2;
+        // document.documentElement.style.setProperty('--form-labels', '30%');
+        // document.documentElement.style.setProperty('--form-input', '70%');
         document.documentElement.style.setProperty('--button-display', 'none');
         document.documentElement.style.setProperty('--navigation-display', 'block');
+        document.documentElement.style.setProperty('--hamburger-display', 'none');
         // document.documentElement.style.setProperty('--width-navigation', wnav0);
     }
     else {
+        // hamburger.setProperty('display', 'none');
+
+
         leftWide = 0;
         leftOffset = 0;
         rightWide = w;
         document.documentElement.style.setProperty('--navigation-display', 'none');
-
+        document.documentElement.style.setProperty('--hamburger-display', 'inline');
+        // document.documentElement.style.setProperty('--form-labels', '100%');
+        // document.documentElement.style.setProperty('--form-input', '100%');
     }
 
     rightOffset = leftOffset + leftWide;
@@ -128,10 +149,11 @@ function initializeDisplay() {
     document.documentElement.style.setProperty('--header-height', hheight + "px");
     // document.documentElement.style.setProperty('--header-height-pad', (hheight + ppad2) + "px");
 
-
     document.documentElement.style.setProperty('--main-pad', ppad + "px");
-
     document.documentElement.style.setProperty('--window-height', (h-hheight) + 'px');
+
+    let hamburger = document.getElementById("OpenNav");
+    hamburger.addEventListener('onclick', openNav);
 
 
     // console.log('High ' + hheight);
@@ -159,14 +181,20 @@ function setNavigation() {
 }
 
 
+
+
+
+
 function openNav() {
     setNavigation();
+    document.documentElement.style.setProperty('--navigation-display', 'block');
     document.getElementById("Navigation").style.width = "240px";
 }
 
 function closeNav() {
     setNavigation();
     document.getElementById("Navigation").style.width = "0";
+    document.documentElement.style.setProperty('--navigation-display', 'none');
 }
 
 
