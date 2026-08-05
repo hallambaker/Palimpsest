@@ -35,13 +35,14 @@
     --left-wide: 0px;
     --right-wide: 0px;
     --main-pad: 20px;
+    --window-height: 30px;
 }
 
 /* Font, decoration, etc. */
 
 
 body {
-    height: 100%;
+    /*height: 100%;*/
     margin: 0;
     color: var(--color-text);
     background: var(--color-background);
@@ -156,6 +157,7 @@ body {
 .Mobile div.Main {
     margin-top: var(--header-height);
     background-color: white;
+    height: 100%;
 }
 
 #Main {
@@ -164,6 +166,7 @@ body {
     flex-direction: column;
     height: 100%;
     overflow-y: auto;
+
 }
 
 
@@ -177,7 +180,7 @@ body {
     top: 0;
     left: var(--left-offset);
     width: var(--left-wide);
-    background-color: lightblue;
+    /*background-color: lightblue;*/
     overflow-x: hidden;
     border-right: var(--border);
     padding: var(--main-pad);
@@ -224,8 +227,9 @@ body {
     /*background-color: lightgreen;*/
     padding: var(--main-pad);
     top: var(--header-height);
-
-    padding: var(--main-pad);
+    height: 100%;
+    overflow-y: auto;
+    flex-grow: 1;
 }
 
 
@@ -239,6 +243,17 @@ img.Avatar {
     font-weight: normal;
 }
 
+
+.Rule {
+    height: 2pt;
+}
+
+
+.Author {
+    display: inline;
+    font-weight: bold;
+    align-content: center;
+}
 
 /* Grid to display a Place entry */
 
@@ -304,7 +319,7 @@ img.Avatar {
     display: grid;
     grid-template-areas:
         "Avatar Author"
-        "Avatar Title"
+        "Avatar Body"
         "Blank Body";
     align-content: flex-start;
     grid-auto-rows: max-content;
@@ -312,6 +327,7 @@ img.Avatar {
     border-bottom: 1px solid black;
     padding-top: 10px;
     padding-bottom: 10px;
+
 }
 
     .PostSummary > section.Avatar {
@@ -319,8 +335,10 @@ img.Avatar {
     }
 
     .PostSummary div.Author {
+        grid-area: Author;
         display: inline;
         font-weight: bold;
+        align-content: center;
     }
 
     .PostSummary div.Heading {
@@ -329,7 +347,9 @@ img.Avatar {
     }
 
     .PostSummary > section.Body {
+        /*background-color: lightcoral;*/
         grid-area: Body;
+
     }
 
 .sectionLink {

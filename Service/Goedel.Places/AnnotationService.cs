@@ -244,6 +244,40 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
     private int transactionCount = 0;
 
+
+    ///<summary>Handle get request asynchronously.</summary> 
+    ///<param name="context">The listener context.</param>
+    private async Task HandleRequestGet(HttpListenerContext context) {
+        var request = context.Request;
+        var response = context.Response;
+
+        var path = new ParsedPath(context, PersistPlace);
+
+
+        Console.WriteLine($"$$$$ GET:{path.ExternalUri}");
+
+        var transactionId = Interlocked.Increment(ref transactionCount);
+        var start = DateTime.UtcNow;
+        var logEntry = $"{transactionId} {start.ToRFC3339()} {path.RealIp} {path.ExternalUri}";
+        LogFile.WriteLine(logEntry);
+        LogFile.Flush();
+
+        if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
+            var page = templatePage.GetPage(PersistPlace, path);
+            page.Context = path;
+            await RenderPage(path, page);
+            }
+        else if (Callbacks.TryGetValue(path.Command, out var callback)) {
+            await callback(path);
+            }
+        else {
+            await Error(path, "");
+            }
+
+        }
+
+
+
     ///<summary>Handle get request asynchronously.</summary> 
     ///<param name="context">The listener context.</param>
     private async Task HandleRequestPost(HttpListenerContext context) {
@@ -301,46 +335,21 @@ public partial class AnnotationService : IWebService<ParsedPath> {
                     return menu;
                     }
                 }
+            if (field is FrameDiv div) {
+                var result = GetForm(div.Fields, tag);
+                if (result != null) {
+                    return result;
+
+                    }
+
+                }
             }
 
         return null;
         }
 
-    ///<summary>Handle get request asynchronously.</summary> 
-    ///<param name="context">The listener context.</param>
-    private async Task HandleRequestPut(HttpListenerContext context) {
-        }
-
-    ///<summary>Handle get request asynchronously.</summary> 
-    ///<param name="context">The listener context.</param>
-    private async Task HandleRequestGet(HttpListenerContext context) {
-        var request = context.Request;
-        var response = context.Response;
-
-        var path = new ParsedPath(context, PersistPlace);
 
 
-        Console.WriteLine($"$$$$ GET:{path.ExternalUri}");
-
-        var transactionId = Interlocked.Increment(ref transactionCount);
-        var start = DateTime.UtcNow;
-        var logEntry = $"{transactionId} {start.ToRFC3339()} {path.RealIp} {path.ExternalUri}";
-        LogFile.WriteLine(logEntry);
-        LogFile.Flush();
-
-        if (FrameSet.PageDirectory.TryGetValue(path.Command, out var templatePage)) {
-            var page = templatePage.GetPage(PersistPlace, path);
-            page.Context = path;
-            await RenderPage(path, page);
-            }
-        else if (Callbacks.TryGetValue(path.Command, out var callback)) {
-            await callback(path);
-            }
-        else {
-            await Error(path, "");
-            }
-
-        }
 
 
     public async Task RenderPage(ParsedPath path, FramePage page, List<FormReaction>? reactions=null) {

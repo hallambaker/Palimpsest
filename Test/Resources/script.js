@@ -18,6 +18,9 @@ function resizeWindow() {
     // console.log(element);
 
     let w = element.clientWidth;
+
+
+
     // let h = element.outerHeight;
     let p = window.devicePixelRatio;
     let aw = w / p;
@@ -87,6 +90,7 @@ function setNarrowMode() {
 // document.documentElement.style.setProperty('--color-text', '#e74c3c');
 function initializeDisplay() {
     p = window.devicePixelRatio;
+    h = window.innerHeight;
     ppad = pad * p;
     ppad2 = pad2 * p;
 
@@ -126,6 +130,8 @@ function initializeDisplay() {
 
 
     document.documentElement.style.setProperty('--main-pad', ppad + "px");
+
+    document.documentElement.style.setProperty('--window-height', (h-hheight) + 'px');
 
 
     // console.log('High ' + hheight);
