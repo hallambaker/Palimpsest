@@ -1,20 +1,21 @@
 ﻿var pt8, pt10, pt12, pt14, pt16, pt20, pt24, wnav, wnav0, hpos;
 
 const mainFlow = 420;
-const wideNav = 120;
+const wideNav = 140;
 const pad = 10;
 const pad2 = pad * 2;
 const narrowNav = 20 + pad2;
 
 
 var leftOffset, leftWide, rightOffset, rightWide, ppad, ppad2;
+var navigation;
 
 function resizeWindow() {
 
     // document.documentElement.style.setProperty('--color-text', '#e74c3c');
     const element = document.getElementsByTagName('body')[0];
 
-    console.log(element);
+    // console.log(element);
 
     let w = element.clientWidth;
     // let h = element.outerHeight;
@@ -127,7 +128,7 @@ function initializeDisplay() {
     document.documentElement.style.setProperty('--main-pad', ppad + "px");
 
 
-    console.log('High ' + hheight);
+    // console.log('High ' + hheight);
 }
 
 const isMobile = () => {
@@ -143,11 +144,22 @@ const isMobile = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
 };
 
+function setNavigation() {
+    navigation = document.getElementById("Navigation");
+    if (navigation == null) {
+        navigation = document.getElementById("SupportNav");
+    }
+
+}
+
+
 function openNav() {
+    setNavigation();
     document.getElementById("Navigation").style.width = "240px";
 }
 
 function closeNav() {
+    setNavigation();
     document.getElementById("Navigation").style.width = "0";
 }
 
@@ -167,7 +179,7 @@ function scrollHeader() {
 
 }
 
-console.log('Hello world');
+// console.log('Hello world');
 
 
 const element = document.getElementsByTagName('body')[0];

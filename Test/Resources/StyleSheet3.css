@@ -184,6 +184,22 @@ body {
     position: sticky;
 }
 
+
+.Desktop #SupportNav {
+    display: var(--navigation-display);
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: var(--left-offset);
+    width: var(--left-wide);
+    background-color: lightblue;
+    overflow-x: hidden;
+    border-right: var(--border);
+    padding: var(--main-pad);
+    position: sticky;
+}
+
 .Desktop #Heading {
     font-weight: bold;
     position: fixed;
