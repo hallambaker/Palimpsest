@@ -1108,6 +1108,8 @@ public partial class SwitchPage : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
     /// <summary>Field SignOut</summary>
 	public SignOut? SignOut {get; set;}
 
@@ -1119,32 +1121,36 @@ public partial class SwitchPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameDiv ("SignOutDiv") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("SignOutTitle") {Tag = "h2", Text=[
-        			"Sign out this account."		    ]}
+        		new FrameDiv ("SignOutDiv") { Fields = [
+        
+                		new FrameBlock ("SignOutTitle") {Tag = "h2", Text=[
+                			"Sign out this account."		    ]}
+        				]
+        			},
+        		new FrameRefForm<SignOut> ("SignOut","SignOut", [
+        				]){
+        			Get = (data) => (data as SwitchPage)?.SignOut ,
+        			Set = (data, value) => {(data as SwitchPage)!.SignOut = value as SignOut; }},
+        		new FrameDiv ("SwitchDiv") { Fields = [
+        
+                		new FrameBlock ("SwitchTitle") {Tag = "h2", Text=[
+                			"Switch to a different @nywhere account"		    ]}
+        				]
+        			},
+        		new FrameRefForm<HandleInput> ("Form","HandleInput", [
+        		new FrameString ("DNS",
+        			(data, value) => {(data as HandleInput)!.DNS = value; },
+        			(data) => (data as HandleInput)?.DNS) {
+        				Prompt = "@nywhere handle",
+        				Description = "The handle you use to log in to Blue Sky etc."
+        				}
+        				]){
+        			Get = (data) => (data as SwitchPage)?.Form ,
+        			Set = (data, value) => {(data as SwitchPage)!.Form = value as HandleInput; }}
 				]
-			},
-		new FrameRefForm<SignOut> ("SignOut","SignOut", [
-				]){
-			Get = (data) => (data as SwitchPage)?.SignOut ,
-			Set = (data, value) => {(data as SwitchPage)!.SignOut = value as SignOut; }},
-		new FrameDiv ("SwitchDiv") { Fields = [
-
-        		new FrameBlock ("SwitchTitle") {Tag = "h2", Text=[
-        			"Switch to a different @nywhere account"		    ]}
-				]
-			},
-		new FrameRefForm<HandleInput> ("Form","HandleInput", [
-		new FrameString ("DNS",
-			(data, value) => {(data as HandleInput)!.DNS = value; },
-			(data) => (data as HandleInput)?.DNS) {
-				Prompt = "@nywhere handle",
-				Description = "The handle you use to log in to Blue Sky etc."
-				}
-				]){
-			Get = (data) => (data as SwitchPage)?.Form ,
-			Set = (data, value) => {(data as SwitchPage)!.Form = value as HandleInput; }}
+			}
 		];
 
 
@@ -1182,52 +1188,58 @@ public partial class CreateFeed : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field CreateFeedAction</summary>
 	public Feed? CreateFeedAction {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Feed> ("CreateFeedAction","Feed", [
-		new FrameString ("Title",
-			(data, value) => {(data as Feed)!.Title = value; },
-			(data) => (data as Feed)?.Title) {
-				Prompt = "Title",
-				Description = "Title, should be short."
-				},
-		new FrameText ("Description",
-			(data, value) => {(data as Feed)!.Description = value; },
-			(data) => (data as Feed)?.Description) {
-				Prompt = "Description",
-				Description = "Feed description"
-				},
-		new FrameBoolean ("AllowPosts",
-			(data, value) => {(data as Feed)!.AllowPosts = value; },
-			(data) => (data as Feed)?.AllowPosts) {
-				Prompt = "Allow text posts",
-				Description = "Allow text posts in the feed."
-				},
-		new FrameBoolean ("AllowImages",
-			(data, value) => {(data as Feed)!.AllowImages = value; },
-			(data) => (data as Feed)?.AllowImages) {
-				Prompt = "Allow images",
-				Description = "Allow images in the feed."
-				},
-		new FrameBoolean ("AllowShort",
-			(data, value) => {(data as Feed)!.AllowShort = value; },
-			(data) => (data as Feed)?.AllowShort) {
-				Prompt = "Allow short videos",
-				Description = "Allow short videos in the feed."
-				},
-		new FrameBoolean ("AllowVideo",
-			(data, value) => {(data as Feed)!.AllowVideo = value; },
-			(data) => (data as Feed)?.AllowVideo) {
-				Prompt = "Allow video",
-				Description = "Allow longer videos in the feed."
-				}
-				]){
-			Get = (data) => (data as CreateFeed)?.CreateFeedAction ,
-			Set = (data, value) => {(data as CreateFeed)!.CreateFeedAction = value as Feed; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefForm<Feed> ("CreateFeedAction","Feed", [
+        		new FrameString ("Title",
+        			(data, value) => {(data as Feed)!.Title = value; },
+        			(data) => (data as Feed)?.Title) {
+        				Prompt = "Title",
+        				Description = "Title, should be short."
+        				},
+        		new FrameText ("Description",
+        			(data, value) => {(data as Feed)!.Description = value; },
+        			(data) => (data as Feed)?.Description) {
+        				Prompt = "Description",
+        				Description = "Feed description"
+        				},
+        		new FrameBoolean ("AllowPosts",
+        			(data, value) => {(data as Feed)!.AllowPosts = value; },
+        			(data) => (data as Feed)?.AllowPosts) {
+        				Prompt = "Allow text posts",
+        				Description = "Allow text posts in the feed."
+        				},
+        		new FrameBoolean ("AllowImages",
+        			(data, value) => {(data as Feed)!.AllowImages = value; },
+        			(data) => (data as Feed)?.AllowImages) {
+        				Prompt = "Allow images",
+        				Description = "Allow images in the feed."
+        				},
+        		new FrameBoolean ("AllowShort",
+        			(data, value) => {(data as Feed)!.AllowShort = value; },
+        			(data) => (data as Feed)?.AllowShort) {
+        				Prompt = "Allow short videos",
+        				Description = "Allow short videos in the feed."
+        				},
+        		new FrameBoolean ("AllowVideo",
+        			(data, value) => {(data as Feed)!.AllowVideo = value; },
+        			(data) => (data as Feed)?.AllowVideo) {
+        				Prompt = "Allow video",
+        				Description = "Allow longer videos in the feed."
+        				}
+        				]){
+        			Get = (data) => (data as CreateFeed)?.CreateFeedAction ,
+        			Set = (data, value) => {(data as CreateFeed)!.CreateFeedAction = value as Feed; }}
+				]
+			}
 		];
 
 
@@ -1304,6 +1316,8 @@ public partial class CreatePost : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field CreatePostAction</summary>
 	public Post? CreatePostAction {get; set;}
 
@@ -1313,36 +1327,40 @@ public partial class CreatePost : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<Post> ("CreatePostAction","Post", [
-		new FrameString ("FeedId",
-			(data, value) => {(data as Post)!.FeedId = value; },
-			(data) => (data as Post)?.FeedId) {
-				Hidden = true
-				},
-		new FrameString ("PostTitle",
-			(data, value) => {(data as Post)!.PostTitle = value; },
-			(data) => (data as Post)?.PostTitle) {
-				Prompt = "Title",
-				Description = "Title, should be short."
-				},
-		new FrameText ("Summary",
-			(data, value) => {(data as Post)!.Summary = value; },
-			(data) => (data as Post)?.Summary) {
-				Prompt = "Summary",
-				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
-				},
-		new FrameRichText ("Body",
-			(data, value) => {(data as Post)!.Body = value; },
-			(data) => (data as Post)?.Body) {
-				Prompt = "Body",
-				Description = "What you want to say!"
-				}
-				]){
-			Get = (data) => (data as CreatePost)?.CreatePostAction ,
-			Set = (data, value) => {(data as CreatePost)!.CreatePostAction = value as Post; }},
-		new FrameRefList<Provider> ("Crosspost","Provider"){
-			Get = (data) => (data as CreatePost)?.Crosspost ,
-			Set = (data, value) => {(data as CreatePost)!.Crosspost = value as List<Provider>; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefForm<Post> ("CreatePostAction","Post", [
+        		new FrameString ("FeedId",
+        			(data, value) => {(data as Post)!.FeedId = value; },
+        			(data) => (data as Post)?.FeedId) {
+        				Hidden = true
+        				},
+        		new FrameString ("PostTitle",
+        			(data, value) => {(data as Post)!.PostTitle = value; },
+        			(data) => (data as Post)?.PostTitle) {
+        				Prompt = "Title",
+        				Description = "Title, should be short."
+        				},
+        		new FrameText ("Summary",
+        			(data, value) => {(data as Post)!.Summary = value; },
+        			(data) => (data as Post)?.Summary) {
+        				Prompt = "Summary",
+        				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
+        				},
+        		new FrameRichText ("Body",
+        			(data, value) => {(data as Post)!.Body = value; },
+        			(data) => (data as Post)?.Body) {
+        				Prompt = "Body",
+        				Description = "What you want to say!"
+        				}
+        				]){
+        			Get = (data) => (data as CreatePost)?.CreatePostAction ,
+        			Set = (data, value) => {(data as CreatePost)!.CreatePostAction = value as Post; }},
+        		new FrameRefList<Provider> ("Crosspost","Provider"){
+        			Get = (data) => (data as CreatePost)?.Crosspost ,
+        			Set = (data, value) => {(data as CreatePost)!.Crosspost = value as List<Provider>; }}
+				]
+			}
 		];
 
 
@@ -1380,6 +1398,8 @@ public partial class DeletePostPage : FramePage {
 		Container = "DeletePostPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field PostTitle</summary>
 	public string? PostTitle {get; set;}
 
@@ -1392,32 +1412,36 @@ public partial class DeletePostPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameString ("PostTitle",
-			(data, value) => {(data as DeletePostPage)!.PostTitle = value; },
-			(data) => (data as DeletePostPage)?.PostTitle) {
-				Prompt = "Title",
-				Description = "Title, should be short."
-				},
-		new FrameText ("Summary",
-			(data, value) => {(data as DeletePostPage)!.Summary = value; },
-			(data) => (data as DeletePostPage)?.Summary) {
-				Prompt = "Summary",
-				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
-				},
-		new FrameRefForm<DeletePost> ("Form","DeletePost", [
-		new FrameString ("FeedId",
-			(data, value) => {(data as DeletePost)!.FeedId = value; },
-			(data) => (data as DeletePost)?.FeedId) {
-				Hidden = true
-				},
-		new FrameString ("PostId",
-			(data, value) => {(data as DeletePost)!.PostId = value; },
-			(data) => (data as DeletePost)?.PostId) {
-				Hidden = true
-				}
-				]){
-			Get = (data) => (data as DeletePostPage)?.Form ,
-			Set = (data, value) => {(data as DeletePostPage)!.Form = value as DeletePost; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameString ("PostTitle",
+        			(data, value) => {(data as DeletePostPage)!.PostTitle = value; },
+        			(data) => (data as DeletePostPage)?.PostTitle) {
+        				Prompt = "Title",
+        				Description = "Title, should be short."
+        				},
+        		new FrameText ("Summary",
+        			(data, value) => {(data as DeletePostPage)!.Summary = value; },
+        			(data) => (data as DeletePostPage)?.Summary) {
+        				Prompt = "Summary",
+        				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
+        				},
+        		new FrameRefForm<DeletePost> ("Form","DeletePost", [
+        		new FrameString ("FeedId",
+        			(data, value) => {(data as DeletePost)!.FeedId = value; },
+        			(data) => (data as DeletePost)?.FeedId) {
+        				Hidden = true
+        				},
+        		new FrameString ("PostId",
+        			(data, value) => {(data as DeletePost)!.PostId = value; },
+        			(data) => (data as DeletePost)?.PostId) {
+        				Hidden = true
+        				}
+        				]){
+        			Get = (data) => (data as DeletePostPage)?.Form ,
+        			Set = (data, value) => {(data as DeletePostPage)!.Form = value as DeletePost; }}
+				]
+			}
 		];
 
 
@@ -1428,19 +1452,7 @@ public partial class DeletePostPage : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameString ("PostTitle",
-			(data, value) => {(data as DeletePostPage)!.PostTitle = value; },
-			(data) => (data as DeletePostPage)?.PostTitle) {
-				Prompt = "Title",
-				Description = "Title, should be short."
-				},
-		new FrameText ("Summary",
-			(data, value) => {(data as DeletePostPage)!.Summary = value; },
-			(data) => (data as DeletePostPage)?.Summary) {
-				Prompt = "Summary",
-				Description = "Short summary of the post to be used in lists of posts or to crosspost to other media"
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1450,8 +1462,6 @@ public partial class DeletePostPage : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"PostTitle", _properties[0]},
-			{"Summary", _properties[1]}
 			}, "DeletePostPage",
 		() => new DeletePostPage(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1469,6 +1479,8 @@ public partial class CreateComment : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Target</summary>
 	public Comment? Target {get; set;}
 
@@ -1478,33 +1490,37 @@ public partial class CreateComment : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefClass<Comment> ("Target","Comment"){
-			Get = (data) => (data as CreateComment)?.Target ,
-			Set = (data, value) => {(data as CreateComment)!.Target = value as Comment; }},
-		new FrameRefForm<Comment> ("Form","Comment", [
-		new FrameString ("FeedId",
-			(data, value) => {(data as Comment)!.FeedId = value; },
-			(data) => (data as Comment)?.FeedId) {
-				Hidden = true
-				},
-		new FrameString ("PostId",
-			(data, value) => {(data as Comment)!.PostId = value; },
-			(data) => (data as Comment)?.PostId) {
-				Hidden = true
-				},
-		new FrameString ("CommentId",
-			(data, value) => {(data as Comment)!.CommentId = value; },
-			(data) => (data as Comment)?.CommentId) {
-				Hidden = true
-				},
-		new FrameText ("CommentText",
-			(data, value) => {(data as Comment)!.CommentText = value; },
-			(data) => (data as Comment)?.CommentText) {
-				Prompt = "Text"
-				}
-				]){
-			Get = (data) => (data as CreateComment)?.Form ,
-			Set = (data, value) => {(data as CreateComment)!.Form = value as Comment; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefClass<Comment> ("Target","Comment"){
+        			Get = (data) => (data as CreateComment)?.Target ,
+        			Set = (data, value) => {(data as CreateComment)!.Target = value as Comment; }},
+        		new FrameRefForm<Comment> ("Form","Comment", [
+        		new FrameString ("FeedId",
+        			(data, value) => {(data as Comment)!.FeedId = value; },
+        			(data) => (data as Comment)?.FeedId) {
+        				Hidden = true
+        				},
+        		new FrameString ("PostId",
+        			(data, value) => {(data as Comment)!.PostId = value; },
+        			(data) => (data as Comment)?.PostId) {
+        				Hidden = true
+        				},
+        		new FrameString ("CommentId",
+        			(data, value) => {(data as Comment)!.CommentId = value; },
+        			(data) => (data as Comment)?.CommentId) {
+        				Hidden = true
+        				},
+        		new FrameText ("CommentText",
+        			(data, value) => {(data as Comment)!.CommentText = value; },
+        			(data) => (data as Comment)?.CommentText) {
+        				Prompt = "Text"
+        				}
+        				]){
+        			Get = (data) => (data as CreateComment)?.Form ,
+        			Set = (data, value) => {(data as CreateComment)!.Form = value as Comment; }}
+				]
+			}
 		];
 
 
@@ -1542,6 +1558,8 @@ public partial class DeleteCommentPage : FramePage {
 		Container = "DeleteCommentPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Text</summary>
 	public string? Text {get; set;}
 
@@ -1551,30 +1569,34 @@ public partial class DeleteCommentPage : FramePage {
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameText ("Text",
-			(data, value) => {(data as DeleteCommentPage)!.Text = value; },
-			(data) => (data as DeleteCommentPage)?.Text) {
-				Prompt = "Text"
-				},
-		new FrameRefForm<DeleteComment> ("Form","DeleteComment", [
-		new FrameString ("FeedId",
-			(data, value) => {(data as DeleteComment)!.FeedId = value; },
-			(data) => (data as DeleteComment)?.FeedId) {
-				Hidden = true
-				},
-		new FrameString ("PostId",
-			(data, value) => {(data as DeleteComment)!.PostId = value; },
-			(data) => (data as DeleteComment)?.PostId) {
-				Hidden = true
-				},
-		new FrameString ("CommentId",
-			(data, value) => {(data as DeleteComment)!.CommentId = value; },
-			(data) => (data as DeleteComment)?.CommentId) {
-				Hidden = true
-				}
-				]){
-			Get = (data) => (data as DeleteCommentPage)?.Form ,
-			Set = (data, value) => {(data as DeleteCommentPage)!.Form = value as DeleteComment; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameText ("Text",
+        			(data, value) => {(data as DeleteCommentPage)!.Text = value; },
+        			(data) => (data as DeleteCommentPage)?.Text) {
+        				Prompt = "Text"
+        				},
+        		new FrameRefForm<DeleteComment> ("Form","DeleteComment", [
+        		new FrameString ("FeedId",
+        			(data, value) => {(data as DeleteComment)!.FeedId = value; },
+        			(data) => (data as DeleteComment)?.FeedId) {
+        				Hidden = true
+        				},
+        		new FrameString ("PostId",
+        			(data, value) => {(data as DeleteComment)!.PostId = value; },
+        			(data) => (data as DeleteComment)?.PostId) {
+        				Hidden = true
+        				},
+        		new FrameString ("CommentId",
+        			(data, value) => {(data as DeleteComment)!.CommentId = value; },
+        			(data) => (data as DeleteComment)?.CommentId) {
+        				Hidden = true
+        				}
+        				]){
+        			Get = (data) => (data as DeleteCommentPage)?.Form ,
+        			Set = (data, value) => {(data as DeleteCommentPage)!.Form = value as DeleteComment; }}
+				]
+			}
 		];
 
 
@@ -1585,12 +1607,7 @@ public partial class DeleteCommentPage : FramePage {
 	///<summary>Binding</summary> 
 	static readonly Goedel.Protocol.Property[] _properties = [
 		// Only inclue the serialized items here
-
-		new FrameText ("Text",
-			(data, value) => {(data as DeleteCommentPage)!.Text = value; },
-			(data) => (data as DeleteCommentPage)?.Text) {
-				Prompt = "Text"
-				}		];
+		];
 
     /// <inheritdoc/>
 	public override Binding _Binding => _binding;
@@ -1600,7 +1617,6 @@ public partial class DeleteCommentPage : FramePage {
 			new() {
 
 			// Only inclue the serialized items here
-			{"Text", _properties[0]}
 			}, "DeleteCommentPage",
 		() => new DeleteCommentPage(), () => [], () => [], Parent: null, Generic: false);
 
@@ -1618,46 +1634,52 @@ public partial class NewPlacePage : FramePage {
 		Container = "EntryPage";
 		}
 
+    // make the recursive declarations
+
     /// <summary>Field Form</summary>
 	public FormPlace? Form {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameRefForm<FormPlace> ("Form","FormPlace", [
-		new FrameString ("DNS",
-			(data, value) => {(data as FormPlace)!.DNS = value; },
-			(data) => (data as FormPlace)?.DNS) {
-				Prompt = "DNS Address",
-				Description = "Can be any DNS name that is resolved to the service."
-				},
-		new FrameString ("Title",
-			(data, value) => {(data as FormPlace)!.Title = value; },
-			(data) => (data as FormPlace)?.Title) {
-				Prompt = "Name",
-				Description = "The title the place will be known by."
-				},
-		new FrameText ("Description",
-			(data, value) => {(data as FormPlace)!.Description = value; },
-			(data) => (data as FormPlace)?.Description) {
-				Prompt = "Description",
-				Description = "Short description of the place."
-				},
-		new FrameFile ("AvatarFile"){
-			FileType = "ImageFileType",
-			Prompt = "Avatar",
-			Description = "Icon representing the place.",
-			Get = (data) => (data as FormPlace)?.AvatarFile ,
-			Set = (data, value) => {(data as FormPlace)!.AvatarFile = value as BackingTypeFile; }},
-		new FrameFile ("BannerFile"){
-			FileType = "ImageFileType",
-			Prompt = "Banner",
-			Description = "Background image for the main page.",
-			Get = (data) => (data as FormPlace)?.BannerFile ,
-			Set = (data, value) => {(data as FormPlace)!.BannerFile = value as BackingTypeFile; }}
-				]){
-			Get = (data) => (data as NewPlacePage)?.Form ,
-			Set = (data, value) => {(data as NewPlacePage)!.Form = value as FormPlace; }}
+		new FrameDiv ("Main") { Fields = [
+
+        		new FrameRefForm<FormPlace> ("Form","FormPlace", [
+        		new FrameString ("DNS",
+        			(data, value) => {(data as FormPlace)!.DNS = value; },
+        			(data) => (data as FormPlace)?.DNS) {
+        				Prompt = "DNS Address",
+        				Description = "Can be any DNS name that is resolved to the service."
+        				},
+        		new FrameString ("Title",
+        			(data, value) => {(data as FormPlace)!.Title = value; },
+        			(data) => (data as FormPlace)?.Title) {
+        				Prompt = "Name",
+        				Description = "The title the place will be known by."
+        				},
+        		new FrameText ("Description",
+        			(data, value) => {(data as FormPlace)!.Description = value; },
+        			(data) => (data as FormPlace)?.Description) {
+        				Prompt = "Description",
+        				Description = "Short description of the place."
+        				},
+        		new FrameFile ("AvatarFile"){
+        			FileType = "ImageFileType",
+        			Prompt = "Avatar",
+        			Description = "Icon representing the place.",
+        			Get = (data) => (data as FormPlace)?.AvatarFile ,
+        			Set = (data, value) => {(data as FormPlace)!.AvatarFile = value as BackingTypeFile; }},
+        		new FrameFile ("BannerFile"){
+        			FileType = "ImageFileType",
+        			Prompt = "Banner",
+        			Description = "Background image for the main page.",
+        			Get = (data) => (data as FormPlace)?.BannerFile ,
+        			Set = (data, value) => {(data as FormPlace)!.BannerFile = value as BackingTypeFile; }}
+        				]){
+        			Get = (data) => (data as NewPlacePage)?.Form ,
+        			Set = (data, value) => {(data as NewPlacePage)!.Form = value as FormPlace; }}
+				]
+			}
 		];
 
 
@@ -1736,27 +1758,33 @@ public partial class YourPlacePageCreate : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Coming soon"		    ]},
-        		new FrameBlock ("P2") {Tag = "p", Text=[
-        			"The goal of Places is to provide people with a place they can create",
-        			"a personal feed posting longer articles than will fit into the 300 ",
-        			"characters allowed in BlueSky Skeet."		    ]},
-        		new FrameBlock ("P3") {Tag = "p", Text=[
-        			"Since I am entirely self-funded, I won\'t be able to support an unlimited ",
-        			"number of unlimited free accounts but I can support at least a million",
-        			"free limited accounts with the current setup. Rather than take advertising,",
-        			"I plan to adopt a freemium model to support build out of the platform if",
-        			"that becomes necessary. Limited accounts should be available for free."		    ]},
-        		new FrameBlock ("P4") {Tag = "p", Text=[
-        			"Alternatively, if you have the necessary technical know how to set up",
-        			"an Internet service, you can run your own places server. I will be making",
-        			"How to tutorials in due course."		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Coming soon"		    ]},
+                		new FrameBlock ("P2") {Tag = "p", Text=[
+                			"The goal of Places is to provide people with a place they can create",
+                			"a personal feed posting longer articles than will fit into the 300 ",
+                			"characters allowed in BlueSky Skeet."		    ]},
+                		new FrameBlock ("P3") {Tag = "p", Text=[
+                			"Since I am entirely self-funded, I won\'t be able to support an unlimited ",
+                			"number of unlimited free accounts but I can support at least a million",
+                			"free limited accounts with the current setup. Rather than take advertising,",
+                			"I plan to adopt a freemium model to support build out of the platform if",
+                			"that becomes necessary. Limited accounts should be available for free."		    ]},
+                		new FrameBlock ("P4") {Tag = "p", Text=[
+                			"Alternatively, if you have the necessary technical know how to set up",
+                			"an Internet service, you can run your own places server. I will be making",
+                			"How to tutorials in due course."		    ]}
+        				]
+        			}
 				]
 			}
 		];
@@ -1798,13 +1826,19 @@ public partial class Help : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Should probably add some help information at some point."		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Should probably add some help information at some point."		    ]}
+        				]
+        			}
 				]
 			}
 		];
@@ -1846,54 +1880,60 @@ public partial class TermsOfService : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Places is an anti-censorhip platform but it is my anti-censorship platform",
-        			"and content posted must be in accordance with the following rules."		    ]},
-        		new FrameBlock ("P2") {Tag = "h1", Text=[
-        			"Rule 0: Do not make us create any new rules."		    ]},
-        		new FrameBlock ("P3") {Tag = "h1", Text=[
-        			"Rule 1: No illegal content."		    ]},
-        		new FrameBlock ("P4") {Tag = "p", Text=[
-        			"If you post illegal content of any type and it is reported, I will forward ",
-        			"it to the police without hesitation. "		    ]},
-        		new FrameBlock ("P5") {Tag = "h1", Text=[
-        			"Rule 2: No despicable content"		    ]},
-        		new FrameBlock ("P6") {Tag = "p", Text=[
-        			"I reserve the right to delete any material I find to be despicable including",
-        			"material that is racist, homophobic, transphobic antisemitic or bigoted in",
-        			"any way. I am proud to be woke and I am paying to support this platform."		    ]},
-        		new FrameBlock ("P7") {Tag = "h1", Text=[
-        			"Rule 3: No comment spam"		    ]},
-        		new FrameBlock ("P8") {Tag = "p", Text=[
-        			"You are entitled to your opinions, you are entitled to publish them. You are",
-        			"not entitled to force anyone else to read them."		    ]},
-        		new FrameBlock ("P7") {Tag = "h1", Text=[
-        			"Rule 4: No bullying or harrassment"		    ]},
-        		new FrameBlock ("P8") {Tag = "p", Text=[
-        			"Other people are entitled to their opinions and to comment provided that they",
-        			"don\'t breach the rules above. You are not entitled to suppress their views",
-        			"with threatening or derrogatory language."		    ]},
-        		new FrameBlock ("P9") {Tag = "h1", Text=[
-        			"Rule 5: Copyright"		    ]},
-        		new FrameBlock ("P10") {Tag = "p", Text=[
-        			"You agree that you will only post/upload content which you are entitled",
-        			"to publish here and that the site may publish it and make such uses of the",
-        			"content as is usual for social media sites including testing."		    ]},
-        		new FrameBlock ("P11") {Tag = "p", Text=[
-        			"Site agrees that its use of the content published will be limited to those",
-        			"uses normal for social media. But you acknowledge that the site has no control",
-        			"over the use of any published material by third parties."		    ]},
-        		new FrameBlock ("P12") {Tag = "h1", Text=[
-        			"Rule 6: Indemnity"		    ]},
-        		new FrameBlock ("P13") {Tag = "p", Text=[
-        			"By using this site, you acknowledge that it is experimental and that no",
-        			"warranty of fitness for any purpose is given or implied. Content may disappear",
-        			"at any time, as may the entire service. "		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Places is an anti-censorhip platform but it is my anti-censorship platform",
+                			"and content posted must be in accordance with the following rules."		    ]},
+                		new FrameBlock ("P2") {Tag = "h1", Text=[
+                			"Rule 0: Do not make us create any new rules."		    ]},
+                		new FrameBlock ("P3") {Tag = "h1", Text=[
+                			"Rule 1: No illegal content."		    ]},
+                		new FrameBlock ("P4") {Tag = "p", Text=[
+                			"If you post illegal content of any type and it is reported, I will forward ",
+                			"it to the police without hesitation. "		    ]},
+                		new FrameBlock ("P5") {Tag = "h1", Text=[
+                			"Rule 2: No despicable content"		    ]},
+                		new FrameBlock ("P6") {Tag = "p", Text=[
+                			"I reserve the right to delete any material I find to be despicable including",
+                			"material that is racist, homophobic, transphobic antisemitic or bigoted in",
+                			"any way. I am proud to be woke and I am paying to support this platform."		    ]},
+                		new FrameBlock ("P7") {Tag = "h1", Text=[
+                			"Rule 3: No comment spam"		    ]},
+                		new FrameBlock ("P8") {Tag = "p", Text=[
+                			"You are entitled to your opinions, you are entitled to publish them. You are",
+                			"not entitled to force anyone else to read them."		    ]},
+                		new FrameBlock ("P7") {Tag = "h1", Text=[
+                			"Rule 4: No bullying or harrassment"		    ]},
+                		new FrameBlock ("P8") {Tag = "p", Text=[
+                			"Other people are entitled to their opinions and to comment provided that they",
+                			"don\'t breach the rules above. You are not entitled to suppress their views",
+                			"with threatening or derrogatory language."		    ]},
+                		new FrameBlock ("P9") {Tag = "h1", Text=[
+                			"Rule 5: Copyright"		    ]},
+                		new FrameBlock ("P10") {Tag = "p", Text=[
+                			"You agree that you will only post/upload content which you are entitled",
+                			"to publish here and that the site may publish it and make such uses of the",
+                			"content as is usual for social media sites including testing."		    ]},
+                		new FrameBlock ("P11") {Tag = "p", Text=[
+                			"Site agrees that its use of the content published will be limited to those",
+                			"uses normal for social media. But you acknowledge that the site has no control",
+                			"over the use of any published material by third parties."		    ]},
+                		new FrameBlock ("P12") {Tag = "h1", Text=[
+                			"Rule 6: Indemnity"		    ]},
+                		new FrameBlock ("P13") {Tag = "p", Text=[
+                			"By using this site, you acknowledge that it is experimental and that no",
+                			"warranty of fitness for any purpose is given or implied. Content may disappear",
+                			"at any time, as may the entire service. "		    ]}
+        				]
+        			}
 				]
 			}
 		];
@@ -1935,16 +1975,22 @@ public partial class PrivacyPolicy : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Places is built on the Mathematical Mesh, a cryptograpghic infrastructure",
-        			"designed to protect privacy to the maximum extent possible using open",
-        			"technology. It is however an experimental system and most of the protections",
-        			"afforded by the platform are not yet supported in the production system."		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Places is built on the Mathematical Mesh, a cryptograpghic infrastructure",
+                			"designed to protect privacy to the maximum extent possible using open",
+                			"technology. It is however an experimental system and most of the protections",
+                			"afforded by the platform are not yet supported in the production system."		    ]}
+        				]
+        			}
 				]
 			}
 		];
@@ -1986,21 +2032,27 @@ public partial class Contributors : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Places was designed and implemented by Phillip Hallam-Baker"		    ]},
-        		new FrameBlock ("P2") {Tag = "p", Text=[
-        			"The platform and support libraries were developed using Visual Studio Community and",
-        			"DotNet 11.0. Domain Specific Languages implemented using the Goedel ",
-        			"metasynthesis tool were used to convert specifications to code and",
-        			"documentation. The principal target language is C# 14. The source code",
-        			"is hosted on <a href=\"https://github.com/hallambaker/Palimpsest\">GitHub</a>."		    ]},
-        		new FrameBlock ("P3") {Tag = "p", Text=[
-        			"Icons from the free collection of <a href=\"https://fontawesome.com/\">Font Awesome</a>."		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Places was designed and implemented by Phillip Hallam-Baker"		    ]},
+                		new FrameBlock ("P2") {Tag = "p", Text=[
+                			"The platform and support libraries were developed using Visual Studio Community and",
+                			"DotNet 11.0. Domain Specific Languages implemented using the Goedel ",
+                			"metasynthesis tool were used to convert specifications to code and",
+                			"documentation. The principal target language is C# 14. The source code",
+                			"is hosted on <a href=\"https://github.com/hallambaker/Palimpsest\">GitHub</a>."		    ]},
+                		new FrameBlock ("P3") {Tag = "p", Text=[
+                			"Icons from the free collection of <a href=\"https://fontawesome.com/\">Font Awesome</a>."		    ]}
+        				]
+        			}
 				]
 			}
 		];
@@ -2042,13 +2094,19 @@ public partial class Status : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"System status panel, TBS."		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"System status panel, TBS."		    ]}
+        				]
+        			}
 				]
 			}
 		];
@@ -2090,13 +2148,19 @@ public partial class SystemLog : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Record of major system changes TBS"		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Record of major system changes TBS"		    ]}
+        				]
+        			}
 				]
 			}
 		];
@@ -2138,20 +2202,26 @@ public partial class Repository : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("SupportNav","SupportMenu"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"The source code for the Places server is hosted on ",
-        			"<a href=\"https://github.com/hallambaker/Palimpsest\">GitHub Palimpsest</a>."		    ]},
-        		new FrameBlock ("P2") {Tag = "p", Text=[
-        			"The support libraries used by Places are part of the ",
-        			"Mathematical Mesh hosted at <a href=\"https://github.com/hallambaker/Mathematical-Mesh\">GitHub Mathematical Mesh</a>."		    ]},
-        		new FrameBlock ("P3") {Tag = "p", Text=[
-        			"The domain specific languages used in Places and the Mesh are",
-        			"hosted at <a href=\"https://github.com/hallambaker/Mathematical-Mesh\">GitHub Build Tools</a>."		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"The source code for the Places server is hosted on ",
+                			"<a href=\"https://github.com/hallambaker/Palimpsest\">GitHub Palimpsest</a>."		    ]},
+                		new FrameBlock ("P2") {Tag = "p", Text=[
+                			"The support libraries used by Places are part of the ",
+                			"Mathematical Mesh hosted at <a href=\"https://github.com/hallambaker/Mathematical-Mesh\">GitHub Mathematical Mesh</a>."		    ]},
+                		new FrameBlock ("P3") {Tag = "p", Text=[
+                			"The domain specific languages used in Places and the Mesh are",
+                			"hosted at <a href=\"https://github.com/hallambaker/Mathematical-Mesh\">GitHub Build Tools</a>."		    ]}
+        				]
+        			}
 				]
 			}
 		];

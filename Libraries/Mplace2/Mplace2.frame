@@ -206,19 +206,19 @@ Namespace Mplace2.Gui
     SwitchPage Page "Change Account"
         SwitchPage Container
         Navigation Is MainNav
+        Main Div
+            SignOutDiv Div
+                SignOutTitle H2
+                    |Sign out this account.
+            SignOut Form SignOut
 
-        SignOutDiv Div
-            SignOutTitle H2
-                |Sign out this account.
-        SignOut Form SignOut
-
-        SwitchDiv Div
-            SwitchTitle H2
-                |Switch to a different @nywhere account
-        Form Form HandleInput
-            DNS String
-                Prompt "@nywhere handle"
-                Description "The handle you use to log in to Blue Sky etc."
+            SwitchDiv Div
+                SwitchTitle H2
+                    |Switch to a different @nywhere account
+            Form Form HandleInput
+                DNS String
+                    Prompt "@nywhere handle"
+                    Description "The handle you use to log in to Blue Sky etc."
 
 
     // The data entry pages
@@ -226,118 +226,124 @@ Namespace Mplace2.Gui
     CreateFeed Page "Create New Post"
         EntryPage Container
         Navigation Is MainNav
+        Main Div
 
-        CreateFeedAction Form Feed                 
-            Title String                // Post Title
-                Prompt "Title"
-                Description "Title, should be short."
-            Description Text                 // Short text
-                Prompt "Description"
-                Description "Feed description"
-            AllowPosts Boolean
-                Prompt "Allow text posts"
-                Description "Allow text posts in the feed."
-            AllowImages Boolean
-                Prompt "Allow images"
-                Description "Allow images in the feed."
-            AllowShort Boolean
-                Prompt "Allow short videos"
-                Description "Allow short videos in the feed."
-            AllowVideo Boolean
-                Prompt "Allow video"
-                Description "Allow longer videos in the feed."
+            CreateFeedAction Form Feed                 
+                Title String                // Post Title
+                    Prompt "Title"
+                    Description "Title, should be short."
+                Description Text                 // Short text
+                    Prompt "Description"
+                    Description "Feed description"
+                AllowPosts Boolean
+                    Prompt "Allow text posts"
+                    Description "Allow text posts in the feed."
+                AllowImages Boolean
+                    Prompt "Allow images"
+                    Description "Allow images in the feed."
+                AllowShort Boolean
+                    Prompt "Allow short videos"
+                    Description "Allow short videos in the feed."
+                AllowVideo Boolean
+                    Prompt "Allow video"
+                    Description "Allow longer videos in the feed."
 
     DeleteFeedPage Page "Delete Feed"
 
     CreatePost Page "Create New Post"
         EntryPage Container
         Navigation Is MainNav
+        Main Div
 
-        CreatePostAction Form Post      // Post entry form, i.e. Quill
-            FeedId String
-                Hidden
+            CreatePostAction Form Post      // Post entry form, i.e. Quill
+                FeedId String
+                    Hidden
+                PostTitle String                // Post Title
+                    Prompt "Title"
+                    Description "Title, should be short."
+                Summary Text                 // Short text
+                    Prompt "Summary"
+                    Description "Short summary of the post to be used in lists of posts or to crosspost to other media"
+                Body RichText
+                    Prompt "Body"
+                    Description "What you want to say!"
+
+            Crosspost List Provider         // Crossposting targets
+    
+    DeletePostPage Page "Delete Post"
+        DeletePostPage Container
+        Navigation Is MainNav
+        Main Div
             PostTitle String                // Post Title
                 Prompt "Title"
                 Description "Title, should be short."
             Summary Text                 // Short text
                 Prompt "Summary"
                 Description "Short summary of the post to be used in lists of posts or to crosspost to other media"
-            Body RichText
-                Prompt "Body"
-                Description "What you want to say!"
 
-        Crosspost List Provider         // Crossposting targets
-    
-    DeletePostPage Page "Delete Post"
-        DeletePostPage Container
-        Navigation Is MainNav
-        PostTitle String                // Post Title
-            Prompt "Title"
-            Description "Title, should be short."
-        Summary Text                 // Short text
-            Prompt "Summary"
-            Description "Short summary of the post to be used in lists of posts or to crosspost to other media"
-
-        Form Form DeletePost              // Comment entry form
-            FeedId String
-                Hidden
-            PostId String
-                Hidden
+            Form Form DeletePost              // Comment entry form
+                FeedId String
+                    Hidden
+                PostId String
+                    Hidden
 
 
     
     CreateComment Page "Create Comment"
         EntryPage Container
         Navigation Is MainNav
+        Main Div
 
-        Target Is Comment               // Comment being responded to
-        Form Form Comment               // Comment entry form
-            FeedId String
-                Hidden
-            PostId String
-                Hidden
-            CommentId String
-                Hidden
-            CommentText Text
-                Prompt "Text"
+            Target Is Comment               // Comment being responded to
+            Form Form Comment               // Comment entry form
+                FeedId String
+                    Hidden
+                PostId String
+                    Hidden
+                CommentId String
+                    Hidden
+                CommentText Text
+                    Prompt "Text"
 
     DeleteCommentPage Page "Delete Comment"
 
         DeleteCommentPage Container
         Navigation Is MainNav
-        Text Text
-            Prompt "Text"
+        Main Div
+            Text Text
+                Prompt "Text"
 
-        Form Form DeleteComment              // Comment entry form
-            FeedId String
-                Hidden
-            PostId String
-                Hidden
-            CommentId String
-                Hidden
+            Form Form DeleteComment              // Comment entry form
+                FeedId String
+                    Hidden
+                PostId String
+                    Hidden
+                CommentId String
+                    Hidden
 
 
     NewPlacePage Page "Create New Place"
         EntryPage Container
         Navigation Is MainNav
-        Form Form FormPlace
-            DNS String
-                Prompt "DNS Address"
-                Description "Can be any DNS name that is resolved to the service."
-            Title String
-                Prompt "Name"
-                Description "The title the place will be known by."
-            Description Text 
-                Prompt "Description"
-                Description "Short description of the place."
-            AvatarFile File
-                Prompt "Avatar"
-                Description "Icon representing the place."
-                FileType ImageFileType
-            BannerFile File
-                Prompt "Banner"
-                Description "Background image for the main page."
-                FileType ImageFileType
+        Main Div
+            Form Form FormPlace
+                DNS String
+                    Prompt "DNS Address"
+                    Description "Can be any DNS name that is resolved to the service."
+                Title String
+                    Prompt "Name"
+                    Description "The title the place will be known by."
+                Description Text 
+                    Prompt "Description"
+                    Description "Short description of the place."
+                AvatarFile File
+                    Prompt "Avatar"
+                    Description "Icon representing the place."
+                    FileType ImageFileType
+                BannerFile File
+                    Prompt "Banner"
+                    Description "Background image for the main page."
+                    FileType ImageFileType
     DeletePlace Page "Delete Place"
 
     FormPlace SubClass Place
@@ -355,23 +361,24 @@ Namespace Mplace2.Gui
     YourPlacePageCreate Page "Create Your Personal Place"
         FlowPage Container
         Navigation Is MainNav
-        Explanation Div
-            P1 P
-                |Coming soon
-            P2 P
-                |The goal of Places is to provide people with a place they can create
-                |a personal feed posting longer articles than will fit into the 300 
-                |characters allowed in BlueSky Skeet.
-            P3 P
-                |Since I am entirely self-funded, I won't be able to support an unlimited 
-                |number of unlimited free accounts but I can support at least a million
-                |free limited accounts with the current setup. Rather than take advertising,
-                |I plan to adopt a freemium model to support build out of the platform if
-                |that becomes necessary. Limited accounts should be available for free.
-            P4 P
-                |Alternatively, if you have the necessary technical know how to set up
-                |an Internet service, you can run your own places server. I will be making
-                |How to tutorials in due course.
+        Main Div
+            Explanation Div
+                P1 P
+                    |Coming soon
+                P2 P
+                    |The goal of Places is to provide people with a place they can create
+                    |a personal feed posting longer articles than will fit into the 300 
+                    |characters allowed in BlueSky Skeet.
+                P3 P
+                    |Since I am entirely self-funded, I won't be able to support an unlimited 
+                    |number of unlimited free accounts but I can support at least a million
+                    |free limited accounts with the current setup. Rather than take advertising,
+                    |I plan to adopt a freemium model to support build out of the platform if
+                    |that becomes necessary. Limited accounts should be available for free.
+                P4 P
+                    |Alternatively, if you have the necessary technical know how to set up
+                    |an Internet service, you can run your own places server. I will be making
+                    |How to tutorials in due course.
 
 
 
@@ -387,57 +394,59 @@ Namespace Mplace2.Gui
     Help Page "Help"
         Support Container
         SupportNav Is SupportMenu
-        Explanation Div
-            P1 P
-                |Should probably add some help information at some point.
+        Main Div
+            Explanation Div
+                P1 P
+                    |Should probably add some help information at some point.
 
     TermsOfService Page "Terms of Service"
         Support Container
         SupportNav Is SupportMenu
-        Explanation Div
-            P1 P
-                |Places is an anti-censorhip platform but it is my anti-censorship platform
-                |and content posted must be in accordance with the following rules.
-            P2 H1
-                |Rule 0: Do not make us create any new rules.
-            P3 H1
-                |Rule 1: No illegal content.
-            P4 P
-                |If you post illegal content of any type and it is reported, I will forward 
-                |it to the police without hesitation. 
-            P5 H1
-                |Rule 2: No despicable content
-            P6 P
-                |I reserve the right to delete any material I find to be despicable including
-                |material that is racist, homophobic, transphobic antisemitic or bigoted in
-                |any way. I am proud to be woke and I am paying to support this platform.
-            P7 H1
-                |Rule 3: No comment spam
-            P8 P
-                |You are entitled to your opinions, you are entitled to publish them. You are
-                |not entitled to force anyone else to read them.
-            P7 H1
-                |Rule 4: No bullying or harrassment
-            P8 P
-                |Other people are entitled to their opinions and to comment provided that they
-                |don't breach the rules above. You are not entitled to suppress their views
-                |with threatening or derrogatory language.
-            P9 H1
-                |Rule 5: Copyright
-            P10 P
-                |You agree that you will only post/upload content which you are entitled
-                |to publish here and that the site may publish it and make such uses of the
-                |content as is usual for social media sites including testing.
-            P11 P
-                |Site agrees that its use of the content published will be limited to those
-                |uses normal for social media. But you acknowledge that the site has no control
-                |over the use of any published material by third parties.
-            P12 H1
-                |Rule 6: Indemnity
-            P13 P
-                |By using this site, you acknowledge that it is experimental and that no
-                |warranty of fitness for any purpose is given or implied. Content may disappear
-                |at any time, as may the entire service. 
+        Main Div
+            Explanation Div
+                P1 P
+                    |Places is an anti-censorhip platform but it is my anti-censorship platform
+                    |and content posted must be in accordance with the following rules.
+                P2 H1
+                    |Rule 0: Do not make us create any new rules.
+                P3 H1
+                    |Rule 1: No illegal content.
+                P4 P
+                    |If you post illegal content of any type and it is reported, I will forward 
+                    |it to the police without hesitation. 
+                P5 H1
+                    |Rule 2: No despicable content
+                P6 P
+                    |I reserve the right to delete any material I find to be despicable including
+                    |material that is racist, homophobic, transphobic antisemitic or bigoted in
+                    |any way. I am proud to be woke and I am paying to support this platform.
+                P7 H1
+                    |Rule 3: No comment spam
+                P8 P
+                    |You are entitled to your opinions, you are entitled to publish them. You are
+                    |not entitled to force anyone else to read them.
+                P7 H1
+                    |Rule 4: No bullying or harrassment
+                P8 P
+                    |Other people are entitled to their opinions and to comment provided that they
+                    |don't breach the rules above. You are not entitled to suppress their views
+                    |with threatening or derrogatory language.
+                P9 H1
+                    |Rule 5: Copyright
+                P10 P
+                    |You agree that you will only post/upload content which you are entitled
+                    |to publish here and that the site may publish it and make such uses of the
+                    |content as is usual for social media sites including testing.
+                P11 P
+                    |Site agrees that its use of the content published will be limited to those
+                    |uses normal for social media. But you acknowledge that the site has no control
+                    |over the use of any published material by third parties.
+                P12 H1
+                    |Rule 6: Indemnity
+                P13 P
+                    |By using this site, you acknowledge that it is experimental and that no
+                    |warranty of fitness for any purpose is given or implied. Content may disappear
+                    |at any time, as may the entire service. 
 
 
 
@@ -446,56 +455,61 @@ Namespace Mplace2.Gui
     PrivacyPolicy Page "Privacy Policy"
         Support Container
         SupportNav Is SupportMenu
-        Explanation Div
-            P1 P
-                |Places is built on the Mathematical Mesh, a cryptograpghic infrastructure
-                |designed to protect privacy to the maximum extent possible using open
-                |technology. It is however an experimental system and most of the protections
-                |afforded by the platform are not yet supported in the production system.
+        Main Div
+            Explanation Div
+                P1 P
+                    |Places is built on the Mathematical Mesh, a cryptograpghic infrastructure
+                    |designed to protect privacy to the maximum extent possible using open
+                    |technology. It is however an experimental system and most of the protections
+                    |afforded by the platform are not yet supported in the production system.
 
 
     Contributors Page "Contributors"
         Support Container
         SupportNav Is SupportMenu
-        Explanation Div
-            P1 P
-                |Places was designed and implemented by Phillip Hallam-Baker
-            P2 P
-                |The platform and support libraries were developed using Visual Studio Community and
-                |DotNet 11.0. Domain Specific Languages implemented using the Goedel 
-                |metasynthesis tool were used to convert specifications to code and
-                |documentation. The principal target language is C# 14. The source code
-                |is hosted on <a href="https://github.com/hallambaker/Palimpsest">GitHub</a>.
-            P3 P
-                |Icons from the free collection of <a href="https://fontawesome.com/">Font Awesome</a>.
+        Main Div
+            Explanation Div
+                P1 P
+                    |Places was designed and implemented by Phillip Hallam-Baker
+                P2 P
+                    |The platform and support libraries were developed using Visual Studio Community and
+                    |DotNet 11.0. Domain Specific Languages implemented using the Goedel 
+                    |metasynthesis tool were used to convert specifications to code and
+                    |documentation. The principal target language is C# 14. The source code
+                    |is hosted on <a href="https://github.com/hallambaker/Palimpsest">GitHub</a>.
+                P3 P
+                    |Icons from the free collection of <a href="https://fontawesome.com/">Font Awesome</a>.
 
     Status Page "System Status"
         Support Container
         SupportNav Is SupportMenu
-        Explanation Div
-            P1 P
-                |System status panel, TBS.
+        Main Div
+            Explanation Div
+                P1 P
+                    |System status panel, TBS.
 
     SystemLog Page "System Log"
         Support Container
         SupportNav Is SupportMenu
-        Explanation Div
-            P1 P
-                |Record of major system changes TBS
+        Main Div
+            Explanation Div
+                P1 P
+                    |Record of major system changes TBS
 
     Repository Page "Source Code Repository"
         Support Container
         SupportNav Is SupportMenu
-        Explanation Div
-            P1 P
-                |The source code for the Places server is hosted on 
-                |<a href="https://github.com/hallambaker/Palimpsest">GitHub Palimpsest</a>.
-            P2 P
-                |The support libraries used by Places are part of the 
-                |Mathematical Mesh hosted at <a href="https://github.com/hallambaker/Mathematical-Mesh">GitHub Mathematical Mesh</a>.
-            P3 P
-                |The domain specific languages used in Places and the Mesh are
-                |hosted at <a href="https://github.com/hallambaker/Mathematical-Mesh">GitHub Build Tools</a>.
+        Main Div
+            Explanation Div
+                P1 P
+                    |The source code for the Places server is hosted on 
+                    |<a href="https://github.com/hallambaker/Palimpsest">GitHub Palimpsest</a>.
+                P2 P
+                    |The support libraries used by Places are part of the 
+                    |Mathematical Mesh hosted at <a href="https://github.com/hallambaker/Mathematical-Mesh">GitHub Mathematical Mesh</a>.
+                P3 P
+                    |The domain specific languages used in Places and the Mesh are
+                    |hosted at <a href="https://github.com/hallambaker/Mathematical-Mesh">GitHub Build Tools</a>.
 
     Handle Class
         Fields

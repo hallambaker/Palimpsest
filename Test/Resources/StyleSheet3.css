@@ -158,7 +158,7 @@ body {
     background-color: white;
 }
 
-.Main {
+#Main {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -217,6 +217,12 @@ img.Avatar {
     height: var(--size-icon);
     width: var(--size-icon);
 }
+
+
+.InputLabel {
+    font-weight: normal;
+}
+
 
 /* Grid to display a Place entry */
 
