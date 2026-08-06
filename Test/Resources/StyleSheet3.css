@@ -59,6 +59,16 @@ body {
 #OpenNav {
     float: left;
     display: var(--hamburger-display);
+
+}
+
+#CloseNav {
+    float: left;
+    display: var(--hamburger-display);
+    float: right;
+    height: 30px;
+    margin: 5px;
+    align-content: center;
 }
 
 /* Styling for Navigation buttons */
@@ -178,22 +188,24 @@ body {
 
 }
 
-
-
+.Settings .closeNav {
+    display: none;
+    
+}
 
 .Desktop #Navigation {
     display: var(--navigation-display);
     height: 100%;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: var(--left-offset);
     width: var(--left-wide);
-    /*background-color: lightblue;*/
     overflow-x: hidden;
-    border-right: var(--border);
+
     padding: var(--main-pad);
     position: sticky;
+    background-color: white;
 }
 
 
@@ -205,7 +217,6 @@ body {
     top: 0;
     left: var(--left-offset);
     width: var(--left-wide);
-    background-color: lightblue;
     overflow-x: hidden;
     border-right: var(--border);
     padding: var(--main-pad);
@@ -216,7 +227,6 @@ body {
     font-weight: bold;
     position: fixed;
     padding: var(--main-pad);
-    /*background-color: lightcoral;*/
     left: var(--right-offset);
     width: var(--right-wide);
     text-align: center;
@@ -226,6 +236,9 @@ body {
     border-bottom: var(--border);
     padding-top: 0;
     padding-bottom: 0;
+    border-left: var(--border);
+    z-index: 1;
+    background-color: white;
 }
 
 
@@ -233,12 +246,18 @@ body {
     position: fixed;
     margin-left: var(--right-offset);
     width: var(--right-wide);
-    /*background-color: lightgreen;*/
     padding: var(--main-pad);
-    top: var(--header-height);
-    height: 100%;
-    overflow-y: auto;
+    top:0;
+    /*padding-top: var(--header-height);*/
+    height: 100vh;
+    overflow-y: scroll;
     flex-grow: 1;
+    border-left: var(--border);
+}
+
+#Main::after {
+    content: '';
+    height: 150px;
 }
 
 
@@ -269,6 +288,7 @@ img.Avatar {
 .PlaceReference {
     display: grid;
     grid-template-areas:
+        "Divider Divider"
         "Avatar Banner"
         "Blank Title"
         "Blank Body";
@@ -277,6 +297,20 @@ img.Avatar {
     grid-template-columns: 48px;
     padding-top: 10px;
     padding-bottom: 5px;
+}
+
+
+.Entries > .PlaceReference::before {
+    grid-area: Divider;
+    position: relative;
+    content: '';
+    top: 0;
+    display: block;
+    left: 5%;
+    width: 90%; /* Adjust the width for partial effect */
+    height: 2px; /* Thickness of the border */
+    background-color: LightGray; /* Border color */
+    margin-bottom: 10px;
 }
 
 
@@ -356,7 +390,6 @@ img.Avatar {
     }
 
     .PostSummary > section.Body {
-        /*background-color: lightcoral;*/
         grid-area: Body;
 
     }
@@ -467,17 +500,10 @@ img.Avatar {
     }
 
 form {
-    /*display: flex;*/
-    /*flex-direction: column;*/
     text-align: left;
     align-content:end;
-/*    align-items: flex-start;*/
     overflow-y: auto;
 }
-
-/*.CreatePostAction {
-    display: inline;
-}*/
 
 .InputLabel {
     display: inline-block;

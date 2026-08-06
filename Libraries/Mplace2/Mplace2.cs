@@ -1892,31 +1892,31 @@ public partial class TermsOfService : FramePage {
                 		new FrameBlock ("P1") {Tag = "p", Text=[
                 			"Places is an anti-censorhip platform but it is my anti-censorship platform",
                 			"and content posted must be in accordance with the following rules."		    ]},
-                		new FrameBlock ("P2") {Tag = "h1", Text=[
+                		new FrameBlock ("P2") {Tag = "h2", Text=[
                 			"Rule 0: Do not make us create any new rules."		    ]},
-                		new FrameBlock ("P3") {Tag = "h1", Text=[
+                		new FrameBlock ("P3") {Tag = "h2", Text=[
                 			"Rule 1: No illegal content."		    ]},
                 		new FrameBlock ("P4") {Tag = "p", Text=[
                 			"If you post illegal content of any type and it is reported, I will forward ",
                 			"it to the police without hesitation. "		    ]},
-                		new FrameBlock ("P5") {Tag = "h1", Text=[
+                		new FrameBlock ("P5") {Tag = "h2", Text=[
                 			"Rule 2: No despicable content"		    ]},
                 		new FrameBlock ("P6") {Tag = "p", Text=[
                 			"I reserve the right to delete any material I find to be despicable including",
                 			"material that is racist, homophobic, transphobic antisemitic or bigoted in",
                 			"any way. I am proud to be woke and I am paying to support this platform."		    ]},
-                		new FrameBlock ("P7") {Tag = "h1", Text=[
+                		new FrameBlock ("P7") {Tag = "h2", Text=[
                 			"Rule 3: No comment spam"		    ]},
                 		new FrameBlock ("P8") {Tag = "p", Text=[
                 			"You are entitled to your opinions, you are entitled to publish them. You are",
                 			"not entitled to force anyone else to read them."		    ]},
-                		new FrameBlock ("P7") {Tag = "h1", Text=[
+                		new FrameBlock ("P7") {Tag = "h2", Text=[
                 			"Rule 4: No bullying or harrassment"		    ]},
                 		new FrameBlock ("P8") {Tag = "p", Text=[
                 			"Other people are entitled to their opinions and to comment provided that they",
                 			"don\'t breach the rules above. You are not entitled to suppress their views",
                 			"with threatening or derrogatory language."		    ]},
-                		new FrameBlock ("P9") {Tag = "h1", Text=[
+                		new FrameBlock ("P9") {Tag = "h2", Text=[
                 			"Rule 5: Copyright"		    ]},
                 		new FrameBlock ("P10") {Tag = "p", Text=[
                 			"You agree that you will only post/upload content which you are entitled",
@@ -1926,7 +1926,7 @@ public partial class TermsOfService : FramePage {
                 			"Site agrees that its use of the content published will be limited to those",
                 			"uses normal for social media. But you acknowledge that the site has no control",
                 			"over the use of any published material by third parties."		    ]},
-                		new FrameBlock ("P12") {Tag = "h1", Text=[
+                		new FrameBlock ("P12") {Tag = "h2", Text=[
                 			"Rule 6: Indemnity"		    ]},
                 		new FrameBlock ("P13") {Tag = "p", Text=[
                 			"By using this site, you acknowledge that it is experimental and that no",

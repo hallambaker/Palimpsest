@@ -8,7 +8,7 @@ const narrowNav = 20 + pad2;
 const formLabels = 100;
 
 var leftOffset, leftWide, rightOffset, rightWide, ppad, ppad2;
-var navigation;
+var navigation, navclose;
 
 function resizeWindow() {
 
@@ -43,11 +43,12 @@ function resizeWindow() {
         // // form = 435;
         // document.documentElement.style.setProperty('--form-labels', labels + 'px');
         // document.documentElement.style.setProperty('--form-input', form+'px');
-
-        document.documentElement.style.setProperty('--button-display', 'block');
-        document.documentElement.style.setProperty('--hamburger-display', 'none');
         leftWide = pwideNav;
         leftOffset = (w - leftWide - rightWide) / 2;
+        rightWide = mainFlow * p;
+        document.documentElement.style.setProperty('--button-display', 'block');
+        document.documentElement.style.setProperty('--hamburger-display', 'none');
+
     }
 
     else if (w > pnarrowNav + rightWide) {
@@ -56,6 +57,7 @@ function resizeWindow() {
 
         leftWide = narrowNav * p;
         leftOffset = (w - leftWide - rightWide) / 2;
+        rightWide = mainFlow * p;
         // document.documentElement.style.setProperty('--form-labels', '30%');
         // document.documentElement.style.setProperty('--form-input', '70%');
         document.documentElement.style.setProperty('--button-display', 'none');
@@ -71,6 +73,7 @@ function resizeWindow() {
         leftOffset = 0;
         rightWide = w;
         document.documentElement.style.setProperty('--navigation-display', 'none');
+        document.documentElement.style.setProperty('--button-display', 'block');
         document.documentElement.style.setProperty('--hamburger-display', 'inline');
         // document.documentElement.style.setProperty('--form-labels', '100%');
         // document.documentElement.style.setProperty('--form-input', '100%');
@@ -153,7 +156,8 @@ function initializeDisplay() {
     document.documentElement.style.setProperty('--window-height', (h-hheight) + 'px');
 
     let hamburger = document.getElementById("OpenNav");
-    hamburger.addEventListener('onclick', openNav);
+    let navclose = document.getElementById("CloseNav");
+    // hamburger.addEventListener('onclick', openNav);
 
 
     // console.log('High ' + hheight);
@@ -177,7 +181,6 @@ function setNavigation() {
     if (navigation == null) {
         navigation = document.getElementById("SupportNav");
     }
-
 }
 
 
@@ -192,6 +195,8 @@ function openNav() {
 }
 
 function closeNav() {
+    console.log('close nav');
+
     setNavigation();
     document.getElementById("Navigation").style.width = "0";
     document.documentElement.style.setProperty('--navigation-display', 'none');
@@ -234,6 +239,10 @@ else {
     // document.getElementById("mobile").innerHTML = "Desktop";
 }
 
+navigation = document.getElementById("Navigation");
+if (navigation == null) {
+    navigation = document.getElementById("SupportNav");
+}
 
 
 initializeDisplay();
