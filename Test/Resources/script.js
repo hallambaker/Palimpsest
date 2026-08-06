@@ -34,56 +34,45 @@ function resizeWindow() {
     // hamburger.setAttribute.style.display = 'none';
 
     if (isMobile()) {
-        // Display width is fixed so will not need to resize.
-    }
-    else if (w > pwideNav + rightWide) {
-        
-        // let labels = formLabels * p;
-        // let form = rightWide - labels- 50;
-        // // form = 435;
-        // document.documentElement.style.setProperty('--form-labels', labels + 'px');
-        // document.documentElement.style.setProperty('--form-input', form+'px');
+
         leftWide = pwideNav;
-        leftOffset = (w - leftWide - rightWide) / 2;
-        rightWide = mainFlow * p;
-        document.documentElement.style.setProperty('--button-display', 'block');
-        document.documentElement.style.setProperty('--hamburger-display', 'none');
-
-    }
-
-    else if (w > pnarrowNav + rightWide) {
-
-        // hamburger.setProperty('display', 'none');
-
-        leftWide = narrowNav * p;
-        leftOffset = (w - leftWide - rightWide) / 2;
-        rightWide = mainFlow * p;
-        // document.documentElement.style.setProperty('--form-labels', '30%');
-        // document.documentElement.style.setProperty('--form-input', '70%');
-        document.documentElement.style.setProperty('--button-display', 'none');
-        document.documentElement.style.setProperty('--navigation-display', 'block');
-        document.documentElement.style.setProperty('--hamburger-display', 'none');
-        // document.documentElement.style.setProperty('--width-navigation', wnav0);
-    }
-    else {
-        // hamburger.setProperty('display', 'none');
-
-
-        leftWide = 0;
         leftOffset = 0;
         rightWide = w;
+        rightOffset = 0;
         document.documentElement.style.setProperty('--navigation-display', 'none');
         document.documentElement.style.setProperty('--button-display', 'block');
         document.documentElement.style.setProperty('--hamburger-display', 'inline');
-        // document.documentElement.style.setProperty('--form-labels', '100%');
-        // document.documentElement.style.setProperty('--form-input', '100%');
+    }
+    else if (w > pwideNav + rightWide) {
+        leftWide = pwideNav;
+        leftOffset = (w - leftWide - rightWide) / 2;
+        rightWide = mainFlow * p;
+        rightOffset = leftOffset + leftWide;
+        document.documentElement.style.setProperty('--button-display', 'block');
+        document.documentElement.style.setProperty('--hamburger-display', 'none');
     }
 
-    rightOffset = leftOffset + leftWide;
+    else if (w > pnarrowNav + rightWide) {
+        leftWide = narrowNav * p;
+        leftOffset = (w - leftWide - rightWide) / 2;
+        rightWide = mainFlow * p;
+        rightOffset = leftOffset + leftWide;
+        document.documentElement.style.setProperty('--button-display', 'none');
+        document.documentElement.style.setProperty('--navigation-display', 'block');
+        document.documentElement.style.setProperty('--hamburger-display', 'none');
+    }
+    else {
+        leftWide = pwideNav;
+        leftOffset = 0;
+        rightWide = w;
+        rightOffset = 0;
+        document.documentElement.style.setProperty('--navigation-display', 'none');
+        document.documentElement.style.setProperty('--button-display', 'block');
+        document.documentElement.style.setProperty('--hamburger-display', 'inline');
+    }
 
-    // console.log('Wide ' + w + ' ' + p)
-    // console.log ('Left '+leftOffset + ' ' + leftWide)
-    // console.log('Right ' + rightOffset + ' ' + rightWide)
+
+
 
     document.documentElement.style.setProperty('--left-offset', leftOffset + 'px');
     document.documentElement.style.setProperty('--left-wide', (leftWide - ppad2) + 'px');
@@ -91,33 +80,36 @@ function resizeWindow() {
     document.documentElement.style.setProperty('--right-wide', (rightWide - ppad2) + 'px');
 }
 
-function setFullMode() {
+// function setFullMode() {
 
-    let w = window.outerWidth;
+//     let w = window.outerWidth;
 
 
 
-    document.documentElement.style.setProperty('--width-navigation', wnav);
-    document.documentElement.style.setProperty('--button-display', 'block');
-}
+//     document.documentElement.style.setProperty('--width-navigation', wnav);
+//     document.documentElement.style.setProperty('--button-display', 'block');
+// }
 
-function setWideMode() {
-    document.documentElement.style.setProperty('--width-navigation', wnav0);
-    document.documentElement.style.setProperty('--button-display', 'none');
-}
+// function setWideMode() {
+//     document.documentElement.style.setProperty('--width-navigation', wnav0);
+//     document.documentElement.style.setProperty('--button-display', 'none');
+// }
 
-function setNarrowMode() {
-    document.documentElement.style.setProperty('--width-navigation', wnav0);
-    document.documentElement.style.setProperty('--button-display', 'none');
-}
+// function setNarrowMode() {
+//     document.documentElement.style.setProperty('--width-navigation', wnav0);
+//     document.documentElement.style.setProperty('--button-display', 'none');
+// }
 
 // document.documentElement.style.setProperty('--color-text', '#e74c3c');
 function initializeDisplay() {
     p = window.devicePixelRatio;
+
+    // p = 3;
     h = window.innerHeight;
     ppad = pad * p;
     ppad2 = pad2 * p;
 
+    pt3 = (3 * p) + "px";
     pt8 = (8 * p) + "px";
     pt10 = (10 * p) + "px";
     pt12 = (12 * p) + "px";
@@ -132,6 +124,12 @@ function initializeDisplay() {
     var hheight = 24 * p ;
 
     hpos = '-' + pt24;
+
+
+    // pt12 = '1em';
+    // pt16 = '1.2em';
+    // pt20 = '1.4em';
+    // pt24 = '1.6em';
 
     document.documentElement.style.setProperty('--pt8', pt8);
     document.documentElement.style.setProperty('--pt10', pt10);
@@ -148,15 +146,33 @@ function initializeDisplay() {
     document.documentElement.style.setProperty('--size-p', pt12);
     document.documentElement.style.setProperty('--size-c', pt8);
 
+
+    document.documentElement.style.setProperty('--size-h1', 'xx-large');
+    document.documentElement.style.setProperty('--size-h2', 'x-large');
+    document.documentElement.style.setProperty('--size-h3', 'large');
+    document.documentElement.style.setProperty('--size-icon', pt12);
+    document.documentElement.style.setProperty('--size-p', 'medium');
+    document.documentElement.style.setProperty('--size-c', 'small');
+
+
     document.documentElement.style.setProperty('--width-navigation', wnav0);
     document.documentElement.style.setProperty('--header-height', hheight + "px");
     // document.documentElement.style.setProperty('--header-height-pad', (hheight + ppad2) + "px");
 
     document.documentElement.style.setProperty('--main-pad', ppad + "px");
-    document.documentElement.style.setProperty('--window-height', (h-hheight) + 'px');
+    document.documentElement.style.setProperty('--window-height', (h - hheight) + 'px');
+
+
+    document.documentElement.style.setProperty('--button-radius', pt3);
+    document.documentElement.style.setProperty('--button-high', 'medium');
 
     let hamburger = document.getElementById("OpenNav");
     let navclose = document.getElementById("CloseNav");
+
+
+
+
+
     // hamburger.addEventListener('onclick', openNav);
 
 
@@ -165,7 +181,7 @@ function initializeDisplay() {
 
 const isMobile = () => {
     // For testing, allow testing of the mobile interaction with destop tools
-    // return true;
+    return true;
 
     // Check if the new API is supported
     if (navigator.userAgentData) {
@@ -190,15 +206,17 @@ function setNavigation() {
 
 function openNav() {
     setNavigation();
+    // document.documentElement.style.setProperty('--color-text', 'blue');
+    // document.documentElement.style.setProperty('--width-navigation', wnav0);
     document.documentElement.style.setProperty('--navigation-display', 'block');
-    document.getElementById("Navigation").style.width = "240px";
+    // document.documentElement.style.setProperty('--left-wide', '600px');
 }
 
 function closeNav() {
     console.log('close nav');
 
     setNavigation();
-    document.getElementById("Navigation").style.width = "0";
+    // document.getElementById("Navigation").style.width = "0";
     document.documentElement.style.setProperty('--navigation-display', 'none');
 }
 
