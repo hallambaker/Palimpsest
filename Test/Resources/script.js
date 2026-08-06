@@ -170,7 +170,7 @@ function initializeDisplay() {
     let navclose = document.getElementById("CloseNav");
 
 
-
+    document.documentElement.style.setProperty('--end-kludge', (p*60) + 'px');
 
 
     // hamburger.addEventListener('onclick', openNav);
