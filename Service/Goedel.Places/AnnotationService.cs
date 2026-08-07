@@ -476,6 +476,7 @@ public partial class AnnotationService : IWebService<ParsedPath> {
 
         // Parse redirect data
         var result = OauthClient.ParseResponse(path.Uri);
+        var response = path.Context.Response;
 
         // If success redirect to preserve state
         if (result is OauthClientResultFail fail) {
@@ -491,6 +492,14 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             throw new NYI();
             }
 
+
+        if (nonceDns.Place.ToLower() != path.Uri.DnsSafeHost.ToLower()) {
+            var redirect2 = $"https://{nonceDns.Place}" + path.Uri.PathAndQuery;
+            response.Redirect(redirect2);
+            response.Close();
+
+            }
+
         Console.WriteLine($"Stuff cookies into {context.Request.UserHostName}");
 
         var member = PersistPlace.GetOrCreateMember(success.Handle, success.DID);
@@ -499,11 +508,11 @@ public partial class AnnotationService : IWebService<ParsedPath> {
             PalimpsestConstants.CookieTypeSessionTag, member?._PrimaryKey);
         context.Response.Cookies.Add(cookie);
 
+        var redirect = $"https://{nonceDns.Place}/";
 
 
 
-        var response = path.Context.Response;
-        response.Redirect ("/");
+        response.Redirect (redirect);
         response.Close();
         }
 

@@ -183,24 +183,24 @@ Namespace Mplace2.Gui
     SignIn Page "Sign In"
         EntryPage Container
         Navigation Is MainNav
+        Main Div
+            Explanation Div
+                P1 P
+                    |Sign in using your BlueSky, Eurosky, BlackSky or other @nywhere account.
+                P2 P
+                    |If you do not have an @nywhere account, you can create one at any of the
+                    |following sites which will allow you to interact with any ATmosphere site.
 
-        Explanation Div
-            P1 P
-                |Sign in using your BlueSky, Eurosky, BlackSky or other @nywhere account.
-            P2 P
-                |If you do not have an @nywhere account, you can create one at any of the
-                |following sites which will allow you to interact with any ATmosphere site.
-
-            Options P
-                |<a href="https://bsky.app/">BlueSky</a>
-                |<a href="https://blacksky.community/">BlackSky</a>
-                |<a href="https://portal.eurosky.tech/create-account">EuroSky</a>
+                Options P
+                    |<a href="https://bsky.app/">BlueSky</a>
+                    |<a href="https://blacksky.community/">BlackSky</a>
+                    |<a href="https://portal.eurosky.tech/create-account">EuroSky</a>
 
 
-        Form Form HandleInput
-            DNS String
-                Prompt "@nywhere handle"
-                Description "The handle you use to log in to Blue Sky etc."
+            Form Form HandleInput
+                DNS String
+                    Prompt "@nywhere handle"
+                    Description "The handle you use to log in to Blue Sky etc."
 
 
     SwitchPage Page "Change Account"

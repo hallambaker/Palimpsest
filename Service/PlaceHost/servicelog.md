@@ -6,158 +6,92 @@ DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
 Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
 ## Begin Pre-Request
 Pre Authorization Request
-Pre Authorization Response
-Redirect Uri
-# Redirect URI
-iss= https://bsky.social
-state= uh5suw_iIT4bXKHZDC-4_On2FombhOqax9ZrdIDND16QhU66EvYuRoPL9qaPXAVT6UYWoKyrRQb5JMl4Wmwml3q83KYudPEelgm0RIfb5B2k2Yi_6X4qN4-EJsdhiqH8KsAz_TGijZFmHCWEf2TzkXAtvpti7w2X-tQ8fPQDW--QmmETO2mkY019JfSD8UuaH9yGo4cO4dfhqwHsEVnqCiyxscKgdPDtfkx742VtJ0rAtldO94vrgXvEx-sEXBw5hpkr-A
-code= cod-218002d6fd5656dd2e87707ff5afb248babe2bab0046df288db42c40946bbaa2
-ker.com
-Resolve Web https://phill.hallambaker.com/.well-known/atproto-did
-DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
-Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
-## Begin Pre-Request
-Pre Authorization Request
-Pre Authorization Response
-Redirect Uri
-6ab68088e36e6b6f6d623d2f81a952a8b44d61
-## Resolve Handle
-Resolve DNS _atproto.phill.hallambaker.com
-Resolve Web https://phill.hallambaker.com/.well-known/atproto-did
-DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
-Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
-## Begin Pre-Request
-Pre Authorization Request
-Pre Authorization Response
-Redirect Uri
-# Redirect URI
-iss= https://bsky.social
-state= yKaYxCFHpJdkjIfFcDOfkoAq3xY3lAs-cFBpKf6TsehkLqL_58uUFlVtSMenLY3tKGJkdyRvlq2Fzk8Qd6kK79PTLbQcBZHBopJasAPrWahuo3-Txt8ktG1kkuHuYPpl1iAMzGdn78aTrRK0H31st-wgV1f8bem_vi09KfTc7RrZG39XB4ld3sfGFSFlUeXZApiZEW7twvv-2jY-WHHDEJPzBdeeV9MeT7CUJLA5h7Hc90ZqMcFbdH1rb2LVgThoCJv0-Q
-code= cod-23191e999ae7c4f24e7258a2bfe16f5d0a84186d67e8de24bb85807fc6485113
-## Resolve Handle
-Resolve DNS _atproto.phill.hallambaker.com
-Resolve Web https://phill.hallambaker.com/.well-known/atproto-did
-DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
-Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
-## Begin Pre-Request
-Pre Authorization Request
-Pre Authorization Response
-Redirect Uri
-# Redirect URI
-iss= https://bsky.social
-state= QIXJtaZIJU87LDFQXsgq-XEFKPk3CqoXWST04nejXXrfZELCRtGMZSp0gubRxUfjHG51aUh2PhlyqRTi8Ud120It-WlSNlGAqmo6O4RK0L2UfiK9BIpBSJ8oDKTrxAnXknoGmZ3miy3klR3kNuqQPuUIBOqd9sU3DHYEC9Dp4N582u-g60hWjk54T6ekrM4I7J910uZmzHXyZUWnhaYDEjR0BSzHDCWLPFnMZ3cnybvB2oLuo8CNuH8xK1KJTG1On474IA
-code= cod-049eb1102c682f189db0495cf772a3008779786ff1696426951e4bfabd261076
-["RS256",
-    "RS384",
-    "RS512",
-    "PS256",
-    "PS384",
-    "PS512",
-    "ES256",
-    "ES256K",
-    "ES384",
-    "ES512"],
-  "revocation_endpoint": "https://bsky.social/oauth/revoke",
-  "introspection_endpoint": "https://bsky.social/oauth/introspect",
-  "pushed_authorization_request_endpoint": "https://bsky.social/oauth/par",
-  "require_pushed_authorization_requests": true,
-  "dpop_signing_alg_values_supported": ["RS256",
-    "RS384",
-    "RS512",
-    "PS256",
-    "PS384",
-    "PS512",
-    "ES256",
-    "ES256K",
-    "ES384",
-    "ES512"],
-  "client_id_metadata_document_supported": true}
-## Begin Pre-Request
-Pre Authorization Request
 {
-  "client_id": "https://mplace2.social/client-metadata.json",
+  "client_id": "https://cryptomesh.org/client-metadata.json",
   "response_type": "code",
-  "code_challenge": "oquOEZsx2z0PGxrZ4qTil3-GVxLooufXuGy-kATs1l8",
+  "code_challenge": "sJBJpJjuhGXAQCxmfGxMNiQiixxvII-4Y4nh5RNqMw8",
   "code_challenge_method": "S256",
-  "state": "GDMcJR4VqtPrOWU-fg3wdtyWzmLOoFyAW5quJWKXBIVsiCD_FAFbXtj-wu5YdtDfOG-9lrTUPWq4tI75Le7jd52bxQokOt-aWygbG_P9vpcLqk7I0bfQhgatT5cYhPZVQeTdlWpcI9Me_z7cDYtJ6rtIcEZueVagoIt9Sx7b19zhnMTt4qqIZqI-y4VHE13PVpiODKSL63fe8Z6VNXzAX08JYroJeeT5I4zownUjZsI-6eAVlt4y5L328_M",
-  "redirect_uri": "https://mplace2.social/Redirect",
+  "state": "wgPUfHbK-QEHzuxmecGPneZyff-L_dljTFuRpyQP3Vk0pEq-ecFmAUl6RJRhILXkVy5aAhSimrh_B9rY_x0_7ChSt6MpQo8McwNRv952-L08McPxZwg-nHUlKmdPVDTv09351zU0IiIiNckAoc6_13pVBqccNnGbE65sWxGavddnnAaNOxIIzxw8fsnwzsz5PmnqdwHxAyN6AbsqhnBWb_z5-nAMv0Gu6k_2tr3Nkb55K8a50aZ0jrLMTohI5OLvM5BlqN1AY9IZR-lVO2N4bWsX1lb7ls13WBModQZRVaARjYaqbpalLg",
+  "redirect_uri": "https://cryptomesh.org/Redirect",
   "scope": "atproto",
   "login_hint": "phill.hallambaker.com"}
 Pre Authorization Response
-{
-  "expires_in": 299,
-  "request_uri": "urn:ietf:params:oauth:request_uri:req-9f0be685cd78fa1772265e38cf93ff92"}
 Redirect Uri
-https://bsky.social/oauth/authorize?client_id=https%3A%2F%2Fmplace2.social%2Fclient-metadata.json&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Areq-9f0be685cd78fa1772265e38cf93ff92
+https://bsky.social/oauth/authorize?client_id=https%3A%2F%2Fcryptomesh.org%2Fclient-metadata.json&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Areq-2e84750863e3348feb6a89ae8d852ba6
+# Redirect URI
+iss= https://bsky.social
+state= wgPUfHbK-QEHzuxmecGPneZyff-L_dljTFuRpyQP3Vk0pEq-ecFmAUl6RJRhILXkVy5aAhSimrh_B9rY_x0_7ChSt6MpQo8McwNRv952-L08McPxZwg-nHUlKmdPVDTv09351zU0IiIiNckAoc6_13pVBqccNnGbE65sWxGavddnnAaNOxIIzxw8fsnwzsz5PmnqdwHxAyN6AbsqhnBWb_z5-nAMv0Gu6k_2tr3Nkb55K8a50aZ0jrLMTohI5OLvM5BlqN1AY9IZR-lVO2N4bWsX1lb7ls13WBModQZRVaARjYaqbpalLg
+code= cod-18aa776338c66299aa7a5e131d79572cd2069f54d70e043ccc7b5b011281db70
 ## Resolve Handle
 Resolve DNS _atproto.phill.hallambaker.com
 Resolve Web https://phill.hallambaker.com/.well-known/atproto-did
 DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
 Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
-# DidDocument
+## Begin Pre-Request
+Pre Authorization Request
 {
-  "@context": ["https://www.w3.org/ns/did/v1",
-    "https://w3id.org/security/multikey/v1",
-    "https://w3id.org/security/suites/secp256k1-2019/v1"],
-  "id": "did:plc:k647x4n6h3jm347u3t5cm6ki",
-  "alsoKnownAs": ["at://phill.hallambaker.com"],
-  "verificationMethod": [{
-      "id": "did:plc:k647x4n6h3jm347u3t5cm6ki#atproto",
-      "type": "Multikey",
-      "controller": "did:plc:k647x4n6h3jm347u3t5cm6ki",
-      "publicKeyMultibase": "zQ3shanZDJGBsZsXAina7k9SH5MZyjyCKGECmQUQcd2r8nZqG"}],
-  "service": [{
-      "id": "#atproto_pds",
-      "type": "AtprotoPersonalDataServer",
-      "serviceEndpoint": "https://shimeji.us-east.host.bsky.network"}]}
-# ResourceServerMetadata
+  "client_id": "https://cryptomesh.org/client-metadata.json",
+  "response_type": "code",
+  "code_challenge": "57ARKunXAEQRWONDEZ27gJr5dUVuSt082I1ANIlt8_I",
+  "code_challenge_method": "S256",
+  "state": "5vtxf-E-KKOyYW7sdaqW_dAV-bkpHGdnSHff_SMsvkFxNXCySDYX5Bh9Djo5E3ceMeEXIczLReodKtSDGllGy9iBYzYupXUPYL7ATsL4bJbYICcoCGhSwjiVuLnDmQ_XafHBI-LRYtKbfz2qlhxkThw78Xi2dG0eQNXbYvTK7FQK3Ioni7xPcoYfeW4AByuJoQFPunzVK1HzqZNTkGt3CmRFmv82drImkZ2Fpg2VB1o61c-pO1lid35-6r79QXSn-CWBI7v2BKSjZ6nVqn-TVs9BI8X_fS8YdJ4LZLclwcKHhU96br4P9A",
+  "redirect_uri": "https://cryptomesh.org/Redirect",
+  "scope": "atproto",
+  "login_hint": "phill.hallambaker.com"}
+Pre Authorization Response
+Redirect Uri
+https://bsky.social/oauth/authorize?client_id=https%3A%2F%2Fcryptomesh.org%2Fclient-metadata.json&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Areq-41915985ced6ddce233613764cef80cf
+# Redirect URI
+iss= https://bsky.social
+state= 5vtxf-E-KKOyYW7sdaqW_dAV-bkpHGdnSHff_SMsvkFxNXCySDYX5Bh9Djo5E3ceMeEXIczLReodKtSDGllGy9iBYzYupXUPYL7ATsL4bJbYICcoCGhSwjiVuLnDmQ_XafHBI-LRYtKbfz2qlhxkThw78Xi2dG0eQNXbYvTK7FQK3Ioni7xPcoYfeW4AByuJoQFPunzVK1HzqZNTkGt3CmRFmv82drImkZ2Fpg2VB1o61c-pO1lid35-6r79QXSn-CWBI7v2BKSjZ6nVqn-TVs9BI8X_fS8YdJ4LZLclwcKHhU96br4P9A
+code= cod-1b0acd92b20a2794c4a66c3eeca6e656aced14b75be63d3b2d8e7e8ce8f047e2
+# Redirect URI
+iss= https://bsky.social
+state= 5vtxf-E-KKOyYW7sdaqW_dAV-bkpHGdnSHff_SMsvkFxNXCySDYX5Bh9Djo5E3ceMeEXIczLReodKtSDGllGy9iBYzYupXUPYL7ATsL4bJbYICcoCGhSwjiVuLnDmQ_XafHBI-LRYtKbfz2qlhxkThw78Xi2dG0eQNXbYvTK7FQK3Ioni7xPcoYfeW4AByuJoQFPunzVK1HzqZNTkGt3CmRFmv82drImkZ2Fpg2VB1o61c-pO1lid35-6r79QXSn-CWBI7v2BKSjZ6nVqn-TVs9BI8X_fS8YdJ4LZLclwcKHhU96br4P9A
+code= cod-1b0acd92b20a2794c4a66c3eeca6e656aced14b75be63d3b2d8e7e8ce8f047e2
+://phill.hallambaker.com/.well-known/atproto-did
+DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
+Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
+## Begin Pre-Request
+Pre Authorization Request
 {
-  "resource": "https://shimeji.us-east.host.bsky.network",
-  "authorization_servers": ["https://bsky.social"],
-  "scopes_supported": [],
-  "bearer_methods_supported": ["header"],
-  "resource_documentation": "https://atproto.com"}
-# AuthorizationServerMetadata
+  "client_id": "https://cryptomesh.org/client-metadata.json",
+  "response_type": "code",
+  "code_challenge": "ikNHlFebdv2kzgtDyGlMs1OXVw4nnI08wWqKkSWRI5g",
+  "code_challenge_method": "S256",
+  "state": "mhVlmPr_P0qdk04uhfUhSoeg0gItX8l7dZMoRX0BJc1JXAULWP7JqZ7UJuQ0o6k6hvbUx1qyYz27lLEu9WPlL3qVQOd0G4QMy-R-aJ4daYkCJ7M4VzpkpxCD6Td9e-t-hsIR3jUcGt8CIrNBGirowKSdfloPsvDEYYY9-ts117TaV1YNEHtIhf-BZGsA5fwML6zVH7pp3MDtD3WTuQF767aABQLTmN2ZogAH6eO5mrR_J_rKTadqBlXPfufATyf4o-wIpdD98tl4gSzTKvogXdW3Hozevtciyo0EhYXkzg3utDFF52lcXA",
+  "redirect_uri": "https://cryptomesh.org/Redirect",
+  "scope": "atproto",
+  "login_hint": "phill.hallambaker.com"}
+Pre Authorization Response
+Redirect Uri
+https://bsky.social/oauth/authorize?client_id=https%3A%2F%2Fcryptomesh.org%2Fclient-metadata.json&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Areq-7e0d421af27252454cdd8b6c0f013d8f
+# Redirect URI
+iss= https://bsky.social
+state= mhVlmPr_P0qdk04uhfUhSoeg0gItX8l7dZMoRX0BJc1JXAULWP7JqZ7UJuQ0o6k6hvbUx1qyYz27lLEu9WPlL3qVQOd0G4QMy-R-aJ4daYkCJ7M4VzpkpxCD6Td9e-t-hsIR3jUcGt8CIrNBGirowKSdfloPsvDEYYY9-ts117TaV1YNEHtIhf-BZGsA5fwML6zVH7pp3MDtD3WTuQF767aABQLTmN2ZogAH6eO5mrR_J_rKTadqBlXPfufATyf4o-wIpdD98tl4gSzTKvogXdW3Hozevtciyo0EhYXkzg3utDFF52lcXA
+code= cod-2829ee4c7958424a9bff31c4c4d73e689700f459a6cc372b5f82476723763446
+aker.com/.well-known/atproto-did
+DNS success did:plc:k647x4n6h3jm347u3t5cm6ki
+Resolve DID https://plc.directory/did:plc:k647x4n6h3jm347u3t5cm6ki
+## Begin Pre-Request
+Pre Authorization Request
 {
-  "issuer": "https://bsky.social",
-  "scopes_supported": ["atproto",
-    "transition:generic",
-    "transition:chat.bsky"],
-  "subject_types_supported": ["public"],
-  "response_types_supported": ["code"],
-  "response_modes_supported": ["query",
-    "fragment",
-    "form_post"],
-  "grant_types_supported": ["authorization_code",
-    "refresh_token"],
-  "code_challenge_methods_supported": ["S256"],
-  "ui_locales_supported": ["en-US"],
-  "display_values_supported": ["page",
-    "popup",
-    "touch"],
-  "authorization_response_iss_parameter_supported": true,
-  "request_object_signing_alg_values_supported": ["RS256",
-    "RS384",
-    "RS512",
-    "PS256",
-    "PS384",
-    "PS512",
-    "ES256",
-    "ES256K",
-    "ES384",
-    "ES512",
-    "none"],
-  "request_object_encryption_alg_values_supported": [],
-  "request_object_encryption_enc_values_supported": [],
-  "request_parameter_supported": true,
-  "request_uri_parameter_supported": true,
-  "require_request_uri_registration": true,
-  "jwks_uri": "https://bsky.social/oauth/jwks",
-  "authorization_endpoint": "https://bsky.social/oauth/authorize",
-  "token_endpoint": "https://bsky.social/oauth/token",
-  "token_endpoint_auth_methods_supported": ["none",
-    "private_key_jwt"],
-  "token_endpoint_auth_signing_alg_values_supported": ["RS256",
+  "client_id": "https://cryptomesh.org/client-metadata.json",
+  "response_type": "code",
+  "code_challenge": "KygjBWEkudWBTYZpKbyvBSa6G2meTh8_8n5QN13dBAo",
+  "code_challenge_method": "S256",
+  "state": "ekz3tD2wZblX1MxMlYhNVHu6DkPZLshx5PshElWxjHZjV4mEAwSFTTTV3eePbrcu7gcwFnOErHoU8N8CUn5VflwG9ApdyYOxJDRUweDBhf8VM5_-NKlKTnNOJVCNsWCjWborM6WtdKbwAs_VjhyQYgT3KbaY2Q1lg2njHgDUMiEBtLuwgKv9gnE63-XZnoevn3GHI222ZztBJht9v_e19L6SHNB51GNwS3VzYPXaH82--bp69vlESk2AAVuuDtcX2U5iR25wN9d5nHXxrfzs1Twvg2OI5w0",
+  "redirect_uri": "https://cryptomesh.org/Redirect",
+  "scope": "atproto",
+  "login_hint": "phill.hallambaker.com"}
+Pre Authorization Response
+Redirect Uri
+https://bsky.social/oauth/authorize?client_id=https%3A%2F%2Fcryptomesh.org%2Fclient-metadata.json&request_uri=urn%3Aietf%3Aparams%3Aoauth%3Arequest_uri%3Areq-b356d741c7074dbe887211770c652b05
+# Redirect URI
+iss= https://bsky.social
+state= ekz3tD2wZblX1MxMlYhNVHu6DkPZLshx5PshElWxjHZjV4mEAwSFTTTV3eePbrcu7gcwFnOErHoU8N8CUn5VflwG9ApdyYOxJDRUweDBhf8VM5_-NKlKTnNOJVCNsWCjWborM6WtdKbwAs_VjhyQYgT3KbaY2Q1lg2njHgDUMiEBtLuwgKv9gnE63-XZnoevn3GHI222ZztBJht9v_e19L6SHNB51GNwS3VzYPXaH82--bp69vlESk2AAVuuDtcX2U5iR25wN9d5nHXxrfzs1Twvg2OI5w0
+code= 
+alues_supported": ["RS256",
     "RS384",
     "RS512",
     "PS256",

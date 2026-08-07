@@ -1040,35 +1040,41 @@ public partial class SignIn : FramePage {
 
     // make the recursive declarations
 
+    // make the recursive declarations
+
     /// <summary>Field Form</summary>
 	public HandleInput? Form {get; set;}
 
 
 	static readonly List<IFrameField> _Fields = [
 		new FrameRefMenu ("Navigation","MainNav"),
-		new FrameDiv ("Explanation") { Fields = [
+		new FrameDiv ("Main") { Fields = [
 
-        		new FrameBlock ("P1") {Tag = "p", Text=[
-        			"Sign in using your BlueSky, Eurosky, BlackSky or other @nywhere account."		    ]},
-        		new FrameBlock ("P2") {Tag = "p", Text=[
-        			"If you do not have an @nywhere account, you can create one at any of the",
-        			"following sites which will allow you to interact with any ATmosphere site."		    ]},
-        		new FrameBlock ("Options") {Tag = "p", Text=[
-        			"<a href=\"https://bsky.app/\">BlueSky</a>",
-        			"<a href=\"https://blacksky.community/\">BlackSky</a>",
-        			"<a href=\"https://portal.eurosky.tech/create-account\">EuroSky</a>"		    ]}
+        		new FrameDiv ("Explanation") { Fields = [
+        
+                		new FrameBlock ("P1") {Tag = "p", Text=[
+                			"Sign in using your BlueSky, Eurosky, BlackSky or other @nywhere account."		    ]},
+                		new FrameBlock ("P2") {Tag = "p", Text=[
+                			"If you do not have an @nywhere account, you can create one at any of the",
+                			"following sites which will allow you to interact with any ATmosphere site."		    ]},
+                		new FrameBlock ("Options") {Tag = "p", Text=[
+                			"<a href=\"https://bsky.app/\">BlueSky</a>",
+                			"<a href=\"https://blacksky.community/\">BlackSky</a>",
+                			"<a href=\"https://portal.eurosky.tech/create-account\">EuroSky</a>"		    ]}
+        				]
+        			},
+        		new FrameRefForm<HandleInput> ("Form","HandleInput", [
+        		new FrameString ("DNS",
+        			(data, value) => {(data as HandleInput)!.DNS = value; },
+        			(data) => (data as HandleInput)?.DNS) {
+        				Prompt = "@nywhere handle",
+        				Description = "The handle you use to log in to Blue Sky etc."
+        				}
+        				]){
+        			Get = (data) => (data as SignIn)?.Form ,
+        			Set = (data, value) => {(data as SignIn)!.Form = value as HandleInput; }}
 				]
-			},
-		new FrameRefForm<HandleInput> ("Form","HandleInput", [
-		new FrameString ("DNS",
-			(data, value) => {(data as HandleInput)!.DNS = value; },
-			(data) => (data as HandleInput)?.DNS) {
-				Prompt = "@nywhere handle",
-				Description = "The handle you use to log in to Blue Sky etc."
-				}
-				]){
-			Get = (data) => (data as SignIn)?.Form ,
-			Set = (data, value) => {(data as SignIn)!.Form = value as HandleInput; }}
+			}
 		];
 
 

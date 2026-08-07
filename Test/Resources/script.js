@@ -139,12 +139,12 @@ function initializeDisplay() {
     document.documentElement.style.setProperty('--pt20', pt20);
     document.documentElement.style.setProperty('--pt24', pt24);
 
-    document.documentElement.style.setProperty('--size-h1', pt20);
-    document.documentElement.style.setProperty('--size-h2', pt16);
-    document.documentElement.style.setProperty('--size-h3', pt12);
-    document.documentElement.style.setProperty('--size-icon', pt20);
-    document.documentElement.style.setProperty('--size-p', pt12);
-    document.documentElement.style.setProperty('--size-c', pt8);
+    // document.documentElement.style.setProperty('--size-h1', pt20);
+    // document.documentElement.style.setProperty('--size-h2', pt16);
+    // document.documentElement.style.setProperty('--size-h3', pt12);
+    // document.documentElement.style.setProperty('--size-icon', pt20);
+    // document.documentElement.style.setProperty('--size-p', pt12);
+    // document.documentElement.style.setProperty('--size-c', pt8);
 
 
     document.documentElement.style.setProperty('--size-h1', 'xx-large');
@@ -181,7 +181,7 @@ function initializeDisplay() {
 
 const isMobile = () => {
     // For testing, allow testing of the mobile interaction with destop tools
-    return true;
+    // return true;
 
     // Check if the new API is supported
     if (navigator.userAgentData) {

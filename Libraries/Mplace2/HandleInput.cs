@@ -61,8 +61,11 @@ public partial class HandleInput {
 
 
 
-        var nonceDns = new NonceDns(Udf.Nonce(), "/", DNS);
-        var redirect = nonceDns.Uri(nonceDns.Place, "/");
+        var nonceDns = new NonceDns(Udf.Nonce(), path.Uri.DnsSafeHost, DNS);
+        var redirect = nonceDns.Uri(path.Uri.DnsSafeHost, "/");
+
+
+        Console.WriteLine($"%%%%    {redirect}");
 
         // Perform OAUTH Push
         var preRequest = await persistPlace.OauthClient.PreRequest(DNS, redirect);

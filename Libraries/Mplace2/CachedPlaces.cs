@@ -11,7 +11,8 @@ namespace Mplace2.Gui;
 public class CachedPlaces : CachedCatalog<CatalogedPlace> {
     public const string FileName = "Places.darc";
 
-
+    /// <inheritdoc/>
+    public override string NormalizeSecondaryKey(string key) => key.ToLower();
 
     public static string GetFile(
                 string directory) => Path.Combine(directory, FileName);
